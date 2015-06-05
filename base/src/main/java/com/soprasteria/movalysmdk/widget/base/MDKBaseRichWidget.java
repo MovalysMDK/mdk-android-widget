@@ -108,7 +108,12 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         this.setError(error, false);
     }
 
-    private void setError(String error, boolean formValidation) {
+    /**
+     * Set the error on the inner widget
+     * @param error the error to set
+     * @param formValidation true if the error comes from validation, false otherwise
+     */
+    protected void setError(String error, boolean formValidation) {
         if (this.errorView != null) {
             if (error != null && error.length() > 0) {
                 errorView.setVisibility(View.VISIBLE);
