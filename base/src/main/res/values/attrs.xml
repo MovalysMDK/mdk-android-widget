@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MDKCommons">
+        <attr name="label" format="reference" />
+        <attr name="layout" />
+        <attr name="errorId" format="reference" />
+        <attr name="labelId" format="reference" />
+        <attr name="helperId" format="reference" />
+        <attr name="rootId" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MDKCommons.MDKButtonComponent">
+        <attr name="hint" format="reference" />
+        <attr name="primaryButtonId" format="reference" />
+        <attr name="secondaryButtonId" format="reference" />
+    </declare-styleable>
+
+</resources>

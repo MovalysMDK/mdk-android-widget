@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Widget</string>
+
+    <string name="email_chooser_label">Choose mail application</string>
+    
+    <string name="mdk_email_error">invalide email value</string>
+    
+</resources>
