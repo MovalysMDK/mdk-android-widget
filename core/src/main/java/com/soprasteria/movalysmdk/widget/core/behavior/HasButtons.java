@@ -3,11 +3,17 @@ package com.soprasteria.movalysmdk.widget.core.behavior;
 import android.view.View;
 
 /**
- * Created by abelliard on 04/06/2015.
+ * Interface to add button handling capacity to a widget
  */
 public interface HasButtons extends View.OnClickListener {
 
-    public void registerPrimaryButton();
+    /**
+     * register primary action View
+     */
+    public void registerPrimaryActionView();
 
-    public void registerSecondaryButton();
+    /**
+     * register secondary action View
+     */
+    public void registerSecondaryActionView();
 }

@@ -3,6 +3,8 @@ package com.soprasteria.movalysmdk.widget.core.provider;
 /**
  * Interface to return the implementation of the
  * MDKWidgetComponentProvider
+ *
+ * this interface is usable on Android Application class only
  */
 public interface MDKWidgetApplication {
 

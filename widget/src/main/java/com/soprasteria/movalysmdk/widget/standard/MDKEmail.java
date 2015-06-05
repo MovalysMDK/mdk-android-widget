@@ -25,8 +25,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
     private int labelId;
     private int helperId;
     private int errorId;
-    private int primaryButtonId;
-    private int secondaryButtonId;
+    private int primaryActionViewId;
+    private int secondaryActionViewId;
     private boolean useRootIdOnlyForError = false;
 
     public MDKEmail(Context context, AttributeSet attrs) {
@@ -54,8 +54,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
 
         typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
 
-        this.primaryButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_primaryButtonId, 0);
-        this.secondaryButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_secondaryButtonId, 0);
+        this.primaryActionViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_primaryActionId, 0);
+        this.secondaryActionViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_secondaryActionId, 0);
 
         typedArray.recycle();
     }
@@ -143,15 +143,17 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
         return rValidator;
     }
 
-    public void registerPrimaryButton() {
-        this.registerButton(this.primaryButtonId);
+    @Override
+    public void registerPrimaryActionView() {
+        this.registerAction(this.primaryActionViewId);
     }
 
-    public void registerSecondaryButton() {
-        this.registerButton(this.secondaryButtonId);
+    @Override
+    public void registerSecondaryActionView() {
+        this.registerAction(this.secondaryActionViewId);
     }
 
-    private void registerButton(int buttonId) {
+    private void registerAction(int buttonId) {
         View rootView = this.findRootView(false);
         if (rootView != null) {
             View button = rootView.findViewById(buttonId);
@@ -164,8 +166,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        this.registerPrimaryButton();
-        this.registerSecondaryButton();
+        this.registerPrimaryActionView();
+        this.registerSecondaryActionView();
     }
 
     @Override

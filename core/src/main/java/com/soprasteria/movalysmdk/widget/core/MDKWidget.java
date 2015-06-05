@@ -1,19 +1,50 @@
 package com.soprasteria.movalysmdk.widget.core;
 
 /**
- * Created by abelliard on 03/06/2015.
+ * Interface for MDK inner widget component
  */
 public interface MDKWidget {
 
+    /**
+     * Set the root id
+     * the layout contains the error view
+     * @param rootId the id of a view
+     */
     void setRootId(int rootId);
 
+    /**
+     * Set the label id
+     * the view used as label for this widget
+     * @param labelId the id of a view
+     */
     void setLabelId(int labelId);
 
+    /**
+     * Set the helper id
+     * the view used as helper for this widget
+     * @param helperId the id of a view
+     */
     void setHelperId(int helperId);
 
+    /**
+     * Set the error id
+     * the view used as error for this widget
+     * @param errorId the id of a view
+     */
     void setErrorId(int errorId);
 
-    void setUseRootIdOnlyForError(boolean b);
+    /**
+     * Set if the error view is not in the same layout as the others
+     * widget (used for commons errors in a layout).
+     * If this value is passed to true, the root id must be set as well.
+     * @param useRootIdOnlyForError true if the error is not in the same layout as
+     *                              the other sub widget
+     */
+    void setUseRootIdOnlyForError(boolean useRootIdOnlyForError);
 
+    /**
+     * Set the error value on the widget
+     * @param error the error to set
+     */
     void setError(CharSequence error);
 }

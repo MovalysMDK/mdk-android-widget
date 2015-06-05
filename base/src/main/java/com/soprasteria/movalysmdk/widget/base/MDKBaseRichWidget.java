@@ -9,14 +9,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 
 /**
- * Created by abelliard on 04/06/2015.
+ * Base class for rich mdk widgets.
+ * This class inflate the layout passed in the constructor and depending
+ * on the attributes configuration inflate error and label subwigets.
+ * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout {
+public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout implements HasError {
 
-    private T internal;
+    /** the inner widget */
+    private T innerWidget;
+    /** the error view */
     private TextView errorView;
+    /** should always show the error view */
     private boolean errorAlwaysVisible;
 
     public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
@@ -36,6 +43,13 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout {
         }
     }
 
+    /**
+     * Initialise rich widget
+     * @param context the context
+     * @param attrs the attribut set
+     * @param layoutWithLabelId the layout id for the widget with label
+     * @param layoutWithoutLabelId the layout id for the widget without label
+     */
     private void init(Context context, AttributeSet attrs, int layoutWithLabelId, int layoutWithoutLabelId) {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
@@ -56,8 +70,8 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout {
             LayoutInflater.from(context).inflate(layoutWithoutLabelId, this);
         }
 
-        // get internal component
-        this.internal = (T) this.findViewById(R.id.component_internal);
+        // get innerWidget component
+        this.innerWidget = (T) this.findViewById(R.id.component_internal);
 
         // get label component if exists
         TextView labelView = (TextView) this.findViewById(R.id.component_label);
@@ -70,20 +84,26 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout {
         int errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
         if (errorId != 0) {
             int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-            this.internal.setRootId(rootId);
-            this.internal.setErrorId(errorId);
-            this.internal.setUseRootIdOnlyForError(true);
+            this.innerWidget.setRootId(rootId);
+            this.innerWidget.setErrorId(errorId);
+            this.innerWidget.setUseRootIdOnlyForError(true);
         }
-        // (always show error text view, ...)
+        //TODO (always show error text view, ...)
 
         // release typed array
         typedArray.recycle();
     }
 
-    public T getInternalWidget() {
-        return this.internal;
+    /**
+     * Getter for the inner widget of the rich widget
+     * @return the inner widget
+     */
+    public T getInnerWidget() {
+        return this.innerWidget;
     }
 
+
+    @Override
     public void setError(String error) {
         this.setError(error, false);
     }
@@ -97,7 +117,7 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout {
             }
         }
         if (!formValidation) {
-            this.getInternalWidget().setError(error);
+            this.getInnerWidget().setError(error);
         }
     }
 }

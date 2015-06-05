@@ -7,7 +7,8 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 
 /**
- * Created by abelliard on 04/06/2015.
+ * Base implementation of the rich mdk widget for widget that uses text
+ * @param <T> the inner widget type
  */
 public class MDKBaseRichTextWidget<T extends MDKWidget & HasText> extends MDKBaseRichWidget<T> implements HasText {
 
@@ -21,11 +22,11 @@ public class MDKBaseRichTextWidget<T extends MDKWidget & HasText> extends MDKBas
 
     @Override
     public CharSequence getText() {
-        return this.getInternalWidget().getText();
+        return this.getInnerWidget().getText();
     }
 
     @Override
     public void setText(CharSequence text) {
-        this.getInternalWidget().setText(text);
+        this.getInnerWidget().setText(text);
     }
 }

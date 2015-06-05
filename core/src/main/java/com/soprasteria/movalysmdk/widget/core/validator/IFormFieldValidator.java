@@ -1,8 +1,8 @@
 package com.soprasteria.movalysmdk.widget.core.validator;
 
 /**
- * TODO
- * Created by abelliard on 03/06/2015.
+ * Interface for Validator implementation
+ * @param <T> the type of data to validate
  */
 public interface IFormFieldValidator<T> {
 

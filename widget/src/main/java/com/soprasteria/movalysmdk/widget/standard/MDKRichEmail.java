@@ -24,16 +24,16 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements Has
 
     @Override
     public CharSequence getHint() {
-        return this.getInternalWidget().getHint();
+        return this.getInnerWidget().getHint();
     }
 
     @Override
     public void setHint(CharSequence hint) {
-        this.getInternalWidget().setHint(hint);
+        this.getInnerWidget().setHint(hint);
     }
 
     @Override
     public IFormFieldValidator getValidator() {
-        return this.getInternalWidget().getValidator();
+        return this.getInnerWidget().getValidator();
     }
 }

@@ -3,12 +3,20 @@ package com.soprasteria.movalysmdk.widget.core.behavior;
 import android.text.TextWatcher;
 
 /**
- * Created by abelliard on 04/06/2015.
+ * Interface to add test watcher capacity to widget
  */
 public interface HasTextWatcher {
 
+    /**
+     * Add a text watcher on the widget
+     * @param textWatcher the text watcher to register
+     */
     public void addTextWatcher(TextWatcher textWatcher);
 
+    /**
+     * Remove a text watcher from the widget
+     * @param textWatcher the text watcher to remove
+     */
     public void removeTextWatcher(TextWatcher textWatcher);
 
 }
