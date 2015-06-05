@@ -8,6 +8,7 @@
         <attr name="labelId" format="reference" />
         <attr name="helperId" format="reference" />
         <attr name="rootId" format="reference" />
+        <attr name="qualifier" format="string" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">

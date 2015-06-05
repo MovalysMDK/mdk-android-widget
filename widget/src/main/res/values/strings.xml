@@ -4,5 +4,7 @@
     <string name="email_chooser_label">Choose mail application</string>
     
     <string name="mdk_email_error">invalide email value</string>
+
+    <string name="mdkemail_primary_command_class">com.soprasteria.movalysmdk.widget.standard.command.EmailCommand</string>
     
 </resources>

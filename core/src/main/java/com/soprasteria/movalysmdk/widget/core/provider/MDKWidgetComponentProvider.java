@@ -13,18 +13,20 @@ public interface MDKWidgetComponentProvider {
 
     /**
      * Return the singleton Command for the specified Class
-     * @param widgetClass the widget class from who to return Command
      * @param context the Android context
+     * @param baseKey the base key for the widget
+     * @param qualifier the qualifier of the widget
      * @return a singleton of the Command to use in the widget
      */
-    public Command getCommand(Class widgetClass, Context context);
+    public Command getCommand(Context context, String baseKey, String qualifier);
 
     /**
      * Return the singleton Command for the specified Class
-     * @param widgetClass the widget class from who to return Command
      * @param context the Android context
+     * @param baseKey the base key for the widget
+     * @param qualifier the qualifier of the widget
      * @return a singleton of the IFormFieldValidator to use in the widget
      */
-    public IFormFieldValidator getValidator(Class widgetClass, Context context);
+    public IFormFieldValidator getValidator(Context context, String baseKey, String qualifier);
 
 }

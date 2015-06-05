@@ -13,13 +13,11 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements Has
     private boolean errorAlwaysVisible = false;
 
     public MDKRichEmail(Context context, AttributeSet attrs) {
-        // TODO layout without label
-        super(R.layout.fwk_component_email_edit_label, R.layout.fwk_component_email_edit_label, context, attrs);
+        super(R.layout.fwk_component_email_edit_label, R.layout.fwk_component_email_edit, context, attrs);
     }
 
     public MDKRichEmail(Context context, AttributeSet attrs, int defStyleAttr) {
-        // TODO layout without label
-        super(R.layout.fwk_component_email_edit_label, R.layout.fwk_component_email_edit_label, context, attrs, defStyleAttr);
+        super(R.layout.fwk_component_email_edit_label, R.layout.fwk_component_email_edit, context, attrs, defStyleAttr);
     }
 
     @Override

@@ -13,12 +13,12 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
 
     @Override
-    public Command getCommand(Class widgetClass, Context context) {
+    public Command getCommand(Context context, String baseKey, String qualifier) {
         return null;
     }
 
     @Override
-    public IFormFieldValidator getValidator(Class widgetClass, Context context) {
+    public IFormFieldValidator getValidator(Context context, String baseKey, String qualifier) {
         return null;
     }
 }

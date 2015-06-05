@@ -5,15 +5,17 @@ import android.view.View;
 /**
  * Interface to add button handling capacity to a widget
  */
-public interface HasButtons extends View.OnClickListener {
+public interface HasActions extends View.OnClickListener {
 
-    /**
+    void registerActionViews();
+
+   /* *//**
      * register primary action View
-     */
+     *//*
     public void registerPrimaryActionView();
 
-    /**
+    *//**
      * register secondary action View
-     */
-    public void registerSecondaryActionView();
+     *//*
+    public void registerSecondaryActionView();*/
 }
