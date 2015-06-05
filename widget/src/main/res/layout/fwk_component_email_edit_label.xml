@@ -21,7 +21,7 @@
         android:layout_toRightOf="@id/component_emailButton"
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/component_emailButton"
-        mdk:primaryButtonId="@id/component_emailButton"
+        mdk:primaryActionId="@id/component_emailButton"
         mdk:errorId="@id/component_error"
         mdk:labelId="@id/component_label" />
 
