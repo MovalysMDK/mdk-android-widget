@@ -2,6 +2,7 @@ package com.soprasteria.movalysmdk.widget.base;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,7 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
      * @param layoutWithLabelId the layout id for the widget with label
      * @param layoutWithoutLabelId the layout id for the widget without label
      */
-    private void init(Context context, AttributeSet attrs, int layoutWithLabelId, int layoutWithoutLabelId) {
+    private void init(Context context, AttributeSet attrs, @IdRes int layoutWithLabelId, int layoutWithoutLabelId) {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         // parse label attribute
