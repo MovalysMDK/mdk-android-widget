@@ -1,23 +1,23 @@
 package com.soprasteria.movalysmdk.widget.base.delegate;
 
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.base.R;
 import com.soprasteria.movalysmdk.widget.core.command.Command;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
- * Created by abelliard on 05/06/2015.
+ * Action Delegate for component
+ * This class handle action for a widget
+ * it register listener and launch command
  */
 public class ActionDelegate {
 
@@ -61,6 +61,10 @@ public class ActionDelegate {
 
     }
 
+    /**
+     * Register existing actions on a click listener
+     * @param listener the click listener to register action view
+     */
     public void registerActions(View.OnClickListener listener)  {
         if (this.primaryActionViewId != 0) {
             View actionView = findActionView(this.primaryActionViewId);
@@ -77,13 +81,18 @@ public class ActionDelegate {
 
     }
 
-    private View findActionView(int buttonId) {
+    /**
+     * Find action view for the specified id
+     * @param actionViewId the action view id
+     * @return the view if exists
+     */
+    private View findActionView(int actionViewId) {
         View actionView = null;
         View v = this.weakView.get();
         if (v != null && v instanceof HasMdkDelegate) {
             View rootView = ((HasMdkDelegate) v).getMdkWidgetDelegate().findRootView(false);
             if (rootView != null) {
-                actionView = rootView.findViewById(buttonId);
+                actionView = rootView.findViewById(actionViewId);
 
             }
         }
@@ -91,12 +100,18 @@ public class ActionDelegate {
     }
 
 
-    private String baseKey(String widgetClassName, int id) {
+    /**
+     * Return the base key name for the specified parameters
+     * @param widgetClassName the simple name class of the widget
+     * @param actionViewId the id of the action view
+     * @return the base key associated with the parameters
+     */
+    @Nullable private String baseKey(String widgetClassName, int actionViewId) {
         StringBuffer baseKey = new StringBuffer();
 
         baseKey.append(widgetClassName.toLowerCase());
 
-        if (id == primaryActionViewId) {
+        if (actionViewId == primaryActionViewId) {
             baseKey.append("_primary");
         } else {
             baseKey.append("_secondary");
@@ -107,55 +122,12 @@ public class ActionDelegate {
         return baseKey.toString();
     }
 
-    private Command findCommandFrom(Context context, String baseKey) {
-
-        String classPath = null;
-        // case with qualifier
-        if (this.qualifier != null) {
-            classPath = findStringFromRessourceName(context, baseKey + "_" + this.qualifier);
-            if (classPath == null) {
-                Log.d("ActionDelegate", "no string resource define for :"+baseKey+ "_" + this.qualifier + " but qualifier was defined");
-            }
-        }
-        // case without qualifier
-        if (classPath == null) {
-            classPath = findStringFromRessourceName(context, baseKey);
-        }
-        // create instance
-        if (classPath == null) {
-            throw new RuntimeException("no string resource define for :"+baseKey);
-        }
-
-        Command command = null;
-        try {
-            Class commandClass = Class.forName(classPath);
-            Constructor constructor = commandClass.getConstructor(Context.class);
-            command = (Command) constructor.newInstance(context);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-
-        return command;
-    }
-
-    private String findStringFromRessourceName(Context context, String resourceStringName) {
-        int resourceId = context.getResources().getIdentifier(resourceStringName, "string", context.getPackageName());
-        if (resourceId != 0) {
-            return context.getString(resourceId);
-        }
-        return null;
-    }
-
-    public Command<?,?> getAction(@IdRes int id) {
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @Nullable public Command<?,?> getAction(@IdRes int id) {
 
         Command<?,?> command = null;
         View v = this.weakView.get();
@@ -164,8 +136,13 @@ public class ActionDelegate {
             if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
                 MDKWidgetComponentProvider widgetComponentProvider = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider();
                 widgetComponentProvider.getCommand(v.getContext(), baseKey(v.getClass().getSimpleName(), id), this.qualifier);
-            } else {
-                command = this.findCommandFrom(v.getContext(), baseKey(v.getClass().getSimpleName(), id));
+            } else if (v instanceof HasMdkDelegate) {
+                MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
+                command = widgetComponentProvider.getCommand(
+                        v.getContext(),
+                        baseKey(v.getClass().getSimpleName(), id),
+                        this.qualifier);
+//                command = this.findCommandFrom(v.getContext(), baseKey(v.getClass().getSimpleName(), id));
             }
         }
 

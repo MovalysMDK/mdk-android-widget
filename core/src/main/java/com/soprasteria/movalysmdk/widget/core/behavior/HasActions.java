@@ -7,15 +7,10 @@ import android.view.View;
  */
 public interface HasActions extends View.OnClickListener {
 
+
+    /**
+     * Register actons views on the components
+     * (or its ActionDelegate)
+     */
     void registerActionViews();
-
-   /* *//**
-     * register primary action View
-     *//*
-    public void registerPrimaryActionView();
-
-    *//**
-     * register secondary action View
-     *//*
-    public void registerSecondaryActionView();*/
 }
