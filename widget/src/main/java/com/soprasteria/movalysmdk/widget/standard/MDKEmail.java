@@ -65,14 +65,6 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
             // invoke command
             Email email = new Email(sEmailAddress);
             ((EmailCommand)this.actionDelegate.getAction(v.getId())).execute(email);
-
-            /*com.soprasteria.movalysmdk.widget.core.command.Command oCommand = null;
-            if (this.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-                oCommand = ((MDKWidgetApplication) this.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getCommand(this.getClass(), this.getContext() *//*, sEmailAddress*//*);
-            } else {
-                oCommand = new EmailCommand(this.getContext(), sEmailAddress);
-            }
-            oCommand.execute();*/
         }
     }
 
