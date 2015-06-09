@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -103,7 +104,9 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        this.registerActionViews();
+        if (!isInEditMode()) {
+            this.registerActionViews();
+        }
     }
 
     @Override
@@ -134,5 +137,13 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
         this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+    }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (!focused) {
+            validate();
+        }
     }
 }
