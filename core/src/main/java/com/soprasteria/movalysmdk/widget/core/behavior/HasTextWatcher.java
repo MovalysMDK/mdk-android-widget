@@ -11,12 +11,12 @@ public interface HasTextWatcher {
      * Add a text watcher on the widget
      * @param textWatcher the text watcher to register
      */
-    public void addTextWatcher(TextWatcher textWatcher);
+    public void addTextChangedListener(TextWatcher textWatcher);
 
     /**
      * Remove a text watcher from the widget
      * @param textWatcher the text watcher to remove
      */
-    public void removeTextWatcher(TextWatcher textWatcher);
+    public void removeTextChangedListener(TextWatcher textWatcher);
 
 }
