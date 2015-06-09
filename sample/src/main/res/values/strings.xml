@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_list_widget">List Widget</string>
+    <string name="email_activity">Email</string>
 </resources>

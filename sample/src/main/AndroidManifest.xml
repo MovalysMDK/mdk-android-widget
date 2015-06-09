@@ -3,19 +3,23 @@
     package="com.soprasteria.movalysmdk.widget.sample" >
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".MyApp">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".ListWidgetActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".EmailActivity"
+            android:label="@string/email_activity" >
         </activity>
     </application>
 

@@ -2,14 +2,12 @@ package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.standard.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.standard.MDKEmail;
 
-public class MainActivity extends AppCompatActivity {
+public class EmailActivity extends AppCompatActivity {
 
     private MDKRichEmail email;
     private MDKEmail email2;
@@ -17,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_email);
 
         this.email = (MDKRichEmail) findViewById(R.id.view);
         this.email2 = (MDKEmail) findViewById(R.id.view2);
