@@ -24,13 +24,13 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatche
     }
 
     @Override
-    public void addTextWatcher(TextWatcher textWatcher) {
-        this.getInnerWidget().addTextWatcher(textWatcher);
+    public void addTextChangedListener(TextWatcher textWatcher) {
+        this.getInnerWidget().addTextChangedListener(textWatcher);
     }
 
     @Override
-    public void removeTextWatcher(TextWatcher textWatcher) {
-        this.getInnerWidget().removeTextWatcher(textWatcher);
+    public void removeTextChangedListener(TextWatcher textWatcher) {
+        this.getInnerWidget().removeTextChangedListener(textWatcher);
     }
 
     /**
