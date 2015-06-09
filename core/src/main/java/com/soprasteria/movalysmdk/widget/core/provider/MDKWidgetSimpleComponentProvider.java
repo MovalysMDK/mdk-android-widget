@@ -5,10 +5,12 @@ import android.util.Log;
 
 import com.soprasteria.movalysmdk.widget.core.command.Command;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
-import com.sun.istack.internal.Nullable;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
+;
+;
 
 /**
  * Simple implementation of the MDKWidgetComponentProvider
@@ -20,13 +22,17 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
 
     /**
+     * Create a Command instance from the specified key and attribute
+     * <p>Search for the contactenation of baseKey and qualifier in resources
+     * and if not exist juste for the baseKey and instanciate the Class specified
+     * by this resource</p>
      *
-     * @param context
-     * @param baseKey
-     * @return
+     * @param context the Android context
+     * @param baseKey the base key to find
+     * @param qualifier the qualifier to append
+     * @return a Command instance corresponding to the passed key
      */
-    @Nullable
-    private Command findCommandFromKey(Context context, String baseKey, String qualifier) {
+    private Command createCommandFromKey(Context context, String baseKey, String qualifier) {
 
         String classPath = findClassPathFromRessource(context, baseKey, qualifier);
 
@@ -51,6 +57,16 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         return command;
     }
 
+    /**
+     * Return a classPath corresponding to the concatenation of base key and qualifier
+     * <p>search for the concatenation of basekey and qualifier (if the qualifier is not null).
+     * If the concatenation is not found or if the qualifier is null search for the baseKey
+     * in string resources.</p>
+     * @param context the Android context
+     * @param baseKey the base key
+     * @param qualifier the qualifier
+     * @return a String containing the ClassPath of the given resources key
+     */
     private String findClassPathFromRessource(Context context, String baseKey, String qualifier) {
         String classPath = null;
         // case with qualifier
@@ -73,11 +89,12 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     /**
-     * @param context
-     * @param resourceStringName
-     * @return
+     * Return a String for the resource name
+     * @param context the Android context
+     * @param resourceStringName the string name
+     * @return a string matching the name in the Android resources
      */
-    @Nullable private String findStringFromRessourceName(Context context, String resourceStringName) {
+    private String findStringFromRessourceName(Context context, String resourceStringName) {
         int resourceId = context.getResources().getIdentifier(resourceStringName, "string", context.getPackageName());
         if (resourceId != 0) {
             return context.getString(resourceId);
@@ -87,7 +104,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
     @Override
     public Command getCommand(Context context, String baseKey, String qualifier) {
-        return findCommandFromKey(context, baseKey, qualifier);
+        return createCommandFromKey(context, baseKey, qualifier);
     }
 
     @Override

@@ -33,6 +33,11 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatche
         this.getInnerWidget().removeTextWatcher(textWatcher);
     }
 
+    /**
+     * Validate the component
+     * <p>Use the validation of the inner widget</p>
+     * @return true if the widget is valide, false otherwise
+     */
     public boolean validate() {
         boolean bValid = true;
         bValid = this.getInnerWidget().validate();
