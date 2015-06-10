@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 
@@ -18,12 +19,24 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 /**
  * Represents an Edit Text conforming to the Material Design guidelines.
  *
+ * The following behaviors are implemented:
+ * - if there is a label and a hint in the xml layout, set the label value as label, and the hint value as hint
+ * - if there is a label and no hint in the xml layout, set the label value as label and as hint
+ * - if there is no label and a hint in the xml layout, there will be no label, and the hint value as hint
+ * - if there is no label and no hint in the xml layout, there will be no label and no hint
+ *
  * Created by belamrani on 09/06/2015.
  */
 public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
+    /** The MdkWidgetDelegate handling the component logic */
     protected MdkWidgetDelegate mdkWidgetDelegate;
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     */
     public MDKEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (!isInEditMode()) {
@@ -31,6 +44,12 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         }
     }
 
+    /**
+     * Constructor
+     * @param context
+     * @param attrs
+     * @param style
+     */
     public MDKEditText(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
         if (!isInEditMode()) {
@@ -38,7 +57,21 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         }
     }
 
+    /**
+     * Instantiate the MdkWidgetDelegate
+     * @param context
+     * @param attrs
+     */
     private final void init(Context context, AttributeSet attrs) {
+
+        // Parse the MDKCommons:hint attribute
+        // so that both android:hint and MDKCommons:hint can be used
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
+        int resHintId = typedArray.getResourceId(R.styleable.MDKCommons_hint, 0);
+        if (resHintId != 0) {
+            this.setHint(resHintId);
+        }
+        typedArray.recycle();
 
         this.mdkWidgetDelegate = new MdkWidgetDelegate(this, attrs);
     }
@@ -68,16 +101,20 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         return this.mdkWidgetDelegate;
     }
 
+    /**
+     * Handle the hint value and hide the floating label
+     */
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
         // If the hint is empty, set it to the label
         CharSequence label = this.getLabel();
-        if (this.getHint() == null || this.getHint().length() == 0){
+        if (this.getHint() == null || this.getHint().length() == 0) {
             this.setHint(label);
         }
 
+        // By default, hide the floating label
         this.mdkWidgetDelegate.hideLabel();
     }
 
