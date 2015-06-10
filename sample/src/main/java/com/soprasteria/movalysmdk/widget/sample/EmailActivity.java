@@ -28,4 +28,10 @@ public class EmailActivity extends AppCompatActivity {
         boolean valid = this.email.validate();
         boolean valid2 = this.email2.validate();
     }
+
+    public void mandatory(View view) {
+
+        this.email.setMandatory(!this.email.isMandatory());
+
+    }
 }

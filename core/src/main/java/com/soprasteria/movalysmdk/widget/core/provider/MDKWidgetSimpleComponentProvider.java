@@ -57,6 +57,8 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         return command;
     }
 
+
+
     /**
      * Return a classPath corresponding to the concatenation of base key and qualifier
      * <p>search for the concatenation of basekey and qualifier (if the qualifier is not null).
@@ -109,6 +111,32 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
     @Override
     public IFormFieldValidator getValidator(Context context, String baseKey, String qualifier) {
-        return null;
+        return createValidatorFromKey(context, baseKey, qualifier);
+    }
+
+    private IFormFieldValidator createValidatorFromKey(Context context, String baseKey, String qualifier) {
+
+        IFormFieldValidator<?> validator = null;
+
+
+        String classPath = findClassPathFromRessource(context, baseKey, qualifier);
+
+        try {
+            Class validatorClass = Class.forName(classPath);
+            Constructor constructor = validatorClass.getConstructor(Context.class);
+            validator = (IFormFieldValidator) constructor.newInstance(context);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return validator;
     }
 }

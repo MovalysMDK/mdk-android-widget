@@ -3,7 +3,6 @@ package com.soprasteria.movalysmdk.widget.standard;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.AppCompatEditText;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -13,16 +12,15 @@ import com.soprasteria.movalysmdk.widget.base.delegate.MdkWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasActions;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.standard.command.EmailCommand;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
-import com.soprasteria.movalysmdk.widget.standard.validator.EmailValidator;
 
-public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate {
+public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
     protected ActionDelegate actionDelegate;
     protected MdkWidgetDelegate mdkWidgetDelegate;
@@ -60,6 +58,16 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
         this.mdkWidgetDelegate.setError(error);
     }
 
+    @Override
+    public void setMandatory(boolean mandatory) {
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public boolean isMandatory() {
+        return this.mdkWidgetDelegate.isMandatory();
+    }
+
     public void onClick(View v) {
         String sEmailAddress = this.getText().toString();
         if (sEmailAddress != null && sEmailAddress.length() > 0) {
@@ -72,23 +80,16 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
     @Override
     public boolean validate() {
         boolean bValid = true;
-        String error = this.getValidator().validate(this.getText().toString());
+        String error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMdkWidgetDelegate().isMandatory());
         if (error == null) {
             this.setError("");
+            bValid = true;
         } else {
             this.setError(error);
+            bValid = false;
         }
+        this.getMdkWidgetDelegate().setValid(bValid);
         return bValid;
-    }
-
-    public IFormFieldValidator getValidator() {
-        IFormFieldValidator rValidator = null;
-        if (this.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-            rValidator = ((MDKWidgetApplication) this.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getValidator(this.getContext(), "", "");
-        } else {
-            rValidator = new EmailValidator(this.getContext());
-        }
-        return rValidator;
     }
 
     @Override
@@ -107,16 +108,6 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
         if (!isInEditMode()) {
             this.registerActionViews();
         }
-    }
-
-    @Override
-    public void addTextWatcher(TextWatcher textWatcher) {
-        this.addTextChangedListener(textWatcher);
-    }
-
-    @Override
-    public void removeTextWatcher(TextWatcher textWatcher) {
-        this.removeTextChangedListener(textWatcher);
     }
 
     @Override
@@ -145,5 +136,38 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
         if (!focused) {
             validate();
         }
+    }
+
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        int[] state = null;
+        // first called in the super constructor
+        if (this.getMdkWidgetDelegate() == null) {
+            state = super.onCreateDrawableState(extraSpace);
+        } else {
+            int stateSpace = this.getMdkWidgetDelegate().getStateLength(extraSpace);
+            state = super.onCreateDrawableState(stateSpace);
+            int[] mdkState = this.getMdkWidgetDelegate().getWidgetState();
+
+            mergeDrawableStates(state, mdkState);
+
+            this.getMdkWidgetDelegate().callRichSelector(state);
+        }
+        return state;
+    }
+
+    @Override
+    public IFormFieldValidator getValidator() {
+        return this.getMdkWidgetDelegate().getValidator();
+    }
+
+    @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
     }
 }

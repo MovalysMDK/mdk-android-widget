@@ -11,15 +11,25 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:onClick="validate"
-        android:text="validate" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="validate"
+            android:text="validate" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mandatory"
+            android:onClick="mandatory"
+            android:id="@+id/mandatory" />
+    </LinearLayout>
 
     <View
         android:background="@drawable/separator_background"
@@ -32,6 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:background="@drawable/email_background"
+        mdk:mandatory="true"
         mdk:label="@string/app_name" />
 
     <View
@@ -45,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:hint="Test hint"
         mdk:errorId="@+id/errorText"
         mdk:primaryActionId="@+id/buttonSend"
         mdk:rootId="@id/root" />

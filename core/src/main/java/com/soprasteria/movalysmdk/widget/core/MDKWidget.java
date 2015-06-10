@@ -47,4 +47,16 @@ public interface MDKWidget {
      * @param error the error to set
      */
     void setError(CharSequence error);
+
+    /**
+     * Set mandatory properties on widget
+     * @param mandatory true if mandatory, false otherwise
+     */
+    void setMandatory(boolean mandatory);
+
+    /**
+     * Return if the widget is mandatory
+     * @return true if the widget is mandatory, false otherwise
+     */
+    boolean isMandatory();
 }

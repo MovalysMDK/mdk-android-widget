@@ -17,7 +17,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
  * on the attributes configuration inflate error and label subwigets.
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout implements HasError {
+public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout implements MDKWidget, HasError {
 
     /** the inner widget */
     private T innerWidget;
@@ -90,6 +90,11 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         }
         //TODO (always show error text view, ...)
 
+        boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
+        this.getInnerWidget().setMandatory(mandatory);
+
+        this.setAddStatesFromChildren(true);
+
         // release typed array
         typedArray.recycle();
     }
@@ -124,5 +129,45 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         if (!formValidation) {
             this.getInnerWidget().setError(error);
         }
+    }
+
+    @Override
+    public boolean isMandatory() {
+        return this.getInnerWidget().isMandatory();
+    }
+
+    @Override
+    public void setRootId(int rootId) {
+        this.getInnerWidget().setRootId(rootId);
+    }
+
+    @Override
+    public void setLabelId(int labelId) {
+        this.getInnerWidget().setLabelId(labelId);
+    }
+
+    @Override
+    public void setHelperId(int helperId) {
+        this.getInnerWidget().setHelperId(helperId);
+    }
+
+    @Override
+    public void setErrorId(int errorId) {
+        this.getInnerWidget().setErrorId(errorId);
+    }
+
+    @Override
+    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
+        this.getInnerWidget().setUseRootIdOnlyForError(useRootIdOnlyForError);
+    }
+
+    @Override
+    public void setError(CharSequence error) {
+        this.getInnerWidget().setError(error);
+    }
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+        this.getInnerWidget().setMandatory(mandatory);
     }
 }

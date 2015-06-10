@@ -4,11 +4,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.base.MDKBaseRichEditWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
-public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements HasValidator, HasHint {
+public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDKWidget, HasValidator, HasHint {
 
     private boolean errorAlwaysVisible = false;
 

@@ -9,12 +9,19 @@
         <attr name="helperId" format="reference" />
         <attr name="rootId" format="reference" />
         <attr name="qualifier" format="string" />
+        <attr name="mandatory" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">
         <attr name="hint" format="reference" />
         <attr name="primaryActionId" format="reference" />
         <attr name="secondaryActionId" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MDKState">
+        <attr name="state_error" format="boolean" />
+        <attr name="state_valid" format="boolean" />
+        <attr name="state_mandatory" format="boolean" />
     </declare-styleable>
 
 </resources>

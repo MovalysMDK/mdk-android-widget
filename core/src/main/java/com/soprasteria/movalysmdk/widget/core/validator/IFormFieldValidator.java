@@ -9,7 +9,8 @@ public interface IFormFieldValidator<T> {
     /**
      * validate the parameter value
      * @param objectToValidate the value to validate
+     * @param mandatory
      * @return a string of the error or null
      */
-    public String validate(T objectToValidate);
+    public String validate(T objectToValidate, boolean mandatory);
 }
