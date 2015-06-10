@@ -24,4 +24,8 @@
         <attr name="state_mandatory" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="MDKCommons.MDKErrorComponent">
+        <attr name="errorsDisplayOrder" format="reference" />
+    </declare-styleable>
+
 </resources>
