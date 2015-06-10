@@ -25,6 +25,8 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
     private TextView errorView;
     /** should always show the error view */
     private boolean errorAlwaysVisible;
+    /** The string ressource id for the hint */
+    private int resHintId;
 
     public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,6 +57,8 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         // parse label attribute
         int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
+        // parse label attribute
+        resHintId = typedArray.getResourceId(R.styleable.MDKCommons_hint, 0);
         // parse layout attribute
         int customLayoutId = typedArray.getResourceId(R.styleable.MDKCommons_layout, 0);
 
@@ -107,6 +111,7 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         return this.innerWidget;
     }
 
+    public int getResHintId() { return this.resHintId; }
 
     @Override
     public void setError(String error) {

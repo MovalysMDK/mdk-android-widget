@@ -5,4 +5,15 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_list_widget">List Widget</string>
     <string name="email_activity">Email</string>
+    <string name="title_activity_edit_text">EditText</string>
+    <string name="edit_text_label">My label</string>
+    <string name="edit_text_hint">My hint</string>
+    <string name="edit_text_case_1">RichEditText avec label sans hint</string>
+    <string name="edit_text_case_2">RichEditText avec label avec hint</string>
+    <string name="edit_text_case_3">RichEditText sans label sans hint</string>
+    <string name="edit_text_case_4">RichEditText sans label avec hint</string>
+    <string name="edit_text_case_5">EditText avec label sans hint</string>
+    <string name="edit_text_case_6">EditText avec label avec hint</string>
+    <string name="edit_text_case_7">EditText sans label sans hint</string>
+    <string name="edit_text_case_8">EditText sans label avec hint</string>
 </resources>

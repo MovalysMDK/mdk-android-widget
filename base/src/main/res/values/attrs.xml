@@ -10,10 +10,10 @@
         <attr name="rootId" format="reference" />
         <attr name="qualifier" format="string" />
         <attr name="mandatory" format="boolean" />
+        <attr name="hint" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">
-        <attr name="hint" format="reference" />
         <attr name="primaryActionId" format="reference" />
         <attr name="secondaryActionId" format="reference" />
     </declare-styleable>

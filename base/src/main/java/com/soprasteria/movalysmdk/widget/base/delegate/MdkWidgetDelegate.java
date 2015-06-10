@@ -254,4 +254,31 @@ public class MdkWidgetDelegate implements MDKWidget {
         }
         return rValidator;
     }
+
+    public void hideLabel() {
+
+        if(labelId != 0) {
+            View rootView = this.findRootView(true);
+            if (rootView != null) {
+                TextView labelView = (TextView) rootView.findViewById(this.labelId);
+                if(labelView != null) {
+                    //the label is hidden until the user enter the first letter.
+                    labelView.setVisibility(View.INVISIBLE);
+                }
+            }
+        }
+    }
+
+    public void showLabel() {
+        if(labelId != 0) {
+            View rootView = this.findRootView(true);
+            if (rootView != null) {
+                TextView labelView = (TextView) rootView.findViewById(this.labelId);
+                if(labelView != null) {
+                    //the label is hidden until the user enter the first letter.
+                    labelView.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
 }
