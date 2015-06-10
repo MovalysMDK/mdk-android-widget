@@ -43,6 +43,9 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@drawable/email_background"
+        android:padding="2dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
         mdk:mandatory="true"
         mdk:label="@string/app_name" />
 
@@ -80,6 +83,19 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+
+    <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:layout="@layout/custom_email_widget"
+        mdk:label="@string/app_name"
+        mdk:mandatory="true"/>
 
     <View
         android:background="@drawable/separator_background"
