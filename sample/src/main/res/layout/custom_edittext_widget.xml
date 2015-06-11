@@ -19,7 +19,9 @@
         android:background="#00000000"
         android:textColor="#000000"
         mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label" />
+        mdk:labelId="@id/component_label"
+        mdk:showFloatingLabelAnim="@anim/fwk_customcomponent_floating_label_show"
+        mdk:hideFloatingLabelAnim="@anim/fwk_customcomponent_floating_label_hide"/>
 
     <TextView
         android:layout_width="wrap_content"
