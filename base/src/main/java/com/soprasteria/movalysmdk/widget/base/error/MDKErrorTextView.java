@@ -2,35 +2,34 @@ package com.soprasteria.movalysmdk.widget.base.error;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
-import android.widget.TextView;
 import android.util.SparseArray;
+import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.R;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MDK team on 09/06/2015.
  */
-public class MDKErrorWidgetImpl extends TextView implements MDKErrorWidget {
+public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /** Data structure to store component id and its associated error messages */
     private SparseArray<CharSequence> errorSparseArray = new SparseArray<CharSequence>();
 
     /** Array list of error Ids to display messages from first to last index */
     List<Integer> displayErrorOrderArrayList;
-
-    /** retrieve XML attributes with style and theme information applied */
-    TypedArray typedArray = null;
+    private CharSequence helperText;
 
     /**
      * MDKErrorWidge builder
      * @param context Application context
      * @param attrs Collection of attributes
      */
-    public MDKErrorWidgetImpl(Context context, AttributeSet attrs) {
+    public MDKErrorTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         if (!isInEditMode()) {
@@ -44,7 +43,7 @@ public class MDKErrorWidgetImpl extends TextView implements MDKErrorWidget {
      * @param attrs Collection of attributes
      * @param defStyleAttr Attribute in the current theme referencing a style resource
      */
-    public MDKErrorWidgetImpl(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKErrorTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         if (!isInEditMode()) {
@@ -59,14 +58,30 @@ public class MDKErrorWidgetImpl extends TextView implements MDKErrorWidget {
      */
     private void init(Context context, AttributeSet attrs) {
 
-        this.typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
+
+        int helperResId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
+
+        typedArray.recycle();
+
+        typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKErrorComponent);
         // parse error order attribute
-        int resErrorOrderId = this.typedArray.getResourceId(R.styleable.MDKCommons_MDKErrorComponent_errorsDisplayOrder, 0);
+        int resErrorOrderId = typedArray.getResourceId(R.styleable.MDKCommons_MDKErrorComponent_errorsDisplayOrder, 0);
+
+        if (helperResId != 0) {
+            this.helperText = getResources().getString(helperResId);
+        }
 
         if (resErrorOrderId != 0) {
             int[] displayErrorOrderArray = getResources().getIntArray(resErrorOrderId);
             this.setDisplayErrorOrder(displayErrorOrderArray);
         }
+        typedArray.recycle();
+
+    }
+
+    public void setHelper(CharSequence helper) {
+        this.helperText = helper;
     }
 
     /**
@@ -105,7 +120,10 @@ public class MDKErrorWidgetImpl extends TextView implements MDKErrorWidget {
      */
     @Override
     public void setDisplayErrorOrder(int[] displayErrorOrder) {
-        this.displayErrorOrderArrayList = new ArrayList<>(displayErrorOrder.length);
+        this.displayErrorOrderArrayList = new ArrayList<>();
+        for (int current: displayErrorOrder) {
+            this.displayErrorOrderArrayList.add(current);
+        }
     }
 
     /**
@@ -114,24 +132,38 @@ public class MDKErrorWidgetImpl extends TextView implements MDKErrorWidget {
     private void updateErrorMessage() {
 
         // Concatenation of all error messages to be displayed
-        StringBuilder sbErrorMessage = new StringBuilder();
+        SpannableStringBuilder sbErrorMessage = new SpannableStringBuilder();
 
-        // Browse list defining the component order to check if all Ids are still present to be displayed
-        List<Integer> tmpListIdForUpdate = new ArrayList<Integer>();
-
-        for(Integer currentId : this.displayErrorOrderArrayList) {
-            if (this.errorSparseArray.get(currentId) != null){
-                tmpListIdForUpdate.add(currentId);
-                CharSequence message = this.errorSparseArray.valueAt(currentId);
+        if (this.displayErrorOrderArrayList == null) {
+            for(int i = 0; i < errorSparseArray.size(); i++) {
+                int key = errorSparseArray.keyAt(i);
+                // get the object by the key.
+                CharSequence message = this.errorSparseArray.get(key);
+                if (sbErrorMessage.length() > 0) {
+                    sbErrorMessage.append("\n");
+                }
                 sbErrorMessage.append(message);
+            }
+
+        } else {
+            for(Integer currentId : this.displayErrorOrderArrayList) {
+                if (this.errorSparseArray.get(currentId) != null){
+                    CharSequence message = this.errorSparseArray.valueAt(currentId);
+                    if (sbErrorMessage.length() > 0) {
+                        sbErrorMessage.append("\n");
+                    }
+                    sbErrorMessage.append(message);
+                }
             }
         }
 
-        // Update ordered list to be displayed according FIFO
-        this.displayErrorOrderArrayList = tmpListIdForUpdate;
+        if (helperText != null && sbErrorMessage.length() < 1) {
+            this.setText(helperText);
+        }
 
         // Find the error component to update
         this.setText(sbErrorMessage);
-
     }
+
+
 }

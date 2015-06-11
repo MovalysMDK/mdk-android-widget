@@ -2,14 +2,10 @@ package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.base.MDKBaseRichEditWidget;
-import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
-import com.soprasteria.movalysmdk.widget.base.delegate.MdkWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 

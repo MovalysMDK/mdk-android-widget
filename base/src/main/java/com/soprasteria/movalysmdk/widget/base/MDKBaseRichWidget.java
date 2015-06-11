@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 
@@ -59,6 +60,8 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
         // parse label attribute
         resHintId = typedArray.getResourceId(R.styleable.MDKCommons_hint, 0);
+        // parse helper attribute
+        int resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
         // parse layout attribute
         int customLayoutId = typedArray.getResourceId(R.styleable.MDKCommons_layout, 0);
 
@@ -76,12 +79,23 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
 
         // get innerWidget component
         this.innerWidget = (T) this.findViewById(R.id.component_internal);
+        this.innerWidget.setUniqueId(this.getId());
+
 
         // get label component if exists
         TextView labelView = (TextView) this.findViewById(R.id.component_label);
-        this.errorView = (TextView) this.findViewById(R.id.component_error);
+
+
         if (labelView != null && resLabelId != 0) {
             labelView.setText(resLabelId);
+        }
+
+        // getting the error view
+        this.errorView = (TextView) this.findViewById(R.id.component_error);
+        if (resHelperId != 0
+                && this.errorView != null
+                && this.errorView instanceof MDKErrorTextView ) {
+            ((MDKErrorTextView) this.errorView).setHelper(context.getString(resHelperId));
         }
 
         // parse others attributes
@@ -101,6 +115,16 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
 
         // release typed array
         typedArray.recycle();
+    }
+
+    @Override
+    public int getUniqueId() {
+        return this.getId();
+    }
+
+    @Override
+    public void setUniqueId(int parentId) {
+        // nothing to do
     }
 
     /**

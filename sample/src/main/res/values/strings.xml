@@ -16,4 +16,11 @@
     <string name="edit_text_case_6">EditText avec label avec hint</string>
     <string name="edit_text_case_7">EditText sans label sans hint</string>
     <string name="edit_text_case_8">EditText sans label avec hint</string>
+
+    <string name="email_helper_text">email format text</string>
+    <string name="email_with_label_error">Email Rich widget with label and error</string>
+    <string name="email_standalone_widget">Email standalone widget with error field</string>
+    <string name="email_rich_custom_layout">Email Rich widget custom layout</string>
+    <string name="email_rich_common_error">Email rich widget common error</string>
+    <string name="email_rich_helper_text">Email rich widget with helper</string>
 </resources>

@@ -14,7 +14,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 /**
@@ -77,6 +76,15 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         this.mdkWidgetDelegate = new MdkWidgetDelegate(this, attrs);
     }
 
+    @Override
+    public int getUniqueId() {
+        return this.mdkWidgetDelegate.getUniqueId();
+    }
+
+    @Override
+    public void setUniqueId(int parentId) {
+        this.mdkWidgetDelegate.setUniqueId(parentId);
+    }
 
     public void setRootId(int rootId) {
         this.mdkWidgetDelegate.setRootId(rootId);

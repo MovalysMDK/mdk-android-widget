@@ -59,4 +59,10 @@ public interface MDKWidget {
      * @return true if the widget is mandatory, false otherwise
      */
     boolean isMandatory();
+
+
+    void setUniqueId(int parentId);
+
+    int getUniqueId();
+
 }

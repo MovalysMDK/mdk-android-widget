@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.soprasteria.movalysmdk.widget.base.R;
 import com.soprasteria.movalysmdk.widget.base.RichSelector;
 import com.soprasteria.movalysmdk.widget.base.SimpleMandatoryRichSelector;
+import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
@@ -34,6 +35,7 @@ public class MdkWidgetDelegate implements MDKWidget {
 
     private final WeakReference<View> weakView;
     private final String qualifier;
+    private final int resHelperId;
     private List<RichSelector> richSelectors;
 
     private int rootId;
@@ -66,12 +68,24 @@ public class MdkWidgetDelegate implements MDKWidget {
         this.helperId = typedArray.getResourceId(R.styleable.MDKCommons_helperId, 0);
         this.errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
 
+        this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
+
         this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
 
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
 
         typedArray.recycle();
 
+    }
+
+    @Override
+    public void setUniqueId(int parentId) {
+        // nothing
+    }
+
+    @Override
+    public int getUniqueId() {
+        return -1;
     }
 
 
@@ -112,7 +126,16 @@ public class MdkWidgetDelegate implements MDKWidget {
         View rootView = this.findRootView(true);
         if (rootView != null) {
             TextView errorView = (TextView) rootView.findViewById(this.errorId);
-            if (errorView != null) {
+            if (errorView != null && errorView instanceof MDKErrorWidget) {
+                View v = this.weakView.get();
+                if (v != null && v instanceof MDKWidget) {
+                    if (error == null || error.length() == 0) {
+                        ((MDKErrorWidget) errorView).clear(((MDKWidget) v).getUniqueId());
+                    } else {
+                        ((MDKErrorWidget) errorView).addError(((MDKWidget) v).getUniqueId(), error);
+                    }
+                }
+            } else if (errorView != null){
                 errorView.setText(error);
             }
         }
@@ -203,9 +226,13 @@ public class MdkWidgetDelegate implements MDKWidget {
 
     public CharSequence getLabel() {
         View rootView = this.findRootView(false);
-        TextView labelView = (TextView) rootView.findViewById(this.labelId);
-        if (labelView != null) {
-            return labelView.getText();
+        if (rootView != null) {
+            TextView labelView = (TextView) rootView.findViewById(this.labelId);
+            if (labelView != null) {
+                return labelView.getText();
+            } else {
+                return "";
+            }
         } else {
             return "";
         }
@@ -213,9 +240,11 @@ public class MdkWidgetDelegate implements MDKWidget {
 
     public void setLabel(CharSequence label) {
         View rootView = this.findRootView(false);
-        TextView labelView = (TextView) rootView.findViewById(this.labelId);
-        if (labelView != null) {
-            labelView.setText(label);
+        if (rootView != null) {
+            TextView labelView = (TextView) rootView.findViewById(this.labelId);
+            if (labelView != null) {
+                labelView.setText(label);
+            }
         }
     }
 

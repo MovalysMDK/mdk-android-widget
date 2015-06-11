@@ -24,6 +24,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
 
     protected ActionDelegate actionDelegate;
     protected MdkWidgetDelegate mdkWidgetDelegate;
+    private int parentId = -1;
 
     public MDKEmail(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,10 +48,23 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
 
     }
 
+    @Override
+    public void setUniqueId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
+    public int getUniqueId() {
+        if (this.parentId == -1) {
+            return this.getId();
+        } else {
+            return this.parentId;
+        }
+    }
+
     public void setRootId(int rootId) {
         this.mdkWidgetDelegate.setRootId(rootId);
     }
-
 
 
     @Override

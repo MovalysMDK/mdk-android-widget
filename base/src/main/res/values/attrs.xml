@@ -3,6 +3,7 @@
 
     <declare-styleable name="MDKCommons">
         <attr name="label" format="reference" />
+        <attr name="helper" format="reference" />
         <attr name="layout" />
         <attr name="errorId" format="reference" />
         <attr name="labelId" format="reference" />
@@ -18,14 +19,15 @@
         <attr name="secondaryActionId" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="MDKCommons.MDKErrorComponent">
+        <attr name="errorsDisplayOrder" format="reference" />
+    </declare-styleable>
+
+    <!-- MDK state for components -->
     <declare-styleable name="MDKState">
         <attr name="state_error" format="boolean" />
         <attr name="state_valid" format="boolean" />
         <attr name="state_mandatory" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="MDKCommons.MDKErrorComponent">
-        <attr name="errorsDisplayOrder" format="reference" />
     </declare-styleable>
 
 </resources>
