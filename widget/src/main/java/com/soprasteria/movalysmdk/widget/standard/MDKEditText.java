@@ -32,6 +32,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     /** The MDKWidgetDelegate handling the component logic */
     protected MDKWidgetDelegate MDKWidgetDelegate;
 
+    private int oldTextLength;
+
     /**
      * Constructor
      * @param context
@@ -123,28 +125,37 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
             this.setHint(label);
         }
 
-        // By default, hide the floating label
-        this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
+        // Hide the label
+        if (this.getText().length() == 0) {
+            this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
+        }
     }
 
     /**
      * {@inheritDoc}
+     *
      * Show or hide the label according to the new text content
      *
-     * @param text
-     * @param start
-     * @param lengthBefore
-     * @param lengthAfter
+     * @param text The text the TextView is displaying
+     * @param start The offset of the start of the range of the text that was modified
+     * @param lengthBefore The length of the former text that has been replaced
+     * @param lengthAfter The length of the replacement modified text
      */
     @Override
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
-        if (lengthBefore == 0 && lengthAfter > 0) {
-            this.MDKWidgetDelegate.setLabelVisibility(View.VISIBLE, true);
-        } else if (lengthBefore > 0 && lengthAfter == 0) {
-            this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, true);
+        int textLength = text.length();
+
+        // Prevent early calls
+        if (this.MDKWidgetDelegate != null) {
+            if (textLength > 0 && oldTextLength == 0) {
+                this.MDKWidgetDelegate.setLabelVisibility(View.VISIBLE, true);
+            } else if (textLength == 0 && oldTextLength > 0) {
+                this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, true);
+            }
         }
+        oldTextLength = textLength;
     }
 
     @Override
