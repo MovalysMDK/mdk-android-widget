@@ -3,6 +3,8 @@ package com.soprasteria.movalysmdk.widget.standard;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.util.AttributeSet;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.base.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
@@ -129,5 +131,10 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
      */
     public void setTextSize(int unit, float size) {
         this.getInnerWidget().setTextSize(unit, size);
+    }
+
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        InputConnection inputConnection = getInnerWidget().onCreateInputConnection(outAttrs);
+        return inputConnection;
     }
 }

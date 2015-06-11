@@ -2,6 +2,8 @@ package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.base.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -34,5 +36,10 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     @Override
     public IFormFieldValidator getValidator() {
         return this.getInnerWidget().getValidator();
+    }
+
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        InputConnection inputConnection = getInnerWidget().onCreateInputConnection(outAttrs);
+        return inputConnection;
     }
 }

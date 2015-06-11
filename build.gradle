@@ -6,14 +6,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.3.0-beta2'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.0.2'
     }
-}
-
-ext {
-    compileSdkVersion = 22
-    buildToolsVersion = "23.0.0"
 }
 
 def isReleaseBuild() {
@@ -41,4 +36,44 @@ allprojects {
         }
         jcenter()
     }
+
+    group = 'com.soprasteria.movalysmdk.widget'
+    version = "1.0.0"
+
+    ext {
+
+        // compilation with java 1.7
+        projectSourceCompatibility = JavaVersion.VERSION_1_7
+        projectTargetCompatibility = JavaVersion.VERSION_1_7
+
+        // library versions
+        appcompatv7Version = "22.2.0"
+        appcompatv4Version = "22.2.0"
+        supportAnnotationVersion = "22.2.0"
+        supportTestEspressoVersion = "2.2"
+        supportTestRunnerVersion = "0.3"
+
+        spoonClientVersion = "1.1.9"
+    }
+}
+
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://sonar.ntes.fr.sopra"
+        property "sonar.jdbc.url", "jdbc:mysql://sonar.ntes.fr.sopra:3306/sonar?useUnicode=true&amp;characterEncoding=utf8"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.jdbc.password", "sonar"
+        property "sonar.language", "java"
+	    property "sonar.profile", "Sonar way with Findbugs Android Lint"
+    }
+}
+
+// compilation options
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.deprecation = true
+    options.debug = true
 }

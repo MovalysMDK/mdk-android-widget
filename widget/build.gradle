@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 22
@@ -7,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
     }
     buildTypes {
         release {
@@ -24,4 +25,24 @@ dependencies {
     compile project(':core')
     compile project(':base')
     compile 'com.android.support:support-annotations:22.2.0'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: mdkArtifactoryRepoReleases) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+            snapshotRepository(url: mdkArtifactoryRepoSnapshots) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+        }
+    }
+}
+
+sonarRunner {
+        sonarProperties {
+                properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
+                properties["sonar.binaries"] = file("build/intermediates/classes/debug")
+        }
 }

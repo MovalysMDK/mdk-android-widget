@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'spoon'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 22
@@ -8,14 +10,36 @@ android {
         applicationId "com.soprasteria.movalysmdk.widget.sample"
         minSdkVersion 10
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    jacoco {
+        //bug in code coverage with espresso 2.1:
+        //https://code.google.com/p/android/issues/detail?id=170607
+        version "0.7.1.201405082137"
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENCE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'LICENSE.txt'
     }
 }
 
@@ -24,6 +48,48 @@ dependencies {
     compile project(':core')
     compile project(':base')
     compile project(':widget')
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:support-v4:22.2.0'
+    compile "com.android.support:appcompat-v7:$appcompatv7Version"
+    compile "com.android.support:support-v4:$appcompatv4Version"
+
+    //to run test: ./gradlew connectedAndroidTest
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$supportTestEspressoVersion"
+    androidTestCompile "com.android.support:support-annotations:$supportAnnotationVersion"
+    androidTestCompile "com.android.support.test:runner:$supportTestRunnerVersion"
+
+    androidTestCompile "com.squareup.spoon:spoon-client:$spoonClientVersion"
 }
+
+sonarRunner {
+        sonarProperties {
+                properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
+                properties["sonar.binaries"] = file("build/intermediates/classes/debug")
+        }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: mdkArtifactoryRepoReleases) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+            snapshotRepository(url: mdkArtifactoryRepoSnapshots) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+        }
+    }
+}
+
+//to run spoon: ./gradlew spoon
+spoon {
+    // for debug output
+    debug = true
+
+    // To run a single test class
+    //className = 'fully.qualified.TestCase'
+
+    // To run a single method in TestCase
+    //methodName = 'testMyApp'
+}
+
+
+
