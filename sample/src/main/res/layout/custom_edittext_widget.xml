@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_background">
+
+    <com.soprasteria.movalysmdk.widget.standard.MDKEditText
+        android:id="@id/component_internal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20px"
+        android:background="#00000000"
+        android:textColor="#000000"
+        mdk:errorId="@id/component_error"
+        mdk:labelId="@id/component_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4F443344"
+        android:layout_marginLeft="20px"
+        android:layout_below="@id/component_internal"
+        android:id="@id/component_label"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4F443344"
+        android:id="@id/component_error"
+        android:layout_gravity="right" />
+
+</LinearLayout>
