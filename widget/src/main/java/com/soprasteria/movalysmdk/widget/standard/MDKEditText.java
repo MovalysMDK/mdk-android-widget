@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
-import com.soprasteria.movalysmdk.widget.base.delegate.MdkWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -30,7 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
     /** The MdkWidgetDelegate handling the component logic */
-    protected MdkWidgetDelegate mdkWidgetDelegate;
+    protected MDKWidgetDelegate MDKWidgetDelegate;
 
     /**
      * Constructor
@@ -73,41 +73,41 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         }
         typedArray.recycle();
 
-        this.mdkWidgetDelegate = new MdkWidgetDelegate(this, attrs);
+        this.MDKWidgetDelegate = new MDKWidgetDelegate(this, attrs);
     }
 
     @Override
     public int getUniqueId() {
-        return this.mdkWidgetDelegate.getUniqueId();
+        return this.MDKWidgetDelegate.getUniqueId();
     }
 
     @Override
     public void setUniqueId(int parentId) {
-        this.mdkWidgetDelegate.setUniqueId(parentId);
+        this.MDKWidgetDelegate.setUniqueId(parentId);
     }
 
     public void setRootId(int rootId) {
-        this.mdkWidgetDelegate.setRootId(rootId);
+        this.MDKWidgetDelegate.setRootId(rootId);
     }
 
     @Override
     public void setError(CharSequence error) {
-        this.mdkWidgetDelegate.setError(error);
+        this.MDKWidgetDelegate.setError(error);
     }
 
     @Override
     public void setMandatory(boolean mandatory) {
-        this.mdkWidgetDelegate.setMandatory(mandatory);
+        this.MDKWidgetDelegate.setMandatory(mandatory);
     }
 
     @Override
     public boolean isMandatory() {
-        return this.mdkWidgetDelegate.isMandatory();
+        return this.MDKWidgetDelegate.isMandatory();
     }
 
     @Override
-    public MdkWidgetDelegate getMdkWidgetDelegate() {
-        return this.mdkWidgetDelegate;
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+        return this.MDKWidgetDelegate;
     }
 
     /**
@@ -124,7 +124,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         }
 
         // By default, hide the floating label
-        this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE);
+        this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE);
     }
 
     /**
@@ -141,37 +141,37 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
         if (lengthBefore == 0 && lengthAfter > 0) {
-            this.mdkWidgetDelegate.setLabelVisibility(View.VISIBLE);
+            this.MDKWidgetDelegate.setLabelVisibility(View.VISIBLE);
         } else if (lengthBefore > 0 && lengthAfter == 0) {
-            this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE);
+            this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE);
         }
     }
 
     @Override
     public void setLabelId(int labelId) {
-        this.mdkWidgetDelegate.setLabelId(labelId);
+        this.MDKWidgetDelegate.setLabelId(labelId);
     }
 
     @Override
     public void setHelperId(int helperId) {
-        this.mdkWidgetDelegate.setHelperId(helperId);
+        this.MDKWidgetDelegate.setHelperId(helperId);
     }
 
     @Override
     public void setErrorId(int errorId) {
-        this.mdkWidgetDelegate.setErrorId(errorId);
+        this.MDKWidgetDelegate.setErrorId(errorId);
     }
 
 
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+        this.MDKWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override
     public IFormFieldValidator getValidator() {
 
-        return this.mdkWidgetDelegate.getValidator();
+        return this.MDKWidgetDelegate.getValidator();
     }
 
     @Override
@@ -182,7 +182,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
 
         if (rValidator != null) {
 
-            String error = this.getValidator().validate(this.getText().toString(), this.mdkWidgetDelegate.isMandatory());
+            String error = this.getValidator().validate(this.getText().toString(), this.MDKWidgetDelegate.isMandatory());
             if (error == null) {
                 this.setError("");
             } else {
@@ -198,11 +198,11 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
 
     @Override
     public CharSequence getLabel() {
-        return this.mdkWidgetDelegate.getLabel();
+        return this.MDKWidgetDelegate.getLabel();
     }
 
     @Override
     public void setLabel(CharSequence label) {
-        this.mdkWidgetDelegate.setLabel(label);
+        this.MDKWidgetDelegate.setLabel(label);
     }
 }

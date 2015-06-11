@@ -69,7 +69,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         int resErrorOrderId = typedArray.getResourceId(R.styleable.MDKCommons_MDKErrorComponent_errorsDisplayOrder, 0);
 
         if (helperResId != 0) {
-            this.helperText = getResources().getString(helperResId);
+            this.setHelper(getResources().getString(helperResId));
         }
 
         if (resErrorOrderId != 0) {
@@ -82,6 +82,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     public void setHelper(CharSequence helper) {
         this.helperText = helper;
+        updateErrorMessage();
     }
 
     /**
@@ -159,10 +160,11 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         if (helperText != null && sbErrorMessage.length() < 1) {
             this.setText(helperText);
+        } else {
+            // Find the error component to update
+            this.setText(sbErrorMessage);
         }
 
-        // Find the error component to update
-        this.setText(sbErrorMessage);
     }
 
 

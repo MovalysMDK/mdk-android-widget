@@ -90,7 +90,7 @@ public class ActionDelegate {
         View actionView = null;
         View v = this.weakView.get();
         if (v != null && v instanceof HasMdkDelegate) {
-            View rootView = ((HasMdkDelegate) v).getMdkWidgetDelegate().findRootView(false);
+            View rootView = ((HasMdkDelegate) v).getMDKWidgetDelegate().findRootView(false);
             if (rootView != null) {
                 actionView = rootView.findViewById(actionViewId);
 
