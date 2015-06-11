@@ -29,7 +29,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
  */
 public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
-    /** The MdkWidgetDelegate handling the component logic */
+    /** The MDKWidgetDelegate handling the component logic */
     protected MDKWidgetDelegate MDKWidgetDelegate;
 
     /**
@@ -58,7 +58,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     }
 
     /**
-     * Instantiate the MdkWidgetDelegate
+     * Instantiate the MDKWidgetDelegate
      * @param context
      * @param attrs
      */
@@ -124,7 +124,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         }
 
         // By default, hide the floating label
-        this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE);
+        this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
     }
 
     /**
@@ -141,9 +141,9 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
         if (lengthBefore == 0 && lengthAfter > 0) {
-            this.MDKWidgetDelegate.setLabelVisibility(View.VISIBLE);
+            this.MDKWidgetDelegate.setLabelVisibility(View.VISIBLE, true);
         } else if (lengthBefore > 0 && lengthAfter == 0) {
-            this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE);
+            this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, true);
         }
     }
 

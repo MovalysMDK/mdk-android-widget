@@ -4,6 +4,8 @@ import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.R;
@@ -33,15 +35,17 @@ public class MDKWidgetDelegate implements MDKWidget {
     private static final int[] VALID_STATE = {R.attr.state_valid};
     private static final int[] ERROR_STATE = {R.attr.state_error};
 
-    private final WeakReference<View> weakView;
     private final String qualifier;
     private final int resHelperId;
     private List<RichSelector> richSelectors;
 
-    private int rootId;
-    private int labelId;
-    private int helperId;
-    private int errorId;
+    protected final WeakReference<View> weakView;
+    protected int rootId;
+    protected int labelId;
+    protected int showFloatingLabelAnimId;
+    protected int hideFloatingLabelAnimId;
+    protected int helperId;
+    protected int errorId;
 
     private boolean useRootIdOnlyForError = false;
     private boolean valid = false;
@@ -65,6 +69,8 @@ public class MDKWidgetDelegate implements MDKWidget {
 
         this.rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
         this.labelId = typedArray.getResourceId(R.styleable.MDKCommons_labelId, 0);
+        this.showFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_showFloatingLabelAnim, 0);
+        this.hideFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_hideFloatingLabelAnim, 0);
         this.helperId = typedArray.getResourceId(R.styleable.MDKCommons_helperId, 0);
         this.errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
 
@@ -291,17 +297,36 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * set the visibility of the floating label
+     * Sets the floating label visibility, and play the showFloatingLabelAnim
+     * or hideFloatingLabelAnim if asked
      * @param visibility
+     * @param playAnim
      */
-    public void setLabelVisibility(int visibility){
+    public void setLabelVisibility(int visibility, boolean playAnim){
 
         if(labelId != 0) {
             View rootView = this.findRootView(true);
             if (rootView != null) {
                 TextView labelView = (TextView) rootView.findViewById(this.labelId);
                 if(labelView != null) {
+                    // Set visibility
                     labelView.setVisibility(visibility);
+                    // Play animation
+                    if (playAnim) {
+                        Animation anim = null;
+                        if (visibility == View.VISIBLE) {
+                            if (this.showFloatingLabelAnimId != 0) {
+                                anim = AnimationUtils.loadAnimation(labelView.getContext(), this.showFloatingLabelAnimId);
+                            }
+                        } else {
+                            if (this.hideFloatingLabelAnimId != 0) {
+                                anim = AnimationUtils.loadAnimation(labelView.getContext(), this.hideFloatingLabelAnimId);
+                            }
+                        }
+                        if (anim != null) {
+                            labelView.startAnimation(anim);
+                        }
+                    }
                 }
             }
         }
