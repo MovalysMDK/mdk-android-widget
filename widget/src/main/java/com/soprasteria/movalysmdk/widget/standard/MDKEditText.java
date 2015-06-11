@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MdkWidgetDelegate;
@@ -115,10 +116,11 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         }
 
         // By default, hide the floating label
-        this.mdkWidgetDelegate.hideLabel();
+        this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE);
     }
 
     /**
+     * {@inheritDoc}
      * Show or hide the label according to the new text content
      *
      * @param text
@@ -131,9 +133,9 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
         if (lengthBefore == 0 && lengthAfter > 0) {
-            this.mdkWidgetDelegate.showLabel();
+            this.mdkWidgetDelegate.setLabelVisibility(View.VISIBLE);
         } else if (lengthBefore > 0 && lengthAfter == 0) {
-            this.mdkWidgetDelegate.hideLabel();
+            this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE);
         }
     }
 

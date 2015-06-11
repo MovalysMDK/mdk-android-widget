@@ -47,6 +47,11 @@ public class MdkWidgetDelegate implements MDKWidget {
     private boolean error = false;
 
 
+    /**
+     * Constructor
+     * @param view
+     * @param attrs
+     */
     public MdkWidgetDelegate(View view, AttributeSet attrs) {
         
         this.weakView = new WeakReference<View>(view);
@@ -68,6 +73,7 @@ public class MdkWidgetDelegate implements MDKWidget {
         typedArray.recycle();
 
     }
+
 
     public View findRootView(boolean useRootIdForError) {
         View v = this.weakView.get();
@@ -255,30 +261,21 @@ public class MdkWidgetDelegate implements MDKWidget {
         return rValidator;
     }
 
-    public void hideLabel() {
+    /**
+     * set the visibility of the floating label
+     * @param visibility
+     */
+    public void setLabelVisibility(int visibility){
 
         if(labelId != 0) {
             View rootView = this.findRootView(true);
             if (rootView != null) {
                 TextView labelView = (TextView) rootView.findViewById(this.labelId);
                 if(labelView != null) {
-                    //the label is hidden until the user enter the first letter.
-                    labelView.setVisibility(View.INVISIBLE);
+                    labelView.setVisibility(visibility);
                 }
             }
         }
     }
 
-    public void showLabel() {
-        if(labelId != 0) {
-            View rootView = this.findRootView(true);
-            if (rootView != null) {
-                TextView labelView = (TextView) rootView.findViewById(this.labelId);
-                if(labelView != null) {
-                    //the label is hidden until the user enter the first letter.
-                    labelView.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-    }
 }
