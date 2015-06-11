@@ -84,11 +84,13 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     }
 
+    // TODO may change the interface of this method
     @Override
     public void setUniqueId(int parentId) {
         // nothing
     }
 
+    // TODO may change the interface of this method
     @Override
     public int getUniqueId() {
         return -1;
@@ -190,6 +192,32 @@ public class MDKWidgetDelegate implements MDKWidget {
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
         this.useRootIdOnlyForError = useRootIdOnlyForError;
+    }
+
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        int[] state = null;
+
+        View v = this.weakView.get();
+        if(v != null && v instanceof MDKWidget) {
+
+
+            int stateSpace = this.getStateLength(extraSpace);
+            state = ((MDKWidget) v).superOnCreateDrawableState(stateSpace);
+            int[] mdkState = this.getWidgetState();
+
+            ((MDKWidget) v).callMergeDrawableStates(state, mdkState);
+
+            this.callRichSelector(state);
+        }
+        return state;
+    }
+
+    // TODO may change the interface of this method
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        // nothing here
     }
 
     public int getStateLength(int extraSpace) {

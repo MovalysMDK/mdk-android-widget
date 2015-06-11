@@ -65,4 +65,8 @@ public interface MDKWidget {
 
     int getUniqueId();
 
+    public int[] superOnCreateDrawableState(int extraSpace);
+
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState);
+
 }

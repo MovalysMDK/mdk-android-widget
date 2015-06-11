@@ -60,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                mdk:label="@string/edit_text_label" />
+                mdk:label="@string/edit_text_label"
+                mdk:mandatory="true"/>
 
             <View
                 android:background="@drawable/separator_background"

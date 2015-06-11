@@ -185,14 +185,18 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
             String error = this.getValidator().validate(this.getText().toString(), this.MDKWidgetDelegate.isMandatory());
             if (error == null) {
                 this.setError("");
+                bValid = true;
             } else {
                 this.setError(error);
+                bValid = false;
             }
         } else {
             //if the component doesn't have any validator, there is no error to show.
             this.setError("");
+            bValid = true;
         }
 
+        this.getMDKWidgetDelegate().setValid(bValid);
         return bValid;
     }
 
@@ -204,5 +208,25 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     @Override
     public void setLabel(CharSequence label) {
         this.MDKWidgetDelegate.setLabel(label);
+    }
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        if (this.getMDKWidgetDelegate() != null) {
+            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
     }
 }

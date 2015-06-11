@@ -111,6 +111,7 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
         this.getInnerWidget().setMandatory(mandatory);
 
+        // replace the creation of the state drawable
         this.setAddStatesFromChildren(true);
 
         // release typed array
@@ -198,5 +199,16 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
     @Override
     public void setMandatory(boolean mandatory) {
         this.getInnerWidget().setMandatory(mandatory);
+    }
+
+    // TODO may change the interface of this method
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+    // TODO may change the interface of this method
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
     }
 }

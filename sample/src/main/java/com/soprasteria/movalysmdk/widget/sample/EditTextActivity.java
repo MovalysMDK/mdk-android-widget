@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.standard.MDKRichEditText;
+
 public class EditTextActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +16,7 @@ public class EditTextActivity extends AppCompatActivity {
 
     public void validate(View view) {
 
+        ( (MDKRichEditText) this.findViewById(R.id.test_case_1)).validate();
 
     }
 }

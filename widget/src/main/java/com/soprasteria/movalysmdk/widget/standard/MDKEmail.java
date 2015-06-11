@@ -152,22 +152,25 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
         }
     }
 
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+
     @Override
     protected int[] onCreateDrawableState(int extraSpace) {
-        int[] state = null;
-        // first called in the super constructor
-        if (this.getMDKWidgetDelegate() == null) {
-            state = super.onCreateDrawableState(extraSpace);
+        if (this.getMDKWidgetDelegate() != null) {
+            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
         } else {
-            int stateSpace = this.getMDKWidgetDelegate().getStateLength(extraSpace);
-            state = super.onCreateDrawableState(stateSpace);
-            int[] mdkState = this.getMDKWidgetDelegate().getWidgetState();
-
-            mergeDrawableStates(state, mdkState);
-
-            this.getMDKWidgetDelegate().callRichSelector(state);
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
         }
-        return state;
     }
 
     @Override

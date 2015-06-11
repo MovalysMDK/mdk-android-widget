@@ -11,6 +11,7 @@
 
     <!-- validator string config -->
     <string name="mdkemail_validator_class">com.soprasteria.movalysmdk.widget.standard.validator.EmailValidator</string>
+    <string name="mdkedittext_validator_class">com.soprasteria.movalysmdk.widget.standard.validator.MandatoryValidator</string>
 
     <!-- rich selector config -->
     <string-array name="mdkemail_richselector_classes">
