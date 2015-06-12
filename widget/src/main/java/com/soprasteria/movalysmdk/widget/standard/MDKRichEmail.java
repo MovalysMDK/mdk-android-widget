@@ -13,8 +13,6 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDKWidget, HasValidator, HasHint {
 
-    private boolean errorAlwaysVisible = false;
-
     public MDKRichEmail(Context context, AttributeSet attrs) {
         super(R.layout.fwk_component_email_edit_label, R.layout.fwk_component_email_edit, context, attrs);
     }

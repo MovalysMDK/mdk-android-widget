@@ -2,16 +2,22 @@ package com.soprasteria.movalysmdk.widget.base;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView;
+import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+
+import java.util.List;
 
 /**
  * Base class for rich mdk widgets.
@@ -19,7 +25,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
  * on the attributes configuration inflate error and label subwigets.
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout implements MDKWidget, HasError {
+public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends RelativeLayout implements MDKWidget, HasError {
 
     /** the inner widget */
     private T innerWidget;
@@ -81,7 +87,7 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         // get innerWidget component
         this.innerWidget = (T) this.findViewById(R.id.component_internal);
         this.innerWidget.setUniqueId(this.getId());
-
+        ((View)this.innerWidget).setSaveFromParentEnabled(false);
 
         // get label component if exists
         TextView labelView = (TextView) this.findViewById(R.id.component_label);
@@ -223,9 +229,78 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         mergeDrawableStates(baseState, additionalState);
     }
+
     // TODO may change the interface of this method
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+
+        Parcelable superState = super.onSaveInstanceState();
+        MDKBaseRichWidgetSavedState mdkBaseRichWidgetSavedState = new MDKBaseRichWidgetSavedState(superState);
+
+        mdkBaseRichWidgetSavedState.errorAlwaysVisible = this.errorAlwaysVisible;
+        mdkBaseRichWidgetSavedState.resHintId = this.resHintId;
+        mdkBaseRichWidgetSavedState.innerWidget = this.innerWidget.superOnSaveInstanceState();
+
+        return mdkBaseRichWidgetSavedState;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+
+        if(!(state instanceof MDKBaseRichWidgetSavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        MDKBaseRichWidgetSavedState mdkBaseRichWidgetSavedState = (MDKBaseRichWidgetSavedState)state;
+        super.onRestoreInstanceState(mdkBaseRichWidgetSavedState.getSuperState());
+
+        this.errorAlwaysVisible = mdkBaseRichWidgetSavedState.errorAlwaysVisible;
+        this.resHintId = mdkBaseRichWidgetSavedState.resHintId;
+        this.innerWidget.superOnRestoreInstanceState(mdkBaseRichWidgetSavedState.innerWidget);
+    }
+
+    private static class MDKBaseRichWidgetSavedState extends View.BaseSavedState {
+
+        boolean errorAlwaysVisible;
+        int resHintId;
+        Parcelable innerWidget;
+
+        MDKBaseRichWidgetSavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private MDKBaseRichWidgetSavedState(Parcel in) {
+            super(in);
+
+            this.errorAlwaysVisible = in.readByte() != 0;
+            this.resHintId = in.readInt();
+            this.innerWidget = in.readParcelable(ClassLoader.getSystemClassLoader());
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+
+            out.writeByte((byte) (this.errorAlwaysVisible ? 1 : 0));
+            out.writeInt(this.resHintId);
+            out.writeParcelable(innerWidget, 0);
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<MDKBaseRichWidgetSavedState> CREATOR =
+                new Parcelable.Creator<MDKBaseRichWidgetSavedState>() {
+                    public MDKBaseRichWidgetSavedState createFromParcel(Parcel in) {
+                        return new MDKBaseRichWidgetSavedState(in);
+                    }
+                    public MDKBaseRichWidgetSavedState[] newArray(int size) {
+                        return new MDKBaseRichWidgetSavedState[size];
+                    }
+                };
     }
 }

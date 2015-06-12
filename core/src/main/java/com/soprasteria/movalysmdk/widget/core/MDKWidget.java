@@ -1,5 +1,7 @@
 package com.soprasteria.movalysmdk.widget.core;
 
+import android.os.Parcelable;
+
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**
@@ -72,5 +74,4 @@ public interface MDKWidget {
     public int[] superOnCreateDrawableState(int extraSpace);
 
     public void callMergeDrawableStates(int[] baseState, int[] additionalState);
-
 }

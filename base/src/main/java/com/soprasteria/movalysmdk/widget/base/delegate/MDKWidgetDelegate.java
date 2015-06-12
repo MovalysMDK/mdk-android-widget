@@ -1,6 +1,8 @@
 package com.soprasteria.movalysmdk.widget.base.delegate;
 
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -37,17 +39,18 @@ public class MDKWidgetDelegate implements MDKWidget {
     private static final int[] VALID_STATE = {R.attr.state_valid};
     private static final int[] ERROR_STATE = {R.attr.state_error};
 
-    private final String qualifier;
-    private final int resHelperId;
+    private String qualifier;
+    private int resHelperId;
     private List<RichSelector> richSelectors;
 
-    protected final WeakReference<View> weakView;
+    protected WeakReference<View> weakView;
     protected int rootId;
     protected int labelId;
     protected int showFloatingLabelAnimId;
     protected int hideFloatingLabelAnimId;
     protected int helperId;
     protected int errorId;
+    protected int uniqueId;
 
     private boolean useRootIdOnlyForError = false;
     private boolean valid = false;
@@ -89,13 +92,20 @@ public class MDKWidgetDelegate implements MDKWidget {
     // TODO may change the interface of this method
     @Override
     public void setUniqueId(int parentId) {
-        // nothing
+        this.uniqueId = parentId;
     }
 
     // TODO may change the interface of this method
     @Override
     public int getUniqueId() {
-        return -1;
+        if (uniqueId == 0) {
+            View view = this.weakView.get();
+            if (view != null) {
+                return view.getId();
+            }
+        }
+
+        return uniqueId;
     }
 
 
@@ -378,4 +388,141 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    public Parcelable onSaveInstanceState(Parcelable superState) {
+
+        MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = new MDKWidgetDelegateSavedState(superState);
+
+        mdkWidgetDelegateSavedState.qualifier = this.qualifier;
+        mdkWidgetDelegateSavedState.resHelperId = this.resHelperId;
+        mdkWidgetDelegateSavedState.richSelectors = this.richSelectors;
+
+        mdkWidgetDelegateSavedState.rootId = this.rootId;
+        mdkWidgetDelegateSavedState.labelId = this.labelId;
+        mdkWidgetDelegateSavedState.showFloatingLabelAnimId = this.showFloatingLabelAnimId;
+        mdkWidgetDelegateSavedState.hideFloatingLabelAnimId = this.hideFloatingLabelAnimId;
+        mdkWidgetDelegateSavedState.helperId = this.helperId;
+        mdkWidgetDelegateSavedState.errorId = this.errorId;
+        mdkWidgetDelegateSavedState.uniqueId = this.uniqueId;
+
+        mdkWidgetDelegateSavedState.useRootIdOnlyForError = this.useRootIdOnlyForError;
+        mdkWidgetDelegateSavedState.valid = this.valid;
+        mdkWidgetDelegateSavedState.mandatory = this.mandatory;
+        mdkWidgetDelegateSavedState.error = this.error;
+
+        return mdkWidgetDelegateSavedState;
+    }
+
+    /**
+     *
+     * @param state
+     */
+    public Parcelable onRestoreInstanceState(View view, Parcelable state) {
+
+        if(!(state instanceof MDKWidgetDelegateSavedState)) {
+            return state;
+        }
+
+        MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = (MDKWidgetDelegateSavedState)state;
+
+        this.qualifier = mdkWidgetDelegateSavedState.qualifier;
+        this.resHelperId = mdkWidgetDelegateSavedState.resHelperId;
+        this.richSelectors = mdkWidgetDelegateSavedState.richSelectors;
+
+        this.rootId = mdkWidgetDelegateSavedState.rootId;
+        this.labelId = mdkWidgetDelegateSavedState.labelId;
+        this.showFloatingLabelAnimId = mdkWidgetDelegateSavedState.showFloatingLabelAnimId;
+        this.hideFloatingLabelAnimId = mdkWidgetDelegateSavedState.hideFloatingLabelAnimId;
+        this.helperId = mdkWidgetDelegateSavedState.helperId;
+        this.errorId = mdkWidgetDelegateSavedState.errorId;
+        this.uniqueId = mdkWidgetDelegateSavedState.uniqueId;
+
+        this.useRootIdOnlyForError = mdkWidgetDelegateSavedState.useRootIdOnlyForError;
+        this.valid = mdkWidgetDelegateSavedState.valid;
+        this.mandatory = mdkWidgetDelegateSavedState.mandatory;
+        this.error = mdkWidgetDelegateSavedState.error;
+
+        return mdkWidgetDelegateSavedState.getSuperState();
+    }
+
+    private static class MDKWidgetDelegateSavedState extends View.BaseSavedState {
+
+        String qualifier;
+        int resHelperId;
+        List<RichSelector> richSelectors;
+
+        int rootId;
+        int labelId;
+        int showFloatingLabelAnimId;
+        int hideFloatingLabelAnimId;
+        int helperId;
+        int errorId;
+        int uniqueId;
+
+        boolean useRootIdOnlyForError;
+        boolean valid;
+        boolean mandatory;
+        boolean error;
+
+        MDKWidgetDelegateSavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private MDKWidgetDelegateSavedState(Parcel in) {
+            super(in);
+
+            this.qualifier = in.readString();
+            this.resHelperId = in.readInt();
+            // TODO : read the richSelectors
+
+            this.rootId = in.readInt();
+            this.labelId = in.readInt();
+            this.showFloatingLabelAnimId = in.readInt();
+            this.hideFloatingLabelAnimId = in.readInt();
+            this.helperId = in.readInt();
+            this.errorId = in.readInt();
+            this.uniqueId = in.readInt();
+
+            this.useRootIdOnlyForError = in.readByte() != 0;
+            this.valid = in.readByte() != 0;
+            this.mandatory = in.readByte() != 0;
+            this.error = in.readByte() != 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+
+            out.writeString(this.qualifier);
+            out.writeInt(this.resHelperId);
+            // TODO : store the richSelectors
+
+            out.writeInt(this.rootId);
+            out.writeInt(this.labelId);
+            out.writeInt(this.showFloatingLabelAnimId);
+            out.writeInt(this.hideFloatingLabelAnimId);
+            out.writeInt(this.helperId);
+            out.writeInt(this.errorId);
+            out.writeInt(this.uniqueId);
+
+            out.writeByte((byte) (this.useRootIdOnlyForError ? 1 : 0));
+            out.writeByte((byte) (this.valid ? 1 : 0));
+            out.writeByte((byte) (this.mandatory ? 1 : 0));
+            out.writeByte((byte) (this.error ? 1 : 0));
+        }
+
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<MDKWidgetDelegateSavedState> CREATOR =
+                new Parcelable.Creator<MDKWidgetDelegateSavedState>() {
+                    public MDKWidgetDelegateSavedState createFromParcel(Parcel in) {
+                        return new MDKWidgetDelegateSavedState(in);
+                    }
+                    public MDKWidgetDelegateSavedState[] newArray(int size) {
+                        return new MDKWidgetDelegateSavedState[size];
+                    }
+                };
+    }
 }

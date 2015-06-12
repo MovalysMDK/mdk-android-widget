@@ -2,12 +2,14 @@ package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -28,7 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
  *
  * Created by belamrani on 09/06/2015.
  */
-public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
+public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
     /** The MDKWidgetDelegate handling the component logic */
     protected MDKWidgetDelegate MDKWidgetDelegate;
@@ -241,5 +243,35 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
             // first called in the super constructor
             return super.onCreateDrawableState(extraSpace);
         }
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState();
+        // Save the MDKWidgetDelegate instance state
+        state = this.MDKWidgetDelegate.onSaveInstanceState(state);
+
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+
+        // Restore the MDKWidgetDelegate instance state
+        Parcelable innerState = this.MDKWidgetDelegate.onRestoreInstanceState(this, state);
+        // Restore the android view instance state
+        super.onRestoreInstanceState(innerState);
+    }
+
+    @Override
+    public Parcelable superOnSaveInstanceState() {
+        return onSaveInstanceState();
+    }
+
+    @Override
+    public void superOnRestoreInstanceState(Parcelable state) {
+        onRestoreInstanceState(state);
     }
 }
