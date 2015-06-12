@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/component_emailButton"
         android:layout_alignParentRight="true"
+        android:inputType="textEmailAddress"
         android:layout_alignBottom="@id/component_emailButton"
         mdk:primaryActionId="@id/component_emailButton"
         mdk:errorId="@id/component_error" />
