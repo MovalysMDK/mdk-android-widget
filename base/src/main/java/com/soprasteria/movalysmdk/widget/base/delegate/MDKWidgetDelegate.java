@@ -16,7 +16,6 @@ import com.soprasteria.movalysmdk.widget.base.SimpleMandatoryRichSelector;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
@@ -109,11 +108,13 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
 
+    // TODO explain why
     public View findRootView(boolean useRootIdForError) {
         View v = this.weakView.get();
         if (v != null) {
             if (!useRootIdForError) {
-                if (this.rootId == 0) {
+                if (this.rootId == 0
+                        || (this.rootId != 0 && this.useRootIdOnlyForError) ) {
                     return (View) v.getParent();
                 } else {
                     return getMatchRootParent((View) v.getParent());
@@ -217,7 +218,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.useRootIdOnlyForError = useRootIdOnlyForError;
     }
 
-
+    // TODO may change the interface of this method
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         int[] state = null;
