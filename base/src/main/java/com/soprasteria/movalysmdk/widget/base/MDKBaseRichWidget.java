@@ -245,6 +245,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         mdkBaseRichWidgetSavedState.errorAlwaysVisible = this.errorAlwaysVisible;
         mdkBaseRichWidgetSavedState.resHintId = this.resHintId;
         mdkBaseRichWidgetSavedState.innerWidget = this.innerWidget.superOnSaveInstanceState();
+        // TODO : add the save of the MDKErrorWidget
 
         return mdkBaseRichWidgetSavedState;
     }
@@ -263,6 +264,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         this.errorAlwaysVisible = mdkBaseRichWidgetSavedState.errorAlwaysVisible;
         this.resHintId = mdkBaseRichWidgetSavedState.resHintId;
         this.innerWidget.superOnRestoreInstanceState(mdkBaseRichWidgetSavedState.innerWidget);
+        // TODO : add the restore of the MDKErrorWidget
     }
 
     private static class MDKBaseRichWidgetSavedState extends View.BaseSavedState {
