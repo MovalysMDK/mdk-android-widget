@@ -29,4 +29,8 @@ public class MDKBaseRichTextWidget<T extends MDKWidget & HasText> extends MDKBas
     public void setText(CharSequence text) {
         this.getInnerWidget().setText(text);
     }
+
+    @Override
+    public void setInputType(int type) { this.getInnerWidget().setInputType(type);
+    }
 }

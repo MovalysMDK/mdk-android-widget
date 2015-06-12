@@ -33,6 +33,10 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatche
         this.getInnerWidget().removeTextChangedListener(textWatcher);
     }
 
+    @Override
+    public void setInputType(int type) { this.getInnerWidget().setInputType(type);
+    }
+
     /**
      * Validate the component
      * <p>Use the validation of the inner widget</p>
