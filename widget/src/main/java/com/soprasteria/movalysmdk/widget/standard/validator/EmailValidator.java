@@ -3,7 +3,6 @@ package com.soprasteria.movalysmdk.widget.standard.validator;
 import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +14,6 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator extends MandatoryValidator {
 
-    public static int ERROR_MANDATORY=0;
     public static int ERROR_INVALID_EMAIL = 1;
 
     //TODO mettre dans les RES
@@ -56,6 +54,7 @@ public class EmailValidator extends MandatoryValidator {
                 }
             }
         } else if (mandatory) {
+            // TODO merge error with super call
             mdkError = new MDKError();
             mdkError.setErrorCode(ERROR_MANDATORY);
             error = this.context.getString(this.mandatoryErrorId);
