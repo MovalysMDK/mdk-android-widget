@@ -8,7 +8,9 @@
     <string name="title_activity_edit_text">EditText</string>
     <string name="edit_text_label">My label</string>
     <string name="edit_text_hint">My hint</string>
+    <string name="action_vider_remplir">REMPLIR</string>
     <string name="edit_text_style">Edit Text avec du style</string>
+    <string name="edit_text_style_2">Edit Text avec du style et un bouton pour remplir/effacer le texte</string>
     <string name="edit_text_case_1">RichEditText avec label sans hint</string>
     <string name="edit_text_case_2">RichEditText avec label avec hint</string>
     <string name="edit_text_case_3">RichEditText sans label sans hint</string>
@@ -17,6 +19,7 @@
     <string name="edit_text_case_6">EditText avec label avec hint</string>
     <string name="edit_text_case_7">EditText sans label sans hint</string>
     <string name="edit_text_case_8">EditText sans label avec hint</string>
+
 
     <string name="email_helper_text">email format text</string>
     <string name="email_with_label_error">Email Rich widget with label and error</string>

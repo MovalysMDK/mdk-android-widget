@@ -52,6 +52,29 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/edit_text_style_2"/>
+
+
+
+            <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
+                android:id="@+id/test_edit_style_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                mdk:hint="@string/edit_text_hint"
+                mdk:label="@string/edit_text_label"
+                mdk:layout="@layout/custom_edittext_widget"/>
+
+            <Button
+                android:id="@+id/bouton_remplir_effacer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_vider_remplir"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/edit_text_case_1"/>
 
             <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText

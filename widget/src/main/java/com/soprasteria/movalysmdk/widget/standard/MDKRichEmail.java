@@ -34,6 +34,9 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     }
 
     @Override
+    public void setInputType(int type) {this.getInnerWidget().setInputType(type); }
+
+    @Override
     public IFormFieldValidator getValidator() {
         return this.getInnerWidget().getValidator();
     }

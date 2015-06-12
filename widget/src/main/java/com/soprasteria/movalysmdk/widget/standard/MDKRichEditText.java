@@ -8,6 +8,7 @@ import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.base.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
@@ -17,7 +18,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
  *
  * Created by belamrani on 09/06/2015.
  */
-public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implements HasHint, HasValidator {
+public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implements HasHint, HasValidator, HasText {
 
     /**
      * Constructor
@@ -136,5 +137,11 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         InputConnection inputConnection = getInnerWidget().onCreateInputConnection(outAttrs);
         return inputConnection;
+    }
+
+
+    @Override
+    public void setInputType(int type) {
+        this.getInnerWidget().setInputType(type);
     }
 }
