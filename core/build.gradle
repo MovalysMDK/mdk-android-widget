@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'com.github.dcendents.android-maven'
 
+project.archivesBaseName = 'widget-core'
+
 dependencies {
     compile 'com.google.android:android:5.1.1_r2'
     compile fileTree(dir: 'libs', include: ['*.jar'])

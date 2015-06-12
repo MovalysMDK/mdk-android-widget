@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'spoon'
 apply plugin: 'com.github.dcendents.android-maven'
 
+project.archivesBaseName = 'widget-sample'
+
 android {
     compileSdkVersion 22
     buildToolsVersion "23.0.0 rc2"
