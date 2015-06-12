@@ -27,4 +27,6 @@
     <string name="email_rich_custom_layout">Email Rich widget custom layout</string>
     <string name="email_rich_common_error">Email rich widget common error</string>
     <string name="email_rich_helper_text">Email rich widget with helper</string>
+
+    <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
 </resources>

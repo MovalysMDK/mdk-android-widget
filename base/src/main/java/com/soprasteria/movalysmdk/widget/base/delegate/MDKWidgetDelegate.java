@@ -14,6 +14,7 @@ import com.soprasteria.movalysmdk.widget.base.SimpleMandatoryRichSelector;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
@@ -315,6 +316,11 @@ public class MDKWidgetDelegate implements MDKWidget {
         return baseKey.toString();
     }
 
+    /**
+     * Returns the validator to use based on the context of the delegate
+     * (component, qualifier)
+     * @return
+     */
     public IFormFieldValidator getValidator() {
         IFormFieldValidator rValidator = null;
 

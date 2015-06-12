@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.soprasteria.movalysmdk.widget.core.command.Command;
+import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
+import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 import java.lang.reflect.Constructor;
@@ -19,7 +21,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
 
-
+    private static final String MDK_ERROR_MESSAGE_FORMAT_KEY = "mdk_error_message_format";
 
     /**
      * Create a Command instance from the specified key and attribute
@@ -52,7 +54,6 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
 
         return command;
     }
@@ -114,6 +115,37 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         return createValidatorFromKey(context, baseKey, qualifier);
     }
 
+    @Override
+    public MDKErrorMessageFormat getErrorMessageFormat(Context context) {
+        MDKErrorMessageFormat errorMessageFormat = null;
+
+        // Check the existence of a custom error message formatter ressource
+        String classPath = findStringFromRessourceName(context, MDK_ERROR_MESSAGE_FORMAT_KEY);
+
+        if (classPath != null) {
+            try {
+                // Try to instanciate the class found in android ressource
+                Class validatorClass = Class.forName(classPath);
+                Constructor constructor = validatorClass.getConstructor();
+                errorMessageFormat = (MDKErrorMessageFormat) constructor.newInstance();
+            } catch (Exception e) {
+
+                // Print stacktrace
+                e.printStackTrace();
+
+                // In case of a wrong classpath or non existent class, fallback in default case
+                errorMessageFormat = new MDKSimpleErrorMessageFormat();
+            }
+        }
+        else {
+            // Default error message formatter
+            errorMessageFormat = new MDKSimpleErrorMessageFormat();
+        }
+
+        return errorMessageFormat;
+
+    }
+
     private IFormFieldValidator createValidatorFromKey(Context context, String baseKey, String qualifier) {
 
         IFormFieldValidator<?> validator = null;
@@ -125,15 +157,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             Class validatorClass = Class.forName(classPath);
             Constructor constructor = validatorClass.getConstructor(Context.class);
             validator = (IFormFieldValidator) constructor.newInstance(context);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

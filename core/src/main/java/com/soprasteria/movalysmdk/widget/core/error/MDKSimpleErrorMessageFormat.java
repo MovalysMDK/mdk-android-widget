@@ -1,12 +1,9 @@
-package com.soprasteria.movalysmdk.widget.base.error;
-
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
+package com.soprasteria.movalysmdk.widget.core.error;
 
 /**
  * Created by gestionnaire on 11/06/2015.
  */
-public class MDKBaseErrorMessageFormat implements MDKErrorMessageFormat {
+public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
 
     public CharSequence textFormatter(boolean centralizedError, MDKError error) {
 

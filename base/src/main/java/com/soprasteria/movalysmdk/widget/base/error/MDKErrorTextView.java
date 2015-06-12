@@ -5,11 +5,15 @@ import android.content.res.TypedArray;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.view.View;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.R;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,6 +173,24 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
+     * Returns the error message formatter
+     * @return
+     */
+    private MDKErrorMessageFormat getMDKErrorMessageFormat() {
+        MDKErrorMessageFormat mdkErrorMessageFormat = null;
+
+        if (this.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+            mdkErrorMessageFormat = ((MDKWidgetApplication) this.getContext().getApplicationContext()).getMDKWidgetComponentProvider()
+                    .getErrorMessageFormat(this.getContext());
+        } else {
+            MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
+            mdkErrorMessageFormat = widgetComponentProvider.getErrorMessageFormat(this.getContext());
+        }
+
+        return mdkErrorMessageFormat;
+    }
+
+    /**
      * Return a SpannableStringBuilder object in order to build messages to display
      * @param outputStringBuild
      * @param mdkError
@@ -176,7 +198,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      */
     private SpannableStringBuilder generateCurrentMessage(SpannableStringBuilder outputStringBuild, MDKError mdkError){
 
-        MDKErrorMessageFormat interfaceFormat = new MDKBaseErrorMessageFormat();
+        MDKErrorMessageFormat interfaceFormat = getMDKErrorMessageFormat();
 
         CharSequence message = mdkError.getErrorMessage();
         message = interfaceFormat.textFormatter(isCentralizedError(), mdkError);
