@@ -132,6 +132,7 @@
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            mdk:label="@string/app_name"
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 
@@ -144,6 +145,7 @@
 
         <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
             android:id="@+id/commons_error"
+            mdk:errorCentralized="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

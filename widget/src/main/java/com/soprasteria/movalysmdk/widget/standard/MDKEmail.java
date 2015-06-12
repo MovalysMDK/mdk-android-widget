@@ -16,6 +16,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.standard.command.EmailCommand;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
@@ -73,6 +74,11 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
     }
 
     @Override
+    public void setMDKError(MDKError error) {
+        this.MDKWidgetDelegate.setMDKError(error);
+    }
+
+    @Override
     public void setMandatory(boolean mandatory) {
         this.MDKWidgetDelegate.setMandatory(mandatory);
     }
@@ -94,12 +100,12 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
     @Override
     public boolean validate() {
         boolean bValid = true;
-        String error = this.MDKWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory());
+        MDKError error = this.MDKWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory());
         if (error == null) {
-            this.setError("");
+            this.setMDKError(null);
             bValid = true;
         } else {
-            this.setError(error);
+            this.setMDKError(error);
             bValid = false;
         }
         this.getMDKWidgetDelegate().setValid(bValid);
@@ -151,7 +157,6 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, HasText, H
             validate();
         }
     }
-
 
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {

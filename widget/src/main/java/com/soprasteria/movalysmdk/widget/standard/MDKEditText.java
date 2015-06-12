@@ -14,6 +14,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 /**
@@ -95,6 +96,11 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     @Override
     public void setError(CharSequence error) {
         this.MDKWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void setMDKError(MDKError error) {
+        this.MDKWidgetDelegate.setMDKError(error);
     }
 
     @Override
@@ -193,18 +199,14 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
 
         if (rValidator != null) {
 
-            String error = this.getValidator().validate(this.getText().toString(), this.MDKWidgetDelegate.isMandatory());
-            if (error == null) {
-                this.setError("");
-                bValid = true;
-            } else {
-                this.setError(error);
+            MDKError error = this.getValidator().validate(this.getText().toString(), this.MDKWidgetDelegate.isMandatory());
+            this.setMDKError(error);
+            if (error!=null) {
                 bValid = false;
             }
         } else {
             //if the component doesn't have any validator, there is no error to show.
-            this.setError("");
-            bValid = true;
+            this.setMDKError(null);
         }
 
         this.getMDKWidgetDelegate().setValid(bValid);

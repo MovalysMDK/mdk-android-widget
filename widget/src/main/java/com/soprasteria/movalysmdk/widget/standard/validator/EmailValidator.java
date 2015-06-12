@@ -2,6 +2,9 @@ package com.soprasteria.movalysmdk.widget.standard.validator;
 
 import android.content.Context;
 
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +15,10 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator extends MandatoryValidator {
 
+    public static int ERROR_MANDATORY=0;
+    public static int ERROR_INVALID_EMAIL = 1;
+
+    //TODO mettre dans les RES
     public static final String EMAIL_REGEX = "[a-z0-9!#$%&\\'*+/=?^_\\`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@" +
             "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
@@ -34,18 +41,27 @@ public class EmailValidator extends MandatoryValidator {
     }
 
     @Override
-    public String validate(String objectToValidate, boolean mandatory) {
-        String error = super.validate(objectToValidate, mandatory);
-        if (error == null) {
-            if (objectToValidate != null && objectToValidate.length() > 0) {
-                Matcher matcher = this.pattern.matcher(objectToValidate);
-                if (!matcher.find()) {
-                    if (this.errorId != 0) {
-                        error = this.getContext().getString(this.errorId);
-                    }
+    public MDKError validate(String objectToValidate, boolean mandatory) {
+
+        MDKError mdkError = null;
+        String error = null;
+        if (objectToValidate != null && objectToValidate.length() > 0) {
+            Matcher matcher = this.pattern.matcher(objectToValidate);
+            if (!matcher.find()) {
+                if (this.errorId != 0) {
+                    mdkError = new MDKError();
+                    mdkError.setErrorCode(ERROR_INVALID_EMAIL);
+                    error = this.context.getString(this.errorId);
+                    mdkError.setErrorMessage(error);
                 }
             }
+        } else if (mandatory) {
+            mdkError = new MDKError();
+            mdkError.setErrorCode(ERROR_MANDATORY);
+            error = this.context.getString(this.mandatoryErrorId);
+            mdkError.setErrorMessage(error);
         }
-        return error;
+
+        return mdkError;
     }
 }

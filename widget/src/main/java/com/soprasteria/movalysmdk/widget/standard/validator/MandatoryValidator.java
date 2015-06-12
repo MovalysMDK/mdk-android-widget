@@ -2,15 +2,18 @@ package com.soprasteria.movalysmdk.widget.standard.validator;
 
 import android.content.Context;
 
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+
+import java.util.regex.Matcher;
 
 /**
  * Created by abelliard on 11/06/2015.
  */
 public class MandatoryValidator implements IFormFieldValidator<String> {
 
-    private final Context context;
-    private final int mandatoryErrorId;
+    protected final Context context;
+    protected final int mandatoryErrorId;
 
     public MandatoryValidator(Context context) {
         this.context = context;
@@ -27,11 +30,13 @@ public class MandatoryValidator implements IFormFieldValidator<String> {
     }
 
     @Override
-    public String validate(String objectToValidate, boolean mandatory) {
+    public MDKError validate(String objectToValidate, boolean mandatory) {
+        MDKError mdkError = new MDKError();
         String error = null;
         if (mandatory && objectToValidate.length() < 1) {
             error = this.context.getString(this.mandatoryErrorId);
         }
-        return error;
+        mdkError.setErrorMessage(error);
+        return mdkError;
     }
 }

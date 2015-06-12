@@ -1,5 +1,7 @@
 package com.soprasteria.movalysmdk.widget.core;
 
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+
 /**
  * Interface for MDK inner widget component
  */
@@ -46,6 +48,8 @@ public interface MDKWidget {
      * Set the error value on the widget
      * @param error the error to set
      */
+    void setMDKError(MDKError error);
+
     void setError(CharSequence error);
 
     /**

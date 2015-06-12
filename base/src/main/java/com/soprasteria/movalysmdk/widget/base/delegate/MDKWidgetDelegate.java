@@ -13,6 +13,7 @@ import com.soprasteria.movalysmdk.widget.base.RichSelector;
 import com.soprasteria.movalysmdk.widget.base.SimpleMandatoryRichSelector;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
@@ -129,26 +130,37 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
     }
 
-    @Override
     public void setError(CharSequence error) {
+        MDKError mdkError = new MDKError(this.getLabel(), error, MDKError.NO_ERROR_CODE);
+        this.setMDKError(mdkError);
+    }
+
+    public void setMDKError(MDKError error) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
             TextView errorView = (TextView) rootView.findViewById(this.errorId);
             if (errorView != null && errorView instanceof MDKErrorWidget) {
                 View v = this.weakView.get();
                 if (v != null && v instanceof MDKWidget) {
-                    if (error == null || error.length() == 0) {
+                    if (error == null) {
                         ((MDKErrorWidget) errorView).clear(((MDKWidget) v).getUniqueId());
                     } else {
+                        error.setComponentId(((MDKWidget) v).getUniqueId());
+                        error.setComponentLabelName(this.getLabel());
                         ((MDKErrorWidget) errorView).addError(((MDKWidget) v).getUniqueId(), error);
                     }
                 }
             } else if (errorView != null){
-                errorView.setText(error);
+                if (error != null) {
+                    errorView.setText(error.getErrorMessage());
+                }
+                else {
+                    errorView.setText("");
+                }
             }
         }
 
-        if (error != null && error.length() > 0) {
+        if (error != null) {
             this.error = true;
         } else {
             this.error = false;

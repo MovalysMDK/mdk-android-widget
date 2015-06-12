@@ -23,6 +23,7 @@
 
     <declare-styleable name="MDKCommons.MDKErrorComponent">
         <attr name="errorsDisplayOrder" format="reference" />
+        <attr name="errorCentralized" format="boolean" />
     </declare-styleable>
 
     <!-- MDK state for components -->

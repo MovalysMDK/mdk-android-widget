@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**
  * Base class for rich mdk widgets.
@@ -139,7 +140,12 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
     public int getResHintId() { return this.resHintId; }
 
     @Override
-    public void setError(String error) {
+    public void setMDKError(MDKError error) {
+        this.setMDKError(error, false);
+    }
+
+    @Override
+    public void setError(CharSequence error) {
         this.setError(error, false);
     }
 
@@ -148,9 +154,23 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
      * @param error the error to set
      * @param formValidation true if the error comes from validation, false otherwise
      */
-    protected void setError(String error, boolean formValidation) {
+    protected void setMDKError(MDKError error, boolean formValidation) {
         if (this.errorView != null) {
-            if (error != null && error.length() > 0) {
+            if (error != null) {
+                errorView.setVisibility(View.VISIBLE);
+            } else if (!errorAlwaysVisible) {
+                errorView.setVisibility(View.GONE);
+            }
+        }
+        if (!formValidation) {
+            this.getInnerWidget().setMDKError(error);
+        }
+    }
+
+    protected void setError(CharSequence error, boolean formValidation) {
+        //TODO A factoriser
+        if (this.errorView != null) {
+            if (error != null) {
                 errorView.setVisibility(View.VISIBLE);
             } else if (!errorAlwaysVisible) {
                 errorView.setVisibility(View.GONE);
@@ -191,10 +211,7 @@ public class MDKBaseRichWidget<T extends MDKWidget> extends RelativeLayout imple
         this.getInnerWidget().setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
-    @Override
-    public void setError(CharSequence error) {
-        this.getInnerWidget().setError(error);
-    }
+
 
     @Override
     public void setMandatory(boolean mandatory) {

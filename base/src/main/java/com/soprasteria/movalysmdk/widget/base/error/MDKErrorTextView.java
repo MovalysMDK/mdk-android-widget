@@ -8,6 +8,8 @@ import android.util.SparseArray;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.R;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +20,16 @@ import java.util.List;
 public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /** Data structure to store component id and its associated error messages */
-    private SparseArray<CharSequence> errorSparseArray = new SparseArray<CharSequence>();
+    private SparseArray<MDKError> errorSparseArray = new SparseArray<>();
 
     /** Array list of error Ids to display messages from first to last index */
     List<Integer> displayErrorOrderArrayList;
     private CharSequence helperText;
+
+    /**
+     * True if the error component is into a MDK rich one
+     * */
+    private boolean centralizedError = false;
 
     /**
      * MDKErrorWidge builder
@@ -67,6 +74,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKErrorComponent);
         // parse error order attribute
         int resErrorOrderId = typedArray.getResourceId(R.styleable.MDKCommons_MDKErrorComponent_errorsDisplayOrder, 0);
+        this.centralizedError = typedArray.getBoolean(R.styleable.MDKCommons_MDKErrorComponent_errorCentralized, false);
 
         if (helperResId != 0) {
             this.setHelper(getResources().getString(helperResId));
@@ -87,12 +95,10 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Add and the component and its associated error message to the current list of errors
-     * @param innerComponentId Resource Id of the component
-     * @param errorMessage Error message to display
+     * @param error MDKError object to add
      */
-    @Override
-    public void addError(int innerComponentId, CharSequence errorMessage) {
-        this.errorSparseArray.put(innerComponentId, errorMessage);
+    public void addError(int componentId, MDKError error) {
+        this.errorSparseArray.put(componentId, error);
         this.updateErrorMessage();
     }
 
@@ -136,24 +142,19 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         SpannableStringBuilder sbErrorMessage = new SpannableStringBuilder();
 
         if (this.displayErrorOrderArrayList == null) {
-            for(int i = 0; i < errorSparseArray.size(); i++) {
-                int key = errorSparseArray.keyAt(i);
-                // get the object by the key.
-                CharSequence message = this.errorSparseArray.get(key);
-                if (sbErrorMessage.length() > 0) {
-                    sbErrorMessage.append("\n");
-                }
-                sbErrorMessage.append(message);
+            for(int currentComponentId = 0; currentComponentId < errorSparseArray.size(); currentComponentId++) {
+                int key = errorSparseArray.keyAt(currentComponentId);
+                MDKError currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
+                sbErrorMessage = generateCurrentMessage(sbErrorMessage,
+                                                        currentMDKError);
             }
 
         } else {
-            for(Integer currentId : this.displayErrorOrderArrayList) {
-                if (this.errorSparseArray.get(currentId) != null){
-                    CharSequence message = this.errorSparseArray.valueAt(currentId);
-                    if (sbErrorMessage.length() > 0) {
-                        sbErrorMessage.append("\n");
-                    }
-                    sbErrorMessage.append(message);
+            for(Integer currentComponentId : this.displayErrorOrderArrayList) {
+                if (this.errorSparseArray.get(currentComponentId) != null){
+                    MDKError currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
+                    sbErrorMessage = generateCurrentMessage(sbErrorMessage,
+                                                            currentMDKError);
                 }
             }
         }
@@ -167,5 +168,42 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     }
 
+    /**
+     * Return a SpannableStringBuilder object in order to build messages to display
+     * @param outputStringBuild
+     * @param mdkError
+     * @return
+     */
+    private SpannableStringBuilder generateCurrentMessage(SpannableStringBuilder outputStringBuild, MDKError mdkError){
+
+        MDKErrorMessageFormat interfaceFormat = new MDKBaseErrorMessageFormat();
+
+        CharSequence message = mdkError.getErrorMessage();
+        message = interfaceFormat.textFormatter(isCentralizedError(), mdkError);
+
+        if (outputStringBuild.length() > 0) {
+            outputStringBuild.append("\n");
+        }
+        outputStringBuild.append(message);
+
+        return outputStringBuild;
+
+    }
+
+    /**
+     * Return true if the component is included into a MDK rich one
+     * @return
+     */
+    public boolean isCentralizedError() {
+        return centralizedError;
+    }
+
+    /**
+     * Set true if Defined if the error component is inside a MDK rich one
+     * @param centralizedError
+     */
+    public void setCentralizedError(boolean centralizedError) {
+        this.centralizedError = centralizedError;
+    }
 
 }

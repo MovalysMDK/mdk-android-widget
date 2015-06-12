@@ -12,6 +12,8 @@ public class EmailActivity extends AppCompatActivity {
     private MDKRichEmail email;
     private MDKEmail email2;
     private MDKRichEmail email3;
+    private MDKRichEmail email4;
+    private MDKRichEmail email5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,8 @@ public class EmailActivity extends AppCompatActivity {
         this.email = (MDKRichEmail) findViewById(R.id.view);
         this.email2 = (MDKEmail) findViewById(R.id.view2);
         this.email3 = (MDKRichEmail) findViewById(R.id.view3);
-
+        this.email4 = (MDKRichEmail) findViewById(R.id.view4);
+        this.email5 = (MDKRichEmail) findViewById(R.id.view5);
 
     }
 
@@ -30,12 +33,17 @@ public class EmailActivity extends AppCompatActivity {
         this.email.validate();
         this.email2.validate();
         this.email3.validate();
+        this.email4.validate();
+        this.email5.validate();
     }
 
     public void mandatory(View view) {
 
         this.email.setMandatory(!this.email.isMandatory());
+        this.email2.setMandatory(!this.email2.isMandatory());
         this.email3.setMandatory(!this.email3.isMandatory());
+        this.email4.setMandatory(!this.email4.isMandatory());
+        this.email5.setMandatory(!this.email5.isMandatory());
 
     }
 }
