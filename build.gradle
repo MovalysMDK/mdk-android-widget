@@ -69,6 +69,10 @@ allprojects {
 subprojects {
     apply plugin: 'net.researchgate.release'
 
+    release {
+        failOnUpdateNeeded = false
+    }
+
     afterEvaluate { Project project ->
 
         uploadArchives {
