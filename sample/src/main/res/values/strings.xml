@@ -29,4 +29,6 @@
     <string name="email_rich_helper_text">Email rich widget with helper</string>
 
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
+    <string name="toto1">toto1</string>
+    <string name="toto2">toto2</string>
 </resources>

@@ -62,6 +62,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
      */
     private void init(Context context, AttributeSet attrs, int layoutWithLabelId, int layoutWithoutLabelId) {
 
+        // replace the creation of the state drawable
+        this.setAddStatesFromChildren(true);
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         // parse label attribute
         int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
@@ -216,8 +219,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
         this.getInnerWidget().setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
-
-
 
     @Override
     public void setMandatory(boolean mandatory) {

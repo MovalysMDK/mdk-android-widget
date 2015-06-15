@@ -78,7 +78,8 @@
             android:hint="Test hint"
             mdk:errorId="@+id/errorText"
             mdk:primaryActionId="@+id/buttonSend"
-            mdk:rootId="@id/root" />
+            mdk:rootId="@id/root"
+            mdk:mandatory="true" />
 
         <Button
             android:id="@+id/buttonSend"
@@ -132,7 +133,7 @@
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:label="@string/app_name"
+            mdk:label="@string/toto1"
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 
@@ -140,6 +141,7 @@
             android:id="@+id/view5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            mdk:label="@string/toto2"
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 

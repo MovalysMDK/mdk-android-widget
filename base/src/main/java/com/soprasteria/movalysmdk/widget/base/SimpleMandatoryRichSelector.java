@@ -1,8 +1,8 @@
 package com.soprasteria.movalysmdk.widget.base;
 
-import android.util.StateSet;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.base.helper.StateHelper;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 
 /**
@@ -16,7 +16,7 @@ public class SimpleMandatoryRichSelector implements RichSelector {
     @Override
     public void onStateChange(int[] state, View v) {
 
-        if (StateSet.stateSetMatches(state, R.attr.state_mandatory)) {
+        if (StateHelper.hasState(state, R.attr.state_mandatory)) {
             if (v instanceof HasLabel) {
                 CharSequence label = ((HasLabel) v).getLabel();
 

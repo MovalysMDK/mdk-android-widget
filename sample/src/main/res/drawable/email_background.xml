@@ -6,4 +6,8 @@
         android:drawable="@drawable/error_email_background"
         mdk:state_error="true" />
 
+    <item
+        android:drawable="@drawable/mandatory_email_background"
+        mdk:state_mandatory="true" />
+
 </selector>
