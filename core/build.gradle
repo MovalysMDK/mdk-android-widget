@@ -21,4 +21,3 @@ uploadArchives {
     }
 }
 
-afterReleaseBuild.dependsOn uploadArchives

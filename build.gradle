@@ -16,9 +16,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'net.researchgate.release' version '2.1.2'
-}
 apply plugin: 'sonar-runner'
 
 def isReleaseBuild() {
@@ -26,8 +23,6 @@ def isReleaseBuild() {
 }
 
 allprojects {
-
-    apply plugin: 'net.researchgate.release'
 
     repositories {
         mavenLocal()
@@ -50,10 +45,7 @@ allprojects {
     }
 
     group = 'com.soprasteria.movalysmdk.widget'
-
-    release {
-        failOnUpdateNeeded = false
-    }
+    version = '1.0.0-SNAPSHOT'
 
     ext {
 
