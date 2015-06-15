@@ -27,6 +27,8 @@ def isReleaseBuild() {
 
 allprojects {
 
+    apply plugin: 'net.researchgate.release'
+
     repositories {
         mavenLocal()
 
@@ -49,6 +51,10 @@ allprojects {
 
     group = 'com.soprasteria.movalysmdk.widget'
 
+    release {
+        failOnUpdateNeeded = false
+    }
+
     ext {
 
         // compilation with java 1.7
@@ -67,11 +73,6 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'net.researchgate.release'
-
-    release {
-        failOnUpdateNeeded = false
-    }
 
     afterEvaluate { Project project ->
 
