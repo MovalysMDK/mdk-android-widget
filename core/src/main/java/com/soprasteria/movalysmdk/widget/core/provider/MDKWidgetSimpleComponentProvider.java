@@ -6,10 +6,10 @@ import android.util.Log;
 import com.soprasteria.movalysmdk.widget.core.command.Command;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
+import com.soprasteria.movalysmdk.widget.core.exception.StringNotDefineForResourceException;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 ;
 ;
@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
 
+    private static final String TAG = "MDKProvider";
     private static final String MDK_ERROR_MESSAGE_FORMAT_KEY = "mdk_error_message_format";
 
     /**
@@ -43,16 +44,8 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             Class commandClass = Class.forName(classPath);
             Constructor constructor = commandClass.getConstructor(Context.class);
             command = (Command) constructor.newInstance(context);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e(TAG, "could not instanciate class : \"" + classPath + "\"", e);
         }
 
         return command;
@@ -85,7 +78,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         }
         // create instance
         if (classPath == null) {
-            throw new RuntimeException("no string resource define for :"+baseKey);
+            throw new StringNotDefineForResourceException("no string resource define for :"+baseKey);
         }
 
         return classPath;
@@ -131,13 +124,12 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             } catch (Exception e) {
 
                 // Print stacktrace
-                e.printStackTrace();
+                Log.e(TAG, "could not instanciate class : \"" + classPath + "\"", e);
 
                 // In case of a wrong classpath or non existent class, fallback in default case
                 errorMessageFormat = new MDKSimpleErrorMessageFormat();
             }
-        }
-        else {
+        } else {
             // Default error message formatter
             errorMessageFormat = new MDKSimpleErrorMessageFormat();
         }
@@ -158,7 +150,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             Constructor constructor = validatorClass.getConstructor(Context.class);
             validator = (IFormFieldValidator) constructor.newInstance(context);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "could not instanciate class : \"" + classPath + "\"", e);
         }
 
         return validator;

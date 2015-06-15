@@ -50,7 +50,6 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     private void init() {
 
         // If there is no hint, use the label value as hint
-        CharSequence label = this.getInnerWidget().getLabel();
         if (this.getResHintId() != 0) {
             this.getInnerWidget().setHint(this.getResHintId());
         }
