@@ -82,3 +82,18 @@ spoon {
     // To run a single method in TestCase
     //methodName = 'testMyApp'
 }
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: mdkArtifactoryRepoReleases) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+            snapshotRepository(url: mdkArtifactoryRepoSnapshots) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+        }
+    }
+}
+
+afterReleaseBuild.dependsOn uploadArchives

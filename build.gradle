@@ -19,7 +19,7 @@ buildscript {
 plugins {
     id 'net.researchgate.release' version '2.1.2'
 }
-
+apply plugin: 'sonar-runner'
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
@@ -71,29 +71,6 @@ allprojects {
         spoonClientVersion = "1.1.9"
     }
 }
-
-subprojects {
-
-    afterEvaluate { Project project ->
-
-        uploadArchives {
-            repositories {
-                mavenDeployer {
-                    repository(url: mdkArtifactoryRepoReleases) {
-                        authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
-                    }
-                    snapshotRepository(url: mdkArtifactoryRepoSnapshots) {
-                        authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
-                    }
-                }
-            }
-        }
-
-        afterReleaseBuild.dependsOn uploadArchives
-    }
-}
-
-apply plugin: 'sonar-runner'
 
 sonarRunner {
     sonarProperties {

@@ -8,3 +8,18 @@ dependencies {
     compile 'com.google.android:android:5.1.1_r2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: mdkArtifactoryRepoReleases) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+            snapshotRepository(url: mdkArtifactoryRepoSnapshots) {
+                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
+            }
+        }
+    }
+}
+
+afterReleaseBuild.dependsOn uploadArchives
