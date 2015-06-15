@@ -1,7 +1,6 @@
 apply plugin: 'jacoco'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'net.researchgate.release'
 
 project.archivesBaseName = 'widget-base'
 
@@ -27,6 +26,7 @@ android {
 
     lintOptions {
         abortOnError false
+        checkReleaseBuilds false
     }
 
     jacoco {
@@ -49,18 +49,3 @@ sonarRunner {
         properties["sonar.binaries"] = file("build/intermediates/classes/debug")
 	}
 }
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: mdkArtifactoryRepoReleases) {
-                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
-            }
-            snapshotRepository(url: mdkArtifactoryRepoSnapshots) {
-                authentication(userName: mdkArtifactoryUsername, password: mdkArtifactoryPassword)
-            }
-        }
-    }
-}
-
-afterReleaseBuild.dependsOn uploadArchives
