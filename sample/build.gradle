@@ -1,3 +1,4 @@
+apply plugin: 'jacoco'
 apply plugin: 'com.android.application'
 apply plugin: 'spoon'
 apply plugin: 'com.github.dcendents.android-maven'
