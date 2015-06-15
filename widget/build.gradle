@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'net.researchgate.release'
 
 project.archivesBaseName = 'widget-standard'
 
@@ -48,3 +49,5 @@ sonarRunner {
                 properties["sonar.binaries"] = file("build/intermediates/classes/debug")
         }
 }
+
+afterReleaseBuild.dependsOn uploadArchives

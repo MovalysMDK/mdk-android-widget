@@ -2,6 +2,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.android.application'
 apply plugin: 'spoon'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'net.researchgate.release'
 
 project.archivesBaseName = 'widget-sample'
 
@@ -95,5 +96,4 @@ spoon {
     //methodName = 'testMyApp'
 }
 
-
-
+afterReleaseBuild.dependsOn uploadArchives
