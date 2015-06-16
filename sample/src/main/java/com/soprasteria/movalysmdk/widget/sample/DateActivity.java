@@ -9,6 +9,9 @@ import com.soprasteria.movalysmdk.widget.standard.MDKRichDate;
 import com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime;
 import com.soprasteria.movalysmdk.widget.standard.MDKRichTime;
 
+/**
+ * DateActivity class definition
+ */
 public class DateActivity extends AppCompatActivity {
 
     private MDKRichDateTime datetime1;
@@ -29,6 +32,10 @@ public class DateActivity extends AppCompatActivity {
         this.date1 = (MDKDateTime)findViewById(R.id.date_1);
     }
 
+    /**
+     * validate method
+     * @param view the view
+     */
     public void validate(View view) {
 
         this.datetime1.validate();
@@ -38,6 +45,10 @@ public class DateActivity extends AppCompatActivity {
         this.date1.validate();
     }
 
+    /**
+     * Enable method
+     * @param view the view
+     */
     public void enable(View view) {
         this.datetime1.setEnabled(!this.datetime1.isEnabled());
         this.datetime2.setEnabled(!this.datetime2.isEnabled());

@@ -33,6 +33,13 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
     /** The string ressource id for the hint */
     private int resHintId;
 
+    /**
+     * Constructor
+     * @param layoutWithLabelId layoutWithLabelId
+     * @param layoutWithoutLabelId layoutWithoutLabelId
+     * @param context the context
+     * @param attrs attributes
+     */
     public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -42,6 +49,14 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
 
     }
 
+    /**
+     * Constructor
+     * @param layoutWithLabelId layoutWithLabelId
+     * @param layoutWithoutLabelId layoutWithoutLabelId
+     * @param context the context
+     * @param attrs attributes
+     * @param defStyleAttr the style
+     */
     public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -178,6 +193,11 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         }
     }
 
+    /**
+     *
+     * @param error the error
+     * @param formValidation is form Validation
+     */
     protected void setError(CharSequence error, boolean formValidation) {
         //TODO A factoriser
         if (this.errorView != null) {

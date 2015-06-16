@@ -45,11 +45,15 @@ public interface MDKWidget {
     void setUseRootIdOnlyForError(boolean useRootIdOnlyForError);
 
     /**
-     * Set the error value on the widget
+     * Set the MDK error value on the widget
      * @param error the error to set
      */
     void setMDKError(MDKError error);
 
+    /**
+     * Set the error value on the widget
+     * @param error the error to set
+     */
     void setError(CharSequence error);
 
     /**
@@ -64,12 +68,29 @@ public interface MDKWidget {
      */
     boolean isMandatory();
 
-
+    /**
+     * Set unique id of the widget
+     * @param parentId
+     */
     void setUniqueId(int parentId);
 
+    /**
+     * Get uniqueId of the widget
+     * @return
+     */
     int getUniqueId();
 
+    /**
+     *
+     * @param extraSpace the extra space
+     * @return int[] ..
+     */
     public int[] superOnCreateDrawableState(int extraSpace);
 
+    /**
+     *
+     * @param baseState the base state
+     * @param additionalState the additional state
+     */
     public void callMergeDrawableStates(int[] baseState, int[] additionalState);
 }

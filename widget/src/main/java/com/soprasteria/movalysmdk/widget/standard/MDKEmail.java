@@ -23,11 +23,19 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.standard.command.EmailCommand;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
+/**
+ * MDKEmail class definition
+ */
 public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
     protected ActionDelegate actionDelegate;
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
+    /**
+     * constructor
+     * @param context the context
+     * @param attrs attributes
+     */
     public MDKEmail(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (!isInEditMode()) {
@@ -35,6 +43,12 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         }
     }
 
+    /**
+     * constructor
+     * @param context the context
+     * @param attrs attributes
+     * @param style the style
+     */
     public MDKEmail(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
         if (!isInEditMode()) {
@@ -42,6 +56,11 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         }
     }
 
+    /**
+     * Initialization
+     * @param context the context
+     * @param attrs attributes
+     */
     private final void init(Context context, AttributeSet attrs) {
 
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
@@ -60,6 +79,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         return this.mdkWidgetDelegate.getUniqueId();
     }
 
+    /**
+     * Set the root id
+     * @param rootId the id of a view
+     */
     public void setRootId(int rootId) {
         this.mdkWidgetDelegate.setRootId(rootId);
     }
@@ -85,6 +108,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         return this.mdkWidgetDelegate.isMandatory();
     }
 
+    /**
+     * onClick
+     * @param v the view
+     */
     public void onClick(View v) {
         String sEmailAddress = this.getText().toString();
         if (sEmailAddress != null && sEmailAddress.length() > 0) {

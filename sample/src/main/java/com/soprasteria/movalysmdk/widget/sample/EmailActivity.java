@@ -7,6 +7,9 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.standard.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.standard.MDKEmail;
 
+/**
+ * EmailActivity class definition
+ */
 public class EmailActivity extends AppCompatActivity {
 
     private MDKRichEmail email;
@@ -28,6 +31,10 @@ public class EmailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Validate method
+     * @param view the view
+     */
     public void validate(View view) {
 
         this.email.validate();
@@ -37,6 +44,10 @@ public class EmailActivity extends AppCompatActivity {
         this.email5.validate();
     }
 
+    /**
+     * Mandatory method
+     * @param view the view
+     */
     public void mandatory(View view) {
 
         this.email.setMandatory(!this.email.isMandatory());

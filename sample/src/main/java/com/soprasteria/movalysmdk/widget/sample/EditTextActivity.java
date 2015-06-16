@@ -7,6 +7,9 @@ import android.widget.Button;
 
 import com.soprasteria.movalysmdk.widget.standard.MDKRichEditText;
 
+/**
+ * EditTextActivity class definition
+ */
 public class EditTextActivity extends AppCompatActivity {
 
     private MDKRichEditText mdkRichEditText;
@@ -35,6 +38,10 @@ public class EditTextActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Validate method
+     * @param view the view
+     */
     public void validate(View view) {
 
         ( (MDKRichEditText) this.findViewById(R.id.test_case_1)).validate();

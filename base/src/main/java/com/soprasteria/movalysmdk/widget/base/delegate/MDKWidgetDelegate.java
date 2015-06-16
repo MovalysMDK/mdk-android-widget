@@ -110,6 +110,12 @@ public class MDKWidgetDelegate implements MDKWidget {
 
 
     // TODO explain why
+
+    /**
+     * find the root view
+     * @param useRootIdForError use id for error
+     * @return oView the root view
+     */
     public View findRootView(boolean useRootIdForError) {
         View oView = null;
         View v = this.weakView.get();
@@ -131,6 +137,11 @@ public class MDKWidgetDelegate implements MDKWidget {
         return oView;
     }
 
+    /**
+     * get root match parent
+     * @param parent the parent
+     * @return View the matched parent
+     */
     private View getMatchRootParent(View parent) {
         if (parent == null) {
             return null;
@@ -142,11 +153,20 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
     }
 
+    /**
+     * set error
+     * @param error the new error
+     */
     public void setError(CharSequence error) {
         MDKError mdkError = new MDKError(this.getLabel(), error, MDKError.NO_ERROR_CODE);
         this.setMDKError(mdkError);
     }
 
+    /**
+     * set mdk error widget
+     * @param mdkErrorWidget the error widget
+     * @param error the error
+     */
     private void setMdkErrorWidget(MDKErrorWidget mdkErrorWidget, MDKError error) {
         View v = this.weakView.get();
         if (v instanceof MDKWidget) {
@@ -160,6 +180,10 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
     }
 
+    /**
+     * set error
+     * @param error the error to set
+     */
     public void setMDKError(MDKError error) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
@@ -174,14 +198,11 @@ public class MDKWidgetDelegate implements MDKWidget {
                 }
             }
         }
-
         this.error = (error != null);
-
         View v = this.weakView.get();
         if (v != null) {
             v.refreshDrawableState();
         }
-
     }
 
     @Override
@@ -406,7 +427,8 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      *
-     * @return mdkWidgetDelegateSavedState
+     * @param superState the super state
+     * @return mdkWidgetDelegateSavedState mdkWidgetDelegateSavedState
      */
     public Parcelable onSaveInstanceState(Parcelable superState) {
 
@@ -466,6 +488,9 @@ public class MDKWidgetDelegate implements MDKWidget {
         return mdkWidgetDelegateSavedState.getSuperState();
     }
 
+    /**
+     * MDKWidgetDelegateSavedState class definition
+     */
     private static class MDKWidgetDelegateSavedState extends View.BaseSavedState {
 
         String qualifier;
@@ -485,10 +510,18 @@ public class MDKWidgetDelegate implements MDKWidget {
         boolean mandatory;
         boolean error;
 
+        /**
+         * MDKWidgetDelegateSavedState public constructor
+         * @param superState the super state
+         */
         MDKWidgetDelegateSavedState(Parcelable superState) {
             super(superState);
         }
 
+        /**
+         * MDKWidgetDelegateSavedState private constructor
+         * @param in the super state
+         */
         private MDKWidgetDelegateSavedState(Parcel in) {
             super(in);
 
