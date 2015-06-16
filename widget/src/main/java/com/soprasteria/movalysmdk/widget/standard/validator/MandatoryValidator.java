@@ -16,6 +16,10 @@ public class MandatoryValidator implements IFormFieldValidator<String> {
     protected final Context context;
     protected final int mandatoryErrorId;
 
+    /**
+     * Constructor.
+     * @param context the context
+     */
     public MandatoryValidator(Context context) {
         this.context = context;
 
@@ -23,7 +27,7 @@ public class MandatoryValidator implements IFormFieldValidator<String> {
     }
 
     /**
-     *
+     * Get the context
      * @return  MDKError mdkError
      */
     public Context getContext() {
@@ -43,10 +47,18 @@ public class MandatoryValidator implements IFormFieldValidator<String> {
         return mdkError;
     }
 
+    /**
+     * Get error mandatory.
+     * @return ERROR_MANDATORY ERROR_MANDATORY
+     */
     public static int getErrorMandatory() {
         return ERROR_MANDATORY;
     }
 
+    /**
+     * Get mandatory error id.
+     * @return mandatoryErrorId the mandatory error id
+     */
     public int getMandatoryErrorId() {
         return mandatoryErrorId;
     }

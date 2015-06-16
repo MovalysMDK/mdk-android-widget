@@ -17,7 +17,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDKWidget, HasValidator, HasHint {
 
     /**
-     * Constructor
+     * Constructor.
      * @param context the context
      * @param attrs attributes
      */
@@ -26,7 +26,7 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param context the context
      * @param attrs attributes
      * @param defStyleAttr the style
@@ -56,7 +56,7 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     }
 
     /**
-     * onCreateInputConnection
+     * onCreateInputConnection methdd.
      * @param outAttrs attributes
      * @return InputConnection the input connection
      */

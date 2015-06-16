@@ -33,13 +33,13 @@ import java.util.Date;
  */
 public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget, HasValidator, HasMdkDelegate {
 
-    /** Widget delegate that handles all the widget logic */
+    /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkDateTimePickerWidgetDelegate;
 
     /**
-     * Constructor
-     * @param context
-     * @param attrs
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
      */
     public MDKDateTime(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,10 +48,10 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget
     }
 
     /**
-     * Constructor
-     * @param context
-     * @param attrs
-     * @param style
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
+     * @param style the style
      */
     public MDKDateTime(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
@@ -60,9 +60,9 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget
     }
 
     /**
-     * Instanciates the widget delegate
-     * @param context
-     * @param attrs
+     * Instanciates the widget delegate.
+     * @param context the context
+     * @param attrs attributes
      */
     private final void init(Context context, AttributeSet attrs) {
 
@@ -73,7 +73,7 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget
     /**
      * {@inheritDoc}
      *
-     * Overriden in order to add post initialisation actions
+     * Overriden in order to add post initialisation actions.
      */
     @Override
     protected void onAttachedToWindow() {
@@ -200,32 +200,32 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget
     }
 
     /**
-     * Sets the displayed Date
-     * @param date
+     * Sets the displayed Date.
+     * @param date the new date
      */
     public void setDate(Date date) {
         this.mdkDateTimePickerWidgetDelegate.setDisplayedDate(date);
     }
 
     /**
-     * Returns the displayed Date
-     * @return
+     * Returns the displayed Date.
+     * @return date the current date
      */
     public Date getDate() {
         return this.mdkDateTimePickerWidgetDelegate.getDisplayedDate();
     }
 
     /**
-     * Sets the displayed Time
-     * @param time
+     * Sets the displayed Time.
+     * @param time the new time
      */
     public void setTime(Date time) {
         this.mdkDateTimePickerWidgetDelegate.setDisplayedTime(time);
     }
 
     /**
-     * Returns the displayed Time
-     * @return
+     * Returns the displayed Time.
+     * @return time the current time
      */
     public Date getTime() {
         return this.mdkDateTimePickerWidgetDelegate.getDisplayedTime();

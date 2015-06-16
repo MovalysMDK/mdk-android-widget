@@ -8,7 +8,7 @@ import android.widget.Button;
 import com.soprasteria.movalysmdk.widget.standard.MDKRichEditText;
 
 /**
- * EditTextActivity class definition
+ * EditTextActivity class definition.
  */
 public class EditTextActivity extends AppCompatActivity {
 
@@ -39,7 +39,7 @@ public class EditTextActivity extends AppCompatActivity {
     }
 
     /**
-     * Validate method
+     * Validate method.
      * @param view the view
      */
     public void validate(View view) {

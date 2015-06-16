@@ -15,19 +15,19 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 public class MDKRichDate extends MDKBaseRichWidget<MDKDateTime> implements HasValidator, HasError {
 
     /**
-     * Constructor
-     * @param context
-     * @param attrs
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
      */
     public MDKRichDate(Context context, AttributeSet attrs) {
         super(R.layout.fwk_component_date_edit_label, R.layout.fwk_component_date_edit, context, attrs);
     }
 
     /**
-     * Constructor
-     * @param context
-     * @param attrs
-     * @param defStyleAttr
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
+     * @param defStyleAttr defStyleAttr
      */
     public MDKRichDate(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.fwk_component_date_edit_label, R.layout.fwk_component_date_edit, context, attrs, defStyleAttr);

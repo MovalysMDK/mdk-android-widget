@@ -14,6 +14,10 @@ public class EmailCommand implements Command<Email, Void> {
 
     private final Context context;
 
+    /**
+     * Constructor.
+     * @param context the context
+     */
     public EmailCommand(Context context) {
         this.context = context;
     }

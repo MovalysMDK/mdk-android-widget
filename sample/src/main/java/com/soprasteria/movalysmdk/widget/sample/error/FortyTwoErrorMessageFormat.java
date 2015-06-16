@@ -3,6 +3,9 @@ package com.soprasteria.movalysmdk.widget.sample.error;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 
+/**
+ * FortyTwoErrorMessageFormat class definition.
+ */
 public class FortyTwoErrorMessageFormat implements MDKErrorMessageFormat {
 
     @Override

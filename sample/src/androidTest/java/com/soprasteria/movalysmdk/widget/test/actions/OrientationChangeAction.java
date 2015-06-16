@@ -13,10 +13,17 @@ import org.hamcrest.Matcher;
 import java.util.Collection;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
+/**
+ * OrientationChangeAction class definition.
+ */
 public class OrientationChangeAction implements ViewAction {
 
     private final int orientation;
 
+    /**
+     * Constructor.
+     * @param orientation the new orientation
+     */
     private OrientationChangeAction(int orientation) {
         this.orientation = orientation;
     }
@@ -43,10 +50,18 @@ public class OrientationChangeAction implements ViewAction {
         }
     }
 
+    /**
+     * Change orientation to landscape.
+     * @return OrientationChangeAction OrientationChangeAction
+     */
     public static ViewAction orientationLandscape() {
         return new OrientationChangeAction(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
+    /**
+     * Change orientation to portrait.
+     * @return OrientationChangeAction OrientationChangeAction
+     */
     public static ViewAction orientationPortrait() {
         return new OrientationChangeAction(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }

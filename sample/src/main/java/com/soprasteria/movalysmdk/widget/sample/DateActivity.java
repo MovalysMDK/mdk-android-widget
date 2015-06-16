@@ -10,7 +10,7 @@ import com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime;
 import com.soprasteria.movalysmdk.widget.standard.MDKRichTime;
 
 /**
- * DateActivity class definition
+ * DateActivity class definition.
  */
 public class DateActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class DateActivity extends AppCompatActivity {
     }
 
     /**
-     * validate method
+     * validate method.
      * @param view the view
      */
     public void validate(View view) {
@@ -46,7 +46,7 @@ public class DateActivity extends AppCompatActivity {
     }
 
     /**
-     * Enable method
+     * Enable method.
      * @param view the view
      */
     public void enable(View view) {

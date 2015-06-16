@@ -19,9 +19,9 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implements HasHint, HasValidator, HasText {
 
     /**
-     * Constructor
-     * @param context
-     * @param attrs
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
      */
     public MDKRichEditText(Context context, AttributeSet attrs) {
         super(R.layout.fwk_component_edittext_edit_label, R.layout.fwk_component_edittext_edit, context, attrs);
@@ -30,10 +30,10 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     }
 
     /**
-     * Constructor
-     * @param context
-     * @param attrs
-     * @param defStyleAttr
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
+     * @param defStyleAttr defStyleAttr
      */
     public MDKRichEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.fwk_component_edittext_edit_label, R.layout.fwk_component_edittext_edit, context, attrs, defStyleAttr);
@@ -42,7 +42,7 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     }
 
     /**
-     * Called by the constructor
+     * Called by the constructor.
      */
     private void init() {
 
@@ -68,69 +68,74 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     }
 
     /**
-     * Sets the text color of the inner EditText
-     * @param colors
+     * Sets the text color of the inner EditText.
+     * @param colors the new color
      */
     public void setTextColor(ColorStateList colors) {
         this.getInnerWidget().setTextColor(colors);
     }
 
     /**
-     * Sets the hint color of the inner EditText
-     * @param colors
+     * Sets the hint color of the inner EditText.
+     * @param colors the new color
      */
     public void setHintTextColor(ColorStateList colors) {
         this.getInnerWidget().setHintTextColor(colors);
     }
 
     /**
-     * Sets the hint color of the inner EditText
-     * @param color
+     * Sets the hint color of the inner EditText.
+     * @param colors the new color
      */
     public void setHintTextColor(int color) {
         this.getInnerWidget().setHintTextColor(color);
     }
 
     /**
-     * Sets the inner EditText enabled state
-     * @param enabled
+     * Sets the inner EditText enabled state.
+     * @param enabled enabled
      */
     public void setEnabled(boolean enabled) {
         this.getInnerWidget().setEnabled(enabled);
     }
 
     /**
-     * Limit the EditText to be single line
+     * Limit the EditText to be single line.
      */
     public void setSingleLine() {
         this.getInnerWidget().setSingleLine();
     }
 
     /**
-     * Sets if the EditText is single or multi line
-     * @param singleLine
+     * Sets if the EditText is single or multi line.
+     * @param singleLine the single line
      */
     public void setSingleLine(boolean singleLine) {
         this.getInnerWidget().setSingleLine(singleLine);
     }
 
     /**
-     * Sets the EditText text size
-     * @param size
+     * Sets the EditText text size.
+     * @param size the new size
      */
     public void setTextSize(float size) {
         this.getInnerWidget().setTextSize(size);
     }
 
     /**
-     * Sets the EditText text size
-     * @param unit
-     * @param size
+     * Sets the EditText text size.
+     * @param unit unit
+     * @param size size
      */
     public void setTextSize(int unit, float size) {
         this.getInnerWidget().setTextSize(unit, size);
     }
 
+    /**
+     * onCreateInputConnection method.
+     * @param outAttrs outAttrs
+     * @return x
+     */
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return getInnerWidget().onCreateInputConnection(outAttrs);
     }

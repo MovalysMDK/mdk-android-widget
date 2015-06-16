@@ -33,7 +33,7 @@ public interface MDKWidgetComponentProvider {
     /**
      * Returns the error message formatter.
       * @param context the Android context
-     * @return
+     * @return MDKErrorMessageFormat MDKErrorMessageFormat
      */
     public MDKErrorMessageFormat getErrorMessageFormat(Context context);
 

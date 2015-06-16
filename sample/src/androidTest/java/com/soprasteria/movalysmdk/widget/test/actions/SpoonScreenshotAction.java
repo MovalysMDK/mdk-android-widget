@@ -16,12 +16,21 @@ import org.hamcrest.core.IsAnything;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
+/**
+ * SpoonScreenshotAction class definition.
+ */
 public class SpoonScreenshotAction implements ViewAction {
 
     private final String tag;
     private final String testClass;
     private final String testMethod;
 
+    /**
+     * Constructor.
+     * @param tag the tag
+     * @param testClass the test class
+     * @param testMethod the test method
+     */
     public SpoonScreenshotAction(String tag, String testClass, String testMethod) {
         this.tag = tag;
         this.testClass = testClass;
@@ -43,6 +52,11 @@ public class SpoonScreenshotAction implements ViewAction {
         Spoon.screenshot(getActivity(view), tag, testClass, testMethod);
     }
 
+    /**
+     * Getter.
+     * @param view the view
+     * @return context the activity
+     */
     private static Activity getActivity(View view) {
         Context context = view.getContext();
         while (!(context instanceof Activity)) {
@@ -57,7 +71,11 @@ public class SpoonScreenshotAction implements ViewAction {
         return (Activity) context;
     }
 
-    /** This must be called directly from your test method. */
+    /**
+     * Perform method.
+     * This must be called directly from your test method.
+     * @param tag the tag
+     */
     public static void perform(String tag) {
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
         String testClass = trace[3].getClassName();

@@ -9,10 +9,21 @@ import android.widget.TextView;
  */
 public class MDKEmailView extends TextView {
 
+    /**
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
+     */
     public MDKEmailView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Constructor.
+     * @param context the context
+     * @param attrs attributes
+     * @param defStyleAttr defStyleAttr
+     */
     public MDKEmailView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }

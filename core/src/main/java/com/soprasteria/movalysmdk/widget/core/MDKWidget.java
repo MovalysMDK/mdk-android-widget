@@ -3,33 +3,33 @@ package com.soprasteria.movalysmdk.widget.core;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**
- * Interface for MDK inner widget component
+ * Interface for MDK inner widget component.
  */
 public interface MDKWidget {
 
     /**
-     * Set the root id
+     * Set the root id.
      * the layout contains the error view
      * @param rootId the id of a view
      */
     void setRootId(int rootId);
 
     /**
-     * Set the label id
+     * Set the label id.
      * the view used as label for this widget
      * @param labelId the id of a view
      */
     void setLabelId(int labelId);
 
     /**
-     * Set the helper id
+     * Set the helper id.
      * the view used as helper for this widget
      * @param helperId the id of a view
      */
     void setHelperId(int helperId);
 
     /**
-     * Set the error id
+     * Set the error id.
      * the view used as error for this widget
      * @param errorId the id of a view
      */
@@ -45,50 +45,50 @@ public interface MDKWidget {
     void setUseRootIdOnlyForError(boolean useRootIdOnlyForError);
 
     /**
-     * Set the MDK error value on the widget
+     * Set the MDK error value on the widget.
      * @param error the error to set
      */
     void setMDKError(MDKError error);
 
     /**
-     * Set the error value on the widget
+     * Set the error value on the widget.
      * @param error the error to set
      */
     void setError(CharSequence error);
 
     /**
-     * Set mandatory properties on widget
+     * Set mandatory properties on widget.
      * @param mandatory true if mandatory, false otherwise
      */
     void setMandatory(boolean mandatory);
 
     /**
-     * Return if the widget is mandatory
+     * Return if the widget is mandatory.
      * @return true if the widget is mandatory, false otherwise
      */
     boolean isMandatory();
 
     /**
-     * Set unique id of the widget
+     * Set unique id of the widget.
      * @param parentId
      */
     void setUniqueId(int parentId);
 
     /**
-     * Get uniqueId of the widget
+     * Get uniqueId of the widget.
      * @return
      */
     int getUniqueId();
 
     /**
-     *
+     * superOnCreateDrawableState method.
      * @param extraSpace the extra space
      * @return int[] ..
      */
     public int[] superOnCreateDrawableState(int extraSpace);
 
     /**
-     *
+     * callMergeDrawableStates method.
      * @param baseState the base state
      * @param additionalState the additional state
      */

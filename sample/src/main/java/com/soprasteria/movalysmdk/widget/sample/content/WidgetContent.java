@@ -29,7 +29,7 @@ public class WidgetContent {
     }
 
     /**
-     * private constructor
+     * private constructor.
      */
     private WidgetContent() {
 

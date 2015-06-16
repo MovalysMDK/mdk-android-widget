@@ -15,7 +15,7 @@ import java.lang.reflect.Constructor;
 ;
 
 /**
- * Simple implementation of the MDKWidgetComponentProvider
+ * Simple implementation of the MDKWidgetComponentProvider.
  * uses the class package and name to create a singleton of the Command/Validator
  * to be return for the widget
  */
@@ -26,7 +26,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
     /**
-     * Create a Command instance from the specified key and attribute
+     * Create a Command instance from the specified key and attribute.
      * <p>Search for the contactenation of baseKey and qualifier in resources
      * and if not exist juste for the baseKey and instanciate the Class specified
      * by this resource</p>
@@ -55,7 +55,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
 
     /**
-     * Return a classPath corresponding to the concatenation of base key and qualifier
+     * Return a classPath corresponding to the concatenation of base key and qualifier.
      * <p>search for the concatenation of basekey and qualifier (if the qualifier is not null).
      * If the concatenation is not found or if the qualifier is null search for the baseKey
      * in string resources.</p>
@@ -86,7 +86,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     /**
-     * Return a String for the resource name
+     * Return a String for the resource name.
      * @param context the Android context
      * @param resourceStringName the string name
      * @return a string matching the name in the Android resources
@@ -139,6 +139,13 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
     }
 
+    /**
+     * Create a validator from the key
+     * @param context the context
+     * @param baseKey the base key
+     * @param qualifier the qualifier
+     * @return validator the validator
+     */
     private IFormFieldValidator createValidatorFromKey(Context context, String baseKey, String qualifier) {
 
         IFormFieldValidator<?> validator = null;

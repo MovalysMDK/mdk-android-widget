@@ -19,6 +19,10 @@ public class EmailValidator extends MandatoryValidator {
     private final Pattern pattern;
     private int errorId;
 
+    /**
+     * Constructor.
+     * @param context the context
+     */
     public EmailValidator(Context context) {
         super(context);
 

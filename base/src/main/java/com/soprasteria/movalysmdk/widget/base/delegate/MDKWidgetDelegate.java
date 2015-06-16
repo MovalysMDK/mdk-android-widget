@@ -309,7 +309,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Set the valid paramter.
+     * Set the valid parameter.
      * @param valid valid
      */
     public void setValid(boolean valid) {
@@ -456,7 +456,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     *
+     * onSaveInstanceState method.
      * @param superState the super state.
      * @return mdkWidgetDelegateSavedState mdkWidgetDelegateSavedState
      */
@@ -519,7 +519,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * MDKWidgetDelegateSavedState class definition
+     * MDKWidgetDelegateSavedState class definition.
      */
     private static class MDKWidgetDelegateSavedState extends View.BaseSavedState {
 
@@ -541,7 +541,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         boolean error;
 
         /**
-         * MDKWidgetDelegateSavedState public constructor
+         * MDKWidgetDelegateSavedState public constructor.
          * @param superState the super state
          */
         MDKWidgetDelegateSavedState(Parcelable superState) {
@@ -549,7 +549,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
 
         /**
-         * MDKWidgetDelegateSavedState private constructor
+         * MDKWidgetDelegateSavedState private constructor.
          * @param in the super state
          */
         private MDKWidgetDelegateSavedState(Parcel in) {

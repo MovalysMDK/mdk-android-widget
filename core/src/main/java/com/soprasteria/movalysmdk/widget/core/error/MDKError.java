@@ -15,13 +15,13 @@ public class MDKError {
     /** Name of the component raising the error  */
     private CharSequence componentLabelName = null;
 
-    /** Error message raised by the component  */
+    /** Error message raised by the component.  */
     private CharSequence errorMessage = null;
 
     public static final int NO_ERROR_CODE = -1;
 
     /** Error code defining which kind of error it is, for example,
-     * it can be used later for apply text style */
+     * it can be used later for apply text style. */
     private int errorCode = NO_ERROR_CODE;
 
     public MDKError() {
@@ -29,7 +29,7 @@ public class MDKError {
     }
 
     /**
-     * MDKError builder
+     * MDKError builder.
      * @param componentLabelName set the name of the component raising the error
      * @param errorMessage set the error message raised by the component
      * @param errorCode set the error's code categorizing it
@@ -43,34 +43,66 @@ public class MDKError {
         this.errorCode = errorCode;
     }
 
+    /**
+     * Getter.
+     * @return componentId the component id
+     */
     public Integer getComponentId() {
         return componentId;
     }
 
+    /**
+     * Setter.
+     * @param componentId the new component id
+     */
     public void setComponentId(Integer componentId) {
         this.componentId = componentId;
     }
 
+    /**
+     * Getter.
+     * @return componentLabelName the component label name
+     */
     public CharSequence getComponentLabelName() {
         return componentLabelName;
     }
 
+    /**
+     * Setter.
+     * @param componentLabelName the new component label name
+     */
     public void setComponentLabelName(CharSequence componentLabelName) {
         this.componentLabelName = componentLabelName;
     }
 
+    /**
+     * Getter.
+     * @return errorMessage the error message
+     */
     public CharSequence getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Setter.
+     * @param errorMessage the new error message
+     */
     public void setErrorMessage(CharSequence errorMessage) {
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Getter.
+     * @return errorCode the error code
+     */
     public Integer getErrorCode() {
         return errorCode;
     }
 
+    /**
+     * Setter.
+     * @param errorCode the new error code
+     */
     public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }

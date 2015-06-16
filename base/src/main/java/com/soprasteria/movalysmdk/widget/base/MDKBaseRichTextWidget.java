@@ -8,15 +8,30 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 
 /**
- * Base implementation of the rich mdk widget for widget that uses text
+ * Base implementation of the rich mdk widget for widget that uses text.
  * @param <T> the inner widget type
  */
 public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestoreWidget & HasText> extends MDKBaseRichWidget<T> implements HasText {
 
+    /**
+     * Constructor.
+     * @param layoutWithLabelId the layoutWithLabelId
+     * @param layoutWithoutLabelId the layoutWithoutLabelId
+     * @param context the context
+     * @param attrs attributes
+     */
     public MDKBaseRichTextWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
     }
 
+    /**
+     * Constructor.
+     * @param layoutWithLabelId the layoutWithLabelId
+     * @param layoutWithoutLabelId the layoutWithoutLabelId
+     * @param context the context
+     * @param attrs attributes
+     * @param defStyleAttr defStyleAttr
+     */
     public MDKBaseRichTextWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
     }

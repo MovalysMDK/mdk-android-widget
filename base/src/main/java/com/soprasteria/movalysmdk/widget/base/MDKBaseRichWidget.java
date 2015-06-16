@@ -24,17 +24,17 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
  */
 public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends RelativeLayout implements MDKWidget, HasError {
 
-    /** the inner widget */
+    /** the inner widget. */
     private T innerWidget;
-    /** the error view */
+    /** the error view. */
     private TextView errorView;
-    /** should always show the error view */
+    /** should always show the error view. */
     private boolean errorAlwaysVisible;
-    /** The string ressource id for the hint */
+    /** The string ressource id for the hint. */
     private int resHintId;
 
     /**
-     * Constructor
+     * Constructor.
      * @param layoutWithLabelId layoutWithLabelId
      * @param layoutWithoutLabelId layoutWithoutLabelId
      * @param context the context
@@ -50,7 +50,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param layoutWithLabelId layoutWithLabelId
      * @param layoutWithoutLabelId layoutWithoutLabelId
      * @param context the context
@@ -66,7 +66,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
     }
 
     /**
-     * Initialise rich widget
+     * Initialise rich widget.
      * @param context the context
      * @param attrs the attribut set
      * @param layoutWithLabelId the layout id for the widget with label
@@ -151,15 +151,15 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
     }
 
     /**
-     * Getter for the inner widget of the rich widget
+     * Getter for the inner widget of the rich widget.
      * @return the inner widget
      */
     public T getInnerWidget()   {return this.innerWidget;
     }
 
     /**
-     * Return resource's hint id
-     * @return
+     * Return resource's hint id.
+     * @return resHintId the res hint id
      */
     public int getResHintId() {
         return this.resHintId;
@@ -176,7 +176,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
     }
 
     /**
-     * Set the error on the inner widget
+     * Set the error on the inner widget.
      * @param error the error to set
      * @param formValidation true if the error comes from validation, false otherwise
      */
@@ -194,7 +194,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
     }
 
     /**
-     *
+     * Set error.
      * @param error the error
      * @param formValidation is form Validation
      */
@@ -290,6 +290,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         // TODO : add the restore of the MDKErrorWidget
     }
 
+    /**
+     * MDKBaseRichWidgetSavedState class definition.
+     */
     private static class MDKBaseRichWidgetSavedState extends View.BaseSavedState {
 
         boolean errorAlwaysVisible;

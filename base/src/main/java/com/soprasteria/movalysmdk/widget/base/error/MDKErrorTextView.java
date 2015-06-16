@@ -22,20 +22,20 @@ import java.util.List;
  */
 public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
-    /** Data structure to store component id and its associated error messages */
+    /** Data structure to store component id and its associated error messages. */
     private SparseArray<MDKError> errorSparseArray = new SparseArray<>();
 
-    /** Array list of error Ids to display messages from first to last index */
+    /** Array list of error Ids to display messages from first to last index. */
     List<Integer> displayErrorOrderArrayList;
     private CharSequence helperText;
 
     /**
-     * True if the error component is into a MDK rich one
+     * True if the error component is into a MDK rich one.
      * */
     private boolean centralizedError = false;
 
     /**
-     * MDKErrorWidge builder
+     * MDKErrorWidge builder.
      * @param context Application context
      * @param attrs Collection of attributes
      */
@@ -48,7 +48,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * MDKErrorWidge builder with style attribute definition
+     * MDKErrorWidge builder with style attribute definition.
      * @param context Context
      * @param attrs Collection of attributes
      * @param defStyleAttr Attribute in the current theme referencing a style resource
@@ -62,7 +62,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Initialisation method
+     * Initialisation method.
      * @param context
      * @param attrs
      */
@@ -97,7 +97,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Add and the component and its associated error message to the current list of errors
+     * Add and the component and its associated error message to the current list of errors.
      * @param error MDKError object to add
      */
     public void addError(int componentId, MDKError error) {
@@ -106,7 +106,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Remove component from the error list
+     * Remove component from the error list.
      * @param innerComponentId Resource Id of the component
      * */
     @Override
@@ -116,7 +116,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Remove all components from the error list
+     * Remove all components from the error list.
      */
     @Override
     public void clear() {
@@ -125,7 +125,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     *
+     * setDisplayErrorOrder.
      * @param displayErrorOrder Array of error Ids
      */
     @Override
@@ -137,7 +137,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Update the component in order to display messages
+     * Update the component in order to display messages.
      */
     private void updateErrorMessage() {
 
@@ -171,8 +171,8 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Returns the error message formatter
-     * @return
+     * Returns the error message formatter.
+     * @return mdkErrorMessageFormat the mdk error message
      */
     private MDKErrorMessageFormat getMDKErrorMessageFormat() {
         MDKErrorMessageFormat mdkErrorMessageFormat = null;
@@ -189,10 +189,10 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Return a SpannableStringBuilder object in order to build messages to display
-     * @param outputStringBuild
-     * @param mdkError
-     * @return
+     * Return a SpannableStringBuilder object in order to build messages to display.
+     * @param outputStringBuild the output string
+     * @param mdkError the mdk error
+     * @return outputStringBuild the output string
      */
     private SpannableStringBuilder generateCurrentMessage(SpannableStringBuilder outputStringBuild, MDKError mdkError){
 
@@ -211,15 +211,15 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * Return true if the component is included into a MDK rich one
-     * @return
+     * Return true if the component is included into a MDK rich one.
+     * @return centralizedError the centralized error
      */
     public boolean isCentralizedError() {
         return centralizedError;
     }
 
     /**
-     * Set true if Defined if the error component is inside a MDK rich one
+     * Set true if Defined if the error component is inside a MDK rich one.
      * @param centralizedError
      */
     public void setCentralizedError(boolean centralizedError) {

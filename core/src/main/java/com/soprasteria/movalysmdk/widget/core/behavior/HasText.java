@@ -4,18 +4,18 @@ import android.text.method.KeyListener;
 import android.view.inputmethod.EditorInfo;
 
 /**
- * Add Text behavior on a widget
+ * Add Text behavior on a widget.
  */
 public interface HasText {
 
     /**
-     * Get the text from the component
+     * Get the text from the component.
      * @return the text of the component
      */
     public CharSequence getText();
 
     /**
-     * Set the text on the component
+     * Set the text on the component.
      * @param text the text to set
      */
     public void setText(CharSequence text);

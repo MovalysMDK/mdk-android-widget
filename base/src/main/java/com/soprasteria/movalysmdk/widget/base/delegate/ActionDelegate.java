@@ -15,7 +15,7 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentP
 import java.lang.ref.WeakReference;
 
 /**
- * Action Delegate for component
+ * Action Delegate for component.
  * This class handle action for a widget
  * it register listener and launch command
  */
@@ -30,7 +30,7 @@ public class ActionDelegate {
 
 
     /**
-     * Constructor
+     * Constructor.
      * @param view view
      * @param attrs attributes
      */
@@ -41,7 +41,7 @@ public class ActionDelegate {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param view view
      * @param attrs attributes
      * @param primaryCommandClass command class
@@ -53,7 +53,7 @@ public class ActionDelegate {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param view view
      * @param attrs attributes
      * @param primaryCommandClass primary command class
@@ -81,7 +81,7 @@ public class ActionDelegate {
     }
 
     /**
-     * Register existing actions on a click listener
+     * Register existing actions on a click listener.
      * @param listener the click listener to register action view
      */
     public void registerActions(View.OnClickListener listener)  {
@@ -101,7 +101,7 @@ public class ActionDelegate {
     }
 
     /**
-     * Find action view for the specified id
+     * Find action view for the specified id.
      * @param actionViewId the action view id
      * @return the view if exists
      */
@@ -120,7 +120,7 @@ public class ActionDelegate {
 
 
     /**
-     * Return the base key name for the specified parameters
+     * Return the base key name for the specified parameters.
      * @param widgetClassName the simple name class of the widget
      * @param actionViewId the id of the action view
      * @return the base key associated with the parameters
@@ -142,9 +142,9 @@ public class ActionDelegate {
     }
 
     /**
-     *
-     * @param id
-     * @return
+     * get action.
+     * @param id the id
+     * @return command the command action
      */
     @Nullable public Command getAction(@IdRes int id) {
 

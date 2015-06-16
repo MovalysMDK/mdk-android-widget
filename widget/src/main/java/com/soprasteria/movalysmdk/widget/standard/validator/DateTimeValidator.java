@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * DateTimeValidator class definition.
  */
 public class DateTimeValidator implements IFormFieldValidator<Date> {
 
@@ -24,7 +24,7 @@ public class DateTimeValidator implements IFormFieldValidator<Date> {
     protected final int mandatoryErrorId;
 
     /**
-     * Constructor
+     * Constructor.
      * @param context android context
      */
     public DateTimeValidator(Context context) {

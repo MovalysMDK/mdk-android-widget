@@ -340,23 +340,32 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Returns the Time displayed by the widget.
-     * @return
+     * @return date a clone of displaytime date
      */
     public Date getDisplayedTime() {
         return (Date) this.displayedTime.clone();
     }
 
-    /** Returns the mode in which the widget is */
+    /**
+     * Returns the mode in which the widget is.
+     * @return dateTimePickerMode the dateTimePickerMode
+     */
     public DateTimePickerMode getDateTimePickerMode() {
         return dateTimePickerMode;
     }
 
-    /** True if the widget is enabled */
+    /**
+     * True if the widget is enabled.
+     * @return enabled enabled
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
-    /** Sets the enabled flag */
+    /**
+     * Sets the enabled flag.
+     * @param enabled the new flag
+     */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
 

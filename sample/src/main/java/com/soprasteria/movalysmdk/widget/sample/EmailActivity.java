@@ -8,7 +8,7 @@ import com.soprasteria.movalysmdk.widget.standard.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.standard.MDKEmail;
 
 /**
- * EmailActivity class definition
+ * EmailActivity class definition.
  */
 public class EmailActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     /**
-     * Validate method
+     * Validate method.
      * @param view the view
      */
     public void validate(View view) {
@@ -45,7 +45,7 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     /**
-     * Mandatory method
+     * Mandatory method.
      * @param view the view
      */
     public void mandatory(View view) {

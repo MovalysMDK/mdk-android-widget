@@ -31,13 +31,13 @@ import java.util.logging.Logger;
 public class WidgetFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     /**
-     * Log manager and formatter
+     * Log manager and formatter.
      */
     private static final Logger LOGGER = Logger.getLogger(
             Thread.currentThread().getStackTrace()[0].getClassName() );
 
     /**
-     * Listener on fragment
+     * Listener on fragment.
      */
     private OnFragmentInteractionListener mListener;
 
@@ -137,6 +137,10 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        /**
+         * Constructor.
+         * @param activityToLaunch the activity to launch
+         */
         public void onFragmentInteraction(Class<? extends Activity> activityToLaunch);
     }
 

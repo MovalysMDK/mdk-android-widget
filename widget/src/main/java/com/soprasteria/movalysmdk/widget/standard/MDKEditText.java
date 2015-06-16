@@ -32,13 +32,13 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
  */
 public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
-    /** The MDKWidgetDelegate handling the component logic */
+    /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
     private int oldTextLength;
 
     /**
-     * Constructor
+     * Constructor.
      * @param context the context
      * @param attrs attributes set
      */
@@ -50,7 +50,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param context the context
      * @param attrs attributes set
      * @param style the style
@@ -63,7 +63,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     /**
-     * Instantiate the MDKWidgetDelegate
+     * Instantiate the MDKWidgetDelegate.
      * @param context the context
      * @param attrs attributes set
      */
@@ -121,7 +121,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     /**
-     * Handle the hint value and hide the floating label
+     * Handle the hint value and hide the floating label.
      */
     @Override
     protected void onAttachedToWindow() {

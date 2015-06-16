@@ -5,6 +5,12 @@ package com.soprasteria.movalysmdk.widget.core.error;
  */
 public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
 
+    /**
+     * Constructor.
+     * @param centralizedError defined if the error is defined inside a Rich component
+     * @param error MDKError object containing
+     * @return formattedMessage the formatted message
+     */
     public CharSequence textFormatter(boolean centralizedError, MDKError error) {
 
         CharSequence formattedMessage = error.getErrorMessage();

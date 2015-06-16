@@ -32,7 +32,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
     /**
-     * constructor
+     * Constructor.
      * @param context the context
      * @param attrs attributes
      */
@@ -44,7 +44,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * constructor
+     * Constructor.
      * @param context the context
      * @param attrs attributes
      * @param style the style
@@ -57,7 +57,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * Initialization
+     * Initialization.
      * @param context the context
      * @param attrs attributes
      */
@@ -80,13 +80,12 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * Set the root id
+     * Set the root id.
      * @param rootId the id of a view
      */
     public void setRootId(int rootId) {
         this.mdkWidgetDelegate.setRootId(rootId);
     }
-
 
     @Override
     public void setError(CharSequence error) {
@@ -109,7 +108,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * onClick
+     * onClick method.
      * @param v the view
      */
     public void onClick(View v) {
