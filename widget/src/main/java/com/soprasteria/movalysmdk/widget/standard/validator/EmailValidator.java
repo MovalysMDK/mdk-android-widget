@@ -42,7 +42,7 @@ public class EmailValidator extends MandatoryValidator {
         String error = null;
         if (objectToValidate != null && objectToValidate.length() > 0) {
             Matcher matcher = this.pattern.matcher(objectToValidate);
-            if ((!matcher.find()) && ((this.errorId != 0))) {
+            if (!matcher.find() && this.errorId != 0) {
                     mdkError = new MDKError();
                     mdkError.setErrorCode(ERROR_INVALID_EMAIL);
                     error = this.context.getString(this.errorId);

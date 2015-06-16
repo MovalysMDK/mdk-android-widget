@@ -26,7 +26,7 @@ import com.soprasteria.movalysmdk.widget.standard.model.Email;
 public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
     protected ActionDelegate actionDelegate;
-    protected MDKWidgetDelegate MDKWidgetDelegate;
+    protected MDKWidgetDelegate mdkWidgetDelegate;
 
     public MDKEmail(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,7 +44,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     private final void init(Context context, AttributeSet attrs) {
 
-        this.MDKWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         this.actionDelegate = new ActionDelegate(this, attrs, EmailCommand.class);
 
@@ -52,37 +52,37 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     @Override
     public void setUniqueId(int parentId) {
-        this.MDKWidgetDelegate.setUniqueId(parentId);
+        this.mdkWidgetDelegate.setUniqueId(parentId);
     }
 
     @Override
     public int getUniqueId() {
-        return this.MDKWidgetDelegate.getUniqueId();
+        return this.mdkWidgetDelegate.getUniqueId();
     }
 
     public void setRootId(int rootId) {
-        this.MDKWidgetDelegate.setRootId(rootId);
+        this.mdkWidgetDelegate.setRootId(rootId);
     }
 
 
     @Override
     public void setError(CharSequence error) {
-        this.MDKWidgetDelegate.setError(error);
+        this.mdkWidgetDelegate.setError(error);
     }
 
     @Override
     public void setMDKError(MDKError error) {
-        this.MDKWidgetDelegate.setMDKError(error);
+        this.mdkWidgetDelegate.setMDKError(error);
     }
 
     @Override
     public void setMandatory(boolean mandatory) {
-        this.MDKWidgetDelegate.setMandatory(mandatory);
+        this.mdkWidgetDelegate.setMandatory(mandatory);
     }
 
     @Override
     public boolean isMandatory() {
-        return this.MDKWidgetDelegate.isMandatory();
+        return this.mdkWidgetDelegate.isMandatory();
     }
 
     public void onClick(View v) {
@@ -97,7 +97,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     @Override
     public boolean validate() {
         boolean bValid = true;
-        MDKError error = this.MDKWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory());
+        MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory());
         if (error == null) {
             this.setMDKError(null);
             bValid = true;
@@ -116,7 +116,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     @Override
     public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this.MDKWidgetDelegate;
+        return this.mdkWidgetDelegate;
     }
 
     @Override
@@ -129,22 +129,22 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     @Override
     public void setLabelId(int labelId) {
-        this.MDKWidgetDelegate.setLabelId(labelId);
+        this.mdkWidgetDelegate.setLabelId(labelId);
     }
 
     @Override
     public void setHelperId(int helperId) {
-        this.MDKWidgetDelegate.setHelperId(helperId);
+        this.mdkWidgetDelegate.setHelperId(helperId);
     }
 
     @Override
     public void setErrorId(int errorId) {
-        this.MDKWidgetDelegate.setErrorId(errorId);
+        this.mdkWidgetDelegate.setErrorId(errorId);
     }
 
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.MDKWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override
@@ -182,12 +182,12 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     @Override
     public CharSequence getLabel() {
-        return this.MDKWidgetDelegate.getLabel();
+        return this.mdkWidgetDelegate.getLabel();
     }
 
     @Override
     public void setLabel(CharSequence label) {
-        this.MDKWidgetDelegate.setLabel(label);
+        this.mdkWidgetDelegate.setLabel(label);
     }
 
     @Override
@@ -196,7 +196,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         // Save the android view instance state
         Parcelable state = super.onSaveInstanceState();
         // Save the MDKWidgetDelegate instance state
-        state = this.MDKWidgetDelegate.onSaveInstanceState(state);
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
 
         return state;
     }
@@ -205,7 +205,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     public void onRestoreInstanceState(Parcelable state) {
 
         // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.MDKWidgetDelegate.onRestoreInstanceState(this, state);
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
     }

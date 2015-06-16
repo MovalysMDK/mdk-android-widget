@@ -139,8 +139,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
      * Getter for the inner widget of the rich widget
      * @return the inner widget
      */
-    public T getInnerWidget() {
-        return this.innerWidget;
+    public T getInnerWidget()   {return this.innerWidget;
     }
 
     /**

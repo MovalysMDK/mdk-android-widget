@@ -109,7 +109,7 @@ public class ActionDelegate {
      * @return the base key associated with the parameters
      */
     @Nullable private String baseKey(String widgetClassName, int actionViewId) {
-        StringBuffer baseKey = new StringBuffer();
+        StringBuilder baseKey = new StringBuilder();
 
         baseKey.append(widgetClassName.toLowerCase());
 
@@ -129,9 +129,9 @@ public class ActionDelegate {
      * @param id
      * @return
      */
-    @Nullable public Command<?,?> getAction(@IdRes int id) {
+    @Nullable public Command getAction(@IdRes int id) {
 
-        Command<?,?> command = null;
+        Command command = null;
         View v = this.weakView.get();
         if (v != null) {
 
@@ -144,7 +144,6 @@ public class ActionDelegate {
                         v.getContext(),
                         baseKey(v.getClass().getSimpleName(), id),
                         this.qualifier);
-//                command = this.findCommandFrom(v.getContext(), baseKey(v.getClass().getSimpleName(), id));
             }
         }
 
