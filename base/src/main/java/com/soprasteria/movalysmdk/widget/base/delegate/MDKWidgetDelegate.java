@@ -59,7 +59,7 @@ public class MDKWidgetDelegate implements MDKWidget {
 
 
     /**
-     * Constructor
+     * Constructor.
      * @param view the view
      * @param attrs the parameters set
      */
@@ -112,7 +112,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     // TODO explain why
 
     /**
-     * find the root view
+     * Find the root view.
      * @param useRootIdForError use id for error
      * @return oView the root view
      */
@@ -138,7 +138,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * get root match parent
+     * Get root match parent.
      * @param parent the parent
      * @return View the matched parent
      */
@@ -154,7 +154,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * set error
+     * Set error.
      * @param error the new error
      */
     public void setError(CharSequence error) {
@@ -163,7 +163,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * set mdk error widget
+     * Set mdk error widget.
      * @param mdkErrorWidget the error widget
      * @param error the error
      */
@@ -181,7 +181,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * set error
+     * Set error.
      * @param error the error to set
      */
     public void setMDKError(MDKError error) {
@@ -265,10 +265,19 @@ public class MDKWidgetDelegate implements MDKWidget {
         // nothing here
     }
 
+    /**
+     * Get state length.
+     * @param extraSpace extra space
+     * @return length the state length
+     */
     public int getStateLength(int extraSpace) {
         return extraSpace + ADDED_MDK_STATE;
     }
 
+    /**
+     * Get widget state.
+     * @return the widget state
+     */
     public int[] getWidgetState() {
         int[] state;
 
@@ -289,12 +298,20 @@ public class MDKWidgetDelegate implements MDKWidget {
         return state;
     }
 
+    /**
+     * Call rich selector.
+     * @param state the state
+     */
     public void callRichSelector(int[] state) {
         for (RichSelector selector: this.richSelectors) {
             selector.onStateChange(state, this.weakView.get());
         }
     }
 
+    /**
+     * Set the valid paramter.
+     * @param valid valid
+     */
     public void setValid(boolean valid) {
         this.valid = valid;
         View v = this.weakView.get();
@@ -303,6 +320,10 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
     }
 
+    /**
+     * Get the label.
+     * @return CharSequence the label
+     */
     public CharSequence getLabel() {
         View rootView = this.findRootView(false);
         if (rootView != null) {
@@ -317,6 +338,10 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
     }
 
+    /**
+     * Set the label.
+     * @param label the new label
+     */
     public void setLabel(CharSequence label) {
         View rootView = this.findRootView(false);
         if (rootView != null) {
@@ -333,7 +358,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Return the base key name for the specified parameters
+     * Return the base key name for the specified parameters.
      * @param widgetClassName the simple name class of the widget
      * @return the base key associated with the parameters
      */
@@ -349,7 +374,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Returns the validator to use based on the context of the delegate
+     * Returns the validator to use based on the context of the delegate.
      * (component, qualifier)
      * @return rValidator the result
      */
@@ -375,6 +400,11 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
 
+    /**
+     * Play the animation if it is visible.
+     * @param labelTextView the label testView
+     * @param visibility the visibility
+     */
     private void playAnimIfVisible(TextView labelTextView, int visibility) {
         Animation anim = null;
         if (visibility == View.VISIBLE) {
@@ -392,7 +422,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Play the animation if necessary
+     * Play the animation if necessary.
      * @param labelTextView the label textview
      * @param visibility the visibility
      * @param playAnim the play anim toggle
@@ -409,7 +439,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Sets the floating label visibility, and play the showFloatingLabelAnim
+     * Sets the floating label visibility, and play the showFloatingLabelAnim.
      * or hideFloatingLabelAnim if asked
      * @param visibility the visibility
      * @param playAnim the play anim toggle
@@ -427,7 +457,7 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      *
-     * @param superState the super state
+     * @param superState the super state.
      * @return mdkWidgetDelegateSavedState mdkWidgetDelegateSavedState
      */
     public Parcelable onSaveInstanceState(Parcelable superState) {
@@ -455,7 +485,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     *
+     * onRestoreInstanceState method.
      * @param view the view
      * @param state the state
      * @return Parcelable the state

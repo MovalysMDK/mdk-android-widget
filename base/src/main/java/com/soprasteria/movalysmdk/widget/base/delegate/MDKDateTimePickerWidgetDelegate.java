@@ -28,48 +28,48 @@ import java.util.Date;
  */
 public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a date picker */
+    /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a date picker. */
     private static final String DATE_PICKER_MODE = "date";
-    /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker */
+    /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker. */
     private static final String TIME_PICKER_MODE = "time";
 
     private static final String NULL_DATE_TEXT = "--/--/----";
     private static final String NULL_TIME_TEXT = "--:--";
 
-    /** MDKDateTime active mode enumeration */
+    /** MDKDateTime active mode enumeration. */
     public enum DateTimePickerMode {
         DATE_PICKER,
         TIME_PICKER,
         DATE_TIME_PICKER,
     }
 
-    /** Mode in which the widget is */
+    /** Mode in which the widget is. */
     private DateTimePickerMode dateTimePickerMode;
-    /** ID of the date TextView */
+    /** ID of the date TextView. */
     private int dateViewId;
-    /** ID of the time TextView */
+    /** ID of the time TextView. */
     private int timeViewId;
-    /** Cached reference of the date view */
+    /** Cached reference of the date view. */
     private WeakReference<View> cachedDateView;
-    /** Cached reference of the time view */
+    /** Cached reference of the time view. */
     private WeakReference<View> cachedTimeView;
 
-    /** Date currently displayed */
+    /** Date currently displayed. */
     private Date displayedDate;
-    /** Time currently displayed */
+    /** Time currently displayed. */
     private Date displayedTime;
-    /** Formatter used to display the date */
+    /** Formatter used to display the date. */
     private DateFormat dateFormatter;
-    /** Formatter used to display the time */
+    /** Formatter used to display the time. */
     private DateFormat timeFormatter;
-    /** If true, the time input is in 24H format */
+    /** If true, the time input is in 24H format. */
     private boolean is24HourFormat;
-    /** String used when the date is null */
+    /** String used when the date is null. */
     private String nullDateText = NULL_DATE_TEXT;
-    /** String used when the time is null */
+    /** String used when the time is null. */
     private String nullTimeText = NULL_TIME_TEXT;
 
-    /** True if the component is enabled */
+    /** True if the component is enabled. */
     private boolean enabled = true;
 
     /**
