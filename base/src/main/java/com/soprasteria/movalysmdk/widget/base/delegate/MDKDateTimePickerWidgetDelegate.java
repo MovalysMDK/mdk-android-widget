@@ -73,7 +73,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private boolean enabled = true;
 
     /**
-     * Constructor
+     * Constructor.
      * @param view
      * @param attrs
      */
@@ -148,7 +148,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Updates the date and time views
+     * Updates the date and time views.
      */
     private void updateShownDateTime() {
         if (dateViewId != 0) {
@@ -190,7 +190,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Handles the click on the date view or the time view in order to show the right dialog
+     * Handles the click on the date view or the time view in order to show the right dialog.
      * @param view
      */
     @Override
@@ -228,7 +228,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Callback in order to retrieve the selected date from the dialog
+     * Callback in order to retrieve the selected date from the dialog.
      * @param view
      * @param year
      * @param monthOfYear
@@ -247,7 +247,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Callback in order to retrieve the selected time from the dialog
+     * Callback in order to retrieve the selected time from the dialog.
      * @param view
      * @param hourOfDay
      * @param minute
@@ -264,7 +264,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Returns the date TextView, if it exists
+     * Returns the date TextView, if it exists.
      * @return
      */
     private TextView getDateTextView() {
@@ -290,7 +290,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Returns the time TextView, if it exists
+     * Returns the time TextView, if it exists.
      * @return
      */
     private TextView getTimeTextView() {
@@ -316,7 +316,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Sets the Date displayed by the widget
+     * Sets the Date displayed by the widget.
      * @param date
      */
     public void setDisplayedDate(Date date) {
@@ -324,14 +324,14 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Returns the Date displayed by the widget
+     * Returns the Date displayed by the widget.
      */
     public Date getDisplayedDate() {
         return (Date) this.displayedDate.clone();
     }
 
     /**
-     * Sets the Time displayed by the widget
+     * Sets the Time displayed by the widget.
      * @param time
      */
     public void setDisplayedTime(Date time) {
@@ -339,7 +339,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
-     * Returns the Time displayed by the widget
+     * Returns the Time displayed by the widget.
      * @return
      */
     public Date getDisplayedTime() {
