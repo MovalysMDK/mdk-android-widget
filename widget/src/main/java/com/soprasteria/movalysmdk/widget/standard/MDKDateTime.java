@@ -146,7 +146,7 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget
 
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.setUseRootIdOnlyForError(useRootIdOnlyForError);
+        this.mdkDateTimePickerWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override
