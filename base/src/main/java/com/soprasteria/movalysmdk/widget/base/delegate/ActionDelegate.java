@@ -29,19 +29,36 @@ public class ActionDelegate {
     private final String qualifier;
 
 
-
+    /**
+     * Constructor
+     * @param view view
+     * @param attrs attributes
+     */
     public ActionDelegate(View view, AttributeSet attrs) {
 
         this(view, attrs, null);
 
     }
 
+    /**
+     * Constructor
+     * @param view view
+     * @param attrs attributes
+     * @param primaryCommandClass command class
+     */
     public ActionDelegate(View view, AttributeSet attrs, Class<? extends Command> primaryCommandClass) {
 
         this(view, attrs, primaryCommandClass, null);
 
     }
 
+    /**
+     * Constructor
+     * @param view view
+     * @param attrs attributes
+     * @param primaryCommandClass primary command class
+     * @param secondaryCommandClass secondary command class
+     */
     public ActionDelegate(View view, AttributeSet attrs, Class<? extends Command> primaryCommandClass, Class<? extends Command> secondaryCommandClass) {
 
         this.weakView = new WeakReference<View>(view);

@@ -5,18 +5,28 @@ import android.content.Context;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  */
 public class DateTimeValidator implements IFormFieldValidator<Date> {
 
+    /**
+     *
+     */
     public static final int ERROR_MANDATORY=0;
 
     protected final Context context;
     protected final int mandatoryErrorId;
 
+    /**
+     * Constructor
+     * @param context android context
+     */
     public DateTimeValidator(Context context) {
 
         this.context = context;
