@@ -5,11 +5,11 @@ package com.soprasteria.movalysmdk.widget.core.command;
  *
  * should be implemented by all command in components
  */
-public interface Command<IN, OUT> {
+public interface Command<T, V> {
     /**
      * execute the concrete command
      * @param params parameters for the command
      * @return return of the command
      */
-    OUT execute(IN... params);
+    V execute(T... params);
 }

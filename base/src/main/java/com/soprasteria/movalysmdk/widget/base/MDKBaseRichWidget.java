@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -16,8 +15,6 @@ import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-
-import java.util.List;
 
 /**
  * Base class for rich mdk widgets.
@@ -146,7 +143,13 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         return this.innerWidget;
     }
 
-    public int getResHintId() { return this.resHintId; }
+    /**
+     * Return resource's hint id
+     * @return
+     */
+    public int getResHintId() {
+        return this.resHintId;
+    }
 
     @Override
     public void setMDKError(MDKError error) {

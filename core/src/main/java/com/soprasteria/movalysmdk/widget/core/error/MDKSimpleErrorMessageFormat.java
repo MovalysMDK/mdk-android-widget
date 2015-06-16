@@ -7,13 +7,15 @@ public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
 
     public CharSequence textFormatter(boolean centralizedError, MDKError error) {
 
-       CharSequence formattedMessage = error.getErrorMessage();
+        CharSequence formattedMessage = error.getErrorMessage();
 
-       if (centralizedError){
-           return error.getComponentLabelName()+": "+formattedMessage;
-       }else
-           return formattedMessage;
+        if (centralizedError) {
+            return error.getComponentLabelName() + ": " + formattedMessage;
+        }
+
+        return formattedMessage;
     }
+
 }
 
 

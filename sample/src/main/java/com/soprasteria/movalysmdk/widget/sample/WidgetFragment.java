@@ -17,6 +17,8 @@ import android.widget.ListAdapter;
 
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
 
+import java.util.logging.Logger;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -28,6 +30,15 @@ import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
  */
 public class WidgetFragment extends Fragment implements AbsListView.OnItemClickListener {
 
+    /**
+     * Log manager and formatter
+     */
+    private static final Logger LOGGER = Logger.getLogger(
+            Thread.currentThread().getStackTrace()[0].getClassName() );
+
+    /**
+     * Listener on fragment
+     */
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -64,9 +75,9 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
 
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(LOGGER.getLevel(), e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(LOGGER.getLevel(), e.getMessage());
         }
 
         mAdapter = new ArrayAdapter<WidgetContent.WidgetItem>(getActivity(),
@@ -89,13 +100,14 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Activity activity) throws ClassCastException {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            LOGGER.info(activity.toString()
                     + " must implement OnFragmentInteractionListener");
+            throw new ClassCastException();
         }
     }
 

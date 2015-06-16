@@ -23,12 +23,12 @@ public class EmailCommand implements Command<Email, Void> {
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
 
         Email currentMail = email[0];
-        mailIntent.putExtra(Intent.EXTRA_EMAIL  , currentMail.to);
-        mailIntent.putExtra(android.content.Intent.EXTRA_CC, currentMail.cc);
-        mailIntent.putExtra(android.content.Intent.EXTRA_BCC, currentMail.bcc);
+        mailIntent.putExtra(Intent.EXTRA_EMAIL  , currentMail.getTo());
+        mailIntent.putExtra(android.content.Intent.EXTRA_CC, currentMail.getCc());
+        mailIntent.putExtra(android.content.Intent.EXTRA_BCC, currentMail.getBcc());
 
-        mailIntent.putExtra(Intent.EXTRA_SUBJECT, currentMail.subject);
-        mailIntent.putExtra(Intent.EXTRA_TEXT, currentMail.body);
+        mailIntent.putExtra(Intent.EXTRA_SUBJECT, currentMail.getSubject());
+        mailIntent.putExtra(Intent.EXTRA_TEXT, currentMail.getBody());
 
         mailIntent.setType("plain/text");
 

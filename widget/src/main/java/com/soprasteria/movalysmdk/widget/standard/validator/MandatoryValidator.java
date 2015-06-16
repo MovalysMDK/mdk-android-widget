@@ -6,11 +6,12 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 /**
+ * class MandatoryValidator
  * Created by abelliard on 11/06/2015.
  */
 public class MandatoryValidator implements IFormFieldValidator<String> {
 
-    public static int ERROR_MANDATORY=0;
+    private static final int ERROR_MANDATORY=0;
 
     protected final Context context;
     protected final int mandatoryErrorId;
@@ -22,8 +23,8 @@ public class MandatoryValidator implements IFormFieldValidator<String> {
     }
 
     /**
-     * return the associated context
-     * @return
+     *
+     * @return  MDKError mdkError
      */
     public Context getContext() {
         return this.context;
@@ -40,5 +41,13 @@ public class MandatoryValidator implements IFormFieldValidator<String> {
             mdkError.setErrorMessage(error);
         }
         return mdkError;
+    }
+
+    public static int getErrorMandatory() {
+        return ERROR_MANDATORY;
+    }
+
+    public int getMandatoryErrorId() {
+        return mandatoryErrorId;
     }
 }
