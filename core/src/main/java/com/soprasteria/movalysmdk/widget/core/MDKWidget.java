@@ -1,7 +1,5 @@
 package com.soprasteria.movalysmdk.widget.core;
 
-import android.os.Parcelable;
-
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**

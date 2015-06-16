@@ -2,7 +2,6 @@ package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -133,8 +132,7 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     }
 
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        InputConnection inputConnection = getInnerWidget().onCreateInputConnection(outAttrs);
-        return inputConnection;
+        return getInnerWidget().onCreateInputConnection(outAttrs);
     }
 
     @Override

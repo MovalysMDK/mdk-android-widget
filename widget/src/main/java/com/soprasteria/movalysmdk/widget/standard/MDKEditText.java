@@ -33,14 +33,14 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
     /** The MDKWidgetDelegate handling the component logic */
-    protected MDKWidgetDelegate MDKWidgetDelegate;
+    protected MDKWidgetDelegate mdkWidgetDelegate;
 
     private int oldTextLength;
 
     /**
      * Constructor
-     * @param context
-     * @param attrs
+     * @param context the context
+     * @param attrs attributes set
      */
     public MDKEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,9 +51,9 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     /**
      * Constructor
-     * @param context
-     * @param attrs
-     * @param style
+     * @param context the context
+     * @param attrs attributes set
+     * @param style the style
      */
     public MDKEditText(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
@@ -64,8 +64,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     /**
      * Instantiate the MDKWidgetDelegate
-     * @param context
-     * @param attrs
+     * @param context the context
+     * @param attrs attributes set
      */
     private final void init(Context context, AttributeSet attrs) {
 
@@ -78,46 +78,46 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         }
         typedArray.recycle();
 
-        this.MDKWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
     }
 
     @Override
     public int getUniqueId() {
-        return this.MDKWidgetDelegate.getUniqueId();
+        return this.mdkWidgetDelegate.getUniqueId();
     }
 
     @Override
     public void setUniqueId(int parentId) {
-        this.MDKWidgetDelegate.setUniqueId(parentId);
+        this.mdkWidgetDelegate.setUniqueId(parentId);
     }
 
     public void setRootId(int rootId) {
-        this.MDKWidgetDelegate.setRootId(rootId);
+        this.mdkWidgetDelegate.setRootId(rootId);
     }
 
     @Override
     public void setError(CharSequence error) {
-        this.MDKWidgetDelegate.setError(error);
+        this.mdkWidgetDelegate.setError(error);
     }
 
     @Override
     public void setMDKError(MDKError error) {
-        this.MDKWidgetDelegate.setMDKError(error);
+        this.mdkWidgetDelegate.setMDKError(error);
     }
 
     @Override
     public void setMandatory(boolean mandatory) {
-        this.MDKWidgetDelegate.setMandatory(mandatory);
+        this.mdkWidgetDelegate.setMandatory(mandatory);
     }
 
     @Override
     public boolean isMandatory() {
-        return this.MDKWidgetDelegate.isMandatory();
+        return this.mdkWidgetDelegate.isMandatory();
     }
 
     @Override
     public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this.MDKWidgetDelegate;
+        return this.mdkWidgetDelegate;
     }
 
     /**
@@ -135,7 +135,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
         // Hide the label
         if (this.getText().length() == 0) {
-            this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
+            this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
         }
     }
 
@@ -156,11 +156,11 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         int textLength = text.length();
 
         // Prevent early calls
-        if (this.MDKWidgetDelegate != null) {
+        if (this.mdkWidgetDelegate != null) {
             if (textLength > 0 && oldTextLength == 0) {
-                this.MDKWidgetDelegate.setLabelVisibility(View.VISIBLE, true);
+                this.mdkWidgetDelegate.setLabelVisibility(View.VISIBLE, true);
             } else if (textLength == 0 && oldTextLength > 0) {
-                this.MDKWidgetDelegate.setLabelVisibility(View.INVISIBLE, true);
+                this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, true);
             }
         }
         oldTextLength = textLength;
@@ -168,29 +168,29 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     @Override
     public void setLabelId(int labelId) {
-        this.MDKWidgetDelegate.setLabelId(labelId);
+        this.mdkWidgetDelegate.setLabelId(labelId);
     }
 
     @Override
     public void setHelperId(int helperId) {
-        this.MDKWidgetDelegate.setHelperId(helperId);
+        this.mdkWidgetDelegate.setHelperId(helperId);
     }
 
     @Override
     public void setErrorId(int errorId) {
-        this.MDKWidgetDelegate.setErrorId(errorId);
+        this.mdkWidgetDelegate.setErrorId(errorId);
     }
 
 
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.MDKWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override
     public IFormFieldValidator getValidator() {
 
-        return this.MDKWidgetDelegate.getValidator();
+        return this.mdkWidgetDelegate.getValidator();
     }
 
     @Override
@@ -201,7 +201,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
         if (rValidator != null) {
 
-            MDKError error = this.getValidator().validate(this.getText().toString(), this.MDKWidgetDelegate.isMandatory());
+            MDKError error = this.getValidator().validate(this.getText().toString(), this.mdkWidgetDelegate.isMandatory());
             this.setMDKError(error);
             if (error!=null) {
                 bValid = false;
@@ -217,12 +217,12 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     @Override
     public CharSequence getLabel() {
-        return this.MDKWidgetDelegate.getLabel();
+        return this.mdkWidgetDelegate.getLabel();
     }
 
     @Override
     public void setLabel(CharSequence label) {
-        this.MDKWidgetDelegate.setLabel(label);
+        this.mdkWidgetDelegate.setLabel(label);
     }
 
     @Override
@@ -251,7 +251,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         // Save the android view instance state
         Parcelable state = super.onSaveInstanceState();
         // Save the MDKWidgetDelegate instance state
-        state = this.MDKWidgetDelegate.onSaveInstanceState(state);
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
 
         return state;
     }
@@ -260,7 +260,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     public void onRestoreInstanceState(Parcelable state) {
 
         // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.MDKWidgetDelegate.onRestoreInstanceState(this, state);
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
     }

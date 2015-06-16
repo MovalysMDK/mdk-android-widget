@@ -7,11 +7,6 @@ import android.app.Application;
  */
 public class MyApp extends Application /*implements MDKWidgetApplication*/ {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
     /*@Override
     public MDKWidgetComponentProvider getMDKWidgetComponentProvider() {
         return new MDKWidgetSimpleComponentProvider();

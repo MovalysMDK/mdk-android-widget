@@ -2,7 +2,6 @@ package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;

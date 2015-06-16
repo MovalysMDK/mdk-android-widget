@@ -22,10 +22,17 @@ public class WidgetContent {
     }
 
     /**
+     * private constructor
+     */
+    private WidgetContent() {
+
+    }
+
+    /**
      * A dummy item representing a piece of content.
      */
     public static class WidgetItem {
-        public String content;
+        private String content;
         public Class<? extends Activity> activityClass;
 
         public WidgetItem(String content, Class<? extends Activity> activityToLaunch) {
@@ -36,6 +43,14 @@ public class WidgetContent {
         @Override
         public String toString() {
             return content;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
         }
     }
 }

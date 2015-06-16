@@ -11,7 +11,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 public class SimpleMandatoryRichSelector implements RichSelector {
 
     // TODO search string in RES
-    private final String MANDATORY_CHAR = " (*)";
+    private static final String MANDATORY_CHAR = " (*)";
 
     @Override
     public void onStateChange(int[] state, View v) {

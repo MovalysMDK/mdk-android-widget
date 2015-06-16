@@ -1,13 +1,13 @@
 package com.soprasteria.movalysmdk.widget.core.error;
 
-import java.lang.ref.WeakReference;
 
 /**
+ * MDKError class definition
  * Created by gestionnaire on 11/06/2015.
  */
 public class MDKError {
 
-    public static int NO_ERROR_CODE = -1;
+    public static final int NO_ERROR_CODE = -1;
 
     /** Id of the component raising the error. This one is set according:
      * - If the component is inside a rich one

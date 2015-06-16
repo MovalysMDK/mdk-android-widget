@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * MDKWidgetDelegate class definition
  * Created by abelliard on 05/06/2015.
  */
 public class MDKWidgetDelegate implements MDKWidget {
@@ -59,8 +60,8 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      * Constructor
-     * @param view
-     * @param attrs
+     * @param view the view
+     * @param attrs the parameters set
      */
     public MDKWidgetDelegate(View view, AttributeSet attrs) {
         
@@ -110,25 +111,24 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     // TODO explain why
     public View findRootView(boolean useRootIdForError) {
+        View oView = null;
         View v = this.weakView.get();
         if (v != null) {
             if (!useRootIdForError) {
-                if (this.rootId == 0
-                        || (this.rootId != 0 && this.useRootIdOnlyForError) ) {
-                    return (View) v.getParent();
+                if (this.rootId == 0 || this.useRootIdOnlyForError ) {
+                    oView = (View) v.getParent();
                 } else {
-                    return getMatchRootParent((View) v.getParent());
+                    oView = getMatchRootParent((View) v.getParent());
                 }
             } else {
                 if (this.useRootIdOnlyForError || this.rootId != 0) {
-                    return getMatchRootParent((View) v.getParent());
+                    oView = getMatchRootParent((View) v.getParent());
                 } else {
-                    return (View) v.getParent();
+                    oView = (View) v.getParent();
                 }
             }
-        } else {
-            return null;
         }
+        return oView;
     }
 
     private View getMatchRootParent(View parent) {
@@ -147,22 +147,27 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.setMDKError(mdkError);
     }
 
+    private void setMdkErrorWidget(MDKErrorWidget mdkErrorWidget, MDKError error) {
+        View v = this.weakView.get();
+        if (v instanceof MDKWidget) {
+            if (error == null) {
+                (mdkErrorWidget).clear(((MDKWidget) v).getUniqueId());
+            } else {
+                error.setComponentId(((MDKWidget) v).getUniqueId());
+                error.setComponentLabelName(this.getLabel());
+                (mdkErrorWidget).addError(((MDKWidget) v).getUniqueId(), error);
+            }
+        }
+    }
+
     public void setMDKError(MDKError error) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
             TextView errorView = (TextView) rootView.findViewById(this.errorId);
-            if (errorView != null && errorView instanceof MDKErrorWidget) {
-                View v = this.weakView.get();
-                if (v != null && v instanceof MDKWidget) {
-                    if (error == null) {
-                        ((MDKErrorWidget) errorView).clear(((MDKWidget) v).getUniqueId());
-                    } else {
-                        error.setComponentId(((MDKWidget) v).getUniqueId());
-                        error.setComponentLabelName(this.getLabel());
-                        ((MDKErrorWidget) errorView).addError(((MDKWidget) v).getUniqueId(), error);
-                    }
-                }
-            } else if (errorView != null){
+            if (errorView instanceof MDKErrorWidget){
+                setMdkErrorWidget((MDKErrorWidget) errorView, error);
+            }
+            else {
                 if (error != null) {
                     errorView.setText(error.getErrorMessage());
                 }
@@ -172,11 +177,8 @@ public class MDKWidgetDelegate implements MDKWidget {
             }
         }
 
-        if (error != null) {
-            this.error = true;
-        } else {
-            this.error = false;
-        }
+        this.error = (error != null);
+
         View v = this.weakView.get();
         if (v != null) {
             v.refreshDrawableState();
@@ -249,7 +251,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     public int[] getWidgetState() {
-        int[] state = null;
+        int[] state;
 
         if (this.valid && this.mandatory) {
             state = MANDATORY_VALID_STATE;
@@ -318,7 +320,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Nullable
     private String validatorBaseKey(String widgetClassName) {
-        StringBuffer baseKey = new StringBuffer();
+        StringBuilder baseKey = new StringBuilder();
 
         baseKey.append(widgetClassName.toLowerCase());
 
@@ -330,7 +332,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     /**
      * Returns the validator to use based on the context of the delegate
      * (component, qualifier)
-     * @return
+     * @return rValidator the result
      */
     public IFormFieldValidator getValidator() {
         IFormFieldValidator rValidator = null;
@@ -354,10 +356,39 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
+     * Play the animation if necessary
+     * @param labelTextView the label textview
+     * @param visibility the visibility
+     * @param playAnim the play anim toggle
+     */
+    private void playAnimIfNecessary(TextView labelTextView, int visibility, boolean playAnim) {
+        if(labelTextView != null) {
+            // Set visibility
+            labelTextView.setVisibility(visibility);
+            // Play animation
+            if (playAnim) {
+                Animation anim = null;
+                if (visibility == View.VISIBLE) {
+                    if (this.showFloatingLabelAnimId != 0) {
+                        anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.showFloatingLabelAnimId);
+                    }
+                } else {
+                    if (this.hideFloatingLabelAnimId != 0) {
+                        anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.hideFloatingLabelAnimId);
+                    }
+                }
+                if (anim != null) {
+                    labelTextView.startAnimation(anim);
+                }
+            }
+        }
+    }
+
+    /**
      * Sets the floating label visibility, and play the showFloatingLabelAnim
      * or hideFloatingLabelAnim if asked
-     * @param visibility
-     * @param playAnim
+     * @param visibility the visibility
+     * @param playAnim the play anim toggle
      */
     public void setLabelVisibility(int visibility, boolean playAnim){
 
@@ -365,33 +396,14 @@ public class MDKWidgetDelegate implements MDKWidget {
             View rootView = this.findRootView(true);
             if (rootView != null) {
                 TextView labelView = (TextView) rootView.findViewById(this.labelId);
-                if(labelView != null) {
-                    // Set visibility
-                    labelView.setVisibility(visibility);
-                    // Play animation
-                    if (playAnim) {
-                        Animation anim = null;
-                        if (visibility == View.VISIBLE) {
-                            if (this.showFloatingLabelAnimId != 0) {
-                                anim = AnimationUtils.loadAnimation(labelView.getContext(), this.showFloatingLabelAnimId);
-                            }
-                        } else {
-                            if (this.hideFloatingLabelAnimId != 0) {
-                                anim = AnimationUtils.loadAnimation(labelView.getContext(), this.hideFloatingLabelAnimId);
-                            }
-                        }
-                        if (anim != null) {
-                            labelView.startAnimation(anim);
-                        }
-                    }
-                }
+                playAnimIfNecessary(labelView, visibility, playAnim);
             }
         }
     }
 
     /**
      *
-     * @return
+     * @return mdkWidgetDelegateSavedState
      */
     public Parcelable onSaveInstanceState(Parcelable superState) {
 
@@ -419,7 +431,9 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      *
-     * @param state
+     * @param view the view
+     * @param state the state
+     * @return Parcelable the state
      */
     public Parcelable onRestoreInstanceState(View view, Parcelable state) {
 

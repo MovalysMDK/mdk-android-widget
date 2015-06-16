@@ -32,7 +32,9 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     }
 
     @Override
-    public void setInputType(int type) {this.getInnerWidget().setInputType(type); }
+    public void setInputType(int type) {
+        this.getInnerWidget().setInputType(type);
+    }
 
     @Override
     public IFormFieldValidator getValidator() {
@@ -40,7 +42,6 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     }
 
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        InputConnection inputConnection = getInnerWidget().onCreateInputConnection(outAttrs);
-        return inputConnection;
+        return getInnerWidget().onCreateInputConnection(outAttrs);
     }
 }

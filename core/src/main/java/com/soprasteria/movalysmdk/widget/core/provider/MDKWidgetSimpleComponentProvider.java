@@ -23,6 +23,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
     private static final String TAG = "MDKProvider";
     private static final String MDK_ERROR_MESSAGE_FORMAT_KEY = "mdk_error_message_format";
+    private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
     /**
      * Create a Command instance from the specified key and attribute
@@ -45,7 +46,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             Constructor constructor = commandClass.getConstructor(Context.class);
             command = (Command) constructor.newInstance(context);
         } catch (Exception e) {
-            Log.e(TAG, "could not instanciate class : \"" + classPath + "\"", e);
+            Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }
 
         return command;
@@ -124,7 +125,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             } catch (Exception e) {
 
                 // Log the error
-                Log.e(TAG, "could not instanciate class : \"" + classPath + "\"", e);
+                Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
 
                 // In case of a wrong classpath or non existent class, fallback in default case
                 errorMessageFormat = new MDKSimpleErrorMessageFormat();
@@ -150,7 +151,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             Constructor constructor = validatorClass.getConstructor(Context.class);
             validator = (IFormFieldValidator) constructor.newInstance(context);
         } catch (Exception e) {
-            Log.e(TAG, "could not instanciate class : \"" + classPath + "\"", e);
+            Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }
 
         return validator;

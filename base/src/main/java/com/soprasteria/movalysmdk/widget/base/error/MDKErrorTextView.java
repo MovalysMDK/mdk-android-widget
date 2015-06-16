@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.util.SparseArray;
-import android.view.View;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.R;
@@ -147,7 +146,6 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         if (this.displayErrorOrderArrayList == null) {
             for(int currentComponentId = 0; currentComponentId < errorSparseArray.size(); currentComponentId++) {
-                int key = errorSparseArray.keyAt(currentComponentId);
                 MDKError currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
                 sbErrorMessage = generateCurrentMessage(sbErrorMessage,
                                                         currentMDKError);
