@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.soprasteria.movalysmdk.widget.sample.DateActivity"
+    android:id="@+id/root"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="validate"
+        android:text="validate" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="enable"
+        android:text="enable/disable" />
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+
+    <!-- RichDateTime avec label sans hint -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date_case_1"/>
+
+    <com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime
+        android:id="@+id/rich_date_time_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:label="@string/app_name"
+        mdk:mandatory="true" />
+
+    <com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime
+        android:id="@+id/rich_date_time_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:label="@string/app_name" />
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+
+    <!-- RichDate -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date_case_2"/>
+
+    <com.soprasteria.movalysmdk.widget.standard.MDKRichDate
+        android:id="@+id/rich_date_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:label="@string/app_name"
+        mdk:mandatory="true" />
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+
+    <!-- RichTime -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date_case_3"/>
+
+    <com.soprasteria.movalysmdk.widget.standard.MDKRichTime
+        android:id="@+id/rich_time_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:label="@string/app_name"
+        mdk:mandatory="true" />
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+
+
+
+
+
+    <com.soprasteria.movalysmdk.widget.standard.MDKDateTime
+        android:id="@+id/date_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        mdk:mode="time"
+        mdk:mandatory="true"
+        mdk:errorId="@+id/errorText"
+        mdk:rootId="@id/root" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+</LinearLayout>

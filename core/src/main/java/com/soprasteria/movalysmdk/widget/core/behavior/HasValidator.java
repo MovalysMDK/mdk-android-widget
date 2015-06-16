@@ -16,7 +16,7 @@ public interface HasValidator {
     IFormFieldValidator getValidator();
 
     /**
-     * validate the widget
+     * Validate the widget
      * basically execute the validation on the validator
      * @return true if the wiget is valide, false otherwise
      */

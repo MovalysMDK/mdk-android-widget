@@ -123,7 +123,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
                 errorMessageFormat = (MDKErrorMessageFormat) constructor.newInstance();
             } catch (Exception e) {
 
-                // Print stacktrace
+                // Log the error
                 Log.e(TAG, "could not instanciate class : \"" + classPath + "\"", e);
 
                 // In case of a wrong classpath or non existent class, fallback in default case

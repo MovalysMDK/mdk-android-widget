@@ -12,6 +12,4 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         mdk:errorId="@id/component_error" />
-
-
 </merge>

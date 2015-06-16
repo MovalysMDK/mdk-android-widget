@@ -16,8 +16,6 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 /**
  * Represents an Edit Text conforming with the Material Design guidelines, and including by default the floating
  * label and the error component.
- *
- * Created by belamrani on 09/06/2015.
  */
 public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implements HasHint, HasValidator, HasText {
 

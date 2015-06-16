@@ -33,12 +33,17 @@
         <attr name="state_mandatory" format="boolean" />
     </declare-styleable>
 
+    <!-- MDKDateTime specific attributes-->
     <declare-styleable name="MDKCommons.MDKDateTimePickerComponent">
         <attr name="dateTextViewId" format="reference" />
         <attr name="timeTextViewId" format="reference" />
         <attr name="mode" format="string" />
         <attr name="dateFormat" format="string" />
         <attr name="timeFormat" format="string" />
+        <attr name="minDate" format="string" />
+        <attr name="maxDate" format="string" />
+        <attr name="minTime" format="string" />
+        <attr name="maxTime" format="string" />
     </declare-styleable>
 
 </resources>

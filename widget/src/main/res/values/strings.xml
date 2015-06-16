@@ -3,8 +3,8 @@
 
     <string name="email_chooser_label">Choose mail application</string>
     
-    <string name="mdk_email_error">invalide email value</string>
-    <string name="mdk_mandatory_error">must be filled</string>
+    <string name="mdk_email_error">Invalid email value</string>
+    <string name="mdk_mandatory_error">Must be filled</string>
 
     <!-- command string config -->
     <string name="mdkemail_primary_command_class">com.soprasteria.movalysmdk.widget.standard.command.EmailCommand</string>
@@ -12,6 +12,7 @@
     <!-- validator string config -->
     <string name="mdkemail_validator_class">com.soprasteria.movalysmdk.widget.standard.validator.EmailValidator</string>
     <string name="mdkedittext_validator_class">com.soprasteria.movalysmdk.widget.standard.validator.MandatoryValidator</string>
+    <string name="mdkdatetime_validator_class">com.soprasteria.movalysmdk.widget.standard.validator.DateTimeValidator</string>
 
     <!-- rich selector config -->
     <string-array name="mdkemail_richselector_classes">
