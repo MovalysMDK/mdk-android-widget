@@ -11,14 +11,21 @@ import java.util.List;
  * <p/>
  */
 public class WidgetContent {
-
     /**
      * An array of sample (dummy) items.
      */
-    public static List<WidgetItem> ITEMS = new ArrayList<WidgetItem>();
+    private static List<WidgetItem> ITEMS = new ArrayList<WidgetItem>();
 
     private static void addItem(WidgetItem item) {
         ITEMS.add(item);
+    }
+
+    public static List<WidgetItem> getITEMS() {
+        return ITEMS;
+    }
+
+    public static void setITEMS(List<WidgetItem> ITEMS) {
+        WidgetContent.ITEMS = ITEMS;
     }
 
     /**
@@ -33,7 +40,8 @@ public class WidgetContent {
      */
     public static class WidgetItem {
         private String content;
-        public Class<? extends Activity> activityClass;
+
+        protected Class<? extends Activity> activityClass;
 
         public WidgetItem(String content, Class<? extends Activity> activityToLaunch) {
             this.content = content;
@@ -51,6 +59,10 @@ public class WidgetContent {
 
         public void setContent(String content) {
             this.content = content;
+        }
+
+        public Class<? extends Activity> getActivityClass() {
+            return activityClass;
         }
     }
 }

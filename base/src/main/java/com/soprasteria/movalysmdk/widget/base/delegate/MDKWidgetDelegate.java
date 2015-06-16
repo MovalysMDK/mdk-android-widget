@@ -166,12 +166,10 @@ public class MDKWidgetDelegate implements MDKWidget {
             TextView errorView = (TextView) rootView.findViewById(this.errorId);
             if (errorView instanceof MDKErrorWidget){
                 setMdkErrorWidget((MDKErrorWidget) errorView, error);
-            }
-            else {
+            } else {
                 if (error != null) {
                     errorView.setText(error.getErrorMessage());
-                }
-                else {
+                } else {
                     errorView.setText("");
                 }
             }
@@ -355,6 +353,23 @@ public class MDKWidgetDelegate implements MDKWidget {
         return rValidator;
     }
 
+
+    private void playAnimIfVisible(TextView labelTextView, int visibility) {
+        Animation anim = null;
+        if (visibility == View.VISIBLE) {
+            if (this.showFloatingLabelAnimId != 0) {
+                anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.showFloatingLabelAnimId);
+            }
+        } else {
+            if (this.hideFloatingLabelAnimId != 0) {
+                anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.hideFloatingLabelAnimId);
+            }
+        }
+        if (anim != null) {
+            labelTextView.startAnimation(anim);
+        }
+    }
+
     /**
      * Play the animation if necessary
      * @param labelTextView the label textview
@@ -367,19 +382,7 @@ public class MDKWidgetDelegate implements MDKWidget {
             labelTextView.setVisibility(visibility);
             // Play animation
             if (playAnim) {
-                Animation anim = null;
-                if (visibility == View.VISIBLE) {
-                    if (this.showFloatingLabelAnimId != 0) {
-                        anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.showFloatingLabelAnimId);
-                    }
-                } else {
-                    if (this.hideFloatingLabelAnimId != 0) {
-                        anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.hideFloatingLabelAnimId);
-                    }
-                }
-                if (anim != null) {
-                    labelTextView.startAnimation(anim);
-                }
+                playAnimIfVisible(labelTextView, visibility);
             }
         }
     }

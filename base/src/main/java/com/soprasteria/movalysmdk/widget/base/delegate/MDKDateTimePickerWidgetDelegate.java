@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -12,14 +11,10 @@ import android.widget.TimePicker;
 
 import com.soprasteria.movalysmdk.widget.base.R;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -107,36 +102,31 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                 dateTimePickerMode = DateTimePickerMode.DATE_PICKER;
                 this.dateViewId = view.getId();
                 this.cachedDateView = new WeakReference<View>(view);
-            }
-            else if (modeAttr.equals(TIME_PICKER_MODE)) {
+            } else if (modeAttr.equals(TIME_PICKER_MODE)) {
                 dateTimePickerMode = DateTimePickerMode.TIME_PICKER;
                 this.timeViewId = view.getId();
                 this.cachedTimeView = new WeakReference<View>(view);
-            }
-            else {
+            } else {
                 // Default case : Date Picker
                 dateTimePickerMode = DateTimePickerMode.DATE_PICKER;
                 this.dateViewId = view.getId();
                 this.cachedDateView = new WeakReference<View>(view);
             }
-        }
-        else if (dateViewId != 0) {
+        } else if (dateViewId != 0) {
             // If a date view attribute has been set, we are in the case in which the master widget
             // handles the time, and the slave component handles the date.
             dateTimePickerMode = DateTimePickerMode.DATE_TIME_PICKER;
             // The current view is the time view
             timeViewId = view.getId();
             this.cachedTimeView = new WeakReference<View>(view);
-        }
-        else if (timeViewId != 0) {
+        } else if (timeViewId != 0) {
             // If a time view attribute has been set, we are in the case in which the master widget
             // handles the date, and the slave component handles the time.
             dateTimePickerMode = DateTimePickerMode.DATE_TIME_PICKER;
             // The current view is the date view
             dateViewId = view.getId();
             this.cachedDateView = new WeakReference<View>(view);
-        }
-        else {
+        } else {
             // Default case : Date Picker
             dateTimePickerMode = DateTimePickerMode.DATE_PICKER;
             this.dateViewId = view.getId();
@@ -146,14 +136,12 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         // Initialize currently selected date and date formatter
         if (dateFormatPattern != null) {
             this.dateFormatter = new SimpleDateFormat(dateFormatPattern);
-        }
-        else {
+        } else {
             this.dateFormatter = android.text.format.DateFormat.getDateFormat(view.getContext());
         }
         if (timeFormatPattern != null) {
             this.timeFormatter = new SimpleDateFormat(timeFormatPattern);
-        }
-        else {
+        } else {
             this.timeFormatter = android.text.format.DateFormat.getTimeFormat(view.getContext());
             this.is24HourFormat = android.text.format.DateFormat.is24HourFormat(view.getContext());
         }
@@ -167,8 +155,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             // Update date value
             if (displayedDate != null) {
                 getDateTextView().setText(this.dateFormatter.format(displayedDate));
-            }
-            else {
+            } else {
                 getDateTextView().setText(nullDateText);
             }
         }
@@ -176,8 +163,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             // Update time value
             if (displayedTime != null) {
                 getTimeTextView().setText(this.timeFormatter.format(displayedTime));
-            }
-            else {
+            } else {
                 getTimeTextView().setText(nullTimeText);
             }
         }
@@ -334,14 +320,14 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param date
      */
     public void setDisplayedDate(Date date) {
-        this.displayedDate = date;
+        this.displayedDate = (Date) date.clone();
     }
 
     /**
      * Returns the Date displayed by the widget
      */
     public Date getDisplayedDate() {
-        return this.displayedDate;
+        return (Date) this.displayedDate.clone();
     }
 
     /**
@@ -349,7 +335,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param time
      */
     public void setDisplayedTime(Date time) {
-        this.displayedTime = time;
+        this.displayedTime = (Date) time.clone();
     }
 
     /**
@@ -357,7 +343,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @return
      */
     public Date getDisplayedTime() {
-        return this.displayedTime;
+        return (Date) this.displayedTime.clone();
     }
 
     /** Returns the mode in which the widget is */

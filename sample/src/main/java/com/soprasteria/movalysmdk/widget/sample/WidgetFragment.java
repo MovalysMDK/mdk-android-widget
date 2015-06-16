@@ -70,18 +70,18 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
 
                 // load all class but main activity
                 if (!ai.name.equals(ListWidgetActivity.class.getName())) {
-                    WidgetContent.ITEMS.add(new WidgetContent.WidgetItem(ai.loadLabel(pm).toString(), (Class<? extends Activity>) Class.forName(ai.name)));
+                    WidgetContent.getITEMS().add(new WidgetContent.WidgetItem(ai.loadLabel(pm).toString(), (Class<? extends Activity>) Class.forName(ai.name)));
                 }
 
             }
         } catch (PackageManager.NameNotFoundException e) {
-            LOGGER.log(LOGGER.getLevel(), e.getMessage());
+            throw new RuntimeException("context", e);
         } catch (ClassNotFoundException e) {
-            LOGGER.log(LOGGER.getLevel(), e.getMessage());
+            throw new RuntimeException("context", e);
         }
 
         mAdapter = new ArrayAdapter<WidgetContent.WidgetItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, WidgetContent.ITEMS);
+                android.R.layout.simple_list_item_1, android.R.id.text1, WidgetContent.getITEMS());
     }
 
     @Override
@@ -107,7 +107,7 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
         } catch (ClassCastException e) {
             LOGGER.info(activity.toString()
                     + " must implement OnFragmentInteractionListener");
-            throw new ClassCastException();
+            throw e;
         }
     }
 
@@ -122,7 +122,7 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(WidgetContent.ITEMS.get(position).activityClass);
+            mListener.onFragmentInteraction(WidgetContent.getITEMS().get(position).getActivityClass());
         }
     }
 

@@ -1,10 +1,8 @@
 package com.soprasteria.movalysmdk.widget.standard;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
@@ -15,10 +13,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
-import com.soprasteria.movalysmdk.widget.standard.validator.DateTimeValidator;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**

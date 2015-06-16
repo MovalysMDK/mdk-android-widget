@@ -7,8 +7,6 @@ package com.soprasteria.movalysmdk.widget.core.error;
  */
 public class MDKError {
 
-    public static final int NO_ERROR_CODE = -1;
-
     /** Id of the component raising the error. This one is set according:
      * - If the component is inside a rich one
      * - If the component is a basic one */
@@ -19,6 +17,8 @@ public class MDKError {
 
     /** Error message raised by the component  */
     private CharSequence errorMessage = null;
+
+    public static final int NO_ERROR_CODE = -1;
 
     /** Error code defining which kind of error it is, for example,
      * it can be used later for apply text style */
