@@ -49,7 +49,7 @@ public class EmailTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // check error
-        onView(withId(R.id.errorText)).check(matches(withText("invalide email value")));
+        onView(withId(R.id.errorText)).check(matches(withText(R.string.mdk_email_error)));
     }
 
     @Test
