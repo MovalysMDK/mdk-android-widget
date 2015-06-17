@@ -14,23 +14,41 @@ import com.soprasteria.movalysmdk.widget.standard.MDKRichTime;
  */
 public class DateActivity extends AppCompatActivity {
 
-    // Declaration for a rich DateTime component
+    /**
+     * Declaration for a rich DateTime component
+     */
     private MDKRichDateTime datetime1;
-    // Declaration for a rich DateTime component
+
+    /**
+     * Declaration for a rich DateTime component
+     */
     private MDKRichDateTime datetime2;
-    // Declaration for a rich Date component
+
+    /**
+     * Declaration for a rich Date component
+     */
     private MDKRichDate date2;
-    // Declaration for a rich Time component
+
+    /**
+     * Declaration for a rich Time component
+     */
     private MDKRichTime time3;
-    // Declaration for a DateTime component
+
+    /**
+     * Declaration for a DateTime component
+     */
     private MDKDateTime date1;
 
+    /**
+     * onCreate method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
 
-        // Search for components into layout
+        /** Search for components into layout */
         this.datetime1 = (MDKRichDateTime)findViewById(R.id.rich_date_time_1);
         this.datetime2 = (MDKRichDateTime)findViewById(R.id.rich_date_time_2);
         this.date2 = (MDKRichDate)findViewById(R.id.rich_date_1);

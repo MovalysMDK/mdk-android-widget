@@ -6,15 +6,29 @@ package com.soprasteria.movalysmdk.widget.standard.model;
  */
 public class Email {
 
-    // to mail field
+    /**
+     * to mail field
+     */
     private String[] to = null;
-    // cc mail field
+
+    /**
+     * cc mail field
+     */
     private String[] cc = null;
-    // bcc mail field
+
+    /**
+     * bcc mail field
+     */
     private String[] bcc = null;
-    // Subject mail field
+
+    /**
+     * Subject mail field
+     */
     private String subject = null;
-    // Body of the mail
+    
+    /**
+     * Body of the mail
+     */
     private String body = null;
 
     /**
