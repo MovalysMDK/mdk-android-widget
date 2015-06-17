@@ -2,8 +2,9 @@ package com.soprasteria.movalysmdk.widget.core.command;
 
 /**
  * Command interface.
- *
- * should be implemented by all command in components
+ * Should be implemented by all command in components.
+ * @param <T> T
+ * @param <V> V
  */
 public interface Command<T, V> {
     /**

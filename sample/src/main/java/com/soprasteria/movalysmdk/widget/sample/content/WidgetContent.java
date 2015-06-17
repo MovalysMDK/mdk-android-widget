@@ -24,8 +24,8 @@ public class WidgetContent {
         return ITEMS;
     }
 
-    public static void setITEMS(List<WidgetItem> ITEMS) {
-        WidgetContent.ITEMS = ITEMS;
+    public static void setITEMS(List<WidgetItem> pItems) {
+        WidgetContent.ITEMS = pItems;
     }
 
     /**
