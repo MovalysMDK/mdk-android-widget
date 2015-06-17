@@ -244,7 +244,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     *  super on onCreateDrawableState (TextView)
+     *  super on onCreateDrawableState (TextView).
      * @param extraSpace extra space
      * @return the extra spaces
      */

@@ -74,10 +74,8 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
                 }
 
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            LOGGER.log(LOGGER.getLevel(), e.getMessage());
-        } catch (ClassNotFoundException e) {
-            LOGGER.log(LOGGER.getLevel(), e.getMessage());
+        } catch (Exception exception) {
+            LOGGER.log(LOGGER.getLevel(), exception.getMessage());
         }
 
         mAdapter = new ArrayAdapter<WidgetContent.WidgetItem>(getActivity(),

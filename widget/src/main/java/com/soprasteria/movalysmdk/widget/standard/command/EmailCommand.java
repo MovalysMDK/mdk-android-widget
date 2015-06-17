@@ -26,7 +26,7 @@ public class EmailCommand implements Command<Email, Void> {
     /**
      * Email launcher.
      * @param email email information
-     * @return
+     * @return null
      */
     @Override
     public Void execute(Email... email) {
