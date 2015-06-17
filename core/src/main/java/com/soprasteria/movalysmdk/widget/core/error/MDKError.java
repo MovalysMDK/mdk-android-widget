@@ -26,6 +26,13 @@ public class MDKError {
     private int errorCode = NO_ERROR_CODE;
 
     /**
+     * Default builder
+     */
+    public MDKError() {
+        //Nothing to do
+    }
+
+    /**
      * MDKError builder.
      * @param componentLabelName set the name of the component raising the error
      * @param errorMessage set the error message raised by the component
