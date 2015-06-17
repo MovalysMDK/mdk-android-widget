@@ -28,9 +28,9 @@ import com.soprasteria.movalysmdk.widget.standard.model.Email;
  */
 public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
-    /** ActionDelegate attribute */
+    /** ActionDelegate attribute. */
     protected ActionDelegate actionDelegate;
-    /** MDK Widget implementation */
+    /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
     /**
@@ -334,7 +334,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * super on OnSaveInstanceState
+     * super on OnSaveInstanceState.
      * @return onSaveInstanceState
      */
     @Override
@@ -343,7 +343,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * super on OnRestoreInstanceState
+     * super on OnRestoreInstanceState.
      * @param state the state
      */
     @Override
