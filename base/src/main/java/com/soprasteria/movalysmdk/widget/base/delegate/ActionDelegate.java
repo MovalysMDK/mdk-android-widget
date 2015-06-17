@@ -21,22 +21,22 @@ import java.lang.ref.WeakReference;
  */
 public class ActionDelegate {
 
-    /** primary command class */
+    /** primary command class. */
     private final Class<? extends Command> primaryActionCommandClass;
 
-    /** secondary command class */
+    /** secondary command class. */
     private final Class<? extends Command> secondaryActionCommandClass;
 
-    /** Weak reference on view */
+    /** Weak reference on view. */
     private final WeakReference<View> weakView;
 
-    /** Id of the primary action view */
+    /** Id of the primary action view. */
     private final int primaryActionViewId;
 
-    /** Id of the secondary action view */
+    /** Id of the secondary action view. */
     private final int secondaryActionViewId;
 
-    /** Attribute "Qualifier" of the component */
+    /** Attribute "Qualifier" of the component. */
     private final String qualifier;
 
     /**
@@ -152,7 +152,7 @@ public class ActionDelegate {
     }
 
     /**
-     * get action.
+     * Get action.
      * @param id the id
      * @return command the command action
      */
