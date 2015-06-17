@@ -16,10 +16,18 @@ public class WidgetContent {
      */
     private static List<WidgetItem> ITEMS = new ArrayList<WidgetItem>();
 
+    /**
+     * Getter.
+     * @return ITEMS item list
+     */
     public static List<WidgetItem> getITEMS() {
         return ITEMS;
     }
 
+    /**
+     * Setter.
+     * @param pItems item list
+     */
     public static void setITEMS(List<WidgetItem> pItems) {
         WidgetContent.ITEMS = pItems;
     }
@@ -35,8 +43,14 @@ public class WidgetContent {
      * A dummy item representing a piece of content.
      */
     public static class WidgetItem {
+        /**
+         * content.
+         */
         private String content;
 
+        /**
+         * class activity.
+         */
         protected Class<? extends Activity> activityClass;
 
         /**

@@ -17,7 +17,9 @@ public class DateTimeValidator implements IFormFieldValidator<Date> {
      */
     public static final int ERROR_MANDATORY=0;
 
+    /** The context. */
     protected final Context context;
+    /** Error id. */
     protected final int mandatoryErrorId;
 
     /**

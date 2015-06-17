@@ -46,8 +46,8 @@ public interface HasText {
      * Note that the maximum number of displayed lines (see setMaxLines(int))
      * will be modified if you change the TYPE_TEXT_FLAG_MULTI_LINE flag of the input type.
      *
-     * @param type the type
+     * @param pType the type
      */
-    void setInputType(int type);
+    void setInputType(int pType);
 
 }

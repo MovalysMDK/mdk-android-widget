@@ -85,7 +85,7 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
 
     /**
      * Sets the hint color of the inner EditText.
-     * @param colors the new color
+     * @param color the new color
      */
     public void setHintTextColor(int color) {
         this.getInnerWidget().setHintTextColor(color);

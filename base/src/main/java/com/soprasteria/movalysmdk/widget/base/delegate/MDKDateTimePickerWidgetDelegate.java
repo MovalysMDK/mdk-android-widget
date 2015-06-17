@@ -334,6 +334,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Returns the Date displayed by the widget.
+     * @return Date the date
      */
     public Date getDisplayedDate() {
         return (Date) this.displayedDate.clone();

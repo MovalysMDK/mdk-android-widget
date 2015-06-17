@@ -35,6 +35,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
+    /** oldTextLength. */
     private int oldTextLength;
 
     /**
@@ -91,6 +92,10 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         this.mdkWidgetDelegate.setUniqueId(parentId);
     }
 
+    /**
+     * Setter.
+     * @param rootId the id of a view
+     */
     public void setRootId(int rootId) {
         this.mdkWidgetDelegate.setRootId(rootId);
     }

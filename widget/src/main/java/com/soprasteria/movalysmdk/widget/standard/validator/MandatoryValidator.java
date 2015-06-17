@@ -11,9 +11,19 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
  */
 public class MandatoryValidator implements IFormFieldValidator<String> {
 
+    /**
+     * ERROR_MANDATORY.
+     */
     private static final int ERROR_MANDATORY=0;
 
+    /**
+     * The context.
+     */
     protected final Context context;
+
+    /**
+     * Error id.
+     */
     protected final int mandatoryErrorId;
 
     /**

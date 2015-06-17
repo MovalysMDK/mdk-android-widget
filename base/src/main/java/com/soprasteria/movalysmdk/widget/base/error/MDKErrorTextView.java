@@ -27,6 +27,9 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /** Array list of error Ids to display messages from first to last index. */
     List<Integer> displayErrorOrderArrayList;
+    /**
+     * HelperText.
+     */
     private CharSequence helperText;
 
     /**
@@ -91,6 +94,10 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     }
 
+    /**
+     * Setter.
+     * @param helper the new helper
+     */
     public void setHelper(CharSequence helper) {
         this.helperText = helper;
         updateErrorMessage();
@@ -221,7 +228,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Set true if Defined if the error component is inside a MDK rich one.
-     * @param centralizedError
+     * @param centralizedError centralizedError
      */
     public void setCentralizedError(boolean centralizedError) {
         this.centralizedError = centralizedError;

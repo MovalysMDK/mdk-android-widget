@@ -70,13 +70,13 @@ public interface MDKWidget {
 
     /**
      * Set unique id of the widget.
-     * @param parentId
+     * @param parentId the parent id
      */
     void setUniqueId(int parentId);
 
     /**
      * Get uniqueId of the widget.
-     * @return
+     * @return uniqueid the id
      */
     int getUniqueId();
 

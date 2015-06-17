@@ -12,7 +12,9 @@ import com.soprasteria.movalysmdk.widget.standard.MDKRichEditText;
  */
 public class EditTextActivity extends AppCompatActivity {
 
+    /** mdkRichEditText. */
     private MDKRichEditText mdkRichEditText;
+    /** erase button. */
     private Button bFillErase;
 
     @Override

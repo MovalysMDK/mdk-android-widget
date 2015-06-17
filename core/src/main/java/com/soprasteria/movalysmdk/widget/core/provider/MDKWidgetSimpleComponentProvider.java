@@ -21,8 +21,11 @@ import java.lang.reflect.Constructor;
  */
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
 
+    /** TAG. */
     private static final String TAG = "MDKProvider";
+    /** MDK_ERROR_MESSAGE_FORMAT_KEY. */
     private static final String MDK_ERROR_MESSAGE_FORMAT_KEY = "mdk_error_message_format";
+    /** MDK_ERROR_MESSAGE_NOT_INSTANCE. */
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
     /**
