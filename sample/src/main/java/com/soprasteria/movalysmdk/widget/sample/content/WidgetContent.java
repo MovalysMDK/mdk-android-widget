@@ -16,10 +16,6 @@ public class WidgetContent {
      */
     private static List<WidgetItem> ITEMS = new ArrayList<WidgetItem>();
 
-    private static void addItem(WidgetItem item) {
-        ITEMS.add(item);
-    }
-
     public static List<WidgetItem> getITEMS() {
         return ITEMS;
     }
