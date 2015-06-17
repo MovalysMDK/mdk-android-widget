@@ -700,7 +700,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
 
         /**
-         * Required field that makes Parcelables from a Parcel
+         * Required field that makes Parcelables from a Parcel.
          */
         public static final Parcelable.Creator<MDKWidgetDelegateSavedState> CREATOR =
                 new Parcelable.Creator<MDKWidgetDelegateSavedState>() {
