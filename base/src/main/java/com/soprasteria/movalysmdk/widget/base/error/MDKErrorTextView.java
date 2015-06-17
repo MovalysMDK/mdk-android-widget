@@ -63,8 +63,8 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Initialisation method.
-     * @param context
-     * @param attrs
+     * @param context the context
+     * @param attrs attributes
      */
     private void init(Context context, AttributeSet attrs) {
 
@@ -98,6 +98,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Add and the component and its associated error message to the current list of errors.
+     * @param componentId the component id
      * @param error MDKError object to add
      */
     public void addError(int componentId, MDKError error) {
