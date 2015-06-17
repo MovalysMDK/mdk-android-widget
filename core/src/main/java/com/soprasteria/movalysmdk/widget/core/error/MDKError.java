@@ -10,13 +10,13 @@ public class MDKError {
     /** Id of the component raising the error. This one is set according:
      * - If the component is inside a rich one
      * - If the component is a basic one */
-    private Integer componentId = null;
+    private Integer componentId;
 
     /** Name of the component raising the error.  */
-    private CharSequence componentLabelName = null;
+    private CharSequence componentLabelName;
 
     /** Error message raised by the component.  */
-    private CharSequence errorMessage = null;
+    private CharSequence errorMessage;
 
     public static final int NO_ERROR_CODE = -1;
 
@@ -25,7 +25,10 @@ public class MDKError {
     private int errorCode = NO_ERROR_CODE;
 
     public MDKError() {
-        //Nothing to do
+        this.componentLabelName = null;
+        this.errorMessage = null;
+        this.errorCode = NO_ERROR_CODE;
+        this.componentId = null;
     }
 
     /**
@@ -41,6 +44,7 @@ public class MDKError {
         this.componentLabelName = componentLabelName;
         this.errorMessage = errorMessage;
         this.errorCode = errorCode;
+        this.componentId = null;
     }
 
     /**
