@@ -18,15 +18,12 @@ public class MDKError {
     /** Error message raised by the component.  */
     private CharSequence errorMessage;
 
+    /** Error code number */
     public static final int NO_ERROR_CODE = -1;
 
     /** Error code defining which kind of error it is, for example,
      * it can be used later for apply text style. */
     private int errorCode = NO_ERROR_CODE;
-
-    public MDKError() {
-        //Nothing to do
-    }
 
     /**
      * MDKError builder.
@@ -48,15 +45,15 @@ public class MDKError {
      * @return componentId the component id
      */
     public int getComponentId() {
-        return new Integer(componentId);
+        return this.componentId;
     }
 
     /**
      * Setter.
      * @param componentId the new component id
      */
-    public void setComponentId(Integer componentId) {
-        this.componentId = new Integer(componentId);
+    public void setComponentId(int componentId) {
+        this.componentId = componentId;
     }
 
     /**
@@ -64,7 +61,7 @@ public class MDKError {
      * @return componentLabelName the component label name
      */
     public CharSequence getComponentLabelName() {
-        return componentLabelName;
+        return this.componentLabelName;
     }
 
     /**
@@ -80,7 +77,7 @@ public class MDKError {
      * @return errorMessage the error message
      */
     public CharSequence getErrorMessage() {
-        return errorMessage;
+        return this.errorMessage;
     }
 
     /**
@@ -96,7 +93,7 @@ public class MDKError {
      * @return errorCode the error code
      */
     public int getErrorCode() {
-        return errorCode;
+        return this.errorCode;
     }
 
     /**
