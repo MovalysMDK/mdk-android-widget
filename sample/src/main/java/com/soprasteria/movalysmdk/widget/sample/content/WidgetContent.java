@@ -88,7 +88,7 @@ public class WidgetContent {
          * Getter.
          * @return activityClass the activity class
          */
-        public Class<? extends Activity> getActivityClass() {
+        public Class<?> getActivityClass() {
             return activityClass;
         }
     }

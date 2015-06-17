@@ -75,7 +75,7 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
 
             }
         } catch (Exception exception) {
-            LOGGER.log(LOGGER.getLevel(), exception.getMessage());
+            LOGGER.info(getActivity().getPackageName() + exception.getMessage());
         }
 
         mAdapter = new ArrayAdapter<WidgetContent.WidgetItem>(getActivity(),
@@ -139,7 +139,7 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
          * Constructor.
          * @param activityToLaunch the activity to launch
          */
-        public void onFragmentInteraction(Class<? extends Activity> activityToLaunch);
+        public void onFragmentInteraction(Class<?> activityToLaunch);
     }
 
 }

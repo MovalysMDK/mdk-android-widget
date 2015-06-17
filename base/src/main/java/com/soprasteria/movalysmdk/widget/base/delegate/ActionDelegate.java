@@ -158,7 +158,7 @@ public class ActionDelegate {
      */
     @Nullable public Command getAction(@IdRes int id) {
 
-        Command command = null;
+        Command<?,?> command = null;
         View v = this.weakView.get();
         if (v != null) {
 

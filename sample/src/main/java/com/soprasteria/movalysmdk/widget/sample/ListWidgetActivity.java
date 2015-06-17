@@ -1,6 +1,5 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +16,7 @@ public class ListWidgetActivity extends AppCompatActivity implements WidgetFragm
     }
 
     @Override
-    public void onFragmentInteraction(Class<? extends Activity> activityToLaunch) {
+    public void onFragmentInteraction(Class<?> activityToLaunch) {
         this.startActivity(new Intent(this, activityToLaunch));
     }
 }
