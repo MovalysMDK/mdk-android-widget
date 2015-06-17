@@ -33,13 +33,22 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker. */
     private static final String TIME_PICKER_MODE = "time";
 
+    /**
+     * NULL_DATE_TEXT.
+     */
     private static final String NULL_DATE_TEXT = "--/--/----";
+    /**
+     * NULL_TIME_TEXT.
+     */
     private static final String NULL_TIME_TEXT = "--:--";
 
     /** MDKDateTime active mode enumeration. */
     public enum DateTimePickerMode {
+        /** DATE_PICKER. */
         DATE_PICKER,
+        /** TIME_PICKER. */
         TIME_PICKER,
+        /** DATE_TIME_PICKER. */
         DATE_TIME_PICKER,
     }
 
@@ -74,8 +83,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Constructor.
-     * @param view
-     * @param attrs
+     * @param view thge view
+     * @param attrs attributes
      */
     public MDKDateTimePickerWidgetDelegate(View view, AttributeSet attrs) {
 
@@ -191,7 +200,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Handles the click on the date view or the time view in order to show the right dialog.
-     * @param view
+     * @param view the view
      */
     @Override
     public void onClick(View view) {
@@ -229,10 +238,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Callback in order to retrieve the selected date from the dialog.
-     * @param view
-     * @param year
-     * @param monthOfYear
-     * @param dayOfMonth
+     * @param view the view
+     * @param year the new year
+     * @param monthOfYear the new month
+     * @param dayOfMonth th new day
      */
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -248,9 +257,9 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Callback in order to retrieve the selected time from the dialog.
-     * @param view
-     * @param hourOfDay
-     * @param minute
+     * @param view the view
+     * @param hourOfDay the new hour
+     * @param minute the new minute
      */
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -265,7 +274,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Returns the date TextView, if it exists.
-     * @return
+     * @return foundDateView th found date TextView
      */
     private TextView getDateTextView() {
 
@@ -291,7 +300,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Returns the time TextView, if it exists.
-     * @return
+     * @return foundTimeView the found time TextView if exists
      */
     private TextView getTimeTextView() {
 
@@ -317,7 +326,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Sets the Date displayed by the widget.
-     * @param date
+     * @param date the new date
      */
     public void setDisplayedDate(Date date) {
         this.displayedDate = (Date) date.clone();
@@ -332,7 +341,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Sets the Time displayed by the widget.
-     * @param time
+     * @param time the new time
      */
     public void setDisplayedTime(Date time) {
         this.displayedTime = (Date) time.clone();
