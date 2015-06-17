@@ -12,13 +12,13 @@ public interface HasText {
      * Get the text from the component.
      * @return the text of the component
      */
-    public CharSequence getText();
+    CharSequence getText();
 
     /**
      * Set the text on the component.
      * @param text the text to set
      */
-    public void setText(CharSequence text);
+    void setText(CharSequence text);
 
     /**
      * Set the type of the content with a constant as defined for {EditorInfo#inputType}. This
@@ -48,6 +48,6 @@ public interface HasText {
      *
      * @param type the type
      */
-    public void setInputType(int type);
+    void setInputType(int type);
 
 }

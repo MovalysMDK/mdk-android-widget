@@ -9,11 +9,11 @@ public interface HasHint {
      * Get the hint value.
      * @return the hint value
      */
-    public CharSequence getHint();
+    CharSequence getHint();
 
     /**
      * Set the hint value.
      * @param hint the hint value
      */
-    public void setHint(CharSequence hint);
+    void setHint(CharSequence hint);
 }
