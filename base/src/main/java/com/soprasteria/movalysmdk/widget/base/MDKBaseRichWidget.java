@@ -295,8 +295,11 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
      */
     private static class MDKBaseRichWidgetSavedState extends View.BaseSavedState {
 
+        /** errorAlwaysVisible. */
         boolean errorAlwaysVisible;
+        /** resHintId. */
         int resHintId;
+        /** innerWidget. */
         Parcelable innerWidget;
 
         /**
@@ -328,7 +331,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
             out.writeParcelable(innerWidget, 0);
         }
 
-        //required field that makes Parcelables from a Parcel
+        /**
+         * Required field that makes Parcelables from a Parcel.
+         */
         public static final Parcelable.Creator<MDKBaseRichWidgetSavedState> CREATOR =
                 new Parcelable.Creator<MDKBaseRichWidgetSavedState>() {
                     /**
