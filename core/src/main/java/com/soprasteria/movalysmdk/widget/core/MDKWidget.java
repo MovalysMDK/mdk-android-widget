@@ -85,12 +85,12 @@ public interface MDKWidget {
      * @param extraSpace the extra space
      * @return int[] ..
      */
-    public int[] superOnCreateDrawableState(int extraSpace);
+    int[] superOnCreateDrawableState(int extraSpace);
 
     /**
      * callMergeDrawableStates method.
      * @param baseState the base state
      * @param additionalState the additional state
      */
-    public void callMergeDrawableStates(int[] baseState, int[] additionalState);
+    void callMergeDrawableStates(int[] baseState, int[] additionalState);
 }

@@ -12,6 +12,6 @@ public interface MDKWidgetApplication {
      * This returned instance must be a singleton
      * @return the singleton of MDKWidgetComponentProvider implementation
      */
-    public MDKWidgetComponentProvider getMDKWidgetComponentProvider();
+    MDKWidgetComponentProvider getMDKWidgetComponentProvider();
 
 }

@@ -19,7 +19,7 @@ public interface MDKWidgetComponentProvider {
      * @param qualifier the qualifier of the widget
      * @return a singleton of the Command to use in the widget
      */
-    public Command getCommand(Context context, String baseKey, String qualifier);
+    Command getCommand(Context context, String baseKey, String qualifier);
 
     /**
      * Return the singleton Command for the specified Class.
@@ -28,13 +28,13 @@ public interface MDKWidgetComponentProvider {
      * @param qualifier the qualifier of the widget
      * @return a singleton of the IFormFieldValidator to use in the widget
      */
-    public IFormFieldValidator getValidator(Context context, String baseKey, String qualifier);
+    IFormFieldValidator getValidator(Context context, String baseKey, String qualifier);
 
     /**
      * Returns the error message formatter.
       * @param context the Android context
      * @return MDKErrorMessageFormat MDKErrorMessageFormat
      */
-    public MDKErrorMessageFormat getErrorMessageFormat(Context context);
+    MDKErrorMessageFormat getErrorMessageFormat(Context context);
 
 }
