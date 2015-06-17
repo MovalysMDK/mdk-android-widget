@@ -44,9 +44,9 @@ public class EmailValidator extends MandatoryValidator {
 
     /**
      * Validator.
-     * @param objectToValidate
-     * @param mandatory
-     * @return
+     * @param objectToValidate component to validate
+     * @param mandatory true if component is mandatory
+     * @return MDKError object
      */
     @Override
     public MDKError validate(String objectToValidate, boolean mandatory) {
