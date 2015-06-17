@@ -69,11 +69,19 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     }
 
+    /**
+     * set a unique id for inner widget with the parent one as parameter .
+     * @param parentId id of the parent
+     */
     @Override
     public void setUniqueId(int parentId) {
         this.mdkWidgetDelegate.setUniqueId(parentId);
     }
 
+    /**
+     * Return the unique id of the inner widget.
+     * @return int
+     */
     @Override
     public int getUniqueId() {
         return this.mdkWidgetDelegate.getUniqueId();
@@ -87,21 +95,37 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         this.mdkWidgetDelegate.setRootId(rootId);
     }
 
+    /**
+     * Set the error message.
+     * @param error the error to set
+     */
     @Override
     public void setError(CharSequence error) {
         this.mdkWidgetDelegate.setError(error);
     }
 
+    /**
+     * Set the component error.
+     * @param error the error to set
+     */
     @Override
     public void setMDKError(MDKError error) {
         this.mdkWidgetDelegate.setMDKError(error);
     }
 
+    /**
+     * Set if field is mandatory.
+     * @param mandatory true if mandatory, false otherwise
+     */
     @Override
     public void setMandatory(boolean mandatory) {
         this.mdkWidgetDelegate.setMandatory(mandatory);
     }
 
+    /**
+     * Return true if field is mandatory.
+     * @return true or false
+     */
     @Override
     public boolean isMandatory() {
         return this.mdkWidgetDelegate.isMandatory();
@@ -120,6 +144,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         }
     }
 
+    /**
+     * Component validation method, if error found return true.
+     * @return True if no error
+     */
     @Override
     public boolean validate() {
         boolean bValid = true;
@@ -135,16 +163,26 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         return bValid;
     }
 
+    /**
+     * Register the actions to the view.
+     */
     @Override
     public void registerActionViews() {
         this.actionDelegate.registerActions(this);
     }
 
+    /**
+     * Return the MDKWidgetDelegate object.
+     * @return MDKWidgetDelegate object
+     */
     @Override
     public MDKWidgetDelegate getMDKWidgetDelegate() {
         return this.mdkWidgetDelegate;
     }
 
+    /**
+     *  Called when the view is attached to a window.
+     */
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -153,26 +191,48 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         }
     }
 
+    /**
+     * Set component label's id.
+     * @param labelId the id of a view
+     */
     @Override
     public void setLabelId(int labelId) {
         this.mdkWidgetDelegate.setLabelId(labelId);
     }
 
+    /**
+     * Set component helper's id.
+     * @param helperId the id of a view
+     */
     @Override
     public void setHelperId(int helperId) {
         this.mdkWidgetDelegate.setHelperId(helperId);
     }
 
+    /**
+     * Set component error's id.
+     * @param errorId the id of a view
+     */
     @Override
     public void setErrorId(int errorId) {
         this.mdkWidgetDelegate.setErrorId(errorId);
     }
 
+    /**
+     * Set component root's id if errors are shared.
+     * @param useRootIdOnlyForError true if the error is not in the same layout as
+     */
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
         this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
+    /**
+     * Called when the focus state of a view has changed.
+     * @param focused is component focused
+     * @param direction component direction
+     * @param previouslyFocusedRect component prvious focus state
+     */
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
@@ -181,16 +241,31 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         }
     }
 
+    /**
+     *  Super onCreateDrawableState (Depending on the state, resource for displaying different drawables for a view).
+     * @param extraSpace the extra space
+     * @return
+     */
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         return super.onCreateDrawableState(extraSpace);
     }
 
+    /**
+     * Depending on the state, merge different drawables for a view.
+     * @param baseState the base state
+     * @param additionalState the additional state
+     */
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         mergeDrawableStates(baseState, additionalState);
     }
 
+    /**
+     * Depending on the state, resource for displaying different drawables for a view.
+     * @param extraSpace
+     * @return
+     */
     @Override
     protected int[] onCreateDrawableState(int extraSpace) {
         if (this.getMDKWidgetDelegate() != null) {
@@ -201,21 +276,37 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         }
     }
 
+    /**
+     * Flexible forms validation.
+     * @return IFormFieldValidator object
+     */
     @Override
     public IFormFieldValidator getValidator() {
         return this.getMDKWidgetDelegate().getValidator();
     }
 
+    /**
+     * Get component label's name.
+     * @return label's name of CharSequence
+     */
     @Override
     public CharSequence getLabel() {
         return this.mdkWidgetDelegate.getLabel();
     }
 
+    /**
+     * Set component label's name.
+     * @param label the label to set
+     */
     @Override
     public void setLabel(CharSequence label) {
         this.mdkWidgetDelegate.setLabel(label);
     }
 
+    /**
+     * Method called to store data before pausing the activity.
+     * @return activity's state
+     */
     @Override
     public Parcelable onSaveInstanceState() {
 
@@ -227,6 +318,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         return state;
     }
 
+    /**
+     * Called when the activity is being re-initialized from a previously saved state, given here in onSavedInstanceState.
+     * @param state of the activity
+     */
     @Override
     public void onRestoreInstanceState(Parcelable state) {
 
@@ -236,11 +331,20 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
         super.onRestoreInstanceState(innerState);
     }
 
+    /**
+     * Super OnSaveInstanceState (Method called to store data before pausing the activity).
+     * @return onSaveInstanceState
+     */
     @Override
     public Parcelable superOnSaveInstanceState() {
         return onSaveInstanceState();
     }
 
+    /**
+     * Super OnRestoreInstanceState
+     * (Called when the activity is being re-initialized from a previously saved state, given here in onSavedInstanceState).
+     * @param state the state
+     */
     @Override
     public void superOnRestoreInstanceState(Parcelable state) {
         onRestoreInstanceState(state);
