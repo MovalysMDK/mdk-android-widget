@@ -619,7 +619,7 @@ public class MDKWidgetDelegate implements MDKWidget {
          */
         int helperId;
         /**
-         * errorId
+         * errorId.
          */
         int errorId;
         /**
@@ -699,7 +699,9 @@ public class MDKWidgetDelegate implements MDKWidget {
             out.writeByte((byte) (this.error ? 1 : 0));
         }
 
-        //required field that makes Parcelables from a Parcel
+        /**
+         * Required field that makes Parcelables from a Parcel
+         */
         public static final Parcelable.Creator<MDKWidgetDelegateSavedState> CREATOR =
                 new Parcelable.Creator<MDKWidgetDelegateSavedState>() {
                     /**
