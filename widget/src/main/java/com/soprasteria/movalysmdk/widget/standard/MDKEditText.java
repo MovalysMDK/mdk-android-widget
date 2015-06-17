@@ -140,9 +140,9 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      *
-     * Show or hide the label according to the new text content
+     * Show or hide the label according to the new text content.
      *
      * @param text The text the TextView is displaying
      * @param start The offset of the start of the range of the text that was modified

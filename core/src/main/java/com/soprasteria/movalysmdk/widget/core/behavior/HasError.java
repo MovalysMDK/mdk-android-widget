@@ -8,7 +8,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 public interface HasError {
 
     /**
-     * Set the error message on the widget
+     * Set the error message on the widget.
      * @param error the error message
      */
     void setError(CharSequence error);

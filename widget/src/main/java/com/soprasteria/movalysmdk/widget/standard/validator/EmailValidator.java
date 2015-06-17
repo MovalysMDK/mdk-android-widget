@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * //TODO must hinerited from MandatoryValidator
- * only one error is "right" the value cannot accumulate 2 errors
+ * only one error is "right" the value cannot accumulate 2 errors.
  * its mandatory OR invalid (the empty string cannot be invalidate)
  */
 public class EmailValidator extends MandatoryValidator {
@@ -43,7 +43,7 @@ public class EmailValidator extends MandatoryValidator {
     public MDKError validate(String objectToValidate, boolean mandatory) {
 
         MDKError mdkError = null;
-        String error = null;
+        String error;
         if (objectToValidate != null && objectToValidate.length() > 0) {
             Matcher matcher = this.pattern.matcher(objectToValidate);
             if (!matcher.find() && this.errorId != 0) {

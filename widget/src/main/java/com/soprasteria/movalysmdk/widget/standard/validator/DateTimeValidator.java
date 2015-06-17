@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class DateTimeValidator implements IFormFieldValidator<Date> {
 
     /**
-     *
+     * Constant.
      */
     public static final int ERROR_MANDATORY=0;
 

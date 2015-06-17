@@ -140,7 +140,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     /**
-     * Create a validator from the key
+     * Create a validator from the key.
      * @param context the context
      * @param baseKey the base key
      * @param qualifier the qualifier

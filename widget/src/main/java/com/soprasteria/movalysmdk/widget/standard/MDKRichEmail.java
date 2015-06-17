@@ -12,7 +12,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 /**
- * MDKRichEmail class definition
+ * MDKRichEmail class definition.
  */
 public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDKWidget, HasValidator, HasHint {
 
@@ -56,7 +56,7 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     }
 
     /**
-     * onCreateInputConnection methdd.
+     * onCreateInputConnection method.
      * @param outAttrs attributes
      * @return InputConnection the input connection
      */

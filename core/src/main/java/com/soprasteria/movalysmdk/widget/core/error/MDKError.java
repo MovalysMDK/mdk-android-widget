@@ -12,7 +12,7 @@ public class MDKError {
      * - If the component is a basic one */
     private Integer componentId = null;
 
-    /** Name of the component raising the error  */
+    /** Name of the component raising the error.  */
     private CharSequence componentLabelName = null;
 
     /** Error message raised by the component.  */

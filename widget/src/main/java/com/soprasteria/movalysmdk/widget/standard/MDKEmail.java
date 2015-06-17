@@ -24,7 +24,7 @@ import com.soprasteria.movalysmdk.widget.standard.command.EmailCommand;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
 /**
- * MDKEmail class definition
+ * MDKEmail class definition.
  */
 public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
