@@ -60,7 +60,7 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) throws RuntimeException {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         try {
