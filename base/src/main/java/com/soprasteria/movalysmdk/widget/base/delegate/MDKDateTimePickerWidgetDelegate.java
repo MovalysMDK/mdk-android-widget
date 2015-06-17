@@ -329,7 +329,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param date the new date
      */
     public void setDisplayedDate(Date date) {
-        this.displayedDate = (Date) date.clone();
+        if (date != null) {
+            this.displayedDate = (Date) date.clone();
+        } else {
+            this.displayedDate = null;
+        }
     }
 
     /**
@@ -337,7 +341,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @return Date the date
      */
     public Date getDisplayedDate() {
-        return (Date) this.displayedDate.clone();
+        if (this.displayedDate != null) {
+            return (Date) this.displayedDate.clone();
+        }
+        return null;
     }
 
     /**
@@ -345,7 +352,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param time the new time
      */
     public void setDisplayedTime(Date time) {
-        this.displayedTime = (Date) time.clone();
+        if (time != null) {
+            this.displayedTime = (Date) time.clone();
+        } else {
+            this.displayedTime = null;
+        }
     }
 
     /**
@@ -353,7 +364,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @return date a clone of displaytime date
      */
     public Date getDisplayedTime() {
-        return (Date) this.displayedTime.clone();
+        if (this.displayedTime != null) {
+            return (Date) this.displayedTime.clone();
+        }
+        return null;
     }
 
     /**
