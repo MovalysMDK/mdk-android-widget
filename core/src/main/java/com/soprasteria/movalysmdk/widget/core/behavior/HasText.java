@@ -36,7 +36,6 @@ public interface HasText {
      * @attr ref android.R.styleable#TextView_inputType
      */
 
-
     /**
      * Set the type of the content with a constant as defined for inputType.
      * This will take care of changing the key listener, by calling setKeyListener(KeyListener),
@@ -44,7 +43,6 @@ public interface HasText {
      * will not be displayed for this text view.
      * Note that the maximum number of displayed lines (see setMaxLines(int))
      * will be modified if you change the TYPE_TEXT_FLAG_MULTI_LINE flag of the input type.
-     *
      * @param pType the type
      */
     void setInputType(int pType);
