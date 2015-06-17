@@ -12,6 +12,7 @@ import com.soprasteria.movalysmdk.widget.standard.model.Email;
  */
 public class EmailCommand implements Command<Email, Void> {
 
+    /** Application context. */
     private final Context context;
 
     /**
@@ -22,6 +23,11 @@ public class EmailCommand implements Command<Email, Void> {
         this.context = context;
     }
 
+    /**
+     * Email launcher
+     * @param email email information
+     * @return
+     */
     @Override
     public Void execute(Email... email) {
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
