@@ -18,7 +18,7 @@ public class MDKError {
     /** Error message raised by the component.  */
     private CharSequence errorMessage;
 
-    /** Error code number */
+    /** No error code defined*/
     public static final int NO_ERROR_CODE = -1;
 
     /** Error code defining which kind of error it is, for example,
