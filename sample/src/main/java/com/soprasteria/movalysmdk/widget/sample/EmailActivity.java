@@ -25,7 +25,7 @@ public class EmailActivity extends AppCompatActivity {
 
     /**
      * onCreate method.
-     * @param savedInstanceState
+     * @param savedInstanceState Instance to save
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
