@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.core.error;
 
 /**
+ * MDKErrorMessageFormat interface definition.
  * Created by gestionnaire on 11/06/2015.
  */
 public interface MDKErrorMessageFormat {
@@ -11,7 +12,7 @@ public interface MDKErrorMessageFormat {
      * @param error MDKError object containing
      * @return CharSequence the frmatted message
      */
-    public CharSequence textFormatter(boolean centralizedError, MDKError error);
+    CharSequence textFormatter(boolean centralizedError, MDKError error);
 
 
 }

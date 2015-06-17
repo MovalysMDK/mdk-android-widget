@@ -598,9 +598,20 @@ public class MDKWidgetDelegate implements MDKWidget {
         //required field that makes Parcelables from a Parcel
         public static final Parcelable.Creator<MDKWidgetDelegateSavedState> CREATOR =
                 new Parcelable.Creator<MDKWidgetDelegateSavedState>() {
+                    /**
+                     * createFromParcel method.
+                     * @param in a parcel
+                     * @return MDKWidgetDelegateSavedState created instance
+                     */
                     public MDKWidgetDelegateSavedState createFromParcel(Parcel in) {
                         return new MDKWidgetDelegateSavedState(in);
                     }
+
+                    /**
+                     * nCreate a new array of MDKWidgetDelegateSavedState.
+                     * @param size the size
+                     * @return MDKWidgetDelegateSavedState an array of MDKWidgetDelegateSavedState with size elements
+                     */
                     public MDKWidgetDelegateSavedState[] newArray(int size) {
                         return new MDKWidgetDelegateSavedState[size];
                     }

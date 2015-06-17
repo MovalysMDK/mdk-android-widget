@@ -299,10 +299,18 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         int resHintId;
         Parcelable innerWidget;
 
+        /**
+         * Constructor.
+         * @param superState the new Parcelable
+         */
         MDKBaseRichWidgetSavedState(Parcelable superState) {
             super(superState);
         }
 
+        /**
+         * Constructor.
+         * @param in the new parcel
+         */
         private MDKBaseRichWidgetSavedState(Parcel in) {
             super(in);
 
@@ -323,9 +331,20 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         //required field that makes Parcelables from a Parcel
         public static final Parcelable.Creator<MDKBaseRichWidgetSavedState> CREATOR =
                 new Parcelable.Creator<MDKBaseRichWidgetSavedState>() {
+                    /**
+                     * createFromParcel method.
+                     * @param in a parcel
+                     * @return MDKWidgetDelegateSavedState created instance
+                     */
                     public MDKBaseRichWidgetSavedState createFromParcel(Parcel in) {
                         return new MDKBaseRichWidgetSavedState(in);
                     }
+
+                    /**
+                     * nCreate a new array of MDKWidgetDelegateSavedState.
+                     * @param size the size
+                     * @return MDKWidgetDelegateSavedState an array of MDKWidgetDelegateSavedState with size elements
+                     */
                     public MDKBaseRichWidgetSavedState[] newArray(int size) {
                         return new MDKBaseRichWidgetSavedState[size];
                     }
