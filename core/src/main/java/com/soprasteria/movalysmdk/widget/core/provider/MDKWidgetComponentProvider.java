@@ -8,7 +8,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
 
 /**
  * Interface to describe the MDKWidgetComponentProvider
- * create commands and Validator for MDK commponents.
+ * create commands and Validator for MDK components.
  */
 public interface MDKWidgetComponentProvider {
 

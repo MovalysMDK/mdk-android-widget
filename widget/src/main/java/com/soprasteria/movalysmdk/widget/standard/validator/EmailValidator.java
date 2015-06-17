@@ -15,8 +15,11 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator extends MandatoryValidator {
 
+    /** ERROR_INVALID_EMAIL. */
     public static final int ERROR_INVALID_EMAIL = 1;
+    /** Attribute for regex pattern. */
     private final Pattern pattern;
+    /** Error id. */
     private int errorId;
 
     /**
@@ -39,6 +42,12 @@ public class EmailValidator extends MandatoryValidator {
         this.pattern = Pattern.compile(regExp);
     }
 
+    /**
+     * Validator.
+     * @param objectToValidate
+     * @param mandatory
+     * @return
+     */
     @Override
     public MDKError validate(String objectToValidate, boolean mandatory) {
 

@@ -12,12 +12,21 @@ import com.soprasteria.movalysmdk.widget.standard.MDKEmail;
  */
 public class EmailActivity extends AppCompatActivity {
 
+    /** Rich Email component. */
     private MDKRichEmail email;
+    /** Simple MDK Email component. */
     private MDKEmail email2;
+    /** Rich Email component. */
     private MDKRichEmail email3;
+    /** Rich Email component. */
     private MDKRichEmail email4;
+    /** Rich Email component. */
     private MDKRichEmail email5;
 
+    /**
+     * onCreate method.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -24,7 +24,7 @@ public class EmailCommand implements Command<Email, Void> {
     }
 
     /**
-     * Email launcher
+     * Email launcher.
      * @param email email information
      * @return
      */
