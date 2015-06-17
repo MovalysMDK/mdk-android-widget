@@ -42,7 +42,6 @@ public interface HasText {
      * This will take care of changing the key listener, by calling setKeyListener(KeyListener),
      * to match the given content type. If the given content type is TYPE_NULL then a soft keyboard
      * will not be displayed for this text view.
-     *
      * Note that the maximum number of displayed lines (see setMaxLines(int))
      * will be modified if you change the TYPE_TEXT_FLAG_MULTI_LINE flag of the input type.
      *
