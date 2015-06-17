@@ -58,7 +58,7 @@ public class WidgetContent {
          * @param content the content
          * @param activityToLaunch the activity to launch
          */
-        public WidgetItem(String content, Class<? extends Activity> activityToLaunch) {
+        public WidgetItem(String content, Class activityToLaunch) {
             this.content = content;
             this.activityClass = activityToLaunch;
         }
@@ -88,7 +88,7 @@ public class WidgetContent {
          * Getter.
          * @return activityClass the activity class
          */
-        public Class<?> getActivityClass() {
+        public Class getActivityClass() {
             return activityClass;
         }
     }
