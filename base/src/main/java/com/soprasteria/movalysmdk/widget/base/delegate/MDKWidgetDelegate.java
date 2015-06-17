@@ -31,30 +31,92 @@ import java.util.List;
  */
 public class MDKWidgetDelegate implements MDKWidget {
 
-
+    /**
+     * ADDED_MDK_STATE.
+     */
     private static final int ADDED_MDK_STATE = 3;
+    /**
+     * MANDATORY_VALID_STATE.
+     */
     private static final int[] MANDATORY_VALID_STATE = {R.attr.state_valid, R.attr.state_mandatory};
+    /**
+     * MANDATORY_ERROR_STATE.
+     */
     private static final int[] MANDATORY_ERROR_STATE = {R.attr.state_error, R.attr.state_mandatory};
+    /**
+     * MANDATORY_STATE.
+     */
     private static final int[] MANDATORY_STATE = {R.attr.state_mandatory};
+    /**
+     * VALID_STATE.
+     */
     private static final int[] VALID_STATE = {R.attr.state_valid};
+    /**
+     * ERROR_STATE.
+     */
     private static final int[] ERROR_STATE = {R.attr.state_error};
 
+    /**
+     * qualifier.
+     */
     private String qualifier;
+    /**
+     * resHelperId.
+     */
     private int resHelperId;
+    /**
+     * richSelectors.
+     */
     private List<RichSelector> richSelectors;
 
+    /**
+     * weakView.
+     */
     protected WeakReference<View> weakView;
+    /**
+     * rootId.
+     */
     protected int rootId;
+    /**
+     * labelId.
+     */
     protected int labelId;
+    /**
+     * showFloatingLabelAnimId.
+     */
     protected int showFloatingLabelAnimId;
+    /**
+     * hideFloatingLabelAnimId.
+     */
     protected int hideFloatingLabelAnimId;
+    /**
+     * helperId.
+     */
     protected int helperId;
+    /**
+     * errorId.
+     */
     protected int errorId;
+    /**
+     * uniqueId.
+     */
     protected int uniqueId;
 
+    /**
+     * useRootIdOnlyForError.
+     */
     private boolean useRootIdOnlyForError = false;
+    /**
+     * valid.
+     */
     private boolean valid = false;
+    /**
+     * mandatory.
+     */
     private boolean mandatory = false;
+    /**
+     * error.
+     */
     private boolean error = false;
 
 
@@ -523,21 +585,63 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     private static class MDKWidgetDelegateSavedState extends View.BaseSavedState {
 
+        /**
+         * qualifier.
+         */
         String qualifier;
+        /**
+         * resHelperId.
+         */
         int resHelperId;
+        /**
+         * richSelectors.
+         */
         List<RichSelector> richSelectors;
 
+        /**
+         * rootId.
+         */
         int rootId;
+        /**
+         * labelId.
+         */
         int labelId;
+        /**
+         * showFloatingLabelAnimId.
+         */
         int showFloatingLabelAnimId;
+        /**
+         * hideFloatingLabelAnimId.
+         */
         int hideFloatingLabelAnimId;
+        /**
+         * helperId.
+         */
         int helperId;
+        /**
+         * errorId
+         */
         int errorId;
+        /**
+         * uniqueId.
+         */
         int uniqueId;
 
+        /**
+         * useRootIdOnlyForError.
+         */
         boolean useRootIdOnlyForError;
+        /**
+         * valid.
+         */
         boolean valid;
+        /**
+         * mandatory.
+         */
         boolean mandatory;
+        /**
+         * error.
+         */
         boolean error;
 
         /**
