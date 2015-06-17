@@ -28,7 +28,9 @@ import com.soprasteria.movalysmdk.widget.standard.model.Email;
  */
 public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
+    /** ActionDelegate attribute */
     protected ActionDelegate actionDelegate;
+    /** MDK Widget implementation */
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
     /**
@@ -80,7 +82,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     /**
      * Return the unique id of the inner widget.
-     * @return int
+     * @return int id
      */
     @Override
     public int getUniqueId() {
@@ -228,10 +230,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * Called when the focus state of a view has changed.
+     * To call when the focus state of a view has changed.
      * @param focused is component focused
      * @param direction component direction
-     * @param previouslyFocusedRect component prvious focus state
+     * @param previouslyFocusedRect component previous focus state
      */
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
@@ -242,9 +244,9 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     *  Super onCreateDrawableState (Depending on the state, resource for displaying different drawables for a view).
-     * @param extraSpace the extra space
-     * @return
+     *  super on onCreateDrawableState (TextView)
+     * @param extraSpace extra space
+     * @return the extra spaces
      */
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
@@ -263,8 +265,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     /**
      * Depending on the state, resource for displaying different drawables for a view.
-     * @param extraSpace
-     * @return
+     * @param extraSpace extra space
+     * @return the extra spaces
      */
     @Override
     protected int[] onCreateDrawableState(int extraSpace) {
@@ -332,7 +334,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * Super OnSaveInstanceState (Method called to store data before pausing the activity).
+     * super on OnSaveInstanceState
      * @return onSaveInstanceState
      */
     @Override
@@ -341,8 +343,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
     }
 
     /**
-     * Super OnRestoreInstanceState
-     * (Called when the activity is being re-initialized from a previously saved state, given here in onSavedInstanceState).
+     * super on OnRestoreInstanceState
      * @param state the state
      */
     @Override
