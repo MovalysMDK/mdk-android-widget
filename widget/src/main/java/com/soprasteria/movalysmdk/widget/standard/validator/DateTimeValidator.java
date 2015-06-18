@@ -3,14 +3,14 @@ package com.soprasteria.movalysmdk.widget.standard.validator;
 import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.Date;
 
 /**
  * DateTimeValidator class definition.
  */
-public class DateTimeValidator implements IFormFieldValidator<Date> {
+public class DateTimeValidator implements FormFieldValidator<Date> {
 
     /**
      * Constant.

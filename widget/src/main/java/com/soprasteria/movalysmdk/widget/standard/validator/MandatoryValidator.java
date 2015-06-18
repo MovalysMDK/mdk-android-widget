@@ -3,13 +3,13 @@ package com.soprasteria.movalysmdk.widget.standard.validator;
 import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * MandatoryValidator class definition.
  * Created by abelliard on 11/06/2015.
  */
-public class MandatoryValidator implements IFormFieldValidator<String> {
+public class MandatoryValidator implements FormFieldValidator<String> {
 
     /**
      * ERROR_MANDATORY.

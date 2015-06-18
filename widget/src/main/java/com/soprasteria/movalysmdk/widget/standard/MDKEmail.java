@@ -19,7 +19,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.standard.command.EmailCommand;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
@@ -280,10 +280,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestore
 
     /**
      * Flexible forms validation.
-     * @return IFormFieldValidator object
+     * @return FormFieldValidator object
      */
     @Override
-    public IFormFieldValidator getValidator() {
+    public FormFieldValidator getValidator() {
         return this.getMDKWidgetDelegate().getValidator();
     }
 

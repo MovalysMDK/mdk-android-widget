@@ -1,7 +1,7 @@
 package com.soprasteria.movalysmdk.widget.standard.model;
 
 /**
- * class Email
+ * Email class definition.
  * Created by abelliard on 05/06/2015.
  */
 public class Email {
@@ -9,34 +9,46 @@ public class Email {
     /**
      * to mail field.
      */
-    private String[] to = null;
+    private String[] to;
 
     /**
      * cc mail field.
      */
-    private String[] cc = null;
+    private String[] cc;
 
     /**
      * bcc mail field.
      */
-    private String[] bcc = null;
+    private String[] bcc;
 
     /**
      * Subject mail field.
      */
-    private String subject = null;
+    private String subject;
 
     /**
      * Body of the mail.
      */
-    private String body = null;
+    private String body;
 
     /**
      * Constructor.
      * @param to to
      */
     public Email(String... to) {
+        init();
         this.to = to;
+    }
+
+    /**
+     * Initialize data.
+     */
+    private void init() {
+        to = null;
+        cc = null;
+        bcc = null;
+        subject = null;
+        body = null;
     }
 
     /**

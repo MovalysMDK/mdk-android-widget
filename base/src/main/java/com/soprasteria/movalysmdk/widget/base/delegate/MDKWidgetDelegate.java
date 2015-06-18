@@ -19,7 +19,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -440,8 +440,8 @@ public class MDKWidgetDelegate implements MDKWidget {
      * (component, qualifier)
      * @return rValidator the result
      */
-    public IFormFieldValidator getValidator() {
-        IFormFieldValidator rValidator = null;
+    public FormFieldValidator getValidator() {
+        FormFieldValidator rValidator = null;
 
         View v = this.weakView.get();
         if (v != null) {
@@ -661,6 +661,7 @@ public class MDKWidgetDelegate implements MDKWidget {
 
             this.qualifier = in.readString();
             this.resHelperId = in.readInt();
+
             // TODO : read the richSelectors
 
             this.rootId = in.readInt();

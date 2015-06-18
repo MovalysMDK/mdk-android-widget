@@ -1,6 +1,6 @@
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Interface to add validation capacity to a widget.
@@ -13,7 +13,7 @@ public interface HasValidator {
      * Get widget validator.
      * @return the widget validator
      */
-    IFormFieldValidator getValidator();
+    FormFieldValidator getValidator();
 
     /**
      * Validate the widget.

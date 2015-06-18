@@ -7,7 +7,7 @@ import com.soprasteria.movalysmdk.widget.core.command.Command;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.exception.StringNotDefineForResourceException;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.lang.reflect.Constructor;
 
@@ -108,7 +108,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     @Override
-    public IFormFieldValidator getValidator(Context context, String baseKey, String qualifier) {
+    public FormFieldValidator getValidator(Context context, String baseKey, String qualifier) {
         return createValidatorFromKey(context, baseKey, qualifier);
     }
 
@@ -149,9 +149,9 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * @param qualifier the qualifier
      * @return validator the validator
      */
-    private IFormFieldValidator createValidatorFromKey(Context context, String baseKey, String qualifier) {
+    private FormFieldValidator createValidatorFromKey(Context context, String baseKey, String qualifier) {
 
-        IFormFieldValidator<?> validator = null;
+        FormFieldValidator<?> validator = null;
 
 
         String classPath = findClassPathFromRessource(context, baseKey, qualifier);
@@ -159,7 +159,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         try {
             Class validatorClass = Class.forName(classPath);
             Constructor constructor = validatorClass.getConstructor(Context.class);
-            validator = (IFormFieldValidator) constructor.newInstance(context);
+            validator = (FormFieldValidator) constructor.newInstance(context);
         } catch (Exception e) {
             Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }

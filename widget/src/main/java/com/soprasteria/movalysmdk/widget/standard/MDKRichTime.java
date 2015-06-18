@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import com.soprasteria.movalysmdk.widget.base.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Rich widget representing a time picker, conforming to the Material Design guidelines,
@@ -37,7 +37,7 @@ public class MDKRichTime extends MDKBaseRichWidget<MDKDateTime> implements HasVa
      * @return
      */
     @Override
-    public IFormFieldValidator getValidator() {
+    public FormFieldValidator getValidator() {
         return this.getInnerWidget().getValidator();
     }
 

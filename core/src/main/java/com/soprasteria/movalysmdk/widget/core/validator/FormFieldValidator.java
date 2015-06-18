@@ -6,7 +6,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
  * Interface for Validator definition.
  * @param <T> the type of data to validate.
  */
-public interface IFormFieldValidator<T> {
+public interface FormFieldValidator<T> {
 
     /**
      * validate the parameter value.

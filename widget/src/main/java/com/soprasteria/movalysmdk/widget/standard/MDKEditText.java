@@ -17,7 +17,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Represents an Edit Text conforming to the Material Design guidelines.
@@ -193,7 +193,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public IFormFieldValidator getValidator() {
+    public FormFieldValidator getValidator() {
 
         return this.mdkWidgetDelegate.getValidator();
     }
@@ -202,7 +202,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     public boolean validate() {
         boolean bValid = true;
 
-        IFormFieldValidator rValidator = this.getValidator();
+        FormFieldValidator rValidator = this.getValidator();
 
         if (rValidator != null) {
 

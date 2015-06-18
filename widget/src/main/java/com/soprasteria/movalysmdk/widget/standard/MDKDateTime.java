@@ -12,7 +12,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.IFormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.Date;
 
@@ -89,7 +89,7 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget
     }
 
     @Override
-    public IFormFieldValidator getValidator() {
+    public FormFieldValidator getValidator() {
         return this.mdkDateTimePickerWidgetDelegate.getValidator();
     }
 
@@ -98,7 +98,7 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget
         boolean bValid = true;
         MDKError error = null;
 
-        IFormFieldValidator validator = this.mdkDateTimePickerWidgetDelegate.getValidator();
+        FormFieldValidator validator = this.mdkDateTimePickerWidgetDelegate.getValidator();
 
         if (this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_TIME_PICKER
                 || this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_PICKER) {
