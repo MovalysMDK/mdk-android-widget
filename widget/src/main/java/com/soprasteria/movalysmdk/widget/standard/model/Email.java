@@ -1,7 +1,7 @@
 package com.soprasteria.movalysmdk.widget.standard.model;
 
 /**
- * Email class definition.
+ * Email class.
  * Created by abelliard on 05/06/2015.
  */
 public class Email {
