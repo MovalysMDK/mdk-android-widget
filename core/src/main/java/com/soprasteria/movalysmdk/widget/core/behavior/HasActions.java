@@ -12,5 +12,5 @@ public interface HasActions extends View.OnClickListener {
      * Register actions views on the components
      * (or its ActionDelegate).
      */
-    void registerActionViews();
+    void registerWidgetCommands();
 }

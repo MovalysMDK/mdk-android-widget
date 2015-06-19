@@ -131,13 +131,13 @@ public class MDKDateTime extends TextView implements MDKInnerWidget, MDKRestoreW
     }
 
     @Override
-    public void setHelperId(int helperId) {
-        this.mdkDateTimePickerWidgetDelegate.setHelperId(helperId);
+    public void setHelperViewId(int helperId) {
+        this.mdkDateTimePickerWidgetDelegate.setHelperViewId(helperId);
     }
 
     @Override
-    public void setErrorId(int errorId) {
-        this.mdkDateTimePickerWidgetDelegate.setErrorId(errorId);
+    public void setErrorViewId(int errorId) {
+        this.mdkDateTimePickerWidgetDelegate.setErrorViewId(errorId);
     }
 
     @Override

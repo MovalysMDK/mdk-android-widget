@@ -35,7 +35,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     /**
      * True if the error component is into a MDK rich one.
      * */
-    private boolean centralizedError = false;
+    private boolean sharedErrorWidget = false;
 
     /**
      * MDKErrorWidge builder.
@@ -80,7 +80,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKErrorComponent);
         // parse error order attribute
         int resErrorOrderId = typedArray.getResourceId(R.styleable.MDKCommons_MDKErrorComponent_errorsDisplayOrder, 0);
-        this.centralizedError = typedArray.getBoolean(R.styleable.MDKCommons_MDKErrorComponent_errorCentralized, false);
+        this.sharedErrorWidget = typedArray.getBoolean(R.styleable.MDKCommons_MDKErrorComponent_errorCentralized, false);
 
         if (helperResId != 0) {
             this.setHelper(getResources().getString(helperResId));
@@ -207,7 +207,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         MDKErrorMessageFormat interfaceFormat = getMDKErrorMessageFormat();
 
         CharSequence message = mdkError.getErrorMessage();
-        message = interfaceFormat.textFormatter(isCentralizedError(), mdkError);
+        message = interfaceFormat.formatText(mdkError, isSharedErrorWidget());
 
         if (outputStringBuild.length() > 0) {
             outputStringBuild.append("\n");
@@ -220,18 +220,18 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Return true if the component is included into a MDK rich one.
-     * @return centralizedError the centralized error
+     * @return sharedErrorWidget the centralized error
      */
-    public boolean isCentralizedError() {
-        return centralizedError;
+    public boolean isSharedErrorWidget() {
+        return sharedErrorWidget;
     }
 
     /**
      * Set true if Defined if the error component is inside a MDK rich one.
-     * @param centralizedError centralizedError
+     * @param sharedErrorWidget sharedErrorWidget
      */
-    public void setCentralizedError(boolean centralizedError) {
-        this.centralizedError = centralizedError;
+    public void setSharedErrorWidget(boolean sharedErrorWidget) {
+        this.sharedErrorWidget = sharedErrorWidget;
     }
 
 }

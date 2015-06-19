@@ -178,13 +178,13 @@ public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MD
     }
 
     @Override
-    public void setHelperId(int helperId) {
-        this.mdkWidgetDelegate.setHelperId(helperId);
+    public void setHelperViewId(int helperId) {
+        this.mdkWidgetDelegate.setHelperViewId(helperId);
     }
 
     @Override
-    public void setErrorId(int errorId) {
-        this.mdkWidgetDelegate.setErrorId(errorId);
+    public void setErrorViewId(int errorId) {
+        this.mdkWidgetDelegate.setErrorViewId(errorId);
     }
 
 

@@ -26,14 +26,14 @@ public interface MDKWidget {
      * the view used as helper for this widget
      * @param helperId the id of a view
      */
-    void setHelperId(int helperId);
+    void setHelperViewId(int helperId);
 
     /**
      * Set the error id.
      * the view used as error for this widget
      * @param errorId the id of a view
      */
-    void setErrorId(int errorId);
+    void setErrorViewId(int errorId);
 
     /**
      * Set if the error view is not in the same layout as the others

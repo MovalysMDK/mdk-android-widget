@@ -8,9 +8,9 @@ package com.soprasteria.movalysmdk.widget.core.command;
  */
 public interface Command<I, O> {
     /**
-     * execute the concrete command.
+     * sendEmail the concrete command.
      * @param params parameters for the command
      * @return return of the command
      */
-    O execute(I... params);
+    O sendEmail(I... params);
 }

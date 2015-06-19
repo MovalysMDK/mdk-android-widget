@@ -16,26 +16,26 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentP
 import java.lang.ref.WeakReference;
 
 /**
- * Action Delegate for component.
- * This class handle action for a widget
- * it register listener and launch command
+ * Action handler on MDKButtonComponent for MDKWidgets.
+ * This class manages primary and secondary actions on the MDK button component.
+ * It registers listeners and launches commands.
  */
 public class ActionDelegate {
 
     /** primary command class. */
-    private final Class<? extends Command> primaryActionCommandClass;
+    private final Class<? extends Command> primaryCommandClass;
 
     /** secondary command class. */
-    private final Class<? extends Command> secondaryActionCommandClass;
+    private final Class<? extends Command> secondaryCommandClass;
 
     /** Weak reference on view. */
     private final WeakReference<MDKInnerWidget> weakView;
 
     /** Id of the primary action view. */
-    private final int primaryActionViewId;
+    private final int primaryCommandViewId;
 
     /** Id of the secondary action view. */
-    private final int secondaryActionViewId;
+    private final int secondaryCommandViewId;
 
     /** Attribute "Qualifier" of the component. */
     private final String qualifier;
@@ -73,13 +73,13 @@ public class ActionDelegate {
     public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs, Class<? extends Command> primaryCommandClass, Class<? extends Command> secondaryCommandClass) {
 
         this.weakView = new WeakReference<MDKInnerWidget>(mdkWidget);
-        this.primaryActionCommandClass = primaryCommandClass;
-        this.secondaryActionCommandClass = secondaryCommandClass;
+        this.primaryCommandClass = primaryCommandClass;
+        this.secondaryCommandClass = secondaryCommandClass;
 
         TypedArray typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
 
-        this.primaryActionViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_primaryActionId, 0);
-        this.secondaryActionViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_secondaryActionId, 0);
+        this.primaryCommandViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_primaryActionId, 0);
+        this.secondaryCommandViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_secondaryActionId, 0);
 
         typedArray.recycle();
 
@@ -96,14 +96,14 @@ public class ActionDelegate {
      * @param listener the click listener to register action view
      */
     public void registerActions(View.OnClickListener listener)  {
-        if (this.primaryActionViewId != 0) {
-            View actionView = findActionView(this.primaryActionViewId);
+        if (this.primaryCommandViewId != 0) {
+            View actionView = findCommandView(this.primaryCommandViewId);
             if (actionView != null) {
                 actionView.setOnClickListener(listener);
             }
         }
-        if (this.secondaryActionViewId != 0) {
-            View actionView = findActionView(this.secondaryActionViewId);
+        if (this.secondaryCommandViewId != 0) {
+            View actionView = findCommandView(this.secondaryCommandViewId);
             if (actionView != null) {
                 actionView.setOnClickListener(listener);
             }
@@ -113,16 +113,16 @@ public class ActionDelegate {
 
     /**
      * Find action view for the specified id.
-     * @param actionViewId the action view id
+     * @param commandViewId the action view id
      * @return the view if exists
      */
-    private View findActionView(int actionViewId) {
+    private View findCommandView(@IdRes int commandViewId) {
         View actionView = null;
         MDKInnerWidget v = this.weakView.get();
         if (v != null && v instanceof HasMdkDelegate) {
             View rootView = ((HasMdkDelegate) v).getMDKWidgetDelegate().findRootView(false);
             if (rootView != null) {
-                actionView = rootView.findViewById(actionViewId);
+                actionView = rootView.findViewById(commandViewId);
 
             }
         }
@@ -133,15 +133,15 @@ public class ActionDelegate {
     /**
      * Return the base key name for the specified parameters.
      * @param widgetClassName the simple name class of the widget
-     * @param actionViewId the id of the action view
+     * @param commandViewId the id of the action view
      * @return the base key associated with the parameters
      */
-    @Nullable private String baseKey(String widgetClassName, int actionViewId) {
-        StringBuilder baseKey = new StringBuilder();
+    @Nullable private String baseKey(String widgetClassName,@IdRes int commandViewId) {
+        StringBuilder baseKey = new StringBuilder(widgetClassName.toLowerCase());
 
         baseKey.append(widgetClassName.toLowerCase());
 
-        if (actionViewId == primaryActionViewId) {
+        if (commandViewId == primaryCommandViewId) {
             baseKey.append("_primary");
         } else {
             baseKey.append("_secondary");
@@ -157,7 +157,7 @@ public class ActionDelegate {
      * @param id the id
      * @return command the command action
      */
-    @Nullable public Command getAction(@IdRes int id) {
+    @Nullable public Command getWidgetCommand(@IdRes int id) {
 
         Command<?,?> command = null;
         MDKInnerWidget v = this.weakView.get();

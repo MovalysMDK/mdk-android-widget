@@ -1,18 +1,16 @@
 package com.soprasteria.movalysmdk.widget.core.error;
 
 /**
- * MDKErrorMessageFormat interface definition.
- * Created by gestionnaire on 11/06/2015.
+ * Interface definition of the MDK error message formatter.
+ * This interface can be implemented for custom error widget in order to personalize message.
  */
 public interface MDKErrorMessageFormat {
 
     /**
-     * Format a message.
-     * @param centralizedError defined if the error is defined inside a Rich component
-     * @param error MDKError object containing
-     * @return CharSequence the frmatted message
+     * Message formatter for custom error widget
+     * @param sharedErrorWidget true if this error is declared into a Rich component which shares error's messages.
+     * @param error Custom MDKError object
+     * @return CharSequence Formatted message
      */
-    CharSequence textFormatter(boolean centralizedError, MDKError error);
-
-
+    CharSequence formatText(MDKError error, boolean sharedErrorWidget);
 }

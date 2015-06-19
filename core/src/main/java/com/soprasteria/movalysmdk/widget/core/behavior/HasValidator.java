@@ -17,7 +17,7 @@ public interface HasValidator {
 
     /**
      * Validate the widget.
-     * basically execute the validation on the validator
+     * basically sendEmail the validation on the validator
      * @return true if the wiget is valide, false otherwise
      */
     boolean validate();

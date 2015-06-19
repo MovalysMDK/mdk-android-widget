@@ -8,41 +8,41 @@ import com.soprasteria.movalysmdk.widget.standard.R;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
 /**
- * Created by abelliard on 03/06/2015.
+ * Class handling email message building: to, cc, bcc, subject, body.
+ * Ask for what application will be used to open the mail on the device.
  */
-public class EmailCommand implements Command<Email, Void> {
-
-    /** Application context. */
-    private final Context context;
+public abstract class EmailCommand implements Command<Email, Void> {
 
     /**
-     * Constructor.
-     * @param context the context
+     * Constructor. Nothing to do.
      */
-    public EmailCommand(Context context) {
-        this.context = context;
+    public EmailCommand() {
+        // Nothing to do
     }
 
     /**
-     * Email launcher.
+     * Send an email.
      * @param email email information
      * @return null
      */
-    @Override
-    public Void execute(Email... email) {
+    public Void sendEmail(Context context, Email... email) {
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
 
-        Email currentMail = email[0];
-        mailIntent.putExtra(Intent.EXTRA_EMAIL  , currentMail.getTo());
-        mailIntent.putExtra(android.content.Intent.EXTRA_CC, currentMail.getCc());
-        mailIntent.putExtra(android.content.Intent.EXTRA_BCC, currentMail.getBcc());
+        if (email.length == 0 || email.length > 1){
+            if (email[0] != null) {
+                Email currentMail = email[0];
+                mailIntent.putExtra(Intent.EXTRA_EMAIL, currentMail.getTo());
+                mailIntent.putExtra(android.content.Intent.EXTRA_CC, currentMail.getCc());
+                mailIntent.putExtra(android.content.Intent.EXTRA_BCC, currentMail.getBcc());
 
-        mailIntent.putExtra(Intent.EXTRA_SUBJECT, currentMail.getSubject());
-        mailIntent.putExtra(Intent.EXTRA_TEXT, currentMail.getBody());
+                mailIntent.putExtra(Intent.EXTRA_SUBJECT, currentMail.getSubject());
+                mailIntent.putExtra(Intent.EXTRA_TEXT, currentMail.getBody());
 
-        mailIntent.setType("plain/text");
+                mailIntent.setType(context.getString(R.string.plain_text));
 
-        this.context.startActivity( Intent.createChooser(mailIntent, this.context.getString(R.string.email_chooser_label)) );
+                context.startActivity(Intent.createChooser(mailIntent, context.getString(R.string.email_chooser_label)));
+            }
+        }
 
         return null;
     }

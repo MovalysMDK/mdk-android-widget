@@ -21,6 +21,7 @@
 
     <!-- Regular Expression for email formatting-->
     <string name="email_regex">^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
+    <string name="plain_text">plain/text</string>
 
 
 </resources>

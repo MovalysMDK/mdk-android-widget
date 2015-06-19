@@ -1,21 +1,21 @@
 package com.soprasteria.movalysmdk.widget.core.error;
 
 /**
- * Created by gestionnaire on 11/06/2015.
+ * Class dedicated to methods on error messages formatting
  */
 public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
 
     /**
      * Constructor.
-     * @param centralizedError defined if the error is defined inside a Rich component
+     * @param sharedErrorWidget defined if the error is defined inside a Rich component
      * @param error MDKError object containing
      * @return formattedMessage the formatted message
      */
-    public CharSequence textFormatter(boolean centralizedError, MDKError error) {
+    public CharSequence formatText(MDKError error, boolean sharedErrorWidget) {
 
         CharSequence formattedMessage = error.getErrorMessage();
 
-        if (centralizedError) {
+        if (sharedErrorWidget) {
             return error.getComponentLabelName() + ": " + formattedMessage;
         }
 

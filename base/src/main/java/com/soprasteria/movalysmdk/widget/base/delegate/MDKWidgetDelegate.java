@@ -298,12 +298,12 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     @Override
-    public void setHelperId(int helperId) {
+    public void setHelperViewId(int helperId) {
         this.helperId = helperId;
     }
 
     @Override
-    public void setErrorId(int errorId) {
+    public void setErrorViewId(int errorId) {
         this.errorId = errorId;
     }
 

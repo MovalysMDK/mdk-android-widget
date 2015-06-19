@@ -2,32 +2,31 @@ package com.soprasteria.movalysmdk.widget.standard.model;
 
 /**
  * Email class.
- * Created by abelliard on 05/06/2015.
  */
 public class Email {
 
     /**
-     * to mail field.
+     * List of email address to send email.
      */
     private String[] to;
 
     /**
-     * cc mail field.
+     * List of email address to send email on carbon copy.
      */
     private String[] cc;
 
     /**
-     * bcc mail field.
+     * List of email address to send email on blind carbon copy.
      */
     private String[] bcc;
 
     /**
-     * Subject mail field.
+     * Subject of the email.
      */
     private String subject;
 
     /**
-     * Body of the mail.
+     * Body of the email.
      */
     private String body;
 
@@ -52,71 +51,71 @@ public class Email {
     }
 
     /**
-     * Getter.
-     * @return to a clone version of to
+     * Get list of email address to send email.
+     * @return a list of email address
      */
     public String[] getTo() {
         return to.clone();
     }
 
     /**
-     * Setter.
-     * @param to to
+     * Set list of email address to send email.
+     * @param to List of email address
      */
     public void setTo(String[] to) {
         this.to = to.clone();
     }
 
     /**
-     * Getter.
-     * @return cc a clone version of cc
+     * Get list of email address for carbon copy.
+     * @return a list of email address on carbon copy
      */
     public String[] getCc() {
         return this.cc.clone();
     }
 
     /**
-     * Setter.
-     * @param cc cc
+     *  Set list of email address for carbon copy.
+     * @param cc List of email address for cc
      */
     public void setCc(String[] cc) {
         this.cc = cc.clone();
     }
 
     /**
-     * Getter.
-     * @return bcc a clone version of bcc
+     *  Get list of email address for blind carbon copy
+     * @return a list of email address for blind carbon copy
      */
     public String[] getBcc() {
         return bcc.clone();
     }
 
     /**
-     * Setter.
-     * @param bcc bcc
+     * Set list of email address for blind carbon copy
+     * @param bcc List of email address for bcc
      */
     public void setBcc(String[] bcc) {
         this.bcc = bcc.clone();
     }
 
     /**
-     * Getter.
-     * @return subject subject
+     * Get the subject of the mail.
+     * @return subject of the mail
      */
     public String getSubject() {
         return subject;
     }
 
     /**
-     * Setter.
-     * @param subject subject
+     * Set the subject of the mail.
+     * @param subject email subject to set
      */
     public void setSubject(String subject) {
         this.subject = subject;
     }
 
     /**
-     * Getter.
+     * Get email text body.
      * @return body the body
      */
     public String getBody() {
@@ -124,8 +123,8 @@ public class Email {
     }
 
     /**
-     * Setter.
-     * @param body the new body
+     * Set email text body.
+     * @param body email body to set: can
      */
     public void setBody(String body) {
         this.body = body;

@@ -8,8 +8,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
  */
 public class FortyTwoErrorMessageFormat implements MDKErrorMessageFormat {
 
-    @Override
-    public CharSequence textFormatter(boolean centralizedError, MDKError error) {
+    public CharSequence formatText(MDKError error, boolean sharedErrorWidget) {
 
         StringBuilder stringBuilder = new StringBuilder();
 

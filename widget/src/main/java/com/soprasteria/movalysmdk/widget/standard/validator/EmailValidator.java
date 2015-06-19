@@ -62,7 +62,7 @@ public class EmailValidator extends MandatoryValidator {
                     mdkError.setErrorMessage(error);
             }
         } else if (mandatory) {
-            // TODO merge error with super call
+            // TODO merge error with super call + remplacement MDKerror par celui du super
             mdkError = new MDKError();
             mdkError.setErrorCode(getErrorMandatory());
             error = this.context.getString(this.mandatoryErrorId);

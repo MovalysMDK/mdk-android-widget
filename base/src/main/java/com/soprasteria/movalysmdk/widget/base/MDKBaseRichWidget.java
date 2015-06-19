@@ -43,8 +43,8 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
 
     /** should always show the error view. */
     private boolean errorAlwaysVisible;
-
-    /** The string ressource id for the hint. */
+    
+    /** The string resource id for the hint. */
     private int resHintId;
 
     /**
@@ -82,7 +82,7 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
     /**
      * Initialise rich widget.
      * @param context the context
-     * @param attrs the attribut set
+     * @param attrs the attribute set
      * @param layoutWithLabelId the layout id for the widget with label
      * @param layoutWithoutLabelId the layout id for the widget without label
      */
@@ -139,10 +139,10 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
         if (errorId != 0) {
             int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
             this.innerWidget.setRootId(rootId);
-            this.innerWidget.setErrorId(errorId);
+            this.innerWidget.setErrorViewId(errorId);
             this.innerWidget.setUseRootIdOnlyForError(true);
         }
-        //TODO (always show error text view, ...)
+        //TODO (always show error text view, ...) ??? TBD
 
         boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
         this.getInnerWidget().setMandatory(mandatory);
@@ -232,13 +232,13 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
     }
 
     @Override
-    public void setHelperId(int helperId) {
-        this.getInnerWidget().setHelperId(helperId);
+    public void setHelperViewId(int helperId) {
+        this.getInnerWidget().setHelperViewId(helperId);
     }
 
     @Override
-    public void setErrorId(int errorId) {
-        this.getInnerWidget().setErrorId(errorId);
+    public void setErrorViewId(int errorId) {
+        this.getInnerWidget().setErrorViewId(errorId);
     }
 
     @Override
@@ -251,7 +251,7 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
         this.getInnerWidget().setMandatory(mandatory);
     }
 
-    // TODO may change the interface of this method
+    // TODO may change the interface of this method, rechercher les endroits où elles ne servent à rien et spécialisé au cas par cas
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         mergeDrawableStates(baseState, additionalState);
@@ -272,7 +272,7 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
         mdkBaseRichWidgetSavedState.errorAlwaysVisible = this.errorAlwaysVisible;
         mdkBaseRichWidgetSavedState.resHintId = this.resHintId;
         mdkBaseRichWidgetSavedState.innerWidget = this.innerWidget.superOnSaveInstanceState();
-        // TODO : add the save of the MDKErrorWidget
+        // TODO : add the save of the MDKErrorWidget lors de la rotation de l'écran
 
         return mdkBaseRichWidgetSavedState;
     }

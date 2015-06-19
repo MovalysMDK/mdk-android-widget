@@ -3,6 +3,7 @@ package com.soprasteria.movalysmdk.widget.standard;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Parcelable;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
@@ -30,7 +31,7 @@ import com.soprasteria.movalysmdk.widget.standard.model.Email;
 public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
     /** ActionDelegate attribute. */
-    protected ActionDelegate actionDelegate;
+    protected ActionDelegate commandDelegate;
     /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
@@ -68,12 +69,12 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
 
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
-        this.actionDelegate = new ActionDelegate(this, attrs, EmailCommand.class);
+        this.commandDelegate = new ActionDelegate(this, attrs, EmailCommand.class);
 
     }
 
     /**
-     * set a unique id for inner widget with the parent one as parameter .
+     * Set an unique id for inner widget with the parent one as parameter.
      * @param parentId id of the parent
      */
     @Override
@@ -94,7 +95,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
      * Set the root id.
      * @param rootId the id of a view
      */
-    public void setRootId(int rootId) {
+    public void setRootId(@IdRes int rootId) {
         this.mdkWidgetDelegate.setRootId(rootId);
     }
 
@@ -143,35 +144,35 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
         if (sEmailAddress != null && sEmailAddress.length() > 0) {
             // invoke command
             Email email = new Email(sEmailAddress);
-            ((EmailCommand)this.actionDelegate.getAction(v.getId())).execute(email);
+            ((EmailCommand)this.commandDelegate.getWidgetCommand(v.getId())).sendEmail(email);
         }
     }
 
     /**
-     * Component validation method, if error found return true.
+     * Widget validation method, if error found return true.
      * @return True if no error
      */
     @Override
     public boolean validate() {
-        boolean bValid = true;
+        boolean valid = true;
         MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory());
         if (error == null) {
             this.setMDKError(null);
-            bValid = true;
+            valid = true;
         } else {
             this.setMDKError(error);
-            bValid = false;
+            valid = false;
         }
-        this.getMDKWidgetDelegate().setValid(bValid);
-        return bValid;
+        this.getMDKWidgetDelegate().setValid(valid);
+        return valid;
     }
 
     /**
-     * Register the actions to the view.
+     * Register commands on the view.
      */
     @Override
-    public void registerActionViews() {
-        this.actionDelegate.registerActions(this);
+    public void registerWidgetCommands() {
+        this.commandDelegate.registerActions(this);
     }
 
     /**
@@ -190,7 +191,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (!isInEditMode()) {
-            this.registerActionViews();
+            this.registerWidgetCommands();
         }
     }
 
@@ -199,7 +200,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
      * @param labelId the id of a view
      */
     @Override
-    public void setLabelId(int labelId) {
+    public void setLabelId(@IdRes int labelId) {
         this.mdkWidgetDelegate.setLabelId(labelId);
     }
 
@@ -208,8 +209,8 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
      * @param helperId the id of a view
      */
     @Override
-    public void setHelperId(int helperId) {
-        this.mdkWidgetDelegate.setHelperId(helperId);
+    public void setHelperViewId(int helperId) {
+        this.mdkWidgetDelegate.setHelperViewId(helperId);
     }
 
     /**
@@ -217,13 +218,13 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
      * @param errorId the id of a view
      */
     @Override
-    public void setErrorId(int errorId) {
-        this.mdkWidgetDelegate.setErrorId(errorId);
+    public void setErrorViewId(@IdRes int errorId) {
+        this.mdkWidgetDelegate.setErrorViewId(errorId);
     }
 
     /**
      * Set component root's id if errors are shared.
-     * @param useRootIdOnlyForError true if the error is not in the same layout as
+     * @param useRootIdOnlyForError true if the error is not in the same layout
      */
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
