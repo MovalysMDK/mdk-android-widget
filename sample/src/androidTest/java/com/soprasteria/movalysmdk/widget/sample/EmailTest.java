@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.endsWith;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,19 +46,19 @@ public class EmailTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Write invalid email
-        onView(withId(R.id.view2)).perform(typeText("wrong format"));
+        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("wrong format"));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
 
         // check error
-        onView(withId(R.id.errorText)).check(matches(withText(R.string.mdk_email_error)));
+        onView(withId(R.id.errorText)).check(matches(withText("42 /!\\ Invalid email value")));
     }
 
     @Test
     public void testValidEmail() {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
-        onView(withId(R.id.view2)).perform(typeText("myemail@soprasteria.com"));
+        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("myemail@soprasteria.com"));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
@@ -74,12 +75,12 @@ public class EmailTest {
         onView(withId(R.id.enableButton)).perform(click());
 
         // Check widgets are disabled
-        onView(withId(R.id.view2)).check(matches(not(isEnabled())));
+        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).check(matches(not(isEnabled())));
 
         // Re enabled widget
         onView(withId(R.id.enableButton)).perform(click());
 
         // Check widgets are enabled
-        onView(withId(R.id.view2)).check(matches(isEnabled()));
+        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).check(matches(isEnabled()));
     }
 }

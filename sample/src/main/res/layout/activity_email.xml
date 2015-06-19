@@ -42,7 +42,7 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <!-- INNER EMAIL WITH EXTERNAL ERROR -->
+        <!-- INNER EMAIL WITH EXTERNAL ERROR/COMMAND -->
 
         <TextView
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:text="@string/email_standalone_widget" />
 
         <com.soprasteria.movalysmdk.widget.standard.MDKEmail
-            android:id="@+id/view2"
+            android:id="@+id/mdkEmail_withErrorAndCommandOutside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

@@ -34,7 +34,7 @@ public class EmailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_email);
 
         this.email = (MDKRichEmail) findViewById(R.id.view);
-        this.email2 = (MDKEmail) findViewById(R.id.view2);
+        this.email2 = (MDKEmail) findViewById(R.id.mdkEmail_withErrorAndCommandOutside);
         this.email3 = (MDKRichEmail) findViewById(R.id.view3);
         this.email4 = (MDKRichEmail) findViewById(R.id.view4);
         this.email5 = (MDKRichEmail) findViewById(R.id.view5);
