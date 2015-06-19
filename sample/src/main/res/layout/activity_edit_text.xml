@@ -15,28 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <Button
-                android:id="@+id/richedittext_button_validate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:onClick="validate"
-                android:text="validate" />
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
-
+            <include layout="@layout/button_bar"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/edit_text_style"/>
-
-
 
             <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
                 android:id="@+id/test_edit_style"

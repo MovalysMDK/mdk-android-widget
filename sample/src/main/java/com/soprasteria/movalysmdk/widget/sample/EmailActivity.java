@@ -3,6 +3,7 @@ package com.soprasteria.movalysmdk.widget.sample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.soprasteria.movalysmdk.widget.standard.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.standard.MDKEmail;
@@ -64,6 +65,19 @@ public class EmailActivity extends AppCompatActivity {
         this.email3.setMandatory(!this.email3.isMandatory());
         this.email4.setMandatory(!this.email4.isMandatory());
         this.email5.setMandatory(!this.email5.isMandatory());
+
+    }
+
+    public void switchEnable(View view) {
+
+        Button button = (Button) view;
+        button.setText( button.getText().equals("Disable")? "Enable": "Disable");
+
+        this.email.setEnabled(!this.email.isEnabled());
+        this.email2.setEnabled(!this.email2.isEnabled());
+        this.email3.setEnabled(!this.email3.isEnabled());
+        this.email4.setEnabled(!this.email4.isEnabled());
+        this.email5.setEnabled(!this.email5.isEnabled());
 
     }
 }

@@ -11,30 +11,7 @@
     android:id="@+id/root"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:onClick="validate"
-        android:text="validate" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:onClick="enable"
-        android:text="enable/disable" />
-
-    <View
-        android:background="@drawable/separator_background"
-        android:layout_width="match_parent"
-        android:layout_height="4dp" />
+    <include layout="@layout/button_bar"/>
 
     <!-- RichDateTime avec label sans hint -->
     <TextView

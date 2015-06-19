@@ -11,6 +11,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -25,6 +26,7 @@ import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
 
 import org.junit.Rule;
@@ -62,5 +64,22 @@ public class EmailTest {
 
         // check no error
         onView(withId(R.id.errorText)).check(matches(withText(isEmptyOrNullString())));
+    }
+
+    @Test
+    public void testDisabledEmail() {
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // Disable widgets
+        onView(withId(R.id.enableButton)).perform(click());
+
+        // Check widgets are disabled
+        onView(withId(R.id.view2)).check(matches(not(isEnabled())));
+
+        // Re enabled widget
+        onView(withId(R.id.enableButton)).perform(click());
+
+        // Check widgets are enabled
+        onView(withId(R.id.view2)).check(matches(isEnabled()));
     }
 }
