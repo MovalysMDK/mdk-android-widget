@@ -23,18 +23,18 @@ public class EditTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_text);
 
         this.mdkRichEditText = (MDKRichEditText) findViewById(R.id.test_edit_style_2);
-        this.bFillErase = (Button) findViewById(R.id.bouton_remplir_effacer);
+        this.bFillErase = (Button) findViewById(R.id.richedittext_button_remplir_effacer);
 
         bFillErase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if ("REMPLIR".equals(bFillErase.getText())) {
-                    mdkRichEditText.setText("Hello");
-                    bFillErase.setText("VIDER");
+                if (getString(R.string.action_remplir).equals(bFillErase.getText())) {
+                    mdkRichEditText.setText(getString(R.string.hello_world));
+                    bFillErase.setText(R.string.action_vider);
                 } else {
-                    mdkRichEditText.setText("");
-                    bFillErase.setText("REMPLIR");
+                    mdkRichEditText.setText(getString(R.string.empty_string));
+                    bFillErase.setText(R.string.action_remplir);
                 }
             }
         });

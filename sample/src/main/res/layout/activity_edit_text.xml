@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <Button
-                android:id="@+id/button"
+                android:id="@+id/richedittext_button_validate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -67,10 +67,10 @@
                 mdk:layout="@layout/custom_edittext_widget"/>
 
             <Button
-                android:id="@+id/bouton_remplir_effacer"
+                android:id="@+id/richedittext_button_remplir_effacer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/action_vider_remplir"/>
+                android:text="@string/action_remplir"/>
 
             <TextView
                 android:layout_width="match_parent"

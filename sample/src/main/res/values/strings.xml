@@ -2,13 +2,15 @@
     <string name="app_name">MDK Android widget</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="empty_string">""</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_list_widget">List Widget</string>
     <string name="email_activity">Email</string>
     <string name="title_activity_edit_text">EditText</string>
     <string name="edit_text_label">My label</string>
     <string name="edit_text_hint">My hint</string>
-    <string name="action_vider_remplir">REMPLIR</string>
+    <string name="action_remplir">REMPLIR</string>
+    <string name="action_vider">VIDER</string>
     <string name="edit_text_style">Edit Text avec du style</string>
     <string name="edit_text_style_2">Edit Text avec du style et un bouton pour remplir/effacer le texte</string>
     <string name="edit_text_case_1">RichEditText avec label sans hint</string>
