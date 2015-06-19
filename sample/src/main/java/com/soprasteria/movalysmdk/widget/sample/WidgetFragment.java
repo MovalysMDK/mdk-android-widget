@@ -15,18 +15,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
+import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
 
 import java.util.logging.Logger;
 
 /**
  * A fragment representing a list of Items.
- * <p/>
- * Large screen devices (such as tablets) are supported by replacing the ListView
- * with a GridView.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
+ * <p>Large screen devices (such as tablets) are supported by replacing the ListView
+ * with a GridView.</p>
+ * <p>Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
+ * interface.</p>
  */
 public class WidgetFragment extends Fragment implements AbsListView.OnItemClickListener {
 
@@ -52,13 +51,6 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
      */
     private ListAdapter mAdapter;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public WidgetFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +68,8 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
                 }
 
             }
-        } catch (Exception exception) {
-            throw new RuntimeException("context", exception);
+        } catch (PackageManager.NameNotFoundException | ClassNotFoundException exception) {
+            throw new MDKWidgetException("context", exception);
         }
 
         mAdapter = new ArrayAdapter<WidgetContent.WidgetItem>(getActivity(),
@@ -119,7 +111,7 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
+        if (mListener != null) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
             mListener.onFragmentInteraction(WidgetContent.getITEMS().get(position).getActivityClass());

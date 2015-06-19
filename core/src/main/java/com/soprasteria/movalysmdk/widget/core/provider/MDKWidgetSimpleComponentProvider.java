@@ -6,13 +6,10 @@ import android.util.Log;
 import com.soprasteria.movalysmdk.widget.core.command.Command;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
-import com.soprasteria.movalysmdk.widget.core.exception.StringNotDefineForResourceException;
+import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.lang.reflect.Constructor;
-
-;
-;
 
 /**
  * Simple implementation of the MDKWidgetComponentProvider.
@@ -82,7 +79,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         }
         // create instance
         if (classPath == null) {
-            throw new StringNotDefineForResourceException("no string resource define for :"+baseKey);
+            throw new MDKWidgetException("no string resource define for :"+baseKey);
         }
 
         return classPath;
