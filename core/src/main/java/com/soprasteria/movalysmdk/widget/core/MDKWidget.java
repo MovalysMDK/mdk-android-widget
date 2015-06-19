@@ -3,7 +3,7 @@ package com.soprasteria.movalysmdk.widget.core;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**
- * Interface for MDK inner widget component.
+ * Interface for MDK widget component.
  */
 public interface MDKWidget {
 
@@ -67,18 +67,6 @@ public interface MDKWidget {
      * @return true if the widget is mandatory, false otherwise
      */
     boolean isMandatory();
-
-    /**
-     * Set unique id of the widget.
-     * @param parentId the parent id
-     */
-    void setUniqueId(int parentId);
-
-    /**
-     * Get uniqueId of the widget.
-     * @return uniqueid the id
-     */
-    int getUniqueId();
 
     /**
      * superOnCreateDrawableState method.

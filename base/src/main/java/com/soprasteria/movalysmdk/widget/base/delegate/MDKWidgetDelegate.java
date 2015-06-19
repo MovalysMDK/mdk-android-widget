@@ -1,5 +1,6 @@
 package com.soprasteria.movalysmdk.widget.base.delegate;
 
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,6 +15,7 @@ import com.soprasteria.movalysmdk.widget.base.R;
 import com.soprasteria.movalysmdk.widget.base.RichSelector;
 import com.soprasteria.movalysmdk.widget.base.SimpleMandatoryRichSelector;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
@@ -29,7 +31,7 @@ import java.util.List;
  * MDKWidgetDelegate class definition
  * Created by abelliard on 05/06/2015.
  */
-public class MDKWidgetDelegate implements MDKWidget {
+public class MDKWidgetDelegate implements MDKInnerWidget {
 
     /**
      * ADDED_MDK_STATE.
@@ -170,6 +172,15 @@ public class MDKWidgetDelegate implements MDKWidget {
         return uniqueId;
     }
 
+    @Override
+    public Context getContext() {
+        View view = this.weakView.get();
+        if (view != null) {
+            return view.getContext();
+        }
+        return null;
+    }
+
 
     // TODO explain why
 
@@ -233,11 +244,11 @@ public class MDKWidgetDelegate implements MDKWidget {
         View v = this.weakView.get();
         if (v instanceof MDKWidget) {
             if (error == null) {
-                (mdkErrorWidget).clear(((MDKWidget) v).getUniqueId());
+                (mdkErrorWidget).clear(((MDKInnerWidget) v).getUniqueId());
             } else {
-                error.setComponentId(((MDKWidget) v).getUniqueId());
+                error.setComponentId(((MDKInnerWidget) v).getUniqueId());
                 error.setComponentLabelName(this.getLabel());
-                (mdkErrorWidget).addError(((MDKWidget) v).getUniqueId(), error);
+                (mdkErrorWidget).addError(((MDKInnerWidget) v).getUniqueId(), error);
             }
         }
     }

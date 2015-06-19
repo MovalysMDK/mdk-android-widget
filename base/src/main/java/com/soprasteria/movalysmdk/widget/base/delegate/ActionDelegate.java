@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.base.R;
+import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.command.Command;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
@@ -28,7 +29,7 @@ public class ActionDelegate {
     private final Class<? extends Command> secondaryActionCommandClass;
 
     /** Weak reference on view. */
-    private final WeakReference<View> weakView;
+    private final WeakReference<MDKInnerWidget> weakView;
 
     /** Id of the primary action view. */
     private final int primaryActionViewId;
@@ -41,48 +42,48 @@ public class ActionDelegate {
 
     /**
      * Constructor.
-     * @param view view
+     * @param mdkWidget view
      * @param attrs attributes
      */
-    public ActionDelegate(View view, AttributeSet attrs) {
+    public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs) {
 
-        this(view, attrs, null);
+        this(mdkWidget, attrs, null);
 
     }
 
     /**
      * Constructor.
-     * @param view view
+     * @param mdkWidget view
      * @param attrs attributes
      * @param primaryCommandClass command class
      */
-    public ActionDelegate(View view, AttributeSet attrs, Class<? extends Command> primaryCommandClass) {
+    public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs, Class<? extends Command> primaryCommandClass) {
 
-        this(view, attrs, primaryCommandClass, null);
+        this(mdkWidget, attrs, primaryCommandClass, null);
 
     }
 
     /**
      * Constructor.
-     * @param view view
+     * @param mdkWidget view
      * @param attrs attributes
      * @param primaryCommandClass primary command class
      * @param secondaryCommandClass secondary command class
      */
-    public ActionDelegate(View view, AttributeSet attrs, Class<? extends Command> primaryCommandClass, Class<? extends Command> secondaryCommandClass) {
+    public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs, Class<? extends Command> primaryCommandClass, Class<? extends Command> secondaryCommandClass) {
 
-        this.weakView = new WeakReference<View>(view);
+        this.weakView = new WeakReference<MDKInnerWidget>(mdkWidget);
         this.primaryActionCommandClass = primaryCommandClass;
         this.secondaryActionCommandClass = secondaryCommandClass;
 
-        TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
+        TypedArray typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
 
         this.primaryActionViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_primaryActionId, 0);
         this.secondaryActionViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_secondaryActionId, 0);
 
         typedArray.recycle();
 
-        typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
+        typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
 
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
 
@@ -117,7 +118,7 @@ public class ActionDelegate {
      */
     private View findActionView(int actionViewId) {
         View actionView = null;
-        View v = this.weakView.get();
+        MDKInnerWidget v = this.weakView.get();
         if (v != null && v instanceof HasMdkDelegate) {
             View rootView = ((HasMdkDelegate) v).getMDKWidgetDelegate().findRootView(false);
             if (rootView != null) {
@@ -159,7 +160,7 @@ public class ActionDelegate {
     @Nullable public Command getAction(@IdRes int id) {
 
         Command<?,?> command = null;
-        View v = this.weakView.get();
+        MDKInnerWidget v = this.weakView.get();
         if (v != null) {
 
             if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {

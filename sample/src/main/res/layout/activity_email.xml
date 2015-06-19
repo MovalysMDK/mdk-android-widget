@@ -71,7 +71,7 @@
             android:layout_alignParentRight="true"
             android:text="send" />
 
-        <TextView
+        <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
             android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <TextView
+        <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email_rich_common_error"

@@ -61,6 +61,8 @@ allprojects {
         supportTestRunnerVersion = "0.3"
 
         spoonClientVersion = "1.1.9"
+
+        jacocoVersion = "0.7.1.201405082137"
     }
 }
 

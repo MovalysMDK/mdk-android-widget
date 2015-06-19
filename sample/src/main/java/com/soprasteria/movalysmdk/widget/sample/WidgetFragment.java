@@ -66,6 +66,8 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
         try {
             PackageManager pm =  this.getActivity().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(this.getActivity().getPackageName(), PackageManager.GET_ACTIVITIES);
+
+            WidgetContent.getITEMS().clear();
             for (ActivityInfo ai: pi.activities) {
 
                 // load all class but main activity

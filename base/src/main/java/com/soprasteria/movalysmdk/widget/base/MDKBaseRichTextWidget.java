@@ -3,6 +3,7 @@ package com.soprasteria.movalysmdk.widget.base;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
@@ -11,7 +12,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
  * Base implementation of the rich mdk widget for widget that uses text.
  * @param <T> the inner widget type
  */
-public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestoreWidget & HasText> extends MDKBaseRichWidget<T> implements HasText {
+public class MDKBaseRichTextWidget<T extends MDKInnerWidget & MDKRestoreWidget & HasText> extends MDKBaseRichWidget<T> implements HasText {
 
     /**
      * Constructor.

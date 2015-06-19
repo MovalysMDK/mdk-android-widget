@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKDateTimePickerWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -31,7 +32,7 @@ import java.util.Date;
  * - dateFormat : specify a custom format that will be used to display the date. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a>
  * - timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a>
  */
-public class MDKDateTime extends TextView implements MDKWidget, MDKRestoreWidget, HasValidator, HasMdkDelegate {
+public class MDKDateTime extends TextView implements MDKInnerWidget, MDKRestoreWidget, HasValidator, HasMdkDelegate {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkDateTimePickerWidgetDelegate;

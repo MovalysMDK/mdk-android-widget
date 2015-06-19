@@ -52,7 +52,7 @@ public class RichEditTextTest {
                 .check(matches(withText(R.string.empty_string)));
 
         // Check that a mandatory MDKEditText raises an error after clicking on validate without to have filled it out with text
-        onView(withId(R.id.richedittext_button_validate)).perform(click());
+        onView(withId(R.id.validateButton)).perform(click());
 
 
        // onView(withId(R.id.test_case_1)).check(matches(withText("42 /!\\ Must de filled")));
@@ -64,7 +64,7 @@ public class RichEditTextTest {
                 .perform(typeText("Input text"));
 
         // Perform click on validation button
-        onView(withId(R.id.richedittext_button_validate)).perform(click());
+        onView(withId(R.id.validateButton)).perform(click());
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.test_case_1))))

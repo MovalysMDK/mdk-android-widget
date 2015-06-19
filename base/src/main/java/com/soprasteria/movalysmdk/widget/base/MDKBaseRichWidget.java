@@ -11,25 +11,39 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView;
+import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKRichWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**
- * Base class for rich mdk widgets.
- * This class inflate the layout passed in the constructor and depending
- * on the attributes configuration inflate error and label subwigets.
+ * MDK Rich Widget.
+ * <p>A rich widget adds the following features on an base widget :</p>
+ * <ul>
+ *     <li>label (with floating label)</li>
+ *     <li>hint</li>
+ *     <li>error/helper</li>
+ * </ul>
+ * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends RelativeLayout implements MDKWidget, HasError {
+public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> extends RelativeLayout implements MDKRichWidget, HasError {
 
-    /** the inner widget. */
+    /**
+     * Base widget.
+     * Warning: business rules are included in the baseWidget, not in this class or inherited class.
+     */
     private T innerWidget;
+
     /** the error view. */
-    private TextView errorView;
+    private MDKErrorWidget errorView;
+
     /** should always show the error view. */
     private boolean errorAlwaysVisible;
+
     /** The string ressource id for the hint. */
     private int resHintId;
 
@@ -113,7 +127,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
         }
 
         // getting the error view
-        this.errorView = (TextView) this.findViewById(R.id.component_error);
+        this.errorView = (MDKErrorWidget) this.findViewById(R.id.component_error);
         if (resHelperId != 0
                 && this.errorView != null
                 && this.errorView instanceof MDKErrorTextView ) {
@@ -138,16 +152,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestoreWidget> extends R
 
         // release typed array
         typedArray.recycle();
-    }
-
-    @Override
-    public int getUniqueId() {
-        return this.getId();
-    }
-
-    @Override
-    public void setUniqueId(int parentId) {
-        // nothing to do
     }
 
     /**
