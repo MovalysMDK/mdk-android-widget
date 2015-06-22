@@ -9,28 +9,29 @@ public interface MDKWidget {
 
     /**
      * Set the root id.
-     * the layout contains the error view
+     * <p>The layout contains the error view.</p>
      * @param rootId the id of a view
      */
     void setRootViewId(int rootId);
 
     /**
      * Set the label id.
-     * the view used as label for this widget
+     * <p>The view used as label for this widget.</p>
      * @param labelId the id of a view
      */
+    //FIXME: Rename to setLabelViewId
     void setLabelId(int labelId);
 
     /**
      * Set the helper id.
-     * the view used as helper for this widget
+     * <p>The view used as helper for this widget.</p>
      * @param helperId the id of a view
      */
     void setHelperViewId(int helperId);
 
     /**
      * Set the error id.
-     * the view used as error for this widget
+     * <p>The view used as error for this widget.</p>
      * @param errorId the id of a view
      */
     void setErrorViewId(int errorId);
@@ -38,7 +39,7 @@ public interface MDKWidget {
     /**
      * Set if the error view is not in the same layout as the others
      * widget (used for commons errors in a layout).
-     * If this value is passed to true, the root id must be set as well.
+     * <p>If this value is passed to true, the root id must be set as well.</p>
      * @param useRootIdOnlyForError true if the error is not in the same layout as
      *                              the other sub widget
      */
@@ -63,7 +64,7 @@ public interface MDKWidget {
     void setMandatory(boolean mandatory);
 
     /**
-     * Return if the widget is mandatory.
+     * Return true if the widget is mandatory.
      * @return true if the widget is mandatory, false otherwise
      */
     boolean isMandatory();

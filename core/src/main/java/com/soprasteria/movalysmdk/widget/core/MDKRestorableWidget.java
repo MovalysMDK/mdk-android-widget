@@ -4,7 +4,8 @@ import android.os.Parcelable;
 
 
 /**
- * MDKRestorableWidget interface definition.
+ * MDKRestorableWidget.
+ * //FIXME: add more documentation
  */
 public interface MDKRestorableWidget {
 

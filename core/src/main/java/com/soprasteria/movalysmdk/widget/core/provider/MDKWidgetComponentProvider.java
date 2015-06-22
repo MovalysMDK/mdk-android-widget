@@ -7,7 +7,12 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
- *  Bean provider for MDK Widget. <p>Bean types are : </p> <ul> <li>WidgetCommand</li> <li>Validator</li> <li></li> </ul>.
+ *  Bean provider for MDK Widget.
+ *  <p>Bean types are : </p>
+ *  <ul>
+ *      <li>WidgetCommand</li>
+ *      <li>Validator</li>
+ *  </ul>.
  */
 public interface MDKWidgetComponentProvider {
 

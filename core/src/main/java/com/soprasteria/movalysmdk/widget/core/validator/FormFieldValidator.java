@@ -5,7 +5,8 @@ import android.content.Context;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**
- * Interface for Validator definition.
+ * Validation of form field.
+ * //FIXME: add more documentation
  * @param <T> the type of data to validate.
  */
 public interface FormFieldValidator<T> {

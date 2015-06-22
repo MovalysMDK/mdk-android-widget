@@ -2,7 +2,7 @@ package com.soprasteria.movalysmdk.widget.core.error;
 
 /**
  * Interface definition of the MDK error message formatter.
- * This interface can be implemented for custom error widget in order to personalize message.
+ * <p>This interface can be implemented for custom error widget in order to personalize message.</p>
  */
 public interface MDKErrorMessageFormat {
 

@@ -4,8 +4,6 @@ import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Interface to add validation capacity to a widget.
- *
- *
  */
 public interface HasValidator {
 

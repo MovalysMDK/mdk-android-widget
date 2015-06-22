@@ -9,27 +9,28 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
-import java.lang.reflect.Constructor;
-
 /**
  * Simple implementation of the MDKWidgetComponentProvider.
- * uses the class package and name to create a singleton of the WidgetCommand/Validator
- * to be return for the widget
+ * <p>Uses the class package and name to create a singleton of the WidgetCommand/Validator
+ * to be returned for the widget.</p>
  */
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
 
-    /** TAG. */
-    private static final String TAG = "MDKProvider";
-    /** MDK_ERROR_MESSAGE_FORMAT_KEY. */
+    /**
+     * MDK_ERROR_MESSAGE_FORMAT_KEY.
+     */
     private static final String MDK_ERROR_MESSAGE_FORMAT_KEY = "mdk_error_message_format";
-    /** MDK_ERROR_MESSAGE_NOT_INSTANCE. */
+
+    /**
+     * MDK_ERROR_MESSAGE_NOT_INSTANCE.
+     */
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
     /**
      * Create a WidgetCommand instance from the specified key and attribute.
-     * <p>Search for the contactenation of baseKey and qualifier in resources
-     * and if not exist juste for the baseKey and instanciate the Class specified
-     * by this resource</p>
+     * <p>Search for the concatenation of baseKey and qualifier in resources
+     * and if not exist juste for the baseKey and instantiate the Class specified
+     * by this resource.</p>
      *
      * @param context the Android context
      * @param baseKey the base key to find
@@ -38,15 +39,13 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      */
     private WidgetCommand createCommandFromKey(Context context, String baseKey, String qualifier) {
 
-        String classPath = findClassPathFromRessource(context, baseKey, qualifier);
+        String classPath = findClassPathFromResource(context, baseKey, qualifier);
 
-        WidgetCommand widgetCommand = null;
+        WidgetCommand widgetCommand ;
         try {
-            Class commandClass = Class.forName(classPath);
-            Constructor constructor = commandClass.getConstructor();
-            widgetCommand = (WidgetCommand) constructor.newInstance();
-        } catch (Exception e) {
-            Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
+            widgetCommand = (WidgetCommand) Class.forName(classPath).newInstance();
+        } catch ( Exception e) {
+            throw new MDKWidgetException(MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }
 
         return widgetCommand;
@@ -64,18 +63,18 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * @param qualifier the qualifier
      * @return a String containing the ClassPath of the given resources key
      */
-    private String findClassPathFromRessource(Context context, String baseKey, String qualifier) {
+    private String findClassPathFromResource(Context context, String baseKey, String qualifier) {
         String classPath = null;
         // case with qualifier
         if (qualifier != null) {
-            classPath = findStringFromRessourceName(context, baseKey + "_" + qualifier);
+            classPath = findStringFromResourceName(context, baseKey + "_" + qualifier);
             if (classPath == null) {
                 Log.d("ActionDelegate", "no string resource define for :" + baseKey + "_" + qualifier + " but qualifier was defined");
             }
         }
         // case without qualifier
         if (classPath == null) {
-            classPath = findStringFromRessourceName(context, baseKey);
+            classPath = findStringFromResourceName(context, baseKey);
         }
         // create instance
         if (classPath == null) {
@@ -91,7 +90,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * @param resourceStringName the string name
      * @return a string matching the name in the Android resources
      */
-    private String findStringFromRessourceName(Context context, String resourceStringName) {
+    private String findStringFromResourceName(Context context, String resourceStringName) {
         int resourceId = context.getResources().getIdentifier(resourceStringName, "string", context.getPackageName());
         if (resourceId != 0) {
             return context.getString(resourceId);
@@ -113,22 +112,15 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     public MDKErrorMessageFormat getErrorMessageFormat(Context context) {
         MDKErrorMessageFormat errorMessageFormat = null;
 
-        // Check the existence of a custom error message formatter ressource
-        String classPath = findStringFromRessourceName(context, MDK_ERROR_MESSAGE_FORMAT_KEY);
+        // Check the existence of a custom error message formatter resource
+        String classPath = findStringFromResourceName(context, MDK_ERROR_MESSAGE_FORMAT_KEY);
 
         if (classPath != null) {
             try {
-                // Try to instanciate the class found in android ressource
-                Class validatorClass = Class.forName(classPath);
-                Constructor constructor = validatorClass.getConstructor();
-                errorMessageFormat = (MDKErrorMessageFormat) constructor.newInstance();
+                // Try to instantiate the class found in android resource
+                errorMessageFormat = (MDKErrorMessageFormat) Class.forName(classPath).newInstance();
             } catch (Exception e) {
-
-                // Log the error
-                Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
-
-                // In case of a wrong classpath or non existent class, fallback in default case
-                errorMessageFormat = new MDKSimpleErrorMessageFormat();
+                throw new MDKWidgetException(MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
             }
         } else {
             // Default error message formatter
@@ -148,17 +140,14 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      */
     private FormFieldValidator createValidatorFromKey(Context context, String baseKey, String qualifier) {
 
-        FormFieldValidator<?> validator = null;
+        FormFieldValidator<?> validator;
 
-
-        String classPath = findClassPathFromRessource(context, baseKey, qualifier);
+        String classPath = findClassPathFromResource(context, baseKey, qualifier);
 
         try {
-            Class validatorClass = Class.forName(classPath);
-            Constructor constructor = validatorClass.getConstructor();
-            validator = (FormFieldValidator) constructor.newInstance();
+            validator = (FormFieldValidator<?>) Class.forName(classPath).newInstance();
         } catch (Exception e) {
-            Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
+            throw new MDKWidgetException(MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }
 
         return validator;

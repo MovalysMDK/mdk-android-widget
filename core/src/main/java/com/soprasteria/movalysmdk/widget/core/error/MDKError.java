@@ -2,14 +2,17 @@ package com.soprasteria.movalysmdk.widget.core.error;
 
 
 /**
- * MDKError class definition
- * Created by gestionnaire on 11/06/2015.
+ * MDKError class definition.
  */
 public class MDKError {
 
-    /** Id of the component raising the error. This one is set according:
-     * - If the component is inside a rich one.
-     * - If the component is a basic one. */
+    /**
+     * Id of the component raising the error. This one is set according:
+     * <ul>
+     *     <li>If the component is inside a rich one.</li>
+     *     <li>If the component is a basic one.</li>
+     * </ul>
+     */
     private int componentId;
 
     /** Name of the component raising the error.  */
@@ -21,8 +24,10 @@ public class MDKError {
     /** No error code defined. */
     public static final int NO_ERROR_CODE = -1;
 
-    /** Error code defining which kind of error it is, for example,
-     * it can be used later for apply text style. */
+    /**
+     * Error code defining which kind of error it is.
+     * <p>For example, it can be used later for apply text style.</p>
+     */
     private int errorCode;
 
     /**
@@ -37,7 +42,6 @@ public class MDKError {
      */
     public MDKError() {
         init();
-        //Nothing to do
     }
 
     /**

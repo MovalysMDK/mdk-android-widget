@@ -16,10 +16,10 @@ public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
         CharSequence oFormattedMessage = error.getErrorMessage();
 
         if (sharedErrorWidget) {
-            StringBuilder lFormattedText = new StringBuilder(error.getComponentLabelName());
-            lFormattedText.append(": ");
-            lFormattedText.append(oFormattedMessage);
-            oFormattedMessage = lFormattedText;
+            StringBuilder formattedText = new StringBuilder(error.getComponentLabelName());
+            formattedText.append(": ");
+            formattedText.append(oFormattedMessage);
+            oFormattedMessage = formattedText.toString();
         }
         return oFormattedMessage;
     }

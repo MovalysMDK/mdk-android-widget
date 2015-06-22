@@ -4,7 +4,7 @@ import android.content.Context;
 
 /**
  * WidgetCommand interface.
- * Should be implemented by all command in components.
+ * <p>Should be implemented by all commands in components.</p>
  * @param <I> Input
  * @param <O> output
  */
