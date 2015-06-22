@@ -5,7 +5,12 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * Created by abelliard on 04/06/2015.
+ * Email widget to show email value and add
+ * a send button to call email Intent.ACTION_SEND intent.
+ *
+ * this widget has no editable properties.
+ *
+ * @see com.soprasteria.movalysmdk.widget.standard.MDKEmail
  */
 public class MDKEmailView extends TextView {
 

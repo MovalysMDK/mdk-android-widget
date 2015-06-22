@@ -208,7 +208,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
      * @param helperId the id of a view
      */
     @Override
-    public void setHelperViewId(int helperId) {
+    public void setHelperViewId(@IdRes int helperId) {
         this.mdkWidgetDelegate.setHelperViewId(helperId);
     }
 
