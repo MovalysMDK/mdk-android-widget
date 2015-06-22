@@ -23,12 +23,20 @@ public class MDKError {
 
     /** Error code defining which kind of error it is, for example,
      * it can be used later for apply text style. */
-    private int errorCode = NO_ERROR_CODE;
+    private int errorCode;
+
+    /**
+     * Private initializer.
+     */
+    private void init() {
+        errorCode = NO_ERROR_CODE;
+    }
 
     /**
      * Default builder.
      */
     public MDKError() {
+        init();
         //Nothing to do
     }
 
@@ -41,7 +49,7 @@ public class MDKError {
     public MDKError (CharSequence componentLabelName,
                           CharSequence errorMessage,
                           int errorCode) {
-
+        init();
         this.componentLabelName = componentLabelName;
         this.errorMessage = errorMessage;
         this.errorCode = errorCode;

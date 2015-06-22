@@ -9,10 +9,10 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 public interface FormFieldValidator<T> {
 
     /**
-     * validate the parameter value.
+     * Validate the parameter objectToValidate.
      * @param objectToValidate the value to validate
      * @param mandatory specify if mandatory
-     * @return a string of the error or null
+     * @return a MDKError containing the error or null
      */
     MDKError validate(T objectToValidate, boolean mandatory);
 }
