@@ -20,7 +20,7 @@ public interface MDKInnerWidget extends MDKWidget {
     int getUniqueId();
 
     /**
-     * Return android context
+     * Return android context.
      * @see android.view.View
      * @return android context
      */

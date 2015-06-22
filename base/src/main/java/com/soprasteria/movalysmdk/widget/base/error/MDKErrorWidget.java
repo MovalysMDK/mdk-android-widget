@@ -33,7 +33,7 @@ public interface MDKErrorWidget {
     void setDisplayErrorOrder(int[] displayErrorOrder);
 
     /**
-     * Set widget visibility
+     * Set widget visibility.
      * @see android.view.View#setVisibility(int)
      * @param visible
      */

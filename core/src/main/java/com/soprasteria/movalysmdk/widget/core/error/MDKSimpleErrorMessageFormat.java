@@ -1,7 +1,7 @@
 package com.soprasteria.movalysmdk.widget.core.error;
 
 /**
- * Class dedicated to methods on error messages formatting
+ * Class dedicated to methods on error messages formatting.
  */
 public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
 

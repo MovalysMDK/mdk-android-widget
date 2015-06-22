@@ -7,7 +7,7 @@ package com.soprasteria.movalysmdk.widget.core.error;
 public interface MDKErrorMessageFormat {
 
     /**
-     * Message formatter for custom error widget
+     * Message formatter for custom error widget.
      * @param sharedErrorWidget true if this error is declared into a Rich component which shares error's messages.
      * @param error Custom MDKError object
      * @return CharSequence Formatted message

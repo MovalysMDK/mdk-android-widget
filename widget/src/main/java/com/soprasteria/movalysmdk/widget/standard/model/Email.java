@@ -83,7 +83,7 @@ public class Email {
     }
 
     /**
-     *  Get list of email address for blind carbon copy
+     *  Get list of email address for blind carbon copy.
      * @return a list of email address for blind carbon copy
      */
     public String[] getBcc() {
@@ -91,7 +91,7 @@ public class Email {
     }
 
     /**
-     * Set list of email address for blind carbon copy
+     * Set list of email address for blind carbon copy.
      * @param bcc List of email address for bcc
      */
     public void setBcc(String[] bcc) {
