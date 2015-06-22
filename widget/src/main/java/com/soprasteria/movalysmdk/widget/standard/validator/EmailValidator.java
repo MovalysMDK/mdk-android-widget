@@ -9,7 +9,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * //TODO must hinerited from MandatoryValidator
+ * Validate Email format error with regExp
+ * The validation regexp is : '^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'
+ *
+ * This validator can be parametrized by string ressources :
+ * the regexp : R.string.email_regex
+ * the error string : R.string.mdk_email_error
+ *
  * only one error is "right" the value cannot accumulate 2 errors.
  * its mandatory OR invalid (the empty string cannot be invalidate)
  */
@@ -26,13 +32,7 @@ public class EmailValidator extends MandatoryValidator {
      */
     public EmailValidator(Context context) {
 
-        int stringId = context.getResources().getIdentifier("mdk_email_regexp", "string", context.getPackageName());
-
         String regExp = context.getString(R.string.email_regex);
-
-        if (stringId != 0) {
-            regExp = context.getString(stringId);
-        }
 
         this.pattern = Pattern.compile(regExp);
     }
