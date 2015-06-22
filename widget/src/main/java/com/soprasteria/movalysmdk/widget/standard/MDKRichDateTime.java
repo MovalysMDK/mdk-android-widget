@@ -3,16 +3,15 @@ package com.soprasteria.movalysmdk.widget.standard;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.soprasteria.movalysmdk.widget.base.MDKBaseRichWidget;
+import com.soprasteria.movalysmdk.widget.base.MDKBaseRichDateWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Rich widget representing a date and time picker, conforming to the Material Design guidelines,
  * and including by default the floating label and the error component.
  */
-public class MDKRichDateTime extends MDKBaseRichWidget<MDKDateTime> implements HasValidator, HasError {
+public class MDKRichDateTime extends MDKBaseRichDateWidget<MDKDateTime> implements HasValidator, HasError {
 
     /**
      * Constructor.
@@ -31,29 +30,5 @@ public class MDKRichDateTime extends MDKBaseRichWidget<MDKDateTime> implements H
      */
     public MDKRichDateTime(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.fwk_component_date_time_edit_label, R.layout.fwk_component_date_time_edit, context, attrs, defStyleAttr);
-    }
-
-    /**
-     * {@inheritDoc}
-     * @return
-     */
-    @Override
-    public FormFieldValidator getValidator() {
-        return this.getInnerWidget().getValidator();
-    }
-
-    /**
-     * {@inheritDoc}
-     * @return
-     */
-    @Override
-    public boolean validate() {
-        return this.getInnerWidget().validate();
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        this.getInnerWidget().setEnabled(enabled);
     }
 }
