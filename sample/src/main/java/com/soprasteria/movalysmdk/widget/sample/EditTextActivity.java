@@ -50,7 +50,7 @@ public class EditTextActivity extends AppCompatActivity {
      * @param view view
      */
     public void validate(View view) {
-        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withCustomLayoutAndButton)).validate();
+        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).validate();
     }
 
     public void mandatory(View view) {

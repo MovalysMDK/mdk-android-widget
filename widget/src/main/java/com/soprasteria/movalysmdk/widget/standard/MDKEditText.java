@@ -205,7 +205,7 @@ public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MD
 
         if (rValidator != null) {
 
-            MDKError error = this.getValidator().validate(this.getText().toString(), this.mdkWidgetDelegate.isMandatory(), this.getContext());
+            MDKError error = rValidator.validate(this.getText().toString(), this.mdkWidgetDelegate.isMandatory(), this.getContext());
             this.setMDKError(error);
             if (error!=null) {
                 bValid = false;

@@ -266,7 +266,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
             TextView errorView = (TextView) rootView.findViewById(this.errorId);
             if (errorView instanceof MDKErrorWidget){
                 setMdkErrorWidget((MDKErrorWidget) errorView, error);
-            } else {
+            } else if (errorView != null){
                 if (error != null) {
                     errorView.setText(error.getErrorMessage());
                 } else {
