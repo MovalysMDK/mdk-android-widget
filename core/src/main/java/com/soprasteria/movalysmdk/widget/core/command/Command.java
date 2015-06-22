@@ -1,5 +1,7 @@
 package com.soprasteria.movalysmdk.widget.core.command;
 
+import android.content.Context;
+
 /**
  * Command interface.
  * Should be implemented by all command in components.
@@ -9,8 +11,9 @@ package com.soprasteria.movalysmdk.widget.core.command;
 public interface Command<I, O> {
     /**
      * sendEmail the concrete command.
+     * @param context the android context
      * @param params parameters for the command
      * @return return of the command
      */
-    O sendEmail(I... params);
+    O execute(Context context, I... params);
 }

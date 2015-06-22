@@ -143,7 +143,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
         if (sEmailAddress != null && sEmailAddress.length() > 0) {
             // invoke command
             Email email = new Email(sEmailAddress);
-            ((EmailCommand)this.commandDelegate.getWidgetCommand(v.getId())).sendEmail(email);
+            ((EmailCommand)this.commandDelegate.getWidgetCommand(v.getId())).execute(this.getContext(), email);
         }
     }
 
