@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MDKWidgetDelegate class definition
- * Created by abelliard on 05/06/2015.
+ * The MDKWidgetDelegate handles the MDK logic for rich widgets
  */
 public class MDKWidgetDelegate implements MDKInnerWidget {
 
