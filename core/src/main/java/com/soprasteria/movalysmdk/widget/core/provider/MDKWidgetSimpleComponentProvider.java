@@ -3,7 +3,7 @@ package com.soprasteria.movalysmdk.widget.core.provider;
 import android.content.Context;
 import android.util.Log;
 
-import com.soprasteria.movalysmdk.widget.core.command.Command;
+import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
@@ -13,7 +13,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Simple implementation of the MDKWidgetComponentProvider.
- * uses the class package and name to create a singleton of the Command/Validator
+ * uses the class package and name to create a singleton of the WidgetCommand/Validator
  * to be return for the widget
  */
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
@@ -26,7 +26,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
     /**
-     * Create a Command instance from the specified key and attribute.
+     * Create a WidgetCommand instance from the specified key and attribute.
      * <p>Search for the contactenation of baseKey and qualifier in resources
      * and if not exist juste for the baseKey and instanciate the Class specified
      * by this resource</p>
@@ -34,22 +34,22 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * @param context the Android context
      * @param baseKey the base key to find
      * @param qualifier the qualifier to append
-     * @return a Command instance corresponding to the passed key
+     * @return a WidgetCommand instance corresponding to the passed key
      */
-    private Command createCommandFromKey(Context context, String baseKey, String qualifier) {
+    private WidgetCommand createCommandFromKey(Context context, String baseKey, String qualifier) {
 
         String classPath = findClassPathFromRessource(context, baseKey, qualifier);
 
-        Command command = null;
+        WidgetCommand widgetCommand = null;
         try {
             Class commandClass = Class.forName(classPath);
             Constructor constructor = commandClass.getConstructor(Context.class);
-            command = (Command) constructor.newInstance(context);
+            widgetCommand = (WidgetCommand) constructor.newInstance(context);
         } catch (Exception e) {
             Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }
 
-        return command;
+        return widgetCommand;
     }
 
 
@@ -100,7 +100,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     @Override
-    public Command getCommand(String baseKey, String qualifier, Context context) {
+    public WidgetCommand getCommand(String baseKey, String qualifier, Context context) {
         return createCommandFromKey(context, baseKey, qualifier);
     }
 

@@ -3,7 +3,7 @@ package com.soprasteria.movalysmdk.widget.standard.command;
 import android.content.Context;
 import android.content.Intent;
 
-import com.soprasteria.movalysmdk.widget.core.command.Command;
+import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.standard.R;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
@@ -22,7 +22,7 @@ import com.soprasteria.movalysmdk.widget.standard.model.Email;
  * is made in this command).
  *
  */
-public abstract class EmailCommand implements Command<Email, Void> {
+public abstract class EmailWidgetCommand implements WidgetCommand<Email, Void> {
 
     /**
      * Send an email using the email parameters.

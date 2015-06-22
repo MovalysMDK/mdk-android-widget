@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.base.R;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
-import com.soprasteria.movalysmdk.widget.core.command.Command;
+import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
@@ -23,10 +23,10 @@ import java.lang.ref.WeakReference;
 public class ActionDelegate {
 
     /** primary command class. */
-    private final Class<? extends Command> primaryCommandClass;
+    private final Class<? extends WidgetCommand> primaryCommandClass;
 
     /** secondary command class. */
-    private final Class<? extends Command> secondaryCommandClass;
+    private final Class<? extends WidgetCommand> secondaryCommandClass;
 
     /** Weak reference on view. */
     private final WeakReference<MDKInnerWidget> weakView;
@@ -57,7 +57,7 @@ public class ActionDelegate {
      * @param attrs attributes
      * @param primaryCommandClass command class
      */
-    public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs, Class<? extends Command> primaryCommandClass) {
+    public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass) {
 
         this(mdkWidget, attrs, primaryCommandClass, null);
 
@@ -70,7 +70,7 @@ public class ActionDelegate {
      * @param primaryCommandClass primary command class
      * @param secondaryCommandClass secondary command class
      */
-    public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs, Class<? extends Command> primaryCommandClass, Class<? extends Command> secondaryCommandClass) {
+    public ActionDelegate(MDKInnerWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, Class<? extends WidgetCommand> secondaryCommandClass) {
 
         this.weakView = new WeakReference<MDKInnerWidget>(mdkWidget);
         this.primaryCommandClass = primaryCommandClass;
@@ -157,9 +157,9 @@ public class ActionDelegate {
      * @param id the id
      * @return command the command action
      */
-    @Nullable public Command getWidgetCommand(@IdRes int id) {
+    @Nullable public WidgetCommand getWidgetCommand(@IdRes int id) {
 
-        Command<?,?> command = null;
+        WidgetCommand<?,?> widgetCommand = null;
         MDKInnerWidget v = this.weakView.get();
         if (v != null) {
 
@@ -168,12 +168,12 @@ public class ActionDelegate {
                 widgetComponentProvider.getCommand(baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext());
             } else if (v instanceof HasMdkDelegate) {
                 MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
-                command = widgetComponentProvider.getCommand(
+                widgetCommand = widgetComponentProvider.getCommand(
                         baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext()
                 );
             }
         }
 
-        return command;
+        return widgetCommand;
     }
 }

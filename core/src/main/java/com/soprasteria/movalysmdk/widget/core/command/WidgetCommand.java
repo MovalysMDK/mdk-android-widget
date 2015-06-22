@@ -3,12 +3,12 @@ package com.soprasteria.movalysmdk.widget.core.command;
 import android.content.Context;
 
 /**
- * Command interface.
+ * WidgetCommand interface.
  * Should be implemented by all command in components.
  * @param <I> Input
  * @param <O> output
  */
-public interface Command<I, O> {
+public interface WidgetCommand<I, O> {
     /**
      * sendEmail the concrete command.
      * @param context the android context

@@ -13,7 +13,7 @@ import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasActions;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasCommands;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
@@ -21,13 +21,13 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
-import com.soprasteria.movalysmdk.widget.standard.command.EmailCommand;
+import com.soprasteria.movalysmdk.widget.standard.command.EmailWidgetCommand;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
 /**
  * MDKEmail class definition.
  */
-public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
+public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasCommands, HasMdkDelegate, HasLabel {
 
     /** ActionDelegate attribute. */
     protected ActionDelegate commandDelegate;
@@ -68,7 +68,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
 
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
-        this.commandDelegate = new ActionDelegate(this, attrs, EmailCommand.class);
+        this.commandDelegate = new ActionDelegate(this, attrs, EmailWidgetCommand.class);
 
     }
 
@@ -143,7 +143,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
         if (sEmailAddress != null && sEmailAddress.length() > 0) {
             // invoke command
             Email email = new Email(sEmailAddress);
-            ((EmailCommand)this.commandDelegate.getWidgetCommand(v.getId())).execute(this.getContext(), email);
+            ((EmailWidgetCommand)this.commandDelegate.getWidgetCommand(v.getId())).execute(this.getContext(), email);
         }
     }
 

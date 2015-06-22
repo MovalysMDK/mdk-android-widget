@@ -6,8 +6,8 @@
     <string name="mdk_email_error">Invalid email value</string>
     <string name="mdk_mandatory_error">Must be filled</string>
 
-    <!-- command string config -->
-    <string name="mdkemail_primary_command_class">com.soprasteria.movalysmdk.widget.standard.command.EmailCommand</string>
+    <!-- widgetCommand string config -->
+    <string name="mdkemail_primary_command_class">com.soprasteria.movalysmdk.widget.standard.widgetCommand.EmailCommand</string>
 
     <!-- validator string config -->
     <string name="mdkemail_validator_class">com.soprasteria.movalysmdk.widget.standard.validator.EmailValidator</string>
