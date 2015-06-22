@@ -6,7 +6,7 @@ package com.soprasteria.movalysmdk.widget.core.exception;
 public class MDKWidgetException extends RuntimeException {
 
     /**
-     * Constructs a new {@code MDKWidgetException} with the current stack trace
+     * Constructs a new {@code MDKWidgetException} with the current stack trace,
      * and the specified detail message.
      *
      * @param detailMessage the detail message for this exception.
