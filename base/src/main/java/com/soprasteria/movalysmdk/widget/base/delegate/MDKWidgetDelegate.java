@@ -177,9 +177,8 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
 
     /**
      * Provide the context of the widget.
-     * @return
+     * @return the widget context
      */
-    @Override
     public Context getContext() {
         View view = this.weakView.get();
         if (view != null) {

@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.base;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
@@ -18,49 +19,60 @@ public class MDKBaseRichEditWidget<T extends MDKInnerWidget & MDKRestorableWidge
 
     /**
      * Constructor.
-     * @param layoutWithLabelId the layoutWithLabelId
-     * @param layoutWithoutLabelId the layoutWithoutLabelId
+     * @param withLabelLayout the layoutWithLabelId
+     * @param noLabelLayout the layoutWithoutLabelId
      * @param context the context
      * @param attrs attributes
      */
-    public MDKBaseRichEditWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
-        super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
+    public MDKBaseRichEditWidget(@LayoutRes int withLabelLayout,@LayoutRes int noLabelLayout, Context context, AttributeSet attrs) {
+        super(withLabelLayout, noLabelLayout, context, attrs);
     }
 
     /**
      * Constructor.
      * @param layoutWithLabelId the layoutWithLabelId
      * @param layoutWithoutLabelId the layoutWithoutLabelId
-     * @param context the context
-     * @param attrs attributes
-     * @param defStyleAttr defStyleAttr
+     * @param context the android context
+     * @param attrs collection of attributes
+     * @param defStyleAttr attribute in the current theme referencing a style resource
      */
     public MDKBaseRichEditWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
     }
 
+    /**
+     * Add a text change listener on the inner widget.
+     * @param textWatcher the text watcher to register
+     */
     @Override
     public void addTextChangedListener(TextWatcher textWatcher) {
         this.getInnerWidget().addTextChangedListener(textWatcher);
     }
 
+    /**
+     * Remove a text change listener from the inner widget.
+     * @param textWatcher the text watcher to remove
+     */
     @Override
     public void removeTextChangedListener(TextWatcher textWatcher) {
         this.getInnerWidget().removeTextChangedListener(textWatcher);
     }
 
+    /**
+     * Set the type of the content.
+     * @param type type of content
+     */
     @Override
-    public void setInputType(int type) { this.getInnerWidget().setInputType(type);
+    public void setInputType(int type) {
+        this.getInnerWidget().setInputType(type);
     }
 
     /**
      * Validate the component.
      * <p>Use the validation of the inner widget</p>
-     * @return true if the widget is valide, false otherwise
+     * @return true if the widget is valid, false otherwise
      */
     public boolean validate() {
-        boolean bValid = true;
-        bValid = this.getInnerWidget().validate();
-        return bValid;
+        return this.getInnerWidget().validate();
     }
 }
