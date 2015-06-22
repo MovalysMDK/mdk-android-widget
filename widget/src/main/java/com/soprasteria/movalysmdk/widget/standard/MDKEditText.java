@@ -10,7 +10,7 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
@@ -30,7 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
  *
  * Created by belamrani on 09/06/2015.
  */
-public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
+public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
     /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;

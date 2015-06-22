@@ -12,7 +12,7 @@ import com.soprasteria.movalysmdk.widget.base.delegate.ActionDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasActions;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -27,7 +27,7 @@ import com.soprasteria.movalysmdk.widget.standard.model.Email;
 /**
  * MDKEmail class definition.
  */
-public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRestoreWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
+public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasActions, HasMdkDelegate, HasLabel {
 
     /** ActionDelegate attribute. */
     protected ActionDelegate commandDelegate;

@@ -4,15 +4,15 @@ import android.os.Parcelable;
 
 
 /**
- * MDKRestoreWidget class definition.
+ * MDKRestorableWidget interface definition.
  */
-public interface MDKRestoreWidget {
+public interface MDKRestorableWidget {
 
     /**
      * Call the onSaveInstanceState method.
      * @return Parcelable Parcelable
      */
-    Parcelable superOnSaveInstanceState ();
+    Parcelable superOnSaveInstanceState();
 
     /**
      * Call the onRestoreInstanceState method.

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
@@ -29,7 +29,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> extends RelativeLayout implements MDKRichWidget, HasError {
+public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> extends RelativeLayout implements MDKRichWidget, HasError {
 
     /**
      * Base widget.
