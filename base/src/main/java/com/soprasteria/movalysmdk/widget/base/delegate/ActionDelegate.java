@@ -165,13 +165,12 @@ public class ActionDelegate {
 
             if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
                 MDKWidgetComponentProvider widgetComponentProvider = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider();
-                widgetComponentProvider.getCommand(v.getContext(), baseKey(v.getClass().getSimpleName(), id), this.qualifier);
+                widgetComponentProvider.getCommand(baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext());
             } else if (v instanceof HasMdkDelegate) {
                 MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
                 command = widgetComponentProvider.getCommand(
-                        v.getContext(),
-                        baseKey(v.getClass().getSimpleName(), id),
-                        this.qualifier);
+                        baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext()
+                );
             }
         }
 

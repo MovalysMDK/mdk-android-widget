@@ -475,15 +475,13 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         if (v != null) {
             if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
                 rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getValidator(
-                        v.getContext(),
-                        validatorBaseKey(v.getClass().getSimpleName()),
-                        this.qualifier);
+                        validatorBaseKey(v.getClass().getSimpleName()), this.qualifier, v.getContext()
+                );
             } else {
                 MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
                 rValidator = widgetComponentProvider.getValidator(
-                        v.getContext(),
-                        validatorBaseKey(v.getClass().getSimpleName()),
-                        this.qualifier);
+                        validatorBaseKey(v.getClass().getSimpleName()), this.qualifier, v.getContext()
+                );
             }
         }
         return rValidator;

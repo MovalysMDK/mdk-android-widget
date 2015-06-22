@@ -7,28 +7,27 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
- * Interface to describe the MDKWidgetComponentProvider
- * create commands and Validator for MDK components.
+ *  Bean provider for MDK Widget. <p>Bean types are : </p> <ul> <li>Command</li> <li>Validator</li> <li></li> </ul>.
  */
 public interface MDKWidgetComponentProvider {
 
     /**
      * Return the singleton Command for the specified Class.
-     * @param context the Android context
      * @param baseKey the base key for the widget
      * @param qualifier the qualifier of the widget
+     * @param context the Android context
      * @return a singleton of the Command to use in the widget
      */
-    Command getCommand(Context context, String baseKey, String qualifier);
+    Command getCommand(String baseKey, String qualifier, Context context);
 
     /**
      * Return the singleton Command for the specified Class.
-     * @param context the Android context
      * @param baseKey the base key for the widget
      * @param qualifier the qualifier of the widget
+     * @param context the Android context
      * @return a singleton of the FormFieldValidator to use in the widget
      */
-    FormFieldValidator getValidator(Context context, String baseKey, String qualifier);
+    FormFieldValidator getValidator(String baseKey, String qualifier, Context context);
 
     /**
      * Returns the error message formatter.

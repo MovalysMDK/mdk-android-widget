@@ -100,12 +100,12 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     @Override
-    public Command getCommand(Context context, String baseKey, String qualifier) {
+    public Command getCommand(String baseKey, String qualifier, Context context) {
         return createCommandFromKey(context, baseKey, qualifier);
     }
 
     @Override
-    public FormFieldValidator getValidator(Context context, String baseKey, String qualifier) {
+    public FormFieldValidator getValidator(String baseKey, String qualifier, Context context) {
         return createValidatorFromKey(context, baseKey, qualifier);
     }
 
