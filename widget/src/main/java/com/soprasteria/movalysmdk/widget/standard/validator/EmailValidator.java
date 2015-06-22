@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * Validate Email format error with regExp
  * The validation regexp is : '^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'
  *
- * This validator can be parametrized by string ressources :
+ * This validator can be parametrized by string resources :
  * the regexp : R.string.email_regex
  * the error string : R.string.mdk_email_error
  *
@@ -39,13 +39,12 @@ public class EmailValidator extends MandatoryValidator {
 
     /**
      * Validator.
-     * @param context the android context
      * @param objectToValidate object to validate
      * @param mandatory true if component is mandatory
+     * @param context the android context
      * @return MDKError object or null if the value is valid
      */
-    @Override
-    public MDKError validate(Context context, String objectToValidate, boolean mandatory) {
+    public MDKError validate(String objectToValidate, boolean mandatory, Context context) {
 
         MDKError mdkError = null;
         String error;
@@ -58,7 +57,7 @@ public class EmailValidator extends MandatoryValidator {
                     mdkError.setErrorMessage(error);
             }
         } else if (mandatory) {
-            mdkError = super.validate(context, objectToValidate, mandatory);
+            mdkError = super.validate(objectToValidate, mandatory, context);
         }
 
         return mdkError;

@@ -18,9 +18,14 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
      */
     public static final int ERROR_MANDATORY=0;
 
-
-    @Override
-    public MDKError validate(Context context, Date objectToValidate, boolean mandatory) {
+    /**
+     * Validator.
+     * @param objectToValidate object to validate
+     * @param mandatory true if component is mandatory
+     * @param context the android context
+     * @return MDKError object or null if the value is valid
+     */
+    public MDKError validate(Date objectToValidate, boolean mandatory, Context context) {
 
         MDKError mdkError = null;
         String error = null;

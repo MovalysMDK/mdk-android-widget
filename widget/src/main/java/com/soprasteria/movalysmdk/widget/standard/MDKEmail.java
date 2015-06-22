@@ -154,7 +154,7 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
     @Override
     public boolean validate() {
         boolean valid = true;
-        MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getContext(), this.getText().toString(), this.getMDKWidgetDelegate().isMandatory());
+        MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory(), this.getContext());
         if (error == null) {
             this.setMDKError(null);
             valid = true;
