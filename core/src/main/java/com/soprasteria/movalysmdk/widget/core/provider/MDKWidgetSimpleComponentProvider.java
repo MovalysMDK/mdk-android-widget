@@ -43,8 +43,8 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         WidgetCommand widgetCommand = null;
         try {
             Class commandClass = Class.forName(classPath);
-            Constructor constructor = commandClass.getConstructor(Context.class);
-            widgetCommand = (WidgetCommand) constructor.newInstance(context);
+            Constructor constructor = commandClass.getConstructor();
+            widgetCommand = (WidgetCommand) constructor.newInstance();
         } catch (Exception e) {
             Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }
@@ -155,8 +155,8 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
         try {
             Class validatorClass = Class.forName(classPath);
-            Constructor constructor = validatorClass.getConstructor(Context.class);
-            validator = (FormFieldValidator) constructor.newInstance(context);
+            Constructor constructor = validatorClass.getConstructor();
+            validator = (FormFieldValidator) constructor.newInstance();
         } catch (Exception e) {
             Log.e(TAG, MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
         }

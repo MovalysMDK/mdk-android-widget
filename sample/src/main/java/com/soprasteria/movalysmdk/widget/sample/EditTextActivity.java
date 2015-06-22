@@ -52,4 +52,8 @@ public class EditTextActivity extends AppCompatActivity {
     public void validate(View view) {
         ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withCustomLayoutAndButton)).validate();
     }
+
+    public void mandatory(View view) {
+        // nothing to do
+    }
 }

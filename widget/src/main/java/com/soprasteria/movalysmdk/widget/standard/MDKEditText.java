@@ -194,7 +194,6 @@ public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MD
 
     @Override
     public FormFieldValidator getValidator() {
-
         return this.mdkWidgetDelegate.getValidator();
     }
 

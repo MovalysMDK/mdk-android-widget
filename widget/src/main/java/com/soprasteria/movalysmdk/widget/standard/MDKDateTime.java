@@ -6,8 +6,8 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
-import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKDateTimePickerWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
