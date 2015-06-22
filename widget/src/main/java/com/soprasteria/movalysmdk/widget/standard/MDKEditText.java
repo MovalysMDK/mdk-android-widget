@@ -11,7 +11,6 @@ import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
@@ -97,8 +96,8 @@ public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MD
      * Setter.
      * @param rootId the id of a view
      */
-    public void setRootId(int rootId) {
-        this.mdkWidgetDelegate.setRootId(rootId);
+    public void setRootViewId(int rootId) {
+        this.mdkWidgetDelegate.setRootViewId(rootId);
     }
 
     @Override

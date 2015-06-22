@@ -10,7 +10,6 @@ import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
@@ -121,8 +120,8 @@ public class MDKDateTime extends TextView implements MDKInnerWidget, MDKRestoreW
     }
 
     @Override
-    public void setRootId(int rootId) {
-        this.mdkDateTimePickerWidgetDelegate.setRootId(rootId);
+    public void setRootViewId(int rootId) {
+        this.mdkDateTimePickerWidgetDelegate.setRootViewId(rootId);
     }
 
     @Override

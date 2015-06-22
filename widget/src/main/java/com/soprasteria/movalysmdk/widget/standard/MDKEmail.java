@@ -13,7 +13,6 @@ import com.soprasteria.movalysmdk.widget.base.delegate.HasMdkDelegate;
 import com.soprasteria.movalysmdk.widget.base.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasActions;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -95,8 +94,8 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
      * Set the root id.
      * @param rootId the id of a view
      */
-    public void setRootId(@IdRes int rootId) {
-        this.mdkWidgetDelegate.setRootId(rootId);
+    public void setRootViewId(@IdRes int rootId) {
+        this.mdkWidgetDelegate.setRootViewId(rootId);
     }
 
     /**

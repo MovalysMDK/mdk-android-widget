@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -59,11 +60,11 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     private static final int[] ERROR_STATE = {R.attr.state_error};
 
     /**
-     * qualifier.
+     * Component qualifier.
      */
     private String qualifier;
     /**
-     * resHelperId.
+     * Resource id of the helper
      */
     private int resHelperId;
     /**
@@ -76,7 +77,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     protected WeakReference<View> weakView;
     /**
-     * rootId.
+     * Component root id
      */
     protected int rootId;
     /**
@@ -128,12 +129,12 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      * @param attrs the parameters set
      */
     public MDKWidgetDelegate(View view, AttributeSet attrs) {
-        
+
         this.weakView = new WeakReference<View>(view);
 
         this.richSelectors = new ArrayList<>();
         this.richSelectors.add(new SimpleMandatoryRichSelector());
-        
+
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
 
         this.rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
@@ -172,6 +173,10 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         return uniqueId;
     }
 
+    /**
+     * Provide the context of the widget.
+     * @return
+     */
     @Override
     public Context getContext() {
         View view = this.weakView.get();
@@ -185,7 +190,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     // TODO explain why
 
     /**
-     * Find the root view.
+     * Find the root view of the error.
      * @param useRootIdForError use id for error
      * @return oView the root view
      */
@@ -211,7 +216,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     /**
-     * Get root match parent.
+     * Find in the view hierarchy which one is the root
      * @param parent the parent
      * @return View the matched parent
      */
@@ -287,26 +292,43 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         }
     }
 
-    @Override
-    public void setRootId(int rootId) {
+    /**
+     * Set the root's identifier of the MDK delegate widget to which it is attached to
+     * @param rootId the root's id of a view
+     */
+    public void setRootViewId(@IdRes int rootId) {
         this.rootId = rootId;
     }
 
-    @Override
-    public void setLabelId(int labelId) {
+    /**
+     * Set the label's identifier of the MDK delegate widget to which it is attached to
+     * @param labelId the label's id of a view
+     */
+    public void setLabelId(@IdRes int labelId) {
         this.labelId = labelId;
     }
 
-    @Override
-    public void setHelperViewId(int helperId) {
+    /**
+     * Set the helper's view identifier of the MDK delegate widget to which it is attached to
+     * @param helperId the helper's id of a view
+     */
+    public void setHelperViewId(@IdRes int helperId) {
         this.helperId = helperId;
     }
 
-    @Override
-    public void setErrorViewId(int errorId) {
+    /**
+     * Set the error's identifier of the MDK delegate widget to which it is attached to
+     * @param errorId the error's id of a view
+     */
+    public void setErrorViewId(@IdRes int errorId) {
         this.errorId = errorId;
     }
 
+    /**
+     * Set true if the root id must only be used for the MDK delegate widget's error
+     * in case where this last is not in the same layout as the component
+     * @param useRootIdOnlyForError true if the error is not in the same layout as the component
+     */
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
         this.useRootIdOnlyForError = useRootIdOnlyForError;
@@ -399,16 +421,16 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     public CharSequence getLabel() {
         View rootView = this.findRootView(false);
+
         if (rootView != null) {
             TextView labelView = (TextView) rootView.findViewById(this.labelId);
             if (labelView != null) {
                 return labelView.getText();
-            } else {
-                return "";
             }
-        } else {
-            return "";
         }
+
+        return "";
+
     }
 
     /**
@@ -437,12 +459,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     @Nullable
     private String validatorBaseKey(String widgetClassName) {
-        StringBuilder baseKey = new StringBuilder();
-
-        baseKey.append(widgetClassName.toLowerCase());
-
-        baseKey.append("_validator_class");
-
+        StringBuilder baseKey = new StringBuilder(widgetClassName.toLowerCase() + "_validator_class");
         return baseKey.toString();
     }
 

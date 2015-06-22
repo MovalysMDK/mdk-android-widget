@@ -12,7 +12,7 @@ public interface MDKWidget {
      * the layout contains the error view
      * @param rootId the id of a view
      */
-    void setRootId(int rootId);
+    void setRootViewId(int rootId);
 
     /**
      * Set the label id.

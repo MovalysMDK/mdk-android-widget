@@ -15,7 +15,6 @@ import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestoreWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRichWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
@@ -138,7 +137,7 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
         int errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
         if (errorId != 0) {
             int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-            this.innerWidget.setRootId(rootId);
+            this.innerWidget.setRootViewId(rootId);
             this.innerWidget.setErrorViewId(errorId);
             this.innerWidget.setUseRootIdOnlyForError(true);
         }
@@ -222,8 +221,8 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestoreWidget> exte
     }
 
     @Override
-    public void setRootId(int rootId) {
-        this.getInnerWidget().setRootId(rootId);
+    public void setRootViewId(int rootId) {
+        this.getInnerWidget().setRootViewId(rootId);
     }
 
     @Override
