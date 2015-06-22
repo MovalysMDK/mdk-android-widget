@@ -10,12 +10,17 @@ public interface HasText {
 
     /**
      * Get the text from the component.
+     *
+     * @see android.text
+     *
      * @return the text of the component
      */
     CharSequence getText();
 
     /**
      * Set the text on the component.
+     *
+     * @see android.text
      * @param text the text to set
      */
     void setText(CharSequence text);
@@ -34,8 +39,8 @@ public interface HasText {
      * see setRawInputType(int)
      * @see android.text.InputType
      * attr ref android.R.styleable#TextView_inputType
-     * @param pType the type
+     * @param type the type
      */
-    void setInputType(int pType);
+    void setInputType(int type);
 
 }
