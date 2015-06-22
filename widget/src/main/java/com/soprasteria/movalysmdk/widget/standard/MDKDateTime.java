@@ -102,11 +102,11 @@ public class MDKDateTime extends TextView implements MDKInnerWidget, MDKRestorab
 
         if (this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_TIME_PICKER
                 || this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_PICKER) {
-            error = validator.validate(this.getDate(), this.mdkDateTimePickerWidgetDelegate.isMandatory());
+            error = validator.validate(this.getContext(), this.getDate(), this.mdkDateTimePickerWidgetDelegate.isMandatory());
         }
         if (this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_TIME_PICKER
                 || this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.TIME_PICKER) {
-            error = error != null ? error : validator.validate(this.getTime(), this.mdkDateTimePickerWidgetDelegate.isMandatory());
+            error = error != null ? error : validator.validate(this.getContext(), this.getTime(), this.mdkDateTimePickerWidgetDelegate.isMandatory());
         }
         if (error == null) {
             this.setMDKError(null);

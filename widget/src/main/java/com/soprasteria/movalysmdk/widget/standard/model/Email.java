@@ -28,11 +28,11 @@ public class Email {
     /**
      * Body of the email.
      */
-    private String body;
+    private CharSequence body;
 
     /**
      * Constructor.
-     * @param to to
+     * @param to A String[] holding e-mail addresses that should be delivered to
      */
     public Email(String... to) {
         init();
@@ -51,23 +51,23 @@ public class Email {
     }
 
     /**
-     * Get list of email address to send email.
-     * @return a list of email address
+     * Get list of email addresses to send email.
+     * @return A String[] holding e-mail addresses that should be delivered to
      */
     public String[] getTo() {
         return to.clone();
     }
 
     /**
-     * Set list of email address to send email.
-     * @param to List of email address
+     * Set list of email addresses to send email.
+     * @param to A String[] holding e-mail addresses that should be delivered to
      */
     public void setTo(String[] to) {
         this.to = to.clone();
     }
 
     /**
-     * Get list of email address for carbon copy.
+     * Get list of email addresses for carbon copy.
      * @return a list of email address on carbon copy
      */
     public String[] getCc() {
@@ -75,7 +75,7 @@ public class Email {
     }
 
     /**
-     *  Set list of email address for carbon copy.
+     *  Set list of email addresses for carbon copy.
      * @param cc List of email address for cc
      */
     public void setCc(String[] cc) {
@@ -83,15 +83,15 @@ public class Email {
     }
 
     /**
-     *  Get list of email address for blind carbon copy.
-     * @return a list of email address for blind carbon copy
+     *  Get list of email addresses for blind carbon copy.
+     * @return a list of email addresses for blind carbon copy
      */
     public String[] getBcc() {
         return bcc.clone();
     }
 
     /**
-     * Set list of email address for blind carbon copy.
+     * Set list of email addresses for blind carbon copy.
      * @param bcc List of email address for bcc
      */
     public void setBcc(String[] bcc) {
@@ -100,7 +100,7 @@ public class Email {
 
     /**
      * Get the subject of the mail.
-     * @return subject of the mail
+     * @return A String holding the desired subject of the message
      */
     public String getSubject() {
         return subject;
@@ -108,7 +108,7 @@ public class Email {
 
     /**
      * Set the subject of the mail.
-     * @param subject email subject to set
+     * @param subject A String holding the desired subject of the message
      */
     public void setSubject(String subject) {
         this.subject = subject;
@@ -116,17 +116,17 @@ public class Email {
 
     /**
      * Get email text body.
-     * @return body the body
+     * @return A CharSequence holding the content of the email. This CharSequence may be styled.
      */
-    public String getBody() {
+    public CharSequence getBody() {
         return body;
     }
 
     /**
      * Set email text body.
-     * @param body email body to set: can
+     * @param body A Charsequence that can be styled to send 'plain/text' type email.
      */
-    public void setBody(String body) {
+    public void setBody(CharSequence body) {
         this.body = body;
     }
 }

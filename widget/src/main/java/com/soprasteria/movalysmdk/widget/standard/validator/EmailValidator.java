@@ -19,21 +19,16 @@ public class EmailValidator extends MandatoryValidator {
     public static final int ERROR_INVALID_EMAIL = 1;
     /** Attribute for regex pattern. */
     private final Pattern pattern;
-    /** Error id. */
-    private int errorId;
 
     /**
      * Constructor.
      * @param context the context
      */
     public EmailValidator(Context context) {
-        super(context);
 
         int stringId = context.getResources().getIdentifier("mdk_email_regexp", "string", context.getPackageName());
 
-        this.errorId = context.getResources().getIdentifier("mdk_email_error", "string", context.getPackageName());
-
-        String regExp = getContext().getString(R.string.email_regex);
+        String regExp = context.getString(R.string.email_regex);
 
         if (stringId != 0) {
             regExp = context.getString(stringId);
@@ -44,29 +39,26 @@ public class EmailValidator extends MandatoryValidator {
 
     /**
      * Validator.
-     * @param objectToValidate component to validate
+     * @param context the android context
+     * @param objectToValidate object to validate
      * @param mandatory true if component is mandatory
-     * @return MDKError object
+     * @return MDKError object or null if the value is valid
      */
     @Override
-    public MDKError validate(String objectToValidate, boolean mandatory) {
+    public MDKError validate(Context context, String objectToValidate, boolean mandatory) {
 
         MDKError mdkError = null;
         String error;
         if (objectToValidate != null && objectToValidate.length() > 0) {
             Matcher matcher = this.pattern.matcher(objectToValidate);
-            if (!matcher.find() && this.errorId != 0) {
+            if (!matcher.find() && R.string.mdk_email_error != 0) {
                     mdkError = new MDKError();
                     mdkError.setErrorCode(ERROR_INVALID_EMAIL);
-                    error = this.context.getString(this.errorId);
+                    error = context.getString(R.string.mdk_email_error);
                     mdkError.setErrorMessage(error);
             }
         } else if (mandatory) {
-            // TODO merge error with super call + remplacement MDKerror par celui du super
-            mdkError = new MDKError();
-            mdkError.setErrorCode(getErrorMandatory());
-            error = this.context.getString(this.mandatoryErrorId);
-            mdkError.setErrorMessage(error);
+            mdkError = super.validate(context, objectToValidate, mandatory);
         }
 
         return mdkError;

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
+import com.soprasteria.movalysmdk.widget.standard.R;
 
 import java.util.Date;
 
@@ -17,30 +18,16 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
      */
     public static final int ERROR_MANDATORY=0;
 
-    /** The context. */
-    protected final Context context;
-    /** Error id. */
-    protected final int mandatoryErrorId;
-
-    /**
-     * Constructor.
-     * @param context android context
-     */
-    public DateTimeValidator(Context context) {
-
-        this.context = context;
-        this.mandatoryErrorId = context.getResources().getIdentifier("mdk_mandatory_error", "string", context.getPackageName());
-    }
 
     @Override
-    public MDKError validate(Date objectToValidate, boolean mandatory) {
+    public MDKError validate(Context context, Date objectToValidate, boolean mandatory) {
 
         MDKError mdkError = null;
         String error = null;
         if (mandatory && objectToValidate == null) {
             mdkError = new MDKError();
             mdkError.setErrorCode(ERROR_MANDATORY);
-            error = this.context.getString(this.mandatoryErrorId);
+            error = context.getString(R.string.mdk_mandatory_error);
             mdkError.setErrorMessage(error);
         }
 
