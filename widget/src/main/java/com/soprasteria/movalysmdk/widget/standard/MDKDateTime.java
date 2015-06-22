@@ -18,18 +18,23 @@ import java.util.Date;
 
 /**
  * Base widget able to render a date picker, or a time picker.
- * This widget has several use possibilities :
- * - used alone : by default, it will represent a date picker.
- *   by using the "mode" attribute, you can specify wether you want a date, or a time picker.
- * - used with the addition of an other TextView : in this case, the current component acts as the master component,
- *   and the TextView as the slave component. You can link the TextView to the MDKDateTime by setting on the MDKDateTime
- *   one of the following attributes :
- *   - dateTextViewId : the MDKDateTime will act as a time picker, and the TextView referenced in dateTextViewId will act as a date picker
- *   - timeTextViewId : the MDKDateTime will act as a date picker, and the TextView referenced in dateTextViewId will act as a time picker
- *
- * Other optional attributes :
- * - dateFormat : specify a custom format that will be used to display the date. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a>
- * - timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a>
+ * <p>This widget has several use possibilities :</p>
+ * <ul>
+ *     <li>used alone : by default, it will represent a date picker. by using the "mode" attribute, you can specify wether you want a date, or a time picker.</li>
+ *     <li>used with the addition of an other TextView : in this case, the current component acts as the master component,
+ *          and the TextView as the slave component. You can link the TextView to the MDKDateTime by setting on the MDKDateTime
+ *          one of the following attributes :
+ *          <ul>
+ *              <li>dateTextViewId : the MDKDateTime will act as a time picker, and the TextView referenced in dateTextViewId will act as a date picker</li>
+ *              <li>timeTextViewId : the MDKDateTime will act as a date picker, and the TextView referenced in dateTextViewId will act as a time picker</li>
+ *          </ul>
+ *     </li>
+ * </ul>
+ * <p>Other optional attributes :</p>
+ * <ul>
+ *     <li>dateFormat : specify a custom format that will be used to display the date. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
+ *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
+ * </ul>
  */
 public class MDKDateTime extends TextView implements MDKInnerWidget, MDKRestorableWidget, HasValidator, HasMdkDelegate {
 

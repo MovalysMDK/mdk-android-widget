@@ -8,18 +8,20 @@ import com.soprasteria.movalysmdk.widget.standard.R;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
 /**
- * Class handling email message building: to, cc, bcc, subject, body.
- * Ask for what application will be used to open the mail on the device.
+ * <p>Class handling email message building: to, cc, bcc, subject, body.
+ * Ask for what application will be used to open the mail on the device.</p>
  *
- * The email command uses the Intent.ACTION_SEND intent and fill the extras :
- * Intent.EXTRAS_EMAIL with Email.getTo() value
- * Intent.EXTRAS_CC with Email.getCc() value
- * Intent.EXTRAS_BCC with Email.getBcc() value
- * Intent.EXTRAS_SUBJECT with Email.getSubject() value
- * Intent.EXTRAS_TEXT with Email.getBody() value
+ * <p>The email command uses the Intent.ACTION_SEND intent and fill the extras :</p>
+ * <ul>
+ *     <li>Intent.EXTRAS_EMAIL with Email.getTo() value</li>
+ *     <li>Intent.EXTRAS_CC with Email.getCc() value</li>
+ *     <li>Intent.EXTRAS_BCC with Email.getBcc() value</li>
+ *     <li>Intent.EXTRAS_SUBJECT with Email.getSubject() value</li>
+ *     <li>Intent.EXTRAS_TEXT with Email.getBody() value</li>
+ * </ul>
  *
- * The command create a chooser by default (no direct call to the email application
- * is made in this command).
+ * <p>The command create a chooser by default (no direct call to the email application
+ * is made in this command).</p>
  *
  */
 public abstract class EmailWidgetCommand implements WidgetCommand<Email, Void> {

@@ -2,6 +2,7 @@ package com.soprasteria.movalysmdk.widget.standard.model;
 
 /**
  * Email class.
+ * <p>POJO représenting an email object to passe to the android system</p>
  */
 public class Email {
 

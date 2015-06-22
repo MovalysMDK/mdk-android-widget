@@ -12,7 +12,8 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
- * MDKRichEmail class definition.
+ * Rich Widget representing an email conforming with the Material Design guidelines, and including by default the floating
+ * label and the error component.
  */
 public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDKWidget, HasValidator, HasHint {
 

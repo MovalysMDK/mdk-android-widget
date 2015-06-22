@@ -25,7 +25,13 @@ import com.soprasteria.movalysmdk.widget.standard.command.EmailWidgetCommand;
 import com.soprasteria.movalysmdk.widget.standard.model.Email;
 
 /**
- * MDKEmail class definition.
+ * MDK Email
+ * <p>Representing an editable text validate with an email regexp</p>
+ * <p>
+ *     This widget present an action who send the intent Intent.ACTION_SEND to the
+ *     Android system with the component text by default.
+ * </p>
+ * <p>The validation regexp is stored in R.string.email_regexp</p>
  */
 public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasCommands, HasMdkDelegate, HasLabel {
 
@@ -36,8 +42,8 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
 
     /**
      * Constructor.
-     * @param context the context
-     * @param attrs attributes
+     * @param context the android context
+     * @param attrs the layout attributes
      */
     public MDKEmail(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,9 +54,9 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
 
     /**
      * Constructor.
-     * @param context the context
-     * @param attrs attributes
-     * @param style the style
+     * @param context the android context
+     * @param attrs the layout attributes
+     * @param style the layout defined style
      */
     public MDKEmail(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
@@ -61,8 +67,8 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
 
     /**
      * Initialization.
-     * @param context the context
-     * @param attrs attributes
+     * @param context the android context
+     * @param attrs the layout attributes
      */
     private final void init(Context context, AttributeSet attrs) {
 

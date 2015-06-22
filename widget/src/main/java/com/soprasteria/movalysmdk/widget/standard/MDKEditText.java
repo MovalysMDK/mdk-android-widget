@@ -20,15 +20,14 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
- * Represents an Edit Text conforming to the Material Design guidelines.
- *
- * The following behaviors are implemented:
- * - if there is a label and a hint in the xml layout, set the label value as label, and the hint value as hint
- * - if there is a label and no hint in the xml layout, set the label value as label and as hint
- * - if there is no label and a hint in the xml layout, there will be no label, and the hint value as hint
- * - if there is no label and no hint in the xml layout, there will be no label and no hint
- *
- * Created by belamrani on 09/06/2015.
+ * <p>Represents an Edit Text conforming to the Material Design guidelines.</p>
+ * <p>The following behaviors are implemented:</p>
+ * <ul>
+ *     <li>if there is a label and a hint in the xml layout, set the label value as label, and the hint value as hint</li>
+ *     <li>if there is a label and no hint in the xml layout, set the label value as label and as hint</li>
+ *     <li>if there is no label and a hint in the xml layout, there will be no label, and the hint value as hint</li>
+ *     <li>if there is no label and no hint in the xml layout, there will be no label and no hint</li>
+ * </ul>
  */
 public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasMdkDelegate, HasValidator, HasLabel {
 
