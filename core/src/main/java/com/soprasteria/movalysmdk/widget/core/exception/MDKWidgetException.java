@@ -1,7 +1,7 @@
 package com.soprasteria.movalysmdk.widget.core.exception;
 
 /**
- * Global exception for MDK Widget library
+ * Global exception for MDK Widget library.
  */
 public class MDKWidgetException extends RuntimeException {
 
