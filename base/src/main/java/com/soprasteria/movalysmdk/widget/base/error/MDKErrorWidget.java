@@ -35,7 +35,7 @@ public interface MDKErrorWidget {
     /**
      * Set widget visibility.
      * @see android.view.View#setVisibility(int)
-     * @param visible
+     * @param visible visibility of the widget
      */
     void setVisibility(int visible);
 }
