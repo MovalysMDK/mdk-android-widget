@@ -1,253 +1,241 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.soprasteria.movalysmdk.widget.sample.EditTextActivity">
-
-    <ScrollView
+ <ScrollView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+     xmlns:mdk="http://schemas.android.com/apk/res-auto"
+     tools:context="com.soprasteria.movalysmdk.widget.sample.EditTextActivity"
+     android:id="@+id/root"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:paddingLeft="@dimen/activity_horizontal_margin"
+     android:paddingRight="@dimen/activity_horizontal_margin"
+     android:paddingTop="@dimen/activity_vertical_margin"
+     android:paddingBottom="@dimen/activity_vertical_margin">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/button_bar"/>
+
+        <!--  MDKRichEditText with custom layout, label, hint -->
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_style"/>
 
-            <include layout="@layout/button_bar"/>
+        <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
+            android:id="@+id/mdkRichEditText_withCustomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:hint="@string/edit_text_hint"
+            mdk:label="@string/edit_text_label"
+            mdk:layout="@layout/custom_edittext_widget"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_style"/>
+        <!-- MDKRichEditText with style and a button to fill/clear text -->
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
-                android:id="@+id/test_edit_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                mdk:hint="@string/edit_text_hint"
-                mdk:label="@string/edit_text_label"
-                mdk:layout="@layout/custom_edittext_widget"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_style_2"/>
+
+        <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
+            android:id="@+id/mdkRichEditText_withCustomLayoutAndButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:hint="@string/edit_text_hint"
+            mdk:label="@string/edit_text_label"
+            mdk:layout="@layout/custom_edittext_widget"/>
+
+        <Button
+            android:id="@+id/richedittext_button_remplir_effacer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_remplir"/>
+
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+        <!-- MDKRichEditText with label, mandatory, no hint -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_1"/>
+
+        <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
+            android:id="@+id/mdkRichEditText_withLabelAndMandatory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/edit_text_label"
+            mdk:mandatory="true"/>
+
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_style_2"/>
+        <!-- MDKRichEditText with label and hint -->
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_2"/>
 
+        <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
+            android:id="@+id/mdkRichEditText_withLabelAndHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/edit_text_label"
+            mdk:hint="@string/edit_text_hint"/>
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
-                android:id="@+id/test_edit_style_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                mdk:hint="@string/edit_text_hint"
-                mdk:label="@string/edit_text_label"
-                mdk:layout="@layout/custom_edittext_widget"/>
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
 
-            <Button
-                android:id="@+id/richedittext_button_remplir_effacer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/action_remplir"/>
+        <!-- MDKRichEditText without label, hint -->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_3"/>
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
-                android:id="@+id/test_case_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                mdk:label="@string/edit_text_label"
-                mdk:mandatory="true"/>
+        <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
+            android:id="@+id/mdkRichEditText_withoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_2"/>
+        <!-- MDKRichEditText without label, no hint -->
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
-                android:id="@+id/test_case_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                mdk:label="@string/edit_text_label"
-                mdk:hint="@string/edit_text_hint"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_4"/>
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+        <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
+            android:id="@+id/test_case_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:hint="@string/edit_text_hint" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_3"/>
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
-                android:id="@+id/test_case_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true" />
+        <!-- MDKEditText with external label and shared error -->
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+        <TextView
+            android:id="@+id/myLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_label"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_4"/>
+        <com.soprasteria.movalysmdk.widget.standard.MDKEditText
+            android:id="@+id/mdkRichEditText_withExternalLabelAndSharedError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:labelId="@id/myLabel"
+            mdk:errorId="@+id/sharedError"
+            mdk:rootId="@id/root" />
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKRichEditText
-                android:id="@+id/test_case_4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                mdk:hint="@string/edit_text_hint" />
+        <TextView
+            android:id="@+id/sharedError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_5"/>
+        <!-- MDKEditText with hint, external label and shared error -->
 
-            <TextView
-                android:id="@+id/myLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_label"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_6"/>
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKEditText
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                mdk:labelId="@id/myLabel"
-                mdk:errorId="@+id/errorText"
-                mdk:rootId="@id/root" />
+        <TextView
+            android:id="@+id/myLabel2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_label"/>
 
-            <TextView
-                android:id="@+id/errorText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <com.soprasteria.movalysmdk.widget.standard.MDKEditText
+            android:id="@+id/mdkEditText_withHintAndExternalLabelAndSharedError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:labelId="@id/myLabel2"
+            mdk:errorId="@+id/errorText2"
+            mdk:rootId="@id/root"
+            mdk:hint="@string/edit_text_hint" />
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+        <TextView
+            android:id="@+id/errorText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_6"/>
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
 
-            <TextView
-                android:id="@+id/myLabel2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_label"/>
+        <!-- MDKEditText with shared error -->
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKEditText
-                android:id="@+id/test_case_6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                mdk:labelId="@id/myLabel2"
-                mdk:errorId="@+id/errorText2"
-                mdk:rootId="@id/root"
-                mdk:hint="@string/edit_text_hint" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_7"/>
 
-            <TextView
-                android:id="@+id/errorText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <com.soprasteria.movalysmdk.widget.standard.MDKEditText
+            android:id="@+id/test_case_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:errorId="@+id/errorText3"
+            mdk:rootId="@id/root" />
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+        <TextView
+            android:id="@+id/errorText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_7"/>
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
 
-            <com.soprasteria.movalysmdk.widget.standard.MDKEditText
-                android:id="@+id/test_case_7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                mdk:errorId="@+id/errorText3"
-                mdk:rootId="@id/root" />
+        <!-- MDKEditText with hint and shared error -->
 
-            <TextView
-                android:id="@+id/errorText3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_8"/>
 
-            <View
-                android:background="@drawable/separator_background"
-                android:layout_width="match_parent"
-                android:layout_height="4dp" />
+        <com.soprasteria.movalysmdk.widget.standard.MDKEditText
+            android:id="@+id/mdkEditText_withHintAndSharedError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:errorId="@+id/errorText4"
+            mdk:rootId="@id/root"
+            mdk:hint="@string/edit_text_hint"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_text_case_8"/>
-
-            <com.soprasteria.movalysmdk.widget.standard.MDKEditText
-                android:id="@+id/test_case_8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                mdk:errorId="@+id/errorText4"
-                mdk:rootId="@id/root"
-                mdk:hint="@string/edit_text_hint"/>
-
-            <TextView
-                android:id="@+id/errorText4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-        </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/errorText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+ </ScrollView>

@@ -34,21 +34,21 @@ public class RichEditTextTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // write text into RichEditText component
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.test_edit_style))))
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayout))))
                 .perform(typeText("Input text hides hint and label show down"));
 
         // click on "Remplir" button to automatically fill out the RichEditText component with "Hello"
         onView(withId(R.id.richedittext_button_remplir_effacer)).perform(click());
 
         // Check that "Hello" is well written into the RichEditText component
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.test_edit_style_2))))
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton))))
                 .check(matches(withText(R.string.hello_world)));
 
         // Re-click on "Vider" button to automatically reset the RichEditText component text
         onView(withId(R.id.richedittext_button_remplir_effacer)).perform(click());
 
         // Check that the RichEditText component text is now empty
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.test_edit_style_2))))
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton))))
                 .check(matches(withText(R.string.empty_string)));
 
         // Check that a mandatory MDKEditText raises an error after clicking on validate without to have filled it out with text
@@ -56,21 +56,19 @@ public class RichEditTextTest {
 
 
        // onView(withId(R.id.test_case_1)).check(matches(withText("42 /!\\ Must de filled")));
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.test_case_1))))
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
                .check(matches(withText("42 /!\\ Must be filled")));
 
         // Write message into MDKRichEditText component
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.test_case_1))))
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
                 .perform(typeText("Input text"));
 
         // Perform click on validation button
         onView(withId(R.id.validateButton)).perform(click());
 
         // Check that the MDKEditText component raises no error after validating it
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.test_case_1))))
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
               .check(matches(withText(R.string.empty_string)));
 
-
     }
-
 }

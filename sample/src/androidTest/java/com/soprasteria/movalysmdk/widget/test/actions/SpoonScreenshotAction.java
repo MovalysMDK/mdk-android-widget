@@ -10,14 +10,14 @@ import android.view.View;
 import com.squareup.spoon.Spoon;
 
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.core.IsAnything;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
 /**
- * SpoonScreenshotAction class definition.
+ * Espresso action to take screenshot.
+ * <p>Spoon library is used to take the screenshot</p>
  */
 public class SpoonScreenshotAction implements ViewAction {
 
@@ -53,9 +53,21 @@ public class SpoonScreenshotAction implements ViewAction {
     }
 
     /**
-     * Getter.
-     * @param view the view
-     * @return context the activity
+     * Take screenshot.
+     * <p>This must be called directly from your test method</p>
+     * @param tag Unique tag to further identify the screenshot. Must match [a-zA-Z0-9_-]+.
+     */
+    public static void perform(String tag) {
+        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+        String testClass = trace[3].getClassName();
+        String testMethod = trace[3].getMethodName();
+        onView(isRoot()).perform(new SpoonScreenshotAction(tag, testClass, testMethod));
+    }
+
+    /**
+     * Get activity from view.
+     * @param view view
+     * @return activity linked to the view
      */
     private static Activity getActivity(View view) {
         Context context = view.getContext();
@@ -69,17 +81,5 @@ public class SpoonScreenshotAction implements ViewAction {
             }
         }
         return (Activity) context;
-    }
-
-    /**
-     * Perform method.
-     * This must be called directly from your test method.
-     * @param tag the tag
-     */
-    public static void perform(String tag) {
-        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-        String testClass = trace[3].getClassName();
-        String testMethod = trace[3].getMethodName();
-        onView(isRoot()).perform(new SpoonScreenshotAction(tag, testClass, testMethod));
     }
 }

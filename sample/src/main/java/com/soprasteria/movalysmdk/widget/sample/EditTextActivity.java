@@ -8,45 +8,48 @@ import android.widget.Button;
 import com.soprasteria.movalysmdk.widget.standard.MDKRichEditText;
 
 /**
- * EditTextActivity class definition.
+ * Test activity for the MDKRichEditText widget.
  */
 public class EditTextActivity extends AppCompatActivity {
 
-    /** mdkRichEditText. */
+    /**
+     * MDKRichEditText with custom layout.
+     */
     private MDKRichEditText mdkRichEditText;
-    /** erase button. */
-    private Button bFillErase;
+
+    /**
+     * Button to clear/fill mdkRichEditText.
+     */
+    private Button fillEraseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_text);
 
-        this.mdkRichEditText = (MDKRichEditText) findViewById(R.id.test_edit_style_2);
-        this.bFillErase = (Button) findViewById(R.id.richedittext_button_remplir_effacer);
+        this.mdkRichEditText = (MDKRichEditText) findViewById(R.id.mdkRichEditText_withCustomLayoutAndButton);
+        this.fillEraseButton = (Button) findViewById(R.id.richedittext_button_remplir_effacer);
 
-        bFillErase.setOnClickListener(new View.OnClickListener() {
+        fillEraseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (getString(R.string.action_remplir).equals(bFillErase.getText())) {
+                if (getString(R.string.action_remplir).equals(fillEraseButton.getText())) {
                     mdkRichEditText.setText(getString(R.string.hello_world));
-                    bFillErase.setText(R.string.action_vider);
+                    fillEraseButton.setText(R.string.action_vider);
                 } else {
                     mdkRichEditText.setText(getString(R.string.empty_string));
-                    bFillErase.setText(R.string.action_remplir);
+                    fillEraseButton.setText(R.string.action_remplir);
                 }
             }
         });
     }
 
     /**
-     * Validate method.
-     * @param view the view
+     * Validate all the mdk widgets.
+     * @param view view
      */
     public void validate(View view) {
-
-        ( (MDKRichEditText) this.findViewById(R.id.test_case_1)).validate();
-
+        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withCustomLayoutAndButton)).validate();
     }
 }

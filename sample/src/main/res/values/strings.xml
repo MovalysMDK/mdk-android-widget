@@ -39,4 +39,9 @@
     <string name="date_case_2">RichDate avec label</string>
     <string name="date_case_3">RichTime avec label</string>
     <string name="date_case_4">RichDate sans label avec hint</string>
+    <string name="topbar_validatebutton">validate</string>
+    <string name="topbar_mandatorybutton">mandatory</string>
+    <string name="topbar_disablebutton">Disable</string>
+    <string name="testHintText">Test hint</string>
+    <string name="sendButtonText">send</string>
 </resources>

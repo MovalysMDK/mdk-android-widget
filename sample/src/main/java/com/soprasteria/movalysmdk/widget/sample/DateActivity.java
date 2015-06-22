@@ -10,74 +10,69 @@ import com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime;
 import com.soprasteria.movalysmdk.widget.standard.MDKRichTime;
 
 /**
- * DateActivity class definition.
+ * Test activity for the date widget.
  */
 public class DateActivity extends AppCompatActivity {
 
     /**
-     * Declaration for a rich DateTime component.
+     * MDKRichDateTime with a label and mandatory.
      */
-    private MDKRichDateTime datetime1;
+    private MDKRichDateTime richDateTimeWithLabelAndMandatory;
 
     /**
-     * Declaration for a rich DateTime component.
+     * MDKRichDateTime with a label and optional.
      */
-    private MDKRichDateTime datetime2;
+    private MDKRichDateTime richDateTimeWithLabelAndNotMandatory;
 
     /**
-     * Declaration for a rich Date component.
+     * MDKRichDate with a label and mandatory.
      */
-    private MDKRichDate date2;
+    private MDKRichDate richDateWithLabelAndMandatory;
 
     /**
-     * Declaration for a rich Time component.
+     * MDKRichTime with a label and mandatory.
      */
-    private MDKRichTime time3;
+    private MDKRichTime richTimeWithLabelAndMandatory;
 
     /**
-     * Declaration for a DateTime component.
+     * MDKDateTime with a label, mandatory and sharedError.
      */
-    private MDKDateTime date1;
+    private MDKDateTime richDateTimeWithLabelAndMandatoryAndSharedError;
 
-    /**
-     * onCreate method.
-     * @param savedInstanceState state of the saved instance
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
 
         /** Search for components into layout. */
-        this.datetime1 = (MDKRichDateTime)findViewById(R.id.rich_date_time_1);
-        this.datetime2 = (MDKRichDateTime)findViewById(R.id.rich_date_time_2);
-        this.date2 = (MDKRichDate)findViewById(R.id.rich_date_1);
-        this.time3 = (MDKRichTime)findViewById(R.id.rich_time_1);
-        this.date1 = (MDKDateTime)findViewById(R.id.date_1);
+        this.richDateTimeWithLabelAndMandatory = (MDKRichDateTime)findViewById(R.id.mdkRichDateTime_withLabelAndMandatory);
+        this.richDateTimeWithLabelAndNotMandatory = (MDKRichDateTime)findViewById(R.id.mdkRichDateTime_withLabelAndNotMandatory);
+        this.richDateWithLabelAndMandatory = (MDKRichDate)findViewById(R.id.mdkRichDate_withLabelAndMandatory);
+        this.richTimeWithLabelAndMandatory = (MDKRichTime)findViewById(R.id.mdkRichTime_withLabelAndMandatory);
+        this.richDateTimeWithLabelAndMandatoryAndSharedError = (MDKDateTime)findViewById(R.id.mdkRichDateTime_withLabelAndMandatoryAndSharedError);
     }
 
     /**
-     * validate method.
-     * @param view the view
+     * Start the validation for each widget.
+     * @param view view
      */
     public void validate(View view) {
-
-        this.datetime1.validate();
-        this.datetime2.validate();
-        this.date2.validate();
-        this.time3.validate();
-        this.date1.validate();
+        this.richDateTimeWithLabelAndMandatory.validate();
+        this.richDateTimeWithLabelAndNotMandatory.validate();
+        this.richDateWithLabelAndMandatory.validate();
+        this.richTimeWithLabelAndMandatory.validate();
+        this.richDateTimeWithLabelAndMandatoryAndSharedError.validate();
     }
 
     /**
-     * Enable method.
-     * @param view the view
+     * Switch enabled/disabled state on all mdk widgets.
+     * @param view view
      */
-    public void enable(View view) {
-        this.datetime1.setEnabled(!this.datetime1.isEnabled());
-        this.datetime2.setEnabled(!this.datetime2.isEnabled());
-        this.date2.setEnabled(!this.date2.isEnabled());
-        this.time3.setEnabled(!this.time3.isEnabled());
-        this.date1.setEnabled(!this.date1.isEnabled());
+    public void switchEnable(View view) {
+        this.richDateTimeWithLabelAndMandatory.setEnabled(!this.richDateTimeWithLabelAndMandatory.isEnabled());
+        this.richDateTimeWithLabelAndNotMandatory.setEnabled(!this.richDateTimeWithLabelAndNotMandatory.isEnabled());
+        this.richDateWithLabelAndMandatory.setEnabled(!this.richDateWithLabelAndMandatory.isEnabled());
+        this.richTimeWithLabelAndMandatory.setEnabled(!this.richTimeWithLabelAndMandatory.isEnabled());
+        this.richDateTimeWithLabelAndMandatoryAndSharedError.setEnabled(!this.richDateTimeWithLabelAndMandatoryAndSharedError.isEnabled());
     }
 }

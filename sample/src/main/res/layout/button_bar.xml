@@ -11,21 +11,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="validate"
-            android:text="validate" />
+            android:text="@string/topbar_validatebutton" />
 
         <Button
             android:id="@+id/mandatoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="mandatory"
-            android:text="mandatory" />
+            android:text="@string/topbar_mandatorybutton" />
 
         <Button
             android:id="@+id/enableButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="switchEnable"
-            android:text="Disable" />
+            android:text="@string/topbar_disablebutton" />
 
     </LinearLayout>
 

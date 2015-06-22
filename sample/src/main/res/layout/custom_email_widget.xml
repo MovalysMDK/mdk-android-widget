@@ -23,6 +23,6 @@
         android:layout_height="wrap_content"
         android:background="#4F443344"
         android:id="@id/component_error"
-        android:layout_gravity="right" />
+        android:layout_gravity="end" />
 
 </LinearLayout>

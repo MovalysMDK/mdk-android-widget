@@ -9,75 +9,86 @@ import com.soprasteria.movalysmdk.widget.standard.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.standard.MDKEmail;
 
 /**
- * EmailActivity class definition.
+ * Test activity for the MDKRichEmail widget.
  */
 public class EmailActivity extends AppCompatActivity {
 
-    /** Rich Email component. */
-    private MDKRichEmail email;
-    /** Simple MDK Email component. */
-    private MDKEmail email2;
-    /** Rich Email component. */
-    private MDKRichEmail email3;
-    /** Rich Email component. */
-    private MDKRichEmail email4;
-    /** Rich Email component. */
-    private MDKRichEmail email5;
+    /**
+     * MDKRichEmail with label and error
+     */
+    private MDKRichEmail richEmailWithLabelAndError;
 
     /**
-     * onCreate method.
-     * @param savedInstanceState Instance to save
+     * MDKEmail with error and command outside
      */
+    private MDKEmail emailWithErrorAndCommandOutside;
+
+    /**
+     * MDKRichEmail with custom layout
+     */
+    private MDKRichEmail richEmailWithCustomLayout;
+
+    /**
+     * MDKRichEmail with shared error
+     */
+    private MDKRichEmail richEmail1WithSharedError;
+
+    /**
+     * MDKRichEmail with shared error
+     */
+    private MDKRichEmail richEmail2WithSharedError;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
 
-        this.email = (MDKRichEmail) findViewById(R.id.view);
-        this.email2 = (MDKEmail) findViewById(R.id.mdkEmail_withErrorAndCommandOutside);
-        this.email3 = (MDKRichEmail) findViewById(R.id.view3);
-        this.email4 = (MDKRichEmail) findViewById(R.id.view4);
-        this.email5 = (MDKRichEmail) findViewById(R.id.view5);
-
+        this.richEmailWithLabelAndError = (MDKRichEmail) findViewById(R.id.mdkRichEmail_withLabelAndError);
+        this.emailWithErrorAndCommandOutside = (MDKEmail) findViewById(R.id.mdkEmail_withErrorAndCommandOutside);
+        this.richEmailWithCustomLayout = (MDKRichEmail) findViewById(R.id.mdkRichEmail_withCustomLayout);
+        this.richEmail1WithSharedError = (MDKRichEmail) findViewById(R.id.mdkRichEmail1_withSharedError);
+        this.richEmail2WithSharedError = (MDKRichEmail) findViewById(R.id.mdkRichEmail2_withSharedError);
     }
 
     /**
-     * Validate method.
+     * Validate all the mdk widgets.
      * @param view the view
      */
     public void validate(View view) {
 
-        this.email.validate();
-        this.email2.validate();
-        this.email3.validate();
-        this.email4.validate();
-        this.email5.validate();
+        this.richEmailWithLabelAndError.validate();
+        this.emailWithErrorAndCommandOutside.validate();
+        this.richEmailWithCustomLayout.validate();
+        this.richEmail1WithSharedError.validate();
+        this.richEmail2WithSharedError.validate();
     }
 
     /**
-     * Mandatory method.
+     * Switch on/off mandatory state of all mdk widgets.
      * @param view the view
      */
     public void mandatory(View view) {
 
-        this.email.setMandatory(!this.email.isMandatory());
-        this.email2.setMandatory(!this.email2.isMandatory());
-        this.email3.setMandatory(!this.email3.isMandatory());
-        this.email4.setMandatory(!this.email4.isMandatory());
-        this.email5.setMandatory(!this.email5.isMandatory());
-
+        this.richEmailWithLabelAndError.setMandatory(!this.richEmailWithLabelAndError.isMandatory());
+        this.emailWithErrorAndCommandOutside.setMandatory(!this.emailWithErrorAndCommandOutside.isMandatory());
+        this.richEmailWithCustomLayout.setMandatory(!this.richEmailWithCustomLayout.isMandatory());
+        this.richEmail1WithSharedError.setMandatory(!this.richEmail1WithSharedError.isMandatory());
+        this.richEmail2WithSharedError.setMandatory(!this.richEmail2WithSharedError.isMandatory());
     }
 
+    /**
+     * Switch to enabled/disabled state of all mdk widgets.
+     * @param view view
+     */
     public void switchEnable(View view) {
 
         Button button = (Button) view;
         button.setText( button.getText().equals("Disable")? "Enable": "Disable");
 
-        this.email.setEnabled(!this.email.isEnabled());
-        this.email2.setEnabled(!this.email2.isEnabled());
-        this.email3.setEnabled(!this.email3.isEnabled());
-        this.email4.setEnabled(!this.email4.isEnabled());
-        this.email5.setEnabled(!this.email5.isEnabled());
-
+        this.richEmailWithLabelAndError.setEnabled(!this.richEmailWithLabelAndError.isEnabled());
+        this.emailWithErrorAndCommandOutside.setEnabled(!this.emailWithErrorAndCommandOutside.isEnabled());
+        this.richEmailWithCustomLayout.setEnabled(!this.richEmailWithCustomLayout.isEnabled());
+        this.richEmail1WithSharedError.setEnabled(!this.richEmail1WithSharedError.isEnabled());
+        this.richEmail2WithSharedError.setEnabled(!this.richEmail2WithSharedError.isEnabled());
     }
 }

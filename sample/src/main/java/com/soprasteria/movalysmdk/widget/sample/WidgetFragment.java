@@ -1,12 +1,9 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
-import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
 
 import java.util.logging.Logger;
@@ -24,8 +20,6 @@ import java.util.logging.Logger;
  * A fragment representing a list of Items.
  * <p>Large screen devices (such as tablets) are supported by replacing the ListView
  * with a GridView.</p>
- * <p>Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.</p>
  */
 public class WidgetFragment extends Fragment implements AbsListView.OnItemClickListener {
 
@@ -34,11 +28,6 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
      */
     private static final Logger LOGGER = Logger.getLogger(
             Thread.currentThread().getStackTrace()[0].getClassName() );
-
-    /**
-     * Listener on fragment.
-     */
-    private OnFragmentInteractionListener mListener;
 
     /**
      * The fragment's ListView/GridView.
@@ -55,25 +44,10 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-            PackageManager pm =  this.getActivity().getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(this.getActivity().getPackageName(), PackageManager.GET_ACTIVITIES);
-
-            WidgetContent.getITEMS().clear();
-            for (ActivityInfo ai: pi.activities) {
-
-                // load all class but main activity
-                if (!ai.name.equals(ListWidgetActivity.class.getName())) {
-                    WidgetContent.getITEMS().add(new WidgetContent.WidgetItem(ai.loadLabel(pm).toString(), (Class<? extends Activity>) Class.forName(ai.name)));
-                }
-
-            }
-        } catch (PackageManager.NameNotFoundException | ClassNotFoundException exception) {
-            throw new MDKWidgetException("context", exception);
-        }
+        MyApp myApp = (MyApp) this.getActivity().getApplicationContext();
 
         mAdapter = new ArrayAdapter<WidgetContent.WidgetItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, WidgetContent.getITEMS());
+                android.R.layout.simple_list_item_1, android.R.id.text1, myApp.getWidgetContent().getItems());
     }
 
     @Override
@@ -92,48 +66,9 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            LOGGER.info(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-            throw e;
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mListener != null) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(WidgetContent.getITEMS().get(position).getActivityClass());
-        }
+        MyApp myApp = (MyApp) this.getActivity().getApplicationContext();
+        Class<? extends Activity> activityClass = myApp.getWidgetContent().getItems().get(position).getActivityClass();
+        this.startActivity(new Intent(this.getActivity(), activityClass));
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        /**
-         * Constructor.
-         * @param activityToLaunch the activity to launch
-         */
-        void onFragmentInteraction(Class<?> activityToLaunch);
-    }
-
 }

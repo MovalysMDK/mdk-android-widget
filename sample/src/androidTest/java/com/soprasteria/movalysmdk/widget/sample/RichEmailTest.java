@@ -40,13 +40,13 @@ public class RichEmailTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // write invalid email
-        onView(withId(R.id.view)).perform(typeText("wrong format"));
+        onView(withId(R.id.mdkRichEmail_withLabelAndError)).perform(typeText("wrong format"));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
 
         // check error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.view))))
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
                 .check(matches(withText("42 /!\\ Invalid email value")));
 
         SpoonScreenshotAction.perform("rightemail_invalidemail_errorstate");
@@ -68,15 +68,15 @@ public class RichEmailTest {
     public void testValidEmail() {
 
         // write valid email
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.view))))
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
                 .perform(clearText());
-        onView(withId(R.id.view)).perform(typeText("contact@gmail.com"));
+        onView(withId(R.id.mdkRichEmail_withLabelAndError)).perform(typeText("contact@gmail.com"));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
 
         // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.view))))
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
                 .check(matches(withText(isEmptyOrNullString())));
     }
 }

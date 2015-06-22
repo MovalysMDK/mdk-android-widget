@@ -14,10 +14,14 @@ import java.util.Collection;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
 /**
- * OrientationChangeAction class definition.
+ * Espresso action to change display orientation.
+ * <p>Orientation can be portrait or landscape.</p>
  */
 public class OrientationChangeAction implements ViewAction {
 
+    /**
+     * Orientation
+     */
     private final int orientation;
 
     /**

@@ -6,57 +6,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p/>
+ * Helper class for providing sample content for user interfaces.
  */
 public class WidgetContent {
+
     /**
      * An array of sample (dummy) items.
      */
-    private static List<WidgetItem> ITEMS = new ArrayList<WidgetItem>();
+    private List<WidgetItem> items = new ArrayList<>();
 
     /**
-     * Getter.
-     * @return ITEMS item list
+     * Get item list.
+     * @return item list
      */
-    public static List<WidgetItem> getITEMS() {
-        return ITEMS;
-    }
-
-    /**
-     * Setter.
-     * @param pItems item list
-     */
-    public static void setITEMS(List<WidgetItem> pItems) {
-        WidgetContent.ITEMS = pItems;
-    }
-
-    /**
-     * private constructor.
-     */
-    private WidgetContent() {
-
+    public List<WidgetItem> getItems() {
+        return items;
     }
 
     /**
      * A dummy item representing a piece of content.
      */
     public static class WidgetItem {
+
         /**
-         * content.
+         * Content.
          */
         private String content;
 
         /**
-         * class activity.
+         * Activity class.
          */
         protected Class<? extends Activity> activityClass;
 
         /**
          * Constructor.
          * @param content the content
-         * @param activityToLaunch the activity to launch
+         * @param activityToLaunch activity to launch
          */
         public WidgetItem(String content, Class activityToLaunch) {
             this.content = content;
@@ -65,11 +50,11 @@ public class WidgetContent {
 
         @Override
         public String toString() {
-            return content;
+            return this.content;
         }
 
         /**
-         * Getter.
+         * Get content.
          * @return content the content
          */
         public String getContent() {
@@ -77,7 +62,7 @@ public class WidgetContent {
         }
 
         /**
-         * Setter.
+         * Set content.
          * @param content the context
          */
         public void setContent(String content) {

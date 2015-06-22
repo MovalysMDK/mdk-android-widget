@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -25,11 +25,9 @@
             android:text="@string/email_with_label_error" />
 
         <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
-            android:id="@+id/view"
+            android:id="@+id/mdkRichEmail_withLabelAndError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_marginBottom="1dp"
             android:layout_marginTop="1dp"
             android:background="@drawable/email_background"
@@ -53,9 +51,7 @@
             android:id="@+id/mdkEmail_withErrorAndCommandOutside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:hint="Test hint"
+            android:hint="@string/testHintText"
             mdk:errorId="@+id/errorText"
             mdk:primaryActionId="@+id/buttonSend"
             mdk:rootId="@id/root"
@@ -66,18 +62,12 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/view2"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="send" />
+            android:text="@string/sendButtonText" />
 
         <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
             android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/buttonSend"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <View
@@ -93,7 +83,7 @@
             android:text="@string/email_rich_custom_layout" />
 
         <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
-            android:id="@+id/view3"
+            android:id="@+id/mdkRichEmail_withCustomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
@@ -114,7 +104,7 @@
             android:id="@+id/textView" />
 
         <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
-            android:id="@+id/view4"
+            android:id="@+id/mdkRichEmail1_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/toto1"
@@ -122,7 +112,7 @@
             mdk:rootId="@+id/root" />
 
         <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
-            android:id="@+id/view5"
+            android:id="@+id/mdkRichEmail2_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/toto2"

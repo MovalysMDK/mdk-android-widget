@@ -13,21 +13,21 @@
 
     <include layout="@layout/button_bar"/>
 
-    <!-- RichDateTime avec label sans hint -->
+    <!-- RichDateTime with label, no hint -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/date_case_1"/>
 
     <com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime
-        android:id="@+id/rich_date_time_1"
+        android:id="@+id/mdkRichDateTime_withLabelAndMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         mdk:label="@string/app_name"
         mdk:mandatory="true" />
 
     <com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime
-        android:id="@+id/rich_date_time_2"
+        android:id="@+id/mdkRichDateTime_withLabelAndNotMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         mdk:label="@string/app_name" />
@@ -44,7 +44,7 @@
         android:text="@string/date_case_2"/>
 
     <com.soprasteria.movalysmdk.widget.standard.MDKRichDate
-        android:id="@+id/rich_date_1"
+        android:id="@+id/mdkRichDate_withLabelAndMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         mdk:label="@string/app_name"
@@ -62,7 +62,7 @@
         android:text="@string/date_case_3"/>
 
     <com.soprasteria.movalysmdk.widget.standard.MDKRichTime
-        android:id="@+id/rich_time_1"
+        android:id="@+id/mdkRichTime_withLabelAndMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         mdk:label="@string/app_name"
@@ -78,7 +78,7 @@
 
 
     <com.soprasteria.movalysmdk.widget.standard.MDKDateTime
-        android:id="@+id/date_1"
+        android:id="@+id/mdkRichDateTime_withLabelAndMandatoryAndSharedError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
