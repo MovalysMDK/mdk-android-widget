@@ -17,7 +17,6 @@ import com.soprasteria.movalysmdk.widget.base.RichSelector;
 import com.soprasteria.movalysmdk.widget.base.SimpleMandatoryRichSelector;
 import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
@@ -64,7 +63,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     private String qualifier;
     /**
-     * Resource id of the helper
+     * Resource id of the helper.
      */
     private int resHelperId;
     /**
@@ -77,11 +76,11 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     protected WeakReference<View> weakView;
     /**
-     * Component root id
+     * Widget root id.
      */
     protected int rootId;
     /**
-     * labelId.
+     * Widget label id.
      */
     protected int labelId;
     /**
@@ -154,13 +153,16 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
 
     }
 
-    // TODO may change the interface of this method
+    /**
+     * Set a unique id to the widget from a view.
+     * @param parentId the parent id
+     */
     @Override
     public void setUniqueId(int parentId) {
         this.uniqueId = parentId;
     }
 
-    // TODO may change the interface of this method
+    // Return the unique id of the widget.
     @Override
     public int getUniqueId() {
         if (uniqueId == 0) {
@@ -186,11 +188,8 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         return null;
     }
 
-
-    // TODO explain why
-
     /**
-     * Find the root view of the error.
+     * This function finds the root view of the error when this last is shared within components.
      * @param useRootIdForError use id for error
      * @return oView the root view
      */
@@ -216,7 +215,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     /**
-     * Find in the view hierarchy which one is the root
+     * Find in the view hierarchy which one is the root.
      * @param parent the parent
      * @return View the matched parent
      */
@@ -247,7 +246,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     private void setMdkErrorWidget(MDKErrorWidget mdkErrorWidget, MDKError error) {
         View v = this.weakView.get();
-        if (v instanceof MDKWidget) {
+        if (v instanceof MDKInnerWidget) {
             if (error == null) {
                 (mdkErrorWidget).clear(((MDKInnerWidget) v).getUniqueId());
             } else {
@@ -293,7 +292,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     /**
-     * Set the root's identifier of the MDK delegate widget to which it is attached to
+     * Set the root's identifier of the MDK delegate widget to which it is attached to.
      * @param rootId the root's id of a view
      */
     public void setRootViewId(@IdRes int rootId) {
@@ -301,7 +300,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     /**
-     * Set the label's identifier of the MDK delegate widget to which it is attached to
+     * Set the label's identifier of the MDK delegate widget to which it is attached to.
      * @param labelId the label's id of a view
      */
     public void setLabelId(@IdRes int labelId) {
@@ -309,7 +308,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     /**
-     * Set the helper's view identifier of the MDK delegate widget to which it is attached to
+     * Set the helper's view identifier of the MDK delegate widget to which it is attached to.
      * @param helperId the helper's id of a view
      */
     public void setHelperViewId(@IdRes int helperId) {
@@ -317,7 +316,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     /**
-     * Set the error's identifier of the MDK delegate widget to which it is attached to
+     * Set the error's identifier of the MDK delegate widget to which it is attached to.
      * @param errorId the error's id of a view
      */
     public void setErrorViewId(@IdRes int errorId) {
@@ -325,8 +324,8 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     }
 
     /**
-     * Set true if the root id must only be used for the MDK delegate widget's error
-     * in case where this last is not in the same layout as the component
+     * Set true if the root id must only be used for the MDK delegate widget's error.
+     * Only when this last is not in the same layout as the widget.
      * @param useRootIdOnlyForError true if the error is not in the same layout as the component
      */
     @Override
@@ -334,27 +333,35 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         this.useRootIdOnlyForError = useRootIdOnlyForError;
     }
 
-    // TODO may change the interface of this method
+    /**
+     *  Super on onCreateDrawableState (TextView).
+     * @param extraSpace the extra space
+     * @return
+     */
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         int[] state = null;
 
         View v = this.weakView.get();
-        if(v != null && v instanceof MDKWidget) {
+        if(v != null && v instanceof MDKInnerWidget) {
 
 
             int stateSpace = this.getStateLength(extraSpace);
-            state = ((MDKWidget) v).superOnCreateDrawableState(stateSpace);
+            state = ((MDKInnerWidget) v).superOnCreateDrawableState(stateSpace);
             int[] mdkState = this.getWidgetState();
 
-            ((MDKWidget) v).callMergeDrawableStates(state, mdkState);
+            ((MDKInnerWidget) v).callMergeDrawableStates(state, mdkState);
 
             this.callRichSelector(state);
         }
         return state;
     }
 
-    // TODO may change the interface of this method
+    /**
+     * Depending on the state, merge different drawables for a view.
+     * @param baseState the base state
+     * @param additionalState the additional state
+     */
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         // nothing here

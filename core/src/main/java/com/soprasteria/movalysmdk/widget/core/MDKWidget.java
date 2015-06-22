@@ -67,18 +67,4 @@ public interface MDKWidget {
      * @return true if the widget is mandatory, false otherwise
      */
     boolean isMandatory();
-
-    /**
-     * superOnCreateDrawableState method.
-     * @param extraSpace the extra space
-     * @return int[] ..
-     */
-    int[] superOnCreateDrawableState(int extraSpace);
-
-    /**
-     * callMergeDrawableStates method.
-     * @param baseState the base state
-     * @param additionalState the additional state
-     */
-    void callMergeDrawableStates(int[] baseState, int[] additionalState);
 }

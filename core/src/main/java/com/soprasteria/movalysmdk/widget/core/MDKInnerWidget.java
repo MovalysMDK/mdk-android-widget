@@ -25,4 +25,18 @@ public interface MDKInnerWidget extends MDKWidget {
      * @return android context
      */
     Context getContext();
+
+    /**
+     * superOnCreateDrawableState method.
+     * @param extraSpace the extra space
+     * @return int[] ..
+     */
+    int[] superOnCreateDrawableState(int extraSpace);
+
+    /**
+     * callMergeDrawableStates method.
+     * @param baseState the base state
+     * @param additionalState the additional state
+     */
+    void callMergeDrawableStates(int[] baseState, int[] additionalState);
 }

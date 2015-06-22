@@ -251,13 +251,11 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> e
     }
 
     // TODO may change the interface of this method, rechercher les endroits où elles ne servent à rien et spécialisé au cas par cas
-    @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         mergeDrawableStates(baseState, additionalState);
     }
 
     // TODO may change the interface of this method
-    @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         return super.onCreateDrawableState(extraSpace);
     }
