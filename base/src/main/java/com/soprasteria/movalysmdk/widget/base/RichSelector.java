@@ -3,11 +3,11 @@ package com.soprasteria.movalysmdk.widget.base;
 import android.view.View;
 
 /**
- * Created by abelliard on 09/06/2015.
+ * Manage change of states for rich widget
  */
 public interface RichSelector {
     /**
-     * onStateChange method.
+     * Handle behaviour when a change of state happens on rich widget
      * @param state the new state
      * @param v the view
      */

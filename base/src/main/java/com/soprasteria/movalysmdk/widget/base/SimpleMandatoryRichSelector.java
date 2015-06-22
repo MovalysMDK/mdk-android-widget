@@ -6,7 +6,7 @@ import com.soprasteria.movalysmdk.widget.base.helper.StateHelper;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 
 /**
- * Created by abelliard on 09/06/2015.
+ * Handle the change of MDK state on a MDK widget.
  */
 public class SimpleMandatoryRichSelector implements RichSelector {
 
@@ -14,6 +14,11 @@ public class SimpleMandatoryRichSelector implements RichSelector {
     /** Constant. */
     private static final String MANDATORY_CHAR = " (*)";
 
+    /**
+     * Manage the state change on a rich widget
+     * @param state the new state
+     * @param v the view where the change happened
+     */
     @Override
     public void onStateChange(int[] state, View v) {
 

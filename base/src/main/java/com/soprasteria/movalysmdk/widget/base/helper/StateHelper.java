@@ -1,7 +1,7 @@
 package com.soprasteria.movalysmdk.widget.base.helper;
 
 /**
- * StateHelper class definition.
+ * Provide information on the MDK state for a widget.
  */
 public class StateHelper {
 
@@ -13,7 +13,7 @@ public class StateHelper {
     }
 
     /**
-     * hasState method.
+     * Return if the attribute is actually a known MDK state.
      * @param state the state tab
      * @param attr attribute
      * @return boolean true if state find.
