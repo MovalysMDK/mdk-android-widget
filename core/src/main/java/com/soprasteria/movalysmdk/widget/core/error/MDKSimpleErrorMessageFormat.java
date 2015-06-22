@@ -9,17 +9,19 @@ public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
      * Constructor.
      * @param sharedErrorWidget defined if the error is defined inside a Rich component
      * @param error MDKError object containing
-     * @return formattedMessage the formatted message
+     * @return oFormattedMessage the formatted message
      */
     public CharSequence formatText(MDKError error, boolean sharedErrorWidget) {
 
-        CharSequence formattedMessage = error.getErrorMessage();
+        CharSequence oFormattedMessage = error.getErrorMessage();
 
         if (sharedErrorWidget) {
-            return error.getComponentLabelName() + ": " + formattedMessage;
+            StringBuilder lFormattedText = new StringBuilder(error.getComponentLabelName());
+            lFormattedText.append(": ");
+            lFormattedText.append(oFormattedMessage);
+            oFormattedMessage = lFormattedText;
         }
-
-        return formattedMessage;
+        return oFormattedMessage;
     }
 
 }
