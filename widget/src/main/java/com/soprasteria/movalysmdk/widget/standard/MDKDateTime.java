@@ -114,10 +114,10 @@ public class MDKDateTime extends TextView implements MDKInnerWidget, MDKRestorab
             error = error != null ? error : validator.validate(this.getTime(), this.mdkDateTimePickerWidgetDelegate.isMandatory(), this.getContext());
         }
         if (error == null) {
-            this.setMDKError(null);
+            this.clearError();
             bValid = true;
         } else {
-            this.setMDKError(error);
+            this.setError(error);
             bValid = false;
         }
         this.mdkDateTimePickerWidgetDelegate.setValid(bValid);
@@ -150,13 +150,18 @@ public class MDKDateTime extends TextView implements MDKInnerWidget, MDKRestorab
     }
 
     @Override
-    public void setMDKError(MDKError error) {
-        this.mdkDateTimePickerWidgetDelegate.setMDKError(error);
+    public void setError(MDKError error) {
+        this.mdkDateTimePickerWidgetDelegate.setError(error);
     }
 
     @Override
     public void setError(CharSequence error) {
         this.mdkDateTimePickerWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void clearError() {
+        this.mdkDateTimePickerWidgetDelegate.clearError();
     }
 
     @Override

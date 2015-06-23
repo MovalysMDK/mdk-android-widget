@@ -104,22 +104,19 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
         this.mdkWidgetDelegate.setRootViewId(rootId);
     }
 
-    /**
-     * Set the error message.
-     * @param error the error to set
-     */
     @Override
     public void setError(CharSequence error) {
         this.mdkWidgetDelegate.setError(error);
     }
 
-    /**
-     * Set the component error.
-     * @param error the error to set
-     */
     @Override
-    public void setMDKError(MDKError error) {
-        this.mdkWidgetDelegate.setMDKError(error);
+    public void setError(MDKError error) {
+        this.mdkWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void clearError() {
+        this.mdkWidgetDelegate.clearError();
     }
 
     /**
@@ -162,10 +159,10 @@ public class MDKEmail extends AppCompatEditText implements MDKInnerWidget, MDKRe
         boolean valid = true;
         MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory(), this.getContext());
         if (error == null) {
-            this.setMDKError(null);
+            this.clearError();
             valid = true;
         } else {
-            this.setMDKError(error);
+            this.setError(error);
             valid = false;
         }
         this.getMDKWidgetDelegate().setValid(valid);

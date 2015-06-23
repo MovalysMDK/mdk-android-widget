@@ -17,5 +17,10 @@ public interface HasError {
      * Set the mdk error on the widget.
      * @param error the mdk error
      */
-    void setMDKError(MDKError error);
+    void setError(MDKError error);
+
+    /**
+     * Remove error on the widget.
+     */
+    void clearError();
 }

@@ -49,13 +49,18 @@ public interface MDKWidget {
      * Set the MDK error value on the widget.
      * @param error the error to set
      */
-    void setMDKError(MDKError error);
+    void setError(MDKError error);
 
     /**
      * Set the error value on the widget.
      * @param error the error to set
      */
     void setError(CharSequence error);
+
+    /**
+     * Clear error.
+     */
+    void clearError();
 
     /**
      * Set mandatory properties on widget.

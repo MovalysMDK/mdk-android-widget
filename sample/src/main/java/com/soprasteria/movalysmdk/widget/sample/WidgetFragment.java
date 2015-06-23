@@ -11,10 +11,9 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
-
-import java.util.logging.Logger;
 
 /**
  * A fragment representing a list of Items.
@@ -22,17 +21,6 @@ import java.util.logging.Logger;
  * with a GridView.</p>
  */
 public class WidgetFragment extends Fragment implements AbsListView.OnItemClickListener {
-
-    /**
-     * Log manager and formatter.
-     */
-    private static final Logger LOGGER = Logger.getLogger(
-            Thread.currentThread().getStackTrace()[0].getClassName() );
-
-    /**
-     * The fragment's ListView/GridView.
-     */
-    private AbsListView mListView;
 
     /**
      * The Adapter which will be used to populate the ListView/GridView with
@@ -56,11 +44,11 @@ public class WidgetFragment extends Fragment implements AbsListView.OnItemClickL
         View view = inflater.inflate(R.layout.fragment_widget, container, false);
 
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        ListView listView = (ListView) view.findViewById(android.R.id.list);
+        listView.setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(this);
 
         return view;
     }

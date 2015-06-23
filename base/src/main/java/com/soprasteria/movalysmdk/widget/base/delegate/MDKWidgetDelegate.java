@@ -234,7 +234,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     public void setError(CharSequence error) {
         MDKError mdkError = new MDKError(this.getLabel(), error, MDKError.NO_ERROR_CODE);
-        this.setMDKError(mdkError);
+        this.setError(mdkError);
     }
 
     /**
@@ -259,21 +259,37 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      * Set error.
      * @param error the error to set
      */
-    public void setMDKError(MDKError error) {
+    public void setError(MDKError error) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
             TextView errorView = (TextView) rootView.findViewById(this.errorId);
             if (errorView instanceof MDKErrorWidget){
                 setMdkErrorWidget((MDKErrorWidget) errorView, error);
             } else if (errorView != null){
-                if (error != null) {
-                    errorView.setText(error.getErrorMessage());
-                } else {
-                    errorView.setText("");
-                }
+                errorView.setText(error.getErrorMessage());
             }
         }
         this.error = (error != null);
+        View v = this.weakView.get();
+        if (v != null) {
+            v.refreshDrawableState();
+        }
+    }
+
+    /**
+     * Remove error.
+     */
+    public void clearError() {
+        View rootView = this.findRootView(true);
+        if (rootView != null) {
+            TextView errorView = (TextView) rootView.findViewById(this.errorId);
+            if (errorView instanceof MDKErrorWidget){
+                setMdkErrorWidget((MDKErrorWidget) errorView, null);
+            } else {
+                errorView.setText("");
+            }
+        }
+        this.error = false;
         View v = this.weakView.get();
         if (v != null) {
             v.refreshDrawableState();

@@ -1,7 +1,7 @@
 package com.soprasteria.movalysmdk.widget.base.delegate;
 
 /**
- * Provide an interface to MDK rich widget's logic
+ * Provide an interface to MDK rich widget's logic.
  */
 public interface HasMdkDelegate {
 

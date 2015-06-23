@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * Validate Email format error with regExp
+ * //FIXME: uses html tags
  * The validation regexp is : '^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'
  *
  * This validator can be parametrized by string resources :
@@ -21,9 +22,14 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator extends MandatoryValidator {
 
-    /** ERROR_INVALID_EMAIL. */
-    public static final int ERROR_INVALID_EMAIL = 1;
-    /** Attribute for regex pattern. */
+    /**
+     * ERROR_INVALID_EMAIL.
+     */
+    public static final int ERROR_INVALID_EMAIL = R.string.mdk_email_error;
+
+    /**
+     * Attribute for regex pattern.
+     */
     private Pattern pattern;
 
     /**
@@ -36,7 +42,6 @@ public class EmailValidator extends MandatoryValidator {
     public MDKError validate(String objectToValidate, boolean mandatory, Context context) {
 
         MDKError mdkError = null;
-        String error;
         if (objectToValidate != null && objectToValidate.length() > 0) {
             if (this.pattern == null) {
                 String regExp = context.getString(R.string.email_regex);
@@ -46,7 +51,7 @@ public class EmailValidator extends MandatoryValidator {
             if (!matcher.find() && R.string.mdk_email_error != 0) {
                     mdkError = new MDKError();
                     mdkError.setErrorCode(ERROR_INVALID_EMAIL);
-                    error = context.getString(R.string.mdk_email_error);
+                    String error = context.getString(R.string.mdk_email_error);
                     mdkError.setErrorMessage(error);
             }
         } else if (mandatory) {

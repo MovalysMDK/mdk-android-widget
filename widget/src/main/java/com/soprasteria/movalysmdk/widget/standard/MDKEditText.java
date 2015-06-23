@@ -105,8 +105,13 @@ public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MD
     }
 
     @Override
-    public void setMDKError(MDKError error) {
-        this.mdkWidgetDelegate.setMDKError(error);
+    public void setError(MDKError error) {
+        this.mdkWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void clearError() {
+        this.mdkWidgetDelegate.clearError();
     }
 
     @Override
@@ -205,13 +210,13 @@ public class MDKEditText extends AppCompatEditText implements MDKInnerWidget, MD
         if (rValidator != null) {
 
             MDKError error = rValidator.validate(this.getText().toString(), this.mdkWidgetDelegate.isMandatory(), this.getContext());
-            this.setMDKError(error);
+            this.setError(error);
             if (error!=null) {
                 bValid = false;
             }
         } else {
             //if the component doesn't have any validator, there is no error to show.
-            this.setMDKError(null);
+            this.clearError();
         }
 
         this.getMDKWidgetDelegate().setValid(bValid);

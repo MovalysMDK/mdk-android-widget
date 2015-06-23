@@ -17,8 +17,8 @@ import java.lang.ref.WeakReference;
 
 /**
  * Action handler on MDKButtonComponent for MDKWidgets.
- * This class manages primary and secondary actions on the MDK button component.
- * It registers listeners and launches commands.
+ * <p>This class manages primary and secondary actions on the MDK button component.</p>
+ * <p>It registers listeners and launches commands.</p>
  */
 public class ActionDelegate {
 
@@ -136,10 +136,8 @@ public class ActionDelegate {
      * @param commandViewId the id of the action view
      * @return the base key associated with the parameters
      */
-    @Nullable private String baseKey(String widgetClassName,@IdRes int commandViewId) {
+    @Nullable private String baseKey(String widgetClassName, @IdRes int commandViewId) {
         StringBuilder baseKey = new StringBuilder(widgetClassName.toLowerCase());
-
-        baseKey.append(widgetClassName.toLowerCase());
 
         if (commandViewId == primaryCommandViewId) {
             baseKey.append("_primary");

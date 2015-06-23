@@ -28,7 +28,7 @@ public abstract class EmailWidgetCommand implements WidgetCommand<Email, Void> {
 
     /**
      * Send an email using the email parameters.
-     * This method call the ACTION_SEND Intent.
+     * <p>This method call the ACTION_SEND Intent.</p>
      *
      * @param context the Android context
      * @param email email information
@@ -38,7 +38,7 @@ public abstract class EmailWidgetCommand implements WidgetCommand<Email, Void> {
     public Void execute(Context context, Email... email) {
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
 
-        if (email.length <= 0 || email.length > 1 || email[0] == null) {
+        if (email.length != 1 || email[0] == null) {
             throw new IllegalArgumentException("email command should only have one Email in parameter.");
         } else {
             Email currentMail = email[0];

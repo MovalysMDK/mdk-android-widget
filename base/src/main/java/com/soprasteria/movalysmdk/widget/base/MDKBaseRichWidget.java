@@ -115,6 +115,7 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> e
         // get innerWidget component
         this.innerWidget = (T) this.findViewById(R.id.component_internal);
         this.innerWidget.setUniqueId(this.getId());
+        //FIXME: Minimum API is 11
         ((View)this.innerWidget).setSaveFromParentEnabled(false);
 
         // get label component if exists
@@ -169,8 +170,8 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> e
     }
 
     @Override
-    public void setMDKError(MDKError error) {
-        this.setMDKError(error, false);
+    public void setError(MDKError error) {
+        this.setError(error, false);
     }
 
     @Override
@@ -178,12 +179,17 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> e
         this.setError(error, false);
     }
 
+    @Override
+    public void clearError() {
+        this.clearError(false);
+    }
+
     /**
      * Set the error on the inner widget.
      * @param error the error to set
      * @param formValidation true if the error comes from validation, false otherwise
      */
-    protected void setMDKError(MDKError error, boolean formValidation) {
+    protected void setError(MDKError error, boolean formValidation) {
         if (this.errorView != null) {
             if (error != null) {
                 errorView.setVisibility(View.VISIBLE);
@@ -192,7 +198,7 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> e
             }
         }
         if (!formValidation) {
-            this.getInnerWidget().setMDKError(error);
+            this.getInnerWidget().setError(error);
         }
     }
 
@@ -206,12 +212,25 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> e
         if (this.errorView != null) {
             if (error != null) {
                 errorView.setVisibility(View.VISIBLE);
-            } else if (!errorAlwaysVisible) {
-                errorView.setVisibility(View.GONE);
             }
         }
         if (!formValidation) {
             this.getInnerWidget().setError(error);
+        }
+    }
+
+    /**
+     * Clear error.
+     * @param formValidation validate form
+     */
+    protected void clearError(boolean formValidation) {
+        if (this.errorView != null) {
+            if (!errorAlwaysVisible) {
+                errorView.setVisibility(View.GONE);
+            }
+        }
+        if (!formValidation) {
+            this.getInnerWidget().clearError();
         }
     }
 

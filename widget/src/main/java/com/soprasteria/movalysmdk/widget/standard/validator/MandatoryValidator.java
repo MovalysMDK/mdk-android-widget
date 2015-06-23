@@ -21,7 +21,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     /**
      * ERROR_MANDATORY.
      */
-    public static final int ERROR_MANDATORY=0;
+    public static final int ERROR_MANDATORY = R.string.mdk_mandatory_error;
 
 
     /**
