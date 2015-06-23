@@ -10,6 +10,6 @@ package com.soprasteria.movalysmdk.widget.core;
  * </ul>
  * <p>The layout can be customized</p>
  */
-public interface MDKRichWidget extends MDKWidget {
+public interface MDKRichWidget extends MDKBaseWidget {
 
 }

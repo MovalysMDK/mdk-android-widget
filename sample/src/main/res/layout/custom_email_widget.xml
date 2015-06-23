@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.soprasteria.movalysmdk.widget.standard.MDKEmail
+    <com.soprasteria.movalysmdk.widget.basic.MDKEmail
         android:id="@id/component_internal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:background="#4F443344"
         android:id="@id/component_label"/>
 
-    <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
+    <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#4F443344"

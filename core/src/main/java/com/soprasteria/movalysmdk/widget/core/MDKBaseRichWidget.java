@@ -1,4 +1,4 @@
-package com.soprasteria.movalysmdk.widget.base;
+package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,11 +10,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView;
-import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRichWidget;
+import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
+import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
@@ -29,7 +26,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> extends RelativeLayout implements MDKRichWidget, HasError {
+public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extends RelativeLayout implements MDKRichWidget, HasError {
 
     /**
      * Base widget.
@@ -245,8 +242,8 @@ public class MDKBaseRichWidget<T extends MDKInnerWidget & MDKRestorableWidget> e
     }
 
     @Override
-    public void setLabelId(int labelId) {
-        this.getInnerWidget().setLabelId(labelId);
+    public void setLabelViewId(int labelId) {
+        this.getInnerWidget().setLabelViewId(labelId);
     }
 
     @Override

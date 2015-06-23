@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@string/email_with_label_error" />
 
-        <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
             android:id="@+id/mdkRichEmail_withLabelAndError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="@string/email_standalone_widget" />
 
-        <com.soprasteria.movalysmdk.widget.standard.MDKEmail
+        <com.soprasteria.movalysmdk.widget.basic.MDKEmail
             android:id="@+id/mdkEmail_withErrorAndCommandOutside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sendButtonText" />
 
-        <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
             android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="@string/email_rich_custom_layout" />
 
-        <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
             android:id="@+id/mdkRichEmail_withCustomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,13 +97,13 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email_rich_common_error"
             android:id="@+id/textView" />
 
-        <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
             android:id="@+id/mdkRichEmail1_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 
-        <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
             android:id="@+id/mdkRichEmail2_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 
-        <com.soprasteria.movalysmdk.widget.base.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
             android:id="@+id/commons_error"
             mdk:errorCentralized="true"
             android:layout_width="match_parent"
@@ -138,7 +138,7 @@
             android:text="@string/email_rich_helper_text"
             android:id="@+id/textView2" />
 
-        <com.soprasteria.movalysmdk.widget.standard.MDKRichEmail
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
             android:id="@+id/view6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

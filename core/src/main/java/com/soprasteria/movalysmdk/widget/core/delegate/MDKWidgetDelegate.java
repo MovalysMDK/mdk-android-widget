@@ -1,4 +1,4 @@
-package com.soprasteria.movalysmdk.widget.base.delegate;
+package com.soprasteria.movalysmdk.widget.core.delegate;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,11 +12,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.soprasteria.movalysmdk.widget.base.R;
-import com.soprasteria.movalysmdk.widget.base.RichSelector;
-import com.soprasteria.movalysmdk.widget.base.SimpleMandatoryRichSelector;
-import com.soprasteria.movalysmdk.widget.base.error.MDKErrorWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
+import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
+import com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector;
+import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * The MDKWidgetDelegate handles the MDK logic for rich widgets
  */
-public class MDKWidgetDelegate implements MDKInnerWidget {
+public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      * ADDED_MDK_STATE.
@@ -77,13 +77,11 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     /**
      * Widget root id.
      */
-    //FIXME: rename to rootViewId
-    protected int rootId;
+    protected int rootViewId;
     /**
      * Widget label id.
      */
-    //FIXME: rename to labelViewId
-    protected int labelId;
+    protected int labelViewId;
     /**
      * showFloatingLabelAnimId.
      */
@@ -93,15 +91,13 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     protected int hideFloatingLabelAnimId;
     /**
-     * helperId.
+     * helperViewId.
      */
-    //FIXME: rename to helperViewId
-    protected int helperId;
+    protected int helperViewId;
     /**
-     * errorId.
+     * errorViewId.
      */
-    //FIXME: rename to errorViewId
-    protected int errorId;
+    protected int errorViewId;
     /**
      * uniqueId.
      */
@@ -139,12 +135,12 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
 
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
 
-        this.rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-        this.labelId = typedArray.getResourceId(R.styleable.MDKCommons_labelId, 0);
+        this.rootViewId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
+        this.labelViewId = typedArray.getResourceId(R.styleable.MDKCommons_labelId, 0);
         this.showFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_showFloatingLabelAnim, 0);
         this.hideFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_hideFloatingLabelAnim, 0);
-        this.helperId = typedArray.getResourceId(R.styleable.MDKCommons_helperId, 0);
-        this.errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
+        this.helperViewId = typedArray.getResourceId(R.styleable.MDKCommons_helperId, 0);
+        this.errorViewId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
 
         this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
 
@@ -200,13 +196,13 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         View v = this.weakView.get();
         if (v != null) {
             if (!useRootIdForError) {
-                if (this.rootId == 0 || this.useRootIdOnlyForError ) {
+                if (this.rootViewId == 0 || this.useRootIdOnlyForError ) {
                     oView = (View) v.getParent();
                 } else {
                     oView = getMatchRootParent((View) v.getParent());
                 }
             } else {
-                if (this.useRootIdOnlyForError || this.rootId != 0) {
+                if (this.useRootIdOnlyForError || this.rootViewId != 0) {
                     oView = getMatchRootParent((View) v.getParent());
                 } else {
                     oView = (View) v.getParent();
@@ -226,7 +222,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         if (parent == null) {
             return null;
         }
-        if (parent.getId() == this.rootId) {
+        if (parent.getId() == this.rootViewId) {
             return parent;
         } else {
             return getMatchRootParent((View) parent.getParent());
@@ -249,13 +245,13 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     private void setMdkErrorWidget(MDKErrorWidget mdkErrorWidget, MDKError error) {
         View v = this.weakView.get();
-        if (v instanceof MDKInnerWidget) {
+        if (v instanceof MDKWidget) {
             if (error == null) {
-                (mdkErrorWidget).clear(((MDKInnerWidget) v).getUniqueId());
+                (mdkErrorWidget).clear(((MDKWidget) v).getUniqueId());
             } else {
-                error.setComponentId(((MDKInnerWidget) v).getUniqueId());
+                error.setComponentId(((MDKWidget) v).getUniqueId());
                 error.setComponentLabelName(this.getLabel());
-                (mdkErrorWidget).addError(((MDKInnerWidget) v).getUniqueId(), error);
+                (mdkErrorWidget).addError(((MDKWidget) v).getUniqueId(), error);
             }
         }
     }
@@ -267,7 +263,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     public void setError(MDKError error) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
-            TextView errorView = (TextView) rootView.findViewById(this.errorId);
+            TextView errorView = (TextView) rootView.findViewById(this.errorViewId);
             if (errorView instanceof MDKErrorWidget){
                 setMdkErrorWidget((MDKErrorWidget) errorView, error);
             } else if (errorView != null){
@@ -287,7 +283,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     public void clearError() {
         View rootView = this.findRootView(true);
         if (rootView != null) {
-            TextView errorView = (TextView) rootView.findViewById(this.errorId);
+            TextView errorView = (TextView) rootView.findViewById(this.errorViewId);
             if (errorView instanceof MDKErrorWidget){
                 setMdkErrorWidget((MDKErrorWidget) errorView, null);
             } else {
@@ -315,16 +311,15 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      * @param rootId the root's id of a view
      */
     public void setRootViewId(@IdRes int rootId) {
-        this.rootId = rootId;
+        this.rootViewId = rootId;
     }
 
     /**
      * Set the label's identifier of the MDK delegate widget to which it is attached to.
      * @param labelId the label's id of a view
      */
-    //FIXME: rename to setLabelViewId
-    public void setLabelId(@IdRes int labelId) {
-        this.labelId = labelId;
+    public void setLabelViewId(@IdRes int labelId) {
+        this.labelViewId = labelId;
     }
 
     /**
@@ -332,7 +327,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      * @param helperId the helper's id of a view
      */
     public void setHelperViewId(@IdRes int helperId) {
-        this.helperId = helperId;
+        this.helperViewId = helperId;
     }
 
     /**
@@ -340,7 +335,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      * @param errorId the error's id of a view
      */
     public void setErrorViewId(@IdRes int errorId) {
-        this.errorId = errorId;
+        this.errorViewId = errorId;
     }
 
     /**
@@ -363,14 +358,14 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         int[] state = null;
 
         View v = this.weakView.get();
-        if(v != null && v instanceof MDKInnerWidget) {
+        if(v != null && v instanceof MDKWidget) {
 
 
             int stateSpace = this.getStateLength(extraSpace);
-            state = ((MDKInnerWidget) v).superOnCreateDrawableState(stateSpace);
+            state = ((MDKWidget) v).superOnCreateDrawableState(stateSpace);
             int[] mdkState = this.getWidgetState();
 
-            ((MDKInnerWidget) v).callMergeDrawableStates(state, mdkState);
+            ((MDKWidget) v).callMergeDrawableStates(state, mdkState);
 
             this.callRichSelector(state);
         }
@@ -385,6 +380,11 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         // nothing here
+    }
+
+    @Override
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+        return this;
     }
 
     /**
@@ -450,7 +450,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         View rootView = this.findRootView(false);
 
         if (rootView != null) {
-            TextView labelView = (TextView) rootView.findViewById(this.labelId);
+            TextView labelView = (TextView) rootView.findViewById(this.labelViewId);
             if (labelView != null) {
                 return labelView.getText();
             }
@@ -467,7 +467,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     public void setLabel(CharSequence label) {
         View rootView = this.findRootView(false);
         if (rootView != null) {
-            TextView labelView = (TextView) rootView.findViewById(this.labelId);
+            TextView labelView = (TextView) rootView.findViewById(this.labelViewId);
             if (labelView != null) {
                 labelView.setText(label);
             }
@@ -562,14 +562,16 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     public void setLabelVisibility(int visibility, boolean playAnim){
 
-        if(labelId != 0) {
+        if(labelViewId != 0) {
             View rootView = this.findRootView(true);
             if (rootView != null) {
-                TextView labelView = (TextView) rootView.findViewById(this.labelId);
+                TextView labelView = (TextView) rootView.findViewById(this.labelViewId);
                 playAnimIfNecessary(labelView, visibility, playAnim);
             }
         }
     }
+
+
 
     /**
      * onSaveInstanceState method.
@@ -584,12 +586,12 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         mdkWidgetDelegateSavedState.resHelperId = this.resHelperId;
         mdkWidgetDelegateSavedState.richSelectors = this.richSelectors;
 
-        mdkWidgetDelegateSavedState.rootId = this.rootId;
-        mdkWidgetDelegateSavedState.labelId = this.labelId;
+        mdkWidgetDelegateSavedState.rootId = this.rootViewId;
+        mdkWidgetDelegateSavedState.labelId = this.labelViewId;
         mdkWidgetDelegateSavedState.showFloatingLabelAnimId = this.showFloatingLabelAnimId;
         mdkWidgetDelegateSavedState.hideFloatingLabelAnimId = this.hideFloatingLabelAnimId;
-        mdkWidgetDelegateSavedState.helperId = this.helperId;
-        mdkWidgetDelegateSavedState.errorId = this.errorId;
+        mdkWidgetDelegateSavedState.helperId = this.helperViewId;
+        mdkWidgetDelegateSavedState.errorId = this.errorViewId;
         mdkWidgetDelegateSavedState.uniqueId = this.uniqueId;
 
         mdkWidgetDelegateSavedState.useRootIdOnlyForError = this.useRootIdOnlyForError;
@@ -618,12 +620,12 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         this.resHelperId = mdkWidgetDelegateSavedState.resHelperId;
         this.richSelectors = mdkWidgetDelegateSavedState.richSelectors;
 
-        this.rootId = mdkWidgetDelegateSavedState.rootId;
-        this.labelId = mdkWidgetDelegateSavedState.labelId;
+        this.rootViewId = mdkWidgetDelegateSavedState.rootId;
+        this.labelViewId = mdkWidgetDelegateSavedState.labelId;
         this.showFloatingLabelAnimId = mdkWidgetDelegateSavedState.showFloatingLabelAnimId;
         this.hideFloatingLabelAnimId = mdkWidgetDelegateSavedState.hideFloatingLabelAnimId;
-        this.helperId = mdkWidgetDelegateSavedState.helperId;
-        this.errorId = mdkWidgetDelegateSavedState.errorId;
+        this.helperViewId = mdkWidgetDelegateSavedState.helperId;
+        this.errorViewId = mdkWidgetDelegateSavedState.errorId;
         this.uniqueId = mdkWidgetDelegateSavedState.uniqueId;
 
         this.useRootIdOnlyForError = mdkWidgetDelegateSavedState.useRootIdOnlyForError;
@@ -653,11 +655,11 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
         List<RichSelector> richSelectors;
 
         /**
-         * rootId.
+         * rootViewId.
          */
         int rootId;
         /**
-         * labelId.
+         * labelViewId.
          */
         int labelId;
         /**
@@ -669,11 +671,11 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
          */
         int hideFloatingLabelAnimId;
         /**
-         * helperId.
+         * helperViewId.
          */
         int helperId;
         /**
-         * errorId.
+         * errorViewId.
          */
         int errorId;
         /**

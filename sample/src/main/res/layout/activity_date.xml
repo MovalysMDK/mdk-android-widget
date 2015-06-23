@@ -19,14 +19,14 @@
         android:layout_height="wrap_content"
         android:text="@string/date_case_1"/>
 
-    <com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
         android:id="@+id/mdkRichDateTime_withLabelAndMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         mdk:label="@string/app_name"
         mdk:mandatory="true" />
 
-    <com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
         android:id="@+id/mdkRichDateTime_withLabelAndNotMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="@string/date_case_2"/>
 
-    <com.soprasteria.movalysmdk.widget.standard.MDKRichDate
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichDate
         android:id="@+id/mdkRichDate_withLabelAndMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="@string/date_case_3"/>
 
-    <com.soprasteria.movalysmdk.widget.standard.MDKRichTime
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichTime
         android:id="@+id/mdkRichTime_withLabelAndMandatory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
 
 
 
-    <com.soprasteria.movalysmdk.widget.standard.MDKDateTime
+    <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
         android:id="@+id/mdkRichDateTime_withLabelAndMandatoryAndSharedError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

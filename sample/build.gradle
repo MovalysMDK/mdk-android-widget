@@ -51,8 +51,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':core')
-    compile project(':base')
-    compile project(':widget')
+    compile project(':basic')
     compile "com.android.support:appcompat-v7:$appcompatv7Version"
     compile "com.android.support:support-v4:$appcompatv4Version"
 

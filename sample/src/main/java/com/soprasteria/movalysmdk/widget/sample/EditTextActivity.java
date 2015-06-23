@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.soprasteria.movalysmdk.widget.standard.MDKRichEditText;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 
 /**
  * Test activity for the MDKRichEditText widget.

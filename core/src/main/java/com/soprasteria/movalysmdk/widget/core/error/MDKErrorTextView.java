@@ -1,4 +1,4 @@
-package com.soprasteria.movalysmdk.widget.base.error;
+package com.soprasteria.movalysmdk.widget.core.error;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.widget.TextView;
 
-import com.soprasteria.movalysmdk.widget.base.R;
+import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+        android:id="@id/component_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/component_internal" />
+
+</merge>

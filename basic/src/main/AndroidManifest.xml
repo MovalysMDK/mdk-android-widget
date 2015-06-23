@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.soprasteria.movalysmdk.widget.standard">
+    package="com.soprasteria.movalysmdk.widget.basic">
 
     <application
         android:allowBackup="true">

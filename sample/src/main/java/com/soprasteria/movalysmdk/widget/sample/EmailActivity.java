@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.soprasteria.movalysmdk.widget.standard.MDKRichEmail;
-import com.soprasteria.movalysmdk.widget.standard.MDKEmail;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
+import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
 
 /**
  * Test activity for the MDKRichEmail widget.

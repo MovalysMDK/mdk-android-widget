@@ -2,7 +2,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-project.archivesBaseName = 'widget-standard'
+project.archivesBaseName = 'widget-basic'
 
 android {
     compileSdkVersion 22
@@ -33,9 +33,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile project(':core')
-    compile project(':base')
     compile 'com.android.support:support-annotations:22.2.0'
+    compile project(':core')
 }
 
 sonarRunner {

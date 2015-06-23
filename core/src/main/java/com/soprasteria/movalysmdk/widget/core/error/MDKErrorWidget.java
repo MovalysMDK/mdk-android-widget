@@ -1,4 +1,4 @@
-package com.soprasteria.movalysmdk.widget.base.error;
+package com.soprasteria.movalysmdk.widget.core.error;
 
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 

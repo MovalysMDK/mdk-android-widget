@@ -10,7 +10,7 @@ public interface HasCommands extends View.OnClickListener {
 
     /**
      * Register commands views on the components
-     * (or its ActionDelegate).
+     * (or its WidgetCommandDelegate).
      */
     void registerWidgetCommands();
 }

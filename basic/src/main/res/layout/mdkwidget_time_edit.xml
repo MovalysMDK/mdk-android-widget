@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="true">
+
+    <include layout="@layout/mdkwidget_error_layout" />
+
+    <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
+        android:id="@id/component_internal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:errorId="@id/component_error"
+        mdk:mode="time"
+        style="?android:attr/spinnerStyle"/>
+</merge>

@@ -1,4 +1,4 @@
-package com.soprasteria.movalysmdk.widget.base.delegate;
+package com.soprasteria.movalysmdk.widget.core.delegate;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -9,8 +9,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.soprasteria.movalysmdk.widget.base.R;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
@@ -26,7 +26,7 @@ import java.util.Date;
  * as the master component (as it hosts this delegate), and the TextView will act as the slave component.
  * The MDKDateTime chooses to be either a date or a time picker, and the slave will have the other role
  */
-public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a date picker. */
     private static final String DATE_PICKER_MODE = "date";

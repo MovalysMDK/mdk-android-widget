@@ -1,4 +1,4 @@
-package com.soprasteria.movalysmdk.widget.base.helper;
+package com.soprasteria.movalysmdk.widget.core.helper;
 
 /**
  * Provide information on the MDK state for a widget.

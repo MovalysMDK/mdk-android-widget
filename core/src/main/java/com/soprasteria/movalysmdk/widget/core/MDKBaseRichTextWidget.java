@@ -1,17 +1,15 @@
-package com.soprasteria.movalysmdk.widget.base;
+package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.soprasteria.movalysmdk.widget.core.MDKInnerWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 
 /**
  * Base implementation of the rich mdk widget for widget that uses text.
  * @param <T> the inner widget type
  */
-public class MDKBaseRichTextWidget<T extends MDKInnerWidget & MDKRestorableWidget & HasText> extends MDKBaseRichWidget<T> implements HasText {
+public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestorableWidget & HasText> extends MDKBaseRichWidget<T> implements HasText {
 
     /**
      * Constructor.

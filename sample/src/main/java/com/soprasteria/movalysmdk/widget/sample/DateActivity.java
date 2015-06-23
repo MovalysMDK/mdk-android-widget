@@ -4,10 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.standard.MDKDateTime;
-import com.soprasteria.movalysmdk.widget.standard.MDKRichDate;
-import com.soprasteria.movalysmdk.widget.standard.MDKRichDateTime;
-import com.soprasteria.movalysmdk.widget.standard.MDKRichTime;
+import com.soprasteria.movalysmdk.widget.basic.MDKDateTime;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichDate;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichTime;
 
 /**
  * Test activity for the date widget.
