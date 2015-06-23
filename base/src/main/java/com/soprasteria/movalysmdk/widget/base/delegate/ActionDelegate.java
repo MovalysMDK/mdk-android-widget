@@ -16,10 +16,12 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentP
 import java.lang.ref.WeakReference;
 
 /**
+ * //FIXME: Replace term Action with Command
  * Action handler on MDKButtonComponent for MDKWidgets.
  * <p>This class manages primary and secondary actions on the MDK button component.</p>
  * <p>It registers listeners and launches commands.</p>
  */
+//FIXME: Rename to WidgetCommandDelegate
 public class ActionDelegate {
 
     /** primary command class. */

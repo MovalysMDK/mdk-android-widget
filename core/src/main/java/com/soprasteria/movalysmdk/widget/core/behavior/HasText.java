@@ -17,12 +17,14 @@ public interface HasText {
     /**
      * Set the text on the component.
      *
+     * //FIXME: @see bad format
      * @see android.text
      * @param text the text to set
      */
     void setText(CharSequence text);
 
     /**
+     * //FIXME: @see bad format
      * @see android.text.InputType
      * @param type the type
      */

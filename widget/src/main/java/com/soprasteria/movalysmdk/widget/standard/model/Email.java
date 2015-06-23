@@ -2,7 +2,7 @@ package com.soprasteria.movalysmdk.widget.standard.model;
 
 /**
  * Email class.
- * <p>POJO représenting an email object to passe to the android system</p>
+ * <p>Value object representing an email object to pass to the android system.</p>
  */
 public class Email {
 
@@ -53,7 +53,7 @@ public class Email {
 
     /**
      * Get list of email addresses to send email.
-     * @return A String[] holding e-mail addresses that should be delivered to
+     * @return A clone of holding e-mail addresses that should be delivered to
      */
     public String[] getTo() {
         return to.clone();
@@ -69,7 +69,7 @@ public class Email {
 
     /**
      * Get list of email addresses for carbon copy.
-     * @return a list of email address on carbon copy
+     * @return a clone of the list of email address on carbon copy
      */
     public String[] getCc() {
         return this.cc.clone();
@@ -85,7 +85,7 @@ public class Email {
 
     /**
      *  Get list of email addresses for blind carbon copy.
-     * @return a list of email addresses for blind carbon copy
+     * @return a clone of list of email addresses for blind carbon copy
      */
     public String[] getBcc() {
         return bcc.clone();
@@ -125,6 +125,7 @@ public class Email {
 
     /**
      * Set email text body.
+     * //FIXME: improove javadoc. Email format ? text, html ?
      * @param body A Charsequence that can be styled to send 'plain/text' type email.
      */
     public void setBody(CharSequence body) {

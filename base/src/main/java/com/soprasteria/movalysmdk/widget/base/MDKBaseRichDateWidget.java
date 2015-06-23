@@ -50,7 +50,7 @@ public class MDKBaseRichDateWidget<T extends MDKInnerWidget & MDKRestorableWidge
 
     /**
      * Override the default android setEnable on view and
-     * call the inner component setEnable
+     * call the inner component setEnable.
      * @param enabled
      */
     @Override

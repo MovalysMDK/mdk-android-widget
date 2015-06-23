@@ -77,10 +77,12 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     /**
      * Widget root id.
      */
+    //FIXME: rename to rootViewId
     protected int rootId;
     /**
      * Widget label id.
      */
+    //FIXME: rename to labelViewId
     protected int labelId;
     /**
      * showFloatingLabelAnimId.
@@ -93,10 +95,12 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
     /**
      * helperId.
      */
+    //FIXME: rename to helperViewId
     protected int helperId;
     /**
      * errorId.
      */
+    //FIXME: rename to errorViewId
     protected int errorId;
     /**
      * uniqueId.
@@ -217,6 +221,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      * @param parent the parent
      * @return View the matched parent
      */
+    //FIXME: too much return
     private View getMatchRootParent(View parent) {
         if (parent == null) {
             return null;
@@ -317,6 +322,7 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      * Set the label's identifier of the MDK delegate widget to which it is attached to.
      * @param labelId the label's id of a view
      */
+    //FIXME: rename to setLabelViewId
     public void setLabelId(@IdRes int labelId) {
         this.labelId = labelId;
     }
@@ -480,7 +486,8 @@ public class MDKWidgetDelegate implements MDKInnerWidget {
      */
     @Nullable
     private String validatorBaseKey(String widgetClassName) {
-        StringBuilder baseKey = new StringBuilder(widgetClassName.toLowerCase() + "_validator_class");
+        StringBuilder baseKey = new StringBuilder(widgetClassName.toLowerCase());
+        baseKey.append("_validator_class");
         return baseKey.toString();
     }
 

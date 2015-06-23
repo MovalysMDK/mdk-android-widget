@@ -9,15 +9,17 @@ public class StateHelper {
      * Private constructor.
      */
     private StateHelper() {
-
+        // private because utility class
     }
 
     /**
-     * Return if the attribute is actually a known MDK state.
+     * Return true if the attribute is actually a known MDK state.
+     * //FIXME: state tab ????
      * @param state the state tab
      * @param attr attribute
-     * @return boolean true if state find.
+     * @return boolean true if state found.
      */
+    //FIXME: reverse parameter order
     public static boolean hasState(int[] state, int attr) {
         for (int i: state) {
             if (i == attr) {
