@@ -334,6 +334,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         } else {
             this.displayedDate = null;
         }
+        updateShownDateTime();
     }
 
     /**
@@ -357,6 +358,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         } else {
             this.displayedTime = null;
         }
+        updateShownDateTime();
     }
 
     /**
