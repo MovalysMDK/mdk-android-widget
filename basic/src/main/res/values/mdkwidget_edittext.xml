@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- validator string config -->
+    <string name="mdkwidget_mdkedittext_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.MandatoryValidator</string>
+
+</resources>

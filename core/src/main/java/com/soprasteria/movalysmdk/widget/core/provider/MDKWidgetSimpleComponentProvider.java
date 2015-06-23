@@ -69,7 +69,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         if (qualifier != null) {
             classPath = findStringFromResourceName(context, baseKey + "_" + qualifier);
             if (classPath == null) {
-                Log.d("ActionDelegate", "no string resource define for :" + baseKey + "_" + qualifier + " but qualifier was defined");
+                Log.d("MDKWidget", "no string resource define for :" + baseKey + "_" + qualifier + " but qualifier was defined");
             }
         }
         // case without qualifier

@@ -78,8 +78,8 @@ public class WidgetCommandDelegate {
 
         TypedArray typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
 
-        this.primaryCommandViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_primaryActionId, 0);
-        this.secondaryCommandViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_secondaryActionId, 0);
+        this.primaryCommandViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_primaryCommandId, 0);
+        this.secondaryCommandViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKButtonComponent_secondaryCommandId, 0);
 
         typedArray.recycle();
 
@@ -95,7 +95,7 @@ public class WidgetCommandDelegate {
      * Register existing commands on a click listener.
      * @param listener the click listener to register command view
      */
-    public void registerActions(View.OnClickListener listener)  {
+    public void registerCommands(View.OnClickListener listener)  {
         if (this.primaryCommandViewId != 0) {
             View commandView = findCommandView(this.primaryCommandViewId);
             if (commandView != null) {

@@ -22,7 +22,7 @@
         android:layout_alignParentRight="true"
         android:inputType="textEmailAddress"
         android:layout_alignBottom="@id/component_emailButton"
-        mdk:primaryActionId="@id/component_emailButton"
+        mdk:primaryCommandId="@id/component_emailButton"
         mdk:errorId="@id/component_error" />
 
 

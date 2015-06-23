@@ -27,14 +27,14 @@ import com.soprasteria.movalysmdk.widget.basic.model.Email;
  * MDK Email
  * <p>Representing an editable text validate with an email regexp</p>
  * <p>
- *     This widget present an action who send the intent Intent.ACTION_SEND to the
+ *     This widget present a command who send the intent Intent.ACTION_SEND to the
  *     Android system with the component text by default.
  * </p>
  * <p>The validation regexp is stored in R.string.email_regexp</p>
  */
 public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasCommands, HasLabel {
 
-    /** ActionDelegate attribute. */
+    /** CommandDelegate attribute. */
     protected WidgetCommandDelegate commandDelegate;
     /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
@@ -173,7 +173,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      */
     @Override
     public void registerWidgetCommands() {
-        this.commandDelegate.registerActions(this);
+        this.commandDelegate.registerCommands(this);
     }
 
     /**

@@ -16,7 +16,7 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
     /**
      * Constant.
      */
-    public static final int ERROR_MANDATORY = R.string.mdk_mandatory_error;
+    public static final int ERROR_MANDATORY = R.string.mdkwidget_mandatory_error;
 
     /**
      * Validator.
@@ -31,7 +31,7 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
         if (mandatory && objectToValidate == null) {
             mdkError = new MDKError();
             mdkError.setErrorCode(ERROR_MANDATORY);
-            String error = context.getString(R.string.mdk_mandatory_error);
+            String error = context.getString(R.string.mdkwidget_mandatory_error);
             mdkError.setErrorMessage(error);
         }
 

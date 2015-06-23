@@ -25,7 +25,7 @@ public class EmailValidator extends MandatoryValidator {
     /**
      * ERROR_INVALID_EMAIL.
      */
-    public static final int ERROR_INVALID_EMAIL = R.string.mdk_email_error;
+    public static final int ERROR_INVALID_EMAIL = R.string.mdkwidget_email_error;
 
     /**
      * Attribute for regex pattern.
@@ -44,14 +44,14 @@ public class EmailValidator extends MandatoryValidator {
         MDKError mdkError = null;
         if (objectToValidate != null && objectToValidate.length() > 0) {
             if (this.pattern == null) {
-                String regExp = context.getString(R.string.email_regex);
+                String regExp = context.getString(R.string.mdkwidget_email_regex);
                 this.pattern = Pattern.compile(regExp);
             }
             Matcher matcher = this.pattern.matcher(objectToValidate);
-            if (!matcher.find() && R.string.mdk_email_error != 0) {
+            if (!matcher.find() && R.string.mdkwidget_email_error != 0) {
                     mdkError = new MDKError();
                     mdkError.setErrorCode(ERROR_INVALID_EMAIL);
-                    String error = context.getString(R.string.mdk_email_error);
+                    String error = context.getString(R.string.mdkwidget_email_error);
                     mdkError.setErrorMessage(error);
             }
         } else if (mandatory) {

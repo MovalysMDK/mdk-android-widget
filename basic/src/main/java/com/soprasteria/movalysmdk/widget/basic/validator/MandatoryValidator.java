@@ -21,7 +21,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     /**
      * ERROR_MANDATORY.
      */
-    public static final int ERROR_MANDATORY = R.string.mdk_mandatory_error;
+    public static final int ERROR_MANDATORY = R.string.mdkwidget_mandatory_error;
 
 
     /**
@@ -36,7 +36,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
         if (mandatory && objectToValidate.length() < 1) {
             mdkError = new MDKError();
             mdkError.setErrorCode(ERROR_MANDATORY);
-            String error = context.getString(R.string.mdk_mandatory_error);
+            String error = context.getString(R.string.mdkwidget_mandatory_error);
             mdkError.setErrorMessage(error);
         }
         return mdkError;

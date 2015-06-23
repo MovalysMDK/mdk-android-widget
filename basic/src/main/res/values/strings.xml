@@ -1,26 +1,5 @@
 <resources>
 
-    <string name="email_chooser_label">Choose mail application</string>
-    
-    <string name="mdk_email_error">Invalid email value</string>
-    <string name="mdk_mandatory_error">Must be filled</string>
-
-    <!-- widgetCommand string config -->
-    <string name="mdkemail_primary_command_class">com.soprasteria.movalysmdk.widget.basic.widgetCommand.EmailCommand</string>
-
-    <!-- validator string config -->
-    <string name="mdkemail_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.EmailValidator</string>
-    <string name="mdkedittext_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.MandatoryValidator</string>
-    <string name="mdkdatetime_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.DateTimeValidator</string>
-
-    <!-- rich selector config -->
-    <string-array name="mdkemail_richselector_classes">
-        <item>com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</item>
-    </string-array>
-
-    <!-- Regular Expression for email formatting-->
-    <string name="email_regex">^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
-    <string name="plain_text">plain/text</string>
-
+    <string name="mdkwidget_mandatory_error">Must be filled</string>
 
 </resources>

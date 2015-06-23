@@ -77,7 +77,7 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestorableWid
     /**
      * {@inheritDoc}
      *
-     * Overriden in order to add post initialisation actions.
+     * Overridden in order to add post initialisation.
      */
     @Override
     protected void onAttachedToWindow() {

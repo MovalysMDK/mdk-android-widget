@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="mdkwidget_email_chooser_label">Choose mail application</string>
+    
+    <string name="mdkwidget_email_error">Invalid email value</string>
+
+    <!-- widgetCommand string config -->
+    <string name="mdkwidget_email_primary_command_class">com.soprasteria.movalysmdk.widget.basic.widgetCommand.EmailCommand</string>
+
+    <!-- validator string config -->
+    <string name="mdkwidget_mdkemail_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.EmailValidator</string>
+
+    <!-- rich selector config -->
+    <string-array name="mdkwidget_email_richselector_classes">
+        <item>com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</item>
+    </string-array>
+
+    <!-- Regular Expression for email formatting-->
+    <string name="mdkwidget_email_regex">^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
+
+    <string name="mdkwidget_email_mimetype_plain">plain/text</string>
+
+</resources>

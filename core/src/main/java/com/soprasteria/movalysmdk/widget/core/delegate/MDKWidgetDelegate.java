@@ -486,7 +486,8 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Nullable
     private String validatorBaseKey(String widgetClassName) {
-        StringBuilder baseKey = new StringBuilder(widgetClassName.toLowerCase());
+        StringBuilder baseKey = new StringBuilder("mdkwidget_");
+        baseKey.append(widgetClassName.toLowerCase());
         baseKey.append("_validator_class");
         return baseKey.toString();
     }

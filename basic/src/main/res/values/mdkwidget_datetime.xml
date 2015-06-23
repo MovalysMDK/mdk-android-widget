@@ -1,0 +1,5 @@
+<resources>
+
+    <string name="mdkwidget_mdkdatetime_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.DateTimeValidator</string>
+
+</resources>

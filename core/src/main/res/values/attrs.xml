@@ -17,8 +17,8 @@
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">
-        <attr name="primaryActionId" format="reference" />
-        <attr name="secondaryActionId" format="reference" />
+        <attr name="primaryCommandId" format="reference" />
+        <attr name="secondaryCommandId" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKErrorComponent">
