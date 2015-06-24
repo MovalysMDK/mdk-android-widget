@@ -16,13 +16,29 @@ import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
  *     <li>setEnable</li>
  * </ul>
  * <p>Add a validator behavior on the base rich widget</p>
+ * @param <T> the inner widget type
  */
 public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator> extends MDKBaseRichWidget<T> implements HasValidator {
 
+    /**
+     * Constructor.
+     * @param layoutWithLabelId Id of layoutWithLabel
+     * @param layoutWithoutLabelId Id of layoutWithoutLabel
+     * @param context Context
+     * @param attrs Collection of attributes
+     */
     public MDKBaseRichDateWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
     }
 
+    /**
+     * Constructor.
+     * @param layoutWithLabelId Id of layoutWithLabel
+     * @param layoutWithoutLabelId Id of layoutWithoutLabel
+     * @param context Context
+     * @param attrs Collection of attributes
+     * @param defStyleAttr Attribute in the current theme referencing a style resource
+     */
     public MDKBaseRichDateWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
     }
@@ -48,7 +64,7 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
     /**
      * Override the default android setEnable on view and
      * call the inner component setEnable.
-     * @param enabled
+     * @param enabled Enable or not the view
      */
     @Override
     public void setEnabled(boolean enabled) {
