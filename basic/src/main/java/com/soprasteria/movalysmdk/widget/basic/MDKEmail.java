@@ -75,6 +75,9 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
         this.commandDelegate = new WidgetCommandDelegate(this, attrs, EmailWidgetCommand.class);
 
+        // Call validate to enable or not send button
+        //validate();
+
     }
 
     /**
@@ -164,6 +167,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
             this.setError(error);
             valid = false;
         }
+        this.commandDelegate.enablePrimaryCommand(valid);
         this.getMDKWidgetDelegate().setValid(valid);
         return valid;
     }

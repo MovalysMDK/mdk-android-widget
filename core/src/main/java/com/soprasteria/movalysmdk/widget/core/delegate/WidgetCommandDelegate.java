@@ -25,8 +25,14 @@ public class WidgetCommandDelegate {
     /** primary command class. */
     private final Class<? extends WidgetCommand> primaryCommandClass;
 
+    /** primary validation command. */
+    private final boolean validationPrimaryCommand;
+
     /** secondary command class. */
     private final Class<? extends WidgetCommand> secondaryCommandClass;
+
+    /** secondary validation command. */
+    private final boolean validationSecondaryCommand;
 
     /** Weak reference on view. */
     private final WeakReference<MDKWidget> weakView;
@@ -59,7 +65,20 @@ public class WidgetCommandDelegate {
      */
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass) {
 
-        this(mdkWidget, attrs, primaryCommandClass, null);
+        this(mdkWidget, attrs, primaryCommandClass, true, null, true);
+
+    }
+
+    /**
+     * Constructor.
+     * @param mdkWidget view
+     * @param attrs attributes
+     * @param primaryCommandClass command class
+     * @param validationPrimaryCommand use validation for enable Primary command
+     */
+    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, boolean validationPrimaryCommand) {
+
+        this(mdkWidget, attrs, primaryCommandClass, validationPrimaryCommand, null, true);
 
     }
 
@@ -71,10 +90,25 @@ public class WidgetCommandDelegate {
      * @param secondaryCommandClass secondary command class
      */
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, Class<? extends WidgetCommand> secondaryCommandClass) {
+        this(mdkWidget, attrs, primaryCommandClass, true, secondaryCommandClass, true);
+    }
+
+    /**
+     * Constructor.
+     * @param mdkWidget view
+     * @param attrs attributes
+     * @param primaryCommandClass primary command class
+     * @param secondaryCommandClass secondary command class
+     * @param validationPrimaryCommand Use validation for enable Primary command
+     * @param validationSecondaryCommand Use validation for enable Secondary command
+     */
+    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, boolean validationPrimaryCommand, Class<? extends WidgetCommand> secondaryCommandClass, boolean validationSecondaryCommand) {
 
         this.weakView = new WeakReference<MDKWidget>(mdkWidget);
         this.primaryCommandClass = primaryCommandClass;
+        this.validationPrimaryCommand = validationPrimaryCommand;
         this.secondaryCommandClass = secondaryCommandClass;
+        this.validationSecondaryCommand = validationSecondaryCommand;
 
         TypedArray typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
 
@@ -173,5 +207,49 @@ public class WidgetCommandDelegate {
         }
 
         return widgetCommand;
+    }
+
+    /**
+     * Activate or not Primary command button.
+     * @param enabled Activation toggle
+     */
+    public void enablePrimaryCommand(boolean enabled) {
+        if (validationPrimaryCommand) {
+            View commandView = findCommandView(this.primaryCommandViewId);
+            if (commandView != null) {
+                commandView.setEnabled(enabled);
+                commandView.setFocusable(enabled);
+            }
+        }
+        else {
+            View commandView = findCommandView(this.primaryCommandViewId);
+            if (commandView != null) {
+                commandView.setEnabled(true);
+                commandView.setFocusable(true);
+            }
+
+        }
+
+    }
+
+    /**
+     * Activate or not Secondary command button.
+     * @param enable Activation toggle
+     */
+    public void enableSecondaryCommand(boolean enable) {
+        if (validationSecondaryCommand) {
+            View commandView = findCommandView(this.secondaryCommandViewId);
+            if (commandView != null) {
+                commandView.setEnabled(enable);
+            }
+        }
+        else {
+            View commandView = findCommandView(this.secondaryCommandViewId);
+            if (commandView != null) {
+                commandView.setEnabled(true);
+            }
+
+        }
+
     }
 }
