@@ -22,7 +22,10 @@ public class EditTextActivity extends AppCompatActivity {
      */
     private Button fillEraseButton;
 
-    @Override
+    /**
+     * Initialisation of the activity.
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_text);
@@ -53,7 +56,14 @@ public class EditTextActivity extends AppCompatActivity {
         ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).validate();
     }
 
+    /**
+     * Change the mandatory state of the chosen view's components
+     * @param view view
+     */
     public void mandatory(View view) {
-        // nothing to do
+
+        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).setMandatory(
+                !(((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).isMandatory()));
+
     }
 }
