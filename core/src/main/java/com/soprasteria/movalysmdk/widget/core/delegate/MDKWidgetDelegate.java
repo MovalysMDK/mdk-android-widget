@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The MDKWidgetDelegate handles the MDK logic for rich widgets
+ * The MDKWidgetDelegate handles the MDK logic for rich widgets.
  */
 public class MDKWidgetDelegate implements MDKWidget {
 
@@ -187,7 +187,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * This function finds the root view of the error when this last is shared within components.
+     * <p>This function finds the root view of the error when </p>this last is shared within components.
      * @param useRootIdForError use id for error
      * @return oView the root view
      */
@@ -213,20 +213,25 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Find in the view hierarchy which one is the root.
+     * <p>In the view hierarchy, recursively search for the parent's view </p>according the widget root's id.
      * @param parent the parent
      * @return View the matched parent
      */
     //FIXME: too much return
     private View getMatchRootParent(View parent) {
-        if (parent == null) {
-            return null;
-        }
+        View viewToReturn = null;
+
+        // Check if the current parent's id matches the widget root's id
         if (parent.getId() == this.rootViewId) {
-            return parent;
+            viewToReturn = parent;
+
         } else {
-            return getMatchRootParent((View) parent.getParent());
+            // Search recursively with the parent's view
+            viewToReturn = getMatchRootParent((View) parent.getParent());
         }
+
+        // No parent found in the view hierarchy matching the widget root's id
+        return viewToReturn;
     }
 
     /**
@@ -349,9 +354,10 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     *  Super on onCreateDrawableState (TextView).
-     * @param extraSpace the extra space
-     * @return
+     * <p>Handles the creation of a drawable state event.<p/>
+     * Add additional states as needed.
+     * @param extraSpace new state to add to MDK widget
+     * @return new drawable state
      */
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
@@ -373,9 +379,9 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Depending on the state, merge different drawables for a view.
-     * @param baseState the base state
-     * @param additionalState the additional state
+     * Merge state values with additionalState into the base state values.
+     * @param baseState initial drawable state
+     * @param additionalState additional drawable state to merge with
      */
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
