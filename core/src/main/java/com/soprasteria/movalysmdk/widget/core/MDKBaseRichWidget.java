@@ -112,7 +112,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
         // get innerWidget component
         this.innerWidget = (T) this.findViewById(R.id.component_internal);
         this.innerWidget.setUniqueId(this.getId());
-        //FIXME: Minimum API is 11
+
         ((View)this.innerWidget).setSaveFromParentEnabled(false);
 
         // get label component if exists
@@ -205,12 +205,10 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
      * @param formValidation is form Validation
      */
     protected void setError(CharSequence error, boolean formValidation) {
-        //TODO A factoriser
-        if (this.errorView != null) {
-            if (error != null) {
-                errorView.setVisibility(View.VISIBLE);
-            }
+        if (this.errorView != null && error != null) {
+            errorView.setVisibility(View.VISIBLE);
         }
+
         if (!formValidation) {
             this.getInnerWidget().setError(error);
         }
@@ -221,11 +219,10 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
      * @param formValidation validate form
      */
     protected void clearError(boolean formValidation) {
-        if (this.errorView != null) {
-            if (!errorAlwaysVisible) {
+        if (this.errorView != null && !errorAlwaysVisible) {
                 errorView.setVisibility(View.GONE);
-            }
         }
+
         if (!formValidation) {
             this.getInnerWidget().clearError();
         }
