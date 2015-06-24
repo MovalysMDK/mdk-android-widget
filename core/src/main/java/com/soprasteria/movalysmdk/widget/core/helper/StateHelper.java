@@ -13,14 +13,13 @@ public class StateHelper {
     }
 
     /**
-     * Return true if the attribute is actually a known MDK state.
-     * //FIXME: state tab ????
-     * @param state the state tab
+     * Return true if the attribute is actually known by the MDK drawable state.
+     * @param state MDK drawable state
      * @param attr attribute
-     * @return boolean true if state found.
+     * @return boolean true the attribute is found
      */
     //FIXME: reverse parameter order
-    public static boolean hasState(int[] state, int attr) {
+    public static boolean hasState(int attr, int[] state) {
         for (int i: state) {
             if (i == attr) {
                 return true;

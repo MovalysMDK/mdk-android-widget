@@ -7,39 +7,34 @@ import com.soprasteria.movalysmdk.widget.core.helper.StateHelper;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 
 /**
- * Handle the change of MDK state on a MDK widget.
+ * Handle the change of MDK mandatory state on a MDK widget.
  */
 public class SimpleMandatoryRichSelector implements RichSelector {
 
-    // TODO search string in RES
-    /** Constant. */
-    private static final String MANDATORY_CHAR = " (*)";
-
     /**
-     * Manage the state change on a rich widget
-     * @param state the new state
-     * @param v the view where the change happened
+     * Switch the mandatory state of the rich widget.
+     * @param state the new mandatory state
+     * @param view the widget's view where the change of state happened
      */
-    @Override
-    public void onStateChange(int[] state, View v) {
+    public void onStateChange(int[] state, View view) {
 
-        if (StateHelper.hasState(state, R.attr.state_mandatory)) {
-            if (v instanceof HasLabel) {
-                CharSequence label = ((HasLabel) v).getLabel();
+        if (StateHelper.hasState(R.attr.state_mandatory, state)) {
+            if (view instanceof HasLabel) {
+                CharSequence label = ((HasLabel) view).getLabel();
 
-                if (!label.toString().endsWith(MANDATORY_CHAR)) {
-                    label = label.toString() + MANDATORY_CHAR;
-                    ((HasLabel) v).setLabel(label);
+                if (!label.toString().endsWith(view.getContext().getString(R.string.mandatory_char))) {
+                    label = label.toString() + view.getContext().getString(R.string.mandatory_char);
+                    ((HasLabel) view).setLabel(label);
                 }
             }
 
         } else {
-            if (v instanceof HasLabel) {
-                CharSequence label = ((HasLabel) v).getLabel();
+            if (view instanceof HasLabel) {
+                CharSequence label = ((HasLabel) view).getLabel();
 
-                if (label.toString().endsWith(MANDATORY_CHAR)) {
-                    label = label.subSequence(0, label.length() - MANDATORY_CHAR.length());
-                    ((HasLabel) v).setLabel(label);
+                if (label.toString().endsWith(view.getContext().getString(R.string.mandatory_char))) {
+                    label = label.subSequence(0, label.length() - view.getContext().getString(R.string.mandatory_char).length());
+                    ((HasLabel) view).setLabel(label);
                 }
             }
         }
