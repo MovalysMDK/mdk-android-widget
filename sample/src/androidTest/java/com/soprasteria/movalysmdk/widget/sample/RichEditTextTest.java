@@ -33,6 +33,7 @@ import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.test.actions.CustomScrollToAction;
+import static com.soprasteria.movalysmdk.widget.test.actions.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
 
 import org.hamcrest.Matcher;
 import org.junit.Rule;
@@ -42,7 +43,6 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -62,6 +62,8 @@ public class RichEditTextTest {
     public ActivityTestRule<EditTextActivity> mActivityRule = new ActivityTestRule<>(EditTextActivity.class);
 
     @Test
+    //FIXME: bad method name
+    //FIXME: too big method, split into small tests
     public void RichEditTextTest() {
 
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -70,7 +72,7 @@ public class RichEditTextTest {
 
         // write text into RichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayout))))
-                .perform(typeText("Input text hides hint and label show down"), closeSoftKeyboard());
+                .perform(typeText("Input text hides hint and label show down"), closeSoftKeyboardDelay());
 
 
         // click on "Remplir" button to automatically fill out the RichEditText component with "Hello"
@@ -97,7 +99,7 @@ public class RichEditTextTest {
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .perform(typeText("Input text"), closeSoftKeyboard());
+                .perform(typeText("Input text"), closeSoftKeyboardDelay());
 
         //onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton)))).perform(scrollTo());
 
@@ -109,41 +111,5 @@ public class RichEditTextTest {
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
               .check(matches(withText(R.string.empty_string)));
 
-    }
-
-
-    /**
-     * Custom closeSoftKeyboard method.
-     * Workaround to manage time delay to close softkeyboard bug.
-     * @return ViewAction the view action
-     */
-    public static ViewAction closeSoftKeyboard() {
-        return new ViewAction() {
-            /**
-             * The delay time to allow the soft keyboard to dismiss.
-             */
-            private static final long KEYBOARD_DISMISSAL_DELAY_MILLIS = 1000L;
-
-            /**
-             * The real {@link CloseKeyboardAction} instance.
-             */
-            private final ViewAction mCloseSoftKeyboard = new CloseKeyboardAction();
-
-            @Override
-            public Matcher<View> getConstraints() {
-                return mCloseSoftKeyboard.getConstraints();
-            }
-
-            @Override
-            public String getDescription() {
-                return mCloseSoftKeyboard.getDescription();
-            }
-
-            @Override
-            public void perform(final UiController uiController, final View view) {
-                mCloseSoftKeyboard.perform(uiController, view);
-                uiController.loopMainThreadForAtLeast(KEYBOARD_DISMISSAL_DELAY_MILLIS);
-            }
-        };
     }
 }
