@@ -13,10 +13,12 @@ buildscript {
             exclude module: 'guava'
         }
         classpath 'com.google.guava:guava:17.0'
+        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
     }
 }
 
 apply plugin: 'sonar-runner'
+apply plugin: 'license'
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
@@ -78,9 +80,35 @@ sonarRunner {
     }
 }
 
+license {
+    strictCheck true
+    //exclude "**/*.properties"
+    //excludes(["**/*.txt", "**/*.conf"])
+    //include "**/*.groovy"
+    //includes(["**/*.java", "**/*.properties"])
+}
+
 // compilation options
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     options.deprecation = true
     options.debug = true
 }
+
+task mdkLicenseFormat (type:nl.javadude.gradle.plugins.license.License) {
+    source = [
+        fileTree(dir:"core/src/main/java").include("**/*.java"),
+        fileTree(dir:"core/src/main/res").include("**/*.xml"),
+        fileTree(dir:"core/src/main").include("AndroidManifest.xml"),
+        fileTree(dir:"basic/src/main/java").include("**/*.java"),
+        fileTree(dir:"basic/src/main/res").include("**/*.xml"),
+        fileTree(dir:"basic/src/main").include("AndroidManifest.xml"),
+        fileTree(dir:"sample/src/main/java").include("**/*.java"),
+        fileTree(dir:"sample/src/main/res").include("**/*.xml"),
+        fileTree(dir:"sample/src/main").include("AndroidManifest.xml"),
+        fileTree(dir:"sample/src/androidTest/java").include("**/*.java")
+    ]
+}
+
+// Run ./gradlew licenseFormat
+licenseFormat.dependsOn mdkLicenseFormat
