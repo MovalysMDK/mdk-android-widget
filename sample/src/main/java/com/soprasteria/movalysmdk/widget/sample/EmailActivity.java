@@ -14,27 +14,27 @@ import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
 public class EmailActivity extends AppCompatActivity {
 
     /**
-     * MDKRichEmail with label and error
+     * MDKRichEmail with label and error.
      */
     private MDKRichEmail richEmailWithLabelAndError;
 
     /**
-     * MDKEmail with error and command outside
+     * MDKEmail with error and command outside.
      */
     private MDKEmail emailWithErrorAndCommandOutside;
 
     /**
-     * MDKRichEmail with custom layout
+     * MDKRichEmail with custom layout.
      */
     private MDKRichEmail richEmailWithCustomLayout;
 
     /**
-     * MDKRichEmail with shared error
+     * MDKRichEmail with shared error.
      */
     private MDKRichEmail richEmail1WithSharedError;
 
     /**
-     * MDKRichEmail with shared error
+     * MDKRichEmail with shared error.
      */
     private MDKRichEmail richEmail2WithSharedError;
 
@@ -83,7 +83,7 @@ public class EmailActivity extends AppCompatActivity {
     public void switchEnable(View view) {
 
         Button button = (Button) view;
-        button.setText( button.getText().equals("Disable")? "Enable": "Disable");
+        button.setText("Disable".equals(button.getText()) ? "Enable": "Disable");
 
         this.richEmailWithLabelAndError.setEnabled(!this.richEmailWithLabelAndError.isEnabled());
         this.emailWithErrorAndCommandOutside.setEnabled(!this.emailWithErrorAndCommandOutside.isEnabled());

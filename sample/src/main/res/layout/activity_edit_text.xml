@@ -108,7 +108,7 @@
             android:text="@string/edit_text_case_3"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
-            android:id="@+id/mdkRichEditText_withoutLabel"
+            android:id="@+id/mdkRichEditText_withoutLabelAndHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <!-- MDKRichEditText without label, no hint -->
+        <!-- MDKRichEditText without label, with hint -->
 
         <TextView
             android:layout_width="match_parent"
@@ -125,7 +125,7 @@
             android:text="@string/edit_text_case_4"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
-            android:id="@+id/test_case_4"
+            android:id="@+id/mdkRichEditText_withoutLabelButHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:hint="@string/edit_text_hint" />
