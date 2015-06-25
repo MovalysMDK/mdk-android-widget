@@ -494,7 +494,10 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
     }
 
-    @Override
+    /**
+     * Return true if the MDK widget is mandatory.
+     * @return boolean depending on mandatory state
+     */
     public boolean isMandatory() {
         return this.mandatory;
     }

@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.core.selector;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.helper.StateHelper;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 
@@ -33,25 +34,26 @@ public class SimpleMandatoryRichSelector implements RichSelector {
      */
     public void onStateChange(int[] state, View view) {
 
+        // Check if the mandatory attribute is already present into the current view's state
         if (StateHelper.hasState(R.attr.state_mandatory, state)) {
-            if (view instanceof HasLabel) {
-                CharSequence label = ((HasLabel) view).getLabel();
-
-                if (!label.toString().endsWith(view.getContext().getString(R.string.mandatory_char))) {
-                    label = label.toString() + view.getContext().getString(R.string.mandatory_char);
-                    ((HasLabel) view).setLabel(label);
+            // Check if the view is a hint
+            if (view instanceof HasHint) {
+                CharSequence hint = ((HasHint) view).getHint();
+                if (hint != null && !hint.toString().endsWith(view.getContext().getString(R.string.mandatory_char))){
+                    hint = hint.toString() + view.getContext().getString(R.string.mandatory_char);
+                    ((HasHint) view).setHint(hint);
                 }
             }
 
-        } else {
-            if (view instanceof HasLabel) {
-                CharSequence label = ((HasLabel) view).getLabel();
+        }else if (view instanceof HasHint) {
+            CharSequence hint = ((HasHint) view).getHint();
 
-                if (label.toString().endsWith(view.getContext().getString(R.string.mandatory_char))) {
-                    label = label.subSequence(0, label.length() - view.getContext().getString(R.string.mandatory_char).length());
-                    ((HasLabel) view).setLabel(label);
-                }
+            if (hint != null &&
+                    hint.toString().endsWith(view.getContext().getString(R.string.mandatory_char))) {
+                hint = hint.subSequence(0, hint.length() - view.getContext().getString(R.string.mandatory_char).length());
             }
+
+            ((HasHint) view).setHint(hint);
         }
     }
 }

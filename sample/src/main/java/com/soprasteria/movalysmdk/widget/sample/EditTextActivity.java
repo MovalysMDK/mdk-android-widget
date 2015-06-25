@@ -65,7 +65,12 @@ public class EditTextActivity extends AppCompatActivity {
      * @param view view
      */
     public void validate(View view) {
+        // MDK EditText with label, no hint and mandatory
         ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).validate();
+
+        // MDK EditText without label but hint and mandatory
+        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withoutLabelButHint)).validate();
+
     }
 
     /**
@@ -74,8 +79,12 @@ public class EditTextActivity extends AppCompatActivity {
      */
     public void mandatory(View view) {
 
+        // MDK EditText with label, no hint and mandatory
         ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).setMandatory(
                 !(((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).isMandatory()));
 
+        // MDK EditText without label but hint and mandatory
+        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withoutLabelButHint)).setMandatory(
+                !(((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withoutLabelButHint)).isMandatory()));
     }
 }

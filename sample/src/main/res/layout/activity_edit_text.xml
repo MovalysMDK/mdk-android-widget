@@ -145,7 +145,8 @@
             android:id="@+id/mdkRichEditText_withoutLabelButHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:hint="@string/edit_text_hint" />
+            mdk:hint="@string/edit_text_hint"
+            mdk:mandatory="true"/>
 
         <View
             android:background="@drawable/separator_background"
