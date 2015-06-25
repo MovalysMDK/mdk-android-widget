@@ -112,3 +112,5 @@ task mdkLicenseFormat (type:nl.javadude.gradle.plugins.license.License) {
 
 // Run ./gradlew licenseFormat
 licenseFormat.dependsOn mdkLicenseFormat
+clean.dependsOn licenseFormat
+
