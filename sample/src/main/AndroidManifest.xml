@@ -38,7 +38,11 @@
         </activity>
         <activity
             android:name=".EmailActivity"
-            android:label="@string/email_activity" >
+            android:label="@string/email_activity"
+            android:parentActivityName=".ListWidgetActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
         <activity
             android:name=".EditTextActivity"

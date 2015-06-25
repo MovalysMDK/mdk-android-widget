@@ -19,7 +19,9 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mdk="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="true"
+    style="?attr/mdkRichLayoutStyle">
 
     <include layout="@layout/mdkwidget_error_layout" />
 
@@ -28,5 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        mdk:errorId="@id/component_error" />
+        mdk:errorId="@id/component_error"
+        style="?attr/mdkValueEditTextStyle"/>
 </merge>

@@ -18,13 +18,12 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
+import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
@@ -50,7 +49,7 @@ import java.util.Date;
  *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends TextView implements MDKWidget, MDKRestorableWidget, HasValidator {
+public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkDateTimePickerWidgetDelegate;
@@ -62,20 +61,22 @@ public class MDKDateTime extends TextView implements MDKWidget, MDKRestorableWid
      */
     public MDKDateTime(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        init(context, attrs);
+        if (!isInEditMode()) {
+            init(context, attrs);
+        }
     }
 
     /**
      * Constructor.
      * @param context the context
      * @param attrs attributes
-     * @param style the style
+     * @param defStyleAttr the style
      */
-    public MDKDateTime(Context context, AttributeSet attrs, int style) {
-        super(context, attrs, style);
-
-        init(context, attrs);
+    public MDKDateTime(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        if (!isInEditMode()) {
+            init(context, attrs);
+        }
     }
 
     /**

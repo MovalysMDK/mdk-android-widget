@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MDKWidgetTheme" parent="Theme.AppCompat">
+
+        <item name="mdkLabelStyle">@style/MDKLabel</item>
+        <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
+        <item name="mdkValueDateStyle">@style/MDKValueDate</item>
+        <item name="mdkValueStyle">@style/MDKValue</item>
+        <item name="mdkErrorStyle">@style/MDKError</item>
+        <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
+        <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
+        <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+
+    </style>
+
+    <style name="MDKWidgetTheme.Light" parent="Theme.AppCompat.Light">
+
+        <item name="mdkLabelStyle">@style/MDKLabel</item>
+        <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
+        <item name="mdkValueDateStyle">@style/MDKValueDate</item>
+        <item name="mdkValueStyle">@style/MDKValue</item>
+        <item name="mdkErrorStyle">@style/MDKError</item>
+        <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
+        <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
+        <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+
+    </style>
+
+    <style name="MDKWidgetTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="mdkLabelStyle">@style/MDKLabel</item>
+        <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
+        <item name="mdkValueDateStyle">@style/MDKValueDate</item>
+        <item name="mdkValueStyle">@style/MDKValue</item>
+        <item name="mdkErrorStyle">@style/MDKError</item>
+        <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
+        <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
+        <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+        
+    </style>
+
+    <style name="MDKLabel" parent="TextAppearance.AppCompat.Small"></style>
+
+    <style name="MDKValueEditText" parent="Widget.AppCompat.EditText"></style>
+    <style name="MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"></style>
+    <style name="MDKValue" parent="TextAppearance.AppCompat.Medium"></style>
+
+    <style name="MDKError" parent="TextAppearance.AppCompat.Small"></style>
+
+    <style name="MDKCommand" parent="Widget.AppCompat.ActionButton"/>
+    <style name="MDKCommand.Primary"></style>
+    <style name="MDKCommand.Secondary"></style>
+
+    <style name="MDKRichLayout"/>
+    
+
+</resources>

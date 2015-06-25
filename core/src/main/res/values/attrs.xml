@@ -18,6 +18,23 @@
 -->
 <resources>
 
+    <declare-styleable name="MDKWidgetStyle">
+
+        <attr name="mdkTintedTextViewStyle" format="reference"/>
+
+        <!-- fonctionnal attributes for theme -->
+        <attr name="mdkLabelStyle" format="reference"/>
+        <attr name="mdkValueEditTextStyle" format="reference"/>
+        <attr name="mdkValueDateStyle" format="reference"/>
+        <attr name="mdkValueStyle" format="reference"/>
+        <attr name="mdkErrorStyle" format="reference"/>
+        <attr name="mdkPrimaryCommandStyle" format="reference"/>
+        <attr name="mdkSecondaryCommandStyle" format="reference"/>
+        <attr name="mdkRichLayoutStyle" format="reference"/>
+    </declare-styleable>
+
+
+
     <declare-styleable name="MDKCommons">
         <attr name="label" format="reference" />
         <attr name="showFloatingLabelAnim" format="reference" />

@@ -20,7 +20,8 @@
     xmlns:mdk="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:addStatesFromChildren="true">
+    android:addStatesFromChildren="true"
+    style="?attr/mdkRichLayoutStyle">
 
     <include layout="@layout/mdkwidget_error_layout" />
 
@@ -30,12 +31,12 @@
         android:layout_height="wrap_content"
         mdk:errorId="@id/component_error"
         mdk:timeTextViewId="@+id/component_internal_time"
-        style="?android:attr/spinnerStyle"/>
+        style="?attr/mdkValueDateStyle"/>
 
-    <TextView
+    <com.soprasteria.movalysmdk.widget.basic.TintedTextView
         android:id="@+id/component_internal_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        style="?android:attr/spinnerStyle"/>
+        style="?attr/mdkValueDateStyle"/>
 </merge>

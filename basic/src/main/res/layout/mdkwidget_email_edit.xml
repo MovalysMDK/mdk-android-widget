@@ -20,7 +20,8 @@
     xmlns:mdk="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:addStatesFromChildren="true">
+    android:addStatesFromChildren="true"
+    style="?attr/mdkRichLayoutStyle">
 
     <include layout="@layout/mdkwidget_error_layout" />
 
@@ -29,7 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:src="@android:drawable/ic_menu_send" />
+        android:src="@android:drawable/ic_menu_send"
+        style="?attr/mdkPrimaryCommandStyle"/>
 
     <com.soprasteria.movalysmdk.widget.basic.MDKEmail
         android:id="@id/component_internal"
@@ -40,7 +42,8 @@
         android:inputType="textEmailAddress"
         android:layout_alignBottom="@id/component_emailButton"
         mdk:primaryCommandId="@id/component_emailButton"
-        mdk:errorId="@id/component_error" />
+        mdk:errorId="@id/component_error"
+        style="?attr/mdkValueEditTextStyle"/>
 
 
 </merge>

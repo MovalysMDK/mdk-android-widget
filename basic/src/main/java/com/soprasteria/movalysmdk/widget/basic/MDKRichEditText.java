@@ -41,7 +41,9 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     public MDKRichEditText(Context context, AttributeSet attrs) {
         super(R.layout.mdkwidget_edittext_edit_label, R.layout.mdkwidget_edittext_edit, context, attrs);
 
-        init();
+        if (!isInEditMode()) {
+            init();
+        }
     }
 
     /**
@@ -53,7 +55,9 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     public MDKRichEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.mdkwidget_edittext_edit_label, R.layout.mdkwidget_edittext_edit, context, attrs, defStyleAttr);
 
-        init();
+        if (!isInEditMode()) {
+            init();
+        }
     }
 
     /**
