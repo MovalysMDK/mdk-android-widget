@@ -242,9 +242,7 @@ public class WidgetCommandDelegate {
                 commandView.setEnabled(true);
                 commandView.setFocusable(true);
             }
-
         }
-
     }
 
     /**

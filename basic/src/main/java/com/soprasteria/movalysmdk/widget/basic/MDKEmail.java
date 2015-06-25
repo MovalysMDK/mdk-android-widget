@@ -90,10 +90,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
         this.commandDelegate = new WidgetCommandDelegate(this, attrs, EmailWidgetCommand.class);
 
-        // Call validate to enable or not send button
-        //validate();
+
 
     }
+
 
     /**
      * Set an unique id for inner widget with the parent one as parameter.
@@ -174,7 +174,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     @Override
     public boolean validate() {
         boolean valid = true;
-        MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory(), this.getContext());
+        MDKError error = validateCommand();
         if (error == null) {
             this.clearError();
             valid = true;
@@ -185,6 +185,16 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         this.commandDelegate.enablePrimaryCommand(valid);
         this.getMDKWidgetDelegate().setValid(valid);
         return valid;
+    }
+
+    public MDKError validateCommand() {
+        boolean valid = false;
+        MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory(), this.getContext());
+        if (error == null) {
+            valid = true;
+        }
+        this.commandDelegate.enablePrimaryCommand(valid);
+        return error;
     }
 
     /**
@@ -213,6 +223,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         if (!isInEditMode()) {
             this.registerWidgetCommands();
         }
+        // Call validate to enable or not send button
+        validateCommand();
     }
 
     /**
