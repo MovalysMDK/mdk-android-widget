@@ -222,9 +222,9 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         super.onAttachedToWindow();
         if (!isInEditMode()) {
             this.registerWidgetCommands();
+            // Call validate to enable or not send button
+            validateCommand();
         }
-        // Call validate to enable or not send button
-        validateCommand();
     }
 
     /**
