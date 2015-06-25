@@ -39,7 +39,7 @@ import com.soprasteria.movalysmdk.widget.basic.model.Email;
  * is made in this command).</p>
  *
  */
-public abstract class EmailWidgetCommand implements WidgetCommand<Email, Void> {
+public class EmailWidgetCommand implements WidgetCommand<Email, Void> {
 
     /**
      * Send an email using the email parameters.

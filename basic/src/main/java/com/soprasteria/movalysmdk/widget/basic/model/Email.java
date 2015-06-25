@@ -71,7 +71,7 @@ public class Email {
      * @return A clone of holding e-mail addresses that should be delivered to
      */
     public String[] getTo() {
-        return to.clone();
+        return to;
     }
 
     /**
@@ -87,7 +87,7 @@ public class Email {
      * @return a clone of the list of email address on carbon copy
      */
     public String[] getCc() {
-        return this.cc.clone();
+        return this.cc;
     }
 
     /**
@@ -103,7 +103,7 @@ public class Email {
      * @return a clone of list of email addresses for blind carbon copy
      */
     public String[] getBcc() {
-        return bcc.clone();
+        return bcc;
     }
 
     /**

@@ -22,7 +22,7 @@
     <string name="mdkwidget_email_error">Invalid email value</string>
 
     <!-- widgetCommand string config -->
-    <string name="mdkwidget_email_primary_command_class">com.soprasteria.movalysmdk.widget.basic.widgetCommand.EmailCommand</string>
+    <string name="mdkwidget_mdkemail_primary_command_class">com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand</string>
 
     <!-- validator string config -->
     <string name="mdkwidget_mdkemail_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.EmailValidator</string>

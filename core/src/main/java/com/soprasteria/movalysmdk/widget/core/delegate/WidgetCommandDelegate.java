@@ -185,8 +185,8 @@ public class WidgetCommandDelegate {
      * @return the base key associated with the parameters
      */
     @Nullable private String baseKey(String widgetClassName, @IdRes int commandViewId) {
-        StringBuilder baseKey = new StringBuilder(widgetClassName.toLowerCase());
-
+        StringBuilder baseKey = new StringBuilder("mdkwidget_");
+        baseKey.append(widgetClassName.toLowerCase());
         if (commandViewId == primaryCommandViewId) {
             baseKey.append("_primary");
         } else {
