@@ -168,11 +168,10 @@ public class WidgetCommandDelegate {
     private View findCommandView(@IdRes int commandViewId) {
         View commandView = null;
         MDKWidget v = this.weakView.get();
-        if (v != null && v instanceof MDKWidget) {
-            View rootView = ((MDKWidget) v).getMDKWidgetDelegate().findRootView(false);
+        if ( v != null ) {
+            View rootView = v.getMDKWidgetDelegate().findRootView(false);
             if (rootView != null) {
                 commandView = rootView.findViewById(commandViewId);
-
             }
         }
         return commandView;
@@ -235,8 +234,7 @@ public class WidgetCommandDelegate {
                 commandView.setEnabled(enabled);
                 commandView.setFocusable(enabled);
             }
-        }
-        else {
+        } else {
             View commandView = findCommandView(this.primaryCommandViewId);
             if (commandView != null) {
                 commandView.setEnabled(true);
@@ -255,14 +253,12 @@ public class WidgetCommandDelegate {
             if (commandView != null) {
                 commandView.setEnabled(enable);
             }
-        }
-        else {
+        } else {
             View commandView = findCommandView(this.secondaryCommandViewId);
             if (commandView != null) {
                 commandView.setEnabled(true);
             }
-
         }
-
     }
+
 }

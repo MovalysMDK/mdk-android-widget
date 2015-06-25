@@ -37,10 +37,7 @@ public class EditTextActivity extends AppCompatActivity {
      */
     private Button fillEraseButton;
 
-    /**
-     * Initialisation of the activity.
-     * @param savedInstanceState
-     */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_text);
@@ -72,7 +69,7 @@ public class EditTextActivity extends AppCompatActivity {
     }
 
     /**
-     * Change the mandatory state of the chosen view's components
+     * Change the mandatory state of the chosen view's components.
      * @param view view
      */
     public void mandatory(View view) {

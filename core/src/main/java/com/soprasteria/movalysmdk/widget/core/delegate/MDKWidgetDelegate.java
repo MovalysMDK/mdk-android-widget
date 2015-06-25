@@ -232,9 +232,8 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param parent the parent
      * @return View the matched parent
      */
-    //FIXME: too much return
     private View getMatchRootParent(View parent) {
-        View viewToReturn = null;
+        View viewToReturn ;
 
         // Check if the current parent's id matches the widget root's id
         if (parent.getId() == this.rootViewId) {

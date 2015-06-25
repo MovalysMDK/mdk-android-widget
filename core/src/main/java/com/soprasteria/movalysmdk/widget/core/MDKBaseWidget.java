@@ -34,7 +34,6 @@ public interface MDKBaseWidget {
      * <p>The view used as label for this widget.</p>
      * @param labelId the id of a view
      */
-    //FIXME: Rename to setLabelViewId
     void setLabelViewId(int labelId);
 
     /**

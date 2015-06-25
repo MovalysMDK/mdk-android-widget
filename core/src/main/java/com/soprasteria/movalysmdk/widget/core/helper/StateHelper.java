@@ -15,6 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.core.helper;
 
+import android.support.annotation.IdRes;
+
 /**
  * Provide information on the MDK state for a widget.
  */
@@ -28,15 +30,14 @@ public class StateHelper {
     }
 
     /**
-     * Return true if the attribute is actually known by the MDK drawable state.
-     * @param state MDK drawable state
-     * @param attr attribute
-     * @return boolean true the attribute is found
+     * Return true if state is included in the view states.
+     * @param state searched state
+     * @param viewStates view states
+     * @return boolean true the state is found
      */
-    //FIXME: reverse parameter order
-    public static boolean hasState(int attr, int[] state) {
-        for (int i: state) {
-            if (i == attr) {
+    public static boolean hasState(@IdRes int state, int[] viewStates) {
+        for (int i: viewStates) {
+            if (i == state) {
                 return true;
             }
         }
