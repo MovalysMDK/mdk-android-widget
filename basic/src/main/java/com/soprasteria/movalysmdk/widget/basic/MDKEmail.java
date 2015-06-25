@@ -187,6 +187,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         return valid;
     }
 
+    /**
+     * Run validation on widget.
+     * @return instance of MDKError if validation failed, null if success.
+     */
     public MDKError validateCommand() {
         boolean valid = false;
         MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory(), this.getContext());

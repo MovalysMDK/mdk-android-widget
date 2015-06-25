@@ -24,16 +24,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Validate Email format error with regExp
- * //FIXME: uses html tags
- * The validation regexp is : '^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'
+ * Validate Email format error with regExp.
+ * <p>The validation regexp is : '^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'.</p>
  *
- * This validator can be parametrized by string resources :
- * the regexp : R.string.email_regex
- * the error string : R.string.mdk_email_error
+ * <p>This validator can be parametrized by string resources :</p>
+ * <ul>
+ *     <li>the regexp : R.string.mdkwidget_email_regex</li>
+ *     <li>the error string : R.string.mdkwidget_email_error</li>
+ * </ul>
  *
- * only one error is "right" the value cannot accumulate 2 errors.
- * its mandatory OR invalid (the empty string cannot be invalidate)
+ * <p>Only one error is "right" the value cannot accumulate 2 errors.</p>
+ * <p>Its mandatory OR invalid (the empty string cannot be invalidate).</p>
  */
 public class EmailValidator extends MandatoryValidator {
 
