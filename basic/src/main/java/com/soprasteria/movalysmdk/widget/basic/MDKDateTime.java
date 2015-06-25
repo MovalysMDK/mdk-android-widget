@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.os.Parcelable;
+import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
@@ -140,22 +141,22 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     @Override
-    public void setRootViewId(int rootId) {
+    public void setRootViewId( @IdRes int rootId) {
         this.mdkDateTimePickerWidgetDelegate.setRootViewId(rootId);
     }
 
     @Override
-    public void setLabelViewId(int labelId) {
+    public void setLabelViewId( @IdRes int labelId) {
         this.mdkDateTimePickerWidgetDelegate.setLabelViewId(labelId);
     }
 
     @Override
-    public void setHelperViewId(int helperId) {
+    public void setHelperViewId( @IdRes int helperId) {
         this.mdkDateTimePickerWidgetDelegate.setHelperViewId(helperId);
     }
 
     @Override
-    public void setErrorViewId(int errorId) {
+    public void setErrorViewId( @IdRes int errorId) {
         this.mdkDateTimePickerWidgetDelegate.setErrorViewId(errorId);
     }
 

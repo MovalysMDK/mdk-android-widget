@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcelable;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
@@ -110,7 +111,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
      * @param rootId the id of a view
      */
     @Override
-    public void setRootViewId(int rootId) {
+    public void setRootViewId( @IdRes int rootId) {
         this.mdkWidgetDelegate.setRootViewId(rootId);
     }
 
@@ -191,17 +192,17 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public void setLabelViewId(int labelId) {
+    public void setLabelViewId( @IdRes int labelId) {
         this.mdkWidgetDelegate.setLabelViewId(labelId);
     }
 
     @Override
-    public void setHelperViewId(int helperId) {
+    public void setHelperViewId( @IdRes int helperId) {
         this.mdkWidgetDelegate.setHelperViewId(helperId);
     }
 
     @Override
-    public void setErrorViewId(int errorId) {
+    public void setErrorViewId( @IdRes int errorId) {
         this.mdkWidgetDelegate.setErrorViewId(errorId);
     }
 

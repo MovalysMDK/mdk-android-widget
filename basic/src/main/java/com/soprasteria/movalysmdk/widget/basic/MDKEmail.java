@@ -175,7 +175,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      */
     @Override
     public boolean validate() {
-        boolean valid = true;
+        boolean valid ;
         MDKError error = validateCommand();
         if (error == null) {
             this.clearError();
