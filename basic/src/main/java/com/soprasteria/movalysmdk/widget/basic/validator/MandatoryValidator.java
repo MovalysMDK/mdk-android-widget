@@ -46,6 +46,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
      * @param context the android context
      * @return MDKError object or null if the value is valid
      */
+    @Override
     public MDKError validate(String objectToValidate, boolean mandatory, Context context) {
         MDKError mdkError = null;
         if (mandatory && objectToValidate.length() < 1) {

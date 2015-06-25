@@ -117,6 +117,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      * Set the root id.
      * @param rootId the id of a view
      */
+    @Override
     public void setRootViewId(@IdRes int rootId) {
         this.mdkWidgetDelegate.setRootViewId(rootId);
     }
@@ -158,6 +159,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      * onClick method.
      * @param v the view
      */
+    @Override
     public void onClick(View v) {
         String sEmailAddress = this.getText().toString();
         if (sEmailAddress != null && sEmailAddress.length() > 0) {

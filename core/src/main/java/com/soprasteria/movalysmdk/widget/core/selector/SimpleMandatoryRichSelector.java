@@ -32,6 +32,7 @@ public class SimpleMandatoryRichSelector implements RichSelector {
      * @param state the new mandatory state
      * @param view the widget's view where the change of state happened
      */
+    @Override
     public void onStateChange(int[] state, View view) {
 
         // Check if the mandatory attribute is already present into the current view's state

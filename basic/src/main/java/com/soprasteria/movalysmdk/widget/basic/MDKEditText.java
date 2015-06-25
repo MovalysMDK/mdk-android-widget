@@ -109,6 +109,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
      * Setter.
      * @param rootId the id of a view
      */
+    @Override
     public void setRootViewId(int rootId) {
         this.mdkWidgetDelegate.setRootViewId(rootId);
     }

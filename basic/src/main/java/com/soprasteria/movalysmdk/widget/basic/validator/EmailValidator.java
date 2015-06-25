@@ -55,6 +55,7 @@ public class EmailValidator extends MandatoryValidator {
      * @param context the android context
      * @return MDKError object or null if the value is valid
      */
+    @Override
     public MDKError validate(String objectToValidate, boolean mandatory, Context context) {
 
         MDKError mdkError = null;

@@ -114,6 +114,7 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
      * Sets the inner EditText enabled state.
      * @param enabled enabled
      */
+    @Override
     public void setEnabled(boolean enabled) {
         this.getInnerWidget().setEnabled(enabled);
     }
@@ -155,6 +156,7 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
      * @param outAttrs outAttrs
      * @return x
      */
+    @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return getInnerWidget().onCreateInputConnection(outAttrs);
     }

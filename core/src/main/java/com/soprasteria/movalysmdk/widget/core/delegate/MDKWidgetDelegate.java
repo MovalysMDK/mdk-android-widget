@@ -193,6 +193,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Provide the context of the widget.
      * @return the widget context
      */
+    @Override
     public Context getContext() {
         View view = this.weakView.get();
         if (view != null) {
@@ -252,6 +253,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set error.
      * @param error the new error
      */
+    @Override
     public void setError(CharSequence error) {
         MDKError mdkError = new MDKError(this.getLabel(), error, MDKError.NO_ERROR_CODE);
         this.setError(mdkError);
@@ -279,6 +281,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set error.
      * @param error the error to set
      */
+    @Override
     public void setError(MDKError error) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
@@ -299,6 +302,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     /**
      * Remove error.
      */
+    @Override
     public void clearError() {
         View rootView = this.findRootView(true);
         if (rootView != null) {
@@ -329,6 +333,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set the root's identifier of the MDK delegate widget to which it is attached to.
      * @param rootId the root's id of a view
      */
+    @Override
     public void setRootViewId(@IdRes int rootId) {
         this.rootViewId = rootId;
     }
@@ -337,6 +342,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set the label's identifier of the MDK delegate widget to which it is attached to.
      * @param labelId the label's id of a view
      */
+    @Override
     public void setLabelViewId(@IdRes int labelId) {
         this.labelViewId = labelId;
     }
@@ -345,6 +351,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set the helper's view identifier of the MDK delegate widget to which it is attached to.
      * @param helperId the helper's id of a view
      */
+    @Override
     public void setHelperViewId(@IdRes int helperId) {
         this.helperViewId = helperId;
     }
@@ -353,6 +360,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set the error's identifier of the MDK delegate widget to which it is attached to.
      * @param errorId the error's id of a view
      */
+    @Override
     public void setErrorViewId(@IdRes int errorId) {
         this.errorViewId = errorId;
     }
@@ -790,6 +798,7 @@ public class MDKWidgetDelegate implements MDKWidget {
                      * @param in a parcel
                      * @return MDKWidgetDelegateSavedState created instance
                      */
+                    @Override
                     public MDKWidgetDelegateSavedState createFromParcel(Parcel in) {
                         return new MDKWidgetDelegateSavedState(in);
                     }
@@ -799,6 +808,7 @@ public class MDKWidgetDelegate implements MDKWidget {
                      * @param size the size
                      * @return MDKWidgetDelegateSavedState an array of MDKWidgetDelegateSavedState with size elements
                      */
+                    @Override
                     public MDKWidgetDelegateSavedState[] newArray(int size) {
                         return new MDKWidgetDelegateSavedState[size];
                     }

@@ -49,6 +49,7 @@ public class CustomScrollToAction implements ViewAction {
      * Constraints getter.
      * @return Matcher<View> Matching views
      */
+    @Override
     public Matcher<View> getConstraints() {
         return Matchers.allOf(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE), ViewMatchers.isDescendantOfA(Matchers.anyOf(ViewMatchers.isAssignableFrom(ScrollView.class), ViewMatchers.isAssignableFrom(HorizontalScrollView.class))));
     }
@@ -58,6 +59,7 @@ public class CustomScrollToAction implements ViewAction {
      * @param uiController the ui controller
      * @param view the view to show (scroll to it)
      */
+    @Override
     public void perform(UiController uiController, View view) {
         if (ViewMatchers.isDisplayingAtLeast(1).matches(view)) {
             Log.i(TAG, "View is already displayed. Returning.");
@@ -82,6 +84,7 @@ public class CustomScrollToAction implements ViewAction {
      * Description of the action.
      * @return String the description
      */
+    @Override
     public String getDescription() {
         return "scroll to";
     }

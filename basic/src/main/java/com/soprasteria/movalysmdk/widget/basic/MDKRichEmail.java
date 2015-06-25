@@ -75,6 +75,7 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
      * @param outAttrs attributes
      * @return InputConnection the input connection
      */
+    @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return getInnerWidget().onCreateInputConnection(outAttrs);
     }

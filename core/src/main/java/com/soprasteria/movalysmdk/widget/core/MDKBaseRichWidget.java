@@ -357,6 +357,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
                      * @param in a parcel
                      * @return MDKWidgetDelegateSavedState created instance
                      */
+                    @Override
                     public MDKBaseRichWidgetSavedState createFromParcel(Parcel in) {
                         return new MDKBaseRichWidgetSavedState(in);
                     }
@@ -366,6 +367,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
                      * @param size the size
                      * @return MDKWidgetDelegateSavedState an array of MDKWidgetDelegateSavedState with size elements
                      */
+                    @Override
                     public MDKBaseRichWidgetSavedState[] newArray(int size) {
                         return new MDKBaseRichWidgetSavedState[size];
                     }

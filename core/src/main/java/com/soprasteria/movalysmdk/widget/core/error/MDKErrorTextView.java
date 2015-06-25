@@ -123,6 +123,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * @param componentId the component id
      * @param error MDKError object to add
      */
+    @Override
     public void addError(int componentId, MDKError error) {
         this.errorSparseArray.put(componentId, error);
         this.updateErrorMessage();
