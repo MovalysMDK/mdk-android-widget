@@ -68,10 +68,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
     public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        if (!isInEditMode()) {
-            init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
-        }
-
+        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
 
     /**
@@ -85,9 +82,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
     public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        if (!isInEditMode()) {
-            init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
-        }
+        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
 
     /**
@@ -124,40 +119,42 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
             LayoutInflater.from(context).inflate(layoutWithoutLabelId, this);
         }
 
-        // get innerWidget component
-        this.innerWidget = (T) this.findViewById(R.id.component_internal);
-        this.innerWidget.setUniqueId(this.getId());
+        if (!this.isInEditMode()) {
+            // get innerWidget component
+            this.innerWidget = (T) this.findViewById(R.id.component_internal);
+            this.innerWidget.setUniqueId(this.getId());
 
-        ((View)this.innerWidget).setSaveFromParentEnabled(false);
+            ((View)this.innerWidget).setSaveFromParentEnabled(false);
 
-        // get label component if exists
-        TextView labelView = (TextView) this.findViewById(R.id.component_label);
+            // get label component if exists
+            TextView labelView = (TextView) this.findViewById(R.id.component_label);
 
 
-        if (labelView != null && resLabelId != 0) {
-            labelView.setText(resLabelId);
+            if (labelView != null && resLabelId != 0) {
+                labelView.setText(resLabelId);
+            }
+
+            // getting the error view
+            this.errorView = (MDKErrorWidget) this.findViewById(R.id.component_error);
+            if (resHelperId != 0
+                    && this.errorView != null
+                    && this.errorView instanceof MDKErrorTextView ) {
+                ((MDKErrorTextView) this.errorView).setHelper(context.getString(resHelperId));
+            }
+
+            // parse others attributes
+            int errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
+            if (errorId != 0) {
+                int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
+                this.innerWidget.setRootViewId(rootId);
+                this.innerWidget.setErrorViewId(errorId);
+                this.innerWidget.setUseRootIdOnlyForError(true);
+            }
+            //TODO (always show error text view, ...) ??? TBD
+
+            boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
+            this.getInnerWidget().setMandatory(mandatory);
         }
-
-        // getting the error view
-        this.errorView = (MDKErrorWidget) this.findViewById(R.id.component_error);
-        if (resHelperId != 0
-                && this.errorView != null
-                && this.errorView instanceof MDKErrorTextView ) {
-            ((MDKErrorTextView) this.errorView).setHelper(context.getString(resHelperId));
-        }
-
-        // parse others attributes
-        int errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
-        if (errorId != 0) {
-            int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-            this.innerWidget.setRootViewId(rootId);
-            this.innerWidget.setErrorViewId(errorId);
-            this.innerWidget.setUseRootIdOnlyForError(true);
-        }
-        //TODO (always show error text view, ...) ??? TBD
-
-        boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
-        this.getInnerWidget().setMandatory(mandatory);
 
         // replace the creation of the state drawable
         this.setAddStatesFromChildren(true);
