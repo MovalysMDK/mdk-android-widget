@@ -24,6 +24,7 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
@@ -35,19 +36,16 @@ import java.lang.ref.WeakReference;
  * <p>This class manages primary and secondary commands on the MDK button component.</p>
  * <p>It registers listeners and launches commands.</p>
  */
-public class WidgetCommandDelegate {
+public class WidgetCommandDelegate implements CommandStateListener {
 
     /** primary command class. */
     private final Class<? extends WidgetCommand> primaryCommandClass;
 
-    /** primary validation command. */
-    private final boolean validationPrimaryCommand;
-
     /** secondary command class. */
     private final Class<? extends WidgetCommand> secondaryCommandClass;
 
-    /** secondary validation command. */
-    private final boolean validationSecondaryCommand;
+    /** validation command. */
+    private final boolean validationCommand;
 
     /** Weak reference on view. */
     private final WeakReference<MDKWidget> weakView;
@@ -80,7 +78,7 @@ public class WidgetCommandDelegate {
      */
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass) {
 
-        this(mdkWidget, attrs, primaryCommandClass, true, null, true);
+        this(mdkWidget, attrs, primaryCommandClass, null, true);
 
     }
 
@@ -89,11 +87,11 @@ public class WidgetCommandDelegate {
      * @param mdkWidget view
      * @param attrs attributes
      * @param primaryCommandClass command class
-     * @param validationPrimaryCommand use validation for enable Primary command
+     * @param validationCommand use validation for enable command
      */
-    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, boolean validationPrimaryCommand) {
+    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, boolean validationCommand) {
 
-        this(mdkWidget, attrs, primaryCommandClass, validationPrimaryCommand, null, true);
+        this(mdkWidget, attrs, primaryCommandClass, null, validationCommand);
 
     }
 
@@ -105,7 +103,7 @@ public class WidgetCommandDelegate {
      * @param secondaryCommandClass secondary command class
      */
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, Class<? extends WidgetCommand> secondaryCommandClass) {
-        this(mdkWidget, attrs, primaryCommandClass, true, secondaryCommandClass, true);
+        this(mdkWidget, attrs, primaryCommandClass, secondaryCommandClass, true);
     }
 
     /**
@@ -114,16 +112,14 @@ public class WidgetCommandDelegate {
      * @param attrs attributes
      * @param primaryCommandClass primary command class
      * @param secondaryCommandClass secondary command class
-     * @param validationPrimaryCommand Use validation for enable Primary command
-     * @param validationSecondaryCommand Use validation for enable Secondary command
+     * @param validationCommand Use validation for enable command
      */
-    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, boolean validationPrimaryCommand, Class<? extends WidgetCommand> secondaryCommandClass, boolean validationSecondaryCommand) {
+    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, Class<? extends WidgetCommand> secondaryCommandClass, boolean validationCommand) {
 
         this.weakView = new WeakReference<MDKWidget>(mdkWidget);
         this.primaryCommandClass = primaryCommandClass;
-        this.validationPrimaryCommand = validationPrimaryCommand;
         this.secondaryCommandClass = secondaryCommandClass;
-        this.validationSecondaryCommand = validationSecondaryCommand;
+        this.validationCommand = validationCommand;
 
         TypedArray typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
 
@@ -159,6 +155,8 @@ public class WidgetCommandDelegate {
         }
 
     }
+
+
 
     /**
      * Find command view for the specified id.
@@ -224,18 +222,30 @@ public class WidgetCommandDelegate {
     }
 
     /**
-     * Activate or not Primary command button.
-     * @param enabled Activation toggle
+     * Activate or not command button.
+     * @param enable Activation toggle
      */
-    public void enablePrimaryCommand(boolean enabled) {
-        if (validationPrimaryCommand) {
-            View commandView = findCommandView(this.primaryCommandViewId);
+    public void enableCommand(boolean enable) {
+        if (validationCommand) {
+            enableCommandOnView(enable, this.primaryCommandViewId);
+            enableCommandOnView(enable, this.secondaryCommandViewId);
+        }
+    }
+
+    /**
+     * Activate or not command on a specific view id.
+     * @param enable Activation toggle
+     * @param viewId the view id
+     */
+    private void enableCommandOnView(boolean enable, int viewId) {
+        if (validationCommand) {
+            View commandView = findCommandView(viewId);
             if (commandView != null) {
-                commandView.setEnabled(enabled);
-                commandView.setFocusable(enabled);
+                commandView.setEnabled(enable);
+                commandView.setFocusable(enable);
             }
         } else {
-            View commandView = findCommandView(this.primaryCommandViewId);
+            View commandView = findCommandView(viewId);
             if (commandView != null) {
                 commandView.setEnabled(true);
                 commandView.setFocusable(true);
@@ -243,22 +253,9 @@ public class WidgetCommandDelegate {
         }
     }
 
-    /**
-     * Activate or not Secondary command button.
-     * @param enable Activation toggle
-     */
-    public void enableSecondaryCommand(boolean enable) {
-        if (validationSecondaryCommand) {
-            View commandView = findCommandView(this.secondaryCommandViewId);
-            if (commandView != null) {
-                commandView.setEnabled(enable);
-            }
-        } else {
-            View commandView = findCommandView(this.secondaryCommandViewId);
-            if (commandView != null) {
-                commandView.setEnabled(true);
-            }
-        }
-    }
 
+    @Override
+    public void notifyCommandStateChanged(boolean enable) {
+        enableCommand(enable);
+    }
 }

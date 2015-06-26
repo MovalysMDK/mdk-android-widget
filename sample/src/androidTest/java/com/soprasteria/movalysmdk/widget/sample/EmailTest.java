@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.sample;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.widget.Button;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -63,6 +64,9 @@ public class EmailTest {
         // Write invalid email
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("wrong format"));
 
+        // Check send button state
+        onView(withId(R.id.buttonSend)).check(matches(not(isEnabled())));
+
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
 
@@ -75,7 +79,11 @@ public class EmailTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("myemail@soprasteria.com"));
 
+        // Check send button state
+        onView(withId(R.id.buttonSend)).check(matches(isEnabled()));
+
         // click validate button
+        onView(withId(R.id.validateButton)).check(matches(isEnabled()));
         onView(withId(R.id.validateButton)).perform(click());
 
         // check no error

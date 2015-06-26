@@ -34,9 +34,13 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand;
 import com.soprasteria.movalysmdk.widget.basic.model.Email;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MDK Email
@@ -53,6 +57,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     protected WidgetCommandDelegate commandDelegate;
     /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
+    private List<CommandStateListener> commandStateListeners;
 
     /**
      * Constructor.
@@ -86,11 +91,11 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      */
     private final void init(Context context, AttributeSet attrs) {
 
+        this.commandStateListeners = new ArrayList<CommandStateListener>();
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         this.commandDelegate = new WidgetCommandDelegate(this, attrs, EmailWidgetCommand.class);
-
-
+        this.addCommandStateListener(this.commandDelegate);
 
     }
 
@@ -184,7 +189,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
             this.setError(error);
             valid = false;
         }
-        this.commandDelegate.enablePrimaryCommand(valid);
+        this.commandDelegate.enableCommand(valid);
         this.getMDKWidgetDelegate().setValid(valid);
         return valid;
     }
@@ -199,7 +204,9 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         if (error == null) {
             valid = true;
         }
-        this.commandDelegate.enablePrimaryCommand(valid);
+        for (CommandStateListener listener : commandStateListeners) {
+            listener.notifyCommandStateChanged(valid);
+        }
         return error;
     }
 
@@ -210,6 +217,19 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     public void registerWidgetCommands() {
         this.commandDelegate.registerCommands(this);
     }
+
+    @Override
+    public void addCommandStateListener(CommandStateListener commandListener) {
+        this.commandStateListeners.add(commandListener);
+    }
+
+    @Override
+   public void onTextChanged(CharSequence s, int start, int before, int count) {
+       super.onTextChanged(s, start, before, count);
+       if (this.mdkWidgetDelegate != null && this.commandDelegate != null && !isInEditMode() ) {
+           validateCommand();
+       }
+   }
 
     /**
      * Return the MDKWidgetDelegate object.
