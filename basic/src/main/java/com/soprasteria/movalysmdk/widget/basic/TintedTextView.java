@@ -18,22 +18,44 @@ import android.util.AttributeSet;
  */
 public class TintedTextView extends AppCompatTextView implements TintableBackgroundView {
 
+    /**
+     * Attributes to apply tint.
+     */
     private static final int[] TINT_ATTRS = {
             android.R.attr.background
     };
-
+    /** tint backgrount info. */
     private TintInfo mInternalBackgroundTint;
+    /** tint backround. */
     private TintInfo mBackgroundTint;
+    /** Tint manager. */
     private TintManager mTintManager;
 
+    /**
+     * Default Android the TintedTextView(context, null) constructor</p>
+     * @param context the android context
+     */
     public TintedTextView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Default Android Constructor.
+     * <p>Call the TintedTextView(context, attrs, R.attr.mdkTintedTextViewStyle) constructor</p>
+     * @param context the android context
+     * @param attrs the view attributes
+     */
     public TintedTextView(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.mdkTintedTextViewStyle);
     }
 
+    /**
+     * Default Android Constructor.
+     * <p>Call the tint manager and create backward compatibility.</p>
+     * @param context the android context
+     * @param attrs the view attributes
+     * @param defStyleAttr attributes for style
+     */
     public TintedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -67,7 +89,8 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
     /**
      * This should be accessed via
      * {@link android.support.v4.view.ViewCompat#setBackgroundTintList(android.view.View,
-     * android.content.res.ColorStateList)}
+     * android.content.res.ColorStateList)}.
+     * @param tint tint color state
      *
      * @hide
      */
@@ -84,7 +107,7 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
 
     /**
      * This should be accessed via
-     * {@link android.support.v4.view.ViewCompat#getBackgroundTintList(android.view.View)}
+     * {@link android.support.v4.view.ViewCompat#getBackgroundTintList(android.view.View)}.
      *
      * @hide
      */
@@ -96,7 +119,8 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
 
     /**
      * This should be accessed via
-     * {@link android.support.v4.view.ViewCompat#setBackgroundTintMode(android.view.View, android.graphics.PorterDuff.Mode)}
+     * {@link android.support.v4.view.ViewCompat#setBackgroundTintMode(android.view.View, android.graphics.PorterDuff.Mode)}.
+     * @param tintMode the tint mode to use in widget
      *
      * @hide
      */
@@ -113,7 +137,9 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
 
     /**
      * This should be accessed via
-     * {@link android.support.v4.view.ViewCompat#getBackgroundTintMode(android.view.View)}
+     * {@link android.support.v4.view.ViewCompat#getBackgroundTintMode(android.view.View)}.
+     *
+     * @return the Porter.Mode of the widget
      *
      * @hide
      */
@@ -123,6 +149,9 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
         return mBackgroundTint != null ? mBackgroundTint.mTintMode : null;
     }
 
+    /**
+     * Call to apply Backgrount Tint on drawable state change.
+     */
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
@@ -130,7 +159,7 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
     }
 
     /**
-     * apply the tint on the background
+     * Apply the tint on the background.
      */
     private void applySupportBackgroundTint() {
         if (getBackground() != null) {
@@ -143,7 +172,7 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
     }
 
     /**
-     * Set the tint on the component and apply the tint
+     * Set the tint on the component and apply the tint.
      * @param tint the new tint to apply
      */
     private void setInternalBackgroundTint(ColorStateList tint) {
