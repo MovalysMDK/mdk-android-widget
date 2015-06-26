@@ -24,15 +24,16 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
     private static final int[] TINT_ATTRS = {
             android.R.attr.background
     };
-    /** tint backgrount info. */
+    /** tint background info. */
     private TintInfo mInternalBackgroundTint;
-    /** tint backround. */
+    /** tint background. */
     private TintInfo mBackgroundTint;
     /** Tint manager. */
     private TintManager mTintManager;
 
     /**
-     * Default Android the TintedTextView(context, null) constructor</p>
+     * Default Android Constructor.
+     * <p>Call the TintedTextView(context, null) constructor</p>
      * @param context the android context
      */
     public TintedTextView(Context context) {
@@ -150,7 +151,7 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
     }
 
     /**
-     * Call to apply Backgrount Tint on drawable state change.
+     * Call to apply background Tint on drawable state change.
      */
     @Override
     protected void drawableStateChanged() {
