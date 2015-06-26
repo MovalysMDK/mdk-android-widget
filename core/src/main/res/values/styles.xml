@@ -40,15 +40,15 @@
         
     </style>
 
-    <style name="MDKLabel" parent="TextAppearance.AppCompat.Small"></style>
+    <style name="MDKLabel" parent="Base.MDKLabel"></style>
 
-    <style name="MDKValueEditText" parent="Widget.AppCompat.EditText"></style>
-    <style name="MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"></style>
-    <style name="MDKValue" parent="TextAppearance.AppCompat.Medium"></style>
+    <style name="MDKValueEditText" parent="Base.MDKValueEditText"></style>
+    <style name="MDKValueDate" parent="Base.MDKValueDate"></style>
+    <style name="MDKValue" parent="Base.MDKValue"></style>
 
-    <style name="MDKError" parent="TextAppearance.AppCompat.Small"></style>
+    <style name="MDKError" parent="Base.MDKError"></style>
 
-    <style name="MDKCommand" parent="Widget.AppCompat.ActionButton"/>
+    <style name="MDKCommand" parent="Base.MDKCommand"/>
     <style name="MDKCommand.Primary"></style>
     <style name="MDKCommand.Secondary"></style>
 

@@ -52,8 +52,8 @@ public class MyApp extends Application {
             this.widgetContent = new WidgetContent();
             for (ActivityInfo ai: pi.activities) {
 
-                // load all class but main activity
-                if (!ai.name.equals(ListWidgetActivity.class.getName())) {
+                // load all class with parent class ListWidgetActivity
+                if (ai.parentActivityName != null && ai.parentActivityName.equals(ListWidgetActivity.class.getName())) {
                     widgetContent.getItems().add(
                             new WidgetContent.WidgetItem(ai.loadLabel(pm).toString(), (Class<? extends Activity>) Class.forName(ai.name)));
                 }

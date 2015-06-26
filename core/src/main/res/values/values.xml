@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.MDKLabel" parent="TextAppearance.AppCompat.Small"/>
+
+    <style name="Base.MDKValueEditText" parent="Widget.AppCompat.EditText"></style>
+    <style name="Base.MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"></style>
+    <style name="Base.MDKValue" parent="TextAppearance.AppCompat.Medium"></style>
+
+    <style name="Base.MDKError" parent="TextAppearance.AppCompat.Small"></style>
+
+    <style name="Base.MDKCommand" parent="Widget.AppCompat.ActionButton"/>
+
+</resources>
