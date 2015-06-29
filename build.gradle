@@ -76,7 +76,6 @@ sonarRunner {
         property "sonar.jdbc.username", "sonar"
         property "sonar.jdbc.password", "sonar"
         property "sonar.language", "java"
-	    property "sonar.profile", "MDK Way with Findbugs Android Lint"
     }
 }
 
