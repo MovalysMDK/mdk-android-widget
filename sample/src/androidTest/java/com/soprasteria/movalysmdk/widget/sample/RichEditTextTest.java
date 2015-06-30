@@ -221,7 +221,7 @@ public class RichEditTextTest {
 
         // Write text into editText
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
-                .perform(typeText("Text is still writable and no label shows up"), closeSoftKeyboardDelay());
+                .perform(delayScrollTo(), typeText("Text is still writable and no label shows up"), closeSoftKeyboardDelay());
 
         // Check text into editText
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
