@@ -125,7 +125,7 @@
             android:id="@+id/mdkRichEmail1_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:label="@string/toto1"
+            mdk:label="@string/mdk_error_message_1"
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 
@@ -133,7 +133,7 @@
             android:id="@+id/mdkRichEmail2_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:label="@string/toto2"
+            mdk:label="@string/mdk_error_message_2"
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 

@@ -179,68 +179,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
     }
 
     @Override
-    public void setError(MDKError error) {
-        this.setError(error, false);
-    }
-
-    @Override
-    public void setError(CharSequence error) {
-        this.setError(error, false);
-    }
-
-    @Override
-    public void clearError() {
-        this.clearError(false);
-    }
-
-    /**
-     * Set the error on the inner widget.
-     * @param error the error to set
-     * @param formValidation true if the error comes from validation, false otherwise
-     */
-    protected void setError(MDKError error, boolean formValidation) {
-        if (this.errorView != null) {
-            if (error != null) {
-                errorView.setVisibility(View.VISIBLE);
-            } else if (!errorAlwaysVisible) {
-                errorView.setVisibility(View.GONE);
-            }
-        }
-        if (!formValidation) {
-            this.getInnerWidget().setError(error);
-        }
-    }
-
-    /**
-     * Set error.
-     * @param error the error
-     * @param formValidation is form Validation
-     */
-    protected void setError(CharSequence error, boolean formValidation) {
-        if (this.errorView != null && error != null) {
-            errorView.setVisibility(View.VISIBLE);
-        }
-
-        if (!formValidation) {
-            this.getInnerWidget().setError(error);
-        }
-    }
-
-    /**
-     * Clear error.
-     * @param formValidation validate form
-     */
-    protected void clearError(boolean formValidation) {
-        if (this.errorView != null && !errorAlwaysVisible) {
-                errorView.setVisibility(View.GONE);
-        }
-
-        if (!formValidation) {
-            this.getInnerWidget().clearError();
-        }
-    }
-
-    @Override
     public boolean isMandatory() {
         return this.getInnerWidget().isMandatory();
     }
@@ -268,6 +206,21 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
         this.getInnerWidget().setUseRootIdOnlyForError(useRootIdOnlyForError);
+    }
+
+    @Override
+    public void setError(MDKError error) {
+
+    }
+
+    @Override
+    public void setError(CharSequence error) {
+
+    }
+
+    @Override
+    public void clearError() {
+
     }
 
     @Override

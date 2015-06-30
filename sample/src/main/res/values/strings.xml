@@ -26,19 +26,18 @@
     <string name="title_activity_edit_text">EditText</string>
     <string name="edit_text_label">My label</string>
     <string name="edit_text_hint">My hint</string>
-    <string name="action_remplir">REMPLIR</string>
-    <string name="action_vider">VIDER</string>
-    <string name="edit_text_style">Edit Text avec du style</string>
-    <string name="edit_text_style_2">Edit Text avec du style et un bouton pour remplir/effacer le texte</string>
-    <string name="edit_text_case_1">RichEditText avec label sans hint</string>
-    <string name="edit_text_case_2">RichEditText avec label avec hint</string>
-    <string name="edit_text_case_3">RichEditText sans label sans hint</string>
-    <string name="edit_text_case_4">RichEditText sans label avec hint</string>
-    <string name="edit_text_case_5">EditText avec label sans hint</string>
-    <string name="edit_text_case_6">EditText avec label avec hint</string>
-    <string name="edit_text_case_7">EditText sans label sans hint</string>
-    <string name="edit_text_case_8">EditText sans label avec hint</string>
-
+    <string name="action_remplir">FILL</string>
+    <string name="action_vider">CLEAR</string>
+    <string name="edit_text_style">Edit Text with style</string>
+    <string name="edit_text_style_2">Edit Text with style, fill button, clear button</string>
+    <string name="edit_text_case_1">RichEditText with label without hint</string>
+    <string name="edit_text_case_2">RichEditText with label and hint</string>
+    <string name="edit_text_case_3">RichEditText without label but hint</string>
+    <string name="edit_text_case_4">RichEditText with label avec hint</string>
+    <string name="edit_text_case_5">EditText with label and hint</string>
+    <string name="edit_text_case_6">EditText with label and hint</string>
+    <string name="edit_text_case_7">EditText without label and hint</string>
+    <string name="edit_text_case_8">EditText without label but hint</string>
 
     <string name="email_helper_text">email format text</string>
     <string name="email_with_label_error">Email Rich widget with label and error</string>
@@ -48,14 +47,14 @@
     <string name="email_rich_helper_text">Email rich widget with helper</string>
 
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
-    <string name="toto1">toto1</string>
-    <string name="toto2">toto2</string>
+    <string name="mdk_error_message_1">"42 /!\\ Must be filled"</string>
+    <string name="mdk_error_message_2">mdk_error_message_2</string>
 
     <string name="title_activity_date">Date</string>
-    <string name="date_case_1">RichDateTime avec label</string>
-    <string name="date_case_2">RichDate avec label</string>
-    <string name="date_case_3">RichTime avec label</string>
-    <string name="date_case_4">RichDate sans label avec hint</string>
+    <string name="date_case_1">RichDateTime with label</string>
+    <string name="date_case_2">RichDate with label</string>
+    <string name="date_case_3">RichTime with label</string>
+    <string name="date_case_4">RichDate without label but hint</string>
     <string name="topbar_validatebutton">validate</string>
     <string name="topbar_mandatorybutton">mandatory</string>
     <string name="topbar_disablebutton">Disable</string>

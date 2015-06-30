@@ -17,5 +17,5 @@
 
 -->
 <resources>
-    <string name="mandatory_char">" (*)"</string>
+    <string name="mandatory_char" translatable="false">" (*)"</string>
 </resources>

@@ -17,6 +17,6 @@
 -->
 <resources>
 
-    <string name="mdkwidget_mdkdatetime_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.DateTimeValidator</string>
+    <string name="mdkwidget_mandatory_error">Ce champ est obligatoire</string>
 
 </resources>

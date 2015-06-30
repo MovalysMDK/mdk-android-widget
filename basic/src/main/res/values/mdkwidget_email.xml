@@ -22,19 +22,19 @@
     <string name="mdkwidget_email_error">Invalid email value</string>
 
     <!-- widgetCommand string config -->
-    <string name="mdkwidget_mdkemail_primary_command_class">com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand</string>
+    <string name="mdkwidget_mdkemail_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand</string>
 
     <!-- validator string config -->
-    <string name="mdkwidget_mdkemail_validator_class">com.soprasteria.movalysmdk.widget.basic.validator.EmailValidator</string>
+    <string name="mdkwidget_mdkemail_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.EmailValidator</string>
 
     <!-- rich selector config -->
-    <string-array name="mdkwidget_email_richselector_classes">
+    <string-array name="mdkwidget_email_richselector_classes" translatable="false">
         <item>com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</item>
     </string-array>
 
     <!-- Regular Expression for email formatting-->
-    <string name="mdkwidget_email_regex">^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
+    <string name="mdkwidget_email_regex" translatable="false">^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$</string>
 
-    <string name="mdkwidget_email_mimetype_plain">plain/text</string>
+    <string name="mdkwidget_email_mimetype_plain" translatable="false">plain/text</string>
 
 </resources>
