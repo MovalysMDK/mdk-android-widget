@@ -45,14 +45,14 @@ import static com.soprasteria.movalysmdk.widget.test.actions.OrientationChangeAc
 import static com.soprasteria.movalysmdk.widget.test.matchers.MdkViewMatchers.withConcatText;
 
 /**
- * Tests for RichEmailTest widget.
+ * Tests for MdkRichEmail widget.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class RichEmailTest {
 
     /**
-     * Rule to initialize the EmailActivity.
+     * Rule to initialize EmailActivity.
      */
     @Rule
     public ActivityTestRule<EmailActivity> mActivityRule = new ActivityTestRule<>(EmailActivity.class);
@@ -74,11 +74,11 @@ public class RichEmailTest {
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
                 .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
 
-        SpoonScreenshotAction.perform("rightemail_invalidemail_errorstate");
+        SpoonScreenshotAction.perform("richemail_invalidemail_errorstate");
 
         onView(isRoot()).perform(orientationLandscape());
 
-        SpoonScreenshotAction.perform("rightemail_invalidemail_errorstate_landscape");
+        SpoonScreenshotAction.perform("richemail_invalidemail_errorstate_landscape");
 
         //FIXME: Uncomment when "error lost on rotation" will be fixed.
         //onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
