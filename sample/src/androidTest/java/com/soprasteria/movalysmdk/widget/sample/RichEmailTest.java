@@ -19,7 +19,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.soprasteria.movalysmdk.widget.test.actions.SpoonScreenshotAction;
+import com.soprasteria.movalysmdk.widget.test.espresso.actions.SpoonScreenshotAction;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,9 +40,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.notNullValue;
 
-import static com.soprasteria.movalysmdk.widget.test.actions.OrientationChangeAction.orientationLandscape;
-import static com.soprasteria.movalysmdk.widget.test.actions.OrientationChangeAction.orientationPortrait;
-import static com.soprasteria.movalysmdk.widget.test.matchers.MdkViewMatchers.withConcatText;
+import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationLandscape;
+import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationPortrait;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
 
 /**
  * Tests for MdkRichEmail widget.

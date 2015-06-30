@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.test.actions;
+package com.soprasteria.movalysmdk.widget.test.espresso.actions;
 
 import android.support.annotation.StringRes;
 import android.support.test.espresso.UiController;

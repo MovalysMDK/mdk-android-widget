@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.test.matchers;
+package com.soprasteria.movalysmdk.widget.test.espresso.matchers;
 
 import android.content.res.Resources;
 import android.support.test.espresso.matcher.BoundedMatcher;

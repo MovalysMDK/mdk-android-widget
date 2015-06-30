@@ -37,6 +37,8 @@ import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
+
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 /**
@@ -65,7 +67,8 @@ public class EmailTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // check error
-        onView(withId(R.id.errorText)).check(matches(withText("42 /!\\ Invalid email value")));
+        onView(withId(R.id.errorText)).check(matches(withConcatText(
+                R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
     }
 
     @Test

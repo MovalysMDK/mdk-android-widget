@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.test.actions;
+package com.soprasteria.movalysmdk.widget.test.espresso.actions;
 
 import android.graphics.Rect;
 import android.support.test.espresso.PerformException;
@@ -25,8 +25,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
-
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;

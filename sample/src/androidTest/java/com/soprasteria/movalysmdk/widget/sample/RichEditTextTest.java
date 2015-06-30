@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -25,7 +25,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.test.actions.CustomScrollToAction;
+import com.soprasteria.movalysmdk.widget.test.espresso.actions.CustomScrollToAction;
 
 import org.hamcrest.Matcher;
 import org.junit.Rule;
@@ -44,30 +44,36 @@ import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVi
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.widget.test.actions.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
+import static com.soprasteria.movalysmdk.widget.test.espresso.actions.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-@RunWith(AndroidJUnit4.class)
-@LargeTest
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
+import static com.soprasteria.movalysmdk.widget.test.espresso.actions.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
+
 /**
  * Non regression testing class for custom MDK EditText widget
  */
+@RunWith(AndroidJUnit4.class)
+@LargeTest
 public class RichEditTextTest {
 
+    /**
+     * Rule to initialize EditTextActivity.
+     */
     @Rule
     public ActivityTestRule<EditTextActivity> mActivityRule = new ActivityTestRule<>(EditTextActivity.class);
 
     /**
-    * <p> Layout's Widget: MDKEditText with custom layout, label, hint. </p>
-    * <p> 1 - Check label visibility to invisible. </p>
-    * <p> 2 - Write text. </p>
-    * <p> 3 - Check label visibility to visible. </p>
-    */
+     * <p> Layout's Widget: MDKEditText with custom layout, label, hint.</p>
+     * <p> 1 - Check label visibility to invisible.</p>
+     * <p> 2 - Write text.</p>
+     * <p> 3 - Check label visibility to visible.</p>
+     */
     @Test
-    public void RichEditTextTest_customLayout() {
+    public void testWithCustomLayout() {
 
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -89,15 +95,15 @@ public class RichEditTextTest {
     }
 
     /**
-     * <p> Layout's Widget: MDKEditText with style and a button to fill/clear text. </p>
+     * <p> Layout's Widget: MDKEditText with style and a button to fill/clear text.</p>
      * <p> 0 - Check label visibility to INVISIBLE. </p>
-     * <p> 1 - Click on "Remplir" button to automatically filled the field out. </p>
+     * <p> 1 - Click on "Remplir" button to automatically filled the field out.</p>
      * <p> 2 - Check label visibility to VISIBLE. </p>
-     * <p> 3 - Click on "Vider" button to automatically reset the field. </p>
-     * <p> 4 - Check label visibility to INVISIBLE. </p>
+     * <p> 3 - Click on "Vider" button to automatically reset the field.</p>
+     * <p> 4 - Check label visibility to INVISIBLE.</p>
      */
     @Test
-    public void RichEditTextTest_fillClear() {
+    public void testFillClear() {
 
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -131,14 +137,14 @@ public class RichEditTextTest {
     }
 
     /**
-     * <p> layout's Widget: MDKRichEditText with label, mandatory, no hint. </p>
-     * <p> 1 - Click on "Validate" button to check that an error is raised when the mandatory field is empty and (*) info displaying. </p>
-     * <p> 2 - Click on "Validate" to check that no error is raised when the mandatory field is not empty. </p>
-     * <p> 3 - Click on "Mandatory" to change the field's mandatory attribute and (*) info displaying. </p>
-     * <p> 4 - Click on "Validate" button to check that no error is raised when the field is empty. </p>
+     * <p>Layout's Widget: MDKRichEditText with label, mandatory, no hint.</p>
+     * <p>1 - Click on "Validate" button to check that an error is raised when the mandatory field is empty and (*) info displaying. </p>
+     * <p>2 - Click on "Validate" to check that no error is raised when the mandatory field is not empty.</p>
+     * <p>3 - Click on "Mandatory" to change the field's mandatory attribute and (*) info displaying.</p>
+     * <p>4 - Click on "Validate" button to check that no error is raised when the field is empty.</p>
      */
     @Test
-    public void RichEditTextTest_withLabelAndMandatory() {
+    public void testWithLabelAndMandatory() {
 
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -152,7 +158,7 @@ public class RichEditTextTest {
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withText("42 /!\\ Must be filled")));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_mandatory_error)));
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
@@ -178,7 +184,7 @@ public class RichEditTextTest {
 
         // Empty the MDKEditText field
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .perform(clearText(), closeSoftKeyboard());
+                .perform(clearText(), closeSoftKeyboardDelay());
 
         // Check that hint value is the label name without the (*) for mandatory use
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
@@ -197,13 +203,13 @@ public class RichEditTextTest {
     }
 
     /**
-     *  <p> Layout's Widget: MDKRichEditText without label and hint.</p>
-     *  <p> 1 - Check that the label and hint are not declared.</p>
-     *  <p> 2 - Despite the lacks of label and hint, MDKRichEditText is still writable.</p>
-     *  <p> 3 - Label still nonexistent.</p>
+     *  <p>Layout's Widget: MDKRichEditText without label and hint.</p>
+     *  <p>1 - Check that the label and hint are not declared.</p>
+     *  <p>2 - Despite the lacks of label and hint, MDKRichEditText is still writable.</p>
+     *  <p>3 - Label still nonexistent.</p>
      */
     @Test
-    public void RichEditTextTest_withoutLabelAndHint() {
+    public void testWithoutLabelAndHint() {
 
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -221,7 +227,7 @@ public class RichEditTextTest {
 
         // Write text into editText
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
-                .perform(typeText("Text is still writable and no label shows up"), closeSoftKeyboard());
+                .perform(typeText("Text is still writable and no label shows up"), closeSoftKeyboardDelay());
 
         // Check text into editText
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
@@ -233,14 +239,14 @@ public class RichEditTextTest {
     }
 
     /**
-     * <p> Layout's Widget: MDKRichEditText no label, mandatory, with hint. </p>
-     * <p> 1 - Click on "Validate" button to check that an error is raised when the mandatory field is empty and (*) info displaying. </p>
-     * <p> 2 - Click on "Validate" to check that no error is raised when the mandatory field is not empty. </p>
-     * <p> 3 - Click on "Mandatory" to change the field's mandatory attribute and (*) info displaying. </p>
-     * <p> 4 - Click on "Validate" button to check that no error is raised when the field is empty. </p>
+     * <p>Layout's Widget: MDKRichEditText no label, mandatory, with hint.</p>
+     * <p>1 - Click on "Validate" button to check that an error is raised when the mandatory field is empty and (*) info displaying. </p>
+     * <p>2 - Click on "Validate" to check that no error is raised when the mandatory field is not empty.</p>
+     * <p>3 - Click on "Mandatory" to change the field's mandatory attribute and (*) info displaying.</p>
+     * <p>4 - Click on "Validate" button to check that no error is raised when the field is empty.</p>
      */
     @Test
-    public void RichEditTextTest_withoutLabelButHint() {
+    public void testWithoutLabelButHint() {
 
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -264,11 +270,11 @@ public class RichEditTextTest {
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withText("42 /!\\ Must be filled")));
+                .check(matches(withConcatText(R.string.mdkwidget_mandatory_error, R.string.mdkwidget_mandatory_error)));
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .perform(typeText("Input user's text"), closeSoftKeyboard());
+                .perform(typeText("Input user's text"), closeSoftKeyboardDelay());
 
         // Use CustomScrollToAction to manage problem with Espresso (it does not take account of padding during scrollTo action).
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
@@ -288,7 +294,7 @@ public class RichEditTextTest {
 
         // Empty the MDKEditText field
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .perform(clearText(), closeSoftKeyboard());
+                .perform(clearText(), closeSoftKeyboardDelay());
 
         // Check that the label got no (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
@@ -303,40 +309,5 @@ public class RichEditTextTest {
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
                 .check(matches(withText(R.string.empty_string)));
-    }
-
-    /**
-     * Custom closeSoftKeyboard method.
-     * Workaround to manage time delay to close softkeyboard bug.
-     * @return ViewAction the view action
-     */
-    public static ViewAction closeSoftKeyboard() {
-        return new ViewAction() {
-            /**
-             * The delay time to allow the soft keyboard to dismiss.
-             */
-            private static final long KEYBOARD_DISMISSAL_DELAY_MILLIS = 1000L;
-
-            /**
-             * The real {@link CloseKeyboardAction} instance.
-             */
-            private final ViewAction mCloseSoftKeyboard = new CloseKeyboardAction();
-
-            @Override
-            public Matcher<View> getConstraints() {
-                return mCloseSoftKeyboard.getConstraints();
-            }
-
-            @Override
-            public String getDescription() {
-                return mCloseSoftKeyboard.getDescription();
-            }
-
-            @Override
-            public void perform(final UiController uiController, final View view) {
-                mCloseSoftKeyboard.perform(uiController, view);
-                uiController.loopMainThreadForAtLeast(KEYBOARD_DISMISSAL_DELAY_MILLIS);
-            }
-        };
     }
 }
