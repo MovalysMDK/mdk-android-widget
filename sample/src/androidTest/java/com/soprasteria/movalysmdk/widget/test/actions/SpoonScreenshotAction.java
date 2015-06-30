@@ -36,15 +36,26 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
  */
 public class SpoonScreenshotAction implements ViewAction {
 
+    /**
+     * Screenshot name.
+     */
     private final String tag;
+
+    /**
+     * Test class name.
+     */
     private final String testClass;
+
+    /**
+     * Test method name.
+     */
     private final String testMethod;
 
     /**
      * Constructor.
-     * @param tag the tag
-     * @param testClass the test class
-     * @param testMethod the test method
+     * @param tag screenshot tag
+     * @param testClass test class name
+     * @param testMethod test method name
      */
     public SpoonScreenshotAction(String tag, String testClass, String testMethod) {
         this.tag = tag;
@@ -69,7 +80,7 @@ public class SpoonScreenshotAction implements ViewAction {
 
     /**
      * Take screenshot.
-     * <p>This must be called directly from your test method</p>
+     * <p>This must be called directly from your test method.</p>
      * @param tag Unique tag to further identify the screenshot. Must match [a-zA-Z0-9_-]+.
      */
     public static void perform(String tag) {

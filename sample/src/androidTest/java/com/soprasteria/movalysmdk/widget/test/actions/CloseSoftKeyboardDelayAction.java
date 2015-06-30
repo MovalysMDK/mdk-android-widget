@@ -24,7 +24,7 @@ import org.hamcrest.Matcher;
 
 /**
  * Custom closeSoftKeyboard method.
- * Workaround to manage time delay to close soft keyboard bug.
+ * <p>Workaround to manage time delay to close soft keyboard bug.</p>
  */
 public class CloseSoftKeyboardDelayAction implements ViewAction {
 

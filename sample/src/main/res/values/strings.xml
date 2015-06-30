@@ -61,4 +61,6 @@
     <string name="topbar_disablebutton">Disable</string>
     <string name="testHintText">Test hint</string>
     <string name="sendButtonText">send</string>
+
+    <string name="fortyTwoTextFormater_prefix">"42 /!\\ "</string>
 </resources>

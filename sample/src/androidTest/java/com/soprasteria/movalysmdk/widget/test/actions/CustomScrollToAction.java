@@ -26,18 +26,20 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
+import static com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication.LOG_TAG;
+
 /**
  * CustomScrollToAction class definition. Only used for test.
- * The displaying at least is changed from 90 to 1% for test.
+ * <p>The displaying at least is changed from 90 to 1% for test.
  * A time delay has been added.
- * This class seems only necessary if we have a big view
+ * This class seems only necessary if we have a big view.</p>
  */
 public class CustomScrollToAction implements ViewAction {
-
-    private static final String TAG = CustomScrollToAction.class.getSimpleName();
 
     /**
      * Default constructor.
@@ -62,17 +64,17 @@ public class CustomScrollToAction implements ViewAction {
     @Override
     public void perform(UiController uiController, View view) {
         if (ViewMatchers.isDisplayingAtLeast(1).matches(view)) {
-            Log.i(TAG, "View is already displayed. Returning.");
+            Log.i(LOG_TAG, "View is already displayed. Returning.");
         } else {
             Rect rect = new Rect();
             view.getDrawingRect(rect);
             rect = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
             if (!view.requestRectangleOnScreen(rect, true)) {
-                Log.w(TAG, "Scrolling to view was requested, but none of the parents scrolled.");
+                Log.w(LOG_TAG, "Scrolling to view was requested, but none of the parents scrolled.");
             }
 
             // TODO check if it is necessary
-            uiController.loopMainThreadForAtLeast(5000);
+            uiController.loopMainThreadForAtLeast(3000);
 
             if (!ViewMatchers.isDisplayingAtLeast(1).matches(view)) {
                 throw (new PerformException.Builder()).withActionDescription(this.getDescription()).withViewDescription(HumanReadables.describe(view)).withCause(new RuntimeException("Scrolling to view was attempted, but the view is not displayed")).build();

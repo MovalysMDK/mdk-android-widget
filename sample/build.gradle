@@ -17,7 +17,7 @@ android {
         versionName "1.0.0"
 
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunner "com.soprasteria.movalysmdk.widget.sample.AndroidJacocoTestRunner"
+        testInstrumentationRunner "com.soprasteria.movalysmdk.widget.test.AndroidJacocoTestRunner"
     }
 
     buildTypes {

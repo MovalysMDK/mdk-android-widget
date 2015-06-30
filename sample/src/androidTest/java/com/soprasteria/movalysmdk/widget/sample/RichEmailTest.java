@@ -42,14 +42,24 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import static com.soprasteria.movalysmdk.widget.test.actions.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.widget.test.actions.OrientationChangeAction.orientationPortrait;
+import static com.soprasteria.movalysmdk.widget.test.matchers.MdkViewMatchers.withConcatText;
 
+/**
+ * Tests for RichEmailTest widget.
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class RichEmailTest {
 
+    /**
+     * Rule to initialize the EmailActivity.
+     */
     @Rule
     public ActivityTestRule<EmailActivity> mActivityRule = new ActivityTestRule<>(EmailActivity.class);
 
+    /**
+     * Test an invalid email.
+     */
     @Test
     public void testInvalidEmail() {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -62,7 +72,7 @@ public class RichEmailTest {
 
         // check error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
-                .check(matches(withText("42 /!\\ Invalid email value")));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
 
         SpoonScreenshotAction.perform("rightemail_invalidemail_errorstate");
 
@@ -70,15 +80,20 @@ public class RichEmailTest {
 
         SpoonScreenshotAction.perform("rightemail_invalidemail_errorstate_landscape");
 
-        //onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.view))))
-        //        .check(matches(withText("42 /!\\ invalid email value")));
+        //FIXME: Uncomment when "error lost on rotation" will be fixed.
+        //onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
+        //        .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
 
         onView(isRoot()).perform(orientationPortrait());
 
-        //onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.view))))
-        //        .check(matches(withText("42 /!\\ invalid email value")));
+        //FIXME: Uncomment when "error lost on rotation" will be fixed.
+        //onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
+        //        .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
     }
 
+    /**
+     * Test a valid email.
+     */
     @Test
     public void testValidEmail() {
 

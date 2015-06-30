@@ -80,9 +80,6 @@ public class DateTest {
 
 
             // check error
-            TextView toto = (TextView) mActivityRule.getActivity().findViewById(R.id.component_error);
-            TextView titi = (TextView) mActivityRule.getActivity().findViewById(R.id.component_internal);
-
             onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
                             .check(matches(withText("42 /!\\ Must be filled")));
 

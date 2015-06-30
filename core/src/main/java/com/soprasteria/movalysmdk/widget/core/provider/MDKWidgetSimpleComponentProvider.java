@@ -24,6 +24,8 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
+import static com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication.LOG_TAG;
+
 /**
  * Simple implementation of the MDKWidgetComponentProvider.
  * <p>Uses the class package and name to create a singleton of the WidgetCommand/Validator
@@ -84,7 +86,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         if (qualifier != null) {
             classPath = findStringFromResourceName(context, baseKey + "_" + qualifier);
             if (classPath == null) {
-                Log.d("MDKWidget", "no string resource define for :" + baseKey + "_" + qualifier + " but qualifier was defined");
+                Log.d(LOG_TAG, "no string resource define for :" + baseKey + "_" + qualifier + " but qualifier was defined");
             }
         }
         // case without qualifier

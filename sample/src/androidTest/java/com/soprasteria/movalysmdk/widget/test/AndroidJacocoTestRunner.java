@@ -13,21 +13,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.sample;
+package com.soprasteria.movalysmdk.widget.test;
 
 import android.os.Bundle;
 import android.support.test.runner.AndroidJUnitRunner;
+import android.util.Log;
+
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Created by lmichenaud on 12/06/2015.
+ * Runner for android test with jacoco.
+ * <p>This runner adds a property at runtime to specify the target file for coverage report.</p>
  */
 public class AndroidJacocoTestRunner extends AndroidJUnitRunner {
 
     static {
-        System.setProperty("jacoco-agent.destfile", "/data/data/com.soprasteria.movalysmdk.widget.sample/coverage.ec");
+        System.setProperty("jacoco-agent.destfile", "/storage/sdcard/coverage.ec");
     }
 
     @Override
@@ -39,13 +43,13 @@ public class AndroidJacocoTestRunner extends AndroidJUnitRunner {
             Object agent = getAgent.invoke(null);
             dump.invoke(agent, false);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
         }
         super.finish(resultCode, results);
     }
