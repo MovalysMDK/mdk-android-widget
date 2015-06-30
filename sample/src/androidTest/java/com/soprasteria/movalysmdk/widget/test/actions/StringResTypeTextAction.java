@@ -11,7 +11,7 @@ import org.hamcrest.Matcher;
 
 public class StringResTypeTextAction implements ViewAction {
 
-    private TypeTextAction typeTextAction = new TypeTextAction(null, false);
+    private TypeTextAction typeTextAction = new TypeTextAction("", false);
 
     private @StringRes int stringResId ;
 
