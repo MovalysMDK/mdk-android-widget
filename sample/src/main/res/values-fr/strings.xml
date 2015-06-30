@@ -1,0 +1,64 @@
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<resources>
+    <string name="app_name">MDK Android widget</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="empty_string">""</string>
+    <string name="action_settings">Préférences</string>
+    <string name="title_activity_list_widget">Liste de Widgets</string>
+    <string name="email_activity">Email</string>
+    <string name="title_activity_edit_text">EditText</string>
+    <string name="edit_text_label">Mon label</string>
+    <string name="edit_text_hint">Mon hint</string>
+    <string name="action_remplir">REMPLIR</string>
+    <string name="action_vider">VIDER</string>
+    <string name="edit_text_style">Edit Text avec du style</string>
+    <string name="edit_text_style_2">Edit Text avec du style et un bouton pour remplir/effacer le texte</string>
+    <string name="edit_text_case_1">RichEditText avec label sans hint</string>
+    <string name="edit_text_case_2">RichEditText avec label avec hint</string>
+    <string name="edit_text_case_3">RichEditText sans label sans hint</string>
+    <string name="edit_text_case_4">RichEditText sans label avec hint</string>
+    <string name="edit_text_case_5">EditText avec label sans hint</string>
+    <string name="edit_text_case_6">EditText avec label avec hint</string>
+    <string name="edit_text_case_7">EditText sans label sans hint</string>
+    <string name="edit_text_case_8">EditText sans label avec hint</string>
+
+
+    <string name="email_with_label_error">Email Rich widget avec label et erreur</string>
+    <string name="email_standalone_widget">Email standalone widget avec zone erreur</string>
+    <string name="email_rich_custom_layout">Email Rich widget custom layout</string>
+    <string name="email_rich_common_error">Email rich widget avec erreur partagée</string>
+    <string name="email_rich_helper_text">Email rich widget avec le helper</string>
+
+    <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
+    <string name="mdk_error_message_1">mdk_error_message_1</string>
+    <string name="mdk_error_message_2">mdk_error_message_1</string>
+
+    <string name="title_activity_date">Date</string>
+    <string name="date_case_1">RichDateTime avec label</string>
+    <string name="date_case_2">RichDate avec label</string>
+    <string name="date_case_3">RichTime avec label</string>
+    <string name="date_case_4">RichDate sans label avec hint</string>
+    <string name="topbar_validatebutton">valider</string>
+    <string name="topbar_mandatorybutton">obligatoire</string>
+    <string name="topbar_disablebutton">Désactiver</string>
+    <string name="testHintText">Test hint</string>
+    <string name="sendButtonText">envoyer</string>
+    <string name="email_helper_text">email format text</string>
+</resources>
