@@ -15,19 +15,12 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.CloseKeyboardAction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.test.espresso.actions.CustomScrollToAction;
-
-import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +28,6 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -44,14 +36,16 @@ import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVi
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withHintLabel;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withTextLabel;
 import static com.soprasteria.movalysmdk.widget.test.espresso.actions.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
+import static com.soprasteria.movalysmdk.widget.test.espresso.actions.DelayScrollToAction.delayScrollTo;
 
 /**
  * Non regression testing class for custom MDK EditText widget
@@ -79,7 +73,7 @@ public class RichEditTextTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Scroll screen position to validate button
-        onView(withId(is(R.id.validateButton))).perform(scrollTo());
+        onView(withId(is(R.id.validateButton))).perform(delayScrollTo());
 
         //Check that label is not visible yet
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayout))))
@@ -154,7 +148,7 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name with the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withHint("My label (*)")));
+                .check(matches(withHintLabel(R.string.edit_text_label, true)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
@@ -170,17 +164,17 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name with the (*) for mandatory use
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withText("My label")));
+                .check(matches(withTextLabel(R.string.edit_text_label, false)));
 
         // Use CustomScrollToAction to manage problem with Espresso (it does not take account of padding during scrollTo action).
-        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
                 .check(matches(withText(R.string.empty_string)));
 
         // Make MDKEditText not mandatory
-        onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Empty the MDKEditText field
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
@@ -188,17 +182,17 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name without the (*) for mandatory use
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withText("My label")));
+                .check(matches(withTextLabel(R.string.edit_text_label, false)));
 
         // Make MDKEditText not mandatory
-        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
                 .check(matches(withText(R.string.empty_string)));
 
         // Reset mandatory state to true for later tests
-        onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
     }
 
@@ -215,7 +209,7 @@ public class RichEditTextTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Scroll screen position to validate button
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelAndHint))).perform(scrollTo());
+        onView(withId(is(R.id.mdkRichEditText_withoutLabelAndHint))).perform(delayScrollTo());
 
         // Check that label does not exist
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
@@ -252,45 +246,45 @@ public class RichEditTextTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Scroll screen position to the label
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
+        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(delayScrollTo());
 
         // Check that label does not exist
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
                 .check(doesNotExist());
 
         // Check that a mandatory MDKEditText raises an error after clicking on validate without to have filled it out with text
-        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Scroll screen position to the label
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
+        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(delayScrollTo());
 
         // Check that the label got the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withHint("My hint (*)")));
+                .check(matches(withHintLabel(R.string.edit_text_hint, true)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withConcatText(R.string.mdkwidget_mandatory_error, R.string.mdkwidget_mandatory_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_mandatory_error)));
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
                 .perform(typeText("Input user's text"), closeSoftKeyboardDelay());
 
         // Use CustomScrollToAction to manage problem with Espresso (it does not take account of padding during scrollTo action).
-        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Scroll screen position to the label
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
+        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(delayScrollTo());
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
                 .check(matches(withText(R.string.empty_string)));
 
         // Make MDKEditText not mandatory
-        onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Scroll screen position to the label
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
+        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(delayScrollTo());
 
         // Empty the MDKEditText field
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
@@ -298,13 +292,13 @@ public class RichEditTextTest {
 
         // Check that the label got no (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withHint("My hint")));
+                .check(matches(withHintLabel(R.string.edit_text_hint, false)));
 
         // Make MDKEditText not mandatory
-        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Scroll screen position to the label
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
+        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(delayScrollTo());
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))

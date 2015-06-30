@@ -16,15 +16,21 @@
 package com.soprasteria.movalysmdk.widget.test.espresso.matchers;
 
 import android.content.res.Resources;
+import android.support.annotation.IntDef;
+import android.support.annotation.StringRes;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+import com.soprasteria.movalysmdk.widget.sample.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Add view matchers for espresso tests.
@@ -38,6 +44,28 @@ public class MdkViewMatchers {
      */
     public static Matcher<View> withConcatText(int... resourceIds) {
         return withCharSequence(resourceIds);
+    }
+
+    /**
+     * Create a matcher to check the label in the text of a view.
+     * <p>If the view is mandatory, the mandatory string (*) is added to the string comparison.</p>
+     * @param labelId label id.
+     * @param mandatory mandatory field.
+     * @return matcher.
+     */
+    public static Matcher<View> withTextLabel(@StringRes final int labelId, final boolean mandatory) {
+        return withLabel(labelId, mandatory, LABEL_TEXT);
+    }
+
+    /**
+     * Create a matcher to check the label in the hint of a view.
+     * <p>If the view is mandatory, the mandatory string (*) is added to the string comparison.</p>
+     * @param labelId label id.
+     * @param mandatory mandatory field.
+     * @return matcher.
+     */
+    public static Matcher<View> withHintLabel(@StringRes final int labelId, final boolean mandatory) {
+        return withLabel(labelId, mandatory, LABEL_HINT);
     }
 
     /**
@@ -103,4 +131,91 @@ public class MdkViewMatchers {
             }
         };
     }
+
+    /**
+     * Create a matcher to check the label.
+     * <p>If the view is mandatory, the mandatory string (*) is added to the string comparison.</p>
+     * @param labelId label id.
+     * @param mandatory mandatory field.
+     * @param labelLocation location of label (in text or hint)
+     * @return matcher.
+     */
+    private static Matcher<View> withLabel(@StringRes final int labelId, final boolean mandatory, @LabelLocation final int labelLocation) {
+        return new BoundedMatcher(TextView.class) {
+
+            /**
+             * Resource names.
+             */
+            private String resourceName ;
+
+            /**
+             * Concat text.
+             */
+            private String expectedText ;
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with string from label id: ");
+                description.appendText(Integer.toString(labelId));
+
+                if(null != this.resourceName) {
+                    description.appendText("[");
+                    description.appendText(this.resourceName);
+                    description.appendText(", mandatory:");
+                    description.appendText(Boolean.toString(mandatory));
+                    description.appendText("]");
+                }
+
+                if(null != this.expectedText) {
+                    description.appendText(" value: ");
+                    description.appendText(this.expectedText);
+                }
+
+            }
+
+            @Override
+            public boolean matchesSafely(Object object) {
+                TextView textView = (TextView) object;
+                if(null == this.expectedText) {
+                    try {
+                        StringBuilder text = new StringBuilder(textView.getResources().getString(labelId));
+                        if ( mandatory ) {
+                            text.append(textView.getResources().getString(R.string.mandatory_char));
+                        }
+
+                        this.expectedText = text.toString();
+                        this.resourceName = textView.getResources().getResourceEntryName(labelId);
+                    } catch (Resources.NotFoundException e) {
+                        Log.e(MDKWidgetApplication.LOG_TAG, "MdkViewMatchers.withCharSequence failure", e);
+                    }
+                }
+
+                CharSequence actualText ;
+                if ( labelLocation == LABEL_TEXT ) {
+                    actualText = textView.getText();
+                } else {
+                    actualText = textView.getHint();
+                }
+
+                return null != this.expectedText && null != actualText?this.expectedText.equals(actualText.toString()):false;
+            }
+        };
+    }
+
+    /**
+     * Define the list of possible label locations
+     */
+    @IntDef({LABEL_TEXT, LABEL_HINT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface LabelLocation {}
+
+    /**
+     * Label is located in the text of the view.
+     */
+    public static final int LABEL_TEXT = 0;
+
+    /**
+     * Label is located in the hint of the view.
+     */
+    public static final int LABEL_HINT = 1;
 }

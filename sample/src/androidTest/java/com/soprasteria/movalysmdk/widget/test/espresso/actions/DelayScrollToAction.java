@@ -19,6 +19,7 @@ import android.graphics.Rect;
 import android.support.test.espresso.PerformException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.espresso.util.HumanReadables;
 import android.util.Log;
@@ -37,12 +38,20 @@ import static com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplicati
  * A time delay has been added.
  * This class seems only necessary if we have a big view.</p>
  */
-public class CustomScrollToAction implements ViewAction {
+public class DelayScrollToAction implements ViewAction {
 
     /**
      * Default constructor.
      */
-    public CustomScrollToAction() {
+    private DelayScrollToAction() {
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static ViewAction delayScrollTo() {
+        return ViewActions.actionWithAssertions(new DelayScrollToAction());
     }
 
     /**
@@ -72,7 +81,7 @@ public class CustomScrollToAction implements ViewAction {
             }
 
             // TODO check if it is necessary
-            uiController.loopMainThreadForAtLeast(3000);
+            uiController.loopMainThreadForAtLeast(2000);
 
             if (!ViewMatchers.isDisplayingAtLeast(1).matches(view)) {
                 throw (new PerformException.Builder()).withActionDescription(this.getDescription()).withViewDescription(HumanReadables.describe(view)).withCause(new RuntimeException("Scrolling to view was attempted, but the view is not displayed")).build();
