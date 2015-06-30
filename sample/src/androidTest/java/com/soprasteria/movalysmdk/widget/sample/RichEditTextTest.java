@@ -209,7 +209,7 @@ public class RichEditTextTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Scroll screen position to validate button
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelAndHint))).perform(delayScrollTo());
+        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(closeSoftKeyboardDelay(), delayScrollTo());
 
         // Check that label does not exist
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
@@ -221,7 +221,7 @@ public class RichEditTextTest {
 
         // Write text into editText
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
-                .perform(delayScrollTo(), typeText("Text is still writable and no label shows up"), closeSoftKeyboardDelay());
+                .perform(typeText("Text is still writable and no label shows up"), closeSoftKeyboardDelay());
 
         // Check text into editText
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
