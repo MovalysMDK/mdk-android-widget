@@ -52,6 +52,9 @@ import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+/**
+ * Non regression testing class for custom MDK EditText widget
+ */
 public class RichEditTextTest {
 
     @Rule
@@ -66,8 +69,10 @@ public class RichEditTextTest {
     @Test
     public void RichEditTextTest_customLayout() {
 
+        // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
+        // Scroll screen position to validate button
         onView(withId(is(R.id.validateButton))).perform(scrollTo());
 
         //Check that label is not visible yet
@@ -93,6 +98,9 @@ public class RichEditTextTest {
      */
     @Test
     public void RichEditTextTest_fillClear() {
+
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // The label is now invisible
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton))))
@@ -132,6 +140,9 @@ public class RichEditTextTest {
     @Test
     public void RichEditTextTest_withLabelAndMandatory() {
 
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
         // Check that a mandatory MDKEditText raises an error after clicking on validate without to have filled it out with text
         onView(withId(R.id.validateButton)).perform(click());
 
@@ -155,7 +166,6 @@ public class RichEditTextTest {
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
                 .check(matches(withText("My label")));
 
-        // TODO remove CustomcrollToAction if there is no padding in xml file
         // Use CustomScrollToAction to manage problem with Espresso (it does not take account of padding during scrollTo action).
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
 
@@ -195,6 +205,10 @@ public class RichEditTextTest {
     @Test
     public void RichEditTextTest_withoutLabelAndHint() {
 
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // Scroll screen position to validate button
         onView(withId(is(R.id.mdkRichEditText_withoutLabelAndHint))).perform(scrollTo());
 
         // Check that label does not exist
@@ -228,6 +242,10 @@ public class RichEditTextTest {
     @Test
     public void RichEditTextTest_withoutLabelButHint() {
 
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // Scroll screen position to the label
         onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
 
         // Check that label does not exist
@@ -236,6 +254,8 @@ public class RichEditTextTest {
 
         // Check that a mandatory MDKEditText raises an error after clicking on validate without to have filled it out with text
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+
+        // Scroll screen position to the label
         onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
 
         // Check that the label got the (*) for mandatory use
@@ -250,9 +270,10 @@ public class RichEditTextTest {
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
                 .perform(typeText("Input user's text"), closeSoftKeyboard());
 
-        // TODO remove CustomcrollToAction if there is no padding in xml file
         // Use CustomScrollToAction to manage problem with Espresso (it does not take account of padding during scrollTo action).
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+
+        // Scroll screen position to the label
         onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
 
         // Check that the MDKEditText component raises no error after validating it
@@ -261,6 +282,8 @@ public class RichEditTextTest {
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+
+        // Scroll screen position to the label
         onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
 
         // Empty the MDKEditText field
@@ -273,6 +296,8 @@ public class RichEditTextTest {
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(new CustomScrollToAction()), click());
+
+        // Scroll screen position to the label
         onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(scrollTo());
 
         // Check that the MDKEditText component raises no error after validating it

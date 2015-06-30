@@ -19,6 +19,10 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -27,26 +31,28 @@ import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.not;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+/**
+ * Non regression testing class for custom MDK email widget
+ */
 public class EmailTest {
 
     @Rule
     public ActivityTestRule<EmailActivity> mActivityRule = new ActivityTestRule<>(EmailActivity.class);
 
     @Test
+    /**
+     * Check MDK email widget behaviour with invalid email format
+     */
     public void testInvalidEmail() {
+        // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Write invalid email
@@ -63,8 +69,14 @@ public class EmailTest {
     }
 
     @Test
+    /**
+     * Check MDK email widget behaviour with valid email format
+     */
     public void testValidEmail() {
+        // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // Write a valid email address
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("myemail@soprasteria.com"));
 
         // Check send button state
@@ -79,7 +91,11 @@ public class EmailTest {
     }
 
     @Test
+    /**
+     * Check MDK email widget behaviour when this one is enabled and disabled
+     */
     public void testDisabledEmail() {
+        // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Disable widgets
@@ -96,7 +112,11 @@ public class EmailTest {
     }
 
     @Test
+    /**
+     * Check MDK email widget behaviour when this one is mandatory or not
+     */
     public void testMandatoryEmail() {
+        // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Check widgets are mandatory
