@@ -209,7 +209,7 @@ public class RichEditTextTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Scroll screen position to validate button
-        onView(withId(is(R.id.mdkRichEditText_withoutLabelButHint))).perform(closeSoftKeyboardDelay(), delayScrollTo());
+        onView(withId(R.id.mdkRichEditText_withoutLabelAndHint)).perform(closeSoftKeyboardDelay(), delayScrollTo());
 
         // Check that label does not exist
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
