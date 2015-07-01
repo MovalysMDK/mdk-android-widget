@@ -559,7 +559,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Return the FormFieldValidator for the String key passed as parameter
+     * Return the FormFieldValidator for the String key passed as parameter.
      * @param validatorKey the key of the validator
      * @return the FormFieldValidator associated to the parameter key
      */
@@ -579,7 +579,7 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      * Validate the linked widget with the mandatory FormFieldValidator and the optional
-     * FormFieldValidator linked to the widget attributes
+     * FormFieldValidator linked to the widget attributes.
      * @param setError true if the error must be set at validation, false otherwise
      * @return true if all validators passed, false otherwise
      */
@@ -635,7 +635,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Execute a FormFieldValidator
+     * Execute a FormFieldValidator.
      * @param validator the FormFieldValidator to execute
      * @param objectToValidate the object to validate
      * @param validatingView the view of the widget to accept on FormFieldValidator

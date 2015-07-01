@@ -65,7 +65,7 @@ public class OrientationChangeAction implements ViewAction {
 
         Collection<Activity> resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
         if (resumedActivities.isEmpty()) {
-            throw new RuntimeException("Could not change orientation");
+            throw new OrientationChangeActionException("Could not change orientation");
         }
     }
 
@@ -83,5 +83,18 @@ public class OrientationChangeAction implements ViewAction {
      */
     public static ViewAction orientationPortrait() {
         return new OrientationChangeAction(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    /**
+     * Specific Orientation Change exception.
+     */
+    private class OrientationChangeActionException extends RuntimeException {
+        /**
+         * Constructor.
+         * @param message exception message
+         */
+        public OrientationChangeActionException(String message) {
+            super(message);
+        }
     }
 }

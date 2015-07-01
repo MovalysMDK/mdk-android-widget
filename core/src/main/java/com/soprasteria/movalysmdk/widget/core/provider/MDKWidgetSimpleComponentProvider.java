@@ -38,11 +38,10 @@ import java.util.Set;
  */
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
 
-
     /**
      * Log tag.
      */
-    private static final String LOG_TAG = "MDKWidgetSimpleComponentProvider";
+    private static final String LOG_TAG = "WidgetComponentProvider";
 
     /**
      * MDK_ERROR_MESSAGE_FORMAT_KEY.
@@ -61,7 +60,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     /*
      * A Map of Integer (R.attr.*) and List of FormFieldValidator instance.
      */
-    private HashMap<Integer, List<FormFieldValidator>> validatorListMap;
+    private Map<Integer, List<FormFieldValidator>> validatorListMap;
 
     /**
      * Constructor of the MDKWidgetSimpleComponentProvider.

@@ -110,17 +110,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
         // parse layout attribute
         int customLayoutId = typedArray.getResourceId(R.styleable.MDKCommons_layout, 0);
 
-        // inflate component layout
-        if (customLayoutId != 0) {
-            // custom layout
-            LayoutInflater.from(context).inflate(customLayoutId, this);
-        } else if (resLabelId != 0) {
-            // with label
-            LayoutInflater.from(context).inflate(layoutWithLabelId, this);
-        } else {
-            // without label
-            LayoutInflater.from(context).inflate(layoutWithoutLabelId, this);
-        }
+        inflateLayout(context, attrs, layoutWithLabelId, layoutWithoutLabelId, customLayoutId, resLabelId);
 
         if (!this.isInEditMode()) {
             // get innerWidget component
@@ -164,6 +154,38 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
         // release typed array
         typedArray.recycle();
 
+        initAttributeMap(attrs);
+
+    }
+
+    /**
+     * inflate the widget layout.
+     * @param context the android context
+     * @param attrs the xml attributes
+     * @param layoutWithLabelId the layout with label
+     * @param layoutWithoutLabelId the layout without label
+     * @param customLayoutId a custom layout
+     * @param resLabelId a res label id
+     */
+    private void inflateLayout(Context context, AttributeSet attrs, int layoutWithLabelId, int layoutWithoutLabelId, int customLayoutId, int resLabelId) {
+        // inflate component layout
+        if (customLayoutId != 0) {
+            // custom layout
+            LayoutInflater.from(context).inflate(customLayoutId, this);
+        } else if (resLabelId != 0) {
+            // with label
+            LayoutInflater.from(context).inflate(layoutWithLabelId, this);
+        } else {
+            // without label
+            LayoutInflater.from(context).inflate(layoutWithoutLabelId, this);
+        }
+    }
+
+    /**
+     * Initialise the attribute map for the widget.
+     * @param attrs the xml attributes
+     */
+    private void initAttributeMap(AttributeSet attrs) {
         if (!isInEditMode()) {
             Map<Integer, Object> attributeMap = AttributeParserHelper.parseAttributeSet(attrs);
             // copy attribute from rich widget to inner widget
