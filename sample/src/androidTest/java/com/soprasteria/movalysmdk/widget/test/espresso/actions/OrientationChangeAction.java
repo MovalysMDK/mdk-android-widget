@@ -35,7 +35,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 public class OrientationChangeAction implements ViewAction {
 
     /**
-     * Orientation
+     * Orientation.
      */
     private final int orientation;
 
