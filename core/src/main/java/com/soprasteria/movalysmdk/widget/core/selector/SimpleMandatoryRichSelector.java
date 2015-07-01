@@ -20,7 +20,6 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.helper.StateHelper;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 
 /**
  * Handle the change of MDK mandatory state on a MDK widget.
