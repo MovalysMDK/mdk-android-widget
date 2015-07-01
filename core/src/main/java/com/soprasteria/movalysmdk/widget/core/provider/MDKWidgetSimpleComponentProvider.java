@@ -100,17 +100,27 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         for (String validatorKey : validatorsKeys) {
             FormFieldValidator tmp = this.createValidatorFromKey(context, validatorKey, null);
             if (tmp != null) {
-                this.validatorMap.put(validatorKey, tmp);
-                for (int attr:
-                        tmp.configuration()) {
-                    List<FormFieldValidator> validatorList = this.validatorListMap.get(attr);
-                    if (validatorList == null) {
-                        validatorList = new ArrayList<>();
-                        validatorListMap.put(attr, validatorList);
-                    }
-                    validatorList.add(tmp);
-                }
+                storeValidator(validatorKey, tmp);
             }
+        }
+    }
+
+    /**
+     * Store validator in maps.
+     * @param validatorKey the validator key
+     * @param validator the validator instance
+     */
+    private void storeValidator(String validatorKey, FormFieldValidator validator) {
+        // in the key-instance map
+        this.validatorMap.put(validatorKey, validator);
+        for (int attr: validator.configuration()) {
+            // in the attr-list<instance> map
+            List<FormFieldValidator> validatorList = this.validatorListMap.get(attr);
+            if (validatorList == null) {
+                validatorList = new ArrayList<>();
+                validatorListMap.put(attr, validatorList);
+            }
+            validatorList.add(validator);
         }
     }
 
