@@ -23,24 +23,23 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
-import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand;
+import com.soprasteria.movalysmdk.widget.basic.model.Email;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCommands;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
-import com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand;
-import com.soprasteria.movalysmdk.widget.basic.model.Email;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 /**
  * MDK Email
@@ -51,13 +50,12 @@ import java.util.List;
  * </p>
  * <p>The validation regexp is stored in R.string.email_regexp</p>
  */
-public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasCommands, HasLabel {
+public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasCommands, HasLabel, HasDelegate {
 
     /** CommandDelegate attribute. */
     protected WidgetCommandDelegate commandDelegate;
     /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
-    private List<CommandStateListener> commandStateListeners;
 
     /**
      * Constructor.
@@ -90,8 +88,6 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      * @param attrs the layout attributes
      */
     private final void init(Context context, AttributeSet attrs) {
-
-        this.commandStateListeners = new ArrayList<CommandStateListener>();
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         this.commandDelegate = new WidgetCommandDelegate(this, attrs, EmailWidgetCommand.class);
@@ -133,8 +129,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     }
 
     @Override
-    public void setError(MDKError error) {
-        this.mdkWidgetDelegate.setError(error);
+    public void addError(MDKError error) {
+        this.mdkWidgetDelegate.addError(error);
     }
 
     @Override
@@ -174,40 +170,30 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         }
     }
 
+
+
+    @Override
+    public Map<Integer, Object> getAttributeMap() {
+        return this.getMDKWidgetDelegate().getAttributeMap();
+    }
+
+    @Override
+    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+        this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
+    }
+
+    @Override
+    public int[] getValidators() {
+        return new int[] {R.string.mdkwidget_mdkedittext_validator_class, R.string.mdkwidget_mdkemail_validator_class};
+    }
+
     /**
      * Widget validation method, if error found return true.
      * @return True if no error
      */
     @Override
     public boolean validate() {
-        boolean valid ;
-        MDKError error = validateCommand();
-        if (error == null) {
-            this.clearError();
-            valid = true;
-        } else {
-            this.setError(error);
-            valid = false;
-        }
-        this.commandDelegate.enableCommand(valid);
-        this.getMDKWidgetDelegate().setValid(valid);
-        return valid;
-    }
-
-    /**
-     * Run validation on widget.
-     * @return instance of MDKError if validation failed, null if success.
-     */
-    public MDKError validateCommand() {
-        boolean valid = false;
-        MDKError error = this.mdkWidgetDelegate.getValidator().validate(this.getText().toString(), this.getMDKWidgetDelegate().isMandatory(), this.getContext());
-        if (error == null) {
-            valid = true;
-        }
-        for (CommandStateListener listener : commandStateListeners) {
-            listener.notifyCommandStateChanged(valid);
-        }
-        return error;
+        return this.getMDKWidgetDelegate().validate(true);
     }
 
     /**
@@ -220,14 +206,14 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
     @Override
     public void addCommandStateListener(CommandStateListener commandListener) {
-        this.commandStateListeners.add(commandListener);
+        this.getMDKWidgetDelegate().addCommandStateListener(commandListener);
     }
 
     @Override
    public void onTextChanged(CharSequence s, int start, int before, int count) {
        super.onTextChanged(s, start, before, count);
-       if (this.mdkWidgetDelegate != null && this.commandDelegate != null && !isInEditMode() ) {
-           validateCommand();
+       if (this.getMDKWidgetDelegate() != null && this.commandDelegate != null && !isInEditMode() ) {
+           this.getMDKWidgetDelegate().validate(false);
        }
    }
 
@@ -249,7 +235,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         if (!isInEditMode()) {
             this.registerWidgetCommands();
             // Call validate to enable or not send button
-            validateCommand();
+            this.getMDKWidgetDelegate().validate(false);
         }
     }
 
@@ -336,15 +322,6 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
             // first called in the super constructor
             return super.onCreateDrawableState(extraSpace);
         }
-    }
-
-    /**
-     * Flexible forms validation.
-     * @return FormFieldValidator object
-     */
-    @Override
-    public FormFieldValidator getValidator() {
-        return this.getMDKWidgetDelegate().getValidator();
     }
 
     /**

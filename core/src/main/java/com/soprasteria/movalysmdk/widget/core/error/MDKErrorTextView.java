@@ -23,17 +23,15 @@ import android.util.SparseArray;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.R;
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by MDK team on 09/06/2015.
+ * The MDKErrorTextView display errors of a widget.
+ * <p>This is the simplest representation of an error. This widget
+ * display the error message in a TextView</p>
  */
 public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
@@ -204,9 +202,6 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         if (this.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
             mdkErrorMessageFormat = ((MDKWidgetApplication) this.getContext().getApplicationContext()).getMDKWidgetComponentProvider()
                     .getErrorMessageFormat(this.getContext());
-        } else {
-            MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
-            mdkErrorMessageFormat = widgetComponentProvider.getErrorMessageFormat(this.getContext());
         }
 
         return mdkErrorMessageFormat;

@@ -23,16 +23,18 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
+
+import java.util.Map;
 
 /**
  * <p>Represents an Edit Text conforming to the Material Design guidelines.</p>
@@ -44,7 +46,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
  *     <li>if there is no label and no hint in the xml layout, there will be no label and no hint</li>
  * </ul>
  */
-public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasLabel {
+public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasLabel, HasDelegate {
 
     /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
@@ -106,6 +108,16 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         this.mdkWidgetDelegate.setUniqueId(parentId);
     }
 
+    @Override
+    public Map<Integer, Object> getAttributeMap() {
+        return this.getMDKWidgetDelegate().getAttributeMap();
+    }
+
+    @Override
+    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+        this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
+    }
+
     /**
      * Setter.
      * @param rootId the id of a view
@@ -121,8 +133,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public void setError(MDKError error) {
-        this.mdkWidgetDelegate.setError(error);
+    public void addError(MDKError error) {
+        this.mdkWidgetDelegate.addError(error);
     }
 
     @Override
@@ -152,15 +164,17 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        // If the hint is empty, set it to the label
-        CharSequence label = this.getLabel();
-        if (this.getHint() == null || this.getHint().length() == 0) {
-            this.setHint(label);
-        }
+        if (!isInEditMode()) {
+            // If the hint is empty, set it to the label
+            CharSequence label = this.getLabel();
+            if (this.getHint() == null || this.getHint().length() == 0) {
+                this.setHint(label);
+            }
 
-        // Hide the label
-        if (this.getText().length() == 0) {
-            this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
+            // Hide the label
+            if (this.getText().length() == 0) {
+                this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
+            }
         }
     }
 
@@ -213,30 +227,13 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public FormFieldValidator getValidator() {
-        return this.mdkWidgetDelegate.getValidator();
+    public int[] getValidators() {
+        return new int[] {R.string.mdkwidget_mdkedittext_validator_class};
     }
 
     @Override
     public boolean validate() {
-        boolean bValid = true;
-
-        FormFieldValidator rValidator = this.getValidator();
-
-        if (rValidator != null) {
-
-            MDKError error = rValidator.validate(this.getText().toString(), this.mdkWidgetDelegate.isMandatory(), this.getContext());
-            this.setError(error);
-            if (error!=null) {
-                bValid = false;
-            }
-        } else {
-            //if the component doesn't have any validator, there is no error to show.
-            this.clearError();
-        }
-
-        this.getMDKWidgetDelegate().setValid(bValid);
-        return bValid;
+        return this.getMDKWidgetDelegate().validate(true);
     }
 
     @Override

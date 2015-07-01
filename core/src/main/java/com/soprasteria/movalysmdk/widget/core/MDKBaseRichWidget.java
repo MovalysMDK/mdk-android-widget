@@ -25,10 +25,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasError;
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.helper.AttributeParserHelper;
+
+import java.util.Map;
 
 /**
  * MDK Rich Widget.
@@ -41,7 +44,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKError;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extends RelativeLayout implements MDKRichWidget, HasError {
+public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator> extends RelativeLayout implements MDKRichWidget, HasValidator {
 
     /**
      * Base widget.
@@ -161,13 +164,20 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
 
         // release typed array
         typedArray.recycle();
+
+        if (!isInEditMode()) {
+            Map<Integer, Object> attributeMap = AttributeParserHelper.parseAttributeSet(attrs);
+            // copy attribute from rich widget to inner widget
+            this.getInnerWidget().setAttributeMap(attributeMap);
+        }
     }
 
     /**
      * Getter for the inner widget of the rich widget.
      * @return the inner widget
      */
-    public T getInnerWidget()   {return this.innerWidget;
+    public T getInnerWidget()   {
+        return this.innerWidget;
     }
 
     /**
@@ -209,7 +219,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
     }
 
     @Override
-    public void setError(MDKError error) {
+    public void addError(MDKError error) {
 
     }
 
@@ -221,6 +231,16 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget> extend
     @Override
     public void clearError() {
 
+    }
+    
+    @Override
+    public int[] getValidators() {
+        return new int[0];
+    }
+
+    @Override
+    public boolean validate() {
+        return this.getInnerWidget().validate();
     }
 
     @Override

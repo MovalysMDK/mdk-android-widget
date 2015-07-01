@@ -16,10 +16,16 @@
 package com.soprasteria.movalysmdk.widget.basic.validator;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.EditText;
 
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.basic.R;
+
+import java.util.Map;
 
 /**
  * This validator check the mandatory settings of a component.
@@ -39,22 +45,35 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     public static final int ERROR_MANDATORY = R.string.mdkwidget_mandatory_error;
 
 
-    /**
-     * Validator.
-     * @param objectToValidate object to validate
-     * @param mandatory true if component is mandatory
-     * @param context the android context
-     * @return MDKError object or null if the value is valid
-     */
     @Override
-    public MDKError validate(String objectToValidate, boolean mandatory, Context context) {
+    public boolean accept(View view) {
+        boolean accept = false;
+        if (view instanceof EditText
+                || view instanceof MDKRichEditText
+                || view instanceof MDKRichEmail) {
+            accept = true;
+        }
+        return accept;
+    }
+
+    @Override
+    public int[] configuration() {
+        return new int[] {R.attr.mandatory};
+    }
+
+    @Override
+    public MDKError validate(String objectToValidate, Map<Integer, Object> mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
         MDKError mdkError = null;
-        if (mandatory && objectToValidate.length() < 1) {
+        if ( mdkParameter.get(R.attr.mandatory) != null
+                && (Boolean) mdkParameter.get(R.attr.mandatory)
+                && objectToValidate.length() < 1
+                && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
             mdkError = new MDKError();
             mdkError.setErrorCode(ERROR_MANDATORY);
             String error = context.getString(R.string.mdkwidget_mandatory_error);
             mdkError.setErrorMessage(error);
         }
+        resultPreviousValidator.put(this.getClass().getName(), mdkError);
         return mdkError;
     }
 

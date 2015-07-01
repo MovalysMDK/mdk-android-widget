@@ -15,7 +15,7 @@
  */
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 
 /**
  * Interface to add validation capacity to a widget.
@@ -23,16 +23,33 @@ import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 public interface HasValidator {
 
     /**
-     * Get widget validator.
-     * @return the widget validator
+     * Get widget validator keys.
+     * @return an array of the widget validator keys
      */
-    FormFieldValidator getValidator();
+    int[] getValidators();
 
     /**
      * Validate the widget.
-     * basically sendEmail the validation on the validator
-     * @return true if the wiget is valide, false otherwise
+     * <p>Basically execute all compatible validator for the widget</p>
+     * @return true if the widget is valid, false otherwise
      */
     boolean validate();
+
+    /**
+     * Set the error message on the widget.
+     * @param error the error message
+     */
+    void setError(CharSequence error);
+
+    /**
+     * Set the mdk error on the widget.
+     * @param error the mdk error
+     */
+    void addError(MDKError error);
+
+    /**
+     * Remove error on the widget.
+     */
+    void clearError();
 
 }

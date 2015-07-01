@@ -21,4 +21,11 @@
         name="errorOrderToDisplay">
         <item>0</item>
     </integer-array>
+
+    <string-array name="validatorKeys">
+        <item>mdkwidget_mdkedittext_validator_class</item>
+        <item>mdkwidget_mdkdatetime_validator_class</item>
+        <item>mdkwidget_mdkemail_validator_class</item>
+    </string-array>
+
 </resources>

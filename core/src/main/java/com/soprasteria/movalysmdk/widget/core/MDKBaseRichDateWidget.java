@@ -19,8 +19,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
+
+import java.util.Date;
 
 /**
  * MDK Base Rich Date Widget.
@@ -33,7 +35,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
  * <p>Add a validator behavior on the base rich widget</p>
  * @param <T> the inner widget type
  */
-public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator> extends MDKBaseRichWidget<T> implements HasValidator {
+public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDate> extends MDKBaseRichWidget<T> implements HasValidator, HasDate {
 
     /**
      * Constructor.
@@ -63,15 +65,6 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
      * @return
      */
     @Override
-    public FormFieldValidator getValidator() {
-        return this.getInnerWidget().getValidator();
-    }
-
-    /**
-     * {@inheritDoc}
-     * @return
-     */
-    @Override
     public boolean validate() {
         return this.getInnerWidget().validate();
     }
@@ -85,5 +78,15 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         ((View) this.getInnerWidget()).setEnabled(enabled);
+    }
+
+    @Override
+    public Date getDate() {
+        return this.getInnerWidget().getDate();
+    }
+
+    @Override
+    public void setDate(Date date) {
+        this.getInnerWidget().setDate(date);
     }
 }

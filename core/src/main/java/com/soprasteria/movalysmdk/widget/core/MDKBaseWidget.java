@@ -15,8 +15,6 @@
  */
 package com.soprasteria.movalysmdk.widget.core;
 
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-
 /**
  * Interface for MDK widget component.
  */
@@ -58,23 +56,6 @@ public interface MDKBaseWidget {
      *                              the other sub widget
      */
     void setUseRootIdOnlyForError(boolean useRootIdOnlyForError);
-
-    /**
-     * Set the MDK error value on the widget.
-     * @param error the error to set
-     */
-    void setError(MDKError error);
-
-    /**
-     * Set the error value on the widget.
-     * @param error the error to set
-     */
-    void setError(CharSequence error);
-
-    /**
-     * Clear error.
-     */
-    void clearError();
 
     /**
      * Set mandatory properties on widget.

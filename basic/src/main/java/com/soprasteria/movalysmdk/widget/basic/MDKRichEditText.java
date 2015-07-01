@@ -25,7 +25,6 @@ import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Represents an Edit Text conforming with the Material Design guidelines, and including by default the floating
@@ -79,11 +78,6 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     @Override
     public void setHint(CharSequence hint) {
         this.getInnerWidget().setHint(hint);
-    }
-
-    @Override
-    public FormFieldValidator getValidator() {
-        return this.getInnerWidget().getValidator();
     }
 
     /**

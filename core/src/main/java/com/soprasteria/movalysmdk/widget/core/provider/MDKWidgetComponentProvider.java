@@ -21,6 +21,9 @@ import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  *  Bean provider for MDK Widget.
  *  <p>Bean types are : </p>
@@ -55,5 +58,20 @@ public interface MDKWidgetComponentProvider {
      * @return MDKErrorMessageFormat MDKErrorMessageFormat
      */
     MDKErrorMessageFormat getErrorMessageFormat(Context context);
+
+
+    /**
+     * Return the list of all registered Validators
+     * @param attributes a Set of int representing the attributes to use in validator
+     * @return a List of all registered Validator for attributes in parameter
+     */
+    List<FormFieldValidator> getValidators(Set<Integer> attributes);
+
+    /**
+     * Return a FormFieldValidator
+     * @param key a String representing the key of the FormFieldValidator
+     * @return the FormFieldValidator associated to the key
+     */
+    FormFieldValidator getValidator(String key);
 
 }

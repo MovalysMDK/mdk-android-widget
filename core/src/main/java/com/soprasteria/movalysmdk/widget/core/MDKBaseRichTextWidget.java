@@ -19,12 +19,13 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**
  * Base implementation of the rich mdk widget for widget that uses text.
  * @param <T> the inner widget type
  */
-public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestorableWidget & HasText> extends MDKBaseRichWidget<T> implements HasText {
+public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasText> extends MDKBaseRichWidget<T> implements HasText {
 
     /**
      * Constructor.

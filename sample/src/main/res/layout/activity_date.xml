@@ -90,10 +90,6 @@
         android:layout_width="match_parent"
         android:layout_height="4dp" />
 
-
-
-
-
     <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
         android:id="@+id/mdkRichDateTime_withLabelAndMandatoryAndSharedError"
         android:layout_width="match_parent"

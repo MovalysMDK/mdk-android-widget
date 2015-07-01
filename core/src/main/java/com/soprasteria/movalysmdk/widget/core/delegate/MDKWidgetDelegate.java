@@ -27,20 +27,26 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
+import com.soprasteria.movalysmdk.widget.core.helper.AttributeParserHelper;
+import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKWidget;
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The MDKWidgetDelegate handles the MDK logic for rich widgets.
@@ -135,6 +141,15 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     private boolean error = false;
 
+    /**
+     * Command state change listener, triggered when widget is validate
+     */
+    private List<CommandStateListener> commandStateListeners;
+    /**
+     * attribute map for validator
+     */
+    private Map<Integer, Object> attributesMap;
+
 
     /**
      * Constructor.
@@ -145,8 +160,12 @@ public class MDKWidgetDelegate implements MDKWidget {
 
         this.weakView = new WeakReference<View>(view);
 
+        this.attributesMap = new HashMap<>();
+
         this.richSelectors = new ArrayList<>();
         this.richSelectors.add(new SimpleMandatoryRichSelector());
+
+        this.commandStateListeners = new ArrayList<>();
 
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
 
@@ -160,11 +179,25 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
 
         this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
+        this.attributesMap.put(R.attr.mandatory, this.mandatory);
 
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
 
         typedArray.recycle();
 
+
+        this.attributesMap = AttributeParserHelper.parseAttributeSet(attrs);
+
+    }
+
+    @Override
+    public Map<Integer, Object> getAttributeMap() {
+        return this.attributesMap;
+    }
+
+    @Override
+    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+        this.attributesMap = attributeMap;
     }
 
     /**
@@ -253,10 +286,11 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set error.
      * @param error the new error
      */
-    @Override
     public void setError(CharSequence error) {
+        // empty error and add the CharSequence as only error
+        this.clearError();
         MDKError mdkError = new MDKError(this.getLabel(), error, MDKError.NO_ERROR_CODE);
-        this.setError(mdkError);
+        this.addError(mdkError);
     }
 
     /**
@@ -281,8 +315,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Set error.
      * @param error the error to set
      */
-    @Override
-    public void setError(MDKError error) {
+    public void addError(MDKError error) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
             TextView errorView = (TextView) rootView.findViewById(this.errorViewId);
@@ -302,7 +335,6 @@ public class MDKWidgetDelegate implements MDKWidget {
     /**
      * Remove error.
      */
-    @Override
     public void clearError() {
         View rootView = this.findRootView(true);
         if (rootView != null) {
@@ -323,6 +355,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     @Override
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
+        this.attributesMap.put(R.attr.mandatory, mandatory);
         View v = this.weakView.get();
         if (v != null) {
             v.refreshDrawableState();
@@ -408,11 +441,6 @@ public class MDKWidgetDelegate implements MDKWidget {
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         // nothing here
-    }
-
-    @Override
-    public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this;
     }
 
     /**
@@ -506,6 +534,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Return true if the MDK widget is mandatory.
      * @return boolean depending on mandatory state
      */
+    @Override
     public boolean isMandatory() {
         return this.mandatory;
     }
@@ -528,25 +557,104 @@ public class MDKWidgetDelegate implements MDKWidget {
      * (component, qualifier)
      * @return rValidator the result
      */
-    public FormFieldValidator getValidator() {
-        FormFieldValidator rValidator = null;
+    public List<FormFieldValidator> getValidators(Set<Integer> widgetAttrs) {
+        List<FormFieldValidator> rValidator = new ArrayList<>();
 
         View v = this.weakView.get();
         if (v != null) {
             if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-                rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getValidator(
-                        validatorBaseKey(v.getClass().getSimpleName()), this.qualifier, v.getContext()
-                );
-            } else {
-                MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
-                rValidator = widgetComponentProvider.getValidator(
-                        validatorBaseKey(v.getClass().getSimpleName()), this.qualifier, v.getContext()
-                );
+                rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getValidators(widgetAttrs);
             }
         }
         return rValidator;
     }
 
+
+
+    private FormFieldValidator getValidator(String validatorKey) {
+        FormFieldValidator rValidator = null;
+
+        View v = this.weakView.get();
+        if (v != null) {
+            if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+                rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getValidator(validatorKey);
+            }
+        }
+        return rValidator;
+    }
+
+    /**
+     *
+     * @param setError
+     * @return
+     */
+    public boolean validate(boolean setError) {
+
+        boolean bValid = true;
+
+        List<FormFieldValidator> attributesValidators = this.getValidators(this.attributesMap.keySet());
+
+        View v = this.weakView.get();
+        if (v != null) {
+
+            Map<String, MDKError> returnMap = new HashMap<>();
+
+            // get the validation object
+            Object objectToValidate = null;
+            if (v instanceof HasText) {
+                objectToValidate = ((HasText) v).getText().toString();
+            } else if (v instanceof HasDate) {
+                objectToValidate = ((HasDate) v).getDate();
+            }
+
+            // we have to clear all errors before validation
+            if (setError) {
+                this.clearError();
+            }
+
+            // run "mandatory" validator defined by the widget
+            if (v instanceof HasValidator) {
+                int[] validatorsResKey = ((HasValidator) v).getValidators();
+                for (int validatorRes : validatorsResKey) {
+                    // this get the last part of the resource name
+                    String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
+                    FormFieldValidator mandatoryValidator = this.getValidator(validatorKey);
+                    if (mandatoryValidator.accept(v)) {
+                        bValid = executeValidator(mandatoryValidator, objectToValidate, setError, bValid, this.attributesMap, returnMap);
+                    }
+                }
+            }
+
+            // execute all others validators
+            for (FormFieldValidator validator : attributesValidators) {
+                if (validator.accept(v) ) {
+                    bValid = executeValidator(validator, objectToValidate, setError, bValid, this.attributesMap, returnMap);
+                }
+            }
+
+        } else {
+            //if the component doesn't have any validator, there is no error to show.
+            this.clearError();
+        }
+
+        this.setValid(bValid);
+        return bValid;
+    }
+
+    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, boolean setError, boolean bValid, Map<Integer, Object> tmpAttributesMap, Map<String, MDKError> returnMap) {
+        MDKError error = validator.validate(objectToValidate, tmpAttributesMap, returnMap, this.getContext());
+
+        if (error != null) {
+            bValid = false;
+            if (setError) {
+                this.addError(error);
+            }
+        }
+        for (CommandStateListener listener : this.commandStateListeners) {
+            listener.notifyCommandStateChanged(bValid);
+        }
+        return bValid;
+    }
 
     /**
      * Play the animation if it is visible.
@@ -666,6 +774,10 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.error = mdkWidgetDelegateSavedState.error;
 
         return mdkWidgetDelegateSavedState.getSuperState();
+    }
+
+    public void addCommandStateListener(CommandStateListener commandListener) {
+        this.commandStateListeners.add(commandListener);
     }
 
     /**

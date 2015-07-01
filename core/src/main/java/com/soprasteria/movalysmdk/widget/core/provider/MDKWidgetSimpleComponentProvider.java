@@ -18,11 +18,18 @@ package com.soprasteria.movalysmdk.widget.core.provider;
 import android.content.Context;
 import android.util.Log;
 
+import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication.LOG_TAG;
 
@@ -42,6 +49,43 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * MDK_ERROR_MESSAGE_NOT_INSTANCE.
      */
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
+
+
+
+    private Map<String, FormFieldValidator> validatorMap;
+    private HashMap<Integer, List<FormFieldValidator>> validatorListMap;
+
+    public MDKWidgetSimpleComponentProvider(Context context) {
+        this.validatorMap = new HashMap<>();
+        this.validatorListMap = new HashMap<>();
+
+        String[] validatorsKeys = context.getResources().getStringArray(R.array.validatorKeys);
+        createValidatorsFromKeys(context, validatorsKeys);
+    }
+
+    public MDKWidgetSimpleComponentProvider(Context context, int resCustomValidators) {
+        this(context);
+        String[] validatorsKeys = context.getResources().getStringArray(resCustomValidators);
+        createValidatorsFromKeys(context, validatorsKeys);
+    }
+
+    private final void createValidatorsFromKeys(Context context, String[] validatorsKeys) {
+        for (String validatorKey : validatorsKeys) {
+            FormFieldValidator tmp = this.createValidatorFromKey(context, validatorKey, null);
+            if (tmp != null) {
+                this.validatorMap.put(validatorKey, tmp);
+                for (int attr:
+                        tmp.configuration()) {
+                    List<FormFieldValidator> validatorList = this.validatorListMap.get(attr);
+                    if (validatorList == null) {
+                        validatorList = new ArrayList<>();
+                        validatorListMap.put(attr, validatorList);
+                    }
+                    validatorList.add(tmp);
+                }
+            }
+        }
+    }
 
     /**
      * Create a WidgetCommand instance from the specified key and attribute.
@@ -168,5 +212,23 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         }
 
         return validator;
+    }
+
+    @Override
+    public List<FormFieldValidator> getValidators(Set<Integer> attributes) {
+        List<FormFieldValidator> rValidators = new ArrayList<>();
+
+        for (Integer attr : attributes) {
+            List<FormFieldValidator> list = this.validatorListMap.get(attr);
+            if (list != null)
+            rValidators.addAll(list);
+        }
+
+        return rValidators;
+    }
+
+    @Override
+    public FormFieldValidator getValidator(String key) {
+        return this.validatorMap.get(key);
     }
 }

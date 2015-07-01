@@ -22,17 +22,21 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
 
 /**
  * Custom Application class.
  */
-public class MyApp extends Application {
+public class MyApp extends Application implements MDKWidgetApplication {
 
     /**
      * Contains the list of activities having mdk widgets.
      */
     private WidgetContent widgetContent ;
+    private MDKWidgetComponentProvider widgetComponentProvider;
 
     @Override
     public void onCreate() {
@@ -70,5 +74,13 @@ public class MyApp extends Application {
      */
     public WidgetContent getWidgetContent() {
         return widgetContent;
+    }
+
+    @Override
+    public MDKWidgetComponentProvider getMDKWidgetComponentProvider() {
+        if (this.widgetComponentProvider == null) {
+            this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider(this, R.array.custom_validator);
+        }
+        return this.widgetComponentProvider;
     }
 }

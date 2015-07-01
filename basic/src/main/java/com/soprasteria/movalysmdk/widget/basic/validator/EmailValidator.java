@@ -16,10 +16,15 @@
 package com.soprasteria.movalysmdk.widget.basic.validator;
 
 import android.content.Context;
+import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +41,7 @@ import java.util.regex.Pattern;
  * <p>Only one error is "right" the value cannot accumulate 2 errors.</p>
  * <p>Its mandatory OR invalid (the empty string cannot be invalidate).</p>
  */
-public class EmailValidator extends MandatoryValidator {
+public class EmailValidator implements FormFieldValidator<String> {
 
     /**
      * ERROR_INVALID_EMAIL.
@@ -48,33 +53,41 @@ public class EmailValidator extends MandatoryValidator {
      */
     private Pattern pattern;
 
-    /**
-     * Validator.
-     * @param objectToValidate object to validate
-     * @param mandatory true if component is mandatory
-     * @param context the android context
-     * @return MDKError object or null if the value is valid
-     */
     @Override
-    public MDKError validate(String objectToValidate, boolean mandatory, Context context) {
+    public boolean accept(View view) {
+        boolean accept = false;
+        if (view instanceof MDKEmail
+                || view instanceof MDKRichEmail) {
+            accept = true;
+        }
+        return accept;
+    }
 
+    @Override
+    public int[] configuration() {
+        return new int[0];
+    }
+
+
+    @Override
+    public MDKError validate(String objectToValidate, Map<Integer, Object> mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
         MDKError mdkError = null;
-        if (objectToValidate != null && objectToValidate.length() > 0) {
+        if (objectToValidate != null
+                && objectToValidate.length() > 0
+                && !resultPreviousValidator.containsKey(this.getClass().getName())) {
             if (this.pattern == null) {
                 String regExp = context.getString(R.string.mdkwidget_email_regex);
                 this.pattern = Pattern.compile(regExp);
             }
             Matcher matcher = this.pattern.matcher(objectToValidate);
             if (!matcher.find() && R.string.mdkwidget_email_error != 0) {
-                    mdkError = new MDKError();
-                    mdkError.setErrorCode(ERROR_INVALID_EMAIL);
-                    String error = context.getString(R.string.mdkwidget_email_error);
-                    mdkError.setErrorMessage(error);
+                mdkError = new MDKError();
+                mdkError.setErrorCode(ERROR_INVALID_EMAIL);
+                String error = context.getString(R.string.mdkwidget_email_error);
+                mdkError.setErrorMessage(error);
             }
-        } else if (mandatory) {
-            mdkError = super.validate(objectToValidate, mandatory, context);
         }
-
+        resultPreviousValidator.put(this.getClass().getName(), mdkError);
         return mdkError;
     }
 }

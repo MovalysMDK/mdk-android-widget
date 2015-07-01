@@ -22,13 +22,15 @@ import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Base widget able to render a date picker, or a time picker.
@@ -50,7 +52,7 @@ import java.util.Date;
  *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator {
+public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator, HasDate, HasDelegate {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkDateTimePickerWidgetDelegate;
@@ -105,39 +107,28 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     @Override
+    public Map<Integer, Object> getAttributeMap() {
+        return this.getMDKWidgetDelegate().getAttributeMap();
+    }
+
+    @Override
+    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+        this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
+    }
+
+    @Override
     public MDKWidgetDelegate getMDKWidgetDelegate() {
         return this.mdkDateTimePickerWidgetDelegate;
     }
 
     @Override
-    public FormFieldValidator getValidator() {
-        return this.mdkDateTimePickerWidgetDelegate.getValidator();
+    public int[] getValidators() {
+        return new int[] {R.string.mdkwidget_mdkdatetime_validator_class};
     }
 
     @Override
     public boolean validate() {
-        boolean bValid = true;
-        MDKError error = null;
-
-        FormFieldValidator validator = this.mdkDateTimePickerWidgetDelegate.getValidator();
-
-        if (this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_TIME_PICKER
-                || this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_PICKER) {
-            error = validator.validate(this.getDate(), this.mdkDateTimePickerWidgetDelegate.isMandatory(), this.getContext());
-        }
-        if (this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.DATE_TIME_PICKER
-                || this.mdkDateTimePickerWidgetDelegate.getDateTimePickerMode() == MDKDateTimePickerWidgetDelegate.DateTimePickerMode.TIME_PICKER) {
-            error = error != null ? error : validator.validate(this.getTime(), this.mdkDateTimePickerWidgetDelegate.isMandatory(), this.getContext());
-        }
-        if (error == null) {
-            this.clearError();
-            bValid = true;
-        } else {
-            this.setError(error);
-            bValid = false;
-        }
-        this.mdkDateTimePickerWidgetDelegate.setValid(bValid);
-        return bValid;
+        return this.getMDKWidgetDelegate().validate(true);
     }
 
     @Override
@@ -166,8 +157,8 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     @Override
-    public void setError(MDKError error) {
-        this.mdkDateTimePickerWidgetDelegate.setError(error);
+    public void addError(MDKError error) {
+        this.mdkDateTimePickerWidgetDelegate.addError(error);
     }
 
     @Override
@@ -229,6 +220,7 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
      * Sets the displayed Date.
      * @param date the new date
      */
+    @Override
     public void setDate(Date date) {
         this.mdkDateTimePickerWidgetDelegate.setDisplayedDate(date);
     }
@@ -237,6 +229,7 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
      * Returns the displayed Date.
      * @return date the current date
      */
+    @Override
     public Date getDate() {
         return this.mdkDateTimePickerWidgetDelegate.getDisplayedDate();
     }

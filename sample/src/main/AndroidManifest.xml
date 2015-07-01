@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
     This file is part of Movalys MDK.
@@ -14,12 +13,11 @@
     GNU Lesser General Public License for more details.
     You should have received a copy of the GNU Lesser General Public License
     along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
-
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.soprasteria.movalysmdk.widget.sample" >
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApp"
@@ -55,6 +53,14 @@
         <activity
             android:name=".DateActivity"
             android:label="@string/title_activity_date"
+            android:parentActivityName=".ListWidgetActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
+            android:name=".ValidatorActivity"
+            android:label="@string/title_activity_validator"
             android:parentActivityName=".ListWidgetActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

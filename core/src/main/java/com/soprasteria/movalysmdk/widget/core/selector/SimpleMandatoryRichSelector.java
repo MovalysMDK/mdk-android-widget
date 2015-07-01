@@ -45,7 +45,7 @@ public class SimpleMandatoryRichSelector implements RichSelector {
                 }
             }
 
-        }else if (view instanceof HasHint) {
+        } else if (view instanceof HasHint) {
             CharSequence hint = ((HasHint) view).getHint();
 
             if (hint != null &&

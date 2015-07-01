@@ -24,7 +24,6 @@ import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * MDKRichEmail class definition.
@@ -65,10 +64,6 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
         this.getInnerWidget().setInputType(type);
     }
 
-    @Override
-    public FormFieldValidator getValidator() {
-        return this.getInnerWidget().getValidator();
-    }
 
     /**
      * onCreateInputConnection method.

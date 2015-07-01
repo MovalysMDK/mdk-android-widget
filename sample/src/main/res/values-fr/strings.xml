@@ -61,4 +61,6 @@
     <string name="testHintText">Test hint</string>
     <string name="sendButtonText">envoyer</string>
     <string name="email_helper_text">email format text</string>
+
+    <string name="no_number_allowed">nombre non autoriser</string>
 </resources>

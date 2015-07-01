@@ -21,13 +21,13 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 
 import java.lang.ref.WeakReference;
 
@@ -166,8 +166,8 @@ public class WidgetCommandDelegate implements CommandStateListener {
     private View findCommandView(@IdRes int commandViewId) {
         View commandView = null;
         MDKWidget v = this.weakView.get();
-        if ( v != null ) {
-            View rootView = v.getMDKWidgetDelegate().findRootView(false);
+        if (v instanceof HasDelegate) {
+            View rootView = ((HasDelegate)v).getMDKWidgetDelegate().findRootView(false);
             if (rootView != null) {
                 commandView = rootView.findViewById(commandViewId);
             }
@@ -209,12 +209,7 @@ public class WidgetCommandDelegate implements CommandStateListener {
 
             if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
                 MDKWidgetComponentProvider widgetComponentProvider = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider();
-                widgetComponentProvider.getCommand(baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext());
-            } else {
-                MDKWidgetComponentProvider widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
-                widgetCommand = widgetComponentProvider.getCommand(
-                        baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext()
-                );
+                widgetCommand = widgetComponentProvider.getCommand(baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext());
             }
         }
 

@@ -19,5 +19,5 @@
 
     <!-- validator string config -->
     <string name="mdkwidget_mdkedittext_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.MandatoryValidator</string>
-
+    
 </resources>

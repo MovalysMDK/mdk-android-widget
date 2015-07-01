@@ -62,4 +62,9 @@
     <string name="sendButtonText">send</string>
 
     <string name="fortyTwoTextFormater_prefix">"42 /!\\ "</string>
+    <string name="title_activity_validator">ValidatorActivity</string>
+
+    <string name="no_number_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator</string>
+    <string name="no_number_allowed">No number allowed</string>
+
 </resources>

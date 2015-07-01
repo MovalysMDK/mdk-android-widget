@@ -17,7 +17,7 @@ package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
 
-import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import java.util.Map;
 
 /**
  * Widget that can be included in a RichWidget.
@@ -58,8 +58,18 @@ public interface MDKWidget extends MDKBaseWidget {
     void callMergeDrawableStates(int[] baseState, int[] additionalState);
 
     /**
-     * Access to the MDK rich widget's logic.
-     * @return MDKWidgetDelegate MDK widget logic
+     * Get a Map representing the widget AttributeSet.
+     * <p>
+     *     The key values are the R.attr.* values and the values are the
+     *     attributes values.
+     * </p>
+     * @return a Map representing the widget AttributeSet
      */
-    MDKWidgetDelegate getMDKWidgetDelegate();
+    Map<Integer, Object> getAttributeMap();
+
+    /**
+     * Set the Map of the widget AttributeSet
+     * @param attributeMap a Map representing the widget AttributeSet
+     */
+    void setAttributeMap(Map<Integer, Object> attributeMap);
 }
