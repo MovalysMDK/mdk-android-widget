@@ -47,8 +47,8 @@ public class DelayScrollToAction implements ViewAction {
     }
 
     /**
-     *
-     * @return
+     * Add a delay to the scroll action.
+     * @return ViewAction
      */
     public static ViewAction delayScrollTo() {
         return ViewActions.actionWithAssertions(new DelayScrollToAction());

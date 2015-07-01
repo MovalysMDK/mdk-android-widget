@@ -30,6 +30,8 @@ import java.lang.reflect.Method;
  */
 public class AndroidJacocoTestRunner extends AndroidJUnitRunner {
 
+    public static final String ANDROID_JACOCO_TEST_RUNNER_FAILURE = "AndroidJacocoTestRunner failure";
+
     static {
         System.setProperty("jacoco-agent.destfile", "/storage/sdcard/coverage.ec");
     }
@@ -43,13 +45,13 @@ public class AndroidJacocoTestRunner extends AndroidJUnitRunner {
             Object agent = getAgent.invoke(null);
             dump.invoke(agent, false);
         } catch (ClassNotFoundException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
+            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         } catch (NoSuchMethodException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
+            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         } catch (InvocationTargetException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
+            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         } catch (IllegalAccessException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, "AndroidJacocoTestRunner failure", e);
+            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         }
         super.finish(resultCode, results);
     }

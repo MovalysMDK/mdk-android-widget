@@ -24,7 +24,20 @@ import java.util.Map;
 
 /**
  * Validation of form field.
- * //FIXME: add more documentation
+ * <p>
+ *     This interface is used to create validator for widgets.<br/>
+ *     Validators can have multiple attributes defined throw the <em>configuration</em> method, those
+ *     attributes must be given from <em>R.attr.*</em> resources.<br/>
+ *     A validator can <em>accept</em> only a subset of widgets this subset is defined in the accept
+ *     method. This method return true only if the given <em>View</em> is validate by the Validator.
+ * </p>
+ * <p>
+ *     When the <em>validate</em> method is called the <em>mdkParameter</em> contains all the attributes
+ *     from the widget. All validators are called if the specified attributes in <em>configuration</em>
+ *     method match a attribute in the widget. <em>validate</em> may be called multiple times in the same
+ *     widget, <em>Validator</em> must check the <em>resultPreviousValidator</em> before validating the
+ *     widget.
+ * </p>
  * @param <T> the type of data to validate.
  */
 public interface FormFieldValidator<T> {
@@ -48,7 +61,7 @@ public interface FormFieldValidator<T> {
      * Validate the parameter objectToValidate.
      * @param objectToValidate the value to validate
      * @param mdkParameter map containing the parameter to handle in the validator (this map is modified in validator)
-     * @param resultPreviousValidator map containing the result of the preceding validators
+     * @param resultPreviousValidator map containing the result of the preceding validators, this method must filled this map
      * @param context the android context
      * @return a MDKError containing the error or null
      */

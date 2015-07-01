@@ -140,7 +140,10 @@ public class Email {
 
     /**
      * Set email text body.
-     * //FIXME: improove javadoc. Email format ? text, html ?
+     * <p>
+     *     The Charsequence is plain text for the email content by can contains simple styled
+     *     properites (such as bold, italic, underline and text color)
+     * </p>
      * @param body A Charsequence that can be styled to send 'plain/text' type email.
      */
     public void setBody(CharSequence body) {

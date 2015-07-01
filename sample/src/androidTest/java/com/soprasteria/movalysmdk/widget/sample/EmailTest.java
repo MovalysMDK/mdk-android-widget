@@ -39,20 +39,23 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
 
-@RunWith(AndroidJUnit4.class)
-@LargeTest
 /**
  * Non regression testing class for custom MDK email widget
  */
+@RunWith(AndroidJUnit4.class)
+@LargeTest
 public class EmailTest {
 
+    /**
+     * Activity used for this tests.
+     */
     @Rule
     public ActivityTestRule<EmailActivity> mActivityRule = new ActivityTestRule<>(EmailActivity.class);
 
-    @Test
     /**
-     * Check MDK email widget behaviour with invalid email format
+     * Check MDK email widget behaviour with invalid email format.
      */
+    @Test
     public void testInvalidEmail() {
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -71,10 +74,10 @@ public class EmailTest {
                 R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
     }
 
-    @Test
     /**
-     * Check MDK email widget behaviour with valid email format
+     * Check MDK email widget behaviour with valid email format.
      */
+    @Test
     public void testValidEmail() {
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -93,10 +96,10 @@ public class EmailTest {
         onView(withId(R.id.errorText)).check(matches(withText(isEmptyOrNullString())));
     }
 
-    @Test
     /**
-     * Check MDK email widget behaviour when this one is enabled and disabled
+     * Check MDK email widget behaviour when this one is enabled and disabled.
      */
+    @Test
     public void testDisabledEmail() {
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
@@ -114,10 +117,11 @@ public class EmailTest {
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).check(matches(isEnabled()));
     }
 
-    @Test
+
     /**
-     * Check MDK email widget behaviour when this one is mandatory or not
+     * Check MDK email widget behaviour when this one is mandatory or not.
      */
+    @Test
     public void testMandatoryEmail() {
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
