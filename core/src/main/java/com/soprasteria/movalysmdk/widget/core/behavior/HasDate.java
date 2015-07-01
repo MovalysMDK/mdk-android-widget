@@ -7,7 +7,15 @@ import java.util.Date;
  */
 public interface HasDate {
 
+    /**
+     * Getter.
+     * @return date the date
+     */
     Date getDate();
 
+    /**
+     * Setter.
+     * @param date the new date
+     */
     void setDate(Date date);
 }
