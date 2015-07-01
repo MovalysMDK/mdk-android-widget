@@ -68,8 +68,9 @@ public interface MDKWidget extends MDKBaseWidget {
     Map<Integer, Object> getAttributeMap();
 
     /**
-     * Set the Map of the widget AttributeSet
+     * Set the Map of the widget AttributeSet.
      * @param attributeMap a Map representing the widget AttributeSet
+     * @see MDKWidget#getAttributeMap() for Map details
      */
     void setAttributeMap(Map<Integer, Object> attributeMap);
 }

@@ -26,6 +26,9 @@ import static org.hamcrest.Matchers.notNullValue;
  */
 public class ValidatorTest {
 
+    /**
+     * Activity to test.
+     */
     @Rule
     public ActivityTestRule<ValidatorActivity> mActivityRule = new ActivityTestRule<>(ValidatorActivity.class);
 

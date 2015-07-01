@@ -40,7 +40,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
 
 /**
- * Non regression testing class for custom MDK email widget
+ * Non regression testing class for custom MDK email widget.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest

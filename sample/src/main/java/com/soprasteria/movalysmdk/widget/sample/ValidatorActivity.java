@@ -6,6 +6,9 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 
+/**
+ * Test Activity for custom FormFieldValidator.
+ */
 public class ValidatorActivity extends AppCompatActivity {
 
     @Override
@@ -14,7 +17,10 @@ public class ValidatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_validator);
     }
 
-
+    /**
+     * Callback method for widget validation.
+     * @param view the clicked view
+     */
     public void validate(View view) {
 
         ((MDKRichEditText) findViewById(R.id.mdkRichText_withCustomValidator)).validate();

@@ -30,8 +30,6 @@ import android.widget.ScrollView;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
-import static com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication.LOG_TAG;
-
 /**
  * CustomScrollToAction class definition. Only used for test.
  * <p>The displaying at least is changed from 90 to 1% for test.
@@ -39,6 +37,11 @@ import static com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplicati
  * This class seems only necessary if we have a big view.</p>
  */
 public class DelayScrollToAction implements ViewAction {
+
+    /**
+     * Log tag.
+     */
+    private static final String LOG_TAG = "DelayScrollToAction";
 
     /**
      * Default constructor.

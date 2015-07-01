@@ -61,14 +61,14 @@ public interface MDKWidgetComponentProvider {
 
 
     /**
-     * Return the list of all registered Validators
-     * @param attributes a Set of int representing the attributes to use in validator
+     * Return the list of all registered Validators for the given attributes.
+     * @param attributes a Set of int representing the attributes to use in FormFieldValidator
      * @return a List of all registered Validator for attributes in parameter
      */
     List<FormFieldValidator> getValidators(Set<Integer> attributes);
 
     /**
-     * Return a FormFieldValidator
+     * Return a FormFieldValidator.
      * @param key a String representing the key of the FormFieldValidator
      * @return the FormFieldValidator associated to the key
      */

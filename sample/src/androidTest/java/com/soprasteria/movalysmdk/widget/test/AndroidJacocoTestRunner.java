@@ -19,8 +19,6 @@ import android.os.Bundle;
 import android.support.test.runner.AndroidJUnitRunner;
 import android.util.Log;
 
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -30,6 +28,13 @@ import java.lang.reflect.Method;
  */
 public class AndroidJacocoTestRunner extends AndroidJUnitRunner {
 
+    /**
+     * Log tag.
+     */
+    private static final String LOG_TAG = "AndroidJacocoTestRunner";
+    /**
+     * Constant for error log type.
+     */
     public static final String ANDROID_JACOCO_TEST_RUNNER_FAILURE = "AndroidJacocoTestRunner failure";
 
     static {
@@ -45,13 +50,13 @@ public class AndroidJacocoTestRunner extends AndroidJUnitRunner {
             Object agent = getAgent.invoke(null);
             dump.invoke(agent, false);
         } catch (ClassNotFoundException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
+            Log.e(LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         } catch (NoSuchMethodException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
+            Log.e(LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         } catch (InvocationTargetException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
+            Log.e(LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         } catch (IllegalAccessException e) {
-            Log.e(MDKWidgetApplication.LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
+            Log.e(LOG_TAG, ANDROID_JACOCO_TEST_RUNNER_FAILURE, e);
         }
         super.finish(resultCode, results);
     }

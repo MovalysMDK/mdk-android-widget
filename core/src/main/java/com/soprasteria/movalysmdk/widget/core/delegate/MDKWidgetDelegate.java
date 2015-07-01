@@ -142,11 +142,11 @@ public class MDKWidgetDelegate implements MDKWidget {
     private boolean error = false;
 
     /**
-     * Command state change listener, triggered when widget is validate
+     * Command state change listener, triggered when widget is validate.
      */
     private List<CommandStateListener> commandStateListeners;
     /**
-     * attribute map for validator
+     * attribute map for validator.
      */
     private Map<Integer, Object> attributesMap;
 
@@ -540,53 +540,48 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Return the base key name for the specified parameters.
-     * @param widgetClassName the simple name class of the widget
-     * @return the base key associated with the parameters
-     */
-    @Nullable
-    private String validatorBaseKey(String widgetClassName) {
-        StringBuilder baseKey = new StringBuilder("mdkwidget_");
-        baseKey.append(widgetClassName.toLowerCase());
-        baseKey.append("_validator_class");
-        return baseKey.toString();
-    }
-
-    /**
-     * Returns the validator to use based on the context of the delegate.
+     * Returns a List of FormFieldValidator to use based on the Set of attributes passed as
+     * parameters.
      * (component, qualifier)
-     * @return rValidator the result
+     * @param widgetAttrs a Set of interger representing R.attr.* attributes to validate
+     * @return a List of FormFieldValidator tha can validate the Set of parameters
      */
-    public List<FormFieldValidator> getValidators(Set<Integer> widgetAttrs) {
+    protected List<FormFieldValidator> getValidators(Set<Integer> widgetAttrs) {
         List<FormFieldValidator> rValidator = new ArrayList<>();
 
         View v = this.weakView.get();
-        if (v != null) {
-            if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-                rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getValidators(widgetAttrs);
-            }
+        if (v != null
+                && v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+            rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext())
+                    .getMDKWidgetComponentProvider().getValidators(widgetAttrs);
         }
         return rValidator;
     }
 
-
-
+    /**
+     * Return the FormFieldValidator for the String key passed as parameter
+     * @param validatorKey the key of the validator
+     * @return the FormFieldValidator associated to the parameter key
+     */
+    @Nullable
     private FormFieldValidator getValidator(String validatorKey) {
         FormFieldValidator rValidator = null;
 
         View v = this.weakView.get();
-        if (v != null) {
-            if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-                rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider().getValidator(validatorKey);
-            }
+        if (v != null
+                && v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+            rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext())
+                    .getMDKWidgetComponentProvider().getValidator(validatorKey);
+
         }
         return rValidator;
     }
 
     /**
-     *
-     * @param setError
-     * @return
+     * Validate the linked widget with the mandatory FormFieldValidator and the optional
+     * FormFieldValidator linked to the widget attributes
+     * @param setError true if the error must be set at validation, false otherwise
+     * @return true if all validators passed, false otherwise
      */
     public boolean validate(boolean setError) {
 
@@ -619,16 +614,14 @@ public class MDKWidgetDelegate implements MDKWidget {
                     // this get the last part of the resource name
                     String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
                     FormFieldValidator mandatoryValidator = this.getValidator(validatorKey);
-                    if (mandatoryValidator.accept(v)) {
-                        bValid = executeValidator(mandatoryValidator, objectToValidate, setError, bValid, this.attributesMap, returnMap);
-                    }
+                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, setError, this.attributesMap, returnMap);
                 }
             }
 
-            // execute all others validators
-            for (FormFieldValidator validator : attributesValidators) {
-                if (validator.accept(v) ) {
-                    bValid = executeValidator(validator, objectToValidate, setError, bValid, this.attributesMap, returnMap);
+            // execute all others validators if no mandatory error
+            if (bValid) {
+                for (FormFieldValidator validator : attributesValidators) {
+                    bValid = executeValidator(validator, objectToValidate, v, setError, this.attributesMap, returnMap) & bValid;
                 }
             }
 
@@ -641,17 +634,30 @@ public class MDKWidgetDelegate implements MDKWidget {
         return bValid;
     }
 
-    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, boolean setError, boolean bValid, Map<Integer, Object> tmpAttributesMap, Map<String, MDKError> returnMap) {
-        MDKError error = validator.validate(objectToValidate, tmpAttributesMap, returnMap, this.getContext());
+    /**
+     * Execute a FormFieldValidator
+     * @param validator the FormFieldValidator to execute
+     * @param objectToValidate the object to validate
+     * @param validatingView the view of the widget to accept on FormFieldValidator
+     * @param setError true if the validation should show an error, false otherwise
+     * @param tmpAttributesMap a Map containing widget attributes for validation
+     * @param returnMap a Map containing previous validation errors
+     * @return true if the FormFieldValidator return no error, false otherwise
+     */
+    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError, Map<Integer, Object> tmpAttributesMap, Map<String, MDKError> returnMap) {
+        boolean bValid = true;
+        if (validator.accept(validatingView)) {
+            MDKError mdkError = validator.validate(objectToValidate, tmpAttributesMap, returnMap, this.getContext());
 
-        if (error != null) {
-            bValid = false;
-            if (setError) {
-                this.addError(error);
+            if (mdkError != null) {
+                bValid = false;
+                if (setError) {
+                    this.addError(mdkError);
+                }
             }
-        }
-        for (CommandStateListener listener : this.commandStateListeners) {
-            listener.notifyCommandStateChanged(bValid);
+            for (CommandStateListener listener : this.commandStateListeners) {
+                listener.notifyCommandStateChanged(bValid);
+            }
         }
         return bValid;
     }
@@ -776,6 +782,11 @@ public class MDKWidgetDelegate implements MDKWidget {
         return mdkWidgetDelegateSavedState.getSuperState();
     }
 
+    /**
+     * Add a CommandStateListener.
+     * <p>This listener will be called on each call of the MDKWidgetDelegate#validate.</p>
+     * @param commandListener the CommandStateListener to add
+     */
     public void addCommandStateListener(CommandStateListener commandListener) {
         this.commandStateListeners.add(commandListener);
     }

@@ -38,12 +38,6 @@ import java.lang.ref.WeakReference;
  */
 public class WidgetCommandDelegate implements CommandStateListener {
 
-    /** primary command class. */
-    private final Class<? extends WidgetCommand> primaryCommandClass;
-
-    /** secondary command class. */
-    private final Class<? extends WidgetCommand> secondaryCommandClass;
-
     /** validation command. */
     private final boolean validationCommand;
 
@@ -61,64 +55,23 @@ public class WidgetCommandDelegate implements CommandStateListener {
 
     /**
      * Constructor.
-     * @param mdkWidget view
-     * @param attrs attributes
+     * @param mdkWidget view the widget view
+     * @param attrs attributes the widget xml attributes
      */
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs) {
 
-        this(mdkWidget, attrs, null);
-
+        this(mdkWidget, attrs, true);
     }
 
     /**
      * Constructor.
-     * @param mdkWidget view
-     * @param attrs attributes
-     * @param primaryCommandClass command class
-     */
-    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass) {
-
-        this(mdkWidget, attrs, primaryCommandClass, null, true);
-
-    }
-
-    /**
-     * Constructor.
-     * @param mdkWidget view
-     * @param attrs attributes
-     * @param primaryCommandClass command class
-     * @param validationCommand use validation for enable command
-     */
-    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, boolean validationCommand) {
-
-        this(mdkWidget, attrs, primaryCommandClass, null, validationCommand);
-
-    }
-
-    /**
-     * Constructor.
-     * @param mdkWidget view
-     * @param attrs attributes
-     * @param primaryCommandClass primary command class
-     * @param secondaryCommandClass secondary command class
-     */
-    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, Class<? extends WidgetCommand> secondaryCommandClass) {
-        this(mdkWidget, attrs, primaryCommandClass, secondaryCommandClass, true);
-    }
-
-    /**
-     * Constructor.
-     * @param mdkWidget view
-     * @param attrs attributes
-     * @param primaryCommandClass primary command class
-     * @param secondaryCommandClass secondary command class
+     * @param mdkWidget view the widget view
+     * @param attrs attributes the widget xml attributes
      * @param validationCommand Use validation for enable command
      */
-    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, Class<? extends WidgetCommand> primaryCommandClass, Class<? extends WidgetCommand> secondaryCommandClass, boolean validationCommand) {
+    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, boolean validationCommand) {
 
-        this.weakView = new WeakReference<MDKWidget>(mdkWidget);
-        this.primaryCommandClass = primaryCommandClass;
-        this.secondaryCommandClass = secondaryCommandClass;
+        this.weakView = new WeakReference<>(mdkWidget);
         this.validationCommand = validationCommand;
 
         TypedArray typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
@@ -205,12 +158,11 @@ public class WidgetCommandDelegate implements CommandStateListener {
 
         WidgetCommand<?,?> widgetCommand = null;
         MDKWidget v = this.weakView.get();
-        if (v != null) {
+        if (v != null
+                && v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+            MDKWidgetComponentProvider widgetComponentProvider = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider();
+            widgetCommand = widgetComponentProvider.getCommand(baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext());
 
-            if (v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-                MDKWidgetComponentProvider widgetComponentProvider = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider();
-                widgetCommand = widgetComponentProvider.getCommand(baseKey(v.getClass().getSimpleName(), id), this.qualifier, v.getContext());
-            }
         }
 
         return widgetCommand;

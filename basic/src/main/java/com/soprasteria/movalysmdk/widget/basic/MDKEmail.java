@@ -90,7 +90,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     private final void init(Context context, AttributeSet attrs) {
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
-        this.commandDelegate = new WidgetCommandDelegate(this, attrs, EmailWidgetCommand.class);
+        this.commandDelegate = new WidgetCommandDelegate(this, attrs);
         this.addCommandStateListener(this.commandDelegate);
 
     }

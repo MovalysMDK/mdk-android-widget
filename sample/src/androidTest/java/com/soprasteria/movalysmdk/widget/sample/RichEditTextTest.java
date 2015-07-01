@@ -48,7 +48,7 @@ import static com.soprasteria.movalysmdk.widget.test.espresso.actions.CloseSoftK
 import static com.soprasteria.movalysmdk.widget.test.espresso.actions.DelayScrollToAction.delayScrollTo;
 
 /**
- * Non regression testing class for custom MDK EditText widget
+ * Non regression testing class for custom MDK EditText widget.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest

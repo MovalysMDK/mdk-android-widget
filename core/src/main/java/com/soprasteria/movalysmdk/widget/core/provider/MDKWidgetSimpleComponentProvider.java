@@ -31,14 +31,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication.LOG_TAG;
-
 /**
  * Simple implementation of the MDKWidgetComponentProvider.
  * <p>Uses the class package and name to create a singleton of the WidgetCommand/Validator
  * to be returned for the widget.</p>
  */
 public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvider {
+
+
+    /**
+     * Log tag.
+     */
+    private static final String LOG_TAG = "MDKWidgetSimpleComponentProvider";
 
     /**
      * MDK_ERROR_MESSAGE_FORMAT_KEY.
@@ -50,11 +54,20 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      */
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
-
-
+    /**
+     * A Map of String key and FormFieldValidator instance.
+     */
     private Map<String, FormFieldValidator> validatorMap;
+    /*
+     * A Map of Integer (R.attr.*) and List of FormFieldValidator instance.
+     */
     private HashMap<Integer, List<FormFieldValidator>> validatorListMap;
 
+    /**
+     * Constructor of the MDKWidgetSimpleComponentProvider.
+     * <p>Build the default validator keys array <em>R.array.validatorKeys</em>.</p>
+     * @param context the Android context
+     */
     public MDKWidgetSimpleComponentProvider(Context context) {
         this.validatorMap = new HashMap<>();
         this.validatorListMap = new HashMap<>();
@@ -63,12 +76,26 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         createValidatorsFromKeys(context, validatorsKeys);
     }
 
+    /**
+     * Constructor of the MDKWidgetSimpleComponentProvider.
+     * <p>
+     *     Build the default validator keys array <em>R.array.validatorKeys</em> and the array
+     *     reference passed as parameter.
+     * </p>
+     * @param context the Android context
+     * @param resCustomValidators a R.array.* resource reference
+     */
     public MDKWidgetSimpleComponentProvider(Context context, int resCustomValidators) {
         this(context);
         String[] validatorsKeys = context.getResources().getStringArray(resCustomValidators);
         createValidatorsFromKeys(context, validatorsKeys);
     }
 
+    /**
+     * Register the validators in the attributes Maps.
+     * @param context the Android context
+     * @param validatorsKeys a array of String representing the validators key to instanciate
+     */
     private final void createValidatorsFromKeys(Context context, String[] validatorsKeys) {
         for (String validatorKey : validatorsKeys) {
             FormFieldValidator tmp = this.createValidatorFromKey(context, validatorKey, null);
@@ -220,8 +247,9 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
         for (Integer attr : attributes) {
             List<FormFieldValidator> list = this.validatorListMap.get(attr);
-            if (list != null)
-            rValidators.addAll(list);
+            if (list != null) {
+                rValidators.addAll(list);
+            }
         }
 
         return rValidators;

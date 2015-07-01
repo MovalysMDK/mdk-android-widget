@@ -23,7 +23,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
 import org.hamcrest.Description;
@@ -36,6 +35,11 @@ import java.lang.annotation.RetentionPolicy;
  * Add view matchers for espresso tests.
  */
 public class MdkViewMatchers {
+
+    /**
+     * Log tag.
+     */
+    private static final String LOG_TAG = "MdkViewMatchers";
 
     /**
      * Create a matcher checking a text is equals to the concat text computed from string resource ids.
@@ -121,7 +125,7 @@ public class MdkViewMatchers {
                         this.expectedText = text.toString();
                         this.resourceNames = resName.toString();
                     } catch (Resources.NotFoundException e) {
-                        Log.e(MDKWidgetApplication.LOG_TAG, "MdkViewMatchers.withCharSequence failure", e);
+                        Log.e(LOG_TAG, "MdkViewMatchers.withCharSequence failure", e);
                     }
                 }
 
@@ -186,7 +190,7 @@ public class MdkViewMatchers {
                         this.expectedText = text.toString();
                         this.resourceName = textView.getResources().getResourceEntryName(labelId);
                     } catch (Resources.NotFoundException e) {
-                        Log.e(MDKWidgetApplication.LOG_TAG, "MdkViewMatchers.withCharSequence failure", e);
+                        Log.e(LOG_TAG, "MdkViewMatchers.withCharSequence failure", e);
                     }
                 }
 
@@ -207,7 +211,9 @@ public class MdkViewMatchers {
      */
     @IntDef({LABEL_TEXT, LABEL_HINT})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface LabelLocation {}
+    public @interface LabelLocation {
+        // nothint in the annotation interface
+    }
 
     /**
      * Label is located in the text of the view.

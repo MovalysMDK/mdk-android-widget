@@ -19,8 +19,12 @@ import android.os.Parcelable;
 
 
 /**
- * MDKRestorableWidget.
- * //FIXME: add more documentation
+ * The MDKRestorableWidget interface should be use to save/restore a complex view tree of a sub
+ * view.
+ * <p>
+ *     For exemple all Rich Widget have a view tree to save/restore : all Rich Widget subviews
+ *     should implement this interface to get save/restore by the Rich widget.
+ * </p>
  */
 public interface MDKRestorableWidget {
 

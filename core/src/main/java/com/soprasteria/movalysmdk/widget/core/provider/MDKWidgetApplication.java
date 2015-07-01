@@ -23,11 +23,6 @@ package com.soprasteria.movalysmdk.widget.core.provider;
 public interface MDKWidgetApplication {
 
     /**
-     * Log tag for Log.* methods.
-     */
-    String LOG_TAG = "MdkWidget";
-
-    /**
      * Return the implementation of MDKWidgetComponentProvider.
      * <p>The returned instance must be a singleton.</p>
      * @return the singleton of MDKWidgetComponentProvider implementation

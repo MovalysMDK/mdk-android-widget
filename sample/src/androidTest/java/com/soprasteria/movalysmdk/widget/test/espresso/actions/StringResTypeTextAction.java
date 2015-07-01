@@ -37,7 +37,7 @@ public class StringResTypeTextAction implements ViewAction {
     /**
      * String resource containing the text to type.
      */
-    private @StringRes int stringResId ;
+    @StringRes private int stringResId ;
 
     /**
      * Add a tap to enable focus on view.

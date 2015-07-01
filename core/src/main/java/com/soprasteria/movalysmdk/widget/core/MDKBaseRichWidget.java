@@ -153,7 +153,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
                 this.innerWidget.setErrorViewId(errorId);
                 this.innerWidget.setUseRootIdOnlyForError(true);
             }
-            //TODO (always show error text view, ...) ??? TBD
 
             boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
             this.getInnerWidget().setMandatory(mandatory);
@@ -220,17 +219,17 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
     @Override
     public void addError(MDKError error) {
-
+        this.getInnerWidget().addError(error);
     }
 
     @Override
     public void setError(CharSequence error) {
-
+        this.getInnerWidget().setError(error);
     }
 
     @Override
     public void clearError() {
-
+        this.getInnerWidget().clearError();
     }
     
     @Override
@@ -325,21 +324,12 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
          */
         public static final Parcelable.Creator<MDKBaseRichWidgetSavedState> CREATOR =
                 new Parcelable.Creator<MDKBaseRichWidgetSavedState>() {
-                    /**
-                     * createFromParcel method.
-                     * @param in a parcel
-                     * @return MDKWidgetDelegateSavedState created instance
-                     */
+
                     @Override
                     public MDKBaseRichWidgetSavedState createFromParcel(Parcel in) {
                         return new MDKBaseRichWidgetSavedState(in);
                     }
 
-                    /**
-                     * nCreate a new array of MDKWidgetDelegateSavedState.
-                     * @param size the size
-                     * @return MDKWidgetDelegateSavedState an array of MDKWidgetDelegateSavedState with size elements
-                     */
                     @Override
                     public MDKBaseRichWidgetSavedState[] newArray(int size) {
                         return new MDKBaseRichWidgetSavedState[size];

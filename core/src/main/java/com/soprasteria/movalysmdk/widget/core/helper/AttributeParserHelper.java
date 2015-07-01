@@ -12,7 +12,19 @@ import java.util.Map;
 public class AttributeParserHelper {
 
     /**
-     * Return a Map corresponding to the AttributeSet in parameter
+     * Log tag.
+     */
+    public static final String LOG_TAG = "AttributeParserHelper";
+
+    /**
+     * Private constructor.
+     */
+    private AttributeParserHelper() {
+        // private because utility class
+    }
+
+    /**
+     * Return a Map corresponding to the AttributeSet in parameter.
      * @param attrs the AttributeSet to parse
      * @return a Map representing the AttributeSet in parameter
      */
@@ -23,12 +35,12 @@ public class AttributeParserHelper {
 
             int resId = attrs.getAttributeResourceValue(i, -1);
             boolean booleanValue = attrs.getAttributeBooleanValue(i, false);
-            //int listResId = attrs.getAttributeListValue(i, null, -1);
             float floatValue = 0f;
             try {
                 floatValue = attrs.getAttributeFloatValue(i, 0f);
             } catch (RuntimeException e) {
-                Log.d("AttributeParserHelper", e.getMessage());
+                // we need to cath the exception in case the attribute is not a float
+                Log.i(LOG_TAG, e.getMessage());
             }
             int intValue = attrs.getAttributeIntValue(i, -1);
             int unsignedIntValue = attrs.getAttributeUnsignedIntValue(i, -1);
@@ -36,9 +48,7 @@ public class AttributeParserHelper {
 
             if (resId != -1) {
                 rMap.put(attrs.getAttributeNameResource(i), resId);
-            }/* else if (listResId != -1) {
-                rMap.put(attrs.getAttributeNameResource(i), listResId);
-            } */else if (floatValue != 0f) {
+            } else if (floatValue != 0f) {
                 rMap.put(attrs.getAttributeNameResource(i), floatValue);
             } else if (unsignedIntValue != -1) {
                 rMap.put(attrs.getAttributeNameResource(i), unsignedIntValue);

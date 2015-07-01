@@ -36,6 +36,9 @@ public class MyApp extends Application implements MDKWidgetApplication {
      * Contains the list of activities having mdk widgets.
      */
     private WidgetContent widgetContent ;
+    /**
+     * Instance of the MDKWidgetComponentProvider.
+     */
     private MDKWidgetComponentProvider widgetComponentProvider;
 
     @Override

@@ -15,12 +15,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by abelliard on 30/06/2015.
+ * No number validator.
+ * <p>
+ *     Check if a number is in the text of a text view. This Validator is associated with the
+ *     attribute : R.attr.no_number.
+ * </p>
  */
 public class NoNumberValidator implements FormFieldValidator<String> {
 
+    /**
+     * no number R.string.no_number_allowed error.
+     */
     public static final Integer ERROR_NONUMBER = R.string.no_number_allowed;
 
+    /**
+     * one number regexp.
+     */
     public static final String NO_NUMBER_REGEX = "[0-9]+";
 
     /**
