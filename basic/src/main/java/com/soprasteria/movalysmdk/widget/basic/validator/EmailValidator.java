@@ -22,6 +22,7 @@ import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.Map;
@@ -70,7 +71,7 @@ public class EmailValidator implements FormFieldValidator<String> {
 
 
     @Override
-    public MDKError validate(String objectToValidate, Map<Integer, Object> mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
+    public MDKError validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
         MDKError mdkError = null;
         if (objectToValidate != null
                 && objectToValidate.length() > 0

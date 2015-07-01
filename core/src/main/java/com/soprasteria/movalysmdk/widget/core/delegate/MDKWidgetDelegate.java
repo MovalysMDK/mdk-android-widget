@@ -34,7 +34,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
-import com.soprasteria.movalysmdk.widget.core.helper.AttributeParserHelper;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
@@ -148,7 +148,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     /**
      * attribute map for validator.
      */
-    private Map<Integer, Object> attributesMap;
+    private MDKAttributeSet attributesMap;
 
 
     /**
@@ -159,8 +159,6 @@ public class MDKWidgetDelegate implements MDKWidget {
     public MDKWidgetDelegate(View view, AttributeSet attrs) {
 
         this.weakView = new WeakReference<View>(view);
-
-        this.attributesMap = new HashMap<>();
 
         this.richSelectors = new ArrayList<>();
         this.richSelectors.add(new SimpleMandatoryRichSelector());
@@ -179,24 +177,23 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
 
         this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
-        this.attributesMap.put(R.attr.mandatory, this.mandatory);
 
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
 
         typedArray.recycle();
 
-
-        this.attributesMap = AttributeParserHelper.parseAttributeSet(attrs);
+        this.attributesMap = new MDKAttributeSet(attrs);
+        this.attributesMap.setBoolean(R.attr.mandatory, this.mandatory);
 
     }
 
     @Override
-    public Map<Integer, Object> getAttributeMap() {
+    public MDKAttributeSet getAttributeMap() {
         return this.attributesMap;
     }
 
     @Override
-    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+    public void setAttributeMap(MDKAttributeSet attributeMap) {
         this.attributesMap = attributeMap;
     }
 
@@ -355,7 +352,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     @Override
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
-        this.attributesMap.put(R.attr.mandatory, mandatory);
+        this.attributesMap.setBoolean(R.attr.mandatory, mandatory);
         View v = this.weakView.get();
         if (v != null) {
             v.refreshDrawableState();
@@ -644,7 +641,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param returnMap a Map containing previous validation errors
      * @return true if the FormFieldValidator return no error, false otherwise
      */
-    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError, Map<Integer, Object> tmpAttributesMap, Map<String, MDKError> returnMap) {
+    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError, MDKAttributeSet tmpAttributesMap, Map<String, MDKError> returnMap) {
         boolean bValid = true;
         if (validator.accept(validatingView)) {
             MDKError mdkError = validator.validate(objectToValidate, tmpAttributesMap, returnMap, this.getContext());

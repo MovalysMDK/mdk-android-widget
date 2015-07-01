@@ -29,9 +29,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
-import com.soprasteria.movalysmdk.widget.core.helper.AttributeParserHelper;
-
-import java.util.Map;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 
 /**
  * MDK Rich Widget.
@@ -187,7 +185,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      */
     private void initAttributeMap(AttributeSet attrs) {
         if (!isInEditMode()) {
-            Map<Integer, Object> attributeMap = AttributeParserHelper.parseAttributeSet(attrs);
+            MDKAttributeSet attributeMap = new MDKAttributeSet(attrs);
             // copy attribute from rich widget to inner widget
             this.getInnerWidget().setAttributeMap(attributeMap);
         }

@@ -7,6 +7,7 @@ import android.widget.EditText;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
@@ -55,9 +56,9 @@ public class NoNumberValidator implements FormFieldValidator<String> {
     }
 
     @Override
-    public MDKError validate(String objectToValidate, Map<Integer, Object> mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
+    public MDKError validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
         MDKError mdkError = null;
-        if ( (Boolean) mdkParameter.get(R.attr.no_number)
+        if ( mdkParameter.getBoolean(R.attr.no_number)
                 && objectToValidate.length() > 0
                 && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
 

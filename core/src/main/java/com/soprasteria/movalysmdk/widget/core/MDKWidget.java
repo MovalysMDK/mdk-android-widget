@@ -17,7 +17,7 @@ package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
 
-import java.util.Map;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 
 /**
  * Widget that can be included in a RichWidget.
@@ -63,14 +63,14 @@ public interface MDKWidget extends MDKBaseWidget {
      *     The key values are the R.attr.* values and the values are the
      *     attributes values.
      * </p>
-     * @return a Map representing the widget AttributeSet
+     * @return a MDKAttributeSet representing the widget AttributeSet
      */
-    Map<Integer, Object> getAttributeMap();
+    MDKAttributeSet getAttributeMap();
 
     /**
      * Set the Map of the widget AttributeSet.
-     * @param attributeMap a Map representing the widget AttributeSet
+     * @param attributeMap a MDKAttributeSet representing the widget AttributeSet
      * @see MDKWidget#getAttributeMap() for Map details
      */
-    void setAttributeMap(Map<Integer, Object> attributeMap);
+    void setAttributeMap(MDKAttributeSet attributeMap);
 }

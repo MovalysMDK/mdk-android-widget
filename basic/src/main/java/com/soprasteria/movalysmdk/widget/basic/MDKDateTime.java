@@ -28,9 +28,9 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Base widget able to render a date picker, or a time picker.
@@ -107,12 +107,12 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     @Override
-    public Map<Integer, Object> getAttributeMap() {
+    public MDKAttributeSet getAttributeMap() {
         return this.getMDKWidgetDelegate().getAttributeMap();
     }
 
     @Override
-    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+    public void setAttributeMap(MDKAttributeSet attributeMap) {
         this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
     }
 

@@ -37,9 +37,8 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
-
-import java.util.Map;
 
 /**
  * MDK Email
@@ -173,12 +172,12 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
 
     @Override
-    public Map<Integer, Object> getAttributeMap() {
+    public MDKAttributeSet getAttributeMap() {
         return this.getMDKWidgetDelegate().getAttributeMap();
     }
 
     @Override
-    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+    public void setAttributeMap(MDKAttributeSet attributeMap) {
         this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
     }
 

@@ -33,8 +33,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
-
-import java.util.Map;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 
 /**
  * <p>Represents an Edit Text conforming to the Material Design guidelines.</p>
@@ -109,12 +108,12 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public Map<Integer, Object> getAttributeMap() {
+    public MDKAttributeSet getAttributeMap() {
         return this.getMDKWidgetDelegate().getAttributeMap();
     }
 
     @Override
-    public void setAttributeMap(Map<Integer, Object> attributeMap) {
+    public void setAttributeMap(MDKAttributeSet attributeMap) {
         this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
     }
 

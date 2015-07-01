@@ -22,6 +22,7 @@ import com.soprasteria.movalysmdk.widget.basic.MDKDateTime;
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichDateWidget;
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.Date;
@@ -54,10 +55,10 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
 
 
     @Override
-    public MDKError validate(Date objectToValidate, Map<Integer, Object> mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
+    public MDKError validate(Date objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
         MDKError mdkError = null;
-        if ( mdkParameter.get(R.attr.mandatory) != null
-                && (Boolean) mdkParameter.get(R.attr.mandatory)
+        if ( mdkParameter.containsKey(R.attr.mandatory)
+                && mdkParameter.getBoolean(R.attr.mandatory)
                 && objectToValidate == null
                 && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
             mdkError = new MDKError();
