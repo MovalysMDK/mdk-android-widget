@@ -211,6 +211,9 @@ public class RichEditTextTest {
         // Scroll screen position to validate button
         onView(withId(R.id.mdkRichEditText_withoutLabelAndHint)).perform(closeSoftKeyboardDelay(), delayScrollTo());
 
+        // scroll to the new component ... FIX exception
+        onView(withId(R.id.mdkRichEditText_withoutLabelButHint)).perform( delayScrollTo());
+
         // Check that label does not exist
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
                 .check(doesNotExist());

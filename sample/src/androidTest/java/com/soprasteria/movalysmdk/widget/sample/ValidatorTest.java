@@ -51,7 +51,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Test empty value.
+     * Test valid value.
      */
     @Test
     public void testValidEntry() {
@@ -75,7 +75,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Test empty value.
+     * Test invalid value.
      */
     @Test
     public void testInvalidEntry() {
