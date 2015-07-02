@@ -56,6 +56,10 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     protected WidgetCommandDelegate commandDelegate;
     /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
+    /** Keyword instanceState. */
+    private static final String INSTANCE_STATE = "instanceState";
+    /** Keyword innerState. */
+    private static final String INNER_STATE = "innerState";
 
     /**
      * Constructor.
@@ -351,9 +355,9 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
         Bundle bundle = new Bundle();
         // Save the android view instance state
-        bundle.putParcelable("instanceState", super.onSaveInstanceState());
+        bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
         // Save the MDKWidgetDelegate instance state
-        bundle.putParcelable("innerState",this.mdkWidgetDelegate.onSaveInstanceState(bundle.getParcelable("instanceState")));
+        bundle.putParcelable(INNER_STATE,this.mdkWidgetDelegate.onSaveInstanceState(bundle.getParcelable(INSTANCE_STATE)));
         return bundle;
     }
 
@@ -366,8 +370,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
-            this.mdkWidgetDelegate.onRestoreInstanceState(this, bundle.getParcelable("innerState"));
-            super.onRestoreInstanceState(bundle.getParcelable("instanceState"));
+            this.mdkWidgetDelegate.onRestoreInstanceState(this, bundle.getParcelable(INNER_STATE));
+            super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
             return;
         }
         super.onRestoreInstanceState(state);

@@ -48,11 +48,18 @@ public class MDKError implements Parcelable{
      */
     private int errorCode;
 
+    /**
+     * Constructor.
+     * @param in the new parcelable
+     */
     protected MDKError(Parcel in) {
         componentId = in.readInt();
         errorCode = in.readInt();
     }
 
+    /**
+     * Required field that makes Parcelables from a Parcel.
+     */
     public static final Creator<MDKError> CREATOR = new Creator<MDKError>() {
         @Override
         public MDKError createFromParcel(Parcel in) {
@@ -169,14 +176,12 @@ public class MDKError implements Parcelable{
 
         if (componentLabelName != null) {
             dest.writeString(componentLabelName.toString());
-        }
-        else {
+        } else {
             dest.writeString("");
         }
         if (errorMessage != null) {
             dest.writeString(errorMessage.toString());
-        }
-        else {
+        } else {
             dest.writeString("");
         }
         dest.writeInt(errorCode);

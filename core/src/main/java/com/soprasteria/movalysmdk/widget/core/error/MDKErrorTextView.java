@@ -52,6 +52,16 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * */
     private boolean sharedErrorWidget = false;
 
+    /** Keyword for instanceState. */
+    private static final String INSTANCE_STATE = "instanceState";
+    /** Keyword for shared error widget. */
+    private static final String SHARED_ERROR_WIDGET = "sharedErrorWidget";
+    /** Keyword for helper text. */
+    private static final String HELPER_TEXT = "helperText";
+    /** Keyword for error sparse array. */
+    private static final String ERROR_SPARSE_ARRAY = "errorSparseArray";
+    /** Keyword for display error order array list. */
+    private static final String ERROR_ORDER_ARRAY = "displayErrorOrderArrayList";
     /**
      * MDKErrorWidge builder.
      * @param context Application context
@@ -252,16 +262,15 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         Bundle bundle = new Bundle();
         // Save the android state
-        bundle.putParcelable("instanceState", super.onSaveInstanceState());
-        bundle.putBoolean("sharedErrorWidget", this.sharedErrorWidget);
-        bundle.putCharSequence("helperText",this.helperText);
-        bundle.putSparseParcelableArray("errorSparseArray", this.errorSparseArray);
-        // Convert List in ArrayList as bundle does not support List
-        ArrayList<Integer> tmpArrayList = null;
+        bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
+        bundle.putBoolean(SHARED_ERROR_WIDGET, this.sharedErrorWidget);
+        bundle.putCharSequence(HELPER_TEXT,this.helperText);
+        bundle.putSparseParcelableArray(ERROR_SPARSE_ARRAY, this.errorSparseArray);
         if (displayErrorOrderArrayList != null) {
-            tmpArrayList = new ArrayList<Integer>(displayErrorOrderArrayList);
+            bundle.putIntegerArrayList(ERROR_ORDER_ARRAY, new ArrayList<Integer>(displayErrorOrderArrayList));
+        } else {
+            bundle.putIntegerArrayList(ERROR_ORDER_ARRAY, null);
         }
-        bundle.putIntegerArrayList("displayErrorOrderArrayList", tmpArrayList);
         return bundle;
     }
 
@@ -270,11 +279,11 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
-            this.sharedErrorWidget = bundle.getBoolean("sharedErrorWidget");
-            this.helperText = bundle.getCharSequence("helperText");
-            this.errorSparseArray = bundle.getSparseParcelableArray("errorSparseArray");
-            this.displayErrorOrderArrayList = bundle.getIntegerArrayList("displayErrorOrderArrayList");
-            super.onRestoreInstanceState(bundle.getParcelable("instanceState"));
+            this.sharedErrorWidget = bundle.getBoolean(SHARED_ERROR_WIDGET);
+            this.helperText = bundle.getCharSequence(HELPER_TEXT);
+            this.errorSparseArray = bundle.getSparseParcelableArray(ERROR_SPARSE_ARRAY);
+            this.displayErrorOrderArrayList = bundle.getIntegerArrayList(ERROR_ORDER_ARRAY);
+            super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
             updateErrorMessage();
             return;
         }
