@@ -20,6 +20,7 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -269,90 +270,79 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
     @Override
     public Parcelable onSaveInstanceState() {
-
         Parcelable superState = super.onSaveInstanceState();
-        MDKBaseRichWidgetSavedState mdkBaseRichWidgetSavedState = new MDKBaseRichWidgetSavedState(superState);
-
-        mdkBaseRichWidgetSavedState.errorAlwaysVisible = this.errorAlwaysVisible;
-        mdkBaseRichWidgetSavedState.resHintId = this.resHintId;
-        mdkBaseRichWidgetSavedState.innerWidget = this.innerWidget.superOnSaveInstanceState();
-        // TODO : add the save of the MDKErrorWidget lors de la rotation de l'écran
-
-        return mdkBaseRichWidgetSavedState;
+        MDKSavedState ss = new MDKSavedState(superState);
+        ss.childrenStates = new SparseArray();
+        for (int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).saveHierarchyState(ss.childrenStates);
+        }
+        return ss;
     }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-
-        if(!(state instanceof MDKBaseRichWidgetSavedState)) {
-            super.onRestoreInstanceState(state);
-            return;
+        MDKSavedState ss = (MDKSavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        for (int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).restoreHierarchyState(ss.childrenStates);
         }
 
-        MDKBaseRichWidgetSavedState mdkBaseRichWidgetSavedState = (MDKBaseRichWidgetSavedState)state;
-        super.onRestoreInstanceState(mdkBaseRichWidgetSavedState.getSuperState());
+    }
 
-        this.errorAlwaysVisible = mdkBaseRichWidgetSavedState.errorAlwaysVisible;
-        this.resHintId = mdkBaseRichWidgetSavedState.resHintId;
-        this.innerWidget.superOnRestoreInstanceState(mdkBaseRichWidgetSavedState.innerWidget);
-        // TODO : add the restore of the MDKErrorWidget
+    @Override
+    protected void dispatchSaveInstanceState(SparseArray<Parcelable> container) {
+        dispatchFreezeSelfOnly(container);
+    }
+
+    @Override
+    protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
+        dispatchThawSelfOnly(container);
     }
 
     /**
      * MDKBaseRichWidgetSavedState class definition.
      */
-    private static class MDKBaseRichWidgetSavedState extends View.BaseSavedState {
+    private static class MDKSavedState extends View.BaseSavedState {
 
-        /** errorAlwaysVisible. */
-        boolean errorAlwaysVisible;
-        /** resHintId. */
-        int resHintId;
-        /** innerWidget. */
-        Parcelable innerWidget;
+        SparseArray childrenStates;
 
         /**
          * Constructor.
          * @param superState the new Parcelable
          */
-        MDKBaseRichWidgetSavedState(Parcelable superState) {
+        MDKSavedState(Parcelable superState) {
             super(superState);
         }
 
-        /**
-         * Constructor.
-         * @param in the new parcel
-         */
-        private MDKBaseRichWidgetSavedState(Parcel in) {
+        private MDKSavedState(Parcel in, ClassLoader classLoader) {
             super(in);
-
-            this.errorAlwaysVisible = in.readByte() != 0;
-            this.resHintId = in.readInt();
-            this.innerWidget = in.readParcelable(ClassLoader.getSystemClassLoader());
+            childrenStates = in.readSparseArray(classLoader);
         }
 
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-
-            out.writeByte((byte) (this.errorAlwaysVisible ? 1 : 0));
-            out.writeInt(this.resHintId);
-            out.writeParcelable(innerWidget, 0);
+            out.writeSparseArray(childrenStates);
         }
 
         /**
          * Required field that makes Parcelables from a Parcel.
          */
-        public static final Parcelable.Creator<MDKBaseRichWidgetSavedState> CREATOR =
-                new Parcelable.Creator<MDKBaseRichWidgetSavedState>() {
+        public static final Parcelable.Creator<MDKSavedState> CREATOR =
+                new Parcelable.Creator<MDKSavedState>() {
 
-                    @Override
-                    public MDKBaseRichWidgetSavedState createFromParcel(Parcel in) {
-                        return new MDKBaseRichWidgetSavedState(in);
+                    public MDKSavedState createFromParcel(Parcel source, ClassLoader loader) {
+                        return new MDKSavedState(source, loader);
                     }
 
                     @Override
-                    public MDKBaseRichWidgetSavedState[] newArray(int size) {
-                        return new MDKBaseRichWidgetSavedState[size];
+                    public MDKSavedState createFromParcel(Parcel source) {
+                        return createFromParcel(null);
+                    }
+
+                    @Override
+                    public MDKSavedState[] newArray(int size) {
+                        return new MDKSavedState[size];
                     }
                 };
     }

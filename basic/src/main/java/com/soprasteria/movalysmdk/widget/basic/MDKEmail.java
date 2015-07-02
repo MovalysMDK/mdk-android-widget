@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
@@ -348,12 +349,12 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     @Override
     public Parcelable onSaveInstanceState() {
 
+        Bundle bundle = new Bundle();
         // Save the android view instance state
-        Parcelable state = super.onSaveInstanceState();
+        bundle.putParcelable("instanceState", super.onSaveInstanceState());
         // Save the MDKWidgetDelegate instance state
-        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
-
-        return state;
+        bundle.putParcelable("innerState",this.mdkWidgetDelegate.onSaveInstanceState(bundle.getParcelable("instanceState")));
+        return bundle;
     }
 
     /**
@@ -363,10 +364,14 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     @Override
     public void onRestoreInstanceState(Parcelable state) {
 
-        // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
-        // Restore the android view instance state
-        super.onRestoreInstanceState(innerState);
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            this.mdkWidgetDelegate.onRestoreInstanceState(this, bundle.getParcelable("innerState"));
+            super.onRestoreInstanceState(bundle.getParcelable("instanceState"));
+            return;
+        }
+        super.onRestoreInstanceState(state);
+
     }
 
     /**

@@ -17,6 +17,8 @@ package com.soprasteria.movalysmdk.widget.core.error;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -243,6 +245,50 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      */
     public void setSharedErrorWidget(boolean sharedErrorWidget) {
         this.sharedErrorWidget = sharedErrorWidget;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+
+        Bundle bundle = new Bundle();
+        // Save the android state
+        bundle.putParcelable("instanceState", super.onSaveInstanceState());
+        bundle.putBoolean("sharedErrorWidget", this.sharedErrorWidget);
+        bundle.putCharSequence("helperText",this.helperText);
+        bundle.putSparseParcelableArray("errorSparseArray", this.errorSparseArray);
+        // Convert List in ArrayList as bundle does not support List
+        ArrayList<Integer> tmpArrayList = null;
+        if (displayErrorOrderArrayList != null) {
+            tmpArrayList = new ArrayList<Integer>(displayErrorOrderArrayList);
+        }
+        bundle.putIntegerArrayList("displayErrorOrderArrayList", tmpArrayList);
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            this.sharedErrorWidget = bundle.getBoolean("sharedErrorWidget");
+            this.helperText = bundle.getCharSequence("helperText");
+            this.errorSparseArray = bundle.getSparseParcelableArray("errorSparseArray");
+            this.displayErrorOrderArrayList = bundle.getIntegerArrayList("displayErrorOrderArrayList");
+            super.onRestoreInstanceState(bundle.getParcelable("instanceState"));
+            updateErrorMessage();
+            return;
+        }
+        super.onRestoreInstanceState(state);
+    }
+
+    @Override
+    public Parcelable superOnSaveInstanceState() {
+        return onSaveInstanceState();
+    }
+
+    @Override
+    public void superOnRestoreInstanceState(Parcelable state) {
+        onRestoreInstanceState(state);
     }
 
 }

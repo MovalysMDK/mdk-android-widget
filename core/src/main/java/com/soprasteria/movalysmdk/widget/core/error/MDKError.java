@@ -16,10 +16,13 @@
 package com.soprasteria.movalysmdk.widget.core.error;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * MDKError class definition.
  */
-public class MDKError {
+public class MDKError implements Parcelable{
 
     /**
      * Id of the component raising the error. This one is set according:
@@ -44,6 +47,23 @@ public class MDKError {
      * <p>For example, it can be used later for apply text style.</p>
      */
     private int errorCode;
+
+    protected MDKError(Parcel in) {
+        componentId = in.readInt();
+        errorCode = in.readInt();
+    }
+
+    public static final Creator<MDKError> CREATOR = new Creator<MDKError>() {
+        @Override
+        public MDKError createFromParcel(Parcel in) {
+            return new MDKError(in);
+        }
+
+        @Override
+        public MDKError[] newArray(int size) {
+            return new MDKError[size];
+        }
+    };
 
     /**
      * Private initializer.
@@ -138,5 +158,28 @@ public class MDKError {
         this.errorCode = errorCode;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(componentId);
+
+        if (componentLabelName != null) {
+            dest.writeString(componentLabelName.toString());
+        }
+        else {
+            dest.writeString("");
+        }
+        if (errorMessage != null) {
+            dest.writeString(errorMessage.toString());
+        }
+        else {
+            dest.writeString("");
+        }
+        dest.writeInt(errorCode);
+    }
 }
 
