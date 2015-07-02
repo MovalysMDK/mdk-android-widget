@@ -334,16 +334,17 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
         /**
          * Required field that makes Parcelables from a Parcel.
          */
-        public static final Parcelable.Creator<MDKSavedState> CREATOR =
-                new Parcelable.Creator<MDKSavedState>() {
+        public static final Parcelable.ClassLoaderCreator<MDKSavedState> CREATOR =
+                new Parcelable.ClassLoaderCreator<MDKSavedState>() {
 
+                    @Override
                     public MDKSavedState createFromParcel(Parcel source, ClassLoader loader) {
                         return new MDKSavedState(source, loader);
                     }
 
                     @Override
                     public MDKSavedState createFromParcel(Parcel source) {
-                        return createFromParcel(null);
+                        return new MDKSavedState(source, MDKSavedState.class.getClassLoader());
                     }
 
                     @Override
