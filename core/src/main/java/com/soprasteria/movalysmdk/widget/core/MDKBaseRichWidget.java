@@ -304,6 +304,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      */
     private static class MDKSavedState extends View.BaseSavedState {
 
+        /** Children states. */
         SparseArray childrenStates;
 
         /**
@@ -314,6 +315,11 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
             super(superState);
         }
 
+        /**
+         * Constructor.
+         * @param in the new Parcelable
+         * @param classLoader the class loader
+         */
         private MDKSavedState(Parcel in, ClassLoader classLoader) {
             super(in);
             childrenStates = in.readSparseArray(classLoader);
