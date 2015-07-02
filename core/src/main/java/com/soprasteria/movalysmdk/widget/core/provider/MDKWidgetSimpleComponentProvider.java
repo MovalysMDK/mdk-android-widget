@@ -58,7 +58,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      */
     private Map<String, FormFieldValidator> validatorMap;
 
-    /*
+    /**
      * A Map of Integer (R.attr.*) and List of FormFieldValidator instance.
      */
     private Map<Integer, List<FormFieldValidator>> validatorListMap;
