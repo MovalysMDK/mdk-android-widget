@@ -217,16 +217,7 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     /**
-     * Sets the displayed Date.
-     * @param date the new date
-     */
-    @Override
-    public void setDate(Date date) {
-        this.mdkDateTimePickerWidgetDelegate.setDisplayedDate(date);
-    }
-
-    /**
-     * Returns the displayed Date.
+     * Returns the widget date and time according the chosen picking mode
      * @return date the current date
      */
     @Override
@@ -235,19 +226,20 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     /**
-     * Sets the displayed Time.
+     * Sets the displayed date.
+     * @param date the new date
+     */
+    @Override
+    public void setDate(Date date) {
+        this.mdkDateTimePickerWidgetDelegate.setDisplayedDate(date);
+    }
+
+    /**
+     * Sets the displayed time.
      * @param time the new time
      */
     public void setTime(Date time) {
         this.mdkDateTimePickerWidgetDelegate.setDisplayedTime(time);
-    }
-
-    /**
-     * Returns the displayed Time.
-     * @return time the current time
-     */
-    public Date getTime() {
-        return this.mdkDateTimePickerWidgetDelegate.getDisplayedTime();
     }
 
     @Override

@@ -64,7 +64,7 @@ public class DateActivity extends AppCompatActivity {
         this.richDateTimeWithLabelAndNotMandatory = (MDKRichDateTime)findViewById(R.id.mdkRichDateTime_withLabelAndNotMandatory);
         this.richDateWithLabelAndMandatory = (MDKRichDate)findViewById(R.id.mdkRichDate_withLabelAndMandatory);
         this.richTimeWithLabelAndMandatory = (MDKRichTime)findViewById(R.id.mdkRichTime_withLabelAndMandatory);
-        this.richDateTimeWithLabelAndMandatoryAndSharedError = (MDKDateTime)findViewById(R.id.mdkRichDateTime_withLabelAndMandatoryAndSharedError);
+        this.richDateTimeWithLabelAndMandatoryAndSharedError = (MDKDateTime)findViewById(R.id.mdkDateTime_withLabelAndMandatoryAndSharedError);
     }
 
     /**

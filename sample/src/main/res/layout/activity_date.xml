@@ -91,7 +91,7 @@
         android:layout_height="4dp" />
 
     <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
-        android:id="@+id/mdkRichDateTime_withLabelAndMandatoryAndSharedError"
+        android:id="@+id/mdkDateTime_withLabelAndMandatoryAndSharedError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
