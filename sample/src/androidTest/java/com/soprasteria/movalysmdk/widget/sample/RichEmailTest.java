@@ -80,15 +80,13 @@ public class RichEmailTest {
 
         SpoonScreenshotAction.perform("richemail_invalidemail_errorstate_landscape");
 
-        //FIXME: Uncomment when "error lost on rotation" will be fixed.
-        //onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
-        //        .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
 
         onView(isRoot()).perform(orientationPortrait());
 
-        //FIXME: Uncomment when "error lost on rotation" will be fixed.
-        //onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
-        //        .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
     }
 
     /**
