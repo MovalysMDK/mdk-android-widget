@@ -27,7 +27,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 
 import java.util.Date;
@@ -157,7 +157,7 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     @Override
-    public void addError(MDKError error) {
+    public void addError(MDKMessage error) {
         this.mdkDateTimePickerWidgetDelegate.addError(error);
     }
 

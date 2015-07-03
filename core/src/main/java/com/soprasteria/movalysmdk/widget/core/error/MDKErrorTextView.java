@@ -38,7 +38,7 @@ import java.util.List;
 public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /** Data structure to store component id and its associated error messages. */
-    private SparseArray<MDKError> errorSparseArray = new SparseArray<>();
+    private SparseArray<MDKMessage> errorSparseArray = new SparseArray<>();
 
     /** Array list of error Ids to display messages from first to last index. */
     List<Integer> displayErrorOrderArrayList;
@@ -130,17 +130,19 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Add and the component and its associated error message to the current list of errors.
+     * @param context the android context
      * @param componentId the component id
      * @param error MDKError object to add
      */
     @Override
-    public void addError(Context context, int componentId, MDKError error) {
+    public void addError(Context context, int componentId, MDKMessage error) {
         this.errorSparseArray.put(componentId, error);
         this.updateErrorMessage(context);
     }
 
     /**
      * Remove component from the error list.
+     * @param context the Android context
      * @param innerComponentId Resource Id of the component
      * */
     @Override
@@ -181,7 +183,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         if (this.displayErrorOrderArrayList == null) {
             for(int currentComponentId = 0; currentComponentId < errorSparseArray.size(); currentComponentId++) {
-                MDKError currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
+                MDKMessage currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
                 sbErrorMessage = generateCurrentMessage(context,
                                                         sbErrorMessage,
                                                         currentMDKError);
@@ -190,7 +192,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         } else {
             for(Integer currentComponentId : this.displayErrorOrderArrayList) {
                 if (this.errorSparseArray.get(currentComponentId) != null){
-                    MDKError currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
+                    MDKMessage currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
                     sbErrorMessage = generateCurrentMessage(context,
                                                             sbErrorMessage,
                                                             currentMDKError);
@@ -226,15 +228,15 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * Return a SpannableStringBuilder object in order to build messages to display.
      * @param context application context to access resource
      * @param outputStringBuild the output string
-     * @param mdkError the mdk error
+     * @param mdkMessage the mdk error
      * @return outputStringBuild the output string
      */
-    private SpannableStringBuilder generateCurrentMessage(Context context, SpannableStringBuilder outputStringBuild, MDKError mdkError){
+    private SpannableStringBuilder generateCurrentMessage(Context context, SpannableStringBuilder outputStringBuild, MDKMessage mdkMessage){
 
         MDKErrorMessageFormat interfaceFormat = getMDKErrorMessageFormat();
 
-        CharSequence message = mdkError.getErrorMessage();
-        message = interfaceFormat.formatText(context, mdkError, isSharedErrorWidget());
+        CharSequence message = mdkMessage.getMessage();
+        message = interfaceFormat.formatText(context, mdkMessage, isSharedErrorWidget());
 
         if (outputStringBuild.length() > 0) {
             outputStringBuild.append("\n");

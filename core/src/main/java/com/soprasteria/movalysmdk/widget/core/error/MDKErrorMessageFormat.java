@@ -29,5 +29,5 @@ public interface MDKErrorMessageFormat {
      * @param error Custom MDKError object
      * @return CharSequence Formatted message
      */
-    CharSequence formatText(Context context, MDKError error, boolean sharedErrorWidget);
+    CharSequence formatText(Context context, MDKMessage error, boolean sharedErrorWidget);
 }

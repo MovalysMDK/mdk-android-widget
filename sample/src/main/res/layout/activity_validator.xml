@@ -31,4 +31,13 @@
         mdk:hint="@string/hello_world"
         mdk:no_number="true"/>
 
+
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+        android:id="@+id/mdkRichText_lenthvalidator_withCustomValidator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:hint="@string/hello_world"
+        mdk:maxLength="4"
+        mdk:minLength="2"/>
+
 </LinearLayout>

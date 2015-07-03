@@ -31,14 +31,14 @@ public interface MDKErrorWidget extends MDKRestorableWidget {
      * @param componentId the component id
      * @param error MDKError object to add
      */
-    void addError(Context context,int componentId, MDKError error);
+    void addError(Context context, int componentId, MDKMessage error);
 
     /**
      * Remove component from the error list.
      * @param context application context to access resource
      * @param innerComponentId Resource Id of the component
      */
-    void clear(Context context,int innerComponentId);
+    void clear(Context context, int innerComponentId);
 
     /**
      * Remove all components from the error list.

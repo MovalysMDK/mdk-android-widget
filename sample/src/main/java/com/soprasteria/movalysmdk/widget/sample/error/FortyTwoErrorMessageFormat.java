@@ -17,7 +17,7 @@ package com.soprasteria.movalysmdk.widget.sample.error;
 
 import android.content.Context;
 
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
@@ -27,8 +27,8 @@ import com.soprasteria.movalysmdk.widget.sample.R;
 public class FortyTwoErrorMessageFormat implements MDKErrorMessageFormat {
 
     @Override
-    public CharSequence formatText(Context context, MDKError error, boolean sharedErrorWidget) {
+    public CharSequence formatText(Context context, MDKMessage error, boolean sharedErrorWidget) {
 
-        return context.getString(R.string.error_prefix) + error.getErrorMessage();
+        return context.getString(R.string.error_prefix) + error.getMessage();
     }
 }

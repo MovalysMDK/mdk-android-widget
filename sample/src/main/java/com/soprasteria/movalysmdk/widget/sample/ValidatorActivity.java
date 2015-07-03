@@ -25,6 +25,7 @@ public class ValidatorActivity extends AppCompatActivity {
 
         ((MDKRichEditText) findViewById(R.id.mdkRichText_withCustomValidator)).validate();
         ((MDKRichEditText) findViewById(R.id.mdkRichText_nomandatory_withCustomValidator)).validate();
+        ((MDKRichEditText) findViewById(R.id.mdkRichText_lenthvalidator_withCustomValidator)).validate();
 
     }
 }

@@ -48,6 +48,8 @@
         <attr name="qualifier" format="string" />
         <attr name="mandatory" format="boolean" />
         <attr name="hint" format="reference" />
+        <attr name="minLength" format="integer" />
+        <attr name="maxLength" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">

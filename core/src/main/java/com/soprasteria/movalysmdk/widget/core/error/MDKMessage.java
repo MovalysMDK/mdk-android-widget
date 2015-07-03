@@ -22,7 +22,17 @@ import android.os.Parcelable;
 /**
  * MDKError class definition.
  */
-public class MDKError implements Parcelable{
+public class MDKMessage implements Parcelable {
+
+
+    /** No error code defined. */
+    public static final int NO_ERROR_CODE = -1;
+
+    /** Error type. */
+    public static final int ERROR_TYPE = 0;
+    /** Message type. */
+    public static final int MESSAGE_TYPE = 1;
+
 
     /**
      * Id of the component raising the error. This one is set according:
@@ -36,11 +46,8 @@ public class MDKError implements Parcelable{
     /** Name of the component raising the error.  */
     private CharSequence componentLabelName;
 
-    /** Error message raised by the component.  */
-    private CharSequence errorMessage;
-
-    /** No error code defined. */
-    public static final int NO_ERROR_CODE = -1;
+    /** message raised by the component.  */
+    private CharSequence message;
 
     /**
      * Error code defining which kind of error it is.
@@ -49,26 +56,33 @@ public class MDKError implements Parcelable{
     private int errorCode;
 
     /**
-     * Constructor.
-     * @param in the new parcelable
+     * Type of this message.
      */
-    protected MDKError(Parcel in) {
+    private int messageType = ERROR_TYPE;
+
+
+    /**
+     * Constructor from Parcel.
+     * @param in the Parcel to recover from
+     */
+    protected MDKMessage(Parcel in) {
         componentId = in.readInt();
         errorCode = in.readInt();
+        messageType = in.readInt();
     }
 
     /**
-     * Required field that makes Parcelables from a Parcel.
+     * The Parcelable CREATOR.
      */
-    public static final Creator<MDKError> CREATOR = new Creator<MDKError>() {
+    public static final Creator<MDKMessage> CREATOR = new Creator<MDKMessage>() {
         @Override
-        public MDKError createFromParcel(Parcel in) {
-            return new MDKError(in);
+        public MDKMessage createFromParcel(Parcel in) {
+            return new MDKMessage(in);
         }
 
         @Override
-        public MDKError[] newArray(int size) {
-            return new MDKError[size];
+        public MDKMessage[] newArray(int size) {
+            return new MDKMessage[size];
         }
     };
 
@@ -82,23 +96,41 @@ public class MDKError implements Parcelable{
     /**
      * Default builder.
      */
-    public MDKError() {
+    public MDKMessage() {
         init();
     }
 
     /**
      * MDKError builder.
      * @param componentLabelName set the name of the component raising the error
-     * @param errorMessage set the error message raised by the component
+     * @param message set the error message raised by the component
      * @param errorCode set the error's code categorizing it
      */
-    public MDKError (CharSequence componentLabelName,
-                          CharSequence errorMessage,
-                          int errorCode) {
+    public MDKMessage(CharSequence componentLabelName,
+                      CharSequence message,
+                      int errorCode) {
         init();
         this.componentLabelName = componentLabelName;
-        this.errorMessage = errorMessage;
+        this.message = message;
         this.errorCode = errorCode;
+    }
+
+    /**
+     * MDKError builder.
+     * @param componentLabelName set the name of the component raising the error
+     * @param message set the error message raised by the component
+     * @param errorCode set the error's code categorizing it
+     * @param messageType set the message type, default to ERROR_TYPE
+     */
+    public MDKMessage(CharSequence componentLabelName,
+                      CharSequence message,
+                      int errorCode,
+                      int messageType) {
+        init();
+        this.componentLabelName = componentLabelName;
+        this.message = message;
+        this.errorCode = errorCode;
+        this.messageType = messageType;
     }
 
     /**
@@ -135,18 +167,18 @@ public class MDKError implements Parcelable{
 
     /**
      * Getter.
-     * @return errorMessage the error message
+     * @return the message
      */
-    public CharSequence getErrorMessage() {
-        return this.errorMessage;
+    public CharSequence getMessage() {
+        return this.message;
     }
 
     /**
      * Setter.
-     * @param errorMessage the new error message
+     * @param message the new message
      */
-    public void setErrorMessage(CharSequence errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setMessage(CharSequence message) {
+        this.message = message;
     }
 
     /**
@@ -165,6 +197,22 @@ public class MDKError implements Parcelable{
         this.errorCode = errorCode;
     }
 
+    /**
+     * Getter.
+     * @return message type ERROR_TYPE or MESSAGE_TYPE
+     */
+    public int getMessageType() {
+        return messageType;
+    }
+
+    /**
+     * Setter.
+     * @param messageType the message type
+     */
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -179,12 +227,13 @@ public class MDKError implements Parcelable{
         } else {
             dest.writeString("");
         }
-        if (errorMessage != null) {
-            dest.writeString(errorMessage.toString());
+        if (message != null) {
+            dest.writeString(message.toString());
         } else {
             dest.writeString("");
         }
         dest.writeInt(errorCode);
+        dest.writeInt(messageType);
     }
 }
 

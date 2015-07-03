@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.sample.R;
@@ -56,8 +56,8 @@ public class NoNumberValidator implements FormFieldValidator<String> {
     }
 
     @Override
-    public MDKError validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
-        MDKError mdkError = null;
+    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKMessage> resultPreviousValidator, Context context) {
+        MDKMessage mdkMessage = null;
         if ( mdkParameter.getBoolean(R.attr.no_number)
                 && objectToValidate.length() > 0
                 && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
@@ -67,14 +67,14 @@ public class NoNumberValidator implements FormFieldValidator<String> {
             }
             Matcher matcher = this.pattern.matcher(objectToValidate);
             if (matcher.find()) {
-                mdkError = new MDKError();
-                mdkError.setErrorCode(ERROR_NONUMBER);
+                mdkMessage = new MDKMessage();
+                mdkMessage.setErrorCode(ERROR_NONUMBER);
                 String error = context.getString(R.string.no_number_allowed);
-                mdkError.setErrorMessage(error);
+                mdkMessage.setMessage(error);
             }
 
-            resultPreviousValidator.put(this.getClass().getName(), mdkError);
+            resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
         }
-        return mdkError;
+        return mdkMessage;
     }
 }

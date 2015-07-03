@@ -15,7 +15,7 @@
  */
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 
 /**
  * Interface to add validation capacity to a widget.
@@ -45,7 +45,7 @@ public interface HasValidator {
      * Set the mdk error on the widget.
      * @param error the mdk error
      */
-    void addError(MDKError error);
+    void addError(MDKMessage error);
 
     /**
      * Remove error on the widget.

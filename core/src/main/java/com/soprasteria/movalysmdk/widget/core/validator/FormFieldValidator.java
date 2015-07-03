@@ -18,7 +18,7 @@ package com.soprasteria.movalysmdk.widget.core.validator;
 import android.content.Context;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 
 import java.util.Map;
@@ -66,5 +66,5 @@ public interface FormFieldValidator<T> {
      * @param context the android context
      * @return a MDKError containing the error or null
      */
-    MDKError validate(T objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context);
+    MDKMessage validate(T objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKMessage> resultPreviousValidator, Context context);
 }

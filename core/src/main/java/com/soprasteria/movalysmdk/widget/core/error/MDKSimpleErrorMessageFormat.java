@@ -29,9 +29,9 @@ public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
      * @return oFormattedMessage the formatted message
      */
     @Override
-    public CharSequence formatText(Context context, MDKError error, boolean sharedErrorWidget) {
+    public CharSequence formatText(Context context, MDKMessage error, boolean sharedErrorWidget) {
 
-        CharSequence oFormattedMessage = error.getErrorMessage();
+        CharSequence oFormattedMessage = error.getMessage();
 
         if (sharedErrorWidget) {
             StringBuilder formattedText = new StringBuilder(error.getComponentLabelName());

@@ -19,4 +19,7 @@
 
     <string name="mdkwidget_mandatory_error">Must be filled</string>
 
+    <string name="mdkwidget_max_length_error"></string>
+    <string name="mdkwidget_min_length_error"></string>
+
 </resources>

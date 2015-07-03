@@ -21,7 +21,7 @@ import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
-import com.soprasteria.movalysmdk.widget.core.error.MDKError;
+import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.basic.R;
@@ -63,19 +63,19 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     }
 
     @Override
-    public MDKError validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKError> resultPreviousValidator, Context context) {
-        MDKError mdkError = null;
+    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKMessage> resultPreviousValidator, Context context) {
+        MDKMessage mdkMessage = null;
         if ( mdkParameter.containsKey(R.attr.mandatory)
                 && mdkParameter.getBoolean(R.attr.mandatory)
                 && objectToValidate.length() < 1
                 && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
-            mdkError = new MDKError();
-            mdkError.setErrorCode(ERROR_MANDATORY);
+            mdkMessage = new MDKMessage();
+            mdkMessage.setErrorCode(ERROR_MANDATORY);
             String error = context.getString(R.string.mdkwidget_mandatory_error);
-            mdkError.setErrorMessage(error);
+            mdkMessage.setMessage(error);
         }
-        resultPreviousValidator.put(this.getClass().getName(), mdkError);
-        return mdkError;
+        resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
+        return mdkMessage;
     }
 
 }
