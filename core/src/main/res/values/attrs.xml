@@ -73,7 +73,7 @@
     <declare-styleable name="MDKCommons.MDKDateTimePickerComponent">
         <attr name="dateTextViewId" format="reference" />
         <attr name="timeTextViewId" format="reference" />
-        <attr name="mode" format="string" />
+        <attr format="enum" name="mode"><enum name="date" value="0"/><enum name="time" value="1"/><enum name="date_time" value="2"/></attr>
         <attr name="dateFormat" format="string" />
         <attr name="timeFormat" format="string" />
         <attr name="minDate" format="string" />
