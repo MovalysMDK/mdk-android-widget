@@ -24,12 +24,12 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
+import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +48,9 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private static final String DATE_PICKER_MODE = "date";
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker. */
     private static final String TIME_PICKER_MODE = "time";
+
+    /** Class name for error. */
+    private static final String LOG_TAG = "MDKDateTimePickerWidgetDelegate";
 
     /**
      * NULL_DATE_TEXT.
@@ -361,48 +364,45 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         Date dateToReturn = null;
 
-        // Check that Date or Time are not null
-        if (this.displayedDate != null || this.displayedTime != null) {
+        // Switch depending the picket mode
+        switch (dateTimePickerMode){
 
-            // Switch depending the picket mode
-            switch (dateTimePickerMode){
+            // Date only
+            case DATE_PICKER:
+                if (this.displayedDate != null) {
+                    dateToReturn = (Date) this.displayedDate.clone();
+                }
+                break;
 
-                // Date only
-                case DATE_PICKER:
-                    if (this.displayedDate != null) {
-                        dateToReturn = (Date) this.displayedDate.clone();
+            // Time only
+            case TIME_PICKER:
+                if (this.displayedTime != null) {
+                    dateToReturn = (Date) this.displayedTime.clone();
+                }
+                break;
+
+            // Both date and time
+            case DATE_TIME_PICKER:
+                if (this.displayedDate != null && displayedTime != null){
+                    StringBuilder sbDateTime =
+                            new StringBuilder().append(
+                                    new SimpleDateFormat("dd-MM-yyyy").format(this.displayedDate)).append(
+                                    new SimpleDateFormat("HH:mm").format(this.displayedTime));
+
+                    DateFormat dateTimeFormatter = new SimpleDateFormat("dd-MM-yyyyHH:mm");
+
+                    try {
+                        dateToReturn = dateTimeFormatter.parse(sbDateTime.toString());
+                    } catch (Exception e) {
+                        throw new MDKWidgetException(LOG_TAG + getContext().getClass() + "\"", e);
                     }
-                    break;
+                }
+                break;
 
-                // Time only
-                case TIME_PICKER:
-                    if (this.displayedTime != null) {
-                        dateToReturn = (Date) this.displayedTime.clone();
-                    }
-                    break;
-
-                // Both date and time
-                case DATE_TIME_PICKER:
-                    if (this.displayedDate != null && displayedTime != null){
-                        StringBuilder sbDateTime =
-                                new StringBuilder().append(
-                                        new SimpleDateFormat("dd-MM-yyyy").format(this.displayedDate)).append(
-                                        new SimpleDateFormat("HH:mm").format(this.displayedTime));
-
-                        DateFormat dateTimeFormatter = new SimpleDateFormat("dd-MM-yyyyHH:mm");
-
-                        try {
-                            dateToReturn = dateTimeFormatter.parse(sbDateTime.toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
-
-                default:
-                    break;
-            }
+            default:
+                break;
         }
+
         return dateToReturn;
     }
 

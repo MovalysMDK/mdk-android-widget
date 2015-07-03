@@ -108,7 +108,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         this.sharedErrorWidget = typedArray.getBoolean(R.styleable.MDKCommons_MDKErrorComponent_errorCentralized, false);
 
         if (helperResId != 0) {
-            this.setHelper(getResources().getString(helperResId));
+            this.setHelper(context, getResources().getString(helperResId));
         }
 
         if (resErrorOrderId != 0) {
@@ -116,16 +116,16 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
             this.setDisplayErrorOrder(displayErrorOrderArray);
         }
         typedArray.recycle();
-
     }
 
     /**
      * Setter.
+     * @param context application context to access resource
      * @param helper the new helper
      */
-    public void setHelper(CharSequence helper) {
+    public void setHelper(Context context,CharSequence helper) {
         this.helperText = helper;
-        updateErrorMessage();
+        updateErrorMessage(context);
     }
 
     /**
@@ -134,9 +134,9 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * @param error MDKError object to add
      */
     @Override
-    public void addError(int componentId, MDKError error) {
+    public void addError(Context context, int componentId, MDKError error) {
         this.errorSparseArray.put(componentId, error);
-        this.updateErrorMessage();
+        this.updateErrorMessage(context);
     }
 
     /**
@@ -144,18 +144,18 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * @param innerComponentId Resource Id of the component
      * */
     @Override
-    public void clear(int innerComponentId) {
+    public void clear(Context context, int innerComponentId) {
         this.errorSparseArray.remove(innerComponentId);
-        this.updateErrorMessage();
+        this.updateErrorMessage(context);
     }
 
     /**
      * Remove all components from the error list.
      */
     @Override
-    public void clear() {
+    public void clear(Context context) {
         this.errorSparseArray.clear();
-        this.updateErrorMessage();
+        this.updateErrorMessage(context);
     }
 
     /**
@@ -172,8 +172,9 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Update the component in order to display messages.
+     * @param context application context to access resource
      */
-    private void updateErrorMessage() {
+    private void updateErrorMessage(Context context) {
 
         // Concatenation of all error messages to be displayed
         SpannableStringBuilder sbErrorMessage = new SpannableStringBuilder();
@@ -181,7 +182,8 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         if (this.displayErrorOrderArrayList == null) {
             for(int currentComponentId = 0; currentComponentId < errorSparseArray.size(); currentComponentId++) {
                 MDKError currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
-                sbErrorMessage = generateCurrentMessage(sbErrorMessage,
+                sbErrorMessage = generateCurrentMessage(context,
+                                                        sbErrorMessage,
                                                         currentMDKError);
             }
 
@@ -189,7 +191,8 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
             for(Integer currentComponentId : this.displayErrorOrderArrayList) {
                 if (this.errorSparseArray.get(currentComponentId) != null){
                     MDKError currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
-                    sbErrorMessage = generateCurrentMessage(sbErrorMessage,
+                    sbErrorMessage = generateCurrentMessage(context,
+                                                            sbErrorMessage,
                                                             currentMDKError);
                 }
             }
@@ -221,16 +224,17 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
     /**
      * Return a SpannableStringBuilder object in order to build messages to display.
+     * @param context application context to access resource
      * @param outputStringBuild the output string
      * @param mdkError the mdk error
      * @return outputStringBuild the output string
      */
-    private SpannableStringBuilder generateCurrentMessage(SpannableStringBuilder outputStringBuild, MDKError mdkError){
+    private SpannableStringBuilder generateCurrentMessage(Context context, SpannableStringBuilder outputStringBuild, MDKError mdkError){
 
         MDKErrorMessageFormat interfaceFormat = getMDKErrorMessageFormat();
 
         CharSequence message = mdkError.getErrorMessage();
-        message = interfaceFormat.formatText(mdkError, isSharedErrorWidget());
+        message = interfaceFormat.formatText(context, mdkError, isSharedErrorWidget());
 
         if (outputStringBuild.length() > 0) {
             outputStringBuild.append("\n");
@@ -284,7 +288,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
             this.errorSparseArray = bundle.getSparseParcelableArray(ERROR_SPARSE_ARRAY);
             this.displayErrorOrderArrayList = bundle.getIntegerArrayList(ERROR_ORDER_ARRAY);
             super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
-            updateErrorMessage();
+            updateErrorMessage(getContext());
             return;
         }
         super.onRestoreInstanceState(state);

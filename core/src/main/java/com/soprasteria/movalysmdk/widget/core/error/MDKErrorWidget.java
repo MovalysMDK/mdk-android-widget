@@ -15,6 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.core.error;
 
+import android.content.Context;
+
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 
 /**
@@ -25,21 +27,24 @@ public interface MDKErrorWidget extends MDKRestorableWidget {
 
     /**
      * Add and the component and its associated error message to the current list of errors.
+     * @param context application context to access resource
      * @param componentId the component id
      * @param error MDKError object to add
      */
-    void addError(int componentId, MDKError error);
+    void addError(Context context,int componentId, MDKError error);
 
     /**
      * Remove component from the error list.
+     * @param context application context to access resource
      * @param innerComponentId Resource Id of the component
      */
-    void clear(int innerComponentId);
+    void clear(Context context,int innerComponentId);
 
     /**
      * Remove all components from the error list.
+     * @param context application context to access resource
      */
-    void clear();
+    void clear(Context context);
 
     /**
      * Set priority to of the component to be displayed (0 higher).

@@ -131,7 +131,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
             if (resHelperId != 0
                     && this.errorView != null
                     && this.errorView instanceof MDKErrorTextView ) {
-                ((MDKErrorTextView) this.errorView).setHelper(context.getString(resHelperId));
+                ((MDKErrorTextView) this.errorView).setHelper(context, context.getString(resHelperId));
             }
 
             // parse others attributes

@@ -299,11 +299,11 @@ public class MDKWidgetDelegate implements MDKWidget {
         View v = this.weakView.get();
         if (v instanceof MDKWidget) {
             if (error == null) {
-                (mdkErrorWidget).clear(((MDKWidget) v).getUniqueId());
+                (mdkErrorWidget).clear(getContext(), ((MDKWidget) v).getUniqueId());
             } else {
                 error.setComponentId(((MDKWidget) v).getUniqueId());
                 error.setComponentLabelName(this.getLabel());
-                (mdkErrorWidget).addError(((MDKWidget) v).getUniqueId(), error);
+                (mdkErrorWidget).addError(getContext(),((MDKWidget) v).getUniqueId(), error);
             }
         }
     }

@@ -15,6 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.core.error;
 
+import android.content.Context;
+
 /**
  * Class dedicated to methods on error messages formatting.
  */
@@ -27,7 +29,7 @@ public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
      * @return oFormattedMessage the formatted message
      */
     @Override
-    public CharSequence formatText(MDKError error, boolean sharedErrorWidget) {
+    public CharSequence formatText(Context context, MDKError error, boolean sharedErrorWidget) {
 
         CharSequence oFormattedMessage = error.getErrorMessage();
 

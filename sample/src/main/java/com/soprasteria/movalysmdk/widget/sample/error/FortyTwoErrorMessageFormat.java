@@ -15,8 +15,11 @@
  */
 package com.soprasteria.movalysmdk.widget.sample.error;
 
+import android.content.Context;
+
 import com.soprasteria.movalysmdk.widget.core.error.MDKError;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
+import com.soprasteria.movalysmdk.widget.sample.R;
 
 /**
  * Error Formatter that add the prefix "42 /!\ " to MDKError messages.
@@ -24,7 +27,8 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 public class FortyTwoErrorMessageFormat implements MDKErrorMessageFormat {
 
     @Override
-    public CharSequence formatText(MDKError error, boolean sharedErrorWidget) {
-        return "42 /!\\ " + error.getErrorMessage();
+    public CharSequence formatText(Context context, MDKError error, boolean sharedErrorWidget) {
+
+        return context.getString(R.string.error_prefix) + error.getErrorMessage();
     }
 }
