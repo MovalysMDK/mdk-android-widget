@@ -52,7 +52,7 @@ public class EmailWidgetCommand implements WidgetCommand<Email, Void> {
     @Override
     public Void execute(Context context, Email... email) {
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
-
+        //FIXME si email a une taille de zero ca va planter non ?
         if (email.length != 1 || email[0] == null) {
             throw new IllegalArgumentException("email command should only have one Email in parameter.");
         } else {

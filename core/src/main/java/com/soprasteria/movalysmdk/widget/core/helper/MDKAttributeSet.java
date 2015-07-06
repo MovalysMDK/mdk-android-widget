@@ -23,13 +23,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Helper to parse attibute set from widget and get the right type.
+ * Helper to parse attribute set from widget and get the right type.
  */
 public class MDKAttributeSet {
 
     /**
      * Log tag.
      */
+    //FIXME doit les clés de log ne devrait pas mettre MDK pour si retrouver
     public static final String LOG_TAG = "AttributeParserHelper";
 
     /**
