@@ -25,8 +25,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKDate;
 import com.soprasteria.movalysmdk.widget.core.R;
-import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
@@ -49,9 +49,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private static final String DATE_PICKER_MODE = "date";
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker. */
     private static final String TIME_PICKER_MODE = "time";
-
-    /** Class name for error. */
-    private static final String LOG_TAG = "MDKDateTimePickerWidgetDelegate";
 
     /**
      * NULL_DATE_TEXT.
@@ -83,10 +80,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /** Cached reference of the time view. */
     private WeakReference<View> cachedTimeView;
 
-    /** Date currently displayed. */
-    private Date displayedDate;
-    /** Time currently displayed. */
-    private Date displayedTime;
+
     /** Formatter used to display the date. */
     private DateFormat dateFormatter;
     /** Formatter used to display the time. */
@@ -101,9 +95,12 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /** True if the component is enabled. */
     private boolean enabled = true;
 
+    /** Handle processing on date and time. */
+    private static final MDKDate mdkDate = new MDKDate();
+
     /**
      * Constructor.
-     * @param view thge view
+     * @param view the view
      * @param attrs attributes
      */
     public MDKDateTimePickerWidgetDelegate(View view, AttributeSet attrs) {
@@ -182,16 +179,18 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private void updateShownDateTime() {
         if (dateViewId != 0) {
             // Update date value
-            if (displayedDate != null) {
-                getDateTextView().setText(this.dateFormatter.format(displayedDate));
+            if (this.mdkDate.getDateState() == MDKDate.DATE_TIME_NOT_NULL ||
+                    this.mdkDate.getDateState() == MDKDate.TIME_NULL) {
+                getDateTextView().setText(this.dateFormatter.format(this.mdkDate.getDate()));
             } else {
                 getDateTextView().setText(nullDateText);
             }
         }
         if (timeViewId != 0) {
             // Update time value
-            if (displayedTime != null) {
-                getTimeTextView().setText(this.timeFormatter.format(displayedTime));
+            if (this.mdkDate.getDateState() == MDKDate.DATE_TIME_NOT_NULL ||
+                    this.mdkDate.getDateState() == MDKDate.DATE_NULL)  {
+                getTimeTextView().setText(this.timeFormatter.format(this.mdkDate.getDate()));
             } else {
                 getTimeTextView().setText(nullTimeText);
             }
@@ -229,27 +228,31 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             if (view.getId() == this.dateViewId) {
                 // Display the date picker dialog
                 Calendar calendar = Calendar.getInstance();
-                if (displayedDate == null) {
-                    displayedDate = new Date();
+                if (this.mdkDate.getDateState() == this.mdkDate.DATE_NULL ||
+                        this.mdkDate.getDateState() == this.mdkDate.DATE_TIME_NULL) {
+                    this.mdkDate.setDate(new Date());
                 }
-                calendar.setTime(displayedDate);
+                calendar.setTime(this.mdkDate.getDate());
                 DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), this,
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
+
                 // Display dialog
                 dateDialog.show();
             } else if (view.getId() == this.timeViewId) {
                 // Display the time picker dialog
                 Calendar calendar = Calendar.getInstance();
-                if (displayedTime == null) {
-                    displayedTime = new Date();
+                if (this.mdkDate.getDateState() == this.mdkDate.TIME_NULL ||
+                        this.mdkDate.getDateState() == this.mdkDate.DATE_TIME_NULL) {
+                    this.mdkDate.setTime(new Date());
                 }
-                calendar.setTime(displayedTime);
+                calendar.setTime(this.mdkDate.getDate());
                 TimePickerDialog timeDialog = new TimePickerDialog(view.getContext(), this,
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE),
                         this.is24HourFormat);
+
                 // Display dialog
                 timeDialog.show();
             }
@@ -266,11 +269,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(displayedDate);
+        calendar.setTime(this.mdkDate.getDate());
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        displayedDate = calendar.getTime();
+        this.mdkDate.setDate(calendar.getTime());
 
         updateShownDateTime();
     }
@@ -284,10 +287,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(displayedTime);
+        calendar.setTime(this.mdkDate.getDate());
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
-        displayedTime = calendar.getTime();
+        this.mdkDate.setTime(calendar.getTime());
 
         updateShownDateTime();
     }
@@ -350,9 +353,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     public void setDisplayedDate(Date date) {
         if (date != null) {
-            this.displayedDate = (Date) date.clone();
-        } else {
-            this.displayedDate = null;
+            this.mdkDate.setDate(date);
         }
         updateShownDateTime();
     }
@@ -362,49 +363,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @return Date object according picking mode
      */
     public Date getDisplayedDate() {
+        return mdkDate.getDate();
 
-        Date dateToReturn = null;
-
-        // Switch depending the picket mode
-        switch (dateTimePickerMode){
-
-            // Date only
-            case DATE_PICKER:
-                if (this.displayedDate != null) {
-                    dateToReturn = (Date) this.displayedDate.clone();
-                }
-                break;
-
-            // Time only
-            case TIME_PICKER:
-                if (this.displayedTime != null) {
-                    dateToReturn = (Date) this.displayedTime.clone();
-                }
-                break;
-
-            // Both date and time
-            case DATE_TIME_PICKER:
-                if (this.displayedDate != null && displayedTime != null){
-                    StringBuilder sbDateTime =
-                            new StringBuilder().append(
-                                    new SimpleDateFormat("dd-MM-yyyy").format(this.displayedDate)).append(
-                                    new SimpleDateFormat("HH:mm").format(this.displayedTime));
-
-                    DateFormat dateTimeFormatter = new SimpleDateFormat("dd-MM-yyyyHH:mm");
-
-                    try {
-                        dateToReturn = dateTimeFormatter.parse(sbDateTime.toString());
-                    } catch (Exception e) {
-                        throw new MDKWidgetException(LOG_TAG + getContext().getClass() + "\"", e);
-                    }
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        return dateToReturn;
     }
 
     /**
@@ -413,10 +373,9 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     public void setDisplayedTime(Date time) {
         if (time != null) {
-            this.displayedTime = (Date) time.clone();
-        } else {
-            this.displayedTime = null;
+            this.mdkDate.setTime(time);
         }
+
         updateShownDateTime();
     }
 
