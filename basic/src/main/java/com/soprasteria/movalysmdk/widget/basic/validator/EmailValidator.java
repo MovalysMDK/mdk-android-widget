@@ -57,6 +57,7 @@ public class EmailValidator implements FormFieldValidator<String> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
+        //FIXME tester hasText pour éviter le ou ou pouvoir valider un mail sur champ text simple
         if (view instanceof MDKEmail
                 || view instanceof MDKRichEmail) {
             accept = true;
