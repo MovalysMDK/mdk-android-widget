@@ -105,7 +105,7 @@ public class EmailTest {
 
         // Write a valid email address
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("myemail@soprasteria.com"));
-
+        //FIXME le test semble incomplet on ne vérifie pas que le get sur le composant donne la bonne valeur
         // Check send button state
         onView(withId(R.id.buttonSend)).check(matches(isEnabled()));
 
@@ -150,6 +150,7 @@ public class EmailTest {
         // Check widgets are mandatory
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside))
                 .check(matches(withHint("Test hint (*)")));
+        //FIXME * provient d'une ressource à changer
 
         // remove mandatory option on widget
         onView(withId(R.id.mandatoryButton)).perform(click());

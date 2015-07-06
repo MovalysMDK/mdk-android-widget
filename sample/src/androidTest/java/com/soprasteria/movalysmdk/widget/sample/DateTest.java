@@ -81,6 +81,7 @@ public class DateTest {
         // Update time
         onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setDate(2015, 2, 2));
         onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(10,30));
+        //FIXME le test semble incomplet on ne vérifie pas que le getDate sur le composant donne la bonne valeur
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
@@ -94,6 +95,7 @@ public class DateTest {
 
         // Update time only
         onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(12,40));
+        //FIXME le test semble incomplet on ne vérifie pas que le getDate sur le composant donne la bonne valeur
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
