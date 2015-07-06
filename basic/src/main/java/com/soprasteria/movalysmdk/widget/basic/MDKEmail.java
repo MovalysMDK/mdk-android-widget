@@ -175,7 +175,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     }
 
 
-
+//FIXME refaire une passe sur les composants et les méthodes on ne doit forwarder que les méthodes utiles à l'utilisateur, pour les autres on passe par les délégates ca évitera de multiplier le nombre de méthodes
     @Override
     public MDKAttributeSet getAttributeMap() {
         return this.getMDKWidgetDelegate().getAttributeMap();
