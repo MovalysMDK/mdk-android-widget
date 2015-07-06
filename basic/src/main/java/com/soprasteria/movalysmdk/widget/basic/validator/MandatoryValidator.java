@@ -48,6 +48,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
+        //FIXME utiliser HasValidator si on composant peut se valider la notion d'obligatoire doit exister, en tout cas on ne peut pas laisser comme ça quand on aura 100 composants ...
         if (view instanceof EditText
                 || view instanceof MDKRichEditText
                 || view instanceof MDKRichEmail) {

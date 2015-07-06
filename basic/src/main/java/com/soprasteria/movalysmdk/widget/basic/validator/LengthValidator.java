@@ -46,6 +46,7 @@ public class LengthValidator implements FormFieldValidator<String> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
+        //FIXME utiliser hasText
         if (view instanceof EditText
                 || view instanceof MDKRichEditText
                 || view instanceof MDKRichEmail) {

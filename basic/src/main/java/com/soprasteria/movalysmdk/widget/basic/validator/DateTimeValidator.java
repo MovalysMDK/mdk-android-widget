@@ -41,6 +41,7 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
+        //FIXME utiliser hasDate
         if (view instanceof MDKDateTime
                 || view instanceof MDKBaseRichDateWidget) {
             accept = true;
