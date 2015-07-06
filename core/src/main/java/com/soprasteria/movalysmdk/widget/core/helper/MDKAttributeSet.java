@@ -54,6 +54,7 @@ public class MDKAttributeSet {
      * @param attr key to test
      * @return true if the key exists in MDKAttributeSet, false otherwise
      */
+    //FIXME sur toute la classe : manque annotation pour les ids
     public boolean containsKey(int attr) {
         return this.attributeMap.containsKey(attr);
     }
