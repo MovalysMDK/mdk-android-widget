@@ -42,6 +42,7 @@ import java.util.Date;
  * as the master component (as it hosts this delegate), and the TextView will act as the slave component.
  * The MDKDateTime chooses to be either a date or a time picker, and the slave will have the other role
  */
+//FIXME le delegate de la date devrait se trouver dans le projet basic, pas dans le projet core
 public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a date picker. */
