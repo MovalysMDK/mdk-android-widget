@@ -60,6 +60,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     /** Keyword for helper text. */
     private static final String HELPER_TEXT = "helperText";
     /** Keyword for error sparse array. */
+    //FIXME nous avons plein de constante qui commence par error, ici ce ne sont pas des erreurs  :confusions,... préfixer par BUNDLE l'ensemble des constantes ?
     private static final String ERROR_SPARSE_ARRAY = "errorSparseArray";
     /** Keyword for display error order array list. */
     private static final String ERROR_ORDER_ARRAY = "displayErrorOrderArrayList";
