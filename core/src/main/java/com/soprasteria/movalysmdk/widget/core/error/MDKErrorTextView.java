@@ -25,6 +25,7 @@ import android.util.SparseArray;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 
 import java.util.ArrayList;
@@ -132,11 +133,12 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * Add and the component and its associated error message to the current list of errors.
      * @param context the android context
      * @param componentId the component id
-     * @param error MDKError object to add
+     * @param errors MDKError object to add
      */
     @Override
-    public void addError(Context context, int componentId, MDKMessage error) {
-        this.errorSparseArray.put(componentId, error);
+    public void addError(Context context, int componentId, MDKMessages errors) {
+        // TODO modify this
+        this.errorSparseArray.put(componentId, errors.getFirstNonNullMessage());
         this.updateErrorMessage(context);
     }
 
@@ -235,13 +237,15 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         MDKErrorMessageFormat interfaceFormat = getMDKErrorMessageFormat();
 
-        CharSequence message = mdkMessage.getMessage();
-        message = interfaceFormat.formatText(context, mdkMessage, isSharedErrorWidget());
+        if (mdkMessage != null) {
+            CharSequence message = mdkMessage.getMessage();
+            message = interfaceFormat.formatText(context, mdkMessage, isSharedErrorWidget());
 
-        if (outputStringBuild.length() > 0) {
-            outputStringBuild.append("\n");
+            if (outputStringBuild.length() > 0) {
+                outputStringBuild.append("\n");
+            }
+            outputStringBuild.append(message);
         }
-        outputStringBuild.append(message);
 
         return outputStringBuild;
 

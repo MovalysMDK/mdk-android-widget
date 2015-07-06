@@ -27,10 +27,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
 /**
  * MDK Rich Widget.
@@ -239,7 +239,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     }
 
     @Override
-    public void addError(MDKMessage error) {
+    public void addError(MDKMessages error) {
         this.getInnerWidget().addError(error);
     }
 

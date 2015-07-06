@@ -32,9 +32,10 @@ import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
+import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
@@ -43,9 +44,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -77,6 +76,11 @@ public class MDKWidgetDelegate implements MDKWidget {
      * ERROR_STATE.
      */
     private static final int[] ERROR_STATE = {R.attr.state_error};
+
+    /**
+     * user error key.
+     */
+    private static final String USER_ERROR = "user_error";
 
     /**
      * Component qualifier.
@@ -287,7 +291,9 @@ public class MDKWidgetDelegate implements MDKWidget {
         // empty error and add the CharSequence as only error
         this.clearError();
         MDKMessage mdkMessage = new MDKMessage(this.getLabel(), error, MDKMessage.NO_ERROR_CODE);
-        this.addError(mdkMessage);
+        MDKMessages messages = new MDKMessages();
+        messages.put(USER_ERROR, mdkMessage);
+        this.addError(messages);
     }
 
     /**
@@ -295,7 +301,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param mdkErrorWidget the error widget
      * @param error the error
      */
-    private void setMdkErrorWidget(MDKErrorWidget mdkErrorWidget, MDKMessage error) {
+    private void setMdkErrorWidget(MDKErrorWidget mdkErrorWidget, MDKMessages error) {
         View v = this.weakView.get();
         if (v instanceof MDKWidget) {
             if (error == null) {
@@ -310,19 +316,19 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      * Set error.
-     * @param error the error to set
+     * @param messages the error to set
      */
-    public void addError(MDKMessage error) {
+    public void addError(MDKMessages messages) {
         View rootView = this.findRootView(true);
         if (rootView != null) {
             TextView errorView = (TextView) rootView.findViewById(this.errorViewId);
             if (errorView instanceof MDKErrorWidget){
-                setMdkErrorWidget((MDKErrorWidget) errorView, error);
+                setMdkErrorWidget((MDKErrorWidget) errorView, messages);
             } else if (errorView != null){
-                errorView.setText(error.getMessage());
+                errorView.setText(messages.getFirstErrorMessage());
             }
         }
-        this.error = (error != null);
+        this.error = (messages != null);
         View v = this.weakView.get();
         if (v != null) {
             v.refreshDrawableState();
@@ -589,7 +595,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         View v = this.weakView.get();
         if (v != null) {
 
-            Map<String, MDKMessage> returnMap = new HashMap<>();
+            MDKMessages returnMessages = new MDKMessages();
 
             // get the validation object
             Object objectToValidate = null;
@@ -611,15 +617,20 @@ public class MDKWidgetDelegate implements MDKWidget {
                     // this get the last part of the resource name
                     String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
                     FormFieldValidator mandatoryValidator = this.getValidator(validatorKey);
-                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, setError, this.attributesMap, returnMap);
+                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, setError, this.attributesMap, returnMessages);
                 }
             }
 
             // execute all others validators if no mandatory error
             if (bValid) {
                 for (FormFieldValidator validator : attributesValidators) {
-                    bValid = executeValidator(validator, objectToValidate, v, setError, this.attributesMap, returnMap) & bValid;
+                    bValid = executeValidator(validator, objectToValidate, v, setError, this.attributesMap, returnMessages) & bValid;
                 }
+            }
+
+            // set Errors
+            if (setError) {
+                this.addError(returnMessages);
             }
 
         } else {
@@ -627,8 +638,20 @@ public class MDKWidgetDelegate implements MDKWidget {
             this.clearError();
         }
 
+        this.notifyCommandListeners(bValid);
+
         this.setValid(bValid);
         return bValid;
+    }
+
+    /**
+     * Notify the command listeners registered.
+     * @param bValid true if the validation is ok, false otherwise
+     */
+    protected void notifyCommandListeners(boolean bValid) {
+        for (CommandStateListener listener : this.commandStateListeners) {
+            listener.notifyCommandStateChanged(bValid);
+        }
     }
 
     /**
@@ -641,23 +664,19 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param returnMap a Map containing previous validation errors
      * @return true if the FormFieldValidator return no error, false otherwise
      */
-    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError, MDKAttributeSet attributesMap, Map<String, MDKMessage> returnMap) {
+    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError, MDKAttributeSet attributesMap, MDKMessages returnMap) {
         boolean bValid = true;
         if (validator.accept(validatingView)) {
             MDKMessage mdkMessage = validator.validate(objectToValidate, attributesMap, returnMap, this.getContext());
 
             if (mdkMessage != null && mdkMessage.getMessageType() == MDKMessage.ERROR_TYPE) {
                 bValid = false;
-                if (setError) {
-                    this.addError(mdkMessage);
-                }
-            }
-            for (CommandStateListener listener : this.commandStateListeners) {
-                listener.notifyCommandStateChanged(bValid);
             }
         }
         return bValid;
     }
+
+
 
     /**
      * Play the animation if it is visible.

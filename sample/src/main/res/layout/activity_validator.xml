@@ -1,3 +1,20 @@
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mdk="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,9 +37,16 @@
         android:id="@+id/mdkRichText_withCustomValidator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        mdk:label="@string/hello_world"
         mdk:hint="@string/hello_world"
         mdk:no_number="true"
         mdk:mandatory="true"/>
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+
 
     <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
         android:id="@+id/mdkRichText_nomandatory_withCustomValidator"
@@ -30,6 +54,11 @@
         android:layout_height="wrap_content"
         mdk:hint="@string/hello_world"
         mdk:no_number="true"/>
+
+    <View
+        android:background="@drawable/separator_background"
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
 
 
     <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText

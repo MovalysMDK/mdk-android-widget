@@ -37,8 +37,8 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 
 /**
@@ -133,7 +133,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     }
 
     @Override
-    public void addError(MDKMessage error) {
+    public void addError(MDKMessages error) {
         this.mdkWidgetDelegate.addError(error);
     }
 

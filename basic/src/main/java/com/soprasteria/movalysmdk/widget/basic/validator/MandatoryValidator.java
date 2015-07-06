@@ -21,12 +21,11 @@ import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
+import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
-import com.soprasteria.movalysmdk.widget.basic.R;
-
-import java.util.Map;
 
 /**
  * This validator check the mandatory settings of a component.
@@ -63,7 +62,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     }
 
     @Override
-    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKMessage> resultPreviousValidator, Context context) {
+    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context) {
         MDKMessage mdkMessage = null;
         if ( mdkParameter.containsKey(R.attr.mandatory)
                 && mdkParameter.getBoolean(R.attr.mandatory)

@@ -32,8 +32,8 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
 /**
  * <p>Represents an Edit Text conforming to the Material Design guidelines.</p>
@@ -132,7 +132,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public void addError(MDKMessage error) {
+    public void addError(MDKMessages error) {
         this.mdkWidgetDelegate.addError(error);
     }
 

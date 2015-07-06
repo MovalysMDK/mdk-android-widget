@@ -20,8 +20,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
-
-import java.util.Map;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
 /**
  * Validation of form field.
@@ -66,5 +65,5 @@ public interface FormFieldValidator<T> {
      * @param context the android context
      * @return a MDKError containing the error or null
      */
-    MDKMessage validate(T objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKMessage> resultPreviousValidator, Context context);
+    MDKMessage validate(T objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context);
 }

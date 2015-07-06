@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+ *
+ * This file is part of Movalys MDK.
+ * Movalys MDK is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Movalys MDK is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.soprasteria.movalysmdk.widget.basic.validator;
 
 import android.content.Context;
@@ -9,9 +24,8 @@ import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
-
-import java.util.Map;
 
 /**
  * Length validator.
@@ -44,7 +58,7 @@ public class LengthValidator implements FormFieldValidator<String> {
     }
 
     @Override
-    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, Map<String, MDKMessage> resultPreviousValidator, Context context) {
+    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context) {
         MDKMessage mdkMessage = null;
         if (objectToValidate != null
                 && (mdkParameter.containsKey(R.attr.maxLength)
@@ -65,6 +79,7 @@ public class LengthValidator implements FormFieldValidator<String> {
                     String error = objectToValidate.length() +"/"+ mdkParameter.getInteger(R.attr.maxLength) ;
                     mdkMessage.setMessage(error);
                 }
+                resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
             }
             if ((mdkMessage == null || mdkMessage.getMessageType() != MDKMessage.ERROR_TYPE)
                     && mdkParameter.containsKey(R.attr.minLength)) {
@@ -83,6 +98,7 @@ public class LengthValidator implements FormFieldValidator<String> {
                     String error = objectToValidate.length() +"/"+ mdkParameter.getInteger(R.attr.minLength)+"+" ;
                     mdkMessage.setMessage(error);
                 }
+                resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
             }
         }
         return mdkMessage;
