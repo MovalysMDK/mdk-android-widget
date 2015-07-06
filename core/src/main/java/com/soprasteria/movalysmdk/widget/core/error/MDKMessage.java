@@ -32,7 +32,7 @@ public class MDKMessage implements Parcelable {
     public static final int ERROR_TYPE = 0;
     /** Message type. */
     public static final int MESSAGE_TYPE = 1;
-
+    //FIXME : Ajouter IntDef pour gérer une enumeration sur le type
 
     /**
      * Id of the component raising the error. This one is set according:

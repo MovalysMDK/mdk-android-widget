@@ -35,10 +35,12 @@ public class LengthValidator implements FormFieldValidator<String> {
     /**
      * max length error code.
      */
+    //FIXME pas homogène avec les autres validateurs : int ?
     private static final Integer ERROR_MAX_LENGTH = R.string.mdkwidget_max_length_error;
     /**
      * min length error code.
      */
+    //FIXME pas homogène avec les autres validateurs : int ?
     private static final Integer ERROR_MIN_LENGTH = R.string.mdkwidget_min_length_error;
 
     @Override

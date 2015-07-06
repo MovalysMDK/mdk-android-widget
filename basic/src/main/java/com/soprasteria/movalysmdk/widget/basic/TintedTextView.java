@@ -33,6 +33,8 @@ import android.util.AttributeSet;
  */
 public class TintedTextView extends AppCompatTextView implements TintableBackgroundView {
 
+    //FIXME SMA : cette classe n'est pas utilisable directement par l'utilisateur à changer de package
+
     /**
      * Attributes to apply tint.
      */
