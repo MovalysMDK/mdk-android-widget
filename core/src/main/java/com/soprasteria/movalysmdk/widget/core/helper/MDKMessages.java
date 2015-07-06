@@ -27,6 +27,7 @@ import java.util.Map;
 public class MDKMessages {
 
     /** the component id. */
+    //FIXME sur toute la classe manque d'annotation sur les ressources
     private int componentId;
     /** the component label. */
     private CharSequence componentLabel;
