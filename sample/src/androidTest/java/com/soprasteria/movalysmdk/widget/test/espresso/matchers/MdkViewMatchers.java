@@ -92,7 +92,7 @@ public class MdkViewMatchers {
      * @return matcher.
      */
     private static Matcher<View> withCharSequence(final int... resourceIds) {
-        return new AbstractTextViewBoundedMatcher() {
+        return new AbstractTextViewBoundedMatcher(resourceIds) {
             @Override
             protected CharSequence getText(TextView textView) {
                 return textView.getText();

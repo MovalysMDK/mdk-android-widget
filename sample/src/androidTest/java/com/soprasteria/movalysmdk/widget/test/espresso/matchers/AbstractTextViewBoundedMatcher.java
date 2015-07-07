@@ -37,7 +37,7 @@ public abstract class AbstractTextViewBoundedMatcher extends BoundedMatcher {
      */
     public AbstractTextViewBoundedMatcher(int... resourceIds) {
         super(TextView.class);
-        this.resourceIds = resourceIds;
+        this.resourceIds = resourceIds.clone();
     }
 
 
