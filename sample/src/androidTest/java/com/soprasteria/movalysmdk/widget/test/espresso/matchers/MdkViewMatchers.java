@@ -51,6 +51,20 @@ public class MdkViewMatchers {
     }
 
     /**
+     * Create macher checking a hint is equals to the concat text computed from string ressource ids.
+     * @param resourceIds list of resource ids
+     * @return matcher
+     */
+    public static Matcher<View> withConcatHint(final int... resourceIds) {
+        return new AbstractTextViewBoundedMatcher(resourceIds) {
+            @Override
+            protected CharSequence getText(TextView textView) {
+                return textView.getHint();
+            }
+        };
+    }
+
+    /**
      * Create a matcher to check the label in the text of a view.
      * <p>If the view is mandatory, the mandatory string (*) is added to the string comparison.</p>
      * @param labelId label id.
@@ -78,60 +92,10 @@ public class MdkViewMatchers {
      * @return matcher.
      */
     private static Matcher<View> withCharSequence(final int... resourceIds) {
-        return new BoundedMatcher(TextView.class) {
-
-            /**
-             * Resource names.
-             */
-            private String resourceNames ;
-
-            /**
-             * Concat text.
-             */
-            private String expectedText ;
-
+        return new AbstractTextViewBoundedMatcher() {
             @Override
-            public void describeTo(Description description) {
-                description.appendText("with string from resource ids: ");
-                for( int resId : resourceIds) {
-                    description.appendText(Integer.toString(resId));
-                    description.appendText(" ");
-                }
-                if(null != this.resourceNames) {
-                    description.appendText("[");
-                    description.appendText(this.resourceNames);
-                    description.appendText("]");
-                }
-
-                if(null != this.expectedText) {
-                    description.appendText(" value: ");
-                    description.appendText(this.expectedText);
-                }
-
-            }
-
-            @Override
-            public boolean matchesSafely(Object object) {
-                TextView textView = (TextView) object;
-                if(null == this.expectedText) {
-                    try {
-                        StringBuilder text = new StringBuilder();
-                        StringBuilder resName = new StringBuilder();
-                        for( int resId : resourceIds) {
-                            text.append(textView.getResources().getString(resId));
-                            resName.append(textView.getResources().getResourceEntryName(resId));
-                        }
-
-                        this.expectedText = text.toString();
-                        this.resourceNames = resName.toString();
-                    } catch (Resources.NotFoundException e) {
-                        Log.e(LOG_TAG, "MdkViewMatchers.withCharSequence failure", e);
-                    }
-                }
-
-                CharSequence actualText = textView.getText();
-
-                return null != this.expectedText && null != actualText?this.expectedText.equals(actualText.toString()):false;
+            protected CharSequence getText(TextView textView) {
+                return textView.getText();
             }
         };
     }

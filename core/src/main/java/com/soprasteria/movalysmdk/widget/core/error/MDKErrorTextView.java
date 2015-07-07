@@ -38,6 +38,17 @@ import java.util.List;
  */
 public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
+    /** Keyword for instanceState in save instance state. */
+    private static final String SAVE_BUNDLE_INSTANCE_STATE = "instanceState";
+    /** Keyword for shared error widget in save instance state. */
+    private static final String SAVE_BUNDLE_SHARED_ERROR_WIDGET = "sharedErrorWidget";
+    /** Keyword for helper text in save instance state. */
+    private static final String SAVE_BUNDLE_HELPER_TEXT = "helperText";
+    /** Keyword for error sparse array in save instance state. */
+    private static final String SAVE_BUNDLE_ERROR_SPARSE_ARRAY = "errorSparseArray";
+    /** Keyword for display error order array list in save instance state. */
+    private static final String SAVE_BUNDLE_ERROR_ORDER_ARRAY = "displayErrorOrderArrayList";
+
     /** Data structure to store component id and its associated error messages. */
     private SparseArray<MDKMessage> errorSparseArray = new SparseArray<>();
 
@@ -53,17 +64,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * */
     private boolean sharedErrorWidget = false;
 
-    /** Keyword for instanceState. */
-    private static final String INSTANCE_STATE = "instanceState";
-    /** Keyword for shared error widget. */
-    private static final String SHARED_ERROR_WIDGET = "sharedErrorWidget";
-    /** Keyword for helper text. */
-    private static final String HELPER_TEXT = "helperText";
-    /** Keyword for error sparse array. */
-    //FIXME nous avons plein de constante qui commence par error, ici ce ne sont pas des erreurs  :confusions,... préfixer par BUNDLE l'ensemble des constantes ?
-    private static final String ERROR_SPARSE_ARRAY = "errorSparseArray";
-    /** Keyword for display error order array list. */
-    private static final String ERROR_ORDER_ARRAY = "displayErrorOrderArrayList";
+    
     /**
      * MDKErrorWidge builder.
      * @param context Application context
@@ -267,20 +268,20 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     public void setSharedErrorWidget(boolean sharedErrorWidget) {
         this.sharedErrorWidget = sharedErrorWidget;
     }
-
+    
     @Override
     public Parcelable onSaveInstanceState() {
 
         Bundle bundle = new Bundle();
         // Save the android state
-        bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
-        bundle.putBoolean(SHARED_ERROR_WIDGET, this.sharedErrorWidget);
-        bundle.putCharSequence(HELPER_TEXT,this.helperText);
-        bundle.putSparseParcelableArray(ERROR_SPARSE_ARRAY, this.errorSparseArray);
+        bundle.putParcelable(SAVE_BUNDLE_INSTANCE_STATE, super.onSaveInstanceState());
+        bundle.putBoolean(SAVE_BUNDLE_SHARED_ERROR_WIDGET, this.sharedErrorWidget);
+        bundle.putCharSequence(SAVE_BUNDLE_HELPER_TEXT,this.helperText);
+        bundle.putSparseParcelableArray(SAVE_BUNDLE_ERROR_SPARSE_ARRAY, this.errorSparseArray);
         if (displayErrorOrderArrayList != null) {
-            bundle.putIntegerArrayList(ERROR_ORDER_ARRAY, new ArrayList<Integer>(displayErrorOrderArrayList));
+            bundle.putIntegerArrayList(SAVE_BUNDLE_ERROR_ORDER_ARRAY, new ArrayList<Integer>(displayErrorOrderArrayList));
         } else {
-            bundle.putIntegerArrayList(ERROR_ORDER_ARRAY, null);
+            bundle.putIntegerArrayList(SAVE_BUNDLE_ERROR_ORDER_ARRAY, null);
         }
         return bundle;
     }
@@ -290,11 +291,11 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
-            this.sharedErrorWidget = bundle.getBoolean(SHARED_ERROR_WIDGET);
-            this.helperText = bundle.getCharSequence(HELPER_TEXT);
-            this.errorSparseArray = bundle.getSparseParcelableArray(ERROR_SPARSE_ARRAY);
-            this.displayErrorOrderArrayList = bundle.getIntegerArrayList(ERROR_ORDER_ARRAY);
-            super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
+            this.sharedErrorWidget = bundle.getBoolean(SAVE_BUNDLE_SHARED_ERROR_WIDGET);
+            this.helperText = bundle.getCharSequence(SAVE_BUNDLE_HELPER_TEXT);
+            this.errorSparseArray = bundle.getSparseParcelableArray(SAVE_BUNDLE_ERROR_SPARSE_ARRAY);
+            this.displayErrorOrderArrayList = bundle.getIntegerArrayList(SAVE_BUNDLE_ERROR_ORDER_ARRAY);
+            super.onRestoreInstanceState(bundle.getParcelable(SAVE_BUNDLE_INSTANCE_STATE));
             updateErrorMessage(getContext());
             return;
         }

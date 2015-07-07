@@ -19,6 +19,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
 import com.soprasteria.movalysmdk.widget.test.espresso.actions.SpoonScreenshotAction;
 
 import org.junit.Rule;
@@ -29,7 +30,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
@@ -37,14 +37,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationPortrait;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatHint;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
-
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
 
 /**
  * Non regression testing class for custom MDK email widget.
@@ -105,13 +104,16 @@ public class EmailTest {
 
         // Write a valid email address
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("myemail@soprasteria.com"));
-        //FIXME le test semble incomplet on ne vérifie pas que le get sur le composant donne la bonne valeur
         // Check send button state
         onView(withId(R.id.buttonSend)).check(matches(isEnabled()));
 
         // click validate button
         onView(withId(R.id.validateButton)).check(matches(isEnabled()));
         onView(withId(R.id.validateButton)).perform(click());
+
+        // get value and check
+        CharSequence text = ((MDKEmail) mActivityRule.getActivity().findViewById(R.id.mdkEmail_withErrorAndCommandOutside)).getText();
+        assertThat("get equal set", "myemail@soprasteria.com".equals(text.toString()));
 
         // check no error
         onView(withId(R.id.errorText)).check(matches(withText(isEmptyOrNullString())));
@@ -149,14 +151,13 @@ public class EmailTest {
 
         // Check widgets are mandatory
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside))
-                .check(matches(withHint("Test hint (*)")));
-        //FIXME * provient d'une ressource à changer
+                .check(matches(withConcatHint(R.string.testHintText, R.string.mandatory_char)));
 
         // remove mandatory option on widget
         onView(withId(R.id.mandatoryButton)).perform(click());
 
         // Check widgets are no more mandatory
         onView(withId(R.id.mdkEmail_withErrorAndCommandOutside))
-                .check(matches(withHint("Test hint")));
+                .check(matches(withHint(R.string.testHintText)));
     }
 }

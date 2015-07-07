@@ -30,8 +30,7 @@ public class MDKAttributeSet {
     /**
      * Log tag.
      */
-    //FIXME doit les clés de log ne devrait pas mettre MDK pour si retrouver
-    public static final String LOG_TAG = "AttributeParserHelper";
+    public static final String LOG_TAG = "MDKAttributeSet";
 
     /**
      * Attribute map.
@@ -54,8 +53,7 @@ public class MDKAttributeSet {
      * @param attr key to test
      * @return true if the key exists in MDKAttributeSet, false otherwise
      */
-    //FIXME sur toute la classe : manque annotation pour les ids
-    public boolean containsKey(int attr) {
+    public boolean containsKey(@IdRes int attr) {
         return this.attributeMap.containsKey(attr);
     }
 
@@ -64,7 +62,7 @@ public class MDKAttributeSet {
      * @param attr key of the value
      * @return a boolean at the specified key
      */
-    public boolean getBoolean(int attr) {
+    public boolean getBoolean(@IdRes int attr) {
         return Boolean.valueOf(this.attributeMap.get(attr));
     }
 
@@ -73,7 +71,7 @@ public class MDKAttributeSet {
      * @param attr key to set the value
      * @param value value to set
      */
-    public void setBoolean(int attr, boolean value) {
+    public void setBoolean(@IdRes int attr, boolean value) {
         this.attributeMap.put(attr, String.valueOf(value));
     }
 
@@ -82,7 +80,7 @@ public class MDKAttributeSet {
      * @param attr key of the value
      * @return a integer at the specified key
      */
-    public int getInteger(int attr) {
+    public int getInteger(@IdRes int attr) {
         return Integer.valueOf(this.attributeMap.get(attr));
     }
     /**
@@ -90,7 +88,7 @@ public class MDKAttributeSet {
      * @param attr key to set the value
      * @param value value to set
      */
-    public void setInteger(int attr, int value) {
+    public void setInteger(@IdRes int attr, int value) {
         this.attributeMap.put(attr, String.valueOf(value));
     }
     /**
@@ -98,7 +96,7 @@ public class MDKAttributeSet {
      * @param attr key of the value
      * @return a float at the specified key
      */
-    public float getFloat(int attr) {
+    public float getFloat(@IdRes int attr) {
         return Float.valueOf(this.attributeMap.get(attr));
     }
     /**
@@ -106,7 +104,7 @@ public class MDKAttributeSet {
      * @param attr key to set the value
      * @param value value to set
      */
-    public void setFloat(int attr, float value) {
+    public void setFloat(@IdRes int attr, float value) {
         this.attributeMap.put(attr, String.valueOf(value));
     }
     /**
@@ -114,7 +112,7 @@ public class MDKAttributeSet {
      * @param attr key of the value
      * @return a String at the specified key
      */
-    public String getValue(int attr) {
+    public String getValue(@IdRes int attr) {
         return this.attributeMap.get(attr);
     }
     /**
@@ -122,7 +120,7 @@ public class MDKAttributeSet {
      * @param attr key to set the value
      * @param value value to set
      */
-    public void setValue(int attr, String value) {
+    public void setValue(@IdRes int attr, String value) {
         this.attributeMap.put(attr, value);
     }
     /**
@@ -130,7 +128,7 @@ public class MDKAttributeSet {
      * @param attr key of the value
      * @return a resource at the specified key
      */
-    public int getResource(int attr) {
+    @IdRes public int getResource(@IdRes int attr) {
         return Integer.valueOf(this.attributeMap.get(attr).replace("@", ""));
     }
     /**
@@ -138,7 +136,7 @@ public class MDKAttributeSet {
      * @param attr key to set the value
      * @param value value to set
      */
-    public void setResource(int attr, @IdRes int value) {
+    public void setResource(@IdRes int attr, @IdRes int value) {
         this.attributeMap.put(attr, String.valueOf("@"+value));
     }
 

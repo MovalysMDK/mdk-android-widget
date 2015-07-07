@@ -15,6 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.core.helper;
 
+import android.support.annotation.IdRes;
+
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 
 import java.util.LinkedHashMap;
@@ -27,7 +29,6 @@ import java.util.Map;
 public class MDKMessages {
 
     /** the component id. */
-    //FIXME sur toute la classe manque d'annotation sur les ressources
     private int componentId;
     /** the component label. */
     private CharSequence componentLabel;
@@ -46,7 +47,7 @@ public class MDKMessages {
      * Setter.
      * @param uniqueId the widget id
      */
-    public void setComponentId(int uniqueId) {
+    public void setComponentId(@IdRes int uniqueId) {
         this.componentId = uniqueId;
     }
 
@@ -54,7 +55,7 @@ public class MDKMessages {
      * Getter.
      * @return the widget id
      */
-    public int getComponentId() {
+    @IdRes public int getComponentId() {
         return componentId;
     }
 

@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -53,9 +54,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
     /** the error view. */
     private MDKErrorWidget errorView;
-
-    /** should always show the error view. */
-    private boolean errorAlwaysVisible;
     
     /** The string resource id for the hint. */
     private int resHintId;
@@ -204,7 +202,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      * Return resource's hint id.
      * @return resHintId the res hint id
      */
-    public int getResHintId() {
+    @IdRes public int getResHintId() {
         return this.resHintId;
     }
 
@@ -214,22 +212,22 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     }
 
     @Override
-    public void setRootViewId(int rootId) {
+    public void setRootViewId(@IdRes int rootId) {
         this.getInnerWidget().setRootViewId(rootId);
     }
 
     @Override
-    public void setLabelViewId(int labelId) {
+    public void setLabelViewId(@IdRes int labelId) {
         this.getInnerWidget().setLabelViewId(labelId);
     }
 
     @Override
-    public void setHelperViewId(int helperId) {
+    public void setHelperViewId(@IdRes int helperId) {
         this.getInnerWidget().setHelperViewId(helperId);
     }
 
     @Override
-    public void setErrorViewId(int errorId) {
+    public void setErrorViewId(@IdRes int errorId) {
         this.getInnerWidget().setErrorViewId(errorId);
     }
 

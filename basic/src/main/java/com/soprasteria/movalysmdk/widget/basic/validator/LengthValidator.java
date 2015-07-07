@@ -17,11 +17,9 @@ package com.soprasteria.movalysmdk.widget.basic.validator;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.EditText;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
@@ -46,10 +44,7 @@ public class LengthValidator implements FormFieldValidator<String> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
-        //FIXME utiliser hasText
-        if (view instanceof EditText
-                || view instanceof MDKRichEditText
-                || view instanceof MDKRichEmail) {
+        if (view instanceof HasText) {
             accept = true;
         }
         return accept;

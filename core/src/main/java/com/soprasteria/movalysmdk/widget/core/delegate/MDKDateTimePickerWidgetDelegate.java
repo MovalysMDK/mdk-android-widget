@@ -27,12 +27,15 @@ import android.widget.TimePicker;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKDate;
 import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Delegate for the MDKDateTime widget.
@@ -58,6 +61,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * NULL_TIME_TEXT.
      */
     private static final String NULL_TIME_TEXT = "--:--";
+
+    /**
+     * notify change listeners.
+     */
+    private List<ChangeListener> notifyChangeListeners;
 
     /** MDKDateTime active mode enumeration. */
     public enum DateTimePickerMode {
@@ -106,6 +114,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     public MDKDateTimePickerWidgetDelegate(View view, AttributeSet attrs) {
 
         super(view, attrs);
+
+        this.notifyChangeListeners = new ArrayList<>();
 
         // DateTimePicker specific fields parsing
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKDateTimePickerComponent);
@@ -198,6 +208,24 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
+     * Register a ChangeListener in delegate.
+     * @param listener the ChangeListener to register
+     */
+    public void registerChangeListener(ChangeListener listener) {
+        this.notifyChangeListeners.add(listener);
+    }
+
+    /**
+     * Notify all the ChangeListener registered.
+     */
+    private void notifyChangeListeners() {
+        for (ChangeListener listener :
+                this.notifyChangeListeners) {
+            listener.onChanged();
+        }
+    }
+
+    /**
      * Called by the view on the onAttachedToWindow event.
      * Initialize the click listeners and updates the date and time views
      */
@@ -237,6 +265,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
+                dateDialog.setOnDismissListener(null);
 
                 // Display dialog
                 dateDialog.show();
@@ -275,7 +304,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         this.mdkDate.setDate(calendar.getTime());
 
-        updateShownDateTime();
+        if(view.isShown()) {
+            updateShownDateTime();
+            this.notifyChangeListeners();
+        }
     }
 
     /**
@@ -292,7 +324,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         calendar.set(Calendar.MINUTE, minute);
         this.mdkDate.setTime(calendar.getTime());
 
-        updateShownDateTime();
+        if(view.isShown()) {
+            updateShownDateTime();
+            this.notifyChangeListeners();
+        }
     }
 
     /**

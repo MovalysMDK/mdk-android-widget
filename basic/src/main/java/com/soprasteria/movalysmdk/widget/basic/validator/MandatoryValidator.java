@@ -17,11 +17,9 @@ package com.soprasteria.movalysmdk.widget.basic.validator;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.EditText;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
@@ -48,10 +46,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
-        //FIXME utiliser HasValidator si on composant peut se valider la notion d'obligatoire doit exister, en tout cas on ne peut pas laisser comme ça quand on aura 100 composants ...
-        if (view instanceof EditText
-                || view instanceof MDKRichEditText
-                || view instanceof MDKRichEmail) {
+        if (view instanceof HasText) {
             accept = true;
         }
         return accept;

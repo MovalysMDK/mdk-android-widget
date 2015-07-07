@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -29,6 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKDateTimePickerWidgetDe
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 import java.util.Date;
 
@@ -52,7 +54,7 @@ import java.util.Date;
  *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator, HasDate, HasDelegate {
+public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator, HasDate, HasDelegate, HasChangeListener {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkDateTimePickerWidgetDelegate;
@@ -217,7 +219,7 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     }
 
     /**
-     * Returns the widget date and time according the chosen picking mode
+     * Returns the widget date and time according the chosen picking mode.
      * @return date the current date
      */
     @Override
@@ -246,5 +248,10 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         this.mdkDateTimePickerWidgetDelegate.setEnabled(enabled);
+    }
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.mdkDateTimePickerWidgetDelegate.registerChangeListener(listener);
     }
 }

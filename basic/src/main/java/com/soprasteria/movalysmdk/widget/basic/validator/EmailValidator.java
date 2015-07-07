@@ -18,9 +18,8 @@ package com.soprasteria.movalysmdk.widget.basic.validator;
 import android.content.Context;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
@@ -57,9 +56,7 @@ public class EmailValidator implements FormFieldValidator<String> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
-        //FIXME tester hasText pour éviter le ou ou pouvoir valider un mail sur champ text simple
-        if (view instanceof MDKEmail
-                || view instanceof MDKRichEmail) {
+        if (view instanceof HasText) {
             accept = true;
         }
         return accept;
