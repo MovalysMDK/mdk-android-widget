@@ -104,7 +104,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private boolean enabled = true;
 
     /** Handle processing on date and time. */
-    private static final MDKDate mdkDate = new MDKDate();
+    private final MDKDate mdkDate = new MDKDate();
 
     /**
      * Constructor.
