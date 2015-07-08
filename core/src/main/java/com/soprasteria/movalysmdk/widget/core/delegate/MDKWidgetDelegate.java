@@ -51,6 +51,7 @@ import java.util.Set;
  * The MDKWidgetDelegate handles the MDK logic for rich widgets.
  */
 //FIXME la classe fait 1000 lignes à découper ...
+    //FIXME peut etre faire des delegates sous forme de singleton avec un value object pour les attributs
 public class MDKWidgetDelegate implements MDKWidget {
 
     /**
