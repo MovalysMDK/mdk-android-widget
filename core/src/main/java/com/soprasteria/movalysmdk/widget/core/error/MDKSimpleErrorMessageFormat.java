@@ -20,6 +20,7 @@ import android.content.Context;
 /**
  * Class dedicated to methods on error messages formatting.
  */
+//FIXME la doc n'existe pas le formatage proposé par cette classe
 public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
 
     /**
