@@ -55,6 +55,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     /**
      * ADDED_MDK_STATE.
      */
+    //FIXME pourquoi 3 ? (mettre la raison dans la doc)
     private static final int ADDED_MDK_STATE = 3;
     /**
      * MANDATORY_VALID_STATE.
@@ -165,6 +166,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.weakView = new WeakReference<View>(view);
 
         this.richSelectors = new ArrayList<>();
+        //FIXME comment fait on pour surcharger les selectors ? en ajouter ?
         this.richSelectors.add(new SimpleMandatoryRichSelector());
 
         this.commandStateListeners = new ArrayList<>();

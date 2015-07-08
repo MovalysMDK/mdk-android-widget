@@ -20,6 +20,8 @@ import android.view.View;
 /**
  * Manage change of states for rich widget.
  */
+//FIXME d'après ce que je vois les selector sont sauvegardés dans le onRestore State ... ca doit imposer des contraintes
+    // ne pas stocker de vue ... parcelable ? compléter la doc à minima
 public interface RichSelector {
     /**
      * Handle behaviour when a change of state happens on rich widget.
