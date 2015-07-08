@@ -50,6 +50,7 @@ import java.util.Set;
 /**
  * The MDKWidgetDelegate handles the MDK logic for rich widgets.
  */
+//FIXME la classe fait 1000 lignes à découper ...
 public class MDKWidgetDelegate implements MDKWidget {
 
     /**
