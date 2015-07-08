@@ -21,6 +21,8 @@ import java.util.Date;
  */
 public class MDKDate {
 
+    //FIXME SMA : cette classe ne me semble pas dans le bon package à voir avec LMI
+
     /** The date and time are not null. */
     public static final int DATE_TIME_NOT_NULL = 0;
 
