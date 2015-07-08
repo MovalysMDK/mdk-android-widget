@@ -225,6 +225,7 @@ public class MDKMessage implements Parcelable {
         if (componentLabelName != null) {
             dest.writeString(componentLabelName.toString());
         } else {
+            //FIXME prévoir une constante pour ""
             dest.writeString("");
         }
         if (message != null) {
