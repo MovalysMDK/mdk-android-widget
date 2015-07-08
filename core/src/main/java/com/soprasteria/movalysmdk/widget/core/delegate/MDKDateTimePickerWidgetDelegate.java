@@ -56,10 +56,12 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /**
      * NULL_DATE_TEXT.
      */
+    //FIXME a remplacer par un hint
     private static final String NULL_DATE_TEXT = "--/--/----";
     /**
      * NULL_TIME_TEXT.
      */
+    //FIXME a remplacer par un hint
     private static final String NULL_TIME_TEXT = "--:--";
 
     /**
@@ -68,6 +70,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private List<ChangeListener> notifyChangeListeners;
 
     /** MDKDateTime active mode enumeration. */
+    //FIXME faire une enum à la sauce android avec IntRef ou StringRef
     public enum DateTimePickerMode {
         /** DATE_PICKER. */
         DATE_PICKER,
@@ -96,8 +99,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /** If true, the time input is in 24H format. */
     private boolean is24HourFormat;
     /** String used when the date is null. */
+    //FIXME construction étrange la variable ne semble pas servir
     private String nullDateText = NULL_DATE_TEXT;
     /** String used when the time is null. */
+    //FIXME construction étrange la variable ne semble pas servir
     private String nullTimeText = NULL_TIME_TEXT;
 
     /** True if the component is enabled. */
