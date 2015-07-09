@@ -56,6 +56,9 @@
     <string name="date_case_3">RichTime with label</string>
     <string name="date_case_4">RichDate without label but hint</string>
     <string name="date_case_5">DateTime with label and min date</string>
+    <string name="date_case_6">RichDateTime with label and dateHint and timeHint</string>
+    <string name="dateHint">DATE Hint</string>
+    <string name="timeHint">TIME Hint</string>
     <string name="topbar_validatebutton">validate</string>
     <string name="topbar_mandatorybutton">mandatory</string>
     <string name="topbar_disablebutton">Disable</string>

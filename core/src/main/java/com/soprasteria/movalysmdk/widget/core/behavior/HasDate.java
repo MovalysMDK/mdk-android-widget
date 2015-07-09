@@ -33,4 +33,16 @@ public interface HasDate {
      * @param date the new date
      */
     void setDate(Date date);
+
+    /**
+     * Setter date hint.
+     * @param dateHint the new date hint
+     */
+    void setDateHint(String dateHint);
+
+    /**
+     * Setter time hint.
+     * @param timeHint the new time hint
+     */
+    void setTimeHint(String timeHint);
 }

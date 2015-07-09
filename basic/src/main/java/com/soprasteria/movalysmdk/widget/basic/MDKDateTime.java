@@ -236,6 +236,17 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
         this.mdkDateTimePickerWidgetDelegate.setDisplayedDate(date);
     }
 
+    @Override
+    public void setDateHint(String dateHint) {
+        mdkDateTimePickerWidgetDelegate.setDateHint(dateHint);
+    }
+
+    @Override
+    public void setTimeHint(String timeHint) {
+        mdkDateTimePickerWidgetDelegate.setTimeHint(timeHint);
+
+    }
+
     /**
      * Sets the displayed time.
      * @param time the new time

@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.core;
 
 import android.support.annotation.IntDef;
+import android.util.Log;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -39,6 +40,11 @@ import java.util.Date;
 public class MDKDate {
 
     //FIXME SMA : cette classe ne me semble pas dans le bon package à voir avec LMI
+
+    /**
+     * Log tag.
+     */
+    public static final String LOG_TAG = "MDKDate";
 
     /** The date and time are not null. */
     public static final int DATE_TIME_NOT_NULL = 0;
@@ -68,10 +74,8 @@ public class MDKDate {
             Date tmpDate = dateFormat.parse(stringDate);
             setDate(tmpDate);
         } catch (ParseException e) {
-            e.printStackTrace();
-            // TODO mettre la bonne exception
+            Log.e(LOG_TAG, "Parsing date failure", e);
         }
-
     }
 
     /**

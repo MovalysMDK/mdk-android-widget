@@ -56,13 +56,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /**
      * NULL_DATE_TEXT.
      */
-    //FIXME a remplacer par un hint
-    private static final String NULL_DATE_TEXT = "--/--/----";
+    public static final String DEFAULT_DATE_HINT_TEXT = "--/--/----";
     /**
      * NULL_TIME_TEXT.
      */
-    //FIXME a remplacer par un hint
-    private static final String NULL_TIME_TEXT = "--:--";
+    public static final String DEFAULT_TIME_HINT_TEXT = "--:--";
 
     /**
      * notify change listeners.
@@ -86,6 +84,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private int dateViewId;
     /** ID of the time TextView. */
     private int timeViewId;
+
+    /** Date hint.*/
+    private String dateHint;
+    /** Time hint.*/
+    private String timeHint;
     /** Cached reference of the date view. */
     private WeakReference<View> cachedDateView;
     /** Cached reference of the time view. */
@@ -98,12 +101,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private DateFormat timeFormatter;
     /** If true, the time input is in 24H format. */
     private boolean is24HourFormat;
-    /** String used when the date is null. */
-    //FIXME construction étrange la variable ne semble pas servir
-    private String nullDateText = NULL_DATE_TEXT;
-    /** String used when the time is null. */
-    //FIXME construction étrange la variable ne semble pas servir
-    private String nullTimeText = NULL_TIME_TEXT;
 
     /** True if the component is enabled. */
     private boolean enabled = true;
@@ -142,6 +139,14 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         String dateFormatPattern = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateFormat);
         String timeFormatPattern = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeFormat);
 
+        dateHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateHint);
+        if (dateHint == null) {
+            dateHint = DEFAULT_DATE_HINT_TEXT;
+        }
+        timeHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeHint);
+        if (timeHint == null) {
+            timeHint = DEFAULT_TIME_HINT_TEXT;
+        }
         String minString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_min);
         String maxString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_max);
 
@@ -195,6 +200,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         if (minString != null) {
             this.minMDKDate.setDate(minString, this.dateFormatter);
         }
+
         if (maxString != null) {
             this.maxMDKDate.setDate(maxString, this.dateFormatter);
         }
@@ -242,7 +248,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                     this.mdkDate.getDateState() == MDKDate.TIME_NULL) {
                 getDateTextView().setText(this.dateFormatter.format(this.mdkDate.getDate()));
             } else {
-                getDateTextView().setText(nullDateText);
+                getDateTextView().setText(dateHint);
             }
         }
         if (timeViewId != 0) {
@@ -251,7 +257,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                     this.mdkDate.getDateState() == MDKDate.DATE_NULL)  {
                 getTimeTextView().setText(this.timeFormatter.format(this.mdkDate.getDate()));
             } else {
-                getTimeTextView().setText(nullTimeText);
+                getTimeTextView().setText(timeHint);
             }
         }
     }
@@ -531,6 +537,22 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     public void setMax(Date maxDate) {
         this.minMDKDate.setDate(maxDate.toString(), dateFormatter);
+    }
+
+    /**
+     * Setter date hint.
+     * @param dateHint the new date hint
+     */
+    public void setDateHint(String dateHint) {
+        this.dateHint = dateHint;
+    }
+
+    /**
+     * Setter time hint.
+     * @param timeHint the new time hint
+     */
+    public void setTimeHint(String timeHint) {
+        this.timeHint = timeHint;
     }
 
 }

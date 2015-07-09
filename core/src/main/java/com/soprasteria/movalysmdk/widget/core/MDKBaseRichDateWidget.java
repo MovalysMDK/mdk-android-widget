@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
@@ -24,6 +25,7 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 import java.util.Date;
@@ -50,6 +52,7 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
      */
     public MDKBaseRichDateWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
+        init(context, attrs);
     }
 
     /**
@@ -62,6 +65,7 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
      */
     public MDKBaseRichDateWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
+        init(context, attrs);
     }
 
     @Override
@@ -91,7 +95,40 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
     }
 
     @Override
+    public void setDateHint(String dateHint) {
+        getInnerWidget().setDateHint(dateHint);
+    }
+
+    @Override
+    public void setTimeHint(String timeHint) {
+        getInnerWidget().setTimeHint(timeHint);
+
+    }
+
+    @Override
     public void registerChangeListener(ChangeListener listener) {
         this.getInnerWidget().registerChangeListener(listener);
+    }
+
+    /**
+     * Initialization.
+     * @param context the context
+     * @param attrs attributes
+     */
+    private final void init(Context context, AttributeSet attrs){
+        //getInnerWidget().setDateHint(attrs.getS)
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKDateTimePickerComponent);
+        String dateHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateHint);
+        if (dateHint == null) {
+            dateHint = MDKDateTimePickerWidgetDelegate.DEFAULT_DATE_HINT_TEXT;
+        }
+        String timeHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeHint);
+        if (timeHint == null) {
+            timeHint = MDKDateTimePickerWidgetDelegate.DEFAULT_TIME_HINT_TEXT;
+        }
+
+        getInnerWidget().setDateHint(dateHint);
+        getInnerWidget().setTimeHint(timeHint);
+
     }
 }

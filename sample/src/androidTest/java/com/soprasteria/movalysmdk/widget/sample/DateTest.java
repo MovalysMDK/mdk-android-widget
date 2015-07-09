@@ -31,6 +31,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withHintLabel;
 import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkDateMatchers.withDateTime;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -129,7 +130,7 @@ public class DateTest {
                 .check(matches(withText("")));
 
         // Update time only
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(12,40));
+        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(12, 40));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
@@ -137,5 +138,27 @@ public class DateTest {
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
                 .check(matches(withText("")));
+    }
+
+    /**
+     * Test datehint and timehint.
+     */
+    @Test
+    public void testHints() {
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(click());
+
+        // Take screenshot
+        SpoonScreenshotAction.perform("richdatetime_hints");
+
+        // Check hint date value
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatoryAndHints))))
+                .check(matches(withText(R.string.dateHint)));
+
+        // Check hint time value
+        onView(allOf(withId(R.id.component_internal_time), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatoryAndHints))))
+                .check(matches(withText(R.string.timeHint)));
     }
 }
