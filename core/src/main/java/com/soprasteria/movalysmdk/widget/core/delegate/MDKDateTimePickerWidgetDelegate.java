@@ -190,6 +190,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         // Initialize currently selected date and date formatter
         this.dateFormatter = extractDateOrTimeFormat(dateFormatPattern, view, EnumKindOfExtraction.DATE_EXTRACTION);
+        this.timeFormatter = extractDateOrTimeFormat(timeFormatPattern, view, EnumKindOfExtraction.TIME_EXTRACTION);
 
         if (minString != null) {
             this.minMDKDate.setDate(minString, this.dateFormatter);
