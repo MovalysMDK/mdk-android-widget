@@ -55,7 +55,10 @@ public class MdkRichDateTimeAction {
                 MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget)view;
 
                 Calendar cal = Calendar.getInstance();
-                cal.set(year, monthOfYear-1, dayOfMonth, 0, 0);
+                cal.setTimeInMillis(0);
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, monthOfYear-1);
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 MDKDateTime dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
                 dateTimeView.setDate(cal.getTime());
@@ -89,7 +92,9 @@ public class MdkRichDateTimeAction {
                 MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget)view;
 
                 Calendar cal = Calendar.getInstance();
-                cal.set(0, 0, 0, hour, minute);
+                cal.setTimeInMillis(0);
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                cal.set(Calendar.MINUTE, minute);
 
                 MDKDateTime dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
                 dateTimeView.setTime(cal.getTime());

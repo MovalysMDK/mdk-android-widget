@@ -31,12 +31,14 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkDateMatchers.withDateTime;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
+import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkDateMatchers.withDate;
 import static com.soprasteria.movalysmdk.widget.test.espresso.actions.MdkRichDateTimeAction.setDate;
 import static com.soprasteria.movalysmdk.widget.test.espresso.actions.MdkRichDateTimeAction.setTime;
 
@@ -81,7 +83,7 @@ public class DateTest {
         // Update time
         onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setDate(2015, 2, 2));
         onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(10,30));
-        //FIXME le test semble incomplet on ne vérifie pas que le getDate sur le composant donne la bonne valeur
+        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).check(matches(withDateTime(2015, 2, 2, 10, 30)));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
@@ -95,7 +97,7 @@ public class DateTest {
 
         // Update time only
         onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(12,40));
-        //FIXME le test semble incomplet on ne vérifie pas que le getDate sur le composant donne la bonne valeur
+        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).check(matches(withDateTime(2015, 2, 2, 12, 40)));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());

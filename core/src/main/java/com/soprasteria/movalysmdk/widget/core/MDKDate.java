@@ -53,10 +53,10 @@ public class MDKDate {
     public static final int TIME_NULL = 3;
 
     /** Current user's date displayed. */
-    private Date dateDisplayed = null;
+    private Calendar dateDisplayed ;
 
     /** Current user's time displayed. */
-    private Date timeDisplayed = null;
+    private Calendar timeDisplayed ;
 
     /**
      * Setter.
@@ -76,18 +76,27 @@ public class MDKDate {
 
     /**
      * Set the user's date.
-     * @param mdkDateDate date to set as displayed.
+     * @param date date to set as displayed.
      */
-    public void setDate(Date mdkDateDate) {
-        this.dateDisplayed = (Date) mdkDateDate.clone();
+    public void setDate(Date date) {
+        this.dateDisplayed = Calendar.getInstance();
+        this.dateDisplayed.setTime(date);
+        this.dateDisplayed.set(Calendar.HOUR, 0);
+        this.dateDisplayed.set(Calendar.MINUTE, 0);
+        this.dateDisplayed.set(Calendar.SECOND, 0);
+        this.dateDisplayed.set(Calendar.MILLISECOND, 0);
     }
 
     /**
      * Set the user's time.
-     * @param mdkDateTime time to set as displayed.
+     * @param time time to set as displayed.
      */
-    public void setTime(Date mdkDateTime) {
-        this.timeDisplayed = (Date) mdkDateTime.clone();
+    public void setTime(Date time) {
+        this.timeDisplayed = Calendar.getInstance();
+        this.timeDisplayed.setTime(time);
+        this.timeDisplayed.set(Calendar.YEAR, 0);
+        this.timeDisplayed.set(Calendar.MONTH, 0);
+        this.timeDisplayed.set(Calendar.DAY_OF_MONTH, 0);
     }
 
     /**
@@ -95,31 +104,26 @@ public class MDKDate {
      * @return date according user's fields
      */
     public Date getDate(){
-        Date dateToReturn= null;
 
-        if (this.dateDisplayed != null) {
-            dateToReturn = (Date) this.dateDisplayed.clone();
+        Date dateToReturn = null ;
+        if ( this.dateDisplayed != null || this.timeDisplayed != null ) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(0);
+
+            if ( this.dateDisplayed != null ) {
+                cal.set(Calendar.YEAR, dateDisplayed.get(Calendar.YEAR));
+                cal.set(Calendar.MONTH, dateDisplayed.get(Calendar.MONTH));
+                cal.set(Calendar.DAY_OF_MONTH, dateDisplayed.get(Calendar.DAY_OF_MONTH));
+            }
+
+            if ( this.timeDisplayed != null ) {
+                cal.set(Calendar.HOUR_OF_DAY, timeDisplayed.get(Calendar.HOUR_OF_DAY));
+                cal.set(Calendar.MINUTE, timeDisplayed.get(Calendar.MINUTE));
+            }
+
+            dateToReturn = cal.getTime();
         }
-
-        if (this.timeDisplayed != null) {
-            dateToReturn = (Date) this.timeDisplayed.clone();
-        }
-
-        if (this.dateDisplayed != null && timeDisplayed != null){
-            Calendar dateCalendar = Calendar.getInstance();
-            dateCalendar.setTime(this.dateDisplayed);
-
-            Calendar timeCalendar = Calendar.getInstance();
-            timeCalendar.setTime(this.timeDisplayed);
-
-            dateCalendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
-            dateCalendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
-            dateCalendar.set(Calendar.SECOND, timeCalendar.get(Calendar.SECOND));
-
-            dateToReturn = dateCalendar.getTime();
-        }
-
-        return dateToReturn;
+        return dateToReturn ;
     }
 
     /**
