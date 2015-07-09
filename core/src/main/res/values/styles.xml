@@ -59,9 +59,9 @@
 
     <style name="MDKLabel" parent="Base.MDKLabel"></style>
 
-    <style name="MDKValueEditText" parent="Base.MDKValueEditText"></style>
-    <style name="MDKValueDate" parent="Base.MDKValueDate"></style>
-    <style name="MDKValue" parent="Base.MDKValue"></style>
+    <style name="MDKValueEditText" parent="Base.MDKValue.MDKValueEditText"></style>
+    <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"></style>
+    <style name="MDKValue" parent="Base.MDKValue.TextView"></style>
 
     <style name="MDKError" parent="Base.MDKError"></style>
 
@@ -69,7 +69,7 @@
     <style name="MDKCommand.Primary"></style>
     <style name="MDKCommand.Secondary"></style>
 
-    <style name="MDKRichLayout"/>
+    <style name="MDKRichLayout" parent="Base.MDKValue"/>
     
 
 </resources>

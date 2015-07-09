@@ -20,9 +20,9 @@
 
     <style name="Base.MDKLabel" parent="android:TextAppearance.Material.Small"></style>
 
-    <style name="Base.MDKValueEditText" parent="android:Widget.EditText"></style>
-    <style name="Base.MDKValueDate" parent="android:Widget.Material.Spinner.Underlined"></style>
-    <style name="Base.MDKValue" parent="android:TextAppearance.Material.Medium"></style>
+    <style name="Base.MDKValue.MDKValueEditText" parent="android:Widget.EditText"></style>
+    <style name="Base.MDKValue.MDKValueDate" parent="android:Widget.Material.Spinner.Underlined"></style>
+    <style name="Base.MDKValue.TextView" parent="android:TextAppearance.Material.Medium"></style>
 
     <style name="Base.MDKError" parent="android:TextAppearance.Material.Small"></style>
 
