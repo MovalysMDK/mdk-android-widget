@@ -20,6 +20,7 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -910,7 +911,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         }
 
         @Override
-        public void writeToParcel(Parcel out, int flags) {
+        public void writeToParcel(@NonNull Parcel out, int flags) {
             super.writeToParcel(out, flags);
 
             out.writeString(this.qualifier);

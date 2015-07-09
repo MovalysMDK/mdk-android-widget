@@ -57,17 +57,17 @@
         
     </style>
 
-    <style name="MDKLabel" parent="Base.MDKLabel"></style>
+    <style name="MDKLabel" parent="Base.MDKLabel"/>
 
-    <style name="MDKValueEditText" parent="Base.MDKValue.MDKValueEditText"></style>
-    <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"></style>
-    <style name="MDKValue" parent="Base.MDKValue.TextView"></style>
+    <style name="MDKValueEditText" parent="Base.MDKValue.MDKValueEditText"/>
+    <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"/>
+    <style name="MDKValue" parent="Base.MDKValue.TextView"/>
 
-    <style name="MDKError" parent="Base.MDKError"></style>
+    <style name="MDKError" parent="Base.MDKError"/>
 
     <style name="MDKCommand" parent="Base.MDKCommand"/>
-    <style name="MDKCommand.Primary"></style>
-    <style name="MDKCommand.Secondary"></style>
+    <style name="MDKCommand.Primary"/>
+    <style name="MDKCommand.Secondary"/>
 
     <style name="MDKRichLayout" parent="Base.MDKValue"/>
     

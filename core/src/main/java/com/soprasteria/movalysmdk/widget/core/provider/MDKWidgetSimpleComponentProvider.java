@@ -96,7 +96,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * @param context the Android context
      * @param validatorsKeys a array of String representing the validators key to instanciate
      */
-    private final void createValidatorsFromKeys(Context context, String[] validatorsKeys) {
+    private void createValidatorsFromKeys(Context context, String[] validatorsKeys) {
         for (String validatorKey : validatorsKeys) {
             FormFieldValidator tmp = this.createValidatorFromKey(context, validatorKey, null);
             if (tmp != null) {

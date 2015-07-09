@@ -17,12 +17,11 @@
 
 -->
 <resources>
-    <integer-array
-        name="errorOrderToDisplay">
+    <integer-array name="errorOrderToDisplay" translatable="false">
         <item>0</item>
     </integer-array>
 
-    <string-array name="validatorKeys">
+    <string-array name="validatorKeys" translatable="false">
         <item>mdkwidget_mdkedittext_validator_class</item>
         <item>mdkwidget_mdkedittext_lengthvalidator_class</item>
         <item>mdkwidget_mdkdatetime_validator_class</item>

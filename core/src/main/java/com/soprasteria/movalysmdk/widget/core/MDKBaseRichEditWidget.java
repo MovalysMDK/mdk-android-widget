@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StyleableRes;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
@@ -49,7 +50,7 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
      * @param attrs collection of attributes
      * @param defStyleAttr attribute in the current theme referencing a style resource
      */
-    public MDKBaseRichEditWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKBaseRichEditWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
     }
 
@@ -85,6 +86,7 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
      * <p>Use the validation of the inner widget</p>
      * @return true if the widget is valid, false otherwise
      */
+    @Override
     public boolean validate() {
         return this.getInnerWidget().validate();
     }

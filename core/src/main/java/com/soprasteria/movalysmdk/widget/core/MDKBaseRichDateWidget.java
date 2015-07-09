@@ -16,6 +16,8 @@
 package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -46,7 +48,7 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
      * @param context Context
      * @param attrs Collection of attributes
      */
-    public MDKBaseRichDateWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
+    public MDKBaseRichDateWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
     }
 
@@ -58,14 +60,10 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
      * @param attrs Collection of attributes
      * @param defStyleAttr Attribute in the current theme referencing a style resource
      */
-    public MDKBaseRichDateWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKBaseRichDateWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
     }
 
-    /**
-     * {@inheritDoc}
-     * @return
-     */
     @Override
     public boolean validate() {
         return this.getInnerWidget().validate();

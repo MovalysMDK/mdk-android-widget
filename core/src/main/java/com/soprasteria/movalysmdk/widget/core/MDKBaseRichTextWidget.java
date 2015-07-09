@@ -16,6 +16,8 @@
 package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
@@ -34,7 +36,7 @@ public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestorableWidget & H
      * @param context the context
      * @param attrs attributes
      */
-    public MDKBaseRichTextWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
+    public MDKBaseRichTextWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
     }
 
@@ -46,7 +48,7 @@ public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestorableWidget & H
      * @param attrs attributes
      * @param defStyleAttr defStyleAttr
      */
-    public MDKBaseRichTextWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKBaseRichTextWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
     }
 

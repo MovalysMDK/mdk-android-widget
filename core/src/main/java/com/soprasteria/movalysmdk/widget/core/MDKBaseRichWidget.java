@@ -20,6 +20,10 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -65,7 +69,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      * @param context the context
      * @param attrs attributes
      */
-    public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs) {
+    public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
@@ -79,7 +83,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      * @param attrs attributes
      * @param defStyleAttr the style
      */
-    public MDKBaseRichWidget(int layoutWithLabelId, int layoutWithoutLabelId, Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
@@ -92,7 +96,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      * @param layoutWithLabelId the layout id for the widget with label
      * @param layoutWithoutLabelId the layout id for the widget without label
      */
-    private void init(Context context, AttributeSet attrs, int layoutWithLabelId, int layoutWithoutLabelId) {
+    private void init(Context context, AttributeSet attrs, @LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId) {
 
         // replace the creation of the state drawable
         this.setAddStatesFromChildren(true);
@@ -202,7 +206,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      * Return resource's hint id.
      * @return resHintId the res hint id
      */
-    @IdRes public int getResHintId() {
+    @StringRes public int getResHintId() {
         return this.resHintId;
     }
 
@@ -288,12 +292,12 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     }
 
     @Override
-    protected void dispatchSaveInstanceState(SparseArray<Parcelable> container) {
+    protected void dispatchSaveInstanceState(@NonNull SparseArray<Parcelable> container) {
         dispatchFreezeSelfOnly(container);
     }
 
     @Override
-    protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
+    protected void dispatchRestoreInstanceState(@NonNull SparseArray<Parcelable> container) {
         dispatchThawSelfOnly(container);
     }
 
@@ -324,7 +328,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
         }
 
         @Override
-        public void writeToParcel(Parcel out, int flags) {
+        public void writeToParcel(@NonNull Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeSparseArray(childrenStates);
         }
