@@ -47,8 +47,8 @@ public abstract class AbstractTextViewBoundedMatcher extends BoundedMatcher {
     private int[] resourceIds = null;
 
     /**
-     * Create matcher
-     * @param resourceIds
+     * Create matcher.
+     * @param resourceIds resources to match
      */
     public AbstractTextViewBoundedMatcher(int... resourceIds) {
         super(TextView.class);
@@ -100,5 +100,10 @@ public abstract class AbstractTextViewBoundedMatcher extends BoundedMatcher {
         return null != this.expectedText && null != actualText?this.expectedText.equals(actualText.toString()):false;
     }
 
+    /**
+     * Return the CharSequence to match.
+     * @param textView the TextView to get text from
+     * @return the CharSequence to match
+     */
     protected abstract CharSequence getText(TextView textView);
 }
