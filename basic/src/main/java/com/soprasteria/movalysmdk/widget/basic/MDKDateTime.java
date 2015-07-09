@@ -20,7 +20,6 @@ import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 
-import com.soprasteria.movalysmdk.widget.core.MDKDate;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
@@ -55,7 +54,7 @@ import java.util.Date;
  *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator, HasDate, HasDelegate, HasChangeListener {
+public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator, HasDate, HasDelegate, HasChangeListener {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkDateTimePickerWidgetDelegate;

@@ -31,9 +31,7 @@ import android.util.AttributeSet;
  * The TintedTextView should be used to add Tinted behavior to a TextView.
  * <p>This class implement basic background tinted behavior (copied from AppCompatEditText)</p>
  */
-public class TintedTextView extends AppCompatTextView implements TintableBackgroundView {
-
-    //FIXME SMA : cette classe n'est pas utilisable directement par l'utilisateur à changer de package
+public class MDKTintedTextView extends AppCompatTextView implements TintableBackgroundView {
 
     /**
      * Attributes to apply tint.
@@ -53,7 +51,7 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
      * <p>Call the TintedTextView(context, null) constructor</p>
      * @param context the android context
      */
-    public TintedTextView(Context context) {
+    public MDKTintedTextView(Context context) {
         this(context, null);
     }
 
@@ -63,7 +61,7 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
      * @param context the android context
      * @param attrs the view attributes
      */
-    public TintedTextView(Context context, AttributeSet attrs) {
+    public MDKTintedTextView(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.mdkTintedTextViewStyle);
     }
 
@@ -74,7 +72,7 @@ public class TintedTextView extends AppCompatTextView implements TintableBackgro
      * @param attrs the view attributes
      * @param defStyleAttr attributes for style
      */
-    public TintedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKTintedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
