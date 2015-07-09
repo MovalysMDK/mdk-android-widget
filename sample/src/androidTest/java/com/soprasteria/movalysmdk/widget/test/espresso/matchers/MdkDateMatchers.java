@@ -17,6 +17,13 @@ import java.util.Date;
 public class MdkDateMatchers {
 
     /**
+     * Constructor.
+     */
+    private MdkDateMatchers() {
+        // empty constructor
+    }
+
+    /**
      * Create a matcher to check a date.
      * @param year year.
      * @param month month.

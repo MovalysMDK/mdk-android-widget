@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.core.delegate;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.res.TypedArray;
+import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.DatePicker;
@@ -29,6 +30,8 @@ import com.soprasteria.movalysmdk.widget.core.MDKDate;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -68,18 +71,20 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private List<ChangeListener> notifyChangeListeners;
 
     /** MDKDateTime active mode enumeration. */
-    //FIXME faire une enum à la sauce android avec IntRef ou StringRef
-    public enum DateTimePickerMode {
-        /** DATE_PICKER. */
-        DATE_PICKER,
-        /** TIME_PICKER. */
-        TIME_PICKER,
-        /** DATE_TIME_PICKER. */
-        DATE_TIME_PICKER,
+    @IntDef({DATE_PICKER, TIME_PICKER, DATE_TIME_PICKER})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface DateTimeMode {
     }
 
+    /** DATE_PICKER. */
+    public static final int DATE_PICKER = 1;
+    /** TIME_PICKER. */
+    public static final int TIME_PICKER = 2;
+    /** DATE_TIME_PICKER. */
+    public static final int DATE_TIME_PICKER = 3;
+
     /** Mode in which the widget is. */
-    private DateTimePickerMode dateTimePickerMode;
+    private int dateTimePickerMode;
     /** ID of the date TextView. */
     private int dateViewId;
     /** ID of the time TextView. */
@@ -159,38 +164,38 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             // All other cases are error case (dateTextView and timeTextView attributes should not
             // be set).
             if (modeAttr.equals(DATE_PICKER_MODE)) {
-                dateTimePickerMode = DateTimePickerMode.DATE_PICKER;
+                dateTimePickerMode = DATE_PICKER;
                 this.dateViewId = view.getId();
-                this.cachedDateView = new WeakReference<View>(view);
+                this.cachedDateView = new WeakReference<>(view);
             } else if (modeAttr.equals(TIME_PICKER_MODE)) {
-                dateTimePickerMode = DateTimePickerMode.TIME_PICKER;
+                dateTimePickerMode = TIME_PICKER;
                 this.timeViewId = view.getId();
-                this.cachedTimeView = new WeakReference<View>(view);
+                this.cachedTimeView = new WeakReference<>(view);
             } else {
                 // Default case : Date Picker
-                dateTimePickerMode = DateTimePickerMode.DATE_PICKER;
+                dateTimePickerMode = DATE_PICKER;
                 this.dateViewId = view.getId();
-                this.cachedDateView = new WeakReference<View>(view);
+                this.cachedDateView = new WeakReference<>(view);
             }
         } else if (dateViewId != 0) {
             // If a date view attribute has been set, we are in the case in which the master widget
             // handles the time, and the slave component handles the date.
-            dateTimePickerMode = DateTimePickerMode.DATE_TIME_PICKER;
+            dateTimePickerMode = DATE_TIME_PICKER;
             // The current view is the time view
             timeViewId = view.getId();
-            this.cachedTimeView = new WeakReference<View>(view);
+            this.cachedTimeView = new WeakReference<>(view);
         } else if (timeViewId != 0) {
             // If a time view attribute has been set, we are in the case in which the master widget
             // handles the date, and the slave component handles the time.
-            dateTimePickerMode = DateTimePickerMode.DATE_TIME_PICKER;
+            dateTimePickerMode = DATE_TIME_PICKER;
             // The current view is the date view
             dateViewId = view.getId();
-            this.cachedDateView = new WeakReference<View>(view);
+            this.cachedDateView = new WeakReference<>(view);
         } else {
             // Default case : Date Picker
-            dateTimePickerMode = DateTimePickerMode.DATE_PICKER;
+            dateTimePickerMode = DATE_PICKER;
             this.dateViewId = view.getId();
-            this.cachedDateView = new WeakReference<View>(view);
+            this.cachedDateView = new WeakReference<>(view);
         }
 
         // Initialize currently selected date and date formatter
@@ -393,7 +398,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         View foundDateView = null;
         // In time picker mode there is no date view
-        if (dateTimePickerMode != DateTimePickerMode.TIME_PICKER) {
+        if (dateTimePickerMode != TIME_PICKER) {
             // Try to reuse the cached view
             if (this.cachedDateView != null) {
                 foundDateView = this.cachedDateView.get();
@@ -419,7 +424,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         View foundTimeView = null;
         // In date picker mode there is no time view
-        if (dateTimePickerMode != DateTimePickerMode.DATE_PICKER) {
+        if (dateTimePickerMode != DATE_PICKER) {
             // Try to reuse the cached view
             if (this.cachedTimeView != null) {
                 foundTimeView = this.cachedTimeView.get();
@@ -473,7 +478,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * Returns the mode in which the widget is.
      * @return dateTimePickerMode the dateTimePickerMode
      */
-    public DateTimePickerMode getDateTimePickerMode() {
+    @DateTimeMode
+    public int getDateTimePickerMode() {
         return dateTimePickerMode;
     }
 
