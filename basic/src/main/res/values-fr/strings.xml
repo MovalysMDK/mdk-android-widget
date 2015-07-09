@@ -19,4 +19,7 @@
 
     <string name="mdkwidget_mandatory_error">Ce champ est obligatoire</string>
 
+    <string name="mdkwidget_error_date_range_validator">La date fournie n\'est pas dans la plage de valeurs</string>
+    <string name="mdkwidget_error_date_comparison">Erreur de comparaison de date</string>
+
 </resources>

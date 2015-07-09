@@ -20,6 +20,7 @@ import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 
+import com.soprasteria.movalysmdk.widget.core.MDKDate;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
@@ -125,7 +126,7 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
 
     @Override
     public int[] getValidators() {
-        return new int[] {R.string.mdkwidget_mdkdatetime_validator_class};
+        return new int[] {R.string.mdkwidget_mdkdatetime_validator_class, R.string.mdkwidget_mdkdatetimerange_validator_class};
     }
 
     @Override
@@ -254,4 +255,39 @@ public class MDKDateTime extends TintedTextView implements MDKWidget, MDKRestora
     public void registerChangeListener(ChangeListener listener) {
         this.mdkDateTimePickerWidgetDelegate.registerChangeListener(listener);
     }
+
+    /**
+     * Get max date (in Date format).
+     * @return Date the max date
+     */
+    public Date getMax() {
+        return this.mdkDateTimePickerWidgetDelegate.getMax();
+    }
+
+    /**
+     * Set the max date.
+     * @param maxDate the new max date
+     */
+    public void setMax(Date maxDate) {
+        this.mdkDateTimePickerWidgetDelegate.setMax(maxDate);
+    }
+
+    /**
+     * Get min date (in Date format).
+     * @return Date the min date
+     */
+    public Date getMin() {
+        return this.mdkDateTimePickerWidgetDelegate.getMin();
+    }
+
+    /**
+     * Set the new min date (in Date format).
+     * @param minDate the new min date
+     */
+    public void setMin(Date minDate) {
+        this.mdkDateTimePickerWidgetDelegate.setMin(minDate);
+    }
+
+
+
 }

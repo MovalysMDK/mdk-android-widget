@@ -54,6 +54,11 @@ public class DateActivity extends AppCompatActivity {
      */
     private MDKDateTime richDateTimeWithLabelAndMandatoryAndSharedError;
 
+    /**
+     * MDKDateTime  with a label, mandatory and a min date.
+     */
+    private MDKDateTime richDateTimeWithLabelAndMandatoryAndMinDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,7 @@ public class DateActivity extends AppCompatActivity {
         this.richDateWithLabelAndMandatory = (MDKRichDate)findViewById(R.id.mdkRichDate_withLabelAndMandatory);
         this.richTimeWithLabelAndMandatory = (MDKRichTime)findViewById(R.id.mdkRichTime_withLabelAndMandatory);
         this.richDateTimeWithLabelAndMandatoryAndSharedError = (MDKDateTime)findViewById(R.id.mdkDateTime_withLabelAndMandatoryAndSharedError);
+        this.richDateTimeWithLabelAndMandatoryAndMinDate = (MDKDateTime)findViewById(R.id.mdkDateTime_withLabelAndMandatoryAndMinDate);
     }
 
     /**
@@ -77,6 +83,7 @@ public class DateActivity extends AppCompatActivity {
         this.richDateWithLabelAndMandatory.validate();
         this.richTimeWithLabelAndMandatory.validate();
         this.richDateTimeWithLabelAndMandatoryAndSharedError.validate();
+        this.richDateTimeWithLabelAndMandatoryAndMinDate.validate();
     }
 
     /**
@@ -89,5 +96,6 @@ public class DateActivity extends AppCompatActivity {
         this.richDateWithLabelAndMandatory.setEnabled(!this.richDateWithLabelAndMandatory.isEnabled());
         this.richTimeWithLabelAndMandatory.setEnabled(!this.richTimeWithLabelAndMandatory.isEnabled());
         this.richDateTimeWithLabelAndMandatoryAndSharedError.setEnabled(!this.richDateTimeWithLabelAndMandatoryAndSharedError.isEnabled());
+        this.richDateTimeWithLabelAndMandatoryAndMinDate.setEnabled(!this.richDateTimeWithLabelAndMandatoryAndMinDate.isEnabled());
     }
 }

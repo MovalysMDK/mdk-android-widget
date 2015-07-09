@@ -26,6 +26,7 @@
         <item>mdkwidget_mdkedittext_validator_class</item>
         <item>mdkwidget_mdkedittext_lengthvalidator_class</item>
         <item>mdkwidget_mdkdatetime_validator_class</item>
+        <item>mdkwidget_mdkdatetimerange_validator_class</item>
         <item>mdkwidget_mdkemail_validator_class</item>
     </string-array>
 

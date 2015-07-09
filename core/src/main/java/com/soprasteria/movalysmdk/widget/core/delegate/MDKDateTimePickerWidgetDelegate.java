@@ -108,8 +108,19 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /** True if the component is enabled. */
     private boolean enabled = true;
 
+    /** Handle processing on min date and time. */
+    private MDKDate minMDKDate = new MDKDate();
+    /** Handle processing on max date and time. */
+    private MDKDate maxMDKDate = new MDKDate();
     /** Handle processing on date and time. */
     private final MDKDate mdkDate = new MDKDate();
+
+    /**
+     * Enum for extraction (time or date).
+     */
+    private enum EnumKindOfExtraction {
+        DATE_EXTRACTION, TIME_EXTRACTION
+    };
 
     /**
      * Constructor.
@@ -130,6 +141,9 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         timeViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeTextViewId, 0);
         String dateFormatPattern = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateFormat);
         String timeFormatPattern = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeFormat);
+
+        String minString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_min);
+        String maxString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_max);
 
         typedArray.recycle();
 
@@ -175,17 +189,46 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         }
 
         // Initialize currently selected date and date formatter
-        if (dateFormatPattern != null) {
-            this.dateFormatter = new SimpleDateFormat(dateFormatPattern);
-        } else {
-            this.dateFormatter = android.text.format.DateFormat.getDateFormat(view.getContext());
+        this.dateFormatter = extractDateOrTimeFormat(dateFormatPattern, view, EnumKindOfExtraction.DATE_EXTRACTION);
+
+        if (minString != null) {
+            this.minMDKDate.setDate(minString, this.dateFormatter);
         }
-        if (timeFormatPattern != null) {
-            this.timeFormatter = new SimpleDateFormat(timeFormatPattern);
-        } else {
-            this.timeFormatter = android.text.format.DateFormat.getTimeFormat(view.getContext());
+        if (maxString != null) {
+            this.maxMDKDate.setDate(maxString, this.dateFormatter);
+        }
+
+        this.getAttributeMap().setValue(R.attr.min, minString);
+        this.getAttributeMap().setValue(R.attr.max, maxString);
+
+        if (timeFormatPattern == null) {
             this.is24HourFormat = android.text.format.DateFormat.is24HourFormat(view.getContext());
         }
+    }
+
+    /**
+     * Extract date or time format from pattern.
+     * @param pattern the pattern.
+     * @param view the view.
+     * @param extractionType the kind of extraction (EnumKindOfExtraction)
+     * @return formattedDate the extracted date/time;
+     */
+    private DateFormat extractDateOrTimeFormat(String pattern, View view, EnumKindOfExtraction extractionType) {
+        /** Output. */
+        DateFormat formattedDateOrTime = null;
+        // Initialize currently selected date and date formatter
+        if (pattern != null) {
+            formattedDateOrTime = new SimpleDateFormat(pattern);
+        } else {
+            if (view != null) {
+                if (extractionType.equals(EnumKindOfExtraction.TIME_EXTRACTION)) {
+                    formattedDateOrTime = android.text.format.DateFormat.getTimeFormat(view.getContext());
+                } else {
+                    formattedDateOrTime = android.text.format.DateFormat.getDateFormat(view.getContext());
+                }
+            }
+        }
+        return formattedDateOrTime;
     }
 
     /**
@@ -455,4 +498,38 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             }
         }
     }
+
+
+    /**
+     * Get min date (in Date format).
+     * @return Date the min date
+     */
+    public Date getMin() {
+        return minMDKDate.getDate();
+    }
+
+    /**
+     * Set the min date.
+     * @param minDate the new min date
+     */
+    public void setMin(Date minDate) {
+        this.minMDKDate.setDate(minDate.toString(), dateFormatter);
+    }
+
+    /**
+     * Get max date (in Date format).
+     * @return Date th max date
+     */
+    public Date getMax() {
+        return minMDKDate.getDate();
+    }
+
+    /**
+     * Set the max date.
+     * @param maxDate the new max date
+     */
+    public void setMax(Date maxDate) {
+        this.minMDKDate.setDate(maxDate.toString(), dateFormatter);
+    }
+
 }

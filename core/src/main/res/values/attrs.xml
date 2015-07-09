@@ -76,10 +76,8 @@
         <attr format="enum" name="mode"><enum name="date" value="0"/><enum name="time" value="1"/><enum name="date_time" value="2"/></attr>
         <attr name="dateFormat" format="string" />
         <attr name="timeFormat" format="string" />
-        <attr name="minDate" format="string" />
-        <attr name="maxDate" format="string" />
-        <attr name="minTime" format="string" />
-        <attr name="maxTime" format="string" />
+        <attr name="min" format="string" />
+        <attr name="max" format="string" />
     </declare-styleable>
 
 </resources>

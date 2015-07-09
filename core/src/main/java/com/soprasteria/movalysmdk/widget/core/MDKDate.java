@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+ *
+ * This file is part of Movalys MDK.
+ * Movalys MDK is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Movalys MDK is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.soprasteria.movalysmdk.widget.core;
 
 import android.support.annotation.IntDef;
@@ -5,6 +20,8 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -40,6 +57,22 @@ public class MDKDate {
 
     /** Current user's time displayed. */
     private Date timeDisplayed = null;
+
+    /**
+     * Setter.
+     * @param stringDate the date in string format
+     * @param dateFormat the format pattern
+     */
+    public void setDate(String stringDate, DateFormat dateFormat) {
+        try {
+            Date tmpDate = dateFormat.parse(stringDate);
+            setDate(tmpDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // TODO mettre la bonne exception
+        }
+
+    }
 
     /**
      * Set the user's date.
@@ -119,4 +152,21 @@ public class MDKDate {
         return DATE_TIME_NOT_NULL;
     }
 
+    /**
+     * Check if the MDKDate is before.
+     * @param dateToCompare the date to compare
+     * @return true if the date is before other else
+     */
+    public boolean beforeDate(MDKDate dateToCompare) {
+        return this.getDate().before(dateToCompare.getDate());
+    }
+
+    /**
+     * Check if the MDKDate is after.
+     * @param dateToCompare the date to compare
+     * @return true if the date is after other else
+     */
+    public boolean afterDate(MDKDate dateToCompare) {
+        return this.getDate().after(dateToCompare.getDate());
+    }
 }

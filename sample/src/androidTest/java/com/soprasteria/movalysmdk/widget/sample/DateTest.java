@@ -104,4 +104,36 @@ public class DateTest {
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
                 .check(matches(withText("")));
     }
+
+    /**
+     * Test with a valid date time value but not in range acceptable value.
+     */
+    @Test
+    public void testNotValidDateRange() {
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // Update time
+        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setDate(2015, 2, 2));
+        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(10,30));
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(click());
+
+        // Take screenshot
+        SpoonScreenshotAction.perform("richdatetime_validvalue");
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
+                .check(matches(withText("")));
+
+        // Update time only
+        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(12,40));
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(click());
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
+                .check(matches(withText("")));
+    }
 }
