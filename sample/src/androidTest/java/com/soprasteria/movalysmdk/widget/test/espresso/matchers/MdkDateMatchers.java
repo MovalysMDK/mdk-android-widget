@@ -99,7 +99,6 @@ public class MdkDateMatchers {
                 }
 
                 Date actualDate = dateView.getDate();
-                Date matchDate = this.expectedDate.getTime();
 
                 return null != this.expectedDate && null != actualDate?this.expectedDate.getTime().equals(actualDate):false;
             }
