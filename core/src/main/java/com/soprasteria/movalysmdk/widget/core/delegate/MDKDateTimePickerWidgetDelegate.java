@@ -204,8 +204,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         //FIXME la format de date peut etre porté par le composant, c'est bien mais il faudrait aussi pouvoir le configurer de manière globale à l'application : 1/ sur le composant 2/ sur l'application 3/ en fonction de la locale
         // Initialize currently selected date and date formatter
-        this.dateFormatter = extractDateOrTimeFormat(dateFormatPattern, view.getContext(), DATE_EXTRACTION);
-        this.timeFormatter = extractDateOrTimeFormat(timeFormatPattern, view.getContext(), TIME_EXTRACTION);
+        this.dateFormatter = createDateFormat(dateFormatPattern, view.getContext(), DATE_EXTRACTION);
+        this.timeFormatter = createDateFormat(timeFormatPattern, view.getContext(), TIME_EXTRACTION);
 
         if (minString != null) {
             //FIXME a mon avis pour minString et maxString on ne peut pas utiliser le même formater : la local n'a pas de sens, pour moi dans le xml on doit respecter le format de l'application
@@ -235,20 +235,28 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     //FIXME A priori on a pas besoin de la vue mais du context, passer plutot le context en paramètre
     //FIXME Pourquoi le terme "extract" ? on cree juste un DateFormat à partir d'une chaine. Plutot createDateFormat.
     //FIXME Context en derniere position.
-    private DateFormat extractDateOrTimeFormat(String pattern, Context context, @EnumKindOfExtraction int extractionType) {
+    private DateFormat createDateFormat(String pattern, Context context, @EnumKindOfExtraction int extractionType) {
         /** Output. */
         DateFormat formattedDateOrTime = null;
         // Initialize currently selected date and date formatter
         if (pattern != null) {
             formattedDateOrTime = new SimpleDateFormat(pattern);
         } else {
-            if (context != null) {
-                if (extractionType == TIME_EXTRACTION) {
+
+            if (extractionType == TIME_EXTRACTION) {
+                if (context.getString(R.string. application_date_format) != null) {
+                    formattedDateOrTime = new SimpleDateFormat(context.getString(R.string.application_date_format));
+                } else {
                     formattedDateOrTime = android.text.format.DateFormat.getTimeFormat(context);
+                }
+            } else {
+                if (context.getString(R.string.application_time_format) != null) {
+                    formattedDateOrTime = new SimpleDateFormat(context.getString(R.string.application_time_format));
                 } else {
                     formattedDateOrTime = android.text.format.DateFormat.getDateFormat(context);
                 }
             }
+
         }
         return formattedDateOrTime;
     }
