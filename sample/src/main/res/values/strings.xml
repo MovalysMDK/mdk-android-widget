@@ -57,15 +57,15 @@
     <string name="date_case_4">RichDate without label but hint</string>
     <string name="date_case_5">DateTime with label and min date</string>
     <string name="date_case_6">RichDateTime with label and dateHint and timeHint</string>
-    <string name="dateHint">DATE Hint</string>
-    <string name="timeHint">TIME Hint</string>
+    <string name="dateHint" tranlatable="false">DATE Hint</string>
+    <string name="timeHint" tranlatable="false">TIME Hint</string>
     <string name="topbar_validatebutton">validate</string>
     <string name="topbar_mandatorybutton">mandatory</string>
     <string name="topbar_disablebutton">Disable</string>
     <string name="testHintText">Test hint</string>
     <string name="sendButtonText">send</string>
 
-    <string name="fortyTwoTextFormater_prefix">"42 /!\\ "</string>
+    <string name="fortyTwoTextFormater_prefix" tranlatable="false">"42 /!\\ "</string>
     <string name="title_activity_validator">ValidatorActivity</string>
 
     <string name="no_number_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator</string>
