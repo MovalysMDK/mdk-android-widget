@@ -120,6 +120,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /**
      * Enum for extraction (time or date).
      */
+    //FIXME Faire des enums au sens Android StringDef, IntDef
     private enum EnumKindOfExtraction {
         DATE_EXTRACTION, TIME_EXTRACTION
     };
@@ -198,11 +199,13 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             this.cachedDateView = new WeakReference<>(view);
         }
 
+        //FIXME la format de date peut etre porté par le composant, c'est bien mais il faudrait aussi pouvoir le configurer de manière globale à l'application : 1/ sur le composant 2/ sur l'application 3/ en fonction de la locale
         // Initialize currently selected date and date formatter
         this.dateFormatter = extractDateOrTimeFormat(dateFormatPattern, view, EnumKindOfExtraction.DATE_EXTRACTION);
         this.timeFormatter = extractDateOrTimeFormat(timeFormatPattern, view, EnumKindOfExtraction.TIME_EXTRACTION);
 
         if (minString != null) {
+            //FIXME a mon avis pour minString et maxString on ne peut pas utiliser le même formater : la local n'a pas de sens, pour moi dans le xml on doit respecter le format de l'application
             this.minMDKDate.setDate(minString, this.dateFormatter);
         }
 
@@ -210,6 +213,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             this.maxMDKDate.setDate(maxString, this.dateFormatter);
         }
 
+        //FIXME si c'est la map pour les validateurs qu'on rempli je trouve dommage qu'on ne donne pas une vrai date car dans le Validateur on refait le traitement
         this.getAttributeMap().setValue(R.attr.min, minString);
         this.getAttributeMap().setValue(R.attr.max, maxString);
 
@@ -225,6 +229,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param extractionType the kind of extraction (EnumKindOfExtraction)
      * @return formattedDate the extracted date/time;
      */
+    //FIXME A priori on a pas besoin de la vue mais du context, passer plutot le context en paramètre
     private DateFormat extractDateOrTimeFormat(String pattern, View view, EnumKindOfExtraction extractionType) {
         /** Output. */
         DateFormat formattedDateOrTime = null;

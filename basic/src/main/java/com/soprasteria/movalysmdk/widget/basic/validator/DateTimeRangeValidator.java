@@ -53,6 +53,7 @@ public class DateTimeRangeValidator  implements FormFieldValidator<Date> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
+        //FIXME il serait mieux d'avoir un HasDate pour ouvrir à d'autre composant
         if (view instanceof MDKDateTime
                 || view instanceof MDKBaseRichDateWidget) {
             accept = true;
