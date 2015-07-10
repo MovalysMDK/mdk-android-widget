@@ -24,5 +24,4 @@
 
     <string name="mdkwidget_error_date_range_validator">Date out of limits</string>
     <string name="mdkwidget_error_date_comparison">Error during date comparison</string>
-
 </resources>

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.delegate;
+package com.soprasteria.movalysmdk.widget.basic.delegate;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -26,9 +26,11 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.soprasteria.movalysmdk.widget.core.MDKBaseRichDateWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKDate;
-import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
@@ -57,15 +59,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     private static final String DATE_PICKER_MODE = "date";
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker. */
     private static final String TIME_PICKER_MODE = "time";
-
-    /**
-     * NULL_DATE_TEXT.
-     */
-    public static final String DEFAULT_DATE_HINT_TEXT = "--/--/----";
-    /**
-     * NULL_TIME_TEXT.
-     */
-    public static final String DEFAULT_TIME_HINT_TEXT = "--:--";
 
     /**
      * notify change listeners.
@@ -150,11 +143,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         dateHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateHint);
         if (dateHint == null) {
-            dateHint = DEFAULT_DATE_HINT_TEXT;
+            dateHint = MDKBaseRichDateWidget.DEFAULT_DATE_HINT_TEXT;
         }
         timeHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeHint);
         if (timeHint == null) {
-            timeHint = DEFAULT_TIME_HINT_TEXT;
+            timeHint = MDKBaseRichDateWidget.DEFAULT_TIME_HINT_TEXT;
         }
         String minString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_min);
         String maxString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_max);
@@ -244,7 +237,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         } else {
 
             if (extractionType == TIME_EXTRACTION) {
-                if (context.getString(R.string. application_date_format) != null) {
+                if (context.getString(R.string.application_date_format) != null) {
                     formattedDateOrTime = new SimpleDateFormat(context.getString(R.string.application_date_format));
                 } else {
                     formattedDateOrTime = android.text.format.DateFormat.getTimeFormat(context);

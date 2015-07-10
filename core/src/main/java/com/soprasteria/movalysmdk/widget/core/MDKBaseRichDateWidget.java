@@ -25,7 +25,6 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 import java.util.Date;
@@ -42,6 +41,15 @@ import java.util.Date;
  * @param <T> the inner widget type
  */
 public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDate & HasChangeListener> extends MDKBaseRichWidget<T> implements HasValidator, HasDate, HasChangeListener {
+
+    /**
+     * NULL_DATE_TEXT.
+     */
+    public static final String DEFAULT_DATE_HINT_TEXT = "--/--/----";
+    /**
+     * NULL_TIME_TEXT.
+     */
+    public static final String DEFAULT_TIME_HINT_TEXT = "--:--";
 
     /**
      * Constructor.
@@ -120,11 +128,11 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKDateTimePickerComponent);
         String dateHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateHint);
         if (dateHint == null) {
-            dateHint = MDKDateTimePickerWidgetDelegate.DEFAULT_DATE_HINT_TEXT;
+            dateHint = DEFAULT_DATE_HINT_TEXT;
         }
         String timeHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeHint);
         if (timeHint == null) {
-            timeHint = MDKDateTimePickerWidgetDelegate.DEFAULT_TIME_HINT_TEXT;
+            timeHint = DEFAULT_TIME_HINT_TEXT;
         }
 
         getInnerWidget().setDateHint(dateHint);
