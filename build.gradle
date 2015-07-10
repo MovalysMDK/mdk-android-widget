@@ -47,7 +47,7 @@ allprojects {
     }
 
     group = 'com.soprasteria.movalysmdk.widget'
-    version = '1.0.0-BETA2'
+    version = '1.0.0-SNAPSHOT'
 
     ext {
 
