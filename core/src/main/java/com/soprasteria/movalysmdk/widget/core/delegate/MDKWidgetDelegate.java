@@ -57,8 +57,15 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     /**
      * ADDED_MDK_STATE.
+     * <p>
+     *     Number of state handle by the mdk :
+     *     <ul>
+     *         <li>R.attr.state_mandatory</li>
+     *         <li>R.attr.state_valid</li>
+     *         <li>R.attr.state_error</li>
+     *     </ul>
+     * </p>
      */
-    //FIXME pourquoi 3 ? (mettre la raison dans la doc)
     private static final int ADDED_MDK_STATE = 3;
     /**
      * MANDATORY_VALID_STATE.

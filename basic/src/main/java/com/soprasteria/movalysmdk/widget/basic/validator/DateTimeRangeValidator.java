@@ -18,9 +18,8 @@ package com.soprasteria.movalysmdk.widget.basic.validator;
 import android.content.Context;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKDateTime;
 import com.soprasteria.movalysmdk.widget.basic.R;
-import com.soprasteria.movalysmdk.widget.core.MDKBaseRichDateWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
@@ -53,9 +52,7 @@ public class DateTimeRangeValidator  implements FormFieldValidator<Date> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
-        //FIXME il serait mieux d'avoir un HasDate pour ouvrir à d'autre composant
-        if (view instanceof MDKDateTime
-                || view instanceof MDKBaseRichDateWidget) {
+        if (view instanceof HasDate) {
             accept = true;
         }
         return accept;
