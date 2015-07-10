@@ -18,7 +18,7 @@
 -->
 <resources>
 
-    <string-array name="custom_validator">
+    <string-array name="custom_validator" translatable="false">
         <item>no_number_validator</item>
     </string-array>
 

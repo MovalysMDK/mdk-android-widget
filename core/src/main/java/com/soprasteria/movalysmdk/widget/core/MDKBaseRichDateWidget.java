@@ -130,5 +130,7 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
         getInnerWidget().setDateHint(dateHint);
         getInnerWidget().setTimeHint(timeHint);
 
+        typedArray.recycle();
+
     }
 }
