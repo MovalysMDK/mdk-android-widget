@@ -217,6 +217,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         }
 
         //FIXME si c'est la map pour les validateurs qu'on rempli je trouve dommage qu'on ne donne pas une vrai date car dans le Validateur on refait le traitement
+        //FIXME peut-etre gérer une map d'extra dans l'implémentation de MDKAttributeSet pour pouvoir faire un putExtra(String,Date).
         this.setAttributeMap(new MDKAttributeSet(attrs));
 
         if (timeFormatPattern == null) {
@@ -232,6 +233,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @return formattedDate the extracted date/time;
      */
     //FIXME A priori on a pas besoin de la vue mais du context, passer plutot le context en paramètre
+    //FIXME Pourquoi le terme "extract" ? on cree juste un DateFormat à partir d'une chaine. Plutot createDateFormat.
+    //FIXME Context en derniere position.
     private DateFormat extractDateOrTimeFormat(String pattern, Context context, @EnumKindOfExtraction int extractionType) {
         /** Output. */
         DateFormat formattedDateOrTime = null;
