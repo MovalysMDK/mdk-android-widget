@@ -19,7 +19,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.soprasteria.movalysmdk.widget.test.espresso.actions.SpoonScreenshotAction;
+import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,15 +34,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
+import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.notNullValue;
-
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationLandscape;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationPortrait;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
 
 /**
  * Tests for MdkRichEmail widget.

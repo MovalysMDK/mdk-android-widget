@@ -16,8 +16,7 @@ android {
         versionCode 100
         versionName "1.0.0"
 
-        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunner "com.soprasteria.movalysmdk.widget.test.AndroidJacocoTestRunner"
+        testInstrumentationRunner "com.soprasteria.movalysmdk.espresso.AndroidJacocoTestRunner"
     }
 
     buildTypes {
@@ -61,6 +60,11 @@ dependencies {
     androidTestCompile "com.android.support.test:runner:$supportTestRunnerVersion"
 
     androidTestCompile "com.squareup.spoon:spoon-client:$spoonClientVersion"
+
+    androidTestCompile "com.soprasteria.movalysmdk.espresso:mdk-espresso:${mdkEspressoVersion}@aar"
+    androidTestCompile (project(":espresso")) {
+        transitive = false
+    }
 }
 
 sonarRunner {

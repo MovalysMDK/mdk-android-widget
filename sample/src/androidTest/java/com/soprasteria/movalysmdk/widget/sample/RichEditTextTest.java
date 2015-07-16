@@ -36,16 +36,15 @@ import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVi
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.soprasteria.movalysmdk.espresso.action.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
+import static com.soprasteria.movalysmdk.espresso.action.DelayScrollToAction.delayScrollTo;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkLabelMatchers.withHintLabel;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkLabelMatchers.withTextLabel;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withHintLabel;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withTextLabel;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.CloseSoftKeyboardDelayAction.closeSoftKeyboardDelay;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.DelayScrollToAction.delayScrollTo;
 
 /**
  * Non regression testing class for custom MDK EditText widget.
@@ -148,7 +147,7 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name with the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withHintLabel(R.string.edit_text_label, true)));
+                .check(matches(withHintLabel(R.string.edit_text_label, R.string.mandatory_char)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
@@ -164,7 +163,7 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name with the (*) for mandatory use
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withTextLabel(R.string.edit_text_label, false)));
+                .check(matches(withTextLabel(R.string.edit_text_label)));
 
         // Use CustomScrollToAction to manage problem with Espresso (it does not take account of padding during scrollTo action).
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
@@ -182,7 +181,7 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name without the (*) for mandatory use
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withTextLabel(R.string.edit_text_label, false)));
+                .check(matches(withTextLabel(R.string.edit_text_label)));
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
@@ -263,7 +262,7 @@ public class RichEditTextTest {
 
         // Check that the label got the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withHintLabel(R.string.edit_text_hint, true)));
+                .check(matches(withHintLabel(R.string.edit_text_hint, R.string.mandatory_char)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
@@ -295,7 +294,7 @@ public class RichEditTextTest {
 
         // Check that the label got no (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withHintLabel(R.string.edit_text_hint, false)));
+                .check(matches(withHintLabel(R.string.edit_text_hint)));
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());

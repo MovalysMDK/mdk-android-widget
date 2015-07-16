@@ -19,7 +19,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.soprasteria.movalysmdk.widget.test.espresso.actions.SpoonScreenshotAction;
+import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,17 +31,14 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withHintLabel;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkDateMatchers.withDateTime;
+import static com.soprasteria.movalysmdk.espresso.action.MdkRichDateTimeAction.setDate;
+import static com.soprasteria.movalysmdk.espresso.action.MdkRichDateTimeAction.setTime;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkDateMatchers.withDateTime;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkDateMatchers.withDate;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.MdkRichDateTimeAction.setDate;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.MdkRichDateTimeAction.setTime;
 
 /**
  * Tests for MdkRichDate et MdkRichDateTime widgets.

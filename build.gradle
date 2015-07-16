@@ -61,6 +61,7 @@ allprojects {
         supportAnnotationVersion = "22.2.0"
         supportTestEspressoVersion = "2.2"
         supportTestRunnerVersion = "0.3"
+        mdkEspressoVersion = "1.0.0-SNAPSHOT"
 
         spoonClientVersion = "1.1.9"
 

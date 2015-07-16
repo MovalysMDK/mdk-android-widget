@@ -19,8 +19,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
-import com.soprasteria.movalysmdk.widget.test.espresso.actions.SpoonScreenshotAction;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,10 +35,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationLandscape;
-import static com.soprasteria.movalysmdk.widget.test.espresso.actions.OrientationChangeAction.orientationPortrait;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatHint;
-import static com.soprasteria.movalysmdk.widget.test.espresso.matchers.MdkViewMatchers.withConcatText;
+import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
+import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatHint;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
