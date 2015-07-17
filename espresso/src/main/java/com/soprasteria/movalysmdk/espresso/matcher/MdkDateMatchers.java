@@ -57,51 +57,98 @@ public class MdkDateMatchers {
      * @return matcher.
      */
     private static Matcher<View> matchDateTime( final int year, final int month, final int day, final int hour, final int minute ) {
-        return new BoundedMatcher(MDKBaseRichDateWidget.class) {
+        return new DateTimeMatcher(year, month, day, hour, minute);
+    }
 
-            /**
-             * Expected date.
-             */
-            private Calendar expectedDate ;
+    /**
+     * Matcher for MDKRichDateTime widget.
+     */
+    private static class DateTimeMatcher extends BoundedMatcher {
 
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("with date: ");
-                description.appendText(Integer.toString(year));
-                description.appendText("/");
-                description.appendText(Integer.toString(month));
-                description.appendText("/");
-                description.appendText(Integer.toString(day));
-                description.appendText(" ");
-                description.appendText(Integer.toString(hour));
-                description.appendText(":");
-                description.appendText(Integer.toString(minute));
+        /**
+         * Year.
+         */
+        private final int year;
 
-                if(null != this.expectedDate) {
-                    description.appendText(" value: ");
-                    description.appendText(this.expectedDate.toString());
-                }
+        /**
+         * Month.
+         */
+        private final int month;
 
+        /**
+         * Day.
+         */
+        private final int day;
+
+        /**
+         * Hour.
+         */
+        private final int hour;
+
+        /**
+         * Minute.
+         */
+        private final int minute;
+
+        /**
+         * Expected date.
+         */
+        private Calendar expectedDate ;
+
+        /**
+         * Constructor
+         * @param year year.
+         * @param month month.
+         * @param day day.
+         * @param hour hour.
+         * @param minute minute.
+         */
+        public DateTimeMatcher(int year, int month, int day, int hour, int minute) {
+            super(MDKBaseRichDateWidget.class);
+            this.year = year;
+            this.month = month;
+            this.day = day;
+            this.hour = hour;
+            this.minute = minute;
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            description.appendText("with date: ");
+            description.appendText(Integer.toString(year));
+            description.appendText("/");
+            description.appendText(Integer.toString(month));
+            description.appendText("/");
+            description.appendText(Integer.toString(day));
+            description.appendText(" ");
+            description.appendText(Integer.toString(hour));
+            description.appendText(":");
+            description.appendText(Integer.toString(minute));
+
+            if(null != this.expectedDate) {
+                description.appendText(" value: ");
+                description.appendText(this.expectedDate.toString());
             }
 
-            @Override
-            public boolean matchesSafely(Object object) {
-                MDKBaseRichDateWidget dateView = (MDKBaseRichDateWidget) object;
-                if(null == this.expectedDate) {
-                    this.expectedDate = Calendar.getInstance();
-                    expectedDate.set(Calendar.YEAR, year);
-                    expectedDate.set(Calendar.MONTH, month-1);
-                    expectedDate.set(Calendar.DAY_OF_MONTH, day);
-                    expectedDate.set(Calendar.HOUR_OF_DAY, hour);
-                    expectedDate.set(Calendar.MINUTE, minute);
-                    expectedDate.set(Calendar.SECOND, 0);
-                    expectedDate.set(Calendar.MILLISECOND, 0);
-                }
+        }
 
-                Date actualDate = dateView.getDate();
-
-                return null != this.expectedDate && null != actualDate?this.expectedDate.getTime().equals(actualDate):false;
+        @Override
+        public boolean matchesSafely(Object object) {
+            MDKBaseRichDateWidget dateView = (MDKBaseRichDateWidget) object;
+            if(null == this.expectedDate) {
+                this.expectedDate = Calendar.getInstance();
+                expectedDate.set(Calendar.YEAR, year);
+                expectedDate.set(Calendar.MONTH, month -1);
+                expectedDate.set(Calendar.DAY_OF_MONTH, day);
+                expectedDate.set(Calendar.HOUR_OF_DAY, hour);
+                expectedDate.set(Calendar.MINUTE, minute);
+                expectedDate.set(Calendar.SECOND, 0);
+                expectedDate.set(Calendar.MILLISECOND, 0);
             }
-        };
+
+            Date actualDate = dateView.getDate();
+
+            return null != this.expectedDate && null != actualDate ? this.expectedDate.getTime().equals(actualDate):false;
+        }
     }
 }
