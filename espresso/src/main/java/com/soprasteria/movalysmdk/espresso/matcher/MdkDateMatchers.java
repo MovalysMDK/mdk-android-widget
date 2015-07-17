@@ -96,7 +96,7 @@ public class MdkDateMatchers {
         private Calendar expectedDate ;
 
         /**
-         * Constructor
+         * Constructor.
          * @param year year.
          * @param month month.
          * @param day day.
