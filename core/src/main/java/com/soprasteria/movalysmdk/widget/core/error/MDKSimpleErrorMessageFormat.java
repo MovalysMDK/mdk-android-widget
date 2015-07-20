@@ -19,14 +19,15 @@ import android.content.Context;
 
 /**
  * Class dedicated to methods on error messages formatting.
+ * Formats an error as <em>component_label: error_message</em>
  */
-//FIXME la doc n'existe pas le formatage proposé par cette classe
 public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
 
     /**
      * Constructor.
-     * @param sharedErrorWidget defined if the error is defined inside a Rich component
+     * @param context application context to access resource
      * @param error MDKError object containing
+     * @param sharedErrorWidget defined if the error is defined inside a Rich component
      * @return oFormattedMessage the formatted message
      */
     @Override
