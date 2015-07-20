@@ -199,13 +199,13 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             this.cachedDateView = new WeakReference<>(view);
         }
 
-        //FIXME la format de date peut etre porté par le composant, c'est bien mais il faudrait aussi pouvoir le configurer de manière globale à l'application : 1/ sur le composant 2/ sur l'application 3/ en fonction de la locale
+        //TODO : MDK-546
         // Initialize currently selected date and date formatter
         this.dateFormatter = createDateFormat(dateFormatPattern, DATE_EXTRACTION, view.getContext());
         this.timeFormatter = createDateFormat(timeFormatPattern, TIME_EXTRACTION, view.getContext());
 
         if (minString != null) {
-            //FIXME a mon avis pour minString et maxString on ne peut pas utiliser le même formater : la local n'a pas de sens, pour moi dans le xml on doit respecter le format de l'application
+            //TODO : MDK-546
             this.minMDKDate.setDate(minString, this.dateFormatter);
         }
 
@@ -213,8 +213,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             this.maxMDKDate.setDate(maxString, this.dateFormatter);
         }
 
-        //FIXME si c'est la map pour les validateurs qu'on rempli je trouve dommage qu'on ne donne pas une vrai date car dans le Validateur on refait le traitement
-        //FIXME peut-etre gérer une map d'extra dans l'implémentation de MDKAttributeSet pour pouvoir faire un putExtra(String,Date).
+        //TODO : MDK-546
         this.setAttributeMap(new MDKAttributeSet(attrs));
 
         if (timeFormatPattern == null) {

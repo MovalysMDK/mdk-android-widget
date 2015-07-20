@@ -51,8 +51,8 @@ import java.util.Set;
 /**
  * The MDKWidgetDelegate handles the MDK logic for rich widgets.
  */
-//FIXME la classe fait 1000 lignes à découper ...
-    //FIXME peut etre faire des delegates sous forme de singleton avec un value object pour les attributs
+// la classe fait 1000 lignes à découper ...
+// peut etre faire des delegates sous forme de singleton avec un value object pour les attributs
 public class MDKWidgetDelegate implements MDKWidget {
 
     /**
@@ -87,12 +87,10 @@ public class MDKWidgetDelegate implements MDKWidget {
      * ERROR_STATE.
      */
     private static final int[] ERROR_STATE = {R.attr.state_error};
-
     /**
      * user error key.
      */
     private static final String USER_ERROR = "user_error";
-
     /**
      * Component qualifier.
      */
@@ -105,7 +103,6 @@ public class MDKWidgetDelegate implements MDKWidget {
      * richSelectors.
      */
     private List<RichSelector> richSelectors;
-
     /**
      * weakView.
      */
@@ -138,7 +135,6 @@ public class MDKWidgetDelegate implements MDKWidget {
      * uniqueId.
      */
     protected int uniqueId;
-
     /**
      * useRootIdOnlyForError.
      */
@@ -155,7 +151,6 @@ public class MDKWidgetDelegate implements MDKWidget {
      * error.
      */
     private boolean error = false;
-
     /**
      * Command state change listener, triggered when widget is validate.
      */
@@ -164,7 +159,6 @@ public class MDKWidgetDelegate implements MDKWidget {
      * attribute map for validator.
      */
     private MDKAttributeSet attributesMap;
-
 
     /**
      * Constructor.
@@ -176,7 +170,7 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.weakView = new WeakReference<View>(view);
 
         this.richSelectors = new ArrayList<>();
-        //FIXME comment fait on pour surcharger les selectors ? en ajouter ?
+        //TODO MDK-477
         this.richSelectors.add(new SimpleMandatoryRichSelector());
 
         this.commandStateListeners = new ArrayList<>();
