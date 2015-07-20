@@ -118,10 +118,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     @interface EnumKindOfExtraction {
     }
 
-    /** Indicates that the widget will be displaying a date */
+    /** Indicates that the widget will be displaying a date. */
     public static final int DATE_EXTRACTION = 1;
 
-    /** Indicates that the widget will be displaying a time */
+    /** Indicates that the widget will be displaying a time. */
     public static final int TIME_EXTRACTION = 2;
 
     /**
