@@ -18,10 +18,9 @@ package com.soprasteria.movalysmdk.widget.core.selector;
 import android.view.View;
 
 /**
- * Manage change of states for rich widget.
+ * Manage change of states for rich widget.<br/>
+ * Objects implementing this interface are not Parcelable and therefore should <u>NEVER</u> be processed in Android onRestore / onSave
  */
-//FIXME d'après ce que je vois les selector sont sauvegardés dans le onRestore State ... ca doit imposer des contraintes
-    // ne pas stocker de vue ... parcelable ? compléter la doc à minima
 public interface RichSelector {
     /**
      * Handle behaviour when a change of state happens on rich widget.
