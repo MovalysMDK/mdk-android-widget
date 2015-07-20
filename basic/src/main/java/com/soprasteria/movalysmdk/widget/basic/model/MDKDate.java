@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core;
+package com.soprasteria.movalysmdk.widget.basic.model;
 
 import android.support.annotation.IntDef;
 import android.util.Log;
@@ -38,8 +38,6 @@ import java.util.Date;
  *
  */
 public class MDKDate {
-
-    //FIXME SMA : cette classe ne me semble pas dans le bon package à voir avec LMI
 
     /**
      * Log tag.

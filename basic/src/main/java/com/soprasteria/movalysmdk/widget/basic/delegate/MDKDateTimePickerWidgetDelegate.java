@@ -28,7 +28,7 @@ import android.widget.TimePicker;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichDateWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKDate;
+import com.soprasteria.movalysmdk.widget.basic.model.MDKDate;
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
