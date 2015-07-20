@@ -54,6 +54,7 @@ import java.util.List;
  */
 public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
+    //FIXME pourquoi des chaines ? redondant avec l'enum du dessous ? utiliser une enum android StringDef ? IntDef ?
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a date picker. */
     private static final String DATE_PICKER_MODE = "date";
     /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker. */

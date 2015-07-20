@@ -46,6 +46,7 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
     /**
      * NULL_DATE_TEXT.
      */
+    //FIXME hint par défaut à changer et à ne pas mettre en dur mais dans un fichier xml, idem pour la constante de dessous
     public static final String DEFAULT_DATE_HINT_TEXT = "--/--/----";
     /**
      * NULL_TIME_TEXT.
