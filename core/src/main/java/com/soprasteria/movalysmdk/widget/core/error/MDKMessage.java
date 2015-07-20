@@ -18,21 +18,29 @@ package com.soprasteria.movalysmdk.widget.core.error;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntDef;
 
 /**
  * MDKError class definition.
  */
 public class MDKMessage implements Parcelable {
 
+    /** Empty message string. */
+    private static final String EMPTY_MESSAGE = "";
+
+    /**
+     * Enum for message type.
+     */
+    @IntDef({NO_ERROR_CODE, ERROR_TYPE, MESSAGE_TYPE})
+    @interface EnumKindOfMessage {
+    }
 
     /** No error code defined. */
     public static final int NO_ERROR_CODE = -1;
-
     /** Error type. */
     public static final int ERROR_TYPE = 0;
     /** Message type. */
     public static final int MESSAGE_TYPE = 1;
-    //FIXME : Ajouter IntDef pour gérer une enumeration sur le type
 
     /**
      * Id of the component raising the error. This one is set according:
@@ -108,7 +116,7 @@ public class MDKMessage implements Parcelable {
      */
     public MDKMessage(CharSequence componentLabelName,
                       CharSequence message,
-                      int errorCode) {
+                      @EnumKindOfMessage int errorCode) {
         init();
         this.componentLabelName = componentLabelName;
         this.message = message;
@@ -124,7 +132,7 @@ public class MDKMessage implements Parcelable {
      */
     public MDKMessage(CharSequence componentLabelName,
                       CharSequence message,
-                      int errorCode,
+                      @EnumKindOfMessage int errorCode,
                       int messageType) {
         init();
         this.componentLabelName = componentLabelName;
@@ -225,13 +233,12 @@ public class MDKMessage implements Parcelable {
         if (componentLabelName != null) {
             dest.writeString(componentLabelName.toString());
         } else {
-            //FIXME prévoir une constante pour ""
-            dest.writeString("");
+            dest.writeString(EMPTY_MESSAGE);
         }
         if (message != null) {
             dest.writeString(message.toString());
         } else {
-            dest.writeString("");
+            dest.writeString(EMPTY_MESSAGE);
         }
         dest.writeInt(errorCode);
         dest.writeInt(messageType);
