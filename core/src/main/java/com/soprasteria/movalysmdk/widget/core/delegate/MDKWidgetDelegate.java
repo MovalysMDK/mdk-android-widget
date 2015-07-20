@@ -16,12 +16,8 @@
 package com.soprasteria.movalysmdk.widget.core.delegate;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -30,135 +26,24 @@ import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
-import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
-import com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
  * The MDKWidgetDelegate handles the MDK logic for rich widgets.
  */
-// la classe fait 1000 lignes à découper ...
-// peut etre faire des delegates sous forme de singleton avec un value object pour les attributs
 public class MDKWidgetDelegate implements MDKWidget {
 
     /**
-     * ADDED_MDK_STATE.
-     * <p>
-     *     Number of state handle by the mdk :
-     *     <ul>
-     *         <li>R.attr.state_mandatory</li>
-     *         <li>R.attr.state_valid</li>
-     *         <li>R.attr.state_error</li>
-     *     </ul>
-     * </p>
+     * delegate value object.
      */
-    private static final int ADDED_MDK_STATE = 3;
-    /**
-     * MANDATORY_VALID_STATE.
-     */
-    private static final int[] MANDATORY_VALID_STATE = {R.attr.state_valid, R.attr.state_mandatory};
-    /**
-     * MANDATORY_ERROR_STATE.
-     */
-    private static final int[] MANDATORY_ERROR_STATE = {R.attr.state_error, R.attr.state_mandatory};
-    /**
-     * MANDATORY_STATE.
-     */
-    private static final int[] MANDATORY_STATE = {R.attr.state_mandatory};
-    /**
-     * VALID_STATE.
-     */
-    private static final int[] VALID_STATE = {R.attr.state_valid};
-    /**
-     * ERROR_STATE.
-     */
-    private static final int[] ERROR_STATE = {R.attr.state_error};
-    /**
-     * user error key.
-     */
-    private static final String USER_ERROR = "user_error";
-    /**
-     * Component qualifier.
-     */
-    private String qualifier;
-    /**
-     * Resource id of the helper.
-     */
-    private int resHelperId;
-    /**
-     * richSelectors.
-     */
-    private List<RichSelector> richSelectors;
-    /**
-     * weakView.
-     */
-    protected WeakReference<View> weakView;
-    /**
-     * Widget root id.
-     */
-    protected int rootViewId;
-    /**
-     * Widget label id.
-     */
-    protected int labelViewId;
-    /**
-     * showFloatingLabelAnimId.
-     */
-    protected int showFloatingLabelAnimId;
-    /**
-     * hideFloatingLabelAnimId.
-     */
-    protected int hideFloatingLabelAnimId;
-    /**
-     * helperViewId.
-     */
-    protected int helperViewId;
-    /**
-     * errorViewId.
-     */
-    protected int errorViewId;
-    /**
-     * uniqueId.
-     */
-    protected int uniqueId;
-    /**
-     * useRootIdOnlyForError.
-     */
-    private boolean useRootIdOnlyForError = false;
-    /**
-     * valid.
-     */
-    private boolean valid = false;
-    /**
-     * mandatory.
-     */
-    private boolean mandatory = false;
-    /**
-     * error.
-     */
-    private boolean error = false;
-    /**
-     * Command state change listener, triggered when widget is validate.
-     */
-    private List<CommandStateListener> commandStateListeners;
-    /**
-     * attribute map for validator.
-     */
-    private MDKAttributeSet attributesMap;
+    protected MDKWidgetDelegateValueObject valueObject = new MDKWidgetDelegateValueObject();
 
     /**
      * Constructor.
@@ -166,35 +51,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param attrs the parameters set
      */
     public MDKWidgetDelegate(View view, AttributeSet attrs) {
-
-        this.weakView = new WeakReference<View>(view);
-
-        this.richSelectors = new ArrayList<>();
-        //TODO MDK-477
-        this.richSelectors.add(new SimpleMandatoryRichSelector());
-
-        this.commandStateListeners = new ArrayList<>();
-
-        TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
-
-        this.rootViewId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-        this.labelViewId = typedArray.getResourceId(R.styleable.MDKCommons_labelId, 0);
-        this.showFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_showFloatingLabelAnim, 0);
-        this.hideFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_hideFloatingLabelAnim, 0);
-        this.helperViewId = typedArray.getResourceId(R.styleable.MDKCommons_helperId, 0);
-        this.errorViewId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
-
-        this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
-
-        this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
-
-        this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
-
-        typedArray.recycle();
-
-        this.attributesMap = new MDKAttributeSet(attrs);
-        this.attributesMap.setBoolean(R.attr.mandatory, this.mandatory);
-
+        this.valueObject.initialize(view, attrs);
     }
 
     /**
@@ -202,7 +59,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @return the {@link MDKAttributeSet} of the delegate
      */
     public MDKAttributeSet getAttributeMap() {
-        return this.attributesMap;
+        return this.valueObject.getAttributesMap();
     }
 
     /**
@@ -210,7 +67,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param attributeMap the {@link MDKAttributeSet} to set on the delegate
      */
     public void setAttributeMap(MDKAttributeSet attributeMap) {
-        this.attributesMap = attributeMap;
+        this.valueObject.setAttributesMap(attributeMap);
     }
 
     /**
@@ -219,20 +76,22 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public void setUniqueId(int parentId) {
-        this.uniqueId = parentId;
+        this.valueObject.setUniqueId(parentId);
     }
 
-    // Return the unique id of the widget.
+    /**
+     * Return the unique id of the widget.
+     * @return the unique id of the widget
+     */
     @Override
     public int getUniqueId() {
-        if (uniqueId == 0) {
-            View view = this.weakView.get();
+        if (this.valueObject.getUniqueId() == 0) {
+            View view = this.valueObject.getView();
             if (view != null) {
                 return view.getId();
             }
         }
-
-        return uniqueId;
+        return this.valueObject.getUniqueId();
     }
 
     /**
@@ -241,7 +100,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public Context getContext() {
-        View view = this.weakView.get();
+        View view = this.valueObject.getView();
         if (view != null) {
             return view.getContext();
         }
@@ -249,22 +108,22 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * <p>This function finds the root view of the error when </p>this last is shared within components.
+     * This function finds the root view of the error when this last is shared within components.
      * @param useRootIdForError use id for error
      * @return oView the root view
      */
     public View findRootView(boolean useRootIdForError) {
         View oView = null;
-        View v = this.weakView.get();
+        View v = this.valueObject.getView();
         if (v != null) {
             if (!useRootIdForError) {
-                if (this.rootViewId == 0 || this.useRootIdOnlyForError ) {
+                if (this.valueObject.getRootViewId() == 0 || this.valueObject.isUseRootIdOnlyForError() ) {
                     oView = (View) v.getParent();
                 } else {
                     oView = getMatchRootParent((View) v.getParent());
                 }
             } else {
-                if (this.useRootIdOnlyForError || this.rootViewId != 0) {
+                if (this.valueObject.isUseRootIdOnlyForError() || this.valueObject.getRootViewId() != 0) {
                     oView = getMatchRootParent((View) v.getParent());
                 } else {
                     oView = (View) v.getParent();
@@ -275,22 +134,19 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * <p>In the view hierarchy, recursively search for the parent's view </p>according the widget root's id.
+     * In the view hierarchy, recursively search for the parent's view according the widget root's id.
      * @param parent the parent
      * @return View the matched parent
      */
     private View getMatchRootParent(View parent) {
         View viewToReturn ;
-
         // Check if the current parent's id matches the widget root's id
-        if (parent.getId() == this.rootViewId) {
+        if (parent.getId() == this.valueObject.getRootViewId()) {
             viewToReturn = parent;
-
         } else {
             // Search recursively with the parent's view
             viewToReturn = getMatchRootParent((View) parent.getParent());
         }
-
         // No parent found in the view hierarchy matching the widget root's id
         return viewToReturn;
     }
@@ -300,30 +156,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param error the new error
      */
     public void setError(CharSequence error) {
-        // empty error and add the CharSequence as only error
-        this.clearError();
-        MDKMessage mdkMessage = new MDKMessage(this.getLabel(), error, MDKMessage.NO_ERROR_CODE);
-        MDKMessages messages = new MDKMessages();
-        messages.put(USER_ERROR, mdkMessage);
-        this.addError(messages);
-    }
-
-    /**
-     * Set mdk error widget.
-     * @param mdkErrorWidget the error widget
-     * @param error the error
-     */
-    private void setMdkErrorWidget(MDKErrorWidget mdkErrorWidget, MDKMessages error) {
-        View v = this.weakView.get();
-        if (v instanceof MDKWidget) {
-            if (error == null) {
-                (mdkErrorWidget).clear(getContext(), ((MDKWidget) v).getUniqueId());
-            } else {
-                error.setComponentId(((MDKWidget) v).getUniqueId());
-                error.setComponentLabelName(this.getLabel());
-                (mdkErrorWidget).addError(getContext(),((MDKWidget) v).getUniqueId(), error);
-            }
-        }
+        MDKWidgetDelegateErrorHelper.getInstance().setError(this.findRootView(true), this.valueObject, this.getLabel(), error, this.getContext());
     }
 
     /**
@@ -331,47 +164,21 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param messages the error to set
      */
     public void addError(MDKMessages messages) {
-        View rootView = this.findRootView(true);
-        if (rootView != null) {
-            TextView errorView = (TextView) rootView.findViewById(this.errorViewId);
-            if (errorView instanceof MDKErrorWidget){
-                setMdkErrorWidget((MDKErrorWidget) errorView, messages);
-            } else if (errorView != null){
-                errorView.setText(messages.getFirstErrorMessage());
-            }
-        }
-        this.error = (messages != null);
-        View v = this.weakView.get();
-        if (v != null) {
-            v.refreshDrawableState();
-        }
+        MDKWidgetDelegateErrorHelper.getInstance().addError(this.findRootView(true), this.valueObject, this.getLabel(), messages, this.getContext());
     }
 
     /**
      * Remove error.
      */
     public void clearError() {
-        View rootView = this.findRootView(true);
-        if (rootView != null) {
-            TextView errorView = (TextView) rootView.findViewById(this.errorViewId);
-            if (errorView instanceof MDKErrorWidget){
-                setMdkErrorWidget((MDKErrorWidget) errorView, null);
-            } else {
-                errorView.setText("");
-            }
-        }
-        this.error = false;
-        View v = this.weakView.get();
-        if (v != null) {
-            v.refreshDrawableState();
-        }
+        MDKWidgetDelegateErrorHelper.getInstance().clearError(this.findRootView(true), this.valueObject, this.getLabel(), this.getContext());
     }
 
     @Override
     public void setMandatory(boolean mandatory) {
-        this.mandatory = mandatory;
-        this.attributesMap.setBoolean(R.attr.mandatory, mandatory);
-        View v = this.weakView.get();
+        this.valueObject.setMandatory(mandatory);
+        this.valueObject.getAttributesMap().setBoolean(R.attr.mandatory, mandatory);
+        View v = this.valueObject.getView();
         if (v != null) {
             v.refreshDrawableState();
         }
@@ -383,7 +190,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public void setRootViewId(@IdRes int rootId) {
-        this.rootViewId = rootId;
+        this.valueObject.setRootViewId(rootId);
     }
 
     /**
@@ -392,7 +199,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public void setLabelViewId(@IdRes int labelId) {
-        this.labelViewId = labelId;
+        this.valueObject.setLabelViewId(labelId);
     }
 
     /**
@@ -401,7 +208,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public void setHelperViewId(@IdRes int helperId) {
-        this.helperViewId = helperId;
+        this.valueObject.setHelperViewId(helperId);
     }
 
     /**
@@ -410,7 +217,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public void setErrorViewId(@IdRes int errorId) {
-        this.errorViewId = errorId;
+        this.valueObject.setErrorViewId(errorId);
     }
 
     /**
@@ -420,11 +227,11 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.useRootIdOnlyForError = useRootIdOnlyForError;
+        this.valueObject.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     /**
-     * <p>Handles the creation of a drawable state event.<p/>
+     * Handles the creation of a drawable state event.
      * Add additional states as needed.
      * @param extraSpace new state to add to MDK widget
      * @return new drawable state
@@ -432,8 +239,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         int[] state = null;
-
-        View v = this.weakView.get();
+        View v = this.valueObject.getView();
         if(v != null && v instanceof MDKWidget) {
 
 
@@ -464,7 +270,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @return length the state length
      */
     public int getStateLength(int extraSpace) {
-        return extraSpace + ADDED_MDK_STATE;
+        return extraSpace + MDKWidgetDelegateValueObject.ADDED_MDK_STATE;
     }
 
     /**
@@ -474,16 +280,16 @@ public class MDKWidgetDelegate implements MDKWidget {
     public int[] getWidgetState() {
         int[] state;
 
-        if (this.valid && this.mandatory) {
-            state = MANDATORY_VALID_STATE;
-        } else if (this.error && this.mandatory) {
-            state = MANDATORY_ERROR_STATE;
-        } else if (this.mandatory) {
-            state = MANDATORY_STATE;
-        } else if (this.valid) {
-            state = VALID_STATE;
-        } else if (this.error) {
-            state = ERROR_STATE;
+        if (this.valueObject.isValid() && this.valueObject.isMandatory()) {
+            state = MDKWidgetDelegateValueObject.MANDATORY_VALID_STATE;
+        } else if (this.valueObject.isError() && this.valueObject.isMandatory()) {
+            state = MDKWidgetDelegateValueObject.MANDATORY_ERROR_STATE;
+        } else if (this.valueObject.isMandatory()) {
+            state = MDKWidgetDelegateValueObject.MANDATORY_STATE;
+        } else if (this.valueObject.isValid()) {
+            state = MDKWidgetDelegateValueObject.VALID_STATE;
+        } else if (this.valueObject.isError()) {
+            state = MDKWidgetDelegateValueObject.ERROR_STATE;
         } else {
             state = new int[] {};
         }
@@ -496,8 +302,8 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param state the state
      */
     public void callRichSelector(int[] state) {
-        for (RichSelector selector: this.richSelectors) {
-            selector.onStateChange(state, this.weakView.get());
+        for (RichSelector selector: this.valueObject.getRichSelectors()) {
+            selector.onStateChange(state, this.valueObject.getView());
         }
     }
 
@@ -506,8 +312,8 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param valid valid
      */
     public void setValid(boolean valid) {
-        this.valid = valid;
-        View v = this.weakView.get();
+        this.valueObject.setValid(valid);
+        View v = this.valueObject.getView();
         if (v != null) {
             v.refreshDrawableState();
         }
@@ -519,16 +325,13 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     public CharSequence getLabel() {
         View rootView = this.findRootView(false);
-
         if (rootView != null) {
-            TextView labelView = (TextView) rootView.findViewById(this.labelViewId);
+            TextView labelView = (TextView) rootView.findViewById(this.valueObject.getLabelViewId());
             if (labelView != null) {
                 return labelView.getText();
             }
         }
-
         return "";
-
     }
 
     /**
@@ -538,7 +341,7 @@ public class MDKWidgetDelegate implements MDKWidget {
     public void setLabel(CharSequence label) {
         View rootView = this.findRootView(false);
         if (rootView != null) {
-            TextView labelView = (TextView) rootView.findViewById(this.labelViewId);
+            TextView labelView = (TextView) rootView.findViewById(this.valueObject.getLabelViewId());
             if (labelView != null) {
                 labelView.setText(label);
             }
@@ -551,45 +354,18 @@ public class MDKWidgetDelegate implements MDKWidget {
      */
     @Override
     public boolean isMandatory() {
-        return this.mandatory;
+        return this.valueObject.isMandatory();
     }
 
     /**
      * Returns a List of FormFieldValidator to use based on the Set of attributes passed as
      * parameters.
      * (component, qualifier)
-     * @param widgetAttrs a Set of interger representing R.attr.* attributes to validate
+     * @param widgetAttrs a Set of integer representing R.attr.* attributes to validate
      * @return a List of FormFieldValidator tha can validate the Set of parameters
      */
     protected List<FormFieldValidator> getValidators(Set<Integer> widgetAttrs) {
-        List<FormFieldValidator> rValidator = new ArrayList<>();
-
-        View v = this.weakView.get();
-        if (v != null
-                && v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-            rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext())
-                    .getMDKWidgetComponentProvider().getValidators(widgetAttrs);
-        }
-        return rValidator;
-    }
-
-    /**
-     * Return the FormFieldValidator for the String key passed as parameter.
-     * @param validatorKey the key of the validator
-     * @return the FormFieldValidator associated to the parameter key
-     */
-    @Nullable
-    private FormFieldValidator getValidator(String validatorKey) {
-        FormFieldValidator rValidator = null;
-
-        View v = this.weakView.get();
-        if (v != null
-                && v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
-            rValidator = ((MDKWidgetApplication) v.getContext().getApplicationContext())
-                    .getMDKWidgetComponentProvider().getValidator(validatorKey);
-
-        }
-        return rValidator;
+        return MDKWidgetDelegateValidationHelper.getInstance().getValidators(this.valueObject.getView(), widgetAttrs);
     }
 
     /**
@@ -599,61 +375,7 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @return true if all validators passed, false otherwise
      */
     public boolean validate(boolean setError) {
-
-        boolean bValid = true;
-
-        List<FormFieldValidator> attributesValidators = this.getValidators(this.attributesMap.keySet());
-
-        View v = this.weakView.get();
-        if (v != null) {
-
-            MDKMessages returnMessages = new MDKMessages();
-
-            // get the validation object
-            Object objectToValidate = null;
-            if (v instanceof HasText) {
-                objectToValidate = ((HasText) v).getText().toString();
-            } else if (v instanceof HasDate) {
-                objectToValidate = ((HasDate) v).getDate();
-            }
-
-            // we have to clear all errors before validation
-            if (setError) {
-                this.clearError();
-            }
-
-            // run "mandatory" validator defined by the widget
-            if (v instanceof HasValidator) {
-                int[] validatorsResKey = ((HasValidator) v).getValidators();
-                for (int validatorRes : validatorsResKey) {
-                    // this get the last part of the resource name
-                    String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
-                    FormFieldValidator mandatoryValidator = this.getValidator(validatorKey);
-                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, setError, this.attributesMap, returnMessages);
-                }
-            }
-
-            // execute all others validators if no mandatory error
-            if (bValid) {
-                for (FormFieldValidator validator : attributesValidators) {
-                    bValid = executeValidator(validator, objectToValidate, v, setError, this.attributesMap, returnMessages) & bValid;
-                }
-            }
-
-            // set Errors
-            if (setError) {
-                this.addError(returnMessages);
-            }
-
-        } else {
-            //if the component doesn't have any validator, there is no error to show.
-            this.clearError();
-        }
-
-        this.notifyCommandListeners(bValid);
-
-        this.setValid(bValid);
-        return bValid;
+        return MDKWidgetDelegateValidationHelper.getInstance().validate(this, setError);
     }
 
     /**
@@ -661,34 +383,10 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param bValid true if the validation is ok, false otherwise
      */
     protected void notifyCommandListeners(boolean bValid) {
-        for (CommandStateListener listener : this.commandStateListeners) {
+        for (CommandStateListener listener : this.valueObject.getCommandStateListeners()) {
             listener.notifyCommandStateChanged(bValid);
         }
     }
-
-    /**
-     * Execute a FormFieldValidator.
-     * @param validator the FormFieldValidator to execute
-     * @param objectToValidate the object to validate
-     * @param validatingView the view of the widget to accept on FormFieldValidator
-     * @param setError true if the validation should show an error, false otherwise
-     * @param attributesMap a Map containing widget attributes for validation
-     * @param returnMap a Map containing previous validation errors
-     * @return true if the FormFieldValidator return no error, false otherwise
-     */
-    protected boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError, MDKAttributeSet attributesMap, MDKMessages returnMap) {
-        boolean bValid = true;
-        if (validator.accept(validatingView)) {
-            MDKMessage mdkMessage = validator.validate(objectToValidate, attributesMap, returnMap, this.getContext());
-
-            if (mdkMessage != null && mdkMessage.getMessageType() == MDKMessage.ERROR_TYPE) {
-                bValid = false;
-            }
-        }
-        return bValid;
-    }
-
-
 
     /**
      * Play the animation if it is visible.
@@ -698,12 +396,12 @@ public class MDKWidgetDelegate implements MDKWidget {
     private void playAnimIfVisible(TextView labelTextView, int visibility) {
         Animation anim = null;
         if (visibility == View.VISIBLE) {
-            if (this.showFloatingLabelAnimId != 0) {
-                anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.showFloatingLabelAnimId);
+            if (this.valueObject.getShowFloatingLabelAnimId() != 0) {
+                anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.valueObject.getShowFloatingLabelAnimId());
             }
         } else {
-            if (this.hideFloatingLabelAnimId != 0) {
-                anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.hideFloatingLabelAnimId);
+            if (this.valueObject.getHideFloatingLabelAnimId() != 0) {
+                anim = AnimationUtils.loadAnimation(labelTextView.getContext(), this.valueObject.getHideFloatingLabelAnimId());
             }
         }
         if (anim != null) {
@@ -735,17 +433,14 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param playAnim the play anim toggle
      */
     public void setLabelVisibility(int visibility, boolean playAnim){
-
-        if(labelViewId != 0) {
+        if(this.valueObject.getLabelViewId() != 0) {
             View rootView = this.findRootView(true);
             if (rootView != null) {
-                TextView labelView = (TextView) rootView.findViewById(this.labelViewId);
+                TextView labelView = (TextView) rootView.findViewById(this.valueObject.getLabelViewId());
                 playAnimIfNecessary(labelView, visibility, playAnim);
             }
         }
     }
-
-
 
     /**
      * onSaveInstanceState method.
@@ -753,26 +448,8 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @return mdkWidgetDelegateSavedState mdkWidgetDelegateSavedState
      */
     public Parcelable onSaveInstanceState(Parcelable superState) {
-
         MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = new MDKWidgetDelegateSavedState(superState);
-
-        mdkWidgetDelegateSavedState.qualifier = this.qualifier;
-        mdkWidgetDelegateSavedState.resHelperId = this.resHelperId;
-        mdkWidgetDelegateSavedState.richSelectors = this.richSelectors;
-
-        mdkWidgetDelegateSavedState.rootId = this.rootViewId;
-        mdkWidgetDelegateSavedState.labelId = this.labelViewId;
-        mdkWidgetDelegateSavedState.showFloatingLabelAnimId = this.showFloatingLabelAnimId;
-        mdkWidgetDelegateSavedState.hideFloatingLabelAnimId = this.hideFloatingLabelAnimId;
-        mdkWidgetDelegateSavedState.helperId = this.helperViewId;
-        mdkWidgetDelegateSavedState.errorId = this.errorViewId;
-        mdkWidgetDelegateSavedState.uniqueId = this.uniqueId;
-
-        mdkWidgetDelegateSavedState.useRootIdOnlyForError = this.useRootIdOnlyForError;
-        mdkWidgetDelegateSavedState.valid = this.valid;
-        mdkWidgetDelegateSavedState.mandatory = this.mandatory;
-        mdkWidgetDelegateSavedState.error = this.error;
-
+        mdkWidgetDelegateSavedState.initializeFromValueObject(this.valueObject);
         return mdkWidgetDelegateSavedState;
     }
 
@@ -783,177 +460,21 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @return Parcelable the state
      */
     public Parcelable onRestoreInstanceState(View view, Parcelable state) {
-
         if(!(state instanceof MDKWidgetDelegateSavedState)) {
             return state;
         }
-
         MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = (MDKWidgetDelegateSavedState)state;
-
-        this.qualifier = mdkWidgetDelegateSavedState.qualifier;
-        this.resHelperId = mdkWidgetDelegateSavedState.resHelperId;
-        this.richSelectors = mdkWidgetDelegateSavedState.richSelectors;
-
-        this.rootViewId = mdkWidgetDelegateSavedState.rootId;
-        this.labelViewId = mdkWidgetDelegateSavedState.labelId;
-        this.showFloatingLabelAnimId = mdkWidgetDelegateSavedState.showFloatingLabelAnimId;
-        this.hideFloatingLabelAnimId = mdkWidgetDelegateSavedState.hideFloatingLabelAnimId;
-        this.helperViewId = mdkWidgetDelegateSavedState.helperId;
-        this.errorViewId = mdkWidgetDelegateSavedState.errorId;
-        this.uniqueId = mdkWidgetDelegateSavedState.uniqueId;
-
-        this.useRootIdOnlyForError = mdkWidgetDelegateSavedState.useRootIdOnlyForError;
-        this.valid = mdkWidgetDelegateSavedState.valid;
-        this.mandatory = mdkWidgetDelegateSavedState.mandatory;
-        this.error = mdkWidgetDelegateSavedState.error;
-
+        mdkWidgetDelegateSavedState.restoreValueObject(this.valueObject);
         return mdkWidgetDelegateSavedState.getSuperState();
     }
 
     /**
      * Add a CommandStateListener.
-     * <p>This listener will be called on each call of the MDKWidgetDelegate#validate.</p>
+     * This listener will be called on each call of the MDKWidgetDelegate#validate.
      * @param commandListener the CommandStateListener to add
      */
     public void addCommandStateListener(CommandStateListener commandListener) {
-        this.commandStateListeners.add(commandListener);
+        this.valueObject.getCommandStateListeners().add(commandListener);
     }
 
-    /**
-     * MDKWidgetDelegateSavedState class definition.
-     */
-    private static class MDKWidgetDelegateSavedState extends View.BaseSavedState {
-
-        /**
-         * qualifier.
-         */
-        String qualifier;
-        /**
-         * resHelperId.
-         */
-        int resHelperId;
-        /**
-         * richSelectors.
-         */
-        List<RichSelector> richSelectors;
-
-        /**
-         * rootViewId.
-         */
-        int rootId;
-        /**
-         * labelViewId.
-         */
-        int labelId;
-        /**
-         * showFloatingLabelAnimId.
-         */
-        int showFloatingLabelAnimId;
-        /**
-         * hideFloatingLabelAnimId.
-         */
-        int hideFloatingLabelAnimId;
-        /**
-         * helperViewId.
-         */
-        int helperId;
-        /**
-         * errorViewId.
-         */
-        int errorId;
-        /**
-         * uniqueId.
-         */
-        int uniqueId;
-
-        /**
-         * useRootIdOnlyForError.
-         */
-        boolean useRootIdOnlyForError;
-        /**
-         * valid.
-         */
-        boolean valid;
-        /**
-         * mandatory.
-         */
-        boolean mandatory;
-        /**
-         * error.
-         */
-        boolean error;
-
-        /**
-         * MDKWidgetDelegateSavedState public constructor.
-         * @param superState the super state
-         */
-        MDKWidgetDelegateSavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        /**
-         * MDKWidgetDelegateSavedState private constructor.
-         * @param in the super state
-         */
-        private MDKWidgetDelegateSavedState(Parcel in) {
-            super(in);
-
-            this.qualifier = in.readString();
-            this.resHelperId = in.readInt();
-
-            // TODO : read the richSelectors
-
-            this.rootId = in.readInt();
-            this.labelId = in.readInt();
-            this.showFloatingLabelAnimId = in.readInt();
-            this.hideFloatingLabelAnimId = in.readInt();
-            this.helperId = in.readInt();
-            this.errorId = in.readInt();
-            this.uniqueId = in.readInt();
-
-            this.useRootIdOnlyForError = in.readByte() != 0;
-            this.valid = in.readByte() != 0;
-            this.mandatory = in.readByte() != 0;
-            this.error = in.readByte() != 0;
-        }
-
-        @Override
-        public void writeToParcel(@NonNull Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-
-            out.writeString(this.qualifier);
-            out.writeInt(this.resHelperId);
-            // TODO : store the richSelectors
-
-            out.writeInt(this.rootId);
-            out.writeInt(this.labelId);
-            out.writeInt(this.showFloatingLabelAnimId);
-            out.writeInt(this.hideFloatingLabelAnimId);
-            out.writeInt(this.helperId);
-            out.writeInt(this.errorId);
-            out.writeInt(this.uniqueId);
-
-            out.writeByte((byte) (this.useRootIdOnlyForError ? 1 : 0));
-            out.writeByte((byte) (this.valid ? 1 : 0));
-            out.writeByte((byte) (this.mandatory ? 1 : 0));
-            out.writeByte((byte) (this.error ? 1 : 0));
-        }
-
-        /**
-         * Required field that makes Parcelables from a Parcel.
-         */
-        public static final Parcelable.Creator<MDKWidgetDelegateSavedState> CREATOR =
-            new Parcelable.Creator<MDKWidgetDelegateSavedState>() {
-
-                @Override
-                public MDKWidgetDelegateSavedState createFromParcel(Parcel in) {
-                    return new MDKWidgetDelegateSavedState(in);
-                }
-
-                @Override
-                public MDKWidgetDelegateSavedState[] newArray(int size) {
-                    return new MDKWidgetDelegateSavedState[size];
-                }
-            };
-    }
 }

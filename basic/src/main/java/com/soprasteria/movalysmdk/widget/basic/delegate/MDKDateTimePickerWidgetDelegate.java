@@ -512,7 +512,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         // Propagates the enabled flag to the slave view, if any.
         // Note: Only propagate to slave view, calling setEnabled on master view will result in
         // an infinite loop !
-        View masterView = this.weakView.get();
+        View masterView = this.valueObject.getView();
         if (masterView != null) {
             if (this.dateViewId != 0 && this.dateViewId != masterView.getId()) {
                 getDateTextView().setEnabled(enabled);
