@@ -20,15 +20,14 @@ import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 
+import com.soprasteria.movalysmdk.widget.basic.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.basic.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
@@ -106,16 +105,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
         if (!isInEditMode()) {
             this.mdkDateTimePickerWidgetDelegate.onAttachedToWindow();
         }
-    }
-
-    @Override
-    public MDKAttributeSet getAttributeMap() {
-        return this.getMDKWidgetDelegate().getAttributeMap();
-    }
-
-    @Override
-    public void setAttributeMap(MDKAttributeSet attributeMap) {
-        this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
     }
 
     @Override

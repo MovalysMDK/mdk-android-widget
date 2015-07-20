@@ -21,6 +21,7 @@ import android.support.annotation.StyleableRes;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -29,7 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  * Base implementation of the rich mdk widget for widget that uses text and are editable.
  * @param <T> the inner widget type
  */
-public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & HasText & HasTextWatcher & HasValidator> extends MDKBaseRichTextWidget<T> implements HasTextWatcher {
+public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & HasText & HasTextWatcher & HasValidator & HasDelegate> extends MDKBaseRichTextWidget<T> implements HasTextWatcher {
 
     /**
      * Constructor.

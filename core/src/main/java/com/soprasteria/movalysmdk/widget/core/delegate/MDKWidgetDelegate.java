@@ -203,12 +203,18 @@ public class MDKWidgetDelegate implements MDKWidget {
 
     }
 
-    @Override
+    /**
+     * Returns the {@link MDKAttributeSet} set on the delegate.
+     * @return the {@link MDKAttributeSet} of the delegate
+     */
     public MDKAttributeSet getAttributeMap() {
         return this.attributesMap;
     }
 
-    @Override
+    /**
+     * Sets the {@link MDKAttributeSet} of the delegate.
+     * @param attributeMap the {@link MDKAttributeSet} to set on the delegate
+     */
     public void setAttributeMap(MDKAttributeSet attributeMap) {
         this.attributesMap = attributeMap;
     }

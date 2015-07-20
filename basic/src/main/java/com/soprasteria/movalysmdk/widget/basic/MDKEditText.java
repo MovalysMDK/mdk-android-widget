@@ -32,7 +32,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
 /**
@@ -105,16 +104,6 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     @Override
     public void setUniqueId(int parentId) {
         this.mdkWidgetDelegate.setUniqueId(parentId);
-    }
-
-    @Override
-    public MDKAttributeSet getAttributeMap() {
-        return this.getMDKWidgetDelegate().getAttributeMap();
-    }
-
-    @Override
-    public void setAttributeMap(MDKAttributeSet attributeMap) {
-        this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
     }
 
     /**

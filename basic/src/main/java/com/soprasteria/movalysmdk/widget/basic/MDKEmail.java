@@ -37,7 +37,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 
@@ -172,18 +171,6 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
             Email email = new Email(sEmailAddress);
             ((EmailWidgetCommand)this.commandDelegate.getWidgetCommand(v.getId())).execute(this.getContext(), email);
         }
-    }
-
-
-//FIXME refaire une passe sur les composants et les méthodes on ne doit forwarder que les méthodes utiles à l'utilisateur, pour les autres on passe par les délégates ca évitera de multiplier le nombre de méthodes
-    @Override
-    public MDKAttributeSet getAttributeMap() {
-        return this.getMDKWidgetDelegate().getAttributeMap();
-    }
-
-    @Override
-    public void setAttributeMap(MDKAttributeSet attributeMap) {
-        this.getMDKWidgetDelegate().setAttributeMap(attributeMap);
     }
 
     @Override

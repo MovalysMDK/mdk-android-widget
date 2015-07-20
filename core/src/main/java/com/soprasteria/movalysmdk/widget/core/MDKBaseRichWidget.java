@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
@@ -48,7 +49,7 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator> extends RelativeLayout implements MDKRichWidget, HasValidator {
+public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, HasValidator {
 
     /**
      * Base widget.
@@ -190,7 +191,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
         if (!isInEditMode()) {
             MDKAttributeSet attributeMap = new MDKAttributeSet(attrs);
             // copy attribute from rich widget to inner widget
-            this.getInnerWidget().setAttributeMap(attributeMap);
+            this.getInnerWidget().getMDKWidgetDelegate().setAttributeMap(attributeMap);
         }
     }
 

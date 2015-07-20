@@ -24,6 +24,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
@@ -40,7 +41,7 @@ import java.util.Date;
  * <p>Add a validator behavior on the base rich widget</p>
  * @param <T> the inner widget type
  */
-public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDate & HasChangeListener> extends MDKBaseRichWidget<T> implements HasValidator, HasDate, HasChangeListener {
+public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDate & HasChangeListener & HasDelegate> extends MDKBaseRichWidget<T> implements HasValidator, HasDate, HasChangeListener {
 
     /**
      * NULL_DATE_TEXT.
