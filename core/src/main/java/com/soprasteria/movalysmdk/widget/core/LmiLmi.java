@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import android.support.annotation.IntDef;
 
 @Retention(RetentionPolicy.SOURCE)
-@IntDef({TestLmi.TOTO})
-public @interface TestLmi {
+@IntDef({LmiLmi.TOTO})
+public @interface LmiLmi {
 
     public static int TOTO = 1;
 }
