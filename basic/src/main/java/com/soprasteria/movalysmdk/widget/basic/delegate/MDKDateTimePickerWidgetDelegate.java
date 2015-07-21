@@ -237,13 +237,13 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         } else {
 
             if (extractionType == TIME_EXTRACTION) {
-                if (context.getString(R.string.application_date_format) != null) {
+                if (context.getString(R.string.application_date_format) != null && !context.getString(R.string.application_date_format).equals("")) {
                     formattedDateOrTime = new SimpleDateFormat(context.getString(R.string.application_date_format));
                 } else {
                     formattedDateOrTime = android.text.format.DateFormat.getTimeFormat(context);
                 }
             } else {
-                if (context.getString(R.string.application_time_format) != null) {
+                if (context.getString(R.string.application_time_format) != null && !context.getString(R.string.application_time_format).equals("")) {
                     formattedDateOrTime = new SimpleDateFormat(context.getString(R.string.application_time_format));
                 } else {
                     formattedDateOrTime = android.text.format.DateFormat.getDateFormat(context);
