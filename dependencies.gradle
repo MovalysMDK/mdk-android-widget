@@ -21,9 +21,10 @@ ext {
     ]
 
     testDependencies = [
-            espressoCore:   "com.android.support.test.espresso:espresso-core:$espressoVersion",
-            testRunner:     "com.android.support.test:runner:${testRunnerVersion}",
-            mdkEspresso:    "com.soprasteria.movalysmdk.espresso:mdk-espresso:${mdkEspressoVersion}@aar",
-            spoonClient:    "com.squareup.spoon:spoon-client:${spoonClientVersion}"
+            espressoCore:    "com.android.support.test.espresso:espresso-core:$espressoVersion",
+            espressoContrib: "com.android.support.test.espresso:espresso-contrib:$espressoVersion",
+            testRunner:      "com.android.support.test:runner:${testRunnerVersion}",
+            mdkEspresso:     "com.soprasteria.movalysmdk.espresso:mdk-espresso:${mdkEspressoVersion}@aar",
+            spoonClient:     "com.squareup.spoon:spoon-client:${spoonClientVersion}"
     ]
 }

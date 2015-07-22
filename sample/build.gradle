@@ -62,6 +62,11 @@ dependencies {
     //to run test: ./gradlew connectedAndroidTest
     androidTestCompile supportDependencies.supportAnnotations
     androidTestCompile testDependencies.espressoCore
+    androidTestCompile (testDependencies.espressoContrib) {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
     androidTestCompile testDependencies.testRunner
     androidTestCompile testDependencies.spoonClient
     androidTestCompile testDependencies.mdkEspresso

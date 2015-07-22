@@ -35,6 +35,16 @@ public class MdkDateMatchers {
     }
 
     /**
+     * Create a matcher to check a time.
+     * @param hour month.
+     * @param minute day.
+     * @return matcher.
+     */
+    public static Matcher<View> withTime( final int hour, final int minute) {
+        return matchDateTime(0, 1, 0, hour, minute);
+    }
+
+    /**
      * Create a matcher to check a date with time.
      * @param year year.
      * @param month month.

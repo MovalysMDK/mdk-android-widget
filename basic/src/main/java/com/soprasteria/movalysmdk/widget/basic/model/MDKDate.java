@@ -116,11 +116,18 @@ public class MDKDate {
                 cal.set(Calendar.YEAR, dateDisplayed.get(Calendar.YEAR));
                 cal.set(Calendar.MONTH, dateDisplayed.get(Calendar.MONTH));
                 cal.set(Calendar.DAY_OF_MONTH, dateDisplayed.get(Calendar.DAY_OF_MONTH));
+            } else {
+                cal.set(Calendar.YEAR, 0);
+                cal.set(Calendar.MONTH, 0);
+                cal.set(Calendar.DAY_OF_MONTH, 0);
             }
 
             if ( this.timeDisplayed != null ) {
                 cal.set(Calendar.HOUR_OF_DAY, timeDisplayed.get(Calendar.HOUR_OF_DAY));
                 cal.set(Calendar.MINUTE, timeDisplayed.get(Calendar.MINUTE));
+            } else {
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE, 0);
             }
 
             dateToReturn = cal.getTime();

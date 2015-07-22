@@ -15,12 +15,16 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,11 +33,15 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.soprasteria.movalysmdk.espresso.action.MdkRichDateTimeAction.setDate;
 import static com.soprasteria.movalysmdk.espresso.action.MdkRichDateTimeAction.setTime;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkDateMatchers.withDate;
 import static com.soprasteria.movalysmdk.espresso.matcher.MdkDateMatchers.withDateTime;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkDateMatchers.withTime;
 import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -75,7 +83,7 @@ public class DateTest {
      * Test with a valid date time value.
      */
     @Test
-    public void testValidDate() {
+    public void testValidTimeDate() {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Update time
@@ -102,6 +110,52 @@ public class DateTest {
 
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
+                .check(matches(withText("")));
+    }
+
+    /**
+     * Test with a valid date value.
+     */
+    @Test
+    public void testValidDate() {
+        // update date
+        onView(withId(R.id.mdkRichDate_withLabelAndMandatory)).perform(click());
+
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).check(matches(isDisplayed()));
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2010, 4, 23));
+        onView(withId(android.R.id.button1)).perform(click());
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(click());
+
+        // check date
+        onView(withId(R.id.mdkRichDate_withLabelAndMandatory)).check(matches(withDate(2010, 4, 23)));
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDate_withLabelAndMandatory))))
+                .check(matches(withText("")));
+    }
+
+    /**
+     * Test with a valid time value.
+     */
+    @Test
+    public void testValidTime() {
+        // update time
+        onView(withId(R.id.mdkRichTime_withLabelAndMandatory)).perform(click());
+
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).check(matches(isDisplayed()));
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(4, 23));
+        onView(withId(android.R.id.button1)).perform(click());
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(click());
+
+        // check time
+        onView(withId(R.id.mdkRichTime_withLabelAndMandatory)).check(matches(withTime(4, 23)));
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichTime_withLabelAndMandatory))))
                 .check(matches(withText("")));
     }
 

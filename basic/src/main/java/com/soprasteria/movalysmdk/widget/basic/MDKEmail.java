@@ -98,7 +98,6 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
     }
 
-
     /**
      * Set an unique id for inner widget with the parent one as parameter.
      * @param parentId id of the parent
