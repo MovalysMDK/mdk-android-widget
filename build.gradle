@@ -20,6 +20,9 @@ buildscript {
 apply plugin: 'sonar-runner'
 apply plugin: 'license'
 
+// Load dependencies
+apply from: 'dependencies.gradle'
+
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
 }
@@ -50,22 +53,13 @@ allprojects {
     version = '1.0.0-SNAPSHOT'
 
     ext {
+        androidBuildToolsVersion = "23.0.0 rc3"
+        androidMinSdkVersion = 14
+        androidTargetSdkVersion = 22
+        androidCompileSdkVersion = 22
 
-        // compilation with java 1.7
-        projectSourceCompatibility = JavaVersion.VERSION_1_7
-        projectTargetCompatibility = JavaVersion.VERSION_1_7
-
-        // library versions
-        appcompatv7Version = "22.2.0"
-        appcompatv4Version = "22.2.0"
-        supportAnnotationVersion = "22.2.0"
-        supportTestEspressoVersion = "2.2"
-        supportTestRunnerVersion = "0.3"
-        mdkEspressoVersion = "1.0.0-SNAPSHOT"
-
-        spoonClientVersion = "1.1.9"
-
-        jacocoVersion = "0.7.1.201405082137"
+        androidVersionCode = 100
+        androidVersionName = "1.0.0"
     }
 }
 

@@ -6,17 +6,22 @@ apply plugin: 'com.github.dcendents.android-maven'
 project.archivesBaseName = 'widget-sample'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "23.0.0 rc2"
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
         applicationId "com.soprasteria.movalysmdk.widget.sample"
-        minSdkVersion 14
-        targetSdkVersion 22
-        versionCode 100
-        versionName "1.0.0"
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode androidVersionCode
+        versionName androidVersionName
 
         testInstrumentationRunner "com.soprasteria.movalysmdk.espresso.AndroidJacocoTestRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     buildTypes {
@@ -51,17 +56,15 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':core')
     compile project(':basic')
-    compile "com.android.support:appcompat-v7:$appcompatv7Version"
-    compile "com.android.support:support-v4:$appcompatv4Version"
+    compile supportDependencies.support
+    compile supportDependencies.appCompat
 
     //to run test: ./gradlew connectedAndroidTest
-    androidTestCompile "com.android.support.test.espresso:espresso-core:$supportTestEspressoVersion"
-    androidTestCompile "com.android.support:support-annotations:$supportAnnotationVersion"
-    androidTestCompile "com.android.support.test:runner:$supportTestRunnerVersion"
-
-    androidTestCompile "com.squareup.spoon:spoon-client:$spoonClientVersion"
-
-    androidTestCompile "com.soprasteria.movalysmdk.espresso:mdk-espresso:${mdkEspressoVersion}@aar"
+    androidTestCompile supportDependencies.supportAnnotations
+    androidTestCompile testDependencies.espressoCore
+    androidTestCompile testDependencies.testRunner
+    androidTestCompile testDependencies.spoonClient
+    androidTestCompile testDependencies.mdkEspresso
     androidTestCompile (project(":espresso")) {
         transitive = false
     }
