@@ -54,12 +54,6 @@ import java.util.List;
  */
 public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    //FIXME pourquoi des chaines ? redondant avec l'enum du dessous ? utiliser une enum android StringDef ? IntDef ?
-    /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a date picker. */
-    private static final String DATE_PICKER_MODE = "date";
-    /** Key used in the "mode" XML attribute in order to tell the MDKDateTime to act as a time picker. */
-    private static final String TIME_PICKER_MODE = "time";
-
     /**
      * notify change listeners.
      */
@@ -72,11 +66,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /** DATE_PICKER. */
-    public static final int DATE_PICKER = 1;
+    public static final int DATE_PICKER = 0;
     /** TIME_PICKER. */
-    public static final int TIME_PICKER = 2;
+    public static final int TIME_PICKER = 1;
     /** DATE_TIME_PICKER. */
-    public static final int DATE_TIME_PICKER = 3;
+    public static final int DATE_TIME_PICKER = 2;
 
     /** Mode in which the widget is. */
     private int dateTimePickerMode;
@@ -139,7 +133,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         // DateTimePicker specific fields parsing
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKDateTimePickerComponent);
 
-        String modeAttr = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_mode);
+        int modeAttr = typedArray.getInt(R.styleable.MDKCommons_MDKDateTimePickerComponent_mode, -1);
         dateViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateTextViewId, 0);
         timeViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeTextViewId, 0);
         String dateFormatPattern = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateFormat);
@@ -158,17 +152,17 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         typedArray.recycle();
 
-        if (modeAttr != null) {
+        if (modeAttr != -1) {
             // If the mode attribute has been set, the handled values are :
             //  - date : it is a date picker
             //  - time : it is a time picker
             // All other cases are error case (dateTextView and timeTextView attributes should not
             // be set).
-            if (modeAttr.equals(DATE_PICKER_MODE)) {
+            if (modeAttr == DATE_PICKER) {
                 dateTimePickerMode = DATE_PICKER;
                 this.dateViewId = view.getId();
                 this.cachedDateView = new WeakReference<>(view);
-            } else if (modeAttr.equals(TIME_PICKER_MODE)) {
+            } else if (modeAttr == TIME_PICKER) {
                 dateTimePickerMode = TIME_PICKER;
                 this.timeViewId = view.getId();
                 this.cachedTimeView = new WeakReference<>(view);
