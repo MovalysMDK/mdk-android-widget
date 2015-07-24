@@ -54,6 +54,8 @@ import java.util.List;
  */
 public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
+    /** emtpy string comparator. */
+    public static final String EMPTY_STRING = "";
     /**
      * notify change listeners.
      */
@@ -231,19 +233,18 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         } else {
 
             if (extractionType == TIME_EXTRACTION) {
-                if (context.getString(R.string.application_date_format) != null && !context.getString(R.string.application_date_format).equals("")) {
+                if (context.getString(R.string.application_date_format) != null && !context.getString(R.string.application_date_format).equals(EMPTY_STRING)) {
                     formattedDateOrTime = new SimpleDateFormat(context.getString(R.string.application_date_format));
                 } else {
                     formattedDateOrTime = android.text.format.DateFormat.getTimeFormat(context);
                 }
             } else {
-                if (context.getString(R.string.application_time_format) != null && !context.getString(R.string.application_time_format).equals("")) {
+                if (context.getString(R.string.application_time_format) != null && !context.getString(R.string.application_time_format).equals(EMPTY_STRING)) {
                     formattedDateOrTime = new SimpleDateFormat(context.getString(R.string.application_time_format));
                 } else {
                     formattedDateOrTime = android.text.format.DateFormat.getDateFormat(context);
                 }
             }
-
         }
         return formattedDateOrTime;
     }

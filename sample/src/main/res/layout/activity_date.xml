@@ -129,7 +129,7 @@
 
         <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
             android:id="@+id/mdkDateTime_withLabelAndMandatoryAndMinDate"
-            mdk:mode="time"
+            mdk:mode="date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:mandatory="true"

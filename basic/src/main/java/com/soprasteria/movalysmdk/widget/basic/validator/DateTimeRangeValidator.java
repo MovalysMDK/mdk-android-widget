@@ -97,17 +97,14 @@ public class DateTimeRangeValidator  implements FormFieldValidator<Date> {
         } else if (errorDate) {
             mdkMessage = new MDKMessage();
            mdkMessage.setErrorCode(ERROR_DATE);
-           String error = context.getString(R.string.mdkwidget_error_date_range_validator);
-            //FIXME préférer une chaine du style "Date out of limits $1 < $2 " avec le choix de la chaine en fonction de la condition, puis remplacmeent des $, c'est plus propre
-           error += " (";
+
+           String error = null;
            if (minDate != null) {
-               error += mdkParameter.getValue(R.attr.min) + " < ";
+               error = context.getString(R.string.mdkwidget_error_date_range_min_validator, mdkParameter.getValue(R.attr.min), formattedDatePattern.format(objectToValidate));
            }
-           error += formattedDatePattern.format(objectToValidate);
            if (maxDate != null) {
-               error += " < "+mdkParameter.getValue(R.attr.max);
+               error = context.getString(R.string.mdkwidget_error_date_range_max_validator, mdkParameter.getValue(R.attr.max), formattedDatePattern.format(objectToValidate));
            }
-            error += ")";
             mdkMessage.setMessage(error);
         }
 
