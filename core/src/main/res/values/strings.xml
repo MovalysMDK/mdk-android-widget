@@ -19,6 +19,11 @@
 <resources>
     <string name="mandatory_char" translatable="false">" (*)"</string>
     <string name="error_prefix" translatable="false">"42 /!\\ "</string>
+
+
+    <string name="default_date_hint_text">--/--/---</string>
+    <string name="default_time_hint_text">--:--</string>
+
     <string name="application_date_format"></string>
     <string name="application_time_format"></string>
 </resources>

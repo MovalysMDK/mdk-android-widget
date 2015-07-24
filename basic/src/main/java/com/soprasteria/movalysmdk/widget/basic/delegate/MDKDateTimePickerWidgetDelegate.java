@@ -26,10 +26,9 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.soprasteria.movalysmdk.widget.core.MDKBaseRichDateWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
-import com.soprasteria.movalysmdk.widget.basic.model.MDKDate;
 import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.basic.model.MDKDate;
+import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
@@ -143,11 +142,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         dateHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateHint);
         if (dateHint == null) {
-            dateHint = MDKBaseRichDateWidget.DEFAULT_DATE_HINT_TEXT;
+            dateHint = view.getContext().getString(R.string.default_date_hint_text);
         }
         timeHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeHint);
         if (timeHint == null) {
-            timeHint = MDKBaseRichDateWidget.DEFAULT_TIME_HINT_TEXT;
+            timeHint = view.getContext().getString(R.string.default_date_hint_text);
         }
         String minString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_min);
         String maxString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_max);

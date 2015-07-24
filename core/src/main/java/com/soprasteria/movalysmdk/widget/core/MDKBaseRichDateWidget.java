@@ -44,16 +44,6 @@ import java.util.Date;
 public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDate & HasChangeListener & HasDelegate> extends MDKBaseRichWidget<T> implements HasValidator, HasDate, HasChangeListener {
 
     /**
-     * NULL_DATE_TEXT.
-     */
-    //FIXME hint par défaut à changer et à ne pas mettre en dur mais dans un fichier xml, idem pour la constante de dessous
-    public static final String DEFAULT_DATE_HINT_TEXT = "--/--/----";
-    /**
-     * NULL_TIME_TEXT.
-     */
-    public static final String DEFAULT_TIME_HINT_TEXT = "--:--";
-
-    /**
      * Constructor.
      * @param layoutWithLabelId Id of layoutWithLabel
      * @param layoutWithoutLabelId Id of layoutWithoutLabel
@@ -130,11 +120,11 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKDateTimePickerComponent);
         String dateHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateHint);
         if (dateHint == null) {
-            dateHint = DEFAULT_DATE_HINT_TEXT;
+            dateHint = context.getString(R.string.default_date_hint_text);
         }
         String timeHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeHint);
         if (timeHint == null) {
-            timeHint = DEFAULT_TIME_HINT_TEXT;
+            timeHint = context.getString(R.string.default_time_hint_text);
         }
 
         getInnerWidget().setDateHint(dateHint);
