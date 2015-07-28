@@ -33,6 +33,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * <p>Represents an Edit Text conforming to the Material Design guidelines.</p>
@@ -220,10 +221,14 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true);
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getMDKWidgetDelegate().validate(true, validationMode);
     }
 
+    @Override
+    public boolean validate() {
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.ON_USER);
+    }
     @Override
     public CharSequence getLabel() {
         return this.mdkWidgetDelegate.getLabel();

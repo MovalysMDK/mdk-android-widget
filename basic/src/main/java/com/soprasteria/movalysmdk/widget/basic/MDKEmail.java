@@ -39,6 +39,7 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * MDK Email
@@ -182,8 +183,13 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      * @return True if no error
      */
     @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode  int validationMode) {
+        return this.getMDKWidgetDelegate().validate(true, validationMode);
+    }
+
+    @Override
     public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true);
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.ON_USER);
     }
 
     /**
@@ -203,7 +209,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
    public void onTextChanged(CharSequence s, int start, int before, int count) {
        super.onTextChanged(s, start, before, count);
        if (this.getMDKWidgetDelegate() != null && this.commandDelegate != null && !isInEditMode() ) {
-           this.getMDKWidgetDelegate().validate(false);
+           this.getMDKWidgetDelegate().validate(false, EnumFormFieldValidator.ON_USER);
        }
    }
 
@@ -225,7 +231,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         if (!isInEditMode()) {
             this.registerWidgetCommands();
             // Call validate to enable or not send button
-            this.getMDKWidgetDelegate().validate(false);
+            this.getMDKWidgetDelegate().validate(false, EnumFormFieldValidator.VALIDATE);
         }
     }
 
@@ -275,7 +281,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
         if (!focused) {
-            validate();
+            validate(EnumFormFieldValidator.ON_FOCUS);
         }
     }
 

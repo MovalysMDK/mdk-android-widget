@@ -62,8 +62,9 @@ public interface FormFieldValidator<T> {
      * @param objectToValidate the value to validate
      * @param mdkParameter map containing the parameter to handle in the validator (this map is modified in validator)
      * @param resultPreviousValidator map containing the result of the preceding validators, this method must filled this map
+     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @param context the android context
      * @return a MDKError containing the error or null
      */
-    MDKMessage validate(T objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context);
+    MDKMessage validate(T objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, @EnumFormFieldValidator.EnumValidationMode int validationMode, Context context);
 }

@@ -20,7 +20,6 @@ import android.util.Log;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;

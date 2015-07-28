@@ -27,6 +27,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.Date;
 
@@ -69,8 +70,18 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
     }
 
     @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getInnerWidget().validate(validationMode);
+    }
+
+    /**
+     * Validate the component with default ON_USER validation mode.
+     * <p>Use the validation of the inner widget</p>
+     * @return true if the widget is valid, false otherwise
+     */
+    @Override
     public boolean validate() {
-        return this.getInnerWidget().validate();
+        return this.getInnerWidget().validate(EnumFormFieldValidator.ON_USER);
     }
 
     /**

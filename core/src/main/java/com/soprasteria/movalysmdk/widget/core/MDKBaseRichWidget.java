@@ -37,6 +37,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * MDK Rich Widget.
@@ -262,8 +263,13 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     }
 
     @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getInnerWidget().validate(validationMode);
+    }
+
+    @Override
     public boolean validate() {
-        return this.getInnerWidget().validate();
+        return this.getInnerWidget().validate(EnumFormFieldValidator.ON_USER);
     }
 
     @Override

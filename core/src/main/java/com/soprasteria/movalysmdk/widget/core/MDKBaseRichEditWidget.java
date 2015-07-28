@@ -25,6 +25,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * Base implementation of the rich mdk widget for widget that uses text and are editable.
@@ -85,10 +86,21 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
     /**
      * Validate the component.
      * <p>Use the validation of the inner widget</p>
+     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
+     * @return true if the widget is valid, false otherwise
+     */
+    @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getInnerWidget().validate(validationMode);
+    }
+
+    /**
+     * Validate the component with default ON_USER validation mode.
+     * <p>Use the validation of the inner widget</p>
      * @return true if the widget is valid, false otherwise
      */
     @Override
     public boolean validate() {
-        return this.getInnerWidget().validate();
+        return this.getInnerWidget().validate(EnumFormFieldValidator.ON_USER);
     }
 }

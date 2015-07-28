@@ -18,9 +18,9 @@ package com.soprasteria.movalysmdk.widget.basic.command;
 import android.content.Context;
 import android.content.Intent;
 
-import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.basic.model.Email;
+import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 
 /**
  * <p>Class handling email message building: to, cc, bcc, subject, body.

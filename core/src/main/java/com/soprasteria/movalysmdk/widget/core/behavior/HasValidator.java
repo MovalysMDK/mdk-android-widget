@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * Interface to add validation capacity to a widget.
@@ -34,6 +35,14 @@ public interface HasValidator {
      * @return true if the widget is valid, false otherwise
      */
     boolean validate();
+
+    /**
+     * Validate the widget.
+     * <p>Basically execute all compatible validator for the widget</p>
+     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
+     * @return true if the widget is valid, false otherwise
+     */
+    boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode);
 
     /**
      * Set the error message on the widget.

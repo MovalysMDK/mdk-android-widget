@@ -30,6 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.List;
@@ -241,8 +242,6 @@ public class MDKWidgetDelegate implements MDKWidget {
         int[] state = null;
         View v = this.valueObject.getView();
         if(v != null && v instanceof MDKWidget) {
-
-
             int stateSpace = this.getStateLength(extraSpace);
             state = ((MDKWidget) v).superOnCreateDrawableState(stateSpace);
             int[] mdkState = this.getWidgetState();
@@ -372,13 +371,15 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Validate the linked widget with the mandatory FormFieldValidator and the optional
      * FormFieldValidator linked to the widget attributes.
      * @param setError true if the error must be set at validation, false otherwise
+     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if all validators passed, false otherwise
      */
-    public boolean validate(boolean setError) {
-        return MDKWidgetDelegateValidationHelper.getInstance().validate(this, setError);
+    public boolean validate(boolean setError, @EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return MDKWidgetDelegateValidationHelper.getInstance().validate(this, setError, validationMode);
     }
 
     /**
+     *
      * Notify the command listeners registered.
      * @param bValid true if the validation is ok, false otherwise
      */

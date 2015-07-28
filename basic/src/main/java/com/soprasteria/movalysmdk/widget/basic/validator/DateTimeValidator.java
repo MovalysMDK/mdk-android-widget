@@ -23,6 +23,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.Date;
@@ -53,17 +54,29 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
 
 
     @Override
-    public MDKMessage validate(Date objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context) {
+    public MDKMessage validate(Date objectToValidate,
+                               MDKAttributeSet mdkParameter,
+                               MDKMessages resultPreviousValidator,
+                               @EnumFormFieldValidator.EnumValidationMode int validationMode,
+                               Context context) {
+
         MDKMessage mdkMessage = null;
-        if ( mdkParameter.containsKey(R.attr.mandatory)
-                && mdkParameter.getBoolean(R.attr.mandatory)
-                && objectToValidate == null
-                && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
-            mdkMessage = new MDKMessage();
-            mdkMessage.setErrorCode(ERROR_MANDATORY);
-            String error = context.getString(R.string.mdkwidget_mandatory_error);
-            mdkMessage.setMessage(error);
+
+        if (validationMode == EnumFormFieldValidator.ON_FOCUS
+                || validationMode == EnumFormFieldValidator.ON_USER){
+
+            if ( mdkParameter.containsKey(R.attr.mandatory)
+                    && mdkParameter.getBoolean(R.attr.mandatory)
+                    && objectToValidate == null
+                    && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
+
+                mdkMessage = new MDKMessage();
+                mdkMessage.setErrorCode(ERROR_MANDATORY);
+                String error = context.getString(R.string.mdkwidget_mandatory_error);
+                mdkMessage.setMessage(error);
+            }
         }
+
         resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
         return mdkMessage;
     }

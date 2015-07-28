@@ -30,6 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.Date;
 
@@ -118,8 +119,13 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     }
 
     @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getMDKWidgetDelegate().validate(true, validationMode);
+    }
+
+    @Override
     public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true);
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.ON_USER);
     }
 
     @Override

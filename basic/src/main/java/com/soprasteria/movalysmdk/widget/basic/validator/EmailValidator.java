@@ -23,6 +23,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.regex.Matcher;
@@ -69,8 +70,14 @@ public class EmailValidator implements FormFieldValidator<String> {
 
 
     @Override
-    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context) {
+    public MDKMessage validate(String objectToValidate,
+                               MDKAttributeSet mdkParameter,
+                               MDKMessages resultPreviousValidator,
+                               @EnumFormFieldValidator.EnumValidationMode int validationMode,
+                               Context context) {
+
         MDKMessage mdkMessage = null;
+
         if (objectToValidate != null
                 && objectToValidate.length() > 0
                 && !resultPreviousValidator.containsKey(this.getClass().getName())) {

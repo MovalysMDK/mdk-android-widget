@@ -23,6 +23,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.text.ParseException;
@@ -58,9 +59,12 @@ public class DateTimeRangeValidator  implements FormFieldValidator<Date> {
         return accept;
     }
 
-
     @Override
-    public MDKMessage validate(Date objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context) {
+    public MDKMessage validate(Date objectToValidate,
+                               MDKAttributeSet mdkParameter,
+                               MDKMessages resultPreviousValidator,
+                               @EnumFormFieldValidator.EnumValidationMode int validationMode,
+                               Context context) {
         MDKMessage mdkMessage = null;
         Date minDate = null;
         Date maxDate = null;

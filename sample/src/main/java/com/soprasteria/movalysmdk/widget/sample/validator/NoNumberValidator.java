@@ -24,6 +24,7 @@ import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
@@ -71,7 +72,11 @@ public class NoNumberValidator implements FormFieldValidator<String> {
     }
 
     @Override
-    public MDKMessage validate(String objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, Context context) {
+    public MDKMessage validate(String objectToValidate,
+                               MDKAttributeSet mdkParameter,
+                               MDKMessages resultPreviousValidator,
+                               @EnumFormFieldValidator.EnumValidationMode int validationMode,
+                               Context context) {
         MDKMessage mdkMessage = null;
         if ( mdkParameter.getBoolean(R.attr.no_number)
                 && objectToValidate.length() > 0

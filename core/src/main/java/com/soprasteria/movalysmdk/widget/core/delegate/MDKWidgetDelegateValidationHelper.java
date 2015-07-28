@@ -11,6 +11,7 @@ import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.ArrayList;
@@ -90,9 +91,10 @@ public class MDKWidgetDelegateValidationHelper {
      * FormFieldValidator linked to the widget attributes.
      * @param delegate the delegate of the view being validated
      * @param setError true if the error must be set at validation, false otherwise
+     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if all validators passed, false otherwise
      */
-    public boolean validate(MDKWidgetDelegate delegate, boolean setError) {
+    public boolean validate(MDKWidgetDelegate delegate, boolean setError, @EnumFormFieldValidator.EnumValidationMode int validationMode) {
 
         boolean bValid = true;
 
@@ -123,14 +125,14 @@ public class MDKWidgetDelegateValidationHelper {
                     // this get the last part of the resource name
                     String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
                     FormFieldValidator mandatoryValidator = getValidator(v, validatorKey);
-                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, setError, delegate.valueObject.getAttributesMap(), returnMessages, delegate.getContext());
+                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, setError, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext());
                 }
             }
 
             // execute all others validators if no mandatory error
             if (bValid) {
                 for (FormFieldValidator validator : attributesValidators) {
-                    bValid = executeValidator(validator, objectToValidate, v, setError, delegate.valueObject.getAttributesMap(), returnMessages, delegate.getContext()) & bValid;
+                    bValid = executeValidator(validator, objectToValidate, v, setError, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext()) & bValid;
                 }
             }
 
@@ -159,13 +161,15 @@ public class MDKWidgetDelegateValidationHelper {
      * @param attributesMap a Map containing widget attributes for validation
      * @param returnMap a Map containing previous validation errors
      * @param context the context to use
+     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if the FormFieldValidator return no error, false otherwise
      */
     public boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError,
-                                    MDKAttributeSet attributesMap, MDKMessages returnMap, Context context) {
+                                    MDKAttributeSet attributesMap, MDKMessages returnMap,
+                                    @EnumFormFieldValidator.EnumValidationMode int validationMode, Context context) {
         boolean bValid = true;
         if (validator.accept(validatingView)) {
-            MDKMessage mdkMessage = validator.validate(objectToValidate, attributesMap, returnMap, context);
+            MDKMessage mdkMessage = validator.validate(objectToValidate, attributesMap, returnMap, validationMode, context);
 
             if (mdkMessage != null && mdkMessage.getMessageType() == MDKMessage.ERROR_TYPE) {
                 bValid = false;
