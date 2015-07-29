@@ -91,7 +91,7 @@ public class MDKWidgetDelegateErrorHelper {
             if (errorView instanceof MDKErrorWidget){
                 setMdkErrorWidget((MDKErrorWidget) errorView, messages, valueObject, label, context);
             } else if (errorView != null){
-                errorView.setText(messages.getFirstErrorMessage());
+                errorView.setText(messages.getErrorMessage());
             }
         }
         valueObject.setError(messages != null);

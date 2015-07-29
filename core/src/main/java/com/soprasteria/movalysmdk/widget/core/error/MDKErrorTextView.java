@@ -139,8 +139,8 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      */
     @Override
     public void addError(Context context, int componentId, MDKMessages errors) {
-        // TODO modify this
-        this.errorSparseArray.put(componentId, errors.getFirstNonNullMessage());
+        //TODO serialize MDKMessages
+        this.errorSparseArray.put(componentId, errors.getMultipleErrorMessage());
         this.updateErrorMessage(context);
     }
 

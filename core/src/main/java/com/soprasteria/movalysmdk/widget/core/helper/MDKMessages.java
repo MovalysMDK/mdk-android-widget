@@ -60,18 +60,21 @@ public class MDKMessages {
     }
 
     /**
-     * Return the first error message in the container.
-     * @return the error message
+     * Return all error messages in the container into a single char.
+     * @return all the concatenated error messages
      */
-    public CharSequence getFirstErrorMessage() {
+    public CharSequence getErrorMessage() {
+        StringBuilder messagesBuilder = new StringBuilder();
         if (!this.messagesMap.isEmpty()) {
             for (Map.Entry<String, MDKMessage> messageEntry : this.messagesMap.entrySet()) {
-                if (messageEntry.getValue() != null) {
-                    return messageEntry.getValue().getMessage();
+                if ((messageEntry.getValue() != null) && (messagesBuilder.length() != 0)){
+                    messagesBuilder.append("\n").append(messageEntry.getValue().getMessage());
+                }else if (messageEntry.getValue() != null){
+                    messagesBuilder.append(messageEntry.getValue().getMessage());
                 }
             }
         }
-        return null;
+       return messagesBuilder;
     }
 
     /**
@@ -109,14 +112,17 @@ public class MDKMessages {
     }
 
     /**
-     * Return the first non-null message.
-     * @return the first non-null message
+     * Return all error messages within the same MDK error widget.
+     * @return the MDK message with all associated error messages
      */
-    public MDKMessage getFirstNonNullMessage() {
+    public MDKMessage getMultipleErrorMessage() {
+
         if (!this.messagesMap.isEmpty()) {
             for (Map.Entry<String, MDKMessage> messageEntry : this.messagesMap.entrySet()) {
                 if (messageEntry.getValue() != null) {
-                    return messageEntry.getValue();
+                    MDKMessage mdkMessage = messageEntry.getValue();
+                    mdkMessage.setMessage(getErrorMessage());
+                    return mdkMessage;
                 }
             }
         }
