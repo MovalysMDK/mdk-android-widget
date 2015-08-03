@@ -20,7 +20,7 @@ import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEmailWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -28,7 +28,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 /**
  * MDKRichEmail class definition.
  */
-public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDKBaseWidget, HasValidator, HasHint {
+public class MDKRichEmail extends MDKBaseRichEmailWidget<MDKEmail> implements MDKBaseWidget, HasValidator, HasHint {
 
     /**
      * Constructor.

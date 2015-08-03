@@ -23,6 +23,7 @@ import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand;
 import com.soprasteria.movalysmdk.widget.basic.model.Email;
@@ -30,6 +31,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCommands;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasEmail;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
@@ -50,16 +52,22 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  * </p>
  * <p>The validation regexp is stored in R.string.email_regexp</p>
  */
-public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasCommands, HasLabel, HasDelegate {
+public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasCommands, HasLabel, HasDelegate, HasEmail {
 
     /** CommandDelegate attribute. */
     protected WidgetCommandDelegate commandDelegate;
+
     /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
+
     /** Keyword instanceState. */
     private static final String INSTANCE_STATE = "instanceState";
+
     /** Keyword innerState. */
     private static final String INNER_STATE = "innerState";
+
+    /** email object */
+    private Email email;
 
     /**
      * Constructor.
@@ -97,6 +105,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         this.commandDelegate = new WidgetCommandDelegate(this, attrs);
         this.addCommandStateListener(this.commandDelegate);
 
+        this.email = new Email();
     }
 
     /**
@@ -168,7 +177,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         String sEmailAddress = this.getText().toString();
         if (sEmailAddress != null && sEmailAddress.length() > 0) {
             // invoke command
-            Email email = new Email(sEmailAddress);
+            this.email.setTo(new String[]{ sEmailAddress });
             ((EmailWidgetCommand)this.commandDelegate.getWidgetCommand(v.getId())).execute(this.getContext(), email);
         }
     }
@@ -349,7 +358,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         // Save the android view instance state
         bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
         // Save the MDKWidgetDelegate instance state
-        bundle.putParcelable(INNER_STATE,this.mdkWidgetDelegate.onSaveInstanceState(bundle.getParcelable(INSTANCE_STATE)));
+        bundle.putParcelable(INNER_STATE, this.mdkWidgetDelegate.onSaveInstanceState(bundle.getParcelable(INSTANCE_STATE)));
         return bundle;
     }
 
@@ -386,5 +395,32 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     @Override
     public void superOnRestoreInstanceState(Parcelable state) {
         onRestoreInstanceState(state);
+    }
+
+    @Override
+    public void setEmail(String[] email) {
+        if (email == null) {
+            email = new String[5];
+        }
+        this.email.setTo(new String[]{ email[0] });
+        this.email.setCc(new String[]{email[1]});
+        this.email.setBcc(new String[]{email[2]});
+        this.email.setSubject(email[3]);
+        this.email.setBody(email[4]);
+
+        this.setText(email[0]);
+    }
+
+    @Override
+    public String[] getEmail() {
+        this.email.setTo(new String[]{ this.getText().toString() });
+
+        String[] email = new String[5];
+        email[0] = this.email.getTo()[0];
+        email[1] = this.email.getCc()[0];
+        email[2] = this.email.getBcc()[0];
+        email[3] = this.email.getSubject();
+        email[4] = this.email.getBody().toString();
+        return email;
     }
 }
