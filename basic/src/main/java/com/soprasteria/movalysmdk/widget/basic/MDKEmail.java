@@ -420,7 +420,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         email[1] = this.email.getCc()[0];
         email[2] = this.email.getBcc()[0];
         email[3] = this.email.getSubject();
-        email[4] = this.email.getBody().toString();
+        email[4] = (String)this.email.getBody();
         return email;
     }
 }
