@@ -261,6 +261,11 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
         this.mdkDateTimePickerWidgetDelegate.registerChangeListener(listener);
     }
 
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.mdkDateTimePickerWidgetDelegate.unregisterChangeListener(listener);
+    }
+
     /**
      * Get max date (in Date format).
      * @return Date the max date

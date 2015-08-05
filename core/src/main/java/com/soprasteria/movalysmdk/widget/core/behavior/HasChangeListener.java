@@ -29,4 +29,10 @@ public interface HasChangeListener {
      */
     void registerChangeListener(ChangeListener listener);
 
+    /**
+     * Unregisters a ChangeListener.
+     * @param listener the listener to unregister
+     */
+    void unregisterChangeListener(ChangeListener listener);
+
 }

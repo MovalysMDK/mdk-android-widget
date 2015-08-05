@@ -121,6 +121,11 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
         this.getInnerWidget().registerChangeListener(listener);
     }
 
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.getInnerWidget().unregisterChangeListener(listener);
+    }
+
     /**
      * Initialization.
      * @param context the context

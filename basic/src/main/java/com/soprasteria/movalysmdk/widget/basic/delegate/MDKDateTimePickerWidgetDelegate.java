@@ -281,6 +281,14 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
+     * Unregisters a ChangeListener in delegate.
+     * @param listener the ChangeListener to unregister
+     */
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.notifyChangeListeners.remove(listener);
+    }
+
+    /**
      * Notify all the ChangeListener registered.
      */
     private void notifyChangeListeners() {
