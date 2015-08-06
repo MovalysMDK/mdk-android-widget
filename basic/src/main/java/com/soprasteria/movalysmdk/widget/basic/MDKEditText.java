@@ -134,7 +134,6 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     @Override
     public void setMandatory(boolean mandatory) {
         this.mdkWidgetDelegate.setMandatory(mandatory);
-        validate();
     }
 
     @Override
