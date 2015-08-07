@@ -66,7 +66,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     /** Keyword innerState. */
     private static final String INNER_STATE = "innerState";
 
-    /** email object */
+    /** email object. */
     private Email email;
 
     /**
@@ -399,28 +399,29 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
     @Override
     public void setEmail(String[] email) {
-        if (email == null) {
-            email = new String[5];
+        String[] newEmail = email;
+        if (newEmail == null) {
+            newEmail = new String[5];
         }
-        this.email.setTo(new String[]{ email[0] });
-        this.email.setCc(new String[]{email[1]});
-        this.email.setBcc(new String[]{email[2]});
-        this.email.setSubject(email[3]);
-        this.email.setBody(email[4]);
+        this.email.setTo(new String[]{newEmail[0]});
+        this.email.setCc(new String[]{newEmail[1]});
+        this.email.setBcc(new String[]{newEmail[2]});
+        this.email.setSubject(newEmail[3]);
+        this.email.setBody(newEmail[4]);
 
         this.setText(email[0]);
     }
 
     @Override
     public String[] getEmail() {
-        this.email.setTo(new String[]{ this.getText().toString() });
+        this.email.setTo(new String[]{this.getText().toString() });
 
-        String[] email = new String[5];
-        email[0] = this.email.getTo()[0];
-        email[1] = this.email.getCc()[0];
-        email[2] = this.email.getBcc()[0];
-        email[3] = this.email.getSubject();
-        email[4] = (String)this.email.getBody();
-        return email;
+        String[] newEmail = new String[5];
+        newEmail[0] = this.email.getTo()[0];
+        newEmail[1] = this.email.getCc()[0];
+        newEmail[2] = this.email.getBcc()[0];
+        newEmail[3] = this.email.getSubject();
+        newEmail[4] = (String)this.email.getBody();
+        return newEmail;
     }
 }

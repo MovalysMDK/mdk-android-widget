@@ -26,7 +26,6 @@ public interface HasEmail extends View.OnClickListener {
 
     /**
      * Sets the email object.
-     * @param email: a string array with the following content
      * <ul>
      * <li>to the recipient of the email</li>
      * <li>cc the carbon copy of the email</li>
@@ -34,6 +33,7 @@ public interface HasEmail extends View.OnClickListener {
      * <li>object the object of the email</li>
      * <li>body the body of the email</li>
      * </ul>
+     * @param email: a string array with the following content
      */
     void setEmail(String[] email);
 
@@ -47,6 +47,7 @@ public interface HasEmail extends View.OnClickListener {
      * <li>object the object of the email</li>
      * <li>body the body of the email</li>
      * </ul>
+     * @return the email object
      */
     String[] getEmail();
 
