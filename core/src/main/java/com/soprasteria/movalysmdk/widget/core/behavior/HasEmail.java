@@ -17,8 +17,6 @@ package com.soprasteria.movalysmdk.widget.core.behavior;
 
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
-
 /**
  * Add date behavior on a widget.
  */
@@ -33,7 +31,7 @@ public interface HasEmail extends View.OnClickListener {
      * <li>object the object of the email</li>
      * <li>body the body of the email</li>
      * </ul>
-     * @param email: a string array with the following content
+     * @param email a string array with the following content
      */
     void setEmail(String[] email);
 

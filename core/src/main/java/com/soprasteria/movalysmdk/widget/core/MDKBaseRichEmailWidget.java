@@ -22,15 +22,12 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasEmail;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
-
-import java.util.Date;
 
 /**
  * Base implementation of the rich mdk widget for widget that uses text and are editable.

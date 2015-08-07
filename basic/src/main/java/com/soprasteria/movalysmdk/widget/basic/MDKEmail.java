@@ -409,7 +409,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         this.email.setSubject(newEmail[3]);
         this.email.setBody(newEmail[4]);
 
-        this.setText(email[0]);
+        this.setText(newEmail[0]);
     }
 
     @Override

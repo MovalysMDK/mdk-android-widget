@@ -62,9 +62,10 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
 
         MDKMessage mdkMessage = null;
 
+        boolean isMandatory = mdkParameter.containsKey(R.attr.mandatory) && mdkParameter.getBoolean(R.attr.mandatory);
+
         if (validationMode != EnumFormFieldValidator.VALIDATE
-                && mdkParameter.containsKey(R.attr.mandatory)
-                && mdkParameter.getBoolean(R.attr.mandatory)
+                && isMandatory
                 && objectToValidate == null
                 && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
 

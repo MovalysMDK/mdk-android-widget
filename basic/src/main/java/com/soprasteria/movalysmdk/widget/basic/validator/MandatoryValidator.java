@@ -66,9 +66,11 @@ public class MandatoryValidator implements FormFieldValidator<String> {
                                Context context) {
 
         MDKMessage mdkMessage = null;
+
+        boolean isMandatory = mdkParameter.containsKey(R.attr.mandatory) && mdkParameter.getBoolean(R.attr.mandatory);
+
         if (validationMode != EnumFormFieldValidator.VALIDATE
-            && mdkParameter.containsKey(R.attr.mandatory)
-            && mdkParameter.getBoolean(R.attr.mandatory)
+            && isMandatory
             && objectToValidate.length() < 1
             && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
 
