@@ -77,21 +77,6 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     /**
-     * Constructor of the MDKWidgetSimpleComponentProvider.
-     * <p>
-     *     Build the default validator keys array <em>R.array.validatorKeys</em> and the array
-     *     reference passed as parameter.
-     * </p>
-     * @param context the Android context
-     * @param resCustomValidators a R.array.* resource reference
-     */
-    public MDKWidgetSimpleComponentProvider(Context context, int resCustomValidators) {
-        this(context);
-        String[] validatorsKeys = context.getResources().getStringArray(resCustomValidators);
-        createValidatorsFromKeys(context, validatorsKeys);
-    }
-
-    /**
      * Register the validators in the attributes Maps.
      * @param context the Android context
      * @param validatorsKeys a array of String representing the validators key to instanciate
@@ -268,5 +253,15 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     @Override
     public FormFieldValidator getValidator(String key) {
         return this.validatorMap.get(key);
+    }
+
+    @Override
+    public void registerValidator(Context context, FormFieldValidator<?> validator) {
+        if (validator != null
+                && this.validatorMap.get(validator.getIdentifier(context)) == null ) {
+            storeValidator(validator.getIdentifier(context), validator);
+        } else {
+            Log.w(LOG_TAG, "try to add a null validator or to replace a validator identifier");
+        }
     }
 }

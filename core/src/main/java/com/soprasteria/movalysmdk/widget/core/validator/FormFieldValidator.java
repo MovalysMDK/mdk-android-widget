@@ -43,6 +43,13 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 public interface FormFieldValidator<T> {
 
     /**
+     * Return the identifier of the validator (basically the key of the validator).
+     * @param context the android context
+     * @return a key as a String
+     */
+    String getIdentifier(Context context);
+
+    /**
      * Return the Validator configuration.
      * <p>The array is the attributes references handled by the validator</p>
      * <p>For exemple : {R.attr.mandatory} for the mandatory Validator</p>
@@ -67,4 +74,5 @@ public interface FormFieldValidator<T> {
      * @return a MDKError containing the error or null
      */
     MDKMessage validate(T objectToValidate, MDKAttributeSet mdkParameter, MDKMessages resultPreviousValidator, @EnumFormFieldValidator.EnumValidationMode int validationMode, Context context);
+
 }

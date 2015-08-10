@@ -75,4 +75,10 @@ public interface MDKWidgetComponentProvider {
      */
     FormFieldValidator getValidator(String key);
 
+    /**
+     * Register a new validator on the widget component provider.
+     * @param context the android context
+     * @param validator the validator to register
+     */
+    void registerValidator(Context context, FormFieldValidator<?> validator);
 }

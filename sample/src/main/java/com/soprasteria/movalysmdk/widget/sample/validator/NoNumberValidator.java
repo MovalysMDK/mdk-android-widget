@@ -56,6 +56,11 @@ public class NoNumberValidator implements FormFieldValidator<String> {
     private Pattern pattern;
 
     @Override
+    public String getIdentifier(Context context) {
+        return context.getResources().getResourceName(R.string.no_number_validator);
+    }
+
+    @Override
     public boolean accept(View view) {
         boolean accept = false;
         if (view instanceof EditText

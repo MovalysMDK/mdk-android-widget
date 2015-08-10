@@ -55,6 +55,11 @@ public class EmailValidator implements FormFieldValidator<String> {
     private Pattern pattern;
 
     @Override
+    public String getIdentifier(Context context) {
+        return context.getResources().getResourceName(R.string.mdkwidget_mdkemail_validator_class);
+    }
+
+    @Override
     public boolean accept(View view) {
         boolean accept = false;
         if (view instanceof HasText) {

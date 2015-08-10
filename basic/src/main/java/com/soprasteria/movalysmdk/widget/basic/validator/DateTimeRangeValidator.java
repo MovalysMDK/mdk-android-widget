@@ -51,6 +51,11 @@ public class DateTimeRangeValidator  implements FormFieldValidator<Date> {
     public static final int ERROR_DATE_COMPARISON = R.string.mdkwidget_error_date_comparison;
 
     @Override
+    public String getIdentifier(Context context) {
+        return context.getResources().getResourceName(R.string.mdkwidget_mdkdatetimerange_validator_class);
+    }
+
+    @Override
     public boolean accept(View view) {
         boolean accept = false;
         if (view instanceof HasDate) {

@@ -45,6 +45,11 @@ public class MandatoryValidator implements FormFieldValidator<String> {
 
 
     @Override
+    public String getIdentifier(Context context) {
+        return context.getResources().getResourceName(R.string.mdkwidget_mdkedittext_validator_class);
+    }
+
+    @Override
     public boolean accept(View view) {
         boolean accept = false;
         if (view instanceof HasText) {

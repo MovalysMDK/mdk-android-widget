@@ -26,6 +26,7 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
+import com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator;
 
 /**
  * Custom Application class.
@@ -82,8 +83,10 @@ public class MyApp extends Application implements MDKWidgetApplication {
     @Override
     public MDKWidgetComponentProvider getMDKWidgetComponentProvider() {
         if (this.widgetComponentProvider == null) {
-            this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider(this, R.array.custom_validator);
+            this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider(this/*, R.array.custom_validator*/);
+            this.widgetComponentProvider.registerValidator(this, new NoNumberValidator());
         }
+
         return this.widgetComponentProvider;
     }
 }

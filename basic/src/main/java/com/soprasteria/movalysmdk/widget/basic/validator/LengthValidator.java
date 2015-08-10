@@ -41,6 +41,11 @@ public class LengthValidator implements FormFieldValidator<String> {
     private static final int ERROR_MIN_LENGTH = R.string.mdkwidget_min_length_error;
 
     @Override
+    public String getIdentifier(Context context) {
+        return context.getResources().getResourceName(R.string.mdkwidget_mdkedittext_lengthvalidator_class);
+    }
+
+    @Override
     public boolean accept(View view) {
         boolean accept = false;
         if (view instanceof HasText) {
