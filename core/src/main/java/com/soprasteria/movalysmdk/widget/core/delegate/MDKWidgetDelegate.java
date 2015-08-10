@@ -29,6 +29,7 @@ import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
@@ -301,8 +302,12 @@ public class MDKWidgetDelegate implements MDKWidget {
      * @param state the state
      */
     public void callRichSelector(int[] state) {
-        for (RichSelector selector: this.valueObject.getRichSelectors()) {
-            selector.onStateChange(state, this.valueObject.getView());
+        for (String selectorKey: this.valueObject.getRichSelectors()) {
+            if (this.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+                RichSelector selector = ((MDKWidgetApplication) this.getContext().getApplicationContext())
+                        .getMDKWidgetComponentProvider().getRichValidator(this.getContext(), selectorKey);
+                selector.onStateChange(state, this.valueObject.getView());
+            }
         }
     }
 

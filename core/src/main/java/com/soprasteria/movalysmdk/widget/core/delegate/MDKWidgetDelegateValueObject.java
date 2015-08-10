@@ -7,8 +7,6 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
-import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
-import com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -66,7 +64,7 @@ public class MDKWidgetDelegateValueObject {
     /**
      * richSelectors.
      */
-    private List<RichSelector> richSelectors;
+    private List<String> richSelectors;
     /**
      * weakView.
      */
@@ -133,8 +131,7 @@ public class MDKWidgetDelegateValueObject {
         this.weakView = new WeakReference<View>(view);
 
         this.richSelectors = new ArrayList<>();
-        //TODO MDK-477
-        this.richSelectors.add(new SimpleMandatoryRichSelector());
+
 
         this.commandStateListeners = new ArrayList<>();
 
@@ -149,6 +146,12 @@ public class MDKWidgetDelegateValueObject {
         this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
         this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
+
+        int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);
+        String[] selectorKeys = view.getContext().getResources().getStringArray(selectorResId);
+        for (String selectorKey : selectorKeys) {
+            this.richSelectors.add(selectorKey);
+        }
 
         typedArray.recycle();
 
@@ -192,7 +195,7 @@ public class MDKWidgetDelegateValueObject {
      * Returns the widget rich selectors.
      * @return the widget rich selectors
      */
-    public List<RichSelector> getRichSelectors() {
+    public List<String> getRichSelectors() {
         return richSelectors;
     }
 
@@ -200,7 +203,7 @@ public class MDKWidgetDelegateValueObject {
      * Sets the widget rich selectors.
      * @param richSelectors the value to set
      */
-    public void setRichSelectors(List<RichSelector> richSelectors) {
+    public void setRichSelectors(List<String> richSelectors) {
         this.richSelectors = richSelectors;
     }
 

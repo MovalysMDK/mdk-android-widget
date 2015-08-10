@@ -23,6 +23,7 @@ import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
+import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.ArrayList;
@@ -62,6 +63,10 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * A Map of Integer (R.attr.*) and List of FormFieldValidator instance.
      */
     private Map<Integer, List<FormFieldValidator>> validatorListMap;
+    /**
+     * A Map of String (key) and RichSelector.
+     */
+    private Map<String, RichSelector> richSelector;
 
     /**
      * Constructor of the MDKWidgetSimpleComponentProvider.
@@ -71,9 +76,12 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     public MDKWidgetSimpleComponentProvider(Context context) {
         this.validatorMap = new HashMap<>();
         this.validatorListMap = new HashMap<>();
+        this.richSelector = new HashMap<>();
 
         String[] validatorsKeys = context.getResources().getStringArray(R.array.validatorKeys);
         createValidatorsFromKeys(context, validatorsKeys);
+
+
     }
 
     /**
@@ -262,6 +270,36 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
             storeValidator(validator.getIdentifier(context), validator);
         } else {
             Log.w(LOG_TAG, "try to add a null validator or to replace a validator identifier");
+        }
+    }
+
+    @Override
+    public RichSelector getRichValidator(Context context, String key) {
+        RichSelector selector = this.richSelector.get(key);
+        if (selector == null) {
+            String classPath = findClassPathFromResource(context, key, null);
+            try {
+                Class<RichSelector> selectorClass = (Class<RichSelector>) Class.forName(classPath);
+                selector = selectorClass.newInstance();
+                this.richSelector.put(key, selector);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return selector;
+    }
+
+    @Override
+    public void registerRichSelector(String key, RichSelector selector) {
+        if (selector != null
+                && this.validatorMap.get(key) == null ) {
+            this.richSelector.put(key, selector);
+        } else {
+            Log.w(LOG_TAG, "try to add a null richSelector or to replace a richSelector key");
         }
     }
 }

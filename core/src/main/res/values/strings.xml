@@ -17,6 +17,8 @@
 
 -->
 <resources>
+
+    <string name="mdkwidget_mandatory_selector_class" translatable="false">com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</string>
     <string name="mandatory_char" translatable="false">" (*)"</string>
     <string name="error_prefix" translatable="false">"42 /!\\ "</string>
 

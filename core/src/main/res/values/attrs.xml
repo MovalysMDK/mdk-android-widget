@@ -41,6 +41,7 @@
         <attr name="hideFloatingLabelAnim" format="reference" />
         <attr name="helper" format="reference" />
         <attr name="layout" />
+        <attr name="selectors" format="reference" />
         <attr name="errorId" format="reference" />
         <attr name="labelId" format="reference" />
         <attr name="helperId" format="reference" />

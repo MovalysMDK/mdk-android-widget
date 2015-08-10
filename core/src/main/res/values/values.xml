@@ -24,8 +24,9 @@
 
     <style name="Base.MDKLabel" parent="TextAppearance.AppCompat.Small"/>
 
-
-    <style name="Base.MDKValue.MDKValueEditText" parent="Widget.AppCompat.EditText"/>
+    <style name="Base.MDKValue.MDKValueEditText" parent="Widget.AppCompat.EditText">
+        <!-- cutsom code here ... -->
+    </style>
     <style name="Base.MDKValue.MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"/>
     <style name="Base.MDKValue.TextView" parent="TextAppearance.AppCompat.Medium"/>
 

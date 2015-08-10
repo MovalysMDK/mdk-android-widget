@@ -19,6 +19,7 @@ import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
+import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.util.List;
@@ -81,4 +82,19 @@ public interface MDKWidgetComponentProvider {
      * @param validator the validator to register
      */
     void registerValidator(Context context, FormFieldValidator<?> validator);
+
+    /**
+     * Return a RichSelector associate to the key.
+     * @param context the android context
+     * @param key the key of the RichSelector
+     * @return the RichSelector associated to the key
+     */
+    RichSelector getRichValidator(Context context, String key);
+
+    /**
+     * Register a new validator on the widget component provider.
+     * @param selector the selector to register
+     */
+    void registerRichSelector(String key, RichSelector selector);
+
 }

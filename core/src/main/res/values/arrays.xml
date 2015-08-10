@@ -29,4 +29,8 @@
         <item>mdkwidget_mdkemail_validator_class</item>
     </string-array>
 
+    <string-array name="selectors" translatable="false">
+        <item>mdkwidget_mandatory_selector_class</item>
+    </string-array>
+
 </resources>

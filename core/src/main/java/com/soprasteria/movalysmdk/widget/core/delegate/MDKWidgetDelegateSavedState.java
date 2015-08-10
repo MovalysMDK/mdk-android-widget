@@ -5,8 +5,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
-
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
     /**
      * richSelectors.
      */
-    List<RichSelector> richSelectors;
+    List<String> richSelectors;
 
     /**
      * rootViewId.
@@ -159,7 +157,7 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
 
         out.writeString(this.qualifier);
         out.writeInt(this.resHelperId);
-        // TODO : store the richSelectors
+        out.writeStringList(this.richSelectors);
 
         out.writeInt(this.rootId);
         out.writeInt(this.labelId);
