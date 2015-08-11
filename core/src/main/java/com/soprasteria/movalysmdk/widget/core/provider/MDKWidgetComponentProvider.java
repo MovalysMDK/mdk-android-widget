@@ -93,6 +93,7 @@ public interface MDKWidgetComponentProvider {
 
     /**
      * Register a new validator on the widget component provider.
+     * @param key the key to register on
      * @param selector the selector to register
      */
     void registerRichSelector(String key, RichSelector selector);

@@ -283,11 +283,11 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
                 selector = selectorClass.newInstance();
                 this.richSelector.put(key, selector);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, "RichSelector not found : ", e);
             } catch (InstantiationException e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, "RichSelector no empty constructor : ", e);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, "RichSelector protected or private constructor : ", e);
             }
         }
         return selector;
