@@ -447,19 +447,19 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     private String[] emailToStringArray(Email emailObject) {
         String[] emailArray = new String[5];
 
-        if (emailObject.getTo() != null) {
+        if (emailObject.getTo() != null && emailObject.getTo().length > 0) {
             emailArray[0] = emailObject.getTo()[0];
         } else {
             emailArray[0] = null;
         }
 
-        if (emailObject.getCc() != null) {
+        if (emailObject.getCc() != null && emailObject.getCc().length > 0) {
             emailArray[1] = emailObject.getCc()[0];
         } else {
             emailArray[1] = null;
         }
 
-        if (emailObject.getBcc() != null) {
+        if (emailObject.getBcc() != null && emailObject.getBcc().length > 0) {
             emailArray[2] = emailObject.getBcc()[0];
         } else {
             emailArray[2] = null;
