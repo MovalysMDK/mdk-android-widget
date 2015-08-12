@@ -360,6 +360,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
         // Save the MDKWidgetDelegate instance state
         bundle.putParcelable(INNER_STATE, this.mdkWidgetDelegate.onSaveInstanceState(bundle.getParcelable(INSTANCE_STATE)));
+        // Save the email object
+        bundle.putStringArray("email", this.emailToStringArray(this.email));
         return bundle;
     }
 
@@ -373,6 +375,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
             this.mdkWidgetDelegate.onRestoreInstanceState(this, bundle.getParcelable(INNER_STATE));
+            // Restore the email object
+            this.email = this.stringArrayToEmail(bundle.getStringArray("email"));
             super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
             return;
         }
@@ -400,32 +404,72 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
     @Override
     public void setEmail(String[] email) {
-        String[] newEmail = email;
-        if (newEmail == null) {
-            newEmail = new String[5];
-        }
-        this.email.setTo(new String[]{newEmail[0]});
-        this.email.setCc(new String[]{newEmail[1]});
-        this.email.setBcc(new String[]{newEmail[2]});
-        this.email.setSubject(newEmail[3]);
-        this.email.setBody(newEmail[4]);
+        this.email = stringArrayToEmail(email);
 
-        this.setText(newEmail[0]);
+        if (this.email.getTo() != null && this.email.getTo().length > 0) {
+            this.setText(this.email.getTo()[0]);
+        } else {
+            this.setText(null);
+        }
     }
 
     @Override
     public String[] getEmail() {
-        this.email.setTo(new String[]{this.getText().toString() });
+        this.email.setTo(new String[]{this.getText().toString()});
 
-        String[] newEmail = new String[5];
-        newEmail[0] = this.email.getTo()[0];
-        newEmail[1] = this.email.getCc()[0];
-        newEmail[2] = this.email.getBcc()[0];
-        newEmail[3] = this.email.getSubject();
-        newEmail[4] = (String)this.email.getBody();
-        return newEmail;
+        return emailToStringArray(this.email);
     }
 
+    /**
+     * Transforms an array of strings to an {@link Email} object.
+     * @param emailArray the string of array
+     * @return the {@link Email} object
+     */
+    private Email stringArrayToEmail(String[] emailArray) {
+        Email emailObject = new Email();
+
+        if (emailArray != null && emailArray.length == 5) {
+            emailObject.setTo(new String[]{emailArray[0]});
+            emailObject.setCc(new String[]{emailArray[1]});
+            emailObject.setBcc(new String[]{emailArray[2]});
+            emailObject.setSubject(emailArray[3]);
+            emailObject.setBody(emailArray[4]);
+        }
+
+        return emailObject;
+    }
+
+    /**
+     * Transforms an {@link Email} object to an array of strings.
+     * @param emailObject the {@link Email} object
+     * @return the string of array
+     */
+    private String[] emailToStringArray(Email emailObject) {
+        String[] emailArray = new String[5];
+
+        if (emailObject.getTo() != null) {
+            emailArray[0] = emailObject.getTo()[0];
+        } else {
+            emailArray[0] = null;
+        }
+
+        if (emailObject.getCc() != null) {
+            emailArray[1] = emailObject.getCc()[0];
+        } else {
+            emailArray[1] = null;
+        }
+
+        if (emailObject.getBcc() != null) {
+            emailArray[2] = emailObject.getBcc()[0];
+        } else {
+            emailArray[2] = null;
+        }
+
+        emailArray[3] = emailObject.getSubject();
+        emailArray[4] = (String)emailObject.getBody();
+
+        return emailArray;
+    }
 
     @Override
     public void setRichSelectors(List<String> richSelectors) {
