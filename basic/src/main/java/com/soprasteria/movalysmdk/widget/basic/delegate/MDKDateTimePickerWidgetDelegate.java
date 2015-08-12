@@ -19,6 +19,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
@@ -572,6 +574,35 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     public void setTimeHint(String timeHint) {
         this.timeHint = timeHint;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState(Parcelable superState) {
+
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState(superState);
+
+        // Save the mdkDate
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("state", state);
+        bundle.putSerializable("date", this.mdkDate.getDate());
+
+        return bundle;
+    }
+
+    @Override
+    public Parcelable onRestoreInstanceState(View view, Parcelable state) {
+        Bundle bundle = (Bundle) state;
+
+        // Restore the mdkDate
+        Parcelable parcelable = bundle.getParcelable("state");
+        final Date date = (Date) bundle.getSerializable("date");
+
+        this.mdkDate.setDate(date);
+        this.mdkDate.setTime(date);
+
+        // Restore the android view instance state
+        return super.onRestoreInstanceState(view, parcelable);
     }
 
 }

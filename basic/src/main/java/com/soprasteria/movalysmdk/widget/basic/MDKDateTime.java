@@ -205,6 +205,26 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     }
 
     @Override
+    public Parcelable onSaveInstanceState() {
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState();
+
+        // Save the MDKWidgetDelegate instance state
+        state = this.mdkDateTimePickerWidgetDelegate.onSaveInstanceState(state);
+
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        // Restore the MDKWidgetDelegate instance state
+        Parcelable innerState = this.mdkDateTimePickerWidgetDelegate.onRestoreInstanceState(this, state);
+
+        // Restore the android view instance state
+        super.onRestoreInstanceState(innerState);
+    }
+
+    @Override
     public Parcelable superOnSaveInstanceState() {
         return onSaveInstanceState();
     }
