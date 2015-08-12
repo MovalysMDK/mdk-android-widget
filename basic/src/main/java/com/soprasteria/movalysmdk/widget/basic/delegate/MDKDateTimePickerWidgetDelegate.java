@@ -331,8 +331,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             if (view.getId() == this.dateViewId) {
                 // Display the date picker dialog
                 Calendar calendar = Calendar.getInstance();
-                if (this.mdkDate.getDateState() == this.mdkDate.DATE_NULL ||
-                        this.mdkDate.getDateState() == this.mdkDate.DATE_TIME_NULL) {
+                if (this.mdkDate.getDateState() == MDKDate.DATE_NULL ||
+                        this.mdkDate.getDateState() == MDKDate.DATE_TIME_NULL) {
                     this.mdkDate.setDate(new Date());
                 }
                 calendar.setTime(this.mdkDate.getDate());
@@ -347,8 +347,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             } else if (view.getId() == this.timeViewId) {
                 // Display the time picker dialog
                 Calendar calendar = Calendar.getInstance();
-                if (this.mdkDate.getDateState() == this.mdkDate.TIME_NULL ||
-                        this.mdkDate.getDateState() == this.mdkDate.DATE_TIME_NULL) {
+                if (this.mdkDate.getDateState() == MDKDate.TIME_NULL ||
+                        this.mdkDate.getDateState() == MDKDate.DATE_TIME_NULL) {
                     this.mdkDate.setTime(new Date());
                 }
                 calendar.setTime(this.mdkDate.getDate());
