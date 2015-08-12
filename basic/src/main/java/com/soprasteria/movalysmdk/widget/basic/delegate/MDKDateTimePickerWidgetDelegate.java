@@ -598,8 +598,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         Parcelable parcelable = bundle.getParcelable("state");
         final Date date = (Date) bundle.getSerializable("date");
 
-        this.mdkDate.setDate(date);
-        this.mdkDate.setTime(date);
+        if (date != null) {
+            this.mdkDate.setDate(date);
+            this.mdkDate.setTime(date);
+        }
 
         // Restore the android view instance state
         return super.onRestoreInstanceState(view, parcelable);
