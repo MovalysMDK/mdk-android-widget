@@ -23,7 +23,6 @@ import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand;
 import com.soprasteria.movalysmdk.widget.basic.model.Email;
@@ -42,6 +41,8 @@ import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
+
+import java.util.List;
 
 /**
  * MDK Email
@@ -423,5 +424,11 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         newEmail[3] = this.email.getSubject();
         newEmail[4] = (String)this.email.getBody();
         return newEmail;
+    }
+
+
+    @Override
+    public void setRichSelectors(List<String> richSelectors) {
+        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
     }
 }

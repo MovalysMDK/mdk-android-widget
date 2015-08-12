@@ -67,5 +67,7 @@
     <string name="no_number_allowed">nombre non autoriser</string>
 
     <string name="title_activity_validator">ValidatorActivity</string>
+    <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
+    <string name="rich_selector_solo">Rich selector for single widget</string>
 
 </resources>

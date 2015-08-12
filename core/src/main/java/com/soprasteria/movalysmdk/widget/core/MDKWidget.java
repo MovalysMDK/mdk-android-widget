@@ -17,6 +17,8 @@ package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
 
+import java.util.List;
+
 /**
  * Widget that can be included in a RichWidget.
  */
@@ -54,4 +56,6 @@ public interface MDKWidget extends MDKBaseWidget {
      * @param additionalState the additional state
      */
     void callMergeDrawableStates(int[] baseState, int[] additionalState);
+
+    void setRichSelectors(List<String> richSelectors);
 }

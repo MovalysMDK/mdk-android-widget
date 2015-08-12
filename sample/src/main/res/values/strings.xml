@@ -24,6 +24,9 @@
     <string name="title_activity_list_widget">List Widget</string>
     <string name="email_activity">Email</string>
     <string name="title_activity_edit_text">EditText</string>
+    <string name="title_activity_validator">Validator</string>
+    <string name="title_activity_rich_selector">Rich Selector</string>
+
     <string name="edit_text_label">My label</string>
     <string name="edit_text_hint">My hint</string>
     <string name="action_remplir">FILL</string>
@@ -66,9 +69,10 @@
     <string name="sendButtonText">send</string>
 
     <string name="fortyTwoTextFormater_prefix" tranlatable="false">"42 /!\\ "</string>
-    <string name="title_activity_validator">ValidatorActivity</string>
 
     <string name="no_number_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator</string>
     <string name="no_number_allowed">No number allowed</string>
+    <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
+    <string name="rich_selector_solo">Rich selector for single widget</string>
 
 </resources>

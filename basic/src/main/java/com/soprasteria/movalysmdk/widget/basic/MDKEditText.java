@@ -35,6 +35,8 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
+import java.util.List;
+
 /**
  * <p>Represents an Edit Text conforming to the Material Design guidelines.</p>
  * <p>The following behaviors are implemented:</p>
@@ -287,5 +289,11 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     @Override
     public void superOnRestoreInstanceState(Parcelable state) {
         onRestoreInstanceState(state);
+    }
+
+
+    @Override
+    public void setRichSelectors(List<String> richSelectors) {
+        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
     }
 }

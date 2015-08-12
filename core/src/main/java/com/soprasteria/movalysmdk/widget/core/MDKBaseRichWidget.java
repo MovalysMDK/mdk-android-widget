@@ -39,6 +39,9 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * MDK Rich Widget.
  * <p>A rich widget adds the following features on an base widget :</p>
@@ -149,6 +152,14 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
             boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
             this.getInnerWidget().setMandatory(mandatory);
+
+            int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);
+            String[] selectorKeys = this.getContext().getResources().getStringArray(selectorResId);
+            List<String> richSelectors = new ArrayList<>();
+            for (String selectorKey : selectorKeys) {
+                richSelectors.add(selectorKey);
+            }
+            this.innerWidget.setRichSelectors(richSelectors);
         }
 
         // replace the creation of the state drawable

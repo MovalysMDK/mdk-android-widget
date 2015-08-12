@@ -22,4 +22,5 @@
         <attr name="no_number" format="boolean" />
     </declare-styleable>
 
+
 </resources>

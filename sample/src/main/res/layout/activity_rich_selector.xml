@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.soprasteria.movalysmdk.widget.sample.RichSelectorActivity">
+
+    <include
+        layout="@layout/button_bar"></include>
+
+    <TextView
+        android:text="@string/rich_selector_solo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+        android:id="@+id/mdkBasicSelector_richEditText"
+        mdk:hint="@string/hello_world"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:selectors="@array/myCustomSelectors"
+        mdk:mandatory="true" />
+
+    <TextView
+        android:text="@string/rich_seelctor_commons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+        android:id="@+id/mdkMoreRichSelector_richEditText"
+        mdk:hint="@string/hello_world"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mdk:mandatory="true"
+        style="?attr/textWithRichSelector"/>
+
+    <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+        android:id="@+id/mdkMoreRichSelector_richEditText2"
+        mdk:hint="@string/hello_world"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?attr/textWithRichSelector" />
+
+</LinearLayout>

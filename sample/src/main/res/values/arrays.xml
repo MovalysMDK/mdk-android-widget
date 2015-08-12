@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="myCustomSelectors" translatable="false">
+        <item>mdkwidget_mandatory_selector_class</item>
+        <item>custom_mandatory_bold_selector</item>
+    </string-array>
+
+</resources>

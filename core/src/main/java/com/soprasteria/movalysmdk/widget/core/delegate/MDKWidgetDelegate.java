@@ -483,4 +483,8 @@ public class MDKWidgetDelegate implements MDKWidget {
         this.valueObject.getCommandStateListeners().add(commandListener);
     }
 
+    @Override
+    public void setRichSelectors(List<String> richSelectors) {
+        this.valueObject.setRichSelectors(richSelectors);
+    }
 }

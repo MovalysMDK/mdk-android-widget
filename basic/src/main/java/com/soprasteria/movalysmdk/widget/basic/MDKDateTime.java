@@ -33,6 +33,7 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Base widget able to render a date picker, or a time picker.
@@ -298,6 +299,8 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
         this.mdkDateTimePickerWidgetDelegate.setMin(minDate);
     }
 
-
-
+    @Override
+    public void setRichSelectors(List<String> richSelectors) {
+        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
+    }
 }
