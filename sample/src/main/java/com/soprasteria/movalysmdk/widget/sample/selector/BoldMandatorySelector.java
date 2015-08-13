@@ -20,10 +20,8 @@ public class BoldMandatorySelector implements RichSelector {
         TextView tv = null;
         if (view instanceof TextView) {
             tv = (TextView) view;
-        } else if (view instanceof MDKBaseRichWidget) {
-            if ( ((MDKBaseRichWidget) view).getInnerWidget() instanceof TextView ) {
-                tv = (TextView) ((MDKBaseRichWidget) view).getInnerWidget();
-            }
+        } else if (view instanceof MDKBaseRichWidget && ((MDKBaseRichWidget) view).getInnerWidget() instanceof TextView ) {
+            tv = (TextView) ((MDKBaseRichWidget) view).getInnerWidget();
         }
 
         if (tv != null) {
@@ -31,6 +29,11 @@ public class BoldMandatorySelector implements RichSelector {
         }
     }
 
+    /**
+     * Sets the typeface to bold on the given {@link TextView}.
+     * @param textView the {@link TextView} to set
+     * @param bold true to set the typeface to bold
+     */
     private void setTypefaceBold(TextView textView, boolean bold) {
         Typeface tf = textView.getTypeface();
 

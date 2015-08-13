@@ -57,5 +57,9 @@ public interface MDKWidget extends MDKBaseWidget {
      */
     void callMergeDrawableStates(int[] baseState, int[] additionalState);
 
+    /**
+     * Sets a list of Rich Selectors on the component.
+     * @param richSelectors the list of selectors to set
+     */
     void setRichSelectors(List<String> richSelectors);
 }

@@ -6,6 +6,9 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 
+/**
+ * Activity to test the RichSelector functionality.
+ */
 public class RichSelectorActivity extends AppCompatActivity {
 
     @Override
