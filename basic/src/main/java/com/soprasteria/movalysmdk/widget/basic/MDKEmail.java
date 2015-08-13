@@ -25,6 +25,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.command.EmailWidgetCommand;
+import com.soprasteria.movalysmdk.widget.basic.delegate.MDKEmailWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.basic.model.Email;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -59,7 +60,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     protected WidgetCommandDelegate commandDelegate;
 
     /** MDK Widget implementation. */
-    protected MDKWidgetDelegate mdkWidgetDelegate;
+    protected MDKEmailWidgetDelegate mdkWidgetDelegate;
 
     /** Keyword instanceState. */
     private static final String INSTANCE_STATE = "instanceState";
@@ -101,7 +102,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
      * @param attrs the layout attributes
      */
     private final void init(Context context, AttributeSet attrs) {
-        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+        this.mdkWidgetDelegate = new MDKEmailWidgetDelegate(this, attrs);
 
         this.commandDelegate = new WidgetCommandDelegate(this, attrs);
         this.addCommandStateListener(this.commandDelegate);
@@ -361,7 +362,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
         // Save the MDKWidgetDelegate instance state
         bundle.putParcelable(INNER_STATE, this.mdkWidgetDelegate.onSaveInstanceState(bundle.getParcelable(INSTANCE_STATE)));
         // Save the email object
-        bundle.putStringArray("email", this.emailToStringArray(this.email));
+        bundle.putStringArray("email", this.mdkWidgetDelegate.emailToStringArray(this.email));
         return bundle;
     }
 
@@ -376,7 +377,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
             Bundle bundle = (Bundle) state;
             this.mdkWidgetDelegate.onRestoreInstanceState(this, bundle.getParcelable(INNER_STATE));
             // Restore the email object
-            this.email = this.stringArrayToEmail(bundle.getStringArray("email"));
+            this.email = this.mdkWidgetDelegate.stringArrayToEmail(bundle.getStringArray("email"));
             super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
             return;
         }
@@ -404,7 +405,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
     @Override
     public void setEmail(String[] email) {
-        this.email = stringArrayToEmail(email);
+        this.email = this.mdkWidgetDelegate.stringArrayToEmail(email);
 
         if (this.email.getTo() != null && this.email.getTo().length > 0) {
             this.setText(this.email.getTo()[0]);
@@ -417,58 +418,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
     public String[] getEmail() {
         this.email.setTo(new String[]{this.getText().toString()});
 
-        return emailToStringArray(this.email);
-    }
-
-    /**
-     * Transforms an array of strings to an {@link Email} object.
-     * @param emailArray the string of array
-     * @return the {@link Email} object
-     */
-    private Email stringArrayToEmail(String[] emailArray) {
-        Email emailObject = new Email();
-
-        if (emailArray != null && emailArray.length == 5) {
-            emailObject.setTo(new String[]{emailArray[0]});
-            emailObject.setCc(new String[]{emailArray[1]});
-            emailObject.setBcc(new String[]{emailArray[2]});
-            emailObject.setSubject(emailArray[3]);
-            emailObject.setBody(emailArray[4]);
-        }
-
-        return emailObject;
-    }
-
-    /**
-     * Transforms an {@link Email} object to an array of strings.
-     * @param emailObject the {@link Email} object
-     * @return the string of array
-     */
-    private String[] emailToStringArray(Email emailObject) {
-        String[] emailArray = new String[5];
-
-        if (emailObject.getTo() != null && emailObject.getTo().length > 0) {
-            emailArray[0] = emailObject.getTo()[0];
-        } else {
-            emailArray[0] = null;
-        }
-
-        if (emailObject.getCc() != null && emailObject.getCc().length > 0) {
-            emailArray[1] = emailObject.getCc()[0];
-        } else {
-            emailArray[1] = null;
-        }
-
-        if (emailObject.getBcc() != null && emailObject.getBcc().length > 0) {
-            emailArray[2] = emailObject.getBcc()[0];
-        } else {
-            emailArray[2] = null;
-        }
-
-        emailArray[3] = emailObject.getSubject();
-        emailArray[4] = (String)emailObject.getBody();
-
-        return emailArray;
+        return this.mdkWidgetDelegate.emailToStringArray(this.email);
     }
 
     @Override

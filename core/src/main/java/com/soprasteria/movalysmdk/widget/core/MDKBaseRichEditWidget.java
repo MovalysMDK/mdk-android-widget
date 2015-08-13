@@ -73,34 +73,4 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
     public void removeTextChangedListener(TextWatcher textWatcher) {
         this.getInnerWidget().removeTextChangedListener(textWatcher);
     }
-
-    /**
-     * Set the type of the content.
-     * @param type type of content
-     */
-    @Override
-    public void setInputType(int type) {
-        this.getInnerWidget().setInputType(type);
-    }
-
-    /**
-     * Validate the component.
-     * <p>Use the validation of the inner widget</p>
-     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
-     * @return true if the widget is valid, false otherwise
-     */
-    @Override
-    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return this.getInnerWidget().validate(validationMode);
-    }
-
-    /**
-     * Validate the component with default ON_USER validation mode.
-     * <p>Use the validation of the inner widget</p>
-     * @return true if the widget is valid, false otherwise
-     */
-    @Override
-    public boolean validate() {
-        return this.getInnerWidget().validate(EnumFormFieldValidator.ON_USER);
-    }
 }
