@@ -29,9 +29,18 @@ public class MDKEmailWidgetDelegate extends MDKWidgetDelegate {
         Email emailObject = new Email();
 
         if (emailArray != null && emailArray.length == 5) {
-            emailObject.setTo(new String[]{emailArray[0]});
-            emailObject.setCc(new String[]{emailArray[1]});
-            emailObject.setBcc(new String[]{emailArray[2]});
+            if (emailArray[0] != null) {
+                emailObject.setTo(new String[]{emailArray[0]});
+            }
+
+            if (emailArray[1] != null) {
+                emailObject.setCc(new String[]{emailArray[1]});
+            }
+
+            if (emailArray[2] != null) {
+                emailObject.setBcc(new String[]{emailArray[2]});
+            }
+
             emailObject.setSubject(emailArray[3]);
             emailObject.setBody(emailArray[4]);
         }
