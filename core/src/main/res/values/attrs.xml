@@ -33,7 +33,12 @@
         <attr name="mdkRichLayoutStyle" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="InputView">
 
+        <!-- standart attributes, note android: prefix and no format attribute -->
+        <attr name="android:inputType"/>
+
+    </declare-styleable>
 
     <declare-styleable name="MDKCommons">
         <attr name="label" format="reference" />

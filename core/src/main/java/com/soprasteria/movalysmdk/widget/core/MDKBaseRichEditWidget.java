@@ -16,16 +16,17 @@
 package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleableRes;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.inputmethod.EditorInfo;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * Base implementation of the rich mdk widget for widget that uses text and are editable.
@@ -42,6 +43,7 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
      */
     public MDKBaseRichEditWidget(@LayoutRes int withLabelLayout,@LayoutRes int noLabelLayout, Context context, AttributeSet attrs) {
         super(withLabelLayout, noLabelLayout, context, attrs);
+        init(this.getContext(), attrs);
     }
 
     /**
@@ -54,6 +56,27 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
      */
     public MDKBaseRichEditWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
+        init(this.getContext(), attrs);
+    }
+
+    private void init(Context context, AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.InputView);
+
+        int n = typedArray.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            int attr = typedArray.getIndex(i);
+
+            //note that you are accessing standart attributes using your attrs identifier
+            if (attr == R.styleable.InputView_android_inputType) {
+                int inputType = typedArray.getInt(attr, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
+
+                if (inputType != 0) {
+                    this.setInputType(inputType);
+                }
+            }
+        }
+
+        typedArray.recycle();
     }
 
     /**
