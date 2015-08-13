@@ -7,13 +7,12 @@ import com.soprasteria.movalysmdk.widget.basic.model.Email;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 
 /**
- * Delegate class for the MDKEmail widget
+ * Delegate class for the MDKEmail widget.
  */
 public class MDKEmailWidgetDelegate extends MDKWidgetDelegate {
 
     /**
      * Constructor.
-     *
      * @param view  the view
      * @param attrs the parameters set
      */
