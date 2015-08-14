@@ -27,7 +27,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasEmail;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * Base implementation of the rich mdk widget for widget that uses text and are editable.
