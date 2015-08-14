@@ -229,7 +229,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     @Override
     public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.ON_USER);
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
     }
     @Override
     public CharSequence getLabel() {

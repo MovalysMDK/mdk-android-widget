@@ -126,7 +126,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
 
     @Override
     public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.ON_USER);
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
     }
 
     @Override

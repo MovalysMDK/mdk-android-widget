@@ -200,7 +200,7 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
 
     @Override
     public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.ON_USER);
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
     }
 
     /**

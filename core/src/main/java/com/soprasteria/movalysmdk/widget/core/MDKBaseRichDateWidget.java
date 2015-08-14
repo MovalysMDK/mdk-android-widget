@@ -81,7 +81,7 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
      */
     @Override
     public boolean validate() {
-        return this.getInnerWidget().validate(EnumFormFieldValidator.ON_USER);
+        return this.getInnerWidget().validate(EnumFormFieldValidator.VALIDATE);
     }
 
     /**
