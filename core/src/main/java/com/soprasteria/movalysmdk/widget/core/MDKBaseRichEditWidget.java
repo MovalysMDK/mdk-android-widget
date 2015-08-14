@@ -59,6 +59,14 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
         init(this.getContext(), attrs);
     }
 
+    /**
+     * Initialise method.
+     * <p>
+     *     forward the input type parameter.
+     * </p>
+     * @param context the android context
+     * @param attrs the widget attributes
+     */
     private void init(Context context, AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.InputView);
 
