@@ -25,6 +25,8 @@
         <!-- fonctionnal attributes for theme -->
         <attr name="mdkLabelStyle" format="reference"/>
         <attr name="mdkValueEditTextStyle" format="reference"/>
+        <attr name="mdkValueEmailStyle" format="reference"/>
+        <attr name="mdkValuePhoneStyle" format="reference"/>
         <attr name="mdkValueDateStyle" format="reference"/>
         <attr name="mdkValueStyle" format="reference"/>
         <attr name="mdkErrorStyle" format="reference"/>

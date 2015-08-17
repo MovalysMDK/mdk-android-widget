@@ -22,6 +22,8 @@
 
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
+        <item name="mdkValueEmailStyle">@style/MDKValueEmail</item>
+        <item name="mdkValuePhoneStyle">@style/MDKValuePhone</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
         <item name="mdkValueStyle">@style/MDKValue</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
@@ -60,6 +62,8 @@
     <style name="MDKLabel" parent="Base.MDKLabel"/>
 
     <style name="MDKValueEditText" parent="Base.MDKValue.MDKValueEditText"/>
+    <style name="MDKValueEmail" parent="Base.MDKValue.MDKValueEditText"/>
+    <style name="MDKValuePhone" parent="Base.MDKValue.MDKValueEditText"/>
     <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"/>
     <style name="MDKValue" parent="Base.MDKValue.TextView"/>
 

@@ -23,6 +23,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_list_widget">List Widget</string>
     <string name="email_activity">Email</string>
+    <string name="phone_activity">Phone</string>
     <string name="title_activity_edit_text">EditText</string>
     <string name="title_activity_validator">Validator</string>
     <string name="title_activity_rich_selector">Rich Selector</string>
@@ -48,6 +49,13 @@
     <string name="email_rich_custom_layout">Email Rich widget custom layout</string>
     <string name="email_rich_common_error">Email rich widget common error</string>
     <string name="email_rich_helper_text">Email rich widget with helper</string>
+
+    <string name="phone_helper_text">phone format text</string>
+    <string name="phone_with_label_error">Phone Rich widget with label and error</string>
+    <string name="phone_standalone_widget">Phone standalone widget with error field</string>
+    <string name="phone_rich_custom_layout">Phone Rich widget custom layout</string>
+    <string name="phone_rich_common_error">Phone rich widget common error</string>
+    <string name="phone_rich_helper_text">Phone rich widget with helper</string>
 
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
     <string name="mdk_error_message_1">"42 /!\\ Must be filled"</string>

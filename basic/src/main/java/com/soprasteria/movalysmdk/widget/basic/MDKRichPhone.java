@@ -20,23 +20,23 @@ import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEmailWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKBaseRichTextWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**
- * MDKRichEmail class definition.
+ * MDKRichPhone class definition.
  */
-public class MDKRichEmail extends MDKBaseRichEmailWidget<MDKEmail> implements MDKBaseWidget, HasValidator, HasHint {
+public class MDKRichPhone extends MDKBaseRichTextWidget<MDKPhone> implements MDKBaseWidget, HasValidator, HasHint {
 
     /**
      * Constructor.
      * @param context the context
      * @param attrs attributes
      */
-    public MDKRichEmail(Context context, AttributeSet attrs) {
-        super(R.layout.mdkwidget_email_edit_label, R.layout.mdkwidget_email_edit, context, attrs);
+    public MDKRichPhone(Context context, AttributeSet attrs) {
+        super(R.layout.mdkwidget_phone_edit_label, R.layout.mdkwidget_phone_edit, context, attrs);
     }
 
     /**
@@ -45,8 +45,8 @@ public class MDKRichEmail extends MDKBaseRichEmailWidget<MDKEmail> implements MD
      * @param attrs attributes
      * @param defStyleAttr the style
      */
-    public MDKRichEmail(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(R.layout.mdkwidget_email_edit_label, R.layout.mdkwidget_email_edit, context, attrs, defStyleAttr);
+    public MDKRichPhone(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(R.layout.mdkwidget_phone_edit_label, R.layout.mdkwidget_phone_edit, context, attrs, defStyleAttr);
     }
 
     @Override

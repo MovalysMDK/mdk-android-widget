@@ -16,36 +16,30 @@
     along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true"
-    style="?attr/mdkRichLayoutStyle">
+    android:layout_height="wrap_content">
 
-    <include layout="@layout/mdkwidget_label_error_layout" />
-
-    <ImageButton
-        android:id="@+id/component_emailButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/component_label"
-        android:layout_alignParentLeft="true"
-        android:src="@android:drawable/ic_menu_send"
-        style="?attr/mdkPrimaryCommandStyle"/>
-
-    <com.soprasteria.movalysmdk.widget.basic.MDKEmail
+    <com.soprasteria.movalysmdk.widget.basic.MDKPhone
         android:id="@id/component_internal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/component_emailButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/component_emailButton"
-        android:inputType="textEmailAddress"
-        mdk:primaryCommandId="@id/component_emailButton"
         mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"
-        style="?attr/mdkValueEmailStyle"/>
+        mdk:labelId="@id/component_label"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4F443344"
+        android:id="@id/component_label"/>
 
-</merge>
+    <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4F443344"
+        android:id="@id/component_error"
+        android:layout_gravity="end" />
+
+</LinearLayout>

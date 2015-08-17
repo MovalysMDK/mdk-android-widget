@@ -43,7 +43,7 @@
         android:layout_alignBottom="@id/component_emailButton"
         mdk:primaryCommandId="@id/component_emailButton"
         mdk:errorId="@id/component_error"
-        style="?attr/mdkValueEditTextStyle"/>
+        style="?attr/mdkValueEmailStyle"/>
 
 
 </merge>

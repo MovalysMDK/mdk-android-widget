@@ -43,6 +43,14 @@
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
         <activity
+            android:name=".PhoneActivity"
+            android:label="@string/phone_activity"
+            android:parentActivityName=".ListWidgetActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
             android:name=".EditTextActivity"
             android:label="@string/title_activity_edit_text"
             android:parentActivityName=".ListWidgetActivity" >

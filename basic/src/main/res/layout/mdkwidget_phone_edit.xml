@@ -23,29 +23,27 @@
     android:addStatesFromChildren="true"
     style="?attr/mdkRichLayoutStyle">
 
-    <include layout="@layout/mdkwidget_label_error_layout" />
+    <include layout="@layout/mdkwidget_error_layout" />
 
     <ImageButton
-        android:id="@+id/component_emailButton"
+        android:id="@+id/component_phoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/component_label"
         android:layout_alignParentLeft="true"
-        android:src="@android:drawable/ic_menu_send"
+        android:src="@android:drawable/ic_menu_call"
         style="?attr/mdkPrimaryCommandStyle"/>
 
-    <com.soprasteria.movalysmdk.widget.basic.MDKEmail
+    <com.soprasteria.movalysmdk.widget.basic.MDKPhone
         android:id="@id/component_internal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/component_emailButton"
+        android:layout_toRightOf="@id/component_phoneButton"
         android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/component_emailButton"
-        android:inputType="textEmailAddress"
-        mdk:primaryCommandId="@id/component_emailButton"
+        android:inputType="phone"
+        android:layout_alignBottom="@id/component_phoneButton"
+        mdk:primaryCommandId="@id/component_phoneButton"
         mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"
-        style="?attr/mdkValueEmailStyle"/>
+        style="?attr/mdkValuePhoneStyle"/>
 
 
 </merge>

@@ -16,22 +16,15 @@
     along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<resources>
-    <integer-array name="errorOrderToDisplay" translatable="false">
-        <item>0</item>
-    </integer-array>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
-    <string-array name="validatorKeys" translatable="false">
-        <item>mdkwidget_mdkedittext_validator_class</item>
-        <item>mdkwidget_mdkedittext_lengthvalidator_class</item>
-        <item>mdkwidget_mdkdatetime_validator_class</item>
-        <item>mdkwidget_mdkdatetimerange_validator_class</item>
-        <item>mdkwidget_mdkemail_validator_class</item>
-        <item>mdkwidget_mdkphone_validator_class</item>
-    </string-array>
+    <item
+        android:drawable="@drawable/error_email_background"
+        mdk:state_error="true" />
 
-    <string-array name="selectors" translatable="false">
-        <item>mdkwidget_mandatory_selector_class</item>
-    </string-array>
+    <item
+        android:drawable="@drawable/mandatory_email_background"
+        mdk:state_mandatory="true" />
 
-</resources>
+</selector>

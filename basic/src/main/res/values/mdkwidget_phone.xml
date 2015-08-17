@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
@@ -17,21 +16,18 @@
 
 -->
 <resources>
-    <integer-array name="errorOrderToDisplay" translatable="false">
-        <item>0</item>
-    </integer-array>
 
-    <string-array name="validatorKeys" translatable="false">
-        <item>mdkwidget_mdkedittext_validator_class</item>
-        <item>mdkwidget_mdkedittext_lengthvalidator_class</item>
-        <item>mdkwidget_mdkdatetime_validator_class</item>
-        <item>mdkwidget_mdkdatetimerange_validator_class</item>
-        <item>mdkwidget_mdkemail_validator_class</item>
-        <item>mdkwidget_mdkphone_validator_class</item>
-    </string-array>
+    <string name="mdkwidget_phone_error">Invalid phone number</string>
 
-    <string-array name="selectors" translatable="false">
-        <item>mdkwidget_mandatory_selector_class</item>
-    </string-array>
+    <string name="mdkwidget_error_phonecall_notiddle">Unable to call, the line is busy</string>
+
+    <!-- widgetCommand string config -->
+    <string name="mdkwidget_mdkphone_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.command.PhoneWidgetCommand</string>
+
+    <!-- validator string config -->
+    <string name="mdkwidget_mdkphone_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.PhoneValidator</string>
+
+    <!-- Regular Expression for phone formatting-->
+    <string name="mdkwidget_phone_regex" translatable="false">^\\+?(\\([0-9-\\ ]+\\))?\\ ?[0-9-\\ ]+$</string>
 
 </resources>
