@@ -64,6 +64,8 @@ public class MDKRichEmail extends MDKBaseRichEmailWidget<MDKEmail> implements MD
         this.getInnerWidget().setInputType(type);
     }
 
+    @Override
+    public void setEnabled(boolean enabled) { this.getInnerWidget().setEnabled(enabled); }
 
     /**
      * onCreateInputConnection method.
