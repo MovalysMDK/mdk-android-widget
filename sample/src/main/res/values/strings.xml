@@ -28,6 +28,7 @@
     <string name="title_activity_edit_text">EditText</string>
     <string name="title_activity_validator">Validator</string>
     <string name="title_activity_rich_selector">Rich Selector</string>
+    <string name="title_activity_uri">Uri widget</string>
 
     <string name="edit_text_label">My label</string>
     <string name="edit_text_hint">My hint</string>
@@ -44,7 +45,7 @@
     <string name="edit_text_case_7">EditText without label and hint</string>
     <string name="edit_text_case_8">EditText without label but hint</string>
 
-    <string name="email_helper_text">email format text</string>
+    <string name="email_helper_text">uri format text</string>
     <string name="email_with_label_error">Email Rich widget with label and error</string>
     <string name="email_standalone_widget">Email standalone widget with error field</string>
     <string name="email_rich_custom_layout">Email Rich widget custom layout</string>
@@ -97,6 +98,9 @@
     <string name="no_number_allowed">No number allowed</string>
     <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
     <string name="rich_selector_solo">Rich selector for single widget</string>
+    
+    <string name="uri_rich_with_label_error">Uri rich widget with label and error</string>
+    <string name="uri_with_label">Uri widget with label</string>
     <string name="checkable_value_true">Widget must be checked</string>
     <string name="checkable_value_false">Widget must NOT be checked</string>
 

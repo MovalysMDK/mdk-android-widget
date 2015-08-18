@@ -92,6 +92,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
+        <activity
+            android:name=".UriActivity"
+            android:label="@string/title_activity_uri"
+            android:parentActivityName=".ListWidgetActivity"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
     </application>
 
 </manifest>

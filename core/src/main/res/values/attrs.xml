@@ -26,6 +26,7 @@
         <attr name="mdkLabelStyle" format="reference"/>
         <attr name="mdkValueEditTextStyle" format="reference"/>
         <attr name="mdkValueEmailStyle" format="reference"/>
+        <attr name="mdkValueUriStyle" format="reference"/>
         <attr name="mdkValuePhoneStyle" format="reference"/>
         <attr name="mdkValueDateStyle" format="reference"/>
         <attr name="mdkValueCheckBoxStyle" format="reference"/>
