@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 
 /**
@@ -38,9 +39,15 @@ public class ValidatorActivity extends AppCompatActivity {
      */
     public void validate(View view) {
 
+        /* text fields */
         ((MDKRichEditText) findViewById(R.id.mdkRichText_withCustomValidator)).validate();
         ((MDKRichEditText) findViewById(R.id.mdkRichText_nomandatory_withCustomValidator)).validate();
         ((MDKRichEditText) findViewById(R.id.mdkRichText_lenthvalidator_withCustomValidator)).validate();
 
+        /* checkboxes */
+        ((MDKRichCheckable) findViewById(R.id.mdkRichCheckbox_trueValidation)).validate();
+        ((MDKRichCheckable) findViewById(R.id.mdkRichCheckbox_falseValidation)).validate();
+        ((MDKRichCheckable) findViewById(R.id.mdkRichSwitch_trueValidation)).validate();
+        ((MDKRichCheckable) findViewById(R.id.mdkRichSwitch_falseValidation)).validate();
     }
 }

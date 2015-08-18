@@ -24,6 +24,7 @@
     <string name="title_activity_list_widget">List Widget</string>
     <string name="email_activity">Email</string>
     <string name="phone_activity">Phone</string>
+    <string name="checkable_activity">CheckBoxes and Switches</string>
     <string name="title_activity_edit_text">EditText</string>
     <string name="title_activity_validator">Validator</string>
     <string name="title_activity_rich_selector">Rich Selector</string>
@@ -57,6 +58,20 @@
     <string name="phone_rich_common_error">Phone rich widget common error</string>
     <string name="phone_rich_helper_text">Phone rich widget with helper</string>
 
+    <string name="checkbox_helper_text">Checkbox format text</string>
+    <string name="checkbox_with_label_error">Checkbox Rich widget with label and error</string>
+    <string name="checkbox_standalone_widget">Checkbox standalone widget with error field</string>
+    <string name="checkbox_rich_custom_layout">Checkbox Rich widget custom layout</string>
+    <string name="checkbox_rich_custom_validator">Checkbox rich widget custom validator</string>
+    <string name="checkbox_rich_helper_text">Checkbox rich widget with helper</string>
+
+    <string name="switch_helper_text">Switch format text</string>
+    <string name="switch_with_label_error">Switch Rich widget with label and error</string>
+    <string name="switch_standalone_widget">Switch standalone widget with error field</string>
+    <string name="switch_rich_custom_layout">Switch Rich widget custom layout</string>
+    <string name="switch_rich_custom_validator">Switch rich widget custom validator</string>
+    <string name="switch_rich_helper_text">Switch rich widget with helper</string>
+
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
     <string name="mdk_error_message_1">"42 /!\\ Must be filled"</string>
     <string name="mdk_error_message_2">mdk_error_message_2</string>
@@ -82,5 +97,7 @@
     <string name="no_number_allowed">No number allowed</string>
     <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
     <string name="rich_selector_solo">Rich selector for single widget</string>
+    <string name="checkable_value_true">Widget must be checked</string>
+    <string name="checkable_value_false">Widget must NOT be checked</string>
 
 </resources>

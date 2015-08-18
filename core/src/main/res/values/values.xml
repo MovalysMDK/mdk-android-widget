@@ -28,6 +28,11 @@
         <!-- cutsom code here ... -->
     </style>
     <style name="Base.MDKValue.MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"/>
+
+    <style name="Base.MDKValue.MDKValueCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox"/>
+
+    <style name="Base.MDKValue.MDKValueSwitch" parent="Widget.AppCompat.CompoundButton.Switch"/>
+
     <style name="Base.MDKValue.TextView" parent="TextAppearance.AppCompat.Medium"/>
 
     <style name="Base.MDKError" parent="TextAppearance.AppCompat.Small"/>

@@ -25,6 +25,8 @@
         <item name="mdkValueEmailStyle">@style/MDKValueEmail</item>
         <item name="mdkValuePhoneStyle">@style/MDKValuePhone</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
+        <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
+        <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
         <item name="mdkValueStyle">@style/MDKValue</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
@@ -65,6 +67,8 @@
     <style name="MDKValueEmail" parent="Base.MDKValue.MDKValueEditText"/>
     <style name="MDKValuePhone" parent="Base.MDKValue.MDKValueEditText"/>
     <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"/>
+    <style name="MDKValueCheckBox" parent="Base.MDKValue.MDKValueCheckBox"/>
+    <style name="MDKValueSwitch" parent="Base.MDKValue.MDKValueSwitch"/>
     <style name="MDKValue" parent="Base.MDKValue.TextView"/>
 
     <style name="MDKError" parent="Base.MDKError"/>

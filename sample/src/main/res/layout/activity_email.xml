@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/testHintText"
-            mdk:errorId="@+id/errorText"
+            mdk:errorId="@+id/checkbox_errorText"
             mdk:primaryCommandId="@+id/buttonSend"
             mdk:rootId="@id/root"
             mdk:mandatory="true" />
@@ -83,7 +83,7 @@
             android:text="@string/sendButtonText" />
 
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
-            android:id="@+id/errorText"
+            android:id="@+id/checkbox_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -157,7 +157,7 @@
             android:id="@+id/textView2" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
-            android:id="@+id/view6"
+            android:id="@+id/checkbox_helper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/edit_text_label"

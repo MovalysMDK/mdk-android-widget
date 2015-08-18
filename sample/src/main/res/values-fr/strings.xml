@@ -69,5 +69,7 @@
     <string name="title_activity_validator">ValidatorActivity</string>
     <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
     <string name="rich_selector_solo">Rich selector for single widget</string>
+    <string name="checkable_value_true">Le composant doit être coché</string>
+    <string name="checkable_value_false">Le composant NE doit PAS être coché</string>
 
 </resources>

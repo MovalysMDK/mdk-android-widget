@@ -28,6 +28,8 @@
         <attr name="mdkValueEmailStyle" format="reference"/>
         <attr name="mdkValuePhoneStyle" format="reference"/>
         <attr name="mdkValueDateStyle" format="reference"/>
+        <attr name="mdkValueCheckBoxStyle" format="reference"/>
+        <attr name="mdkValueSwitchStyle" format="reference"/>
         <attr name="mdkValueStyle" format="reference"/>
         <attr name="mdkErrorStyle" format="reference"/>
         <attr name="mdkPrimaryCommandStyle" format="reference"/>
@@ -92,6 +94,14 @@
         <attr name="max" format="string" />
         <attr name="dateHint" format="string"/>
         <attr name="timeHint" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="MDKCommons.MDKCheckableComponent">
+        <attr name="mandatory_value" format="boolean" />
+        <attr format="enum" name="widget">
+            <enum name="CheckBox" value="0"/>
+            <enum name="Switch" value="1"/>
+        </attr>
     </declare-styleable>
 
 </resources>

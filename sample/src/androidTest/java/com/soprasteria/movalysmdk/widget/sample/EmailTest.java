@@ -76,7 +76,7 @@ public class EmailTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // check error
-        onView(withId(R.id.errorText)).check(matches(withConcatText(
+        onView(withId(R.id.checkbox_errorText)).check(matches(withConcatText(
                 R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
 
         SpoonScreenshotAction.perform("email_invalidemail_errorstate");
@@ -85,12 +85,12 @@ public class EmailTest {
 
         SpoonScreenshotAction.perform("email_invalidemail_errorstate_landscape");
 
-        onView(withId(R.id.errorText))
+        onView(withId(R.id.checkbox_errorText))
                 .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
 
         onView(isRoot()).perform(orientationPortrait());
 
-        onView(withId(R.id.errorText))
+        onView(withId(R.id.checkbox_errorText))
                 .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
     }
 
@@ -116,7 +116,7 @@ public class EmailTest {
         assertThat("get equal set", "myemail@soprasteria.com".equals(text.toString()));
 
         // check no error
-        onView(withId(R.id.errorText)).check(matches(withText(isEmptyOrNullString())));
+        onView(withId(R.id.checkbox_errorText)).check(matches(withText(isEmptyOrNullString())));
     }
 
     /**

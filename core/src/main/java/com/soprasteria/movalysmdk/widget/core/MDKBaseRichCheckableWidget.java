@@ -21,7 +21,6 @@ import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -30,29 +29,31 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
 import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MDK Rich Widget.
+ * MDK Rich Checkable Widget.
  * <p>A rich widget adds the following features on an base widget :</p>
  * <ul>
- *     <li>label (with floating label)</li>
- *     <li>hint</li>
+ *     <li>label</li>
  *     <li>error/helper</li>
  * </ul>
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, HasValidator {
+public class MDKBaseRichCheckableWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate & HasChecked & HasChangeListener> extends RelativeLayout implements MDKRichWidget, HasValidator, HasChangeListener, HasChecked {
 
     /**
      * Base widget.
@@ -62,35 +63,24 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
     /** the error view. */
     private MDKErrorWidget errorView;
-    
-    /** The string resource id for the hint. */
-    private int resHintId;
 
     /**
      * Constructor.
-     * @param layoutWithLabelId layoutWithLabelId
-     * @param layoutWithoutLabelId layoutWithoutLabelId
      * @param context the context
      * @param attrs attributes
      */
-    public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
+    public MDKBaseRichCheckableWidget(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
 
     /**
      * Constructor.
-     * @param layoutWithLabelId layoutWithLabelId
-     * @param layoutWithoutLabelId layoutWithoutLabelId
      * @param context the context
      * @param attrs attributes
      * @param defStyleAttr the style
      */
-    public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
+    public MDKBaseRichCheckableWidget(Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
 
     /**
@@ -100,7 +90,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      * @param layoutWithLabelId the layout id for the widget with label
      * @param layoutWithoutLabelId the layout id for the widget without label
      */
-    private void init(Context context, AttributeSet attrs, @LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId) {
+    protected void init(Context context, AttributeSet attrs, @LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId) {
 
         // replace the creation of the state drawable
         this.setAddStatesFromChildren(true);
@@ -108,8 +98,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         // parse label attribute
         int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
-        // parse label attribute
-        resHintId = typedArray.getResourceId(R.styleable.MDKCommons_hint, 0);
         // parse helper attribute
         int resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
         // parse layout attribute
@@ -126,7 +114,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
             // get label component if exists
             TextView labelView = (TextView) this.findViewById(R.id.component_label);
-
 
             if (labelView != null && resLabelId != 0) {
                 labelView.setText(resLabelId);
@@ -195,7 +182,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     }
 
     /**
-     * Initialise the attribute map for the widget.
+     * Initializes the attribute map for the widget.
      * @param attrs the xml attributes
      */
     private void initAttributeMap(AttributeSet attrs) {
@@ -212,14 +199,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      */
     public T getInnerWidget()   {
         return this.innerWidget;
-    }
-
-    /**
-     * Return resource's hint id.
-     * @return resHintId the res hint id
-     */
-    @StringRes public int getResHintId() {
-        return this.resHintId;
     }
 
     @Override
@@ -266,7 +245,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     public void clearError() {
         this.getInnerWidget().clearError();
     }
-    
+
     @Override
     public int[] getValidators() {
         return new int[0];
@@ -316,5 +295,46 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     @Override
     protected void dispatchRestoreInstanceState(@NonNull SparseArray<Parcelable> container) {
         dispatchThawSelfOnly(container);
+    }
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.getInnerWidget().registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.getInnerWidget().unregisterChangeListener(listener);
+    }
+
+    /**
+     * Override the default android setEnable on view and
+     * call the inner component setEnable.
+     * @param enabled Enable or not the view
+     */
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        ((View) this.getInnerWidget()).setEnabled(enabled);
+    }
+
+    @Override
+    public CharSequence getText() {
+        return this.getInnerWidget().getText();
+    }
+
+    @Override
+    public void setText(CharSequence text) {
+        this.getInnerWidget().setText(text);
+    }
+
+    @Override
+    public boolean isChecked() {
+        return this.getInnerWidget().isChecked();
+    }
+
+    @Override
+    public void setChecked(boolean isChecked) {
+        this.getInnerWidget().setChecked(isChecked);
     }
 }

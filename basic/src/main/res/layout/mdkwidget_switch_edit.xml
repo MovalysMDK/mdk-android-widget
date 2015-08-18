@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
@@ -15,16 +16,21 @@
     along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<resources>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="true"
+    style="?attr/mdkRichLayoutStyle">
 
-    <string name="mdkwidget_mandatory_error">Ce champ est obligatoire</string>
+    <include layout="@layout/mdkwidget_error_layout" />
 
-    <string name="mdkwidget_error_date_range_max_validator">La date fournie n\'est pas dans la plage de valeurs (%1$s &lt; %2$s)</string>
-    <string name="mdkwidget_error_date_range_min_validator">La date fournie n\'est pas dans la plage de valeurs (%2$s &lt; %1$s)</string>
+    <com.soprasteria.movalysmdk.widget.basic.MDKSwitch
+        android:id="@id/component_internal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        mdk:errorId="@id/component_error"
+        style="?attr/mdkValueSwitchStyle"/>
 
-    <string name="mdkwidget_error_date_range_validator">La date fournie n\'est pas dans la plage de valeurs</string>
-    <string name="mdkwidget_error_date_comparison">Erreur de comparaison de date</string>
-
-    <string name="mdkwidget_error_checkable_validator">La valeur doit être</string>
-
-</resources>
+</merge>

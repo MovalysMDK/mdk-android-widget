@@ -68,7 +68,7 @@ public class PhoneActivity extends AppCompatActivity {
         this.richPhoneWithCustomLayout = (MDKRichPhone) findViewById(R.id.mdkRichPhone_withCustomLayout);
         this.richPhone1WithSharedError = (MDKRichPhone) findViewById(R.id.mdkRichPhone1_withSharedError);
         this.richPhone2WithSharedError = (MDKRichPhone) findViewById(R.id.mdkRichPhone2_withSharedError);
-        this.richPhoneWithExternalHelper = (MDKRichPhone) findViewById(R.id.view6);
+        this.richPhoneWithExternalHelper = (MDKRichPhone) findViewById(R.id.checkbox_helper);
     }
 
     /**

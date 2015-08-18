@@ -1,9 +1,25 @@
+/**
+ * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+ *
+ * This file is part of Movalys MDK.
+ * Movalys MDK is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Movalys MDK is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.soprasteria.movalysmdk.widget.core.delegate;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -106,12 +122,7 @@ public class MDKWidgetDelegateValidationHelper {
             MDKMessages returnMessages = new MDKMessages();
 
             // get the validation object
-            Object objectToValidate = null;
-            if (v instanceof HasText) {
-                objectToValidate = ((HasText) v).getText().toString();
-            } else if (v instanceof HasDate) {
-                objectToValidate = ((HasDate) v).getDate();
-            }
+            Object objectToValidate = getObjectToValidate(v);
 
             // we have to clear all errors before validation
             if (setError) {
@@ -150,6 +161,23 @@ public class MDKWidgetDelegateValidationHelper {
 
         delegate.setValid(bValid);
         return bValid;
+    }
+
+    /**
+     * Returns the object to validate from the type of the view.
+     * @param view the view having a value to be validated
+     * @return the object to validate
+     */
+    private Object getObjectToValidate(View view) {
+        Object objectToValidate = null;
+        if (view instanceof HasText) {
+            objectToValidate = ((HasText) view).getText().toString();
+        } else if (view instanceof HasDate) {
+            objectToValidate = ((HasDate) view).getDate();
+        } else if (view instanceof HasChecked) {
+            objectToValidate = String.valueOf(((HasChecked) view).isChecked());
+        }
+        return objectToValidate;
     }
 
     /**

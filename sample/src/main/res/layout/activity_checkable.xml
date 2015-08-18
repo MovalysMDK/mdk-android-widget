@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PhoneActivity">
+    tools:context=".CheckBoxActivity">
 
     <LinearLayout
         android:id="@+id/root"
@@ -35,20 +35,21 @@
 
         <include layout="@layout/button_bar"/>
 
-        <!-- RICH PHONE WITH LABEL AND ERROR -->
+        <!-- CHECKBOXES -->
+        <!-- RICH CHECKBOX WITH LABEL AND ERROR -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone_with_label_error" />
+            android:text="@string/checkbox_with_label_error" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone_withLabelAndError"
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+            android:id="@+id/mdkRichCheckbox_withLabelAndError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/phone_background"
+            android:background="@drawable/checkbox_background"
             android:padding="2dp"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
@@ -58,29 +59,21 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <!-- INNER PHONE WITH EXTERNAL ERROR/COMMAND -->
+        <!-- INNER CHECKBOX WITH EXTERNAL ERROR -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone_standalone_widget" />
+            android:text="@string/checkbox_standalone_widget" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKPhone
-            android:id="@+id/mdkPhone_withErrorAndCommandOutside"
+        <com.soprasteria.movalysmdk.widget.basic.MDKCheckBox
+            android:id="@+id/mdkCheckbox_withErrorAndCommandOutside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/testHintText"
+            mdk:label="@string/testHintText"
             mdk:errorId="@+id/checkbox_errorText"
-            mdk:primaryCommandId="@+id/buttonCall"
             mdk:rootId="@id/root"
             mdk:mandatory="true" />
-
-        <Button
-            android:id="@+id/buttonCall"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sendButtonText" />
 
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
             android:id="@+id/checkbox_errorText"
@@ -93,81 +86,123 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <!-- RICH PHONE WITH CUSTOM LAYOUT -->
+        <!-- RICH CHECKBOX WITH CUSTOM LAYOUT -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone_rich_custom_layout" />
+            android:text="@string/checkbox_rich_custom_layout" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone_withCustomLayout"
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+            android:id="@+id/mdkRichCheckbox_withCustomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
-            mdk:layout="@layout/custom_phone_widget"
+            mdk:layout="@layout/custom_checkbox_widget"
             mdk:mandatory="true" />
 
-        <!-- RICH PHONES WITH COMMON ERROR FIELD -->
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@drawable/separator_background" />
-
-        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone_rich_common_error"
-            android:id="@+id/textView" />
-
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone1_withSharedError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            mdk:label="@string/mdk_error_message_1"
-            mdk:errorId="@+id/commons_error"
-            mdk:rootId="@+id/root" />
-
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone2_withSharedError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            mdk:label="@string/mdk_error_message_2"
-            mdk:errorId="@+id/commons_error"
-            mdk:rootId="@+id/root" />
-
-        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
-            android:id="@+id/commons_error"
-            mdk:errorCentralized="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@drawable/separator_background" />
-
-        <!-- RICH PHONE WITH EXTERNAL HELPER -->
+        <!-- RICH CHECKBOX WITH EXTERNAL HELPER -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_rich_helper_text"
-            android:id="@+id/textView2" />
+            android:text="@string/checkbox_rich_helper_text" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
             android:id="@+id/checkbox_helper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/edit_text_label"
-            mdk:helper="@string/phone_helper_text" />
+            mdk:helper="@string/checkbox_helper_text" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
+
+        <!-- SWITCHES -->
+        <!-- RICH SWITCH WITH LABEL AND ERROR -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_with_label_error" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+            android:id="@+id/mdkRichSwitch_withLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/checkbox_background"
+            android:padding="2dp"
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"
+            mdk:widget="Switch"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- INNER SWITCH WITH EXTERNAL ERROR -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_standalone_widget" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKSwitch
+            android:id="@+id/mdkSwitch_withErrorAndCommandOutside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/testHintText"
+            mdk:errorId="@+id/switch_errorText"
+            mdk:rootId="@id/root"
+            mdk:mandatory="true" />
+
+        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+            android:id="@+id/switch_errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SWITCH WITH CUSTOM LAYOUT -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_rich_custom_layout" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+            android:id="@+id/mdkRichSwitch_withCustomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/app_name"
+            mdk:layout="@layout/custom_switch_widget"
+            mdk:mandatory="true"
+            mdk:widget="Switch"/>
+
+        <!-- RICH SWITCH WITH EXTERNAL HELPER -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_rich_helper_text"
+            android:id="@+id/switch_rich_helper_text" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+            android:id="@+id/switch_helper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/edit_text_label"
+            mdk:helper="@string/switch_helper_text"
+            mdk:widget="Switch"/>
 
     </LinearLayout>
 

@@ -84,7 +84,7 @@ public class MyApp extends Application implements MDKWidgetApplication {
     @Override
     public MDKWidgetComponentProvider getMDKWidgetComponentProvider() {
         if (this.widgetComponentProvider == null) {
-            this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider(this/*, R.array.custom_validator*/);
+            this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider(this);
             this.widgetComponentProvider.registerValidator(this, new NoNumberValidator());
 
             this.widgetComponentProvider.registerRichSelector("custom_mandatory_bold_selector", new BoldMandatorySelector());
