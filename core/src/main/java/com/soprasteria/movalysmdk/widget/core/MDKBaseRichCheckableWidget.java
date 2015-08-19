@@ -238,7 +238,11 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & MDKRestorableWidge
 
     @Override
     public void setError(CharSequence error) {
-        this.getInnerWidget().setError(error);
+        if (error != null && error.length() > 0) {
+            this.getInnerWidget().setError(error);
+        } else {
+            this.getInnerWidget().setError(null);
+        }
     }
 
     @Override
