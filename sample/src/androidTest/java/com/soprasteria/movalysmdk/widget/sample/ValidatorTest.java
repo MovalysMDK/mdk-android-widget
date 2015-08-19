@@ -15,6 +15,7 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -32,6 +33,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.soprasteria.movalysmdk.espresso.action.DelayScrollToAction.delayScrollTo;
 import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -119,6 +121,90 @@ public class ValidatorTest {
                 .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.no_number_allowed)));
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_nomandatory_withCustomValidator))))
                 .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.no_number_allowed)));
+    }
+
+    /**
+     * Test checkbox value.
+     */
+    @Test
+    public void testCheckbox() {
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(click());
+
+        // Take screenshot
+        SpoonScreenshotAction.perform("customvalidator_validcheckbox");
+
+        String error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
+            + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.true_text);
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichCheckbox_trueValidation))))
+                .check(matches(withText(error)));
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichCheckbox_falseValidation))))
+                .check(matches(withText(R.string.empty_string)));
+
+        // click the checkboxes
+        onView(withId(R.id.mdkRichCheckbox_trueValidation)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
+        onView(withId(R.id.mdkRichCheckbox_falseValidation)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
+
+        // Take screenshot
+        SpoonScreenshotAction.perform("customvalidator_invalidcheckbox");
+
+        error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
+                + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.false_text);
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichCheckbox_trueValidation))))
+                .check(matches(withText(R.string.empty_string)));
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichCheckbox_falseValidation))))
+                .check(matches(withText(error)));
+    }
+
+    /**
+     * Test switch value.
+     */
+    @Test
+    public void testSwitch() {
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(click());
+
+        // Take screenshot
+        SpoonScreenshotAction.perform("customvalidator_validswitch");
+
+        String error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
+                + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.true_text);
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_trueValidation))))
+                .check(matches(withText(error)));
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_falseValidation))))
+                .check(matches(withText(R.string.empty_string)));
+
+        // click the switches
+        onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
+        onView(withId(R.id.mdkRichSwitch_falseValidation)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
+
+        // click validate button
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
+
+        // Take screenshot
+        SpoonScreenshotAction.perform("customvalidator_invalidswitch");
+
+        error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
+                + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.false_text);
+
+        // check no error
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_trueValidation))))
+                .check(matches(withText(R.string.empty_string)));
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_falseValidation))))
+                .check(matches(withText(error)));
     }
 
 }

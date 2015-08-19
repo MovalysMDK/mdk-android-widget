@@ -103,5 +103,8 @@
     <string name="uri_with_label">Uri widget with label</string>
     <string name="checkable_value_true">Widget must be checked</string>
     <string name="checkable_value_false">Widget must NOT be checked</string>
+    <string name="checkable_error">Value must be </string>
+    <string name="true_text">true</string>
+    <string name="false_text">false</string>
 
 </resources>
