@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 public class UriValidator implements FormFieldValidator<String> {
 
     /**
-     * ERROR_INVALID_EMAIL.
+     * ERROR_INVALID_URI.
      */
     public static final int ERROR_INVALID_URI= R.string.mdkwidget_uri_error;
 
