@@ -190,14 +190,11 @@ public class ValidatorTest {
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_trueValidation))))
                 .check(matches(withText(error)));
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_falseValidation))))
-                .check(matches(withText(R.string.empty_string)));
 
         // click the switches
-        onView(withId(R.id.mdkRichSwitch_falseValidation)).perform(delayScrollTo());
+        onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(delayScrollTo());
 
         onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(click());
-        onView(withId(R.id.mdkRichSwitch_falseValidation)).perform(click());
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(delayScrollTo());
@@ -206,16 +203,11 @@ public class ValidatorTest {
         // Take screenshot
         SpoonScreenshotAction.perform("customvalidator_invalidswitch");
 
-        error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
-                + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.false_text);
-
         // check no error
-        onView(withId(R.id.mdkRichSwitch_falseValidation)).perform(delayScrollTo());
+        onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(delayScrollTo());
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_trueValidation))))
                 .check(matches(withText(R.string.empty_string)));
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_falseValidation))))
-                .check(matches(withText(error)));
     }
 
 }
