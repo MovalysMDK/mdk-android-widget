@@ -1,0 +1,174 @@
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SeekBarActivity">
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/enableButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="switchEnable"
+            android:text="@string/topbar_disablebutton" />
+
+        <!-- RICH SeekBar WITH LABEL AND ERROR -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_with_label_error" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_withLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:padding="2dp"
+            mdk:maxSeekBarValue="20"
+            mdk:label="@string/app_name" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- INNER SeekBar WITH EXTERNAL ERROR/COMMAND -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/seekbar_standalone_widget" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKSeekBar
+            android:id="@+id/mdkSeekBar_withErrorAndCommandOutside"
+            mdk:initialSeekBarValue="40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/testHintText"
+            mdk:errorId="@+id/checkbox_errorText"
+            mdk:primaryCommandId="@+id/buttonCall"
+            mdk:rootId="@id/root" />
+
+        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+            android:id="@+id/checkbox_errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SeekBar WITH CUSTOM LAYOUT -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_rich_custom_layout" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_withCustomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:maxSeekBarValue="20"
+            mdk:label="@string/app_name"
+            mdk:layout="@layout/custom_seekbar_widget" />
+
+        <!-- RICH SeekBarS WITH COMMON ERROR FIELD -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/separator_background" />
+
+        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_rich_common_error"
+            android:id="@+id/textView" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar1_withSharedErrorAndInitValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/mdk_error_message_1"
+            mdk:errorId="@+id/commons_error"
+            mdk:maxSeekBarValue="60"
+            mdk:rootId="@+id/root" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar2_withSharedError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/mdk_error_message_2"
+            mdk:errorId="@+id/commons_error"
+            mdk:maxSeekBarValue="50"
+            mdk:rootId="@+id/root" />
+
+        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+            android:id="@+id/commons_error"
+            mdk:errorCentralized="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SeekBar WITH EXTERNAL HELPER -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_rich_helper_text"
+            android:id="@+id/textView2" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_helper_and_init_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:initialSeekBarValue="40"
+            mdk:label="@string/edit_text_label"
+            mdk:helper="@string/seekbar_helper_text" />
+
+    </LinearLayout>
+
+</ScrollView>

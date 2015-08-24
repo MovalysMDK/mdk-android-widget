@@ -60,12 +60,6 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
     /** MDK Widget implementation. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
-    /** Keyword instanceState. */
-    private static final String INSTANCE_STATE = "instanceState";
-
-    /** Keyword innerState. */
-    private static final String INNER_STATE = "innerState";
-
     /** String object to store input uri. */
     private String uri;
 
@@ -329,7 +323,7 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
 
     @Override
     public void setRichSelectors(List<String> richSelectors) {
-
+        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
     }
 
     /**

@@ -52,6 +52,14 @@
     <string name="email_rich_common_error">Email rich widget common error</string>
     <string name="email_rich_helper_text">Email rich widget with helper</string>
 
+    <string name="uri_helper_text">uri format text</string>
+    <string name="uri_with_label_error">Uri Rich widget with label and error</string>
+    <string name="uri_standalone_widget">Uri standalone widget with error field</string>
+    <string name="uri_rich_custom_layout">Uri Rich widget custom layout</string>
+    <string name="uri_rich_common_error">Uri rich widget common error</string>
+    <string name="uri_rich_helper_text">Uri rich widget with helper</string>
+    <string name="openButtonText">Open url into Browser!</string>
+
     <string name="phone_helper_text">phone format text</string>
     <string name="phone_with_label_error">Phone Rich widget with label and error</string>
     <string name="phone_standalone_widget">Phone standalone widget with error field</string>
@@ -72,6 +80,16 @@
     <string name="switch_rich_custom_layout">Switch Rich widget custom layout</string>
     <string name="switch_rich_custom_validator">Switch rich widget custom validator</string>
     <string name="switch_rich_helper_text">Switch rich widget with helper</string>
+
+    <string name="title_activity_seekbar">SeekBar widget</string>
+    <string name="seekbar_maxSeekBarValue_error_20">Value must be inferior to the max defined into the widget\'s attribute: 20</string>
+
+    <string name="seekbar_helper_text">Helper text for seekbar</string>
+    <string name="seekbar_with_label_error">SeekBar Rich widget with label and error</string>
+    <string name="seekbar_standalone_widget">SeekBar standalone widget with error field</string>
+    <string name="seekbar_rich_custom_layout">SeekBar Rich widget custom layout</string>
+    <string name="seekbar_rich_common_error">SeekBar rich widget common error</string>
+    <string name="seekbar_rich_helper_text">SeekBar rich widget with helper</string>
 
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
     <string name="mdk_error_message_1">"42 /!\\ Must be filled"</string>

@@ -72,5 +72,4 @@ public class MDKRichUri extends MDKBaseRichUriWidget<MDKUri> implements MDKBaseW
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return getInnerWidget().onCreateInputConnection(outAttrs);
     }
-
 }

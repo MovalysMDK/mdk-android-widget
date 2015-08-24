@@ -69,6 +69,7 @@
     <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"/>
     <style name="MDKValueCheckBox" parent="Base.MDKValue.MDKValueCheckBox"/>
     <style name="MDKValueSwitch" parent="Base.MDKValue.MDKValueSwitch"/>
+    <style name="MDKValueSeekBar" parent="Base.MDKValue.MDKValueSeekBar"/>
     <style name="MDKValue" parent="Base.MDKValue.TextView"/>
 
     <style name="MDKError" parent="Base.MDKError"/>
@@ -78,6 +79,15 @@
     <style name="MDKCommand.Secondary"/>
 
     <style name="MDKRichLayout" parent="Base.MDKValue"/>
-    
+
+    <!-- MDKSeekBar Style-->
+    <style name="mdkSeekBarStyle">
+        <item name="mdkLabelStyle">@style/MDKLabel</item>
+        <item name="mdkErrorStyle">@style/MDKError</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:thumbOffset">8dip</item>
+        <item name="android:focusable">true</item>
+    </style>
 
 </resources>

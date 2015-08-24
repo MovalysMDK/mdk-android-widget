@@ -30,6 +30,7 @@
         <item>mdkwidget_mdkemail_validator_class</item>
         <item>mdkwidget_mdkphone_validator_class</item>
         <item>mdkwidget_checkable_validator_class</item>
+        <item>mdkwidget_mdkseekbar_validator_class</item>
     </string-array>
 
     <string-array name="selectors" translatable="false">

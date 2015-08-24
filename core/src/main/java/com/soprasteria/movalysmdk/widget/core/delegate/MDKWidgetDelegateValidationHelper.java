@@ -21,6 +21,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
@@ -176,6 +177,8 @@ public class MDKWidgetDelegateValidationHelper {
             objectToValidate = ((HasDate) view).getDate();
         } else if (view instanceof HasChecked) {
             objectToValidate = String.valueOf(((HasChecked) view).isChecked());
+        } else if (view instanceof HasSeekBar) {
+            objectToValidate = ((HasSeekBar) view).getSeekBarValue();
         }
         return objectToValidate;
     }

@@ -36,6 +36,7 @@
         <attr name="mdkPrimaryCommandStyle" format="reference"/>
         <attr name="mdkSecondaryCommandStyle" format="reference"/>
         <attr name="mdkRichLayoutStyle" format="reference"/>
+        <attr name="mdkSeekBarStyle" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="InputView">
@@ -103,6 +104,12 @@
             <enum name="CheckBox" value="0"/>
             <enum name="Switch" value="1"/>
         </attr>
+    </declare-styleable>
+
+    <!-- MDKSeekBar specific attributes-->
+    <declare-styleable name="MDKCommons.MDKSeekBarComponent">
+        <attr name="initialSeekBarValue" format="integer"/>
+        <attr name="maxSeekBarValue" format="integer"/>
     </declare-styleable>
 
 </resources>
