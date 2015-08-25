@@ -76,7 +76,7 @@
             mdk:initialSeekBarValue="40"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/testHintText"
+            mdk:maxSeekBarValue="20"
             mdk:errorId="@+id/checkbox_errorText"
             mdk:primaryCommandId="@+id/buttonCall"
             mdk:rootId="@id/root" />

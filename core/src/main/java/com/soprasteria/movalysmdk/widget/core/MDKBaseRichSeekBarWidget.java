@@ -154,7 +154,18 @@ public class MDKBaseRichSeekBarWidget<T extends MDKWidget & MDKRestorableWidget 
         // release typed array
         typedArray.recycle();
 
+        // Retrieve attributes of the Seek Bar widget in order to initialize MDK widget class variables.
         TypedArray typedArrayCustom = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
+        initDedicatedAttributes(typedArrayCustom);
+
+        initAttributeMap(attrs);
+    }
+
+    /**
+     * Initialize MDK widget class variables with layout attributes of the Rich component.
+     * @param typedArrayCustom
+     */
+    public void initDedicatedAttributes(TypedArray typedArrayCustom){
 
         String maxValueStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_maxSeekBarValue);
         if (maxValueStr != null) {
@@ -169,9 +180,6 @@ public class MDKBaseRichSeekBarWidget<T extends MDKWidget & MDKRestorableWidget 
             this.setSeekProgress(seekBarValue);
 
         }
-
-        initAttributeMap(attrs);
-
     }
 
     /**
