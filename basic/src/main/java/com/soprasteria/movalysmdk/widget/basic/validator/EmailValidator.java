@@ -15,20 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.basic.validator;
 
-import android.content.Context;
-import android.view.View;
-
 import com.soprasteria.movalysmdk.widget.basic.R;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.BaseRegexValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Validate Email format error with regExp.
