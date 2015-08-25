@@ -351,14 +351,4 @@ public class MDKBaseRichSeekBarWidget<T extends MDKWidget & MDKRestorableWidget 
     public void setSeekProgress(int value) {
         this.getInnerWidget().setSeekProgress(value);
     }
-
-    @Override
-    public CharSequence getText() {
-        return this.getInnerWidget().getText();
-    }
-
-    @Override
-    public void setText(CharSequence text) {
-        this.getInnerWidget().setText(text);
-    }
 }

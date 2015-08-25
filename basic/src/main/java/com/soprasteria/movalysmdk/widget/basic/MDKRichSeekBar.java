@@ -13,7 +13,9 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**
- * MDKRichSeekBar class definition.
+ * Rich widget representing a seek bar component, conforming to the Material Design guidelines,
+ * and including by default the error component.
+ * @param <T> The class of the widget to encapsulate*
  */
 public class MDKRichSeekBar <T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate & HasSeekBar & HasChangeListener> extends MDKBaseRichSeekBarWidget<T> {
 
@@ -62,15 +64,4 @@ public class MDKRichSeekBar <T extends MDKWidget & MDKRestorableWidget & HasVali
 
         super.init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
-
-    @Override
-    public CharSequence getText() {
-        return this.getInnerWidget().getText();
-    }
-
-    @Override
-    public void setText(CharSequence text) {
-        this.getInnerWidget().setText(text);
-    }
-
 }

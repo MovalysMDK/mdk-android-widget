@@ -6,23 +6,6 @@ package com.soprasteria.movalysmdk.widget.core.behavior;
 public interface HasSeekBar {
 
     /**
-     * Get the text from the component.
-     *
-     * @see android.text
-     *
-     * @return the text of the component
-     */
-    CharSequence getText();
-
-    /**
-     * Set the text on the component.
-     *
-     * @see android.widget.TextView#setText(CharSequence)
-     * @param text the text to set
-     */
-    void setText(CharSequence text);
-
-    /**
      * Get the current SeekBar's value.
      * @return the value of the component
      */

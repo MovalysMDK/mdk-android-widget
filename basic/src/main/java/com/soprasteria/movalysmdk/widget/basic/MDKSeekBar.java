@@ -112,16 +112,6 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, HasC
     }
 
     @Override
-    public CharSequence getText() {
-        return this.getText();
-    }
-
-    @Override
-    public void setText(CharSequence label) {
-        this.setText(label);
-    }
-
-    @Override
     public int getSeekBarValue() {
         return seekBarValue;
     }
