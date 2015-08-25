@@ -19,8 +19,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch;
 
 /**
  * Test Activity for custom FormFieldValidator.
@@ -45,9 +46,9 @@ public class ValidatorActivity extends AppCompatActivity {
         ((MDKRichEditText) findViewById(R.id.mdkRichText_lenthvalidator_withCustomValidator)).validate();
 
         /* checkboxes */
-        ((MDKRichCheckable) findViewById(R.id.mdkRichCheckbox_trueValidation)).validate();
-        ((MDKRichCheckable) findViewById(R.id.mdkRichCheckbox_falseValidation)).validate();
-        ((MDKRichCheckable) findViewById(R.id.mdkRichSwitch_trueValidation)).validate();
-        ((MDKRichCheckable) findViewById(R.id.mdkRichSwitch_falseValidation)).validate();
+        ((MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_trueValidation)).validate();
+        ((MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_falseValidation)).validate();
+        ((MDKRichSwitch) findViewById(R.id.mdkRichSwitch_trueValidation)).validate();
+        ((MDKRichSwitch) findViewById(R.id.mdkRichSwitch_falseValidation)).validate();
     }
 }

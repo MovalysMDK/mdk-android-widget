@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox
             android:id="@+id/mdkRichCheckbox_trueValidation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox
             android:id="@+id/mdkRichCheckbox_falseValidation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,26 +103,24 @@
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch
             android:id="@+id/mdkRichSwitch_trueValidation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/checkable_value_true"
-            mdk:mandatory_value="true"
-            mdk:widget="Switch"/>
+            mdk:mandatory_value="true"/>
 
         <View
             android:background="@drawable/separator_background"
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch
             android:id="@+id/mdkRichSwitch_falseValidation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/checkable_value_false"
-            mdk:mandatory_value="false"
-            mdk:widget="Switch"/>
+            mdk:mandatory_value="false"/>
 
     </LinearLayout>
 </ScrollView>

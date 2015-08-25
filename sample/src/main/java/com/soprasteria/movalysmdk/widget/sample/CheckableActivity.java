@@ -21,7 +21,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKCheckBox;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch;
 import com.soprasteria.movalysmdk.widget.basic.MDKSwitch;
 
 /**
@@ -32,7 +33,7 @@ public class CheckableActivity extends AppCompatActivity {
     /**
      * MDKRichCheckable with label and error.
      */
-    private MDKRichCheckable richCheckBoxWithLabelAndError;
+    private MDKRichCheckbox richCheckBoxWithLabelAndError;
 
     /**
      * MDKCheckBox with error and command outside.
@@ -42,17 +43,17 @@ public class CheckableActivity extends AppCompatActivity {
     /**
      * MDKRichCheckable with custom layout.
      */
-    private MDKRichCheckable richCheckBoxWithCustomLayout;
+    private MDKRichCheckbox richCheckBoxWithCustomLayout;
 
     /**
      * MDKRichCheckable with external helper.
      */
-    private MDKRichCheckable richCheckBoxWithExternalHelper;
+    private MDKRichCheckbox richCheckBoxWithExternalHelper;
 
     /**
-     * MDKRichCheckable with label and error.
+     * MDKRichSwitch with label and error.
      */
-    private MDKRichCheckable richSwitchWithLabelAndError;
+    private MDKRichSwitch richSwitchWithLabelAndError;
 
     /**
      * MDKSwitch with error and command outside.
@@ -60,29 +61,29 @@ public class CheckableActivity extends AppCompatActivity {
     private MDKSwitch switchWithErrorAndCommandOutside;
 
     /**
-     * MDKRichCheckable with custom layout.
+     * MDKRichSwitch with custom layout.
      */
-    private MDKRichCheckable richSwitchWithCustomLayout;
+    private MDKRichSwitch richSwitchWithCustomLayout;
 
     /**
-     * MDKRichCheckable with external helper.
+     * MDKRichSwitch with external helper.
      */
-    private MDKRichCheckable richSwitchWithExternalHelper;
+    private MDKRichSwitch richSwitchWithExternalHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkable);
 
-        this.richCheckBoxWithLabelAndError = (MDKRichCheckable) findViewById(R.id.mdkRichCheckbox_withLabelAndError);
+        this.richCheckBoxWithLabelAndError = (MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_withLabelAndError);
         this.checkboxWithErrorAndCommandOutside = (MDKCheckBox) findViewById(R.id.mdkCheckbox_withErrorAndCommandOutside);
-        this.richCheckBoxWithCustomLayout = (MDKRichCheckable) findViewById(R.id.mdkRichCheckbox_withCustomLayout);
-        this.richCheckBoxWithExternalHelper = (MDKRichCheckable) findViewById(R.id.checkbox_helper);
+        this.richCheckBoxWithCustomLayout = (MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_withCustomLayout);
+        this.richCheckBoxWithExternalHelper = (MDKRichCheckbox) findViewById(R.id.checkbox_helper);
 
-        this.richSwitchWithLabelAndError = (MDKRichCheckable) findViewById(R.id.mdkRichSwitch_withLabelAndError);
+        this.richSwitchWithLabelAndError = (MDKRichSwitch) findViewById(R.id.mdkRichSwitch_withLabelAndError);
         this.switchWithErrorAndCommandOutside = (MDKSwitch) findViewById(R.id.mdkSwitch_withErrorAndCommandOutside);
-        this.richSwitchWithCustomLayout = (MDKRichCheckable) findViewById(R.id.mdkRichSwitch_withCustomLayout);
-        this.richSwitchWithExternalHelper = (MDKRichCheckable) findViewById(R.id.switch_helper);
+        this.richSwitchWithCustomLayout = (MDKRichSwitch) findViewById(R.id.mdkRichSwitch_withCustomLayout);
+        this.richSwitchWithExternalHelper = (MDKRichSwitch) findViewById(R.id.switch_helper);
     }
 
     /**

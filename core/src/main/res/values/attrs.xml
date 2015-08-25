@@ -101,10 +101,6 @@
 
     <declare-styleable name="MDKCommons.MDKCheckableComponent">
         <attr name="mandatory_value" format="boolean" />
-        <attr format="enum" name="widget">
-            <enum name="CheckBox" value="0"/>
-            <enum name="Switch" value="1"/>
-        </attr>
     </declare-styleable>
 
     <!-- MDKSeekBar specific attributes-->

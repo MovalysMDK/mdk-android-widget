@@ -58,10 +58,10 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
      * Base widget.
      * Warning: business rules are included in the baseWidget, not in this class or inherited class.
      */
-    private T innerWidget;
+    protected T innerWidget;
 
     /** the error view. */
-    private MDKErrorWidget errorView;
+    protected MDKErrorWidget errorView;
     
     /** The string resource id for the hint. */
     private int resHintId;
@@ -259,7 +259,11 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
     @Override
     public void setError(CharSequence error) {
-        this.getInnerWidget().setError(error);
+        if (error != null && error.length() > 0) {
+            this.getInnerWidget().setError(error);
+        } else {
+            this.getInnerWidget().setError(null);
+        }
     }
 
     @Override
