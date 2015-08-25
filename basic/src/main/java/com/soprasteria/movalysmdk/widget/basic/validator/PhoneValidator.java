@@ -23,6 +23,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.BaseRegexValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
@@ -42,63 +43,13 @@ import java.util.regex.Pattern;
  * <p>Only one error is "right" the value cannot accumulate 2 errors.</p>
  * <p>Its mandatory OR invalid (the empty string cannot be invalidate).</p>
  */
-public class PhoneValidator implements FormFieldValidator<String> {
+public class PhoneValidator extends BaseRegexValidator {
 
     /**
-     * ERROR_INVALID_PHONE.
+     * Constructor.
      */
-    public static final int ERROR_INVALID_PHONE = R.string.mdkwidget_phone_error;
-
-    /**
-     * Attribute for regex pattern.
-     */
-    private Pattern pattern;
-
-    @Override
-    public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_mdkphone_validator_class);
+    public PhoneValidator() {
+        super(R.string.mdkwidget_mdkphone_validator_class, R.string.mdkwidget_phone_regex, R.string.mdkwidget_phone_error);
     }
 
-    @Override
-    public boolean accept(View view) {
-        boolean accept = false;
-        if (view instanceof HasText) {
-            accept = true;
-        }
-        return accept;
-    }
-
-    @Override
-    public int[] configuration() {
-        return new int[0];
-    }
-
-
-    @Override
-    public MDKMessage validate(String objectToValidate,
-                               MDKAttributeSet mdkParameter,
-                               MDKMessages resultPreviousValidator,
-                               @EnumFormFieldValidator.EnumValidationMode int validationMode,
-                               Context context) {
-
-        MDKMessage mdkMessage = null;
-
-        if (objectToValidate != null
-                && objectToValidate.length() > 0
-                && !resultPreviousValidator.containsKey(this.getClass().getName())) {
-            if (this.pattern == null) {
-                String regExp = context.getString(R.string.mdkwidget_phone_regex);
-                this.pattern = Pattern.compile(regExp);
-            }
-            Matcher matcher = this.pattern.matcher(objectToValidate);
-            if (!matcher.find() && R.string.mdkwidget_phone_error != 0) {
-                mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(ERROR_INVALID_PHONE);
-                String error = context.getString(R.string.mdkwidget_phone_error);
-                mdkMessage.setMessage(error);
-            }
-        }
-        resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
-        return mdkMessage;
-    }
 }
