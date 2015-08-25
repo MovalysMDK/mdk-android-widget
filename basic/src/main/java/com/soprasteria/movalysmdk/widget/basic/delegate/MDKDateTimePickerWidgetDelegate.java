@@ -281,7 +281,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param listener the ChangeListener to register
      */
     public void registerChangeListener(ChangeListener listener) {
-//        this.notifyChangeListeners.add(listener);
         this.mdkListenerDelegate.registerChangeListener(listener);
     }
 
@@ -290,19 +289,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param listener the ChangeListener to unregister
      */
     public void unregisterChangeListener(ChangeListener listener) {
-//        this.notifyChangeListeners.remove(listener);
         this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
-
-    /**
-     * Notify all the ChangeListener registered.
-     */
-//    private void notifyChangeListeners() {
-//        for (ChangeListener listener :
-//                this.notifyChangeListeners) {
-//            listener.onChanged();
-//        }
-//    }
 
     /**
      * Called by the view on the onAttachedToWindow event.

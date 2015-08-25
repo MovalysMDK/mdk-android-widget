@@ -45,7 +45,7 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
-    /** listeners delegate */
+    /** listeners delegate. */
     protected MDKChangeListenerDelegate mdkListenerDelegate;
 
     /**

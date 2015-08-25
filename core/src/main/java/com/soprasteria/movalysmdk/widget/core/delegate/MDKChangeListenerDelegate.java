@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class MDKChangeListenerDelegate implements HasChangeListener {
 
+    /** {@link ChangeListener} array. */
     private List<ChangeListener> listeners;
 
     /**
