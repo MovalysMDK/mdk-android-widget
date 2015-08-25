@@ -42,7 +42,7 @@ public class UriWidgetCommand implements WidgetCommand<Uri, Void> {
     @Override
     public Void execute(Context context, Uri... uriParams) {
         Intent uriIntent = new Intent(Intent.ACTION_VIEW);
-        if (uriParams == null || uriParams.length != 1 || uriParams == null){
+        if (uriParams == null || uriParams.length != 1){
             throw new IllegalArgumentException("uri command should only have one Uri in parameter.");
         } else {
             context.startActivity(uriIntent.setData(uriParams[0]));

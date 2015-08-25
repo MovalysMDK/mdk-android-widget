@@ -58,13 +58,14 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
 
         MDKMessage mdkMessage = null;
 
-        int currentValueToValidate = objectToValidate;
-
         if (objectToValidate != null
                 && !resultPreviousValidator.containsKey(this.getClass().getName())) {
 
             /** Check that the current value does not exceed the maximum one if the attribute
              * maxSeekBarValue is defined into the widget.*/
+
+            int currentValueToValidate = objectToValidate;
+
             if ((mdkAttributeSet.containsKey(R.attr.maxSeekBarValue))
                     &&(currentValueToValidate > mdkAttributeSet.getInteger(R.attr.maxSeekBarValue))){
                 mdkMessage = new MDKMessage();

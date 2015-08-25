@@ -27,19 +27,23 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import java.util.List;
 
 /**
- * MDK SeekBar
- * <p>Representing a slidable bar to select values</p>
+ * MDK SeekBar.
+ * <p>Representing a slidable bar to select values.</p>
+ * <p>Validation is done each time the seek bar value change</p>
+ * <p>
+ *     Due to SeekBar listener visibility, this class implement OnSeekBarChangeListener
+ *     in order to manage user actions. It is impossible for the developer to set an
+ *     OnSeekBarChangeListener on MDKSeekBar without throwing an exception. This is done in
+ *     order to protect the MDK widget behaviour.
+ * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, HasChangeListener, MDKWidget, HasCommands, MDKRestorableWidget, HasValidator, HasLabel, HasDelegate, HasSeekBar {
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasCommands, MDKRestorableWidget, HasValidator, HasLabel, HasDelegate, HasSeekBar {
 
     /** CommandDelegate attribute. */
     protected WidgetCommandDelegate commandDelegate;
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
-
-    /** change listener. */
-    private List<OnSeekBarChangeListener> listeners;
 
     /** Seek bar value from widget.*/
     private Integer seekBarValue;
@@ -72,7 +76,6 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, HasC
             init(context, attrs);
         }
     }
-
 
     /**
      * Instantiate the MDKWidgetDelegate.
@@ -157,10 +160,10 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, HasC
 
     @Override
     public boolean validate() {
-        /** TODO Impossible to use an overloaded value for styleable values of Attrs
-         * Example for seekBarMaxValue, if the value in the xml is 50 even with a setSeekBarMaxValue(20), the evaluated value
-         *  will be 50 into the SeekBarValidator
-        */
+        // TODO Impossible to use an overloaded value for styleable values of Attrs
+        // Example for seekBarMaxValue, if the value in the xml is 50 even with a setSeekBarMaxValue(20), the evaluated value
+        // will be 50 into the SeekBarValidator
+
         return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
     }
 
@@ -281,17 +284,6 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, HasC
         throw new MDKWidgetException(
                 getContext().getString(R.string.mdkwidget_seekbar_litsener_exception)
                         + MDKSeekBar.class);
-    }
-
-
-    @Override
-    public void registerChangeListener(ChangeListener listener) {
-
-    }
-
-    @Override
-    public void unregisterChangeListener(ChangeListener listener) {
-
     }
 
     @Override
