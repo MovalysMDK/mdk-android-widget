@@ -99,7 +99,7 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
         this.commandDelegate = new WidgetCommandDelegate(this, attrs);
         this.addCommandStateListener(this.commandDelegate);
 
-        this.uri = new String();
+        this.uri = "";
     }
 
     /**
@@ -179,14 +179,16 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
     }
 
     /**
-     * String to Uri format converter
-     * @param stringAddress
-     * @return
+     * String to Uri format converter.
+     * @param stringAddress the string to transform
+     * @return the transformed {@link Uri}
      */
     public Uri stringToUri(String stringAddress){
-        Uri uri = null;
-        if (!stringAddress.isEmpty()){uri = Uri.parse(stringAddress);}
-        return uri;
+        Uri retUri = null;
+        if (!stringAddress.isEmpty()){
+            retUri = Uri.parse(stringAddress);
+        }
+        return retUri;
     }
 
     @Override
