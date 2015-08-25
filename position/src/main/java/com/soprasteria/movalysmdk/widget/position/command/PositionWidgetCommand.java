@@ -19,18 +19,19 @@ import com.soprasteria.movalysmdk.widget.position.R;
  */
 public class PositionWidgetCommand implements WidgetCommand<PositionCommandListener, Void> {
 
-    /** tag for logging */
+    /** tag for logging. */
     private static final String TAG = PositionWidgetCommand.class.getSimpleName();
 
-    /** update timer value */
+    /** update timer value. */
     private static final int UPDATE_TIMER = 500;
 
-    /** coarse accuracy level */
+    /** coarse accuracy level. */
     private static final int COARSE_ACCURACY_LEVEL = 1000;
 
-    /** fine accuracy level */
+    /** fine accuracy level. */
     private static final int FINE_ACCURACY_LEVEL = 50;
 
+    /** android context. */
     private Context context;
 
     /** the location manager. */
@@ -45,7 +46,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
     /** true if a location is available. */
     private boolean locationAvailable;
 
-    /** callback listener */
+    /** callback listener. */
     private PositionCommandListener listener;
 
     /**
@@ -53,6 +54,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * <p>This method call the ACTION_SEND Intent.</p>
      *
      * @param context the Android context
+     * @param listeners the listeners of the command
      * @return null
      */
     @Override
@@ -72,6 +74,9 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         return null;
     }
 
+    /**
+     * Starts the location command.
+     */
     private void start() {
         boolean locationRequested = false;
 
@@ -104,6 +109,9 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         }
     }
 
+    /**
+     * Stops the location command.
+     */
     private void stop() {
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.removeUpdates(oListenerFine);
@@ -113,12 +121,15 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         }
     }
 
+    /**
+     * Returns the context of the command.
+     * @return android context
+     */
     private Context getContext() {
         return this.context;
     }
 
     /**
-     *
      * Updates the dialog ui to use the last currentLocation.
      */
     private void onCurrentLocationChange() {
@@ -162,80 +173,9 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * Creates LocationListeners.
      */
     private void createLocationListeners() {
-        oListenerCoarse = new LocationListener() {
+        oListenerCoarse = new PositionWidgetLocationListener(COARSE_ACCURACY_LEVEL);
 
-            @Override
-            public void onStatusChanged(String p_sProvider, int p_iStatus, Bundle p_oExtras) {
-                switch (p_iStatus) {
-                    case LocationProvider.OUT_OF_SERVICE:
-                    case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                        PositionWidgetCommand.this.locationAvailable = false;
-                        break;
-                    case LocationProvider.AVAILABLE:
-                        PositionWidgetCommand.this.locationAvailable = true;
-                        break;
-                    default:
-                        PositionWidgetCommand.this.locationAvailable = false;
-                }
-            }
-
-            @Override
-            public void onProviderEnabled(String p_sProvider) {
-                // nothing to do
-            }
-
-            @Override
-            public void onProviderDisabled(String p_sProvider) {
-                // nothing to do
-            }
-
-            @Override
-            public void onLocationChanged(Location p_oLocation) {
-                location = p_oLocation;
-                PositionWidgetCommand.this.onCurrentLocationChange();
-                if (p_oLocation!=null && p_oLocation.getAccuracy() < COARSE_ACCURACY_LEVEL && p_oLocation.hasAccuracy()) {
-                    locationManager.removeUpdates(this);
-                    PositionWidgetCommand.this.locationCoarseOk();
-                }
-            }
-        };
-        oListenerFine = new LocationListener() {
-
-            @Override
-            public void onStatusChanged(String p_sProvider, int p_iStatus, Bundle p_oExtras) {
-                switch (p_iStatus) {
-                    case LocationProvider.OUT_OF_SERVICE:
-                    case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                        PositionWidgetCommand.this.locationAvailable = false;
-                        break;
-                    case LocationProvider.AVAILABLE:
-                        PositionWidgetCommand.this.locationAvailable = true;
-                        break;
-                    default:
-                        PositionWidgetCommand.this.locationAvailable = false;
-                }
-            }
-
-            @Override
-            public void onProviderEnabled(String p_sProvider) {
-                // nothing to do
-            }
-
-            @Override
-            public void onProviderDisabled(String p_sProvider) {
-                // nothing to do
-            }
-
-            @Override
-            public void onLocationChanged(Location p_oLocation) {
-                location = p_oLocation;
-                PositionWidgetCommand.this.onCurrentLocationChange();
-                if (p_oLocation!=null && p_oLocation.getAccuracy() < FINE_ACCURACY_LEVEL && p_oLocation.hasAccuracy()) {
-                    locationManager.removeUpdates(this);
-                    PositionWidgetCommand.this.locationFineOk();
-                }
-            }
-        };
+        oListenerFine = new PositionWidgetLocationListener(FINE_ACCURACY_LEVEL);
     }
 
     /**
@@ -262,5 +202,56 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         listener.locationFixed(location);
 
         stop();
+    }
+
+    /**
+     * Location listeners.
+     */
+    private class PositionWidgetLocationListener implements LocationListener {
+
+        private int precision;
+
+        public PositionWidgetLocationListener(int precision) {
+            this.precision = precision;
+        }
+
+        @Override
+        public void onLocationChanged(Location location) {
+            PositionWidgetCommand.this.location = location;
+            PositionWidgetCommand.this.onCurrentLocationChange();
+            if (location!=null && location.getAccuracy() < precision && location.hasAccuracy()) {
+                locationManager.removeUpdates(this);
+                if (precision == FINE_ACCURACY_LEVEL) {
+                    PositionWidgetCommand.this.locationFineOk();
+                } else {
+                    PositionWidgetCommand.this.locationCoarseOk();
+                }
+            }
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            switch (status) {
+                case LocationProvider.OUT_OF_SERVICE:
+                case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                    PositionWidgetCommand.this.locationAvailable = false;
+                    break;
+                case LocationProvider.AVAILABLE:
+                    PositionWidgetCommand.this.locationAvailable = true;
+                    break;
+                default:
+                    PositionWidgetCommand.this.locationAvailable = false;
+            }
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            // nothing to do
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            // nothing to do
+        }
     }
 }

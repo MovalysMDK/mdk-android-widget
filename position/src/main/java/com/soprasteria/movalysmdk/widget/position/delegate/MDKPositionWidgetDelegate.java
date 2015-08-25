@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKEditText;
@@ -30,7 +29,7 @@ import java.util.List;
  */
 public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, TextWatcher {
 
-    /** tag for logging */
+    /** tag for logging. */
     private static final String TAG = MDKPositionWidgetDelegate.class.getSimpleName();
 
     /** notify change listeners. */
@@ -57,7 +56,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     /** current location. */
     private Location location;
 
-    /** true if the data is being written by the command */
+    /** true if the data is being written by the command. */
     private boolean writingData = false;
 
     /**
@@ -132,6 +131,9 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
         this.lngHint = lngHint;
     }
 
+    /**
+     * Updates the displayed location with the current one.
+     */
     private void updateShownLocation() {
         if (!writingData) {
             notifyChangeListeners();
@@ -249,9 +251,17 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
         // nothing to do
     }
 
+    /**
+     * Sets the enabled status of the sub widgets.
+     * @param enabled true to enable the widgets
+     */
     public void setEnabled(boolean enabled) {
-        this.latitudeView.get().setEnabled(enabled);
-        this.longitudeView.get().setEnabled(enabled);
+        if (this.getLatitudeView() != null) {
+            this.getLatitudeView().setEnabled(enabled);
+        }
+        if (this.getLongitudeView() != null) {
+            this.getLongitudeView().setEnabled(enabled);
+        }
     }
 
 }

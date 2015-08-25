@@ -3,7 +3,7 @@ package com.soprasteria.movalysmdk.widget.position.command;
 import android.location.Location;
 
 /**
- * Position Command Widget listener
+ * Position Command Widget listener.
  */
 public interface PositionCommandListener {
 

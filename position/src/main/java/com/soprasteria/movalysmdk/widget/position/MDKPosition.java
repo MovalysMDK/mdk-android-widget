@@ -30,6 +30,10 @@ import com.soprasteria.movalysmdk.widget.position.delegate.PositionCommandDelega
 
 import java.util.List;
 
+/**
+ * MDK Position.
+ * <p>Representing a position input field, allowing to set a latitude and a longitude or to retrieve it with the GPS function of the device.</p>
+ */
 public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestorableWidget, HasLocation, HasValidator, HasCommands, HasDelegate, HasChangeListener, PositionCommandListener {
 
     /** CommandDelegate attribute. */
@@ -38,16 +42,33 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
     /** MDK Widget implementation. */
     protected MDKPositionWidgetDelegate mdkWidgetDelegate;
 
+    /**
+     * Constructor.
+     * @param context the android context
+     * @param attrs the layout attributes
+     */
     public MDKPosition(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
+    /**
+     * Constructor.
+     * @param context the android context
+     * @param attrs the layout attributes
+     * @param defStyleAttr the layout defined style
+     */
     public MDKPosition(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
+    /**
+     * Inflation an initialization.
+     * @param context the android context
+     * @param attrs the layout attributes
+     * @return the inflated view
+     */
     protected View init(Context context, AttributeSet attrs) {
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
         inflater.inflate(R.layout.position_layout, this);
@@ -239,12 +260,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
         if (command instanceof PositionWidgetCommand) {
             ((PositionWidgetCommand) command).execute(this.getContext(), this);
         } else if (command instanceof MapWidgetCommand) {
-//            if (this.mdkWidgetDelegate.getLatitudeView().getText() != null
-//                    && this.mdkWidgetDelegate.getLatitudeView().getText().length() > 0
-//                    && this.mdkWidgetDelegate.getLongitudeView().getText() != null
-//                    && this.mdkWidgetDelegate.getLongitudeView().getText().length() > 0) {
-                ((MapWidgetCommand) command).execute(this.getContext(), this.getCoordinates());
-//            }
+            ((MapWidgetCommand) command).execute(this.getContext(), this.getCoordinates());
         }
     }
 
