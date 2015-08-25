@@ -17,18 +17,20 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEmailWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasEmail;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**
  * MDKRichEmail class definition.
  */
-public class MDKRichEmail extends MDKBaseRichEmailWidget<MDKEmail> implements MDKBaseWidget, HasValidator, HasHint {
+public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDKBaseWidget, HasValidator, HasHint, HasEmail {
 
     /**
      * Constructor.
@@ -64,11 +66,6 @@ public class MDKRichEmail extends MDKBaseRichEmailWidget<MDKEmail> implements MD
         this.getInnerWidget().setInputType(type);
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.getInnerWidget().setEnabled(enabled);
-    }
-
     /**
      * onCreateInputConnection method.
      * @param outAttrs attributes
@@ -77,5 +74,20 @@ public class MDKRichEmail extends MDKBaseRichEmailWidget<MDKEmail> implements MD
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return getInnerWidget().onCreateInputConnection(outAttrs);
+    }
+
+    @Override
+    public void setEmail(String[] email) {
+        this.getInnerWidget().setEmail(email);
+    }
+
+    @Override
+    public String[] getEmail() {
+        return this.getInnerWidget().getEmail();
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.getInnerWidget().onClick(v);
     }
 }

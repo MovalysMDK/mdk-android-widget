@@ -64,11 +64,6 @@ public class MDKRichPhone extends MDKBaseRichTextWidget<MDKPhone> implements MDK
         this.getInnerWidget().setInputType(type);
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.getInnerWidget().setEnabled(enabled);
-    }
-
     /**
      * onCreateInputConnection method.
      * @param outAttrs attributes

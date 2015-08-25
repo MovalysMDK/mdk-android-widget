@@ -20,14 +20,15 @@ import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import com.soprasteria.movalysmdk.widget.core.MDKBaseRichUriWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasUri;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**
  * MDKRichUri class definition.
  */
-public class MDKRichUri extends MDKBaseRichUriWidget<MDKUri> implements MDKBaseWidget, HasValidator {
+public class MDKRichUri extends MDKBaseRichEditWidget<MDKUri> implements MDKBaseWidget, HasValidator, HasUri {
 
     /**
     * Constructor.
@@ -49,16 +50,6 @@ public class MDKRichUri extends MDKBaseRichUriWidget<MDKUri> implements MDKBaseW
     }
 
     @Override
-    public void setInputType(int type) {
-        this.getInnerWidget().setInputType(type);
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.getInnerWidget().setEnabled(enabled);
-    }
-
-    @Override
     public boolean isEnabled() {
         return this.getInnerWidget().isEnabled();
     }
@@ -71,5 +62,15 @@ public class MDKRichUri extends MDKBaseRichUriWidget<MDKUri> implements MDKBaseW
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return getInnerWidget().onCreateInputConnection(outAttrs);
+    }
+
+    @Override
+    public String getUri() {
+        return this.getInnerWidget().getUri();
+    }
+
+    @Override
+    public void setUri(String uri) {
+        this.getInnerWidget().setUri(uri);
     }
 }

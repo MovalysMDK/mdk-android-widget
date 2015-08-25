@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -243,6 +244,8 @@ public class MDKEmail extends AppCompatEditText implements MDKWidget, MDKRestora
             this.registerWidgetCommands();
             // Call validate to enable or not send button
             this.getMDKWidgetDelegate().validate(false, EnumFormFieldValidator.VALIDATE);
+            // set input type
+            this.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         }
     }
 

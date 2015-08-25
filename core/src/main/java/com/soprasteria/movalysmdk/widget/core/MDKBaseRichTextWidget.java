@@ -64,6 +64,7 @@ public class MDKBaseRichTextWidget<T extends MDKWidget & MDKRestorableWidget & H
     }
 
     @Override
-    public void setInputType(int type) { this.getInnerWidget().setInputType(type);
+    public void setInputType(int type) {
+        this.getInnerWidget().setInputType(type);
     }
 }

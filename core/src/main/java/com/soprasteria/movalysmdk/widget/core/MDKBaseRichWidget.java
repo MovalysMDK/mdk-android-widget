@@ -172,6 +172,17 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     }
 
     /**
+     * Override the default android setEnable on view and call the inner component setEnable.
+     * We disable the component in order to have the opportunity to add a selector on a rich component.
+     * @param enabled Enable or not the view
+     */
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        ((View) this.getInnerWidget()).setEnabled(enabled);
+    }
+
+    /**
      * inflate the widget layout.
      * @param context the android context
      * @param attrs the xml attributes

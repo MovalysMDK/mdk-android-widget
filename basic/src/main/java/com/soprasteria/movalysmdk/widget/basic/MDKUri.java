@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -250,6 +251,8 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
             this.registerWidgetCommands();
             // Call validate to enable or not send button
             this.getMDKWidgetDelegate().validate(false, EnumFormFieldValidator.VALIDATE);
+            // set the input type
+            this.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
         }
     }
 

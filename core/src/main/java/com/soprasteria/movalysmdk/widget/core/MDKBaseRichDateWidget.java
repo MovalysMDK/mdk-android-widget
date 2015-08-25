@@ -84,17 +84,6 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & H
         return this.getInnerWidget().validate(EnumFormFieldValidator.VALIDATE);
     }
 
-    /**
-     * Override the default android setEnable on view and
-     * call the inner component setEnable.
-     * @param enabled Enable or not the view
-     */
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        ((View) this.getInnerWidget()).setEnabled(enabled);
-    }
-
     @Override
     public Date getDate() {
         return this.getInnerWidget().getDate();

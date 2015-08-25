@@ -37,17 +37,6 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
         super(R.layout.mdkwidget_position_edit_label, R.layout.mdkwidget_position_edit, context, attrs, defStyleAttr);
     }
 
-    /**
-     * Override the default android setEnable on view and
-     * call the inner component setEnable.
-     * @param enabled Enable or not the view
-     */
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        this.getInnerWidget().setEnabled(enabled);
-    }
-
     @Override
     public void registerChangeListener(ChangeListener listener) {
         this.getInnerWidget().registerChangeListener(listener);

@@ -41,7 +41,6 @@
         android:layout_toRightOf="@id/component_uriButton"
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/component_uriButton"
-        android:inputType="textUri"
         android:text="@string/mdkwidget_uri_default_text_label"
         mdk:primaryCommandId="@id/component_uriButton"
         mdk:errorId="@id/component_error"

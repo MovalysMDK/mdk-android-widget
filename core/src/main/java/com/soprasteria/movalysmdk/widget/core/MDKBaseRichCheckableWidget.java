@@ -19,7 +19,6 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
@@ -78,17 +77,6 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & MDKRestorableWidge
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
         this.getInnerWidget().unregisterChangeListener(listener);
-    }
-
-    /**
-     * Override the default android setEnable on view and
-     * call the inner component setEnable.
-     * @param enabled Enable or not the view
-     */
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        ((View) this.getInnerWidget()).setEnabled(enabled);
     }
 
     @Override

@@ -105,15 +105,6 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
     }
 
     /**
-     * Sets the inner EditText enabled state.
-     * @param enabled enabled
-     */
-    @Override
-    public void setEnabled(boolean enabled) {
-        this.getInnerWidget().setEnabled(enabled);
-    }
-
-    /**
      * Limit the EditText to be single line.
      */
     public void setSingleLine() {
