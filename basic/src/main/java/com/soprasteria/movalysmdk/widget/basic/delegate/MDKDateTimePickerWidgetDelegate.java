@@ -31,6 +31,7 @@ import android.widget.TimePicker;
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.basic.model.MDKDate;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
@@ -57,10 +58,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /** emtpy string comparator. */
     public static final String EMPTY_STRING = "";
+
     /**
      * notify change listeners.
      */
-    private List<ChangeListener> notifyChangeListeners;
+    private MDKChangeListenerDelegate mdkListenerDelegate;
 
     /** MDKDateTime active mode enumeration. */
     @IntDef({DATE_PICKER, TIME_PICKER, DATE_TIME_PICKER})
@@ -131,7 +133,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         super(view, attrs);
 
-        this.notifyChangeListeners = new ArrayList<>();
+        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
 
         // DateTimePicker specific fields parsing
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKDateTimePickerComponent);
@@ -279,7 +281,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param listener the ChangeListener to register
      */
     public void registerChangeListener(ChangeListener listener) {
-        this.notifyChangeListeners.add(listener);
+//        this.notifyChangeListeners.add(listener);
+        this.mdkListenerDelegate.registerChangeListener(listener);
     }
 
     /**
@@ -287,18 +290,19 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param listener the ChangeListener to unregister
      */
     public void unregisterChangeListener(ChangeListener listener) {
-        this.notifyChangeListeners.remove(listener);
+//        this.notifyChangeListeners.remove(listener);
+        this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
 
     /**
      * Notify all the ChangeListener registered.
      */
-    private void notifyChangeListeners() {
-        for (ChangeListener listener :
-                this.notifyChangeListeners) {
-            listener.onChanged();
-        }
-    }
+//    private void notifyChangeListeners() {
+//        for (ChangeListener listener :
+//                this.notifyChangeListeners) {
+//            listener.onChanged();
+//        }
+//    }
 
     /**
      * Called by the view on the onAttachedToWindow event.
@@ -381,7 +385,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         if(view.isShown()) {
             updateShownDateTime();
-            this.notifyChangeListeners();
+            this.mdkListenerDelegate.notifyListeners();
         }
     }
 
@@ -401,7 +405,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         if(view.isShown()) {
             updateShownDateTime();
-            this.notifyChangeListeners();
+            this.mdkListenerDelegate.notifyListeners();
         }
     }
 

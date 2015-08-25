@@ -11,14 +11,13 @@ import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKEditText;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.R;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Delegate for the MDKPositionWidgetDelegate widget.
@@ -33,7 +32,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     private static final String TAG = MDKPositionWidgetDelegate.class.getSimpleName();
 
     /** notify change listeners. */
-    private List<ChangeListener> notifyChangeListeners;
+    private MDKChangeListenerDelegate mdkChangeListener;
 
     /** Latitude hint.*/
     private String latHint;
@@ -67,7 +66,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     public MDKPositionWidgetDelegate(View view, AttributeSet attrs) {
         super(view, attrs);
 
-        this.notifyChangeListeners = new ArrayList<>();
+        this.mdkChangeListener = new MDKChangeListenerDelegate();
 
         /// initalise the location object
         location = new Location("dummyprovider");
@@ -136,7 +135,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
      */
     private void updateShownLocation() {
         if (!writingData) {
-            notifyChangeListeners();
+            this.mdkChangeListener.notifyListeners();
 
             try {
                 double lat = Double.parseDouble(this.getLatitudeView().getText().toString());
@@ -155,7 +154,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
      * @param listener the ChangeListener to register
      */
     public void registerChangeListener(ChangeListener listener) {
-        this.notifyChangeListeners.add(listener);
+        this.mdkChangeListener.registerChangeListener(listener);
     }
 
     /**
@@ -163,17 +162,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
      * @param listener the ChangeListener to unregister
      */
     public void unregisterChangeListener(ChangeListener listener) {
-        this.notifyChangeListeners.remove(listener);
-    }
-
-    /**
-     * Notify all the ChangeListener registered.
-     */
-    private void notifyChangeListeners() {
-        for (ChangeListener listener :
-                this.notifyChangeListeners) {
-            listener.onChanged();
-        }
+        this.mdkChangeListener.unregisterChangeListener(listener);
     }
 
     /**

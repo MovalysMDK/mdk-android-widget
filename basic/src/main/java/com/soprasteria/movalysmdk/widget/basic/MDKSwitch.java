@@ -29,12 +29,12 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +46,7 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
     protected MDKWidgetDelegate mdkWidgetDelegate;
 
     /** change listener. */
-    private List<ChangeListener> listeners;
+    private MDKChangeListenerDelegate mdkListenerDelegate;
 
     /**
      * Constructor.
@@ -80,8 +80,6 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
      */
     private final void init(Context context, AttributeSet attrs) {
 
-        listeners = new ArrayList<>();
-
         // Parse the MDKCommons:label attribute
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
@@ -91,6 +89,8 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
         typedArray.recycle();
 
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+
+        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
     }
 
     @Override
@@ -206,22 +206,18 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
     @Override
     public void setChecked(boolean checked) {
         super.setChecked(checked);
-
-        // Prevent early calls
-        if (this.listeners != null) {
-            for (ChangeListener listener : this.listeners) {
-                listener.onChanged();
-            }
+        if (this.mdkListenerDelegate != null) {
+            this.mdkListenerDelegate.notifyListeners();
         }
     }
 
     @Override
     public void registerChangeListener(ChangeListener listener) {
-        this.listeners.add(listener);
+        this.mdkListenerDelegate.registerChangeListener(listener);
     }
 
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
-        this.listeners.remove(listener);
+        this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
 }

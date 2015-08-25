@@ -36,6 +36,8 @@ public class MDKBaseRichSeekBarWidget<T extends MDKWidget & MDKRestorableWidget 
 
     /**
      * Constructor.
+     * @param layoutWithLabelId the layout identifier with label
+     * @param layoutWithoutLabelId the layout identifier without label
      * @param context the context
      * @param attrs attributes
      */
@@ -47,6 +49,8 @@ public class MDKBaseRichSeekBarWidget<T extends MDKWidget & MDKRestorableWidget 
 
     /**
      * Constructor.
+     * @param layoutWithLabelId the layout identifier with label
+     * @param layoutWithoutLabelId the layout identifier without label
      * @param context the context
      * @param attrs attributes
      * @param defStyleAttr the style
