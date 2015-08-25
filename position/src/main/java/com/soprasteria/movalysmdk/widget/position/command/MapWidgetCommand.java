@@ -77,7 +77,6 @@ public class MapWidgetCommand implements WidgetCommand<String, Void> {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
             context.startActivity(mapIntent);
         } catch (ActivityNotFoundException e) {
-            Log.d(this.getClass().getSimpleName(), e.toString());
             Toast.makeText(context, context.getString(R.string.alert_map_missing), Toast.LENGTH_SHORT).show();
         }
     }

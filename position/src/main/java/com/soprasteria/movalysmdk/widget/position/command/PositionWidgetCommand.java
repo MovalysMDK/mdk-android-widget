@@ -183,8 +183,8 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * called when the coarse location get the defined accuracy.
      */
     public void locationCoarseOk() {
-        Log.d(TAG, "CoarseLocartion ok " + String.valueOf(location.getAccuracy()));
-        Log.d(TAG, "CoarseLocartion ok-bLocationAvailable: " + String.valueOf(locationAvailable));
+        Log.d(TAG, "CoarseLocartion ok " + location.getAccuracy());
+        Log.d(TAG, "CoarseLocartion ok-bLocationAvailable: " + locationAvailable);
 
         listener.locationFixed(location);
 
@@ -196,8 +196,8 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * called when the fine location get the defined accuracy.
      */
     public void locationFineOk() {
-        Log.d(TAG, "FineLocartion ok: " + String.valueOf(location.getAccuracy()));
-        Log.d(TAG, "FineLocartion ok-bLocationAvailable: " + String.valueOf(locationAvailable));
+        Log.d(TAG, "FineLocartion ok: " + location.getAccuracy());
+        Log.d(TAG, "FineLocartion ok-bLocationAvailable: " + locationAvailable);
 
         listener.locationFixed(location);
 
