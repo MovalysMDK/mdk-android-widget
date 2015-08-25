@@ -20,15 +20,14 @@ import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import com.soprasteria.movalysmdk.widget.core.MDKBaseRichTextWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**
  * MDKRichPhone class definition.
  */
-public class MDKRichPhone extends MDKBaseRichTextWidget<MDKPhone> implements MDKBaseWidget, HasValidator, HasHint {
+public class MDKRichPhone extends MDKBaseRichEditWidget<MDKPhone> implements MDKBaseWidget, HasValidator {
 
     /**
      * Constructor.
@@ -47,30 +46,5 @@ public class MDKRichPhone extends MDKBaseRichTextWidget<MDKPhone> implements MDK
      */
     public MDKRichPhone(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.mdkwidget_phone_edit_label, R.layout.mdkwidget_phone_edit, context, attrs, defStyleAttr);
-    }
-
-    @Override
-    public CharSequence getHint() {
-        return this.getInnerWidget().getHint();
-    }
-
-    @Override
-    public void setHint(CharSequence hint) {
-        this.getInnerWidget().setHint(hint);
-    }
-
-    @Override
-    public void setInputType(int type) {
-        this.getInnerWidget().setInputType(type);
-    }
-
-    /**
-     * onCreateInputConnection method.
-     * @param outAttrs attributes
-     * @return InputConnection the input connection
-     */
-    @Override
-    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        return getInnerWidget().onCreateInputConnection(outAttrs);
     }
 }

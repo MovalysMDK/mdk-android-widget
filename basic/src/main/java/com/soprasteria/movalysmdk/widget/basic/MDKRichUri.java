@@ -54,16 +54,6 @@ public class MDKRichUri extends MDKBaseRichEditWidget<MDKUri> implements MDKBase
         return this.getInnerWidget().isEnabled();
     }
 
-    /**
-     * onCreateInputConnection method.
-     * @param outAttrs attributes
-     * @return InputConnection the input connection
-     */
-    @Override
-    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        return getInnerWidget().onCreateInputConnection(outAttrs);
-    }
-
     @Override
     public String getUri() {
         return this.getInnerWidget().getUri();

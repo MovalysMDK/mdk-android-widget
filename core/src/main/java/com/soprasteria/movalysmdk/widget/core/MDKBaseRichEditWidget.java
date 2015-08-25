@@ -22,8 +22,10 @@ import android.support.annotation.StyleableRes;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -32,7 +34,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  * Base implementation of the rich mdk widget for widget that uses text and are editable.
  * @param <T> the inner widget type
  */
-public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & HasText & HasTextWatcher & HasValidator & HasDelegate> extends MDKBaseRichTextWidget<T> implements HasTextWatcher {
+public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & HasText & HasTextWatcher & HasValidator & HasDelegate & HasHint> extends MDKBaseRichTextWidget<T> implements HasTextWatcher, HasHint {
 
     /**
      * Constructor.
@@ -103,5 +105,25 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & H
     @Override
     public void removeTextChangedListener(TextWatcher textWatcher) {
         this.getInnerWidget().removeTextChangedListener(textWatcher);
+    }
+
+    @Override
+    public CharSequence getHint() {
+        return this.getInnerWidget().getHint();
+    }
+
+    @Override
+    public void setHint(CharSequence hint) {
+        this.getInnerWidget().setHint(hint);
+    }
+
+    /**
+     * onCreateInputConnection method.
+     * @param outAttrs attributes
+     * @return InputConnection the input connection
+     */
+    @Override
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        return getInnerWidget().onCreateInputConnection(outAttrs);
     }
 }

@@ -52,31 +52,6 @@ public class MDKRichEmail extends MDKBaseRichEditWidget<MDKEmail> implements MDK
     }
 
     @Override
-    public CharSequence getHint() {
-        return this.getInnerWidget().getHint();
-    }
-
-    @Override
-    public void setHint(CharSequence hint) {
-        this.getInnerWidget().setHint(hint);
-    }
-
-    @Override
-    public void setInputType(int type) {
-        this.getInnerWidget().setInputType(type);
-    }
-
-    /**
-     * onCreateInputConnection method.
-     * @param outAttrs attributes
-     * @return InputConnection the input connection
-     */
-    @Override
-    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        return getInnerWidget().onCreateInputConnection(outAttrs);
-    }
-
-    @Override
     public void setEmail(String[] email) {
         this.getInnerWidget().setEmail(email);
     }

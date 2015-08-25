@@ -70,16 +70,6 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
         }
     }
 
-    @Override
-    public CharSequence getHint() {
-        return this.getInnerWidget().getHint();
-    }
-
-    @Override
-    public void setHint(CharSequence hint) {
-        this.getInnerWidget().setHint(hint);
-    }
-
     /**
      * Sets the text color of the inner EditText.
      * @param colors the new color
@@ -134,21 +124,6 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
      */
     public void setTextSize(int unit, float size) {
         this.getInnerWidget().setTextSize(unit, size);
-    }
-
-    /**
-     * onCreateInputConnection method.
-     * @param outAttrs outAttrs
-     * @return x
-     */
-    @Override
-    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        return getInnerWidget().onCreateInputConnection(outAttrs);
-    }
-
-    @Override
-    public void setInputType(int type) {
-        this.getInnerWidget().setInputType(type);
     }
 
 }

@@ -15,6 +15,9 @@
  */
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
+
 /**
  * Add Text behavior on a widget.
  */
@@ -44,5 +47,12 @@ public interface HasText {
      * @param type content type
      */
     void setInputType(int type);
+
+    /**
+     * Set the {@link EditorInfo} on the widget.
+     * @param outAttrs the {@link EditorInfo} to set
+     * @return the created {@link InputConnection}
+     */
+    InputConnection onCreateInputConnection(EditorInfo outAttrs);
 
 }
