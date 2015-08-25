@@ -16,7 +16,6 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichSeekBarWidget;
@@ -40,11 +39,7 @@ public class MDKRichSeekBar <T extends MDKWidget & MDKRestorableWidget & HasVali
      * @param attrs attributes
      */
     public MDKRichSeekBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        if (!isInEditMode()) {
-            init(context, attrs);
-        }
+        super(R.layout.mdkwidget_seekbar_edit_label, R.layout.mdkwidget_seekbar_edit, context, attrs);
     }
 
     /**
@@ -54,29 +49,6 @@ public class MDKRichSeekBar <T extends MDKWidget & MDKRestorableWidget & HasVali
      * @param defStyleAttr defStyleAttr
      */
     public MDKRichSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-
-        if (!isInEditMode()) {
-            init(context, attrs);
-        }
-    }
-
-    /**
-     * Called by the constructor.
-     * @param context the context of the view
-     * @param attrs xml attributes
-     */
-    protected void init(Context context, AttributeSet attrs) {
-        int layoutWithLabelId, layoutWithoutLabelId;
-
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
-        // parse widget attribute to get values
-
-        layoutWithLabelId = R.layout.mdkwidget_seekbar_edit_label;
-        layoutWithoutLabelId = R.layout.mdkwidget_seekbar_edit;
-
-        typedArray.recycle();
-
-        super.init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
+        super(R.layout.mdkwidget_seekbar_edit_label, R.layout.mdkwidget_seekbar_edit, context, attrs, defStyleAttr);
     }
 }

@@ -48,8 +48,6 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & MDKRestorableWidge
      */
     public MDKBaseRichCheckableWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
-
-//        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
 
     /**
@@ -62,8 +60,6 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & MDKRestorableWidge
      */
     public MDKBaseRichCheckableWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
-
-//        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
 
     /**
@@ -73,81 +69,6 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & MDKRestorableWidge
     public T getInnerWidget()   {
         return (T) super.getInnerWidget();
     }
-
-//    /**
-//     * Initialise rich widget.
-//     * @param context the context
-//     * @param attrs the attribute set
-//     * @param layoutWithLabelId the layout id for the widget with label
-//     * @param layoutWithoutLabelId the layout id for the widget without label
-//     */
-//    protected void init(Context context, AttributeSet attrs, @LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId) {
-//
-//        // replace the creation of the state drawable
-//        this.setAddStatesFromChildren(true);
-//
-//        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
-//        // parse label attribute
-//        int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
-//        // parse helper attribute
-//        int resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
-//        // parse layout attribute
-//        int customLayoutId = typedArray.getResourceId(R.styleable.MDKCommons_layout, 0);
-//
-//        inflateLayout(context, attrs, layoutWithLabelId, layoutWithoutLabelId, customLayoutId, resLabelId);
-//
-//        if (!this.isInEditMode()) {
-//            // get innerWidget component
-//            this.innerWidget = (T) this.findViewById(R.id.component_internal);
-//            this.innerWidget.setUniqueId(this.getId());
-//
-//            ((View)this.innerWidget).setSaveFromParentEnabled(false);
-//
-//            // get label component if exists
-//            TextView labelView = (TextView) this.findViewById(R.id.component_label);
-//
-//            if (labelView != null && resLabelId != 0) {
-//                labelView.setText(resLabelId);
-//            }
-//
-//            // getting the error view
-//            this.errorView = (MDKErrorWidget) this.findViewById(R.id.component_error);
-//            if (resHelperId != 0
-//                    && this.errorView != null
-//                    && this.errorView instanceof MDKErrorTextView ) {
-//                ((MDKErrorTextView) this.errorView).setHelper(context, context.getString(resHelperId));
-//            }
-//
-//            // parse others attributes
-//            int errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
-//            if (errorId != 0) {
-//                int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-//                this.innerWidget.setRootViewId(rootId);
-//                this.innerWidget.setErrorViewId(errorId);
-//                this.innerWidget.setUseRootIdOnlyForError(true);
-//            }
-//
-//            boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
-//            this.getInnerWidget().setMandatory(mandatory);
-//
-//            int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);
-//            String[] selectorKeys = this.getContext().getResources().getStringArray(selectorResId);
-//            List<String> richSelectors = new ArrayList<>();
-//            for (String selectorKey : selectorKeys) {
-//                richSelectors.add(selectorKey);
-//            }
-//            this.innerWidget.setRichSelectors(richSelectors);
-//        }
-//
-//        // replace the creation of the state drawable
-//        this.setAddStatesFromChildren(true);
-//
-//        // release typed array
-//        typedArray.recycle();
-//
-//        initAttributeMap(attrs);
-//
-//    }
 
     @Override
     public void registerChangeListener(ChangeListener listener) {
