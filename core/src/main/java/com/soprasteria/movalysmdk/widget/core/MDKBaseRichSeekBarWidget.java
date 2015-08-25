@@ -163,7 +163,7 @@ public class MDKBaseRichSeekBarWidget<T extends MDKWidget & MDKRestorableWidget 
 
     /**
      * Initialize MDK widget class variables with layout attributes of the Rich component.
-     * @param typedArrayCustom
+     * @param typedArrayCustom Array of attributes of the MDK widget
      */
     public void initDedicatedAttributes(TypedArray typedArrayCustom){
 
