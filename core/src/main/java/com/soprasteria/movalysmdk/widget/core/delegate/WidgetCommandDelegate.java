@@ -39,16 +39,16 @@ import java.lang.ref.WeakReference;
 public class WidgetCommandDelegate implements CommandStateListener {
 
     /** validation command. */
-    private final boolean validationCommand;
+    protected final boolean validationCommand;
 
     /** Weak reference on view. */
     private final WeakReference<MDKWidget> weakView;
 
     /** Id of the primary command view. */
-    private final int primaryCommandViewId;
+    protected final int primaryCommandViewId;
 
     /** Id of the secondary command view. */
-    private final int secondaryCommandViewId;
+    protected final int secondaryCommandViewId;
 
     /** Attribute "Qualifier" of the component. */
     private final String qualifier;
@@ -184,7 +184,7 @@ public class WidgetCommandDelegate implements CommandStateListener {
      * @param enable Activation toggle
      * @param viewId the view id
      */
-    private void enableCommandOnView(boolean enable, int viewId) {
+    protected void enableCommandOnView(boolean enable, int viewId) {
         if (validationCommand) {
             View commandView = findCommandView(viewId);
             if (commandView != null) {

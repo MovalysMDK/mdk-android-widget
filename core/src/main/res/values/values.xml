@@ -29,6 +29,8 @@
     </style>
     <style name="Base.MDKValue.MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"/>
 
+    <style name="Base.MDKValue.MDKValuePosition" parent="Widget.AppCompat.EditText"/>
+
     <style name="Base.MDKValue.MDKValueCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox"/>
 
     <style name="Base.MDKValue.MDKValueSeekBar" parent="Widget.AppCompat.ProgressBar"/>

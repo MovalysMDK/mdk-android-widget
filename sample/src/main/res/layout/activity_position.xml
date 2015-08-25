@@ -21,7 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_vertical_margin"
-    tools:context=".PhoneActivity">
+    tools:context=".PositionActivity">
 
     <LinearLayout
         android:id="@+id/root"
@@ -31,20 +31,20 @@
 
         <include layout="@layout/button_bar"/>
 
-        <!-- RICH PHONE WITH LABEL AND ERROR -->
+        <!-- RICH POSITION WITH LABEL AND ERROR -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone_with_label_error" />
+            android:text="@string/position_with_label_error" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone_withLabelAndError"
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition_withLabelAndError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/phone_background"
+            android:background="@drawable/position_background"
             android:padding="2dp"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
@@ -54,32 +54,32 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <!-- INNER PHONE WITH EXTERNAL ERROR/COMMAND -->
+        <!-- INNER POSITION WITH EXTERNAL ERROR/COMMAND -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone_standalone_widget" />
+            android:text="@string/position_standalone_widget" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKPhone
-            android:id="@+id/mdkPhone_withErrorAndCommandOutside"
+        <com.soprasteria.movalysmdk.widget.position.MDKPosition
+            android:id="@+id/mdkPosition_withErrorAndCommandOutside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/testHintText"
-            mdk:errorId="@+id/checkbox_errorText"
-            mdk:primaryCommandId="@+id/buttonCall"
+            mdk:errorId="@+id/position_errorText"
+            mdk:primaryCommandId="@+id/buttonPosition"
             mdk:rootId="@id/root"
             mdk:mandatory="true" />
 
         <Button
-            android:id="@+id/buttonCall"
+            android:id="@+id/buttonPosition"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sendButtonText" />
 
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
-            android:id="@+id/checkbox_errorText"
+            android:id="@+id/position_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -89,22 +89,22 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <!-- RICH PHONE WITH CUSTOM LAYOUT -->
+        <!-- RICH POSITION WITH CUSTOM LAYOUT -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone_rich_custom_layout" />
+            android:text="@string/position_rich_custom_layout" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone_withCustomLayout"
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition_withCustomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
-            mdk:layout="@layout/custom_phone_widget"
+            mdk:layout="@layout/custom_position_widget"
             mdk:mandatory="true" />
 
-        <!-- RICH PHONES WITH COMMON ERROR FIELD -->
+        <!-- RICH POSITIONS WITH COMMON ERROR FIELD -->
 
         <View
             android:layout_width="match_parent"
@@ -114,19 +114,19 @@
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_rich_common_error"
+            android:text="@string/position_rich_common_error"
             android:id="@+id/textView" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone1_withSharedError"
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition1_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_1"
             mdk:errorId="@+id/commons_error"
             mdk:rootId="@+id/root" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichPhone2_withSharedError"
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition2_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_2"
@@ -145,20 +145,20 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <!-- RICH PHONE WITH EXTERNAL HELPER -->
+        <!-- RICH POSITION WITH EXTERNAL HELPER -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_rich_helper_text"
+            android:text="@string/position_rich_helper_text"
             android:id="@+id/textView2" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/checkbox_helper"
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/position_helper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/edit_text_label"
-            mdk:helper="@string/phone_helper_text" />
+            mdk:helper="@string/position_helper_text" />
 
         <View
             android:layout_width="match_parent"

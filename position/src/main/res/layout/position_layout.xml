@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="true">
+
+    <com.soprasteria.movalysmdk.widget.basic.MDKEditText
+        android:id="@+id/component_internal_latitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:inputType="numberDecimal"/>
+
+    <com.soprasteria.movalysmdk.widget.basic.MDKEditText
+        android:id="@+id/component_internal_longitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/component_internal_latitude"
+        android:layout_alignParentLeft="true"
+        android:inputType="numberDecimal"/>
+
+</merge>

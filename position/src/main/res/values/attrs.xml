@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MDKCommons.MDKPositionComponent">
+        <attr name="latitudeTextViewId" format="reference" />
+        <attr name="longitudeTextViewId" format="reference" />
+
+        <attr name="latHint" format="string"/>
+        <attr name="lngHint" format="string"/>
+    </declare-styleable>
+
+</resources>

@@ -29,6 +29,7 @@
         <attr name="mdkValueUriStyle" format="reference"/>
         <attr name="mdkValuePhoneStyle" format="reference"/>
         <attr name="mdkValueDateStyle" format="reference"/>
+        <attr name="mdkValuePositionStyle" format="reference"/>
         <attr name="mdkValueCheckBoxStyle" format="reference"/>
         <attr name="mdkValueSwitchStyle" format="reference"/>
         <attr name="mdkValueStyle" format="reference"/>

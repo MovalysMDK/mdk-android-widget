@@ -24,6 +24,7 @@
     <string name="title_activity_list_widget">List Widget</string>
     <string name="email_activity">Email</string>
     <string name="phone_activity">Phone</string>
+    <string name="position_activity">Position</string>
     <string name="checkable_activity">CheckBoxes and Switches</string>
     <string name="title_activity_edit_text">EditText</string>
     <string name="title_activity_validator">Validator</string>
@@ -73,6 +74,13 @@
     <string name="checkbox_rich_custom_layout">Checkbox Rich widget custom layout</string>
     <string name="checkbox_rich_custom_validator">Checkbox rich widget custom validator</string>
     <string name="checkbox_rich_helper_text">Checkbox rich widget with helper</string>
+
+    <string name="position_helper_text">Position format text</string>
+    <string name="position_with_label_error">Position Rich widget with label and error</string>
+    <string name="position_standalone_widget">Position standalone widget with error field</string>
+    <string name="position_rich_custom_layout">Position Rich widget custom layout</string>
+    <string name="position_rich_common_error">Position rich widget common error</string>
+    <string name="position_rich_helper_text">Position rich widget with helper</string>
 
     <string name="switch_helper_text">Switch format text</string>
     <string name="switch_with_label_error">Switch Rich widget with label and error</string>

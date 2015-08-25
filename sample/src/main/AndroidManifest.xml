@@ -53,6 +53,14 @@
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
         <activity
+            android:name=".PositionActivity"
+            android:label="@string/position_activity"
+            android:parentActivityName=".ListWidgetActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
             android:name=".CheckableActivity"
             android:label="@string/checkable_activity"
             android:parentActivityName=".ListWidgetActivity" >

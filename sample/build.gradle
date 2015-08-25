@@ -56,13 +56,13 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':core')
     compile project(':basic')
+    compile project(':position')
     compile supportDependencies.support
     compile supportDependencies.appCompat
-
     //to run test: ./gradlew connectedAndroidTest
     androidTestCompile supportDependencies.supportAnnotations
     androidTestCompile testDependencies.espressoCore
-    androidTestCompile (testDependencies.espressoContrib) {
+    androidTestCompile(testDependencies.espressoContrib) {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
@@ -70,9 +70,10 @@ dependencies {
     androidTestCompile testDependencies.testRunner
     androidTestCompile testDependencies.spoonClient
     androidTestCompile testDependencies.mdkEspresso
-    androidTestCompile (project(":espresso")) {
+    androidTestCompile(project(':espresso')) {
         transitive = false
     }
+    compile project(':position')
 }
 
 sonarRunner {

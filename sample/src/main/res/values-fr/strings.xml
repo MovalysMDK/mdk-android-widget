@@ -48,7 +48,7 @@
 
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
     <string name="mdk_error_message_1">mdk_error_message_1</string>
-    <string name="mdk_error_message_2">mdk_error_message_1</string>
+    <string name="mdk_error_message_2">mdk_error_message_2</string>
 
     <string name="title_activity_date">Date</string>
     <string name="date_case_1">RichDateTime avec label</string>
