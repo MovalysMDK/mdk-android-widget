@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.basic.validator;
+package com.soprasteria.movalysmdk.widget.core.validator;
 
 import android.content.Context;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;

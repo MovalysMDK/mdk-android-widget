@@ -13,20 +13,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.basic.validator;
+package com.soprasteria.movalysmdk.widget.core.validator;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Switch;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckable;
-import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
-import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Checkable widget validator.
@@ -52,7 +50,7 @@ public class CheckableValidator implements FormFieldValidator<String> {
         boolean accept = false;
         if (view instanceof CheckBox
                 || view instanceof Switch
-                || view instanceof MDKRichCheckable) {
+                || view instanceof HasChecked) {
             accept = true;
         }
         return accept;

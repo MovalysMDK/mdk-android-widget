@@ -21,19 +21,6 @@
         <item>0</item>
     </integer-array>
 
-    <string-array name="validatorKeys" translatable="false">
-        <item>mdkwidget_mdkedittext_validator_class</item>
-        <item>mdkwidget_mdkuri_validator_class</item>
-        <item>mdkwidget_mdkedittext_lengthvalidator_class</item>
-        <item>mdkwidget_mdkdatetime_validator_class</item>
-        <item>mdkwidget_mdkdatetimerange_validator_class</item>
-        <item>mdkwidget_mdkemail_validator_class</item>
-        <item>mdkwidget_mdkphone_validator_class</item>
-        <item>mdkwidget_mdkseekbar_validator_class</item>
-        <item>mdkwidget_checkable_validator_class</item>
-        <item>mdkwidget_mdkposition_validator_class</item>
-    </string-array>
-
     <string-array name="selectors" translatable="false">
         <item>mdkwidget_mandatory_selector_class</item>
     </string-array>

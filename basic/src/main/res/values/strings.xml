@@ -17,10 +17,7 @@
 -->
 <resources>
 
-    <string name="mdkwidget_mandatory_error">Must be filled</string>
 
-    <string name="mdkwidget_max_length_error"/>
-    <string name="mdkwidget_min_length_error"/>
 
     <string name="mdkwidget_error_date_range_max_validator">Date out of limits (%1$s &lt; %2$s)</string>
     <string name="mdkwidget_error_date_range_min_validator">Date out of limits (%2$s &lt; %1$s)</string>
@@ -28,5 +25,4 @@
     <string name="mdkwidget_error_date_range_validator">Date out of limits</string>
     <string name="mdkwidget_error_date_comparison">Error during date comparison</string>
 
-    <string name="mdkwidget_error_checkable_validator">Value must be</string>
 </resources>
