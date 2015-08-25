@@ -31,8 +31,8 @@
         <item>mdkwidget_mdkposition_validator_class</item>
     </string-array>
 
-    <string name="mdkwidget_checkable_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.CheckableValidator</string>
-    <string name="mdkwidget_mdkedittext_lengthvalidator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.LengthValidator</string>
-    <string name="mdkwidget_mdkedittext_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.MandatoryValidator</string>
+    <string name="mdkwidget_checkable_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.core.validator.CheckableValidator</string>
+    <string name="mdkwidget_mdkedittext_lengthvalidator_class" translatable="false">com.soprasteria.movalysmdk.widget.core.validator.LengthValidator</string>
+    <string name="mdkwidget_mdkedittext_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.core.validator.MandatoryValidator</string>
 
 </resources>
