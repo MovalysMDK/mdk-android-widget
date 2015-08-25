@@ -56,7 +56,7 @@ public class SeekBarActivity extends AppCompatActivity {
     /**
      * MDKRichSeekBar with external helper.
      */
-    private MDKRichSeekBar mdkRichSeekBar_helper_and_init_value;
+    private MDKRichSeekBar mdkRichSeekBarHelperAndInitValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class SeekBarActivity extends AppCompatActivity {
         this.richSeekBarWithCustomLayout = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar_withCustomLayout);
         this.richSeekBar1WithSharedError = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar1_withSharedErrorAndInitValue);
         this.richSeekBar2WithSharedError = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar2_withSharedError);
-        this.mdkRichSeekBar_helper_and_init_value = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar_helper_and_init_value);
+        this.mdkRichSeekBarHelperAndInitValue = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar_helper_and_init_value);
     }
 
 
@@ -86,6 +86,6 @@ public class SeekBarActivity extends AppCompatActivity {
         this.richSeekBarWithCustomLayout.setEnabled(!this.richSeekBarWithCustomLayout.isEnabled());
         this.richSeekBar1WithSharedError.setEnabled(!this.richSeekBar1WithSharedError.isEnabled());
         this.richSeekBar2WithSharedError.setEnabled(!this.richSeekBar2WithSharedError.isEnabled());
-        this.mdkRichSeekBar_helper_and_init_value.setEnabled(!this.mdkRichSeekBar_helper_and_init_value.isEnabled());
+        this.mdkRichSeekBarHelperAndInitValue.setEnabled(!this.mdkRichSeekBarHelperAndInitValue.isEnabled());
     }
 }

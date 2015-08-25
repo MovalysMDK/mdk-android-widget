@@ -30,7 +30,7 @@ public interface HasSeekBar {
     void setSeekBarMaxValue(int seekBarMaxValue);
 
     /**
-     * Set the progress of the seek bar
+     * Set the progress of the seek bar.
      * @param value value to set
      */
     void setSeekProgress(int value);

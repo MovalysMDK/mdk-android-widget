@@ -68,8 +68,12 @@ public class MDKBaseRichUriWidget<T extends MDKWidget & MDKRestorableWidget & Ha
     }
 
     @Override
-    public String getUri() {return this.getInnerWidget().getUri();}
+    public String getUri() {
+        return this.getInnerWidget().getUri();
+    }
 
     @Override
-    public void setUri(String uri) {this.getInnerWidget().setUri(uri);}
+    public void setUri(String uri) {
+        this.getInnerWidget().setUri(uri);
+    }
 }
