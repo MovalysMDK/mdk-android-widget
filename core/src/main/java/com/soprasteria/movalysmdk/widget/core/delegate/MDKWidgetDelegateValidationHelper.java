@@ -159,7 +159,7 @@ public class MDKWidgetDelegateValidationHelper {
             delegate.clearError();
         }
 
-        delegate.notifyCommandListeners(bValid);
+        delegate.notifyValidationListeners(bValid);
 
         delegate.setValid(bValid);
         return bValid;

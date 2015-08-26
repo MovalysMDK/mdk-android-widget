@@ -17,23 +17,22 @@ package com.soprasteria.movalysmdk.widget.core.behavior;
 
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
+import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 
 /**
  * Interface to add button handling capacity to a widget.
  */
 public interface HasCommands extends View.OnClickListener {
 
-
     /**
      * Register commands views on the components
      * (or its WidgetCommandDelegate).
      */
-    void registerWidgetCommands();
+//    void registerWidgetCommands();
 
     /**
-     * Register commands listener.
-     * @param commandListener the command listener
+     * Returns the {@link WidgetCommandDelegate} of the widget
+     * @return the {@link WidgetCommandDelegate}
      */
-    void addCommandStateListener(CommandStateListener commandListener);
+    WidgetCommandDelegate getWidgetCommandDelegate();
 }

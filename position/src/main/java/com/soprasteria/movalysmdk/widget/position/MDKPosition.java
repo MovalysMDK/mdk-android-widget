@@ -21,7 +21,6 @@ import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.command.MapWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.command.PositionCommandListener;
@@ -77,7 +76,6 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
 
         // map should always be activated, even on not validated widget
         this.commandDelegate = new WidgetCommandDelegate(this, attrs, false, true);
-        this.addCommandStateListener(this.commandDelegate);
 
         return this;
     }
@@ -89,25 +87,12 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (!isInEditMode()) {
-            this.registerWidgetCommands();
+            this.commandDelegate.registerCommands(this);
             // Call the attachedToWindow method on delegate
             this.mdkWidgetDelegate.onAttachedToWindow();
             // Call validate to enable or not send button
             this.mdkWidgetDelegate.validate(false, EnumFormFieldValidator.VALIDATE);
         }
-    }
-
-    /**
-     * Register commands on the view.
-     */
-    @Override
-    public void registerWidgetCommands() {
-        this.commandDelegate.registerCommands(this);
-    }
-
-    @Override
-    public void addCommandStateListener(CommandStateListener commandListener) {
-        this.mdkWidgetDelegate.addCommandStateListener(commandListener);
     }
 
     @Override
@@ -326,5 +311,10 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         this.mdkWidgetDelegate.setEnabled(enabled);
+    }
+
+    @Override
+    public WidgetCommandDelegate getWidgetCommandDelegate() {
+        return this.commandDelegate;
     }
 }

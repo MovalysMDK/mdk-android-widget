@@ -38,7 +38,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.List;
@@ -99,7 +98,6 @@ public class MDKPhone extends AppCompatEditText implements MDKWidget, MDKRestora
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         this.commandDelegate = new WidgetCommandDelegate(this, attrs);
-        this.addCommandStateListener(this.commandDelegate);
 
     }
 
@@ -195,19 +193,6 @@ public class MDKPhone extends AppCompatEditText implements MDKWidget, MDKRestora
         return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
     }
 
-    /**
-     * Register commands on the view.
-     */
-    @Override
-    public void registerWidgetCommands() {
-        this.commandDelegate.registerCommands(this);
-    }
-
-    @Override
-    public void addCommandStateListener(CommandStateListener commandListener) {
-        this.getMDKWidgetDelegate().addCommandStateListener(commandListener);
-    }
-
     @Override
    public void onTextChanged(CharSequence s, int start, int before, int count) {
        super.onTextChanged(s, start, before, count);
@@ -232,7 +217,7 @@ public class MDKPhone extends AppCompatEditText implements MDKWidget, MDKRestora
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (!isInEditMode()) {
-            this.registerWidgetCommands();
+            this.commandDelegate.registerCommands(this);
             // Call validate to enable or not send button
             this.getMDKWidgetDelegate().validate(false, EnumFormFieldValidator.VALIDATE);
             // force the inputType
@@ -397,5 +382,10 @@ public class MDKPhone extends AppCompatEditText implements MDKWidget, MDKRestora
     @Override
     public void setRichSelectors(List<String> richSelectors) {
         this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
+    }
+
+    @Override
+    public WidgetCommandDelegate getWidgetCommandDelegate() {
+        return commandDelegate;
     }
 }

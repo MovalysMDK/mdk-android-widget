@@ -19,22 +19,18 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasCommands;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.List;
@@ -50,10 +46,7 @@ import java.util.List;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasCommands, MDKRestorableWidget, HasValidator, HasLabel, HasDelegate, HasSeekBar {
-
-    /** CommandDelegate attribute. */
-    protected WidgetCommandDelegate commandDelegate;
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, MDKRestorableWidget, HasValidator, HasLabel, HasDelegate, HasSeekBar {
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
@@ -113,18 +106,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         }
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
-        this.commandDelegate = new WidgetCommandDelegate(this, attrs);
-        this.addCommandStateListener(this.commandDelegate);
-
         super.setOnSeekBarChangeListener(this);
-    }
-
-    /**
-     * Return the MDKWidgetDelegate object.
-     * @return MDKWidgetDelegate object
-     */
-    public MDKWidgetDelegate getMdkWidgetDelegate() {
-        return mdkWidgetDelegate;
     }
 
     @Override
@@ -135,7 +117,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     @Override
     public void setSeekBarValue(int seekBarValue) {
         this.seekBarValue = seekBarValue;
-        if (this.getMDKWidgetDelegate() != null && this.commandDelegate != null && !isInEditMode() ) {
+        if (this.getMDKWidgetDelegate() != null && !isInEditMode() ) {
             this.validate();
         }
     }
@@ -302,20 +284,5 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     @Override
     public MDKWidgetDelegate getMDKWidgetDelegate() {
         return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public void registerWidgetCommands() {
-        this.commandDelegate.registerCommands(this);
-    }
-
-    @Override
-    public void addCommandStateListener(CommandStateListener commandListener) {
-        this.getMDKWidgetDelegate().addCommandStateListener(commandListener);
-    }
-
-    @Override
-    public void onClick(View v) {
-        // Nothing to do
     }
 }

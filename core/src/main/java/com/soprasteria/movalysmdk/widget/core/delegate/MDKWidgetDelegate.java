@@ -28,7 +28,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
+import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -388,8 +388,8 @@ public class MDKWidgetDelegate implements MDKWidget {
      * Notify the command listeners registered.
      * @param bValid true if the validation is ok, false otherwise
      */
-    protected void notifyCommandListeners(boolean bValid) {
-        for (CommandStateListener listener : this.valueObject.getCommandStateListeners()) {
+    protected void notifyValidationListeners(boolean bValid) {
+        for (ValidationListener listener : this.valueObject.getValidationListeners()) {
             listener.notifyCommandStateChanged(bValid);
         }
     }
@@ -475,12 +475,12 @@ public class MDKWidgetDelegate implements MDKWidget {
     }
 
     /**
-     * Add a CommandStateListener.
+     * Add a ValidationListener.
      * This listener will be called on each call of the MDKWidgetDelegate#validate.
-     * @param commandListener the CommandStateListener to add
+     * @param validationListener the ValidationListener to add
      */
-    public void addCommandStateListener(CommandStateListener commandListener) {
-        this.valueObject.getCommandStateListeners().add(commandListener);
+    public void addValidationListener(ValidationListener validationListener) {
+        this.valueObject.getValidationListeners().add(validationListener);
     }
 
     @Override

@@ -25,7 +25,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
+import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 
@@ -37,7 +37,7 @@ import java.lang.ref.WeakReference;
  * <p>It registers listeners and launches commands.</p>
  * <p>Both commands may not be disabled on validation should the setup be properly done.</p>
  */
-public class WidgetCommandDelegate implements CommandStateListener {
+public class WidgetCommandDelegate implements ValidationListener {
 
     /** Weak reference on view. */
     private final WeakReference<MDKWidget> weakView;
@@ -75,6 +75,11 @@ public class WidgetCommandDelegate implements CommandStateListener {
      * @param deactivateSecondaryOnValidation true to deactivate the secondary command on validation
      */
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, boolean deactivatePrimaryOnValidation, boolean deactivateSecondaryOnValidation) {
+
+        // the command delegate registers itself as a validation listener
+        if (mdkWidget instanceof HasDelegate) {
+            ((HasDelegate) mdkWidget).getMDKWidgetDelegate().addValidationListener(this);
+        }
 
         this.weakView = new WeakReference<>(mdkWidget);
         this.deactivatePrimaryOnValidation = deactivatePrimaryOnValidation;
@@ -174,19 +179,6 @@ public class WidgetCommandDelegate implements CommandStateListener {
         return widgetCommand;
     }
 
-//    /**
-//     * Activate or not command button.
-//     * @param valid Activation toggle
-//     */
-//    public void enableCommand(boolean valid) {
-////        if (deactivatePrimaryOnValidation) {
-//            enableCommandOnView(valid, deactivatePrimaryOnValidation, this.primaryCommandViewId);
-////        }
-////        if (deactivateSecondaryOnValidation) {
-//            enableCommandOnView(valid, deactivateSecondaryOnValidation, this.secondaryCommandViewId);
-////        }
-//    }
-
     /**
      * Activate or not command on a specific view id.
      * @param enable Activation toggle
@@ -194,17 +186,10 @@ public class WidgetCommandDelegate implements CommandStateListener {
      */
     protected void enableCommandOnView(boolean enable, int viewId) {
         View commandView = findCommandView(viewId);
-//        if (validationCommand) {
-            if (commandView != null) {
-                commandView.setEnabled(enable);
-                commandView.setFocusable(enable);
-            }
-//        } else {
-//            if (commandView != null) {
-//                commandView.setEnabled(true);
-//                commandView.setFocusable(true);
-//            }
-//        }
+        if (commandView != null) {
+            commandView.setEnabled(enable);
+            commandView.setFocusable(enable);
+        }
     }
 
 
@@ -214,14 +199,8 @@ public class WidgetCommandDelegate implements CommandStateListener {
             enableCommandOnView(true, this.primaryCommandViewId);
             enableCommandOnView(true, this.secondaryCommandViewId);
         } else {
-//            if (deactivatePrimaryOnValidation) {
-                enableCommandOnView(!deactivatePrimaryOnValidation, this.primaryCommandViewId);
-//            } else {
-//                enableCommandOnView(true, this.primaryCommandViewId);
-//            }
-//            if (deactivateSecondaryOnValidation) {
-                enableCommandOnView(!deactivateSecondaryOnValidation, this.secondaryCommandViewId);
-//            }
+            enableCommandOnView(!deactivatePrimaryOnValidation, this.primaryCommandViewId);
+            enableCommandOnView(!deactivateSecondaryOnValidation, this.secondaryCommandViewId);
         }
 
     }

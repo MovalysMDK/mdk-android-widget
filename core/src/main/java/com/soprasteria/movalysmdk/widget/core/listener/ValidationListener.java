@@ -18,7 +18,7 @@ package com.soprasteria.movalysmdk.widget.core.listener;
 /**
  * Interface to enable or not the command.
  */
-public interface CommandStateListener {
+public interface ValidationListener {
 
     /**
      * Enable or not the command.

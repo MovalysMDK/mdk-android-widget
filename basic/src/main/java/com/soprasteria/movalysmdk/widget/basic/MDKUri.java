@@ -39,7 +39,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.List;
@@ -98,7 +97,6 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         this.commandDelegate = new WidgetCommandDelegate(this, attrs);
-        this.addCommandStateListener(this.commandDelegate);
 
         this.uri = "";
     }
@@ -211,19 +209,6 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
         return this.getMDKWidgetDelegate().validate(true, validationMode);
     }
 
-    /**
-     * Register commands on the view.
-     */
-    @Override
-    public void registerWidgetCommands() {
-        this.commandDelegate.registerCommands(this);
-    }
-
-    @Override
-    public void addCommandStateListener(CommandStateListener commandListener) {
-        this.getMDKWidgetDelegate().addCommandStateListener(commandListener);
-    }
-
     @Override
    public void onTextChanged(CharSequence s, int start, int before, int count) {
        super.onTextChanged(s, start, before, count);
@@ -248,7 +233,7 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (!isInEditMode()) {
-            this.registerWidgetCommands();
+            this.commandDelegate.registerCommands(this);
             // Call validate to enable or not send button
             this.getMDKWidgetDelegate().validate(false, EnumFormFieldValidator.VALIDATE);
             // set the input type
@@ -417,5 +402,10 @@ public class MDKUri extends AppCompatEditText implements MDKWidget, MDKRestorabl
     @Override
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    @Override
+    public WidgetCommandDelegate getWidgetCommandDelegate() {
+        return this.commandDelegate;
     }
 }

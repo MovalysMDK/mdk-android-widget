@@ -21,7 +21,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
-import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
+import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -131,7 +131,7 @@ public class MDKWidgetDelegateValueObject {
     /**
      * Command state change listener, triggered when widget is validate.
      */
-    private List<CommandStateListener> commandStateListeners;
+    private List<ValidationListener> validationListeners;
     /**
      * attribute map for validator.
      */
@@ -148,7 +148,7 @@ public class MDKWidgetDelegateValueObject {
         this.richSelectors = new ArrayList<>();
 
 
-        this.commandStateListeners = new ArrayList<>();
+        this.validationListeners = new ArrayList<>();
 
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
 
@@ -426,16 +426,16 @@ public class MDKWidgetDelegateValueObject {
      * Returns the command state change listener.
      * @return the command state change listener
      */
-    public List<CommandStateListener> getCommandStateListeners() {
-        return commandStateListeners;
+    public List<ValidationListener> getValidationListeners() {
+        return validationListeners;
     }
 
     /**
      * Sets the command state change listener.
-     * @param commandStateListeners the value to set
+     * @param validationListeners the value to set
      */
-    public void setCommandStateListeners(List<CommandStateListener> commandStateListeners) {
-        this.commandStateListeners = commandStateListeners;
+    public void setValidationListeners(List<ValidationListener> validationListeners) {
+        this.validationListeners = validationListeners;
     }
 
     /**
