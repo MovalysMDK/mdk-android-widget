@@ -155,6 +155,36 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
         typedArray.recycle();
 
+        setMode(view, modeAttr);
+
+        //TODO : MDK-546
+        // Initialize currently selected date and date formatter
+        this.dateFormatter = createDateFormat(dateFormatPattern, DATE_EXTRACTION, view.getContext());
+        this.timeFormatter = createDateFormat(timeFormatPattern, TIME_EXTRACTION, view.getContext());
+
+        if (minString != null) {
+            //TODO : MDK-546
+            this.minMDKDate.setDate(minString, this.dateFormatter);
+        }
+
+        if (maxString != null) {
+            this.maxMDKDate.setDate(maxString, this.dateFormatter);
+        }
+
+        //TODO : MDK-546
+        this.setAttributeMap(new MDKAttributeSet(attrs));
+
+        if (timeFormatPattern == null) {
+            this.is24HourFormat = android.text.format.DateFormat.is24HourFormat(view.getContext());
+        }
+    }
+
+    /**
+     * Sets the processing mode of the view based on the given attributes.
+     * @param view the view being processed
+     * @param modeAttr the mode set in the layout attributes
+     */
+    private void setMode(View view, int modeAttr) {
         if (modeAttr != -1) {
             // If the mode attribute has been set, the handled values are :
             //  - date : it is a date picker
@@ -194,27 +224,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             dateTimePickerMode = DATE_PICKER;
             this.dateViewId = view.getId();
             this.cachedDateView = new WeakReference<>(view);
-        }
-
-        //TODO : MDK-546
-        // Initialize currently selected date and date formatter
-        this.dateFormatter = createDateFormat(dateFormatPattern, DATE_EXTRACTION, view.getContext());
-        this.timeFormatter = createDateFormat(timeFormatPattern, TIME_EXTRACTION, view.getContext());
-
-        if (minString != null) {
-            //TODO : MDK-546
-            this.minMDKDate.setDate(minString, this.dateFormatter);
-        }
-
-        if (maxString != null) {
-            this.maxMDKDate.setDate(maxString, this.dateFormatter);
-        }
-
-        //TODO : MDK-546
-        this.setAttributeMap(new MDKAttributeSet(attrs));
-
-        if (timeFormatPattern == null) {
-            this.is24HourFormat = android.text.format.DateFormat.is24HourFormat(view.getContext());
         }
     }
 
