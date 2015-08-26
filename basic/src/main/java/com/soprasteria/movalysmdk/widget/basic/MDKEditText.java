@@ -24,6 +24,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
@@ -122,16 +123,6 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public int getUniqueId() {
-        return this.mdkWidgetDelegate.getUniqueId();
-    }
-
-    @Override
-    public void setUniqueId(int parentId) {
-        this.mdkWidgetDelegate.setUniqueId(parentId);
-    }
-
-    @Override
     public void setError(CharSequence error) {
         this.mdkWidgetDelegate.setError(error);
     }
@@ -147,7 +138,12 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
         return this.mdkWidgetDelegate;
     }
 
@@ -318,11 +314,5 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     public void superOnRestoreInstanceState(Parcelable state) {
         // FIXME
         onRestoreInstanceState(state);
-    }
-
-
-    @Override
-    public void setRichSelectors(List<String> richSelectors) {
-        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
     }
 }

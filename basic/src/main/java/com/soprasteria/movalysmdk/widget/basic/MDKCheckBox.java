@@ -22,6 +22,7 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
@@ -133,16 +134,6 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     }
 
     @Override
-    public void setUniqueId(int parentId) {
-        this.mdkWidgetDelegate.setUniqueId(parentId);
-    }
-
-    @Override
-    public int getUniqueId() {
-        return this.mdkWidgetDelegate.getUniqueId();
-    }
-
-    @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         return super.onCreateDrawableState(extraSpace);
     }
@@ -153,12 +144,12 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     }
 
     @Override
-    public void setRichSelectors(List<String> richSelectors) {
-        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
         return this.mdkWidgetDelegate;
     }
 

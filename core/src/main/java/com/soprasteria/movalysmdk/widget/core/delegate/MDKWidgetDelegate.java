@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
@@ -41,7 +42,7 @@ import java.util.Set;
 /**
  * The MDKWidgetDelegate handles the MDK logic for rich widgets.
  */
-public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate {
+public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate, MDKTechnicalInnerWidgetDelegate {
 
     /**
      * delegate value object.
@@ -178,7 +179,12 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate 
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this;
+    }
+
+    @Override
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
         return this;
     }
 

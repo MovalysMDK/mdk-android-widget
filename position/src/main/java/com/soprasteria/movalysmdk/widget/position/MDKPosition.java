@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
@@ -141,16 +142,6 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
     }
 
     @Override
-    public void setUniqueId(int parentId) {
-        this.mdkWidgetDelegate.setUniqueId(parentId);
-    }
-
-    @Override
-    public int getUniqueId() {
-        return this.mdkWidgetDelegate.getUniqueId();
-    }
-
-    @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         mergeDrawableStates(baseState, additionalState);
     }
@@ -171,12 +162,12 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
     }
 
     @Override
-    public void setRichSelectors(List<String> richSelectors) {
-        this.mdkWidgetDelegate.setRichSelectors(richSelectors);
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
         return this.mdkWidgetDelegate;
     }
 

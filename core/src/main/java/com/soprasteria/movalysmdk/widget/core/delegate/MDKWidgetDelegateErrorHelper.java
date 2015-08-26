@@ -83,11 +83,11 @@ public class MDKWidgetDelegateErrorHelper {
         View v = valueObject.getView();
         if (v instanceof MDKWidget) {
             if (error == null) {
-                (mdkErrorWidget).clear(context, ((MDKWidget) v).getUniqueId());
+                (mdkErrorWidget).clear(context, ((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId());
             } else {
-                error.setComponentId(((MDKWidget) v).getUniqueId());
+                error.setComponentId(((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId());
                 error.setComponentLabelName(label);
-                (mdkErrorWidget).addError(context,((MDKWidget) v).getUniqueId(), error);
+                (mdkErrorWidget).addError(context,((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId(), error);
             }
         }
     }

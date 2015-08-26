@@ -21,6 +21,7 @@ import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
@@ -145,7 +146,12 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
         return this.mdkWidgetDelegate;
     }
 
@@ -157,16 +163,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     @Override
     public boolean isMandatory() {
         return this.mdkWidgetDelegate.isMandatory();
-    }
-
-    @Override
-    public void setUniqueId(int parentId) {
-        this.mdkWidgetDelegate.setUniqueId(parentId);
-    }
-
-    @Override
-    public int getUniqueId() {
-        return this.mdkWidgetDelegate.getUniqueId();
     }
 
     @Override
@@ -297,10 +293,5 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      */
     public void setMin(Date minDate) {
         this.mdkWidgetDelegate.setMin(minDate);
-    }
-
-    @Override
-    public void setRichSelectors(List<String> richSelectors) {
-        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
     }
 }

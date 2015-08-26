@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.widget.Switch;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
@@ -134,16 +135,6 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
     }
 
     @Override
-    public void setUniqueId(int parentId) {
-        this.mdkWidgetDelegate.setUniqueId(parentId);
-    }
-
-    @Override
-    public int getUniqueId() {
-        return this.mdkWidgetDelegate.getUniqueId();
-    }
-
-    @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
         return super.onCreateDrawableState(extraSpace);
     }
@@ -154,12 +145,12 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
     }
 
     @Override
-    public void setRichSelectors(List<String> richSelectors) {
-        this.getMDKWidgetDelegate().setRichSelectors(richSelectors);
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
         return this.mdkWidgetDelegate;
     }
 

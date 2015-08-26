@@ -120,7 +120,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
         if (!this.isInEditMode()) {
             // get innerWidget component
             this.innerWidget = (T) this.findViewById(R.id.component_internal);
-            this.innerWidget.setUniqueId(this.getId());
+            this.innerWidget.getMDKWidgetDelegate().setUniqueId(this.getId());
 
             ((View)this.innerWidget).setSaveFromParentEnabled(false);
 
@@ -158,7 +158,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
             for (String selectorKey : selectorKeys) {
                 richSelectors.add(selectorKey);
             }
-            this.innerWidget.setRichSelectors(richSelectors);
+            this.innerWidget.getMDKWidgetDelegate().setRichSelectors(richSelectors);
         }
 
         // replace the creation of the state drawable
@@ -298,7 +298,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
         return this;
     }
 

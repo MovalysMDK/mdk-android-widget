@@ -24,7 +24,7 @@ public interface MDKBaseWidget {
      * Returns a {@link MDKTechnicalWidgetDelegate} object.
      * @return a {@link MDKTechnicalWidgetDelegate} object
      */
-    MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate();
+    MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate();
 
     /**
      * Set mandatory properties on widget.

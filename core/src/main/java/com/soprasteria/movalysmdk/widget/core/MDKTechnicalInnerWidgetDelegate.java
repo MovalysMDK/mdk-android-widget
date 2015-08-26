@@ -15,39 +15,29 @@
  */
 package com.soprasteria.movalysmdk.widget.core;
 
-import android.content.Context;
-
 import java.util.List;
 
 /**
- * Widget that can be included in a RichWidget.
+ * Technical delegate interface for the "inner" widgets.
  */
-public interface MDKWidget extends MDKBaseWidget {
+public interface MDKTechnicalInnerWidgetDelegate {
 
     /**
-     * Returns the widget {@link MDKTechnicalInnerWidgetDelegate} object.
-     * @return an {@link MDKTechnicalInnerWidgetDelegate} object
+     * Set unique id of the widget.
+     * @param parentId the parent id
      */
-    MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate();
+    void setUniqueId(int parentId);
 
     /**
-     * Return android context.
-     * @see android.view.View
-     * @return android context
+     * Get uniqueId of the widget.
+     * @return uniqueid the id
      */
-    Context getContext();
+    int getUniqueId();
 
     /**
-     * superOnCreateDrawableState method.
-     * @param extraSpace the extra space
-     * @return int[] ..
+     * Sets a list of Rich Selectors on the component.
+     * @param richSelectors the list of selectors to set
      */
-    int[] superOnCreateDrawableState(int extraSpace);
+    void setRichSelectors(List<String> richSelectors);
 
-    /**
-     * callMergeDrawableStates method.
-     * @param baseState the base state
-     * @param additionalState the additional state
-     */
-    void callMergeDrawableStates(int[] baseState, int[] additionalState);
 }
