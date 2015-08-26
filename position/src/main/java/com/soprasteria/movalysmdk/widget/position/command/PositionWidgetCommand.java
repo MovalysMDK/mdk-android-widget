@@ -209,7 +209,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      */
     private class PositionWidgetLocationListener implements LocationListener {
 
-        /** the desired location precision */
+        /** the desired location precision. */
         private int precision;
 
         /**

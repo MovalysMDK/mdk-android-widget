@@ -45,7 +45,6 @@ public class BaseRegexValidator implements FormFieldValidator<String> {
     /**
      * Attribute for regex pattern.
      */
-//    private Pattern pattern;
     private int regexResourceId;
 
     /**
@@ -58,6 +57,9 @@ public class BaseRegexValidator implements FormFieldValidator<String> {
      */
     private Pattern pattern;
 
+    /**
+     * Constructor.
+     */
     public BaseRegexValidator() {
         // Nothing to do
     }
