@@ -28,8 +28,6 @@ import com.soprasteria.movalysmdk.widget.position.command.PositionCommandListene
 import com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
 
-import java.util.List;
-
 /**
  * MDK Position.
  * <p>Representing a position input field, allowing to set a latitude and a longitude or to retrieve it with the GPS function of the device.</p>
@@ -97,142 +95,8 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
     }
 
     @Override
-    public MDKPositionWidgetDelegate getMDKWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public void registerChangeListener(ChangeListener listener) {
-        this.mdkWidgetDelegate.registerChangeListener(listener);
-    }
-
-    @Override
-    public void unregisterChangeListener(ChangeListener listener) {
-        this.mdkWidgetDelegate.unregisterChangeListener(listener);
-    }
-
-    @Override
     public int[] getValidators() {
         return new int[] {R.string.mdkwidget_mdkposition_validator_class};
-    }
-
-    @Override
-    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return this.mdkWidgetDelegate.validate(true, validationMode);
-    }
-
-    @Override
-    public boolean validate() {
-        return this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
-    }
-
-    @Override
-    public void addError(MDKMessages error) {
-        this.mdkWidgetDelegate.addError(error);
-    }
-
-    @Override
-    public void setError(CharSequence error) {
-        this.mdkWidgetDelegate.setError(error);
-    }
-
-    @Override
-    public void clearError() {
-        this.mdkWidgetDelegate.clearError();
-    }
-
-    @Override
-    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
-        mergeDrawableStates(baseState, additionalState);
-    }
-
-    @Override
-    public int[] superOnCreateDrawableState(int extraSpace) {
-        return super.onCreateDrawableState(extraSpace);
-    }
-
-    @Override
-    protected int[] onCreateDrawableState(int extraSpace) {
-        if (this.mdkWidgetDelegate != null) {
-            return this.mdkWidgetDelegate.superOnCreateDrawableState(extraSpace);
-        } else {
-            // first called in the super constructor
-            return super.onCreateDrawableState(extraSpace);
-        }
-    }
-
-    @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public void setMandatory(boolean mandatory) {
-        this.mdkWidgetDelegate.setMandatory(mandatory);
-    }
-
-    @Override
-    public boolean isMandatory() {
-        return this.mdkWidgetDelegate.isMandatory();
-    }
-
-    @Override
-    public Parcelable onSaveInstanceState() {
-
-        // Save the android view instance state
-        Parcelable state = super.onSaveInstanceState();
-        // Save the MDKWidgetDelegate instance state
-        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
-
-        return state;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-
-        // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
-        // Restore the android view instance state
-        super.onRestoreInstanceState(innerState);
-    }
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        onRestoreInstanceState(state);
-    }
-
-    @Override
-    public void onClick(View v) {
-        WidgetCommand command = this.commandDelegate.getWidgetCommand(v.getId());
-        if (command instanceof PositionWidgetCommand) {
-            ((PositionWidgetCommand) command).execute(this.getContext(), this);
-        } else if (command instanceof MapWidgetCommand) {
-            ((MapWidgetCommand) command).execute(this.getContext(), this.mdkWidgetDelegate.getLocation());
-        }
-    }
-
-    /**
-     * To call when the focus state of a view has changed.
-     * @param focused is component focused
-     * @param direction component direction
-     * @param previouslyFocusedRect component previous focus state
-     */
-    @Override
-    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        if (!focused) {
-            validate(EnumFormFieldValidator.ON_FOCUS);
-        }
     }
 
     @Override
@@ -279,13 +143,155 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
     }
 
     @Override
+    public void onClick(View v) {
+        WidgetCommand command = this.commandDelegate.getWidgetCommand(v.getId());
+        if (command instanceof PositionWidgetCommand) {
+            ((PositionWidgetCommand) command).execute(this.getContext(), this);
+        } else if (command instanceof MapWidgetCommand) {
+            ((MapWidgetCommand) command).execute(this.getContext(), this.mdkWidgetDelegate.getLocation());
+        }
+    }
+
+    /**
+     * To call when the focus state of a view has changed.
+     * @param focused is component focused
+     * @param direction component direction
+     * @param previouslyFocusedRect component previous focus state
+     */
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (!focused) {
+            validate(EnumFormFieldValidator.ON_FOCUS);
+        }
+    }
+
+    @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         this.mdkWidgetDelegate.setEnabled(enabled);
     }
 
+    /* technical delegate methods */
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public MDKPositionWidgetDelegate getMDKWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
     @Override
     public WidgetCommandDelegate getWidgetCommandDelegate() {
         return this.commandDelegate;
+    }
+
+    /* rich selector methods */
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        if (this.mdkWidgetDelegate != null) {
+            return this.mdkWidgetDelegate.superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
+    }
+
+    /* delegate accelerator methods */
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public boolean isMandatory() {
+        return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void addError(MDKMessages error) {
+        this.mdkWidgetDelegate.addError(error);
+    }
+
+    @Override
+    public void setError(CharSequence error) {
+        this.mdkWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void clearError() {
+        this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.mdkWidgetDelegate.validate(true, validationMode);
+    }
+
+    @Override
+    public boolean validate() {
+        return this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
+    }
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.mdkWidgetDelegate.registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.mdkWidgetDelegate.unregisterChangeListener(listener);
+    }
+
+    /* save / restore */
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState();
+        // Save the MDKWidgetDelegate instance state
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
+
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+
+        // Restore the MDKWidgetDelegate instance state
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
+        // Restore the android view instance state
+        super.onRestoreInstanceState(innerState);
+    }
+
+    @Override
+    public Parcelable superOnSaveInstanceState() {
+        return onSaveInstanceState();
+    }
+
+    @Override
+    public void superOnRestoreInstanceState(Parcelable state) {
+        onRestoreInstanceState(state);
     }
 }

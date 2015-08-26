@@ -92,33 +92,63 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     }
 
     @Override
-    public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public CharSequence getLabel() {
-        return this.getText();
-    }
-
-    @Override
-    public void setLabel(CharSequence label) {
-        this.setText(label);
-    }
-
-    @Override
     public int[] getValidators() {
         return new int[] { R.string.mdkwidget_checkable_validator_class };
     }
 
     @Override
-    public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
+    public void setChecked(boolean checked) {
+        super.setChecked(checked);
+
+        if (this.mdkListenerDelegate != null) {
+            this.mdkListenerDelegate.notifyListeners();
+        }
+    }
+
+    /* technical delegate methods */
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return this.getMDKWidgetDelegate().validate(true, validationMode);
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    /* rich selector methods */
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+
+    /* delegate accelerator methods */
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public boolean isMandatory() {
+        return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void setError(CharSequence error) {
+        this.mdkWidgetDelegate.setError(error);
     }
 
     @Override
@@ -132,52 +162,23 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     }
 
     @Override
-    public int[] superOnCreateDrawableState(int extraSpace) {
-        return super.onCreateDrawableState(extraSpace);
+    public CharSequence getLabel() {
+        return this.getText();
     }
 
     @Override
-    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
-        mergeDrawableStates(baseState, additionalState);
+    public void setLabel(CharSequence label) {
+        this.setText(label);
     }
 
     @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
-        return this.mdkWidgetDelegate;
+    public boolean validate() {
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
     }
 
     @Override
-    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public void setMandatory(boolean mandatory) {
-        this.mdkWidgetDelegate.setMandatory(mandatory);
-    }
-
-    @Override
-    public boolean isMandatory() {
-        return this.mdkWidgetDelegate.isMandatory();
-    }
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return super.onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
-    }
-
-    @Override
-    public void setChecked(boolean checked) {
-        super.setChecked(checked);
-
-        if (this.mdkListenerDelegate != null) {
-            this.mdkListenerDelegate.notifyListeners();
-        }
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getMDKWidgetDelegate().validate(true, validationMode);
     }
 
     @Override
@@ -188,5 +189,17 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
         this.mdkListenerDelegate.unregisterChangeListener(listener);
+    }
+
+    /* save / restore */
+
+    @Override
+    public Parcelable superOnSaveInstanceState() {
+        return super.onSaveInstanceState();
+    }
+
+    @Override
+    public void superOnRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
     }
 }

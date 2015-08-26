@@ -26,16 +26,17 @@ import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
-
-import java.util.List;
 
 /**
  * MDK SeekBar.
@@ -48,10 +49,13 @@ import java.util.List;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, MDKRestorableWidget, HasValidator, HasLabel, HasDelegate, HasSeekBar {
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, MDKRestorableWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar {
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
+
+    /** listeners delegate. */
+    protected MDKChangeListenerDelegate mdkListenerDelegate;
 
     /** Seek bar value from widget.*/
     private Integer seekBarValue;
@@ -109,6 +113,14 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         super.setOnSeekBarChangeListener(this);
+
+        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
+    }
+
+    @Override
+    public int[] getValidators() {
+        return new int[]
+                {R.string.mdkwidget_mdkseekbar_validator_class};
     }
 
     @Override
@@ -140,34 +152,80 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
-    public CharSequence getLabel() {
-        return this.mdkWidgetDelegate.getLabel();
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        this.setSeekBarValue(progress);
+        if (this.mdkListenerDelegate != null) {
+            this.mdkListenerDelegate.notifyListeners();
+        }
     }
 
     @Override
-    public void setLabel(CharSequence label) {
-        this.mdkWidgetDelegate.setLabel(label);
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        // Nothing to do
     }
 
     @Override
-    public int[] getValidators() {
-        return new int[]
-                {R.string.mdkwidget_mdkseekbar_validator_class};
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        // Nothing to do
+    }
+
+    /**
+     * This method should not be called in a project, it would destroy the logic of the component.
+     * Use {@link MDKSeekBar#registerChangeListener} instead
+     * @param listener the listener to register
+     */
+    @Override
+    public void setOnSeekBarChangeListener(OnSeekBarChangeListener listener){
+        throw new MDKWidgetException(
+                getContext().getString(R.string.mdkwidget_seekbar_litsener_exception)
+                        + MDKSeekBar.class);
+    }
+
+    /* technical delegate methods */
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public boolean validate() {
-        // TODO Impossible to use an overloaded value for styleable values of Attrs
-        // Example for seekBarMaxValue, if the value in the xml is 50 even with a setSeekBarMaxValue(20), the evaluated value
-        // will be 50 into the SeekBarValidator
-
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        //TODO Same as validate()
-        return this.getMDKWidgetDelegate().validate(true, validationMode);
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    /* rich selector methods */
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        if (this.getMDKWidgetDelegate() != null) {
+            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
+    }
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+
+    /* delegate accelerator methods */
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public boolean isMandatory() {
+        // Widget control left to the integrator
+        return this.mdkWidgetDelegate.isMandatory();
     }
 
     @Override
@@ -186,6 +244,38 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
+    }
+
+    @Override
+    public boolean validate() {
+        return this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
+    }
+
+    @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.mdkWidgetDelegate.validate(true, validationMode);
+    }
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.mdkListenerDelegate.registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.mdkListenerDelegate.unregisterChangeListener(listener);
+    }
+
+    /* save / restore */
+
+    @Override
     public Parcelable superOnSaveInstanceState() {
         return onSaveInstanceState();
     }
@@ -195,66 +285,4 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.onRestoreInstanceState(state);
     }
 
-    @Override
-    public int[] superOnCreateDrawableState(int extraSpace) {
-        if (this.getMDKWidgetDelegate() != null) {
-            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
-        } else {
-            // first called in the super constructor
-            return super.onCreateDrawableState(extraSpace);
-        }
-    }
-
-    @Override
-    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
-        mergeDrawableStates(baseState, additionalState);
-    }
-
-    @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public void setMandatory(boolean mandatory) {
-        this.mdkWidgetDelegate.setMandatory(mandatory);
-    }
-
-    @Override
-    public boolean isMandatory() {
-        // Widget control left to the integrator
-        return this.mdkWidgetDelegate.isMandatory();
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        this.setSeekBarValue(progress);
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        // Nothing to do
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        // Nothing to do
-    }
-
-    @Override
-    public void setOnSeekBarChangeListener(OnSeekBarChangeListener listener){
-        throw new MDKWidgetException(
-                getContext().getString(R.string.mdkwidget_seekbar_litsener_exception)
-                        + MDKSeekBar.class);
-    }
-
-    @Override
-    public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
 }

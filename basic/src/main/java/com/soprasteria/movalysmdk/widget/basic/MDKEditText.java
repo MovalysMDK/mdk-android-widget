@@ -121,46 +121,6 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
     }
 
-    @Override
-    public void setError(CharSequence error) {
-        this.mdkWidgetDelegate.setError(error);
-    }
-
-    @Override
-    public void addError(MDKMessages error) {
-        this.mdkWidgetDelegate.addError(error);
-    }
-
-    @Override
-    public void clearError() {
-        this.mdkWidgetDelegate.clearError();
-    }
-
-    @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public void setMandatory(boolean mandatory) {
-        this.mdkWidgetDelegate.setMandatory(mandatory);
-    }
-
-    @Override
-    public boolean isMandatory() {
-        return this.mdkWidgetDelegate.isMandatory();
-    }
-
-    @Override
-    public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
     /**
      * Handle the hint value and hide the floating label.
      */
@@ -244,24 +204,24 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         return validators;
     }
 
+    /* technical delegate methods */
+
     @Override
-    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return this.getMDKWidgetDelegate().validate(true, validationMode);
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
-    }
-    @Override
-    public CharSequence getLabel() {
-        return this.mdkWidgetDelegate.getLabel();
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
-    public void setLabel(CharSequence label) {
-        this.mdkWidgetDelegate.setLabel(label);
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+        return this.mdkWidgetDelegate;
     }
+
+    /* rich selector methods */
 
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
@@ -282,6 +242,55 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
             return super.onCreateDrawableState(extraSpace);
         }
     }
+
+    /* delegate accelerator methods */
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public boolean isMandatory() {
+        return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void setError(CharSequence error) {
+        this.mdkWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void addError(MDKMessages error) {
+        this.mdkWidgetDelegate.addError(error);
+    }
+
+    @Override
+    public void clearError() {
+        this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
+    }
+
+    @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getMDKWidgetDelegate().validate(true, validationMode);
+    }
+
+    @Override
+    public boolean validate() {
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
+    }
+
+    /* save / restore */
 
     @Override
     public Parcelable onSaveInstanceState() {

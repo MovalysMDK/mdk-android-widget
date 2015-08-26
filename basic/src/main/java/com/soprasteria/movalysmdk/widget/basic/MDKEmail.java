@@ -88,6 +88,26 @@ public class MDKEmail extends MDKCommandsEditText implements HasEmail {
         this.email.setTo(new String[]{this.getText().toString()});
     }
 
+    @Override
+    public void setEmail(String[] email) {
+        this.email = Email.stringArrayToEmail(email);
+
+        if (this.email.getTo() != null && this.email.getTo().length > 0) {
+            this.setText(this.email.getTo()[0]);
+        } else {
+            this.setText(null);
+        }
+    }
+
+    @Override
+    public String[] getEmail() {
+        this.email.setTo(new String[]{this.getText().toString()});
+
+        return Email.emailToStringArray(this.email);
+    }
+
+    /* save / restore */
+
     /**
      * Method called to store data before pausing the activity.
      * @return activity's state
@@ -122,23 +142,5 @@ public class MDKEmail extends MDKCommandsEditText implements HasEmail {
         }
         super.onRestoreInstanceState(state);
 
-    }
-
-    @Override
-    public void setEmail(String[] email) {
-        this.email = Email.stringArrayToEmail(email);
-
-        if (this.email.getTo() != null && this.email.getTo().length > 0) {
-            this.setText(this.email.getTo()[0]);
-        } else {
-            this.setText(null);
-        }
-    }
-
-    @Override
-    public String[] getEmail() {
-        this.email.setTo(new String[]{this.getText().toString()});
-
-        return Email.emailToStringArray(this.email);
     }
 }

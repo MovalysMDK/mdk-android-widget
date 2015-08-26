@@ -96,117 +96,9 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
         mdkWidgetDelegate = new MDKDateTimePickerWidgetDelegate(this, attrs);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * Overridden in order to add post initialisation.
-     */
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (!isInEditMode()) {
-            this.mdkWidgetDelegate.onAttachedToWindow();
-        }
-    }
-
-    @Override
-    public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
     @Override
     public int[] getValidators() {
         return new int[] {R.string.mdkwidget_mdkdatetime_validator_class, R.string.mdkwidget_mdkdatetimerange_validator_class};
-    }
-
-    @Override
-    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return this.getMDKWidgetDelegate().validate(true, validationMode);
-    }
-
-    @Override
-    public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
-    }
-
-    @Override
-    public void addError(MDKMessages error) {
-        this.mdkWidgetDelegate.addError(error);
-    }
-
-    @Override
-    public void setError(CharSequence error) {
-        this.mdkWidgetDelegate.setError(error);
-    }
-
-    @Override
-    public void clearError() {
-        this.mdkWidgetDelegate.clearError();
-    }
-
-    @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public void setMandatory(boolean mandatory) {
-        this.mdkWidgetDelegate.setMandatory(mandatory);
-    }
-
-    @Override
-    public boolean isMandatory() {
-        return this.mdkWidgetDelegate.isMandatory();
-    }
-
-    @Override
-    public int[] superOnCreateDrawableState(int extraSpace) {
-        if (this.mdkWidgetDelegate != null) {
-            return this.mdkWidgetDelegate.superOnCreateDrawableState(extraSpace);
-        } else {
-            // first called in the super constructor
-            return super.onCreateDrawableState(extraSpace);
-        }
-    }
-
-    @Override
-    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
-        mergeDrawableStates(baseState, additionalState);
-    }
-
-    @Override
-    public Parcelable onSaveInstanceState() {
-        // Save the android view instance state
-        Parcelable state = super.onSaveInstanceState();
-
-        // Save the MDKWidgetDelegate instance state
-        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
-
-        return state;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
-
-        // Restore the android view instance state
-        super.onRestoreInstanceState(innerState);
-    }
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        onRestoreInstanceState(state);
     }
 
     /**
@@ -246,22 +138,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
         this.mdkWidgetDelegate.setDisplayedTime(time);
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        this.mdkWidgetDelegate.setEnabled(enabled);
-    }
-
-    @Override
-    public void registerChangeListener(ChangeListener listener) {
-        this.mdkWidgetDelegate.registerChangeListener(listener);
-    }
-
-    @Override
-    public void unregisterChangeListener(ChangeListener listener) {
-        this.mdkWidgetDelegate.unregisterChangeListener(listener);
-    }
-
     /**
      * Get max date (in Date format).
      * @return Date the max date
@@ -292,5 +168,137 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      */
     public void setMin(Date minDate) {
         this.mdkWidgetDelegate.setMin(minDate);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Overridden in order to add post initialisation.
+     */
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (!isInEditMode()) {
+            this.mdkWidgetDelegate.onAttachedToWindow();
+        }
+    }
+
+    /* technical delegate methods */
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+        return this.mdkWidgetDelegate;
+    }
+
+    /* rich selector methods */
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        if (this.mdkWidgetDelegate != null) {
+            return this.mdkWidgetDelegate.superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
+    }
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+
+    /* delegate accelerator methods */
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public boolean isMandatory() {
+        return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void addError(MDKMessages error) {
+        this.mdkWidgetDelegate.addError(error);
+    }
+
+    @Override
+    public void setError(CharSequence error) {
+        this.mdkWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void clearError() {
+        this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.getMDKWidgetDelegate().validate(true, validationMode);
+    }
+
+    @Override
+    public boolean validate() {
+        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
+    }
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.mdkWidgetDelegate.registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.mdkWidgetDelegate.unregisterChangeListener(listener);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        this.mdkWidgetDelegate.setEnabled(enabled);
+    }
+
+    /* save / restore */
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState();
+
+        // Save the MDKWidgetDelegate instance state
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
+
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        // Restore the MDKWidgetDelegate instance state
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
+
+        // Restore the android view instance state
+        super.onRestoreInstanceState(innerState);
+    }
+
+    @Override
+    public Parcelable superOnSaveInstanceState() {
+        return onSaveInstanceState();
+    }
+
+    @Override
+    public void superOnRestoreInstanceState(Parcelable state) {
+        onRestoreInstanceState(state);
     }
 }
