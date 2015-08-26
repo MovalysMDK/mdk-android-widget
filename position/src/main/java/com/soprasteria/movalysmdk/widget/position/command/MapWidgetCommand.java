@@ -3,6 +3,7 @@ package com.soprasteria.movalysmdk.widget.position.command;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -13,18 +14,14 @@ import com.soprasteria.movalysmdk.widget.position.R;
  * Secondary command class for the position widget.
  * Will launch a map application displaying the location of the widget.
  */
-public class MapWidgetCommand implements WidgetCommand<String, Void> {
+public class MapWidgetCommand implements WidgetCommand<Location, Void> {
 
     /** the default zoom level. */
     private static final String ZOOMLEVEL = "17";
 
     @Override
-    public Void execute(Context context, String... locations) {
-        if (locations.length != 2 || !validParameters(locations)) {
-            throw new IllegalArgumentException("position command should have two long as strings parameters.");
-        }
-
-        openMap(context, getAccurateURI(locations));
+    public Void execute(Context context, Location location) {
+        openMap(context, getAccurateURI(location));
 
         return null;
     }
@@ -56,14 +53,8 @@ public class MapWidgetCommand implements WidgetCommand<String, Void> {
      * @param locations address location
      * @return URI string
      */
-    private String getAccurateURI(String[] locations){
-        boolean latitudeOk = locations[0] != null && locations[0].length() > 0;
-        boolean longitudeOk = locations[1] != null && locations[1].length() > 0;
-
-        if (latitudeOk && longitudeOk) {
-            return "geo:" + locations[0] + "," + locations[1] + "?z=" + ZOOMLEVEL;
-        }
-        return null;
+    private String getAccurateURI(Location locations){
+        return "geo:" + locations.getLatitude() + "," + locations.getLongitude() + "?z=" + ZOOMLEVEL;
     }
 
     /**

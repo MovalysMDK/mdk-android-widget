@@ -46,27 +46,23 @@ public class EmailWidgetCommand implements WidgetCommand<Email, Void> {
      * <p>This method call the ACTION_SEND Intent.</p>
      *
      * @param context the Android context
-     * @param email email information
+     * @param currentMail email information
      * @return null
      */
     @Override
-    public Void execute(Context context, Email... email) {
+    public Void execute(Context context, Email currentMail) {
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
-        if (email == null || email.length != 1 || email[0] == null) {
-            throw new IllegalArgumentException("email command should only have one Email in parameter.");
-        } else {
-            Email currentMail = email[0];
-            mailIntent.putExtra(Intent.EXTRA_EMAIL, currentMail.getTo());
-            mailIntent.putExtra(android.content.Intent.EXTRA_CC, currentMail.getCc());
-            mailIntent.putExtra(android.content.Intent.EXTRA_BCC, currentMail.getBcc());
 
-            mailIntent.putExtra(Intent.EXTRA_SUBJECT, currentMail.getSubject());
-            mailIntent.putExtra(Intent.EXTRA_TEXT, currentMail.getBody());
+        mailIntent.putExtra(Intent.EXTRA_EMAIL, currentMail.getTo());
+        mailIntent.putExtra(android.content.Intent.EXTRA_CC, currentMail.getCc());
+        mailIntent.putExtra(android.content.Intent.EXTRA_BCC, currentMail.getBcc());
 
-            mailIntent.setType(context.getString(R.string.mdkwidget_email_mimetype_plain));
+        mailIntent.putExtra(Intent.EXTRA_SUBJECT, currentMail.getSubject());
+        mailIntent.putExtra(Intent.EXTRA_TEXT, currentMail.getBody());
 
-            context.startActivity(Intent.createChooser(mailIntent, context.getString(R.string.mdkwidget_email_chooser_label)));
-        }
+        mailIntent.setType(context.getString(R.string.mdkwidget_email_mimetype_plain));
+
+        context.startActivity(Intent.createChooser(mailIntent, context.getString(R.string.mdkwidget_email_chooser_label)));
 
         return null;
     }

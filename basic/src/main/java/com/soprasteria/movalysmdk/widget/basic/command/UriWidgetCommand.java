@@ -36,17 +36,14 @@ public class UriWidgetCommand implements WidgetCommand<Uri, Void> {
      * <p>This method call the ACTION_VIEW Intent.</p>
      *
      * @param context the Android context
-     * @param uriParams uri information
+     * @param uriParam uri information
      * @return null
      */
     @Override
-    public Void execute(Context context, Uri... uriParams) {
+    public Void execute(Context context, Uri uriParam) {
         Intent uriIntent = new Intent(Intent.ACTION_VIEW);
-        if (uriParams == null || uriParams.length != 1){
-            throw new IllegalArgumentException("uri command should only have one Uri in parameter.");
-        } else {
-            context.startActivity(uriIntent.setData(uriParams[0]));
-        }
+
+        context.startActivity(uriIntent.setData(uriParam));
 
         return null;
     }

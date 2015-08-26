@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
@@ -35,6 +36,7 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,6 +56,12 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     /** oldTextLength. */
     private int oldTextLength;
+
+    /** specific InputType for the inherited widgets. */
+    private int specificInputType = -1;
+
+    /** widget specific validators. */
+    private int[] specificValidators;
 
     /**
      * Constructor.
@@ -77,6 +85,20 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         super(context, attrs, style);
         if (!isInEditMode()) {
             init(context, attrs);
+        }
+    }
+
+    /**
+     * Sets the specific attributes on the widget.
+     * @param specificInputType the specific InputType
+     * @param specificValidators the specific validators
+     */
+    protected final void setSpecificAttributes(int specificInputType, int[] specificValidators) {
+        if (!isInEditMode()) {
+            // we have only one method for both attributes to limit the number of methods
+            // no getter for the attributes for the same reason
+            this.specificInputType = specificInputType;
+            this.specificValidators = specificValidators;
         }
     }
 
@@ -166,6 +188,11 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
             if (this.getText().length() == 0) {
                 this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
             }
+
+            if (this.specificInputType != -1) {
+                // TODO : fuites mémoire ?
+                this.setInputType(this.specificInputType);
+            }
         }
     }
 
@@ -196,6 +223,20 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         oldTextLength = textLength;
     }
 
+    /**
+     * To call when the focus state of a view has changed.
+     * @param focused is component focused
+     * @param direction component direction
+     * @param previouslyFocusedRect component previous focus state
+     */
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (!focused) {
+            validate(EnumFormFieldValidator.ON_FOCUS);
+        }
+    }
+
     @Override
     public void setLabelViewId( @IdRes int labelId) {
         this.mdkWidgetDelegate.setLabelViewId(labelId);
@@ -219,7 +260,18 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     @Override
     public int[] getValidators() {
-        return new int[] {R.string.mdkwidget_mdkedittext_validator_class};
+        int[] basicValidators = {R.string.mdkwidget_mdkedittext_validator_class};
+        int[] validators;
+
+        if (specificValidators!= null && specificValidators.length > 0) {
+            validators = Arrays.copyOf(basicValidators, basicValidators.length + specificValidators.length);
+
+            System.arraycopy(specificValidators, 0, validators, basicValidators.length, specificValidators.length);
+        } else {
+            validators = basicValidators;
+        }
+
+        return validators;
     }
 
     @Override
@@ -283,11 +335,13 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
 
     @Override
     public Parcelable superOnSaveInstanceState() {
+        // FIXME
         return onSaveInstanceState();
     }
 
     @Override
     public void superOnRestoreInstanceState(Parcelable state) {
+        // FIXME
         onRestoreInstanceState(state);
     }
 

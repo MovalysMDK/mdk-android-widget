@@ -54,23 +54,20 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * <p>This method call the ACTION_SEND Intent.</p>
      *
      * @param context the Android context
-     * @param listeners the listeners of the command
+     * @param listener the listeners of the command
      * @return null
      */
     @Override
-    public Void execute(Context context, PositionCommandListener... listeners) {
-        if (listeners == null || listeners.length != 1 || listeners[0] == null) {
-            throw new IllegalArgumentException("position command should only have one PositionCommandListener parameter.");
-        } else {
-            this.context = context;
-            this.listener = listeners[0];
+    public Void execute(Context context, PositionCommandListener listener) {
+        this.context = context;
+        this.listener = listener;
 
-            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-            registerLocationListeners();
+        registerLocationListeners();
 
-            start();
-        }
+        start();
+
         return null;
     }
 

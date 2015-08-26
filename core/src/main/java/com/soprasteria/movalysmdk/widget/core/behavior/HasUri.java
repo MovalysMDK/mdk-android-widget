@@ -37,12 +37,4 @@ public interface HasUri {
      */
     void setUri(String text);
 
-    /**
-     * Set the type of the content.
-     *
-     * @see android.widget.TextView#setInputType(int)
-     * @param type content type
-     */
-    void setInputType(int type);
-
 }

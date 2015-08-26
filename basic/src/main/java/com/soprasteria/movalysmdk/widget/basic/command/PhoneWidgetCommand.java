@@ -40,20 +40,17 @@ public class PhoneWidgetCommand implements WidgetCommand<String, Void> {
      * @return null
      */
     @Override
-    public Void execute(Context context, String... number) {
-        if (number == null || number.length != 1 || number[0] == null) {
-            throw new IllegalArgumentException("phone command should only have one phone number in parameter.");
-        } else {
-            String sToDial = "tel:" + number[0];
+    public Void execute(Context context, String number) {
 
-            TelephonyManager oTelephonyManager=(TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager oTelephonyManager=(TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-            // check that the phone module is available
-            if (TelephonyManager.CALL_STATE_IDLE==oTelephonyManager.getCallState()){
-                context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(sToDial)));
-            } else{
-                Toast.makeText(context, context.getResources().getText(R.string.mdkwidget_error_phonecall_notiddle), Toast.LENGTH_SHORT).show();
-            }
+        // check that the phone module is available
+        if (TelephonyManager.CALL_STATE_IDLE==oTelephonyManager.getCallState()){
+            String sToDial = "tel:" + number;
+
+            context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(sToDial)));
+        } else{
+            Toast.makeText(context, context.getResources().getText(R.string.mdkwidget_error_phonecall_notiddle), Toast.LENGTH_SHORT).show();
         }
 
         return null;

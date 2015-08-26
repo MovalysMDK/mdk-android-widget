@@ -25,10 +25,11 @@ import android.content.Context;
  */
 public interface WidgetCommand<I, O> {
     /**
-     * sendEmail the concrete command.
+     * execute the concrete command.
      * @param context the android context
-     * @param params parameters for the command
+     * @param param parameters for the command
      * @return return of the command
      */
-    O execute(Context context, I... params);
+    // params are not an array because java cannot cast from O[] to Whaterever[]
+    O execute(Context context, I param);
 }

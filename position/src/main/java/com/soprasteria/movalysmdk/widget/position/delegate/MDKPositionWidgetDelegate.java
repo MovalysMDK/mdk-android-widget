@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKEditText;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
@@ -47,10 +46,10 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     private int longitudeViewId;
 
     /** latitude view. */
-    private WeakReference<MDKEditText> latitudeView;
+    private WeakReference<EditText> latitudeView;
 
     /** longitude view. */
-    private WeakReference<MDKEditText> longitudeView;
+    private WeakReference<EditText> longitudeView;
 
     /** current location. */
     private Location location;
@@ -89,7 +88,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
             latitudeViewId = R.id.component_internal_latitude;
         }
 
-        final MDKEditText latView = (MDKEditText) view.findViewById(latitudeViewId);
+        final EditText latView = (EditText) view.findViewById(latitudeViewId);
 
         latitudeView = new WeakReference<>(latView);
 
@@ -103,7 +102,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
             longitudeViewId = R.id.component_internal_longitude;
         }
 
-        final MDKEditText lngView = (MDKEditText) view.findViewById(longitudeViewId);
+        final EditText lngView = (EditText) view.findViewById(longitudeViewId);
 
         longitudeView = new WeakReference<>(lngView);
 

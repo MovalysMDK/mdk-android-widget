@@ -246,7 +246,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
         if (command instanceof PositionWidgetCommand) {
             ((PositionWidgetCommand) command).execute(this.getContext(), this);
         } else if (command instanceof MapWidgetCommand) {
-            ((MapWidgetCommand) command).execute(this.getContext(), this.getCoordinates());
+            ((MapWidgetCommand) command).execute(this.getContext(), this.mdkWidgetDelegate.getLocation());
         }
     }
 
