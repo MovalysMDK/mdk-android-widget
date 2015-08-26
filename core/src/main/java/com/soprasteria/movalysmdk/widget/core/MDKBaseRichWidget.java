@@ -52,7 +52,7 @@ import java.util.List;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, MDKTechnicalWidgetDelegate, HasValidator {
+public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, MDKTechnicalWidgetDelegate, HasValidator {
 
     /**
      * Base widget.

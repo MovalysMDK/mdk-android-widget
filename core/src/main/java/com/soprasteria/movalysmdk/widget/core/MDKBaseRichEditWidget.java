@@ -34,7 +34,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  * Base implementation of the rich mdk widget for widget that uses text and are editable.
  * @param <T> the inner widget type
  */
-public class MDKBaseRichEditWidget<T extends MDKWidget & MDKRestorableWidget & HasText & HasTextWatcher & HasValidator & HasDelegate & HasHint> extends MDKBaseRichTextWidget<T> implements HasTextWatcher, HasHint {
+public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatcher & HasValidator & HasDelegate & HasHint> extends MDKBaseRichTextWidget<T> implements HasTextWatcher, HasHint {
 
     /**
      * Constructor.

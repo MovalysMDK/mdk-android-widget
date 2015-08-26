@@ -17,14 +17,13 @@ package com.soprasteria.movalysmdk.widget.core.error;
 
 import android.content.Context;
 
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
 /**
  * MDKErrorWidget interface definition.
  * Created by MDK Team on 09/06/2015.
  */
-public interface MDKErrorWidget extends MDKRestorableWidget {
+public interface MDKErrorWidget {
 
     /**
      * Add and the component and its associated error message to the current list of errors.

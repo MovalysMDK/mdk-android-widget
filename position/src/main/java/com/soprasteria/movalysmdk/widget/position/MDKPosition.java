@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -32,7 +31,7 @@ import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDele
  * MDK Position.
  * <p>Representing a position input field, allowing to set a latitude and a longitude or to retrieve it with the GPS function of the device.</p>
  */
-public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestorableWidget, HasLocation, HasValidator, HasCommands, HasDelegate, HasChangeListener, PositionCommandListener {
+public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocation, HasValidator, HasCommands, HasDelegate, HasChangeListener, PositionCommandListener {
 
     /** WidgetCommandDelegate attribute. */
     protected WidgetCommandDelegate commandDelegate;
@@ -283,15 +282,5 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
         Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
-    }
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        onRestoreInstanceState(state);
     }
 }

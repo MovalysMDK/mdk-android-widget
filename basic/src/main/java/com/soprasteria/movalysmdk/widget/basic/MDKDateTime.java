@@ -20,7 +20,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKDateTimePickerWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -55,7 +54,7 @@ import java.util.Date;
  *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator, HasDate, HasDelegate, HasChangeListener {
+public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasChangeListener {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkWidgetDelegate;
@@ -290,15 +289,5 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
-    }
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        onRestoreInstanceState(state);
     }
 }

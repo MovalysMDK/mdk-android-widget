@@ -88,7 +88,7 @@ public class DateTimeRangeValidator  implements FormFieldValidator<Date> {
                     errorDateComparison = true;
                 }
             }
-            //FIXEME code étrange on ecrase errorDate, soit il ne faut pas écraser soit la deuxième partie du code ne doit pas être faite tous le temps
+            // FIXME code étrange on ecrase errorDate, soit il ne faut pas écraser soit la deuxième partie du code ne doit pas être faite tous le temps
             if (mdkParameter.containsKey(R.attr.max) && mdkParameter.getValue(R.attr.max) != null) {
                 try {
                     maxDate = formattedDatePattern.parse(mdkParameter.getValue(R.attr.max));

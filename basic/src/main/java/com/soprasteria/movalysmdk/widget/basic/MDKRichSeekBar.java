@@ -20,7 +20,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
@@ -33,7 +32,7 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
  * and including by default the error component.
  * @param <T> The class of the widget to encapsulate*
  */
-public class MDKRichSeekBar <T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate & HasSeekBar & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasSeekBar {
+public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & HasSeekBar & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasSeekBar {
 
     /**
      * Constructor.

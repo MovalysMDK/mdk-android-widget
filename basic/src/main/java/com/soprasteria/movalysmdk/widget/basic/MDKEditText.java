@@ -23,7 +23,6 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -49,7 +48,7 @@ import java.util.Arrays;
  *     <li>if there is no label and no hint in the xml layout, there will be no label and no hint</li>
  * </ul>
  */
-public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRestorableWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasLabel, HasDelegate {
+public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText, HasTextWatcher, HasHint, HasValidator, HasLabel, HasDelegate {
 
     /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
@@ -310,17 +309,5 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
-    }
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        // FIXME
-        return onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        // FIXME
-        onRestoreInstanceState(state);
     }
 }

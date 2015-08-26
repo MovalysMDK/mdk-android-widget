@@ -17,12 +17,10 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -49,7 +47,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, MDKRestorableWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar {
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar {
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
@@ -271,18 +269,6 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
         this.mdkListenerDelegate.unregisterChangeListener(listener);
-    }
-
-    /* save / restore */
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        this.onRestoreInstanceState(state);
     }
 
 }

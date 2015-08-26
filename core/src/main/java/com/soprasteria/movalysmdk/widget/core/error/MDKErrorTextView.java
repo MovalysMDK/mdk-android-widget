@@ -302,14 +302,4 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         super.onRestoreInstanceState(state);
     }
 
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        onRestoreInstanceState(state);
-    }
-
 }

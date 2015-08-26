@@ -36,7 +36,7 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichCheckableWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate & HasChecked & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasChecked {
+public class MDKBaseRichCheckableWidget<T extends MDKWidget & HasValidator & HasDelegate & HasChecked & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasChecked {
 
     /**
      * Constructor.

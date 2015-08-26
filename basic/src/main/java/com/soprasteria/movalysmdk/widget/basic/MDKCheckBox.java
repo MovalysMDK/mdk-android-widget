@@ -17,11 +17,9 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Parcelable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -39,7 +37,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 /**
  * <p>Represents a Check Box conforming to the Material Design guidelines.</p>
  */
-public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRestorableWidget, HasValidator, HasLabel, HasChecked, HasDelegate, HasChangeListener {
+public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, HasValidator, HasLabel, HasChecked, HasDelegate, HasChangeListener {
 
     /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
@@ -189,17 +187,5 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
         this.mdkListenerDelegate.unregisterChangeListener(listener);
-    }
-
-    /* save / restore */
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return super.onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
     }
 }

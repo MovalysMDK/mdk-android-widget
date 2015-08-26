@@ -1,6 +1,5 @@
 package com.soprasteria.movalysmdk.widget.position.command;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -48,9 +47,9 @@ public class MapWidgetCommand implements WidgetCommand<Location, Void> {
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 
         PackageManager manager = context.getPackageManager();
-        List<ResolveInfo> infos = manager.queryIntentActivities(mapIntent, 0);
+        List<ResolveInfo> info = manager.queryIntentActivities(mapIntent, 0);
 
-        if (infos.size() > 0) {
+        if (!info.isEmpty()) {
             context.startActivity(mapIntent);
         } else {
             Toast.makeText(context, context.getString(R.string.alert_map_missing), Toast.LENGTH_SHORT).show();

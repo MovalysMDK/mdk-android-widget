@@ -41,7 +41,7 @@ import java.util.Date;
  * <p>Add a validator behavior on the base rich widget</p>
  * @param <T> the inner widget type
  */
-public class MDKBaseRichDateWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDate & HasChangeListener & HasDelegate> extends MDKBaseRichWidget<T> implements HasValidator, HasDate, HasChangeListener {
+public class MDKBaseRichDateWidget<T extends MDKWidget & HasValidator & HasDate & HasChangeListener & HasDelegate> extends MDKBaseRichWidget<T> implements HasValidator, HasDate, HasChangeListener {
 
     /**
      * Constructor.

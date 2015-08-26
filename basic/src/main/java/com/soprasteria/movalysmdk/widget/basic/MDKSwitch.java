@@ -17,11 +17,9 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.Switch;
 
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -39,7 +37,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 /**
  * <p>Represents a Switch conforming to the Material Design guidelines.</p>
  */
-public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget, HasValidator, HasLabel, HasChecked, HasDelegate, HasChangeListener {
+public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLabel, HasChecked, HasDelegate, HasChangeListener {
 
     /** The MDKWidgetDelegate handling the component logic. */
     protected MDKWidgetDelegate mdkWidgetDelegate;
@@ -184,17 +182,5 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
         this.mdkListenerDelegate.unregisterChangeListener(listener);
-    }
-
-    /* save / restore */
-
-    @Override
-    public Parcelable superOnSaveInstanceState() {
-        return super.onSaveInstanceState();
-    }
-
-    @Override
-    public void superOnRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
     }
 }

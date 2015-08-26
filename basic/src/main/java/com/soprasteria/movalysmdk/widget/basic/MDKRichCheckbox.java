@@ -19,7 +19,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichCheckableWidget;
-import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
@@ -31,7 +30,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  * and including by default the error component.
  * @param <T> The class of the widget to encapsulate
  */
-public class MDKRichCheckbox<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate & HasChecked & HasChangeListener> extends MDKBaseRichCheckableWidget<T> {
+public class MDKRichCheckbox<T extends MDKWidget & HasValidator & HasDelegate & HasChecked & HasChangeListener> extends MDKBaseRichCheckableWidget<T> {
 
     /**
      * Constructor.
