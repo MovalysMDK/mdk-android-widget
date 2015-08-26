@@ -74,12 +74,9 @@ public class DateTimeRangeValidator implements FormFieldValidator<Date> {
         MDKMessage mdkMessage = null;
         Date minDate = null;
         Date maxDate = null;
-        boolean errorDate = false;
-        boolean errorDateComparison = false;
-        SimpleDateFormat formattedDatePattern = null;
 
         if (objectToValidate != null && mdkParameter.containsKey(R.attr.dateFormat)) {
-            formattedDatePattern = new SimpleDateFormat(mdkParameter.getValue(R.attr.dateFormat));
+            SimpleDateFormat formattedDatePattern = new SimpleDateFormat(mdkParameter.getValue(R.attr.dateFormat));
 
             try {
                 if (mdkParameter.containsKey(R.attr.min) && mdkParameter.getValue(R.attr.min) != null) {
@@ -88,28 +85,29 @@ public class DateTimeRangeValidator implements FormFieldValidator<Date> {
                 if (mdkParameter.containsKey(R.attr.max) && mdkParameter.getValue(R.attr.max) != null) {
                     maxDate = formattedDatePattern.parse(mdkParameter.getValue(R.attr.max));
                 }
+
+                String error = "";
+
+                if (minDate != null && objectToValidate.before(minDate)) {
+                    error = context.getString(R.string.mdkwidget_error_date_range_min_validator, mdkParameter.getValue(R.attr.min),
+                            formattedDatePattern.format(objectToValidate));
+                    error += "\\n";
+                }
+
+                if (maxDate != null && objectToValidate.after(maxDate)) {
+                    error += context.getString(R.string.mdkwidget_error_date_range_max_validator, mdkParameter.getValue(R.attr.max),
+                            formattedDatePattern.format(objectToValidate));
+                }
+
+                if (error.length() > 0) {
+                    mdkMessage = new MDKMessage();
+                    mdkMessage.setErrorCode(ERROR_DATE);
+                    mdkMessage.setMessage(error);
+                }
             } catch (ParseException e) {
-                errorDateComparison = true;
-            }
-
-            errorDate = (minDate != null && objectToValidate.before(minDate)) || (maxDate != null && objectToValidate.after(maxDate));
-
-            if (errorDateComparison) {
                 mdkMessage = new MDKMessage();
                 mdkMessage.setErrorCode(ERROR_DATE_COMPARISON);
                 mdkMessage.setMessage(context.getString(R.string.mdkwidget_error_date_comparison));
-            } else if (errorDate) {
-                mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(ERROR_DATE);
-
-                String error = null;
-                if (minDate != null) {
-                    error = context.getString(R.string.mdkwidget_error_date_range_min_validator, mdkParameter.getValue(R.attr.min), formattedDatePattern.format(objectToValidate));
-                }
-                if (maxDate != null) {
-                    error = context.getString(R.string.mdkwidget_error_date_range_max_validator, mdkParameter.getValue(R.attr.max), formattedDatePattern.format(objectToValidate));
-                }
-                mdkMessage.setMessage(error);
             }
         }
 
