@@ -35,11 +35,9 @@ import java.lang.ref.WeakReference;
  * Command handler on MDKButtonComponent for MDKWidgets.
  * <p>This class manages primary and secondary commands on the MDK button component.</p>
  * <p>It registers listeners and launches commands.</p>
+ * <p>Both commands may not be disabled on validation should the setup be properly done.</p>
  */
 public class WidgetCommandDelegate implements CommandStateListener {
-
-    /** validation command. */
-    protected final boolean validationCommand;
 
     /** Weak reference on view. */
     private final WeakReference<MDKWidget> weakView;
@@ -53,6 +51,12 @@ public class WidgetCommandDelegate implements CommandStateListener {
     /** Attribute "Qualifier" of the component. */
     private final String qualifier;
 
+    /** should we deactivate the primary command when the valid status of the widget is false. */
+    private boolean deactivatePrimaryOnValidation = true;
+
+    /** should we deactivate the secondary command when the valid status of the widget is false. */
+    private boolean deactivateSecondaryOnValidation = true;
+
     /**
      * Constructor.
      * @param mdkWidget view the widget view
@@ -60,19 +64,21 @@ public class WidgetCommandDelegate implements CommandStateListener {
      */
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs) {
 
-        this(mdkWidget, attrs, true);
+        this(mdkWidget, attrs, true, true);
     }
 
     /**
      * Constructor.
      * @param mdkWidget view the widget view
      * @param attrs attributes the widget xml attributes
-     * @param validationCommand Use validation for enable command
+     * @param deactivatePrimaryOnValidation true to deactivate the primary command on validation
+     * @param deactivateSecondaryOnValidation true to deactivate the secondary command on validation
      */
-    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, boolean validationCommand) {
+    public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs, boolean deactivatePrimaryOnValidation, boolean deactivateSecondaryOnValidation) {
 
         this.weakView = new WeakReference<>(mdkWidget);
-        this.validationCommand = validationCommand;
+        this.deactivatePrimaryOnValidation = deactivatePrimaryOnValidation;
+        this.deactivateSecondaryOnValidation = deactivateSecondaryOnValidation;
 
         TypedArray typedArray = mdkWidget.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKButtonComponent);
 
@@ -168,16 +174,18 @@ public class WidgetCommandDelegate implements CommandStateListener {
         return widgetCommand;
     }
 
-    /**
-     * Activate or not command button.
-     * @param enable Activation toggle
-     */
-    public void enableCommand(boolean enable) {
-        if (validationCommand) {
-            enableCommandOnView(enable, this.primaryCommandViewId);
-            enableCommandOnView(enable, this.secondaryCommandViewId);
-        }
-    }
+//    /**
+//     * Activate or not command button.
+//     * @param valid Activation toggle
+//     */
+//    public void enableCommand(boolean valid) {
+////        if (deactivatePrimaryOnValidation) {
+//            enableCommandOnView(valid, deactivatePrimaryOnValidation, this.primaryCommandViewId);
+////        }
+////        if (deactivateSecondaryOnValidation) {
+//            enableCommandOnView(valid, deactivateSecondaryOnValidation, this.secondaryCommandViewId);
+////        }
+//    }
 
     /**
      * Activate or not command on a specific view id.
@@ -185,24 +193,36 @@ public class WidgetCommandDelegate implements CommandStateListener {
      * @param viewId the view id
      */
     protected void enableCommandOnView(boolean enable, int viewId) {
-        if (validationCommand) {
-            View commandView = findCommandView(viewId);
+        View commandView = findCommandView(viewId);
+//        if (validationCommand) {
             if (commandView != null) {
                 commandView.setEnabled(enable);
                 commandView.setFocusable(enable);
             }
-        } else {
-            View commandView = findCommandView(viewId);
-            if (commandView != null) {
-                commandView.setEnabled(true);
-                commandView.setFocusable(true);
-            }
-        }
+//        } else {
+//            if (commandView != null) {
+//                commandView.setEnabled(true);
+//                commandView.setFocusable(true);
+//            }
+//        }
     }
 
 
     @Override
-    public void notifyCommandStateChanged(boolean enable) {
-        enableCommand(enable);
+    public void notifyCommandStateChanged(boolean valid) {
+        if (valid) {
+            enableCommandOnView(true, this.primaryCommandViewId);
+            enableCommandOnView(true, this.secondaryCommandViewId);
+        } else {
+//            if (deactivatePrimaryOnValidation) {
+                enableCommandOnView(!deactivatePrimaryOnValidation, this.primaryCommandViewId);
+//            } else {
+//                enableCommandOnView(true, this.primaryCommandViewId);
+//            }
+//            if (deactivateSecondaryOnValidation) {
+                enableCommandOnView(!deactivateSecondaryOnValidation, this.secondaryCommandViewId);
+//            }
+        }
+
     }
 }

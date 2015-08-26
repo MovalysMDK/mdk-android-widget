@@ -99,6 +99,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
     }
 
+    /*********** DEBUT ***************/
     @Override
     public int getUniqueId() {
         return this.mdkWidgetDelegate.getUniqueId();
@@ -117,6 +118,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     public void setRootViewId( @IdRes int rootId) {
         this.mdkWidgetDelegate.setRootViewId(rootId);
     }
+    /*********** FIN ***************/
 
     @Override
     public void setError(CharSequence error) {
@@ -196,6 +198,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         oldTextLength = textLength;
     }
 
+    /*********** DEBUT ***************/
     @Override
     public void setLabelViewId( @IdRes int labelId) {
         this.mdkWidgetDelegate.setLabelViewId(labelId);
@@ -216,6 +219,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
         this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
+    /*********** FIN ***************/
 
     @Override
     public int[] getValidators() {

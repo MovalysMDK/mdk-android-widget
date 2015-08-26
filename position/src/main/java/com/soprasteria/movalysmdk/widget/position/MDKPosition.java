@@ -18,6 +18,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.listener.CommandStateListener;
@@ -26,7 +27,6 @@ import com.soprasteria.movalysmdk.widget.position.command.MapWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.command.PositionCommandListener;
 import com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.position.delegate.PositionCommandDelegate;
 
 import java.util.List;
 
@@ -36,8 +36,8 @@ import java.util.List;
  */
 public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestorableWidget, HasLocation, HasValidator, HasCommands, HasDelegate, HasChangeListener, PositionCommandListener {
 
-    /** CommandDelegate attribute. */
-    protected PositionCommandDelegate commandDelegate;
+    /** WidgetCommandDelegate attribute. */
+    protected WidgetCommandDelegate commandDelegate;
 
     /** MDK Widget implementation. */
     protected MDKPositionWidgetDelegate mdkWidgetDelegate;
@@ -75,7 +75,8 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, MDKRestora
 
         this.mdkWidgetDelegate = new MDKPositionWidgetDelegate(this, attrs);
 
-        this.commandDelegate = new PositionCommandDelegate(this, attrs);
+        // map should always be activated, even on not validated widget
+        this.commandDelegate = new WidgetCommandDelegate(this, attrs, false, true);
         this.addCommandStateListener(this.commandDelegate);
 
         return this;
