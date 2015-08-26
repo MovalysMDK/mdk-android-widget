@@ -23,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -224,28 +225,8 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
-    public void setRootViewId(int rootId) {
-        this.mdkWidgetDelegate.setRootViewId(rootId);
-    }
-
-    @Override
-    public void setLabelViewId(int labelId) {
-        this.mdkWidgetDelegate.setLabelViewId(labelId);
-    }
-
-    @Override
-    public void setHelperViewId(int helperId) {
-        this.mdkWidgetDelegate.setHelperViewId(helperId);
-    }
-
-    @Override
-    public void setErrorViewId(int errorId) {
-        this.mdkWidgetDelegate.setErrorViewId(errorId);
-    }
-
-    @Override
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override

@@ -17,11 +17,11 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.os.Parcelable;
-import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
@@ -130,31 +130,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     }
 
     @Override
-    public void setRootViewId( @IdRes int rootId) {
-        this.mdkWidgetDelegate.setRootViewId(rootId);
-    }
-
-    @Override
-    public void setLabelViewId( @IdRes int labelId) {
-        this.mdkWidgetDelegate.setLabelViewId(labelId);
-    }
-
-    @Override
-    public void setHelperViewId( @IdRes int helperId) {
-        this.mdkWidgetDelegate.setHelperViewId(helperId);
-    }
-
-    @Override
-    public void setErrorViewId( @IdRes int errorId) {
-        this.mdkWidgetDelegate.setErrorViewId(errorId);
-    }
-
-    @Override
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
-    }
-
-    @Override
     public void addError(MDKMessages error) {
         this.mdkWidgetDelegate.addError(error);
     }
@@ -167,6 +142,11 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     @Override
     public void clearError() {
         this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override

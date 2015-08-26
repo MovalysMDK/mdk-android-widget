@@ -19,12 +19,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Parcelable;
-import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
@@ -131,15 +131,6 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         this.mdkWidgetDelegate.setUniqueId(parentId);
     }
 
-    /**
-     * Setter.
-     * @param rootId the id of a view
-     */
-    @Override
-    public void setRootViewId( @IdRes int rootId) {
-        this.mdkWidgetDelegate.setRootViewId(rootId);
-    }
-
     @Override
     public void setError(CharSequence error) {
         this.mdkWidgetDelegate.setError(error);
@@ -153,6 +144,11 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
     @Override
     public void clearError() {
         this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
@@ -235,27 +231,6 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, MDKRest
         if (!focused) {
             validate(EnumFormFieldValidator.ON_FOCUS);
         }
-    }
-
-    @Override
-    public void setLabelViewId( @IdRes int labelId) {
-        this.mdkWidgetDelegate.setLabelViewId(labelId);
-    }
-
-    @Override
-    public void setHelperViewId( @IdRes int helperId) {
-        this.mdkWidgetDelegate.setHelperViewId(helperId);
-    }
-
-    @Override
-    public void setErrorViewId( @IdRes int errorId) {
-        this.mdkWidgetDelegate.setErrorViewId(errorId);
-    }
-
-
-    @Override
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override

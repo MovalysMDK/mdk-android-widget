@@ -52,7 +52,7 @@ import java.util.List;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, HasValidator {
+public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, MDKTechnicalWidgetDelegate, HasValidator {
 
     /**
      * Base widget.
@@ -144,9 +144,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
             int errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
             if (errorId != 0) {
                 int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-                this.innerWidget.setRootViewId(rootId);
-                this.innerWidget.setErrorViewId(errorId);
-                this.innerWidget.setUseRootIdOnlyForError(true);
+                this.innerWidget.getMDKWidgetDelegate().setRootViewId(rootId);
+                this.innerWidget.getMDKWidgetDelegate().setErrorViewId(errorId);
+                this.innerWidget.getMDKWidgetDelegate().setUseRootIdOnlyForError(true);
             }
 
             boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
@@ -240,27 +240,27 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
 
     @Override
     public void setRootViewId(@IdRes int rootId) {
-        this.getInnerWidget().setRootViewId(rootId);
+        this.getInnerWidget().getMDKWidgetDelegate().setRootViewId(rootId);
     }
 
     @Override
     public void setLabelViewId(@IdRes int labelId) {
-        this.getInnerWidget().setLabelViewId(labelId);
+        this.getInnerWidget().getMDKWidgetDelegate().setLabelViewId(labelId);
     }
 
     @Override
     public void setHelperViewId(@IdRes int helperId) {
-        this.getInnerWidget().setHelperViewId(helperId);
+        this.getInnerWidget().getMDKWidgetDelegate().setHelperViewId(helperId);
     }
 
     @Override
     public void setErrorViewId(@IdRes int errorId) {
-        this.getInnerWidget().setErrorViewId(errorId);
+        this.getInnerWidget().getMDKWidgetDelegate().setErrorViewId(errorId);
     }
 
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.getInnerWidget().setUseRootIdOnlyForError(useRootIdOnlyForError);
+        this.getInnerWidget().getMDKWidgetDelegate().setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override
@@ -295,6 +295,11 @@ public class MDKBaseRichWidget<T extends MDKWidget & MDKRestorableWidget & HasVa
     @Override
     public boolean validate() {
         return this.getInnerWidget().validate(EnumFormFieldValidator.VALIDATE);
+    }
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+        return this;
     }
 
     @Override

@@ -23,6 +23,7 @@ import android.util.AttributeSet;
 import android.widget.Switch;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
@@ -159,28 +160,8 @@ public class MDKSwitch extends Switch implements MDKWidget, MDKRestorableWidget,
     }
 
     @Override
-    public void setRootViewId(int rootId) {
-        this.mdkWidgetDelegate.setRootViewId(rootId);
-    }
-
-    @Override
-    public void setLabelViewId( @IdRes int labelId) {
-        this.mdkWidgetDelegate.setLabelViewId(labelId);
-    }
-
-    @Override
-    public void setHelperViewId( @IdRes int helperId) {
-        this.mdkWidgetDelegate.setHelperViewId(helperId);
-    }
-
-    @Override
-    public void setErrorViewId( @IdRes int errorId) {
-        this.mdkWidgetDelegate.setErrorViewId(errorId);
-    }
-
-    @Override
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override

@@ -18,11 +18,11 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcelable;
-import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKRestorableWidget;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
@@ -158,28 +158,8 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, MDKRest
     }
 
     @Override
-    public void setRootViewId(int rootId) {
-        this.mdkWidgetDelegate.setRootViewId(rootId);
-    }
-
-    @Override
-    public void setLabelViewId( @IdRes int labelId) {
-        this.mdkWidgetDelegate.setLabelViewId(labelId);
-    }
-
-    @Override
-    public void setHelperViewId( @IdRes int helperId) {
-        this.mdkWidgetDelegate.setHelperViewId(helperId);
-    }
-
-    @Override
-    public void setErrorViewId( @IdRes int errorId) {
-        this.mdkWidgetDelegate.setErrorViewId(errorId);
-    }
-
-    @Override
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+    public MDKTechnicalWidgetDelegate getTechnicalWidgeDelegate() {
+        return this.mdkWidgetDelegate;
     }
 
     @Override
