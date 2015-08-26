@@ -3,12 +3,16 @@ package com.soprasteria.movalysmdk.widget.position.command;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Location;
 import android.net.Uri;
 import android.widget.Toast;
 
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.R;
+
+import java.util.List;
 
 /**
  * Secondary command class for the position widget.
@@ -41,10 +45,14 @@ public class MapWidgetCommand implements WidgetCommand<Location, Void> {
      * @param uri map URI
      */
     private void openMap(Context context, String uri){
-        try {
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+
+        PackageManager manager = context.getPackageManager();
+        List<ResolveInfo> infos = manager.queryIntentActivities(mapIntent, 0);
+
+        if (infos.size() > 0) {
             context.startActivity(mapIntent);
-        } catch (ActivityNotFoundException e) {
+        } else {
             Toast.makeText(context, context.getString(R.string.alert_map_missing), Toast.LENGTH_SHORT).show();
         }
     }
