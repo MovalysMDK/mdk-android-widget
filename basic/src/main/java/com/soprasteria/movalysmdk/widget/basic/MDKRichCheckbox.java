@@ -16,7 +16,6 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichCheckableWidget;
