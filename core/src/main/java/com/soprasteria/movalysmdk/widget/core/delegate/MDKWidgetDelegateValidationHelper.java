@@ -138,14 +138,14 @@ public class MDKWidgetDelegateValidationHelper {
                     // this get the last part of the resource name
                     String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
                     FormFieldValidator mandatoryValidator = getValidator(v, validatorKey);
-                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, setError, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext());
+                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext());
                 }
             }
 
             // execute all others validators if no mandatory error
             if (bValid) {
                 for (FormFieldValidator validator : attributesValidators) {
-                    bValid = executeValidator(validator, objectToValidate, v, setError, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext()) & bValid;
+                    bValid = executeValidator(validator, objectToValidate, v, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext()) & bValid;
                 }
             }
 
@@ -191,14 +191,13 @@ public class MDKWidgetDelegateValidationHelper {
      * @param validator the FormFieldValidator to execute
      * @param objectToValidate the object to validate
      * @param validatingView the view of the widget to accept on FormFieldValidator
-     * @param setError true if the validation should show an error, false otherwise
      * @param attributesMap a Map containing widget attributes for validation
      * @param returnMap a Map containing previous validation errors
      * @param context the context to use
      * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if the FormFieldValidator return no error, false otherwise
      */
-    public boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView, boolean setError,
+    public boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView,
                                     MDKAttributeSet attributesMap, MDKMessages returnMap,
                                     @EnumFormFieldValidator.EnumValidationMode int validationMode, Context context) {
         boolean bValid = true;
