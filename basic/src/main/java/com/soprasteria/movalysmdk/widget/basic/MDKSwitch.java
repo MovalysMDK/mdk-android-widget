@@ -18,7 +18,6 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcelable;
-import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.widget.Switch;
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.location.Location;
 import android.os.Parcelable;
-import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
