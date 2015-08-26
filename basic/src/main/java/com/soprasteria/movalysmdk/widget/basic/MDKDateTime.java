@@ -58,7 +58,7 @@ import java.util.List;
 public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRestorableWidget, HasValidator, HasDate, HasDelegate, HasChangeListener {
 
     /** Widget delegate that handles all the widget logic. */
-    protected MDKDateTimePickerWidgetDelegate mdkDateTimePickerWidgetDelegate;
+    protected MDKDateTimePickerWidgetDelegate mdkWidgetDelegate;
 
     /**
      * Constructor.
@@ -93,7 +93,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     private final void init(Context context, AttributeSet attrs) {
 
         // Create the widget delegate
-        mdkDateTimePickerWidgetDelegate = new MDKDateTimePickerWidgetDelegate(this, attrs);
+        mdkWidgetDelegate = new MDKDateTimePickerWidgetDelegate(this, attrs);
     }
 
     /**
@@ -105,13 +105,13 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (!isInEditMode()) {
-            this.mdkDateTimePickerWidgetDelegate.onAttachedToWindow();
+            this.mdkWidgetDelegate.onAttachedToWindow();
         }
     }
 
     @Override
     public MDKWidgetDelegate getMDKWidgetDelegate() {
-        return this.mdkDateTimePickerWidgetDelegate;
+        return this.mdkWidgetDelegate;
     }
 
     @Override
@@ -131,68 +131,68 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
 
     @Override
     public void setRootViewId( @IdRes int rootId) {
-        this.mdkDateTimePickerWidgetDelegate.setRootViewId(rootId);
+        this.mdkWidgetDelegate.setRootViewId(rootId);
     }
 
     @Override
     public void setLabelViewId( @IdRes int labelId) {
-        this.mdkDateTimePickerWidgetDelegate.setLabelViewId(labelId);
+        this.mdkWidgetDelegate.setLabelViewId(labelId);
     }
 
     @Override
     public void setHelperViewId( @IdRes int helperId) {
-        this.mdkDateTimePickerWidgetDelegate.setHelperViewId(helperId);
+        this.mdkWidgetDelegate.setHelperViewId(helperId);
     }
 
     @Override
     public void setErrorViewId( @IdRes int errorId) {
-        this.mdkDateTimePickerWidgetDelegate.setErrorViewId(errorId);
+        this.mdkWidgetDelegate.setErrorViewId(errorId);
     }
 
     @Override
     public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.mdkDateTimePickerWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
+        this.mdkWidgetDelegate.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override
     public void addError(MDKMessages error) {
-        this.mdkDateTimePickerWidgetDelegate.addError(error);
+        this.mdkWidgetDelegate.addError(error);
     }
 
     @Override
     public void setError(CharSequence error) {
-        this.mdkDateTimePickerWidgetDelegate.setError(error);
+        this.mdkWidgetDelegate.setError(error);
     }
 
     @Override
     public void clearError() {
-        this.mdkDateTimePickerWidgetDelegate.clearError();
+        this.mdkWidgetDelegate.clearError();
     }
 
     @Override
     public void setMandatory(boolean mandatory) {
-        this.mdkDateTimePickerWidgetDelegate.setMandatory(mandatory);
+        this.mdkWidgetDelegate.setMandatory(mandatory);
     }
 
     @Override
     public boolean isMandatory() {
-        return this.mdkDateTimePickerWidgetDelegate.isMandatory();
+        return this.mdkWidgetDelegate.isMandatory();
     }
 
     @Override
     public void setUniqueId(int parentId) {
-        this.mdkDateTimePickerWidgetDelegate.setUniqueId(parentId);
+        this.mdkWidgetDelegate.setUniqueId(parentId);
     }
 
     @Override
     public int getUniqueId() {
-        return this.mdkDateTimePickerWidgetDelegate.getUniqueId();
+        return this.mdkWidgetDelegate.getUniqueId();
     }
 
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
-        if (this.mdkDateTimePickerWidgetDelegate != null) {
-            return this.mdkDateTimePickerWidgetDelegate.superOnCreateDrawableState(extraSpace);
+        if (this.mdkWidgetDelegate != null) {
+            return this.mdkWidgetDelegate.superOnCreateDrawableState(extraSpace);
         } else {
             // first called in the super constructor
             return super.onCreateDrawableState(extraSpace);
@@ -210,7 +210,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
         Parcelable state = super.onSaveInstanceState();
 
         // Save the MDKWidgetDelegate instance state
-        state = this.mdkDateTimePickerWidgetDelegate.onSaveInstanceState(state);
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
 
         return state;
     }
@@ -218,7 +218,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.mdkDateTimePickerWidgetDelegate.onRestoreInstanceState(this, state);
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
@@ -240,7 +240,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      */
     @Override
     public Date getDate() {
-        return this.mdkDateTimePickerWidgetDelegate.getDisplayedDate();
+        return this.mdkWidgetDelegate.getDisplayedDate();
     }
 
     /**
@@ -249,17 +249,17 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      */
     @Override
     public void setDate(Date date) {
-        this.mdkDateTimePickerWidgetDelegate.setDisplayedDate(date);
+        this.mdkWidgetDelegate.setDisplayedDate(date);
     }
 
     @Override
     public void setDateHint(String dateHint) {
-        mdkDateTimePickerWidgetDelegate.setDateHint(dateHint);
+        mdkWidgetDelegate.setDateHint(dateHint);
     }
 
     @Override
     public void setTimeHint(String timeHint) {
-        mdkDateTimePickerWidgetDelegate.setTimeHint(timeHint);
+        mdkWidgetDelegate.setTimeHint(timeHint);
 
     }
 
@@ -268,23 +268,23 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      * @param time the new time
      */
     public void setTime(Date time) {
-        this.mdkDateTimePickerWidgetDelegate.setDisplayedTime(time);
+        this.mdkWidgetDelegate.setDisplayedTime(time);
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        this.mdkDateTimePickerWidgetDelegate.setEnabled(enabled);
+        this.mdkWidgetDelegate.setEnabled(enabled);
     }
 
     @Override
     public void registerChangeListener(ChangeListener listener) {
-        this.mdkDateTimePickerWidgetDelegate.registerChangeListener(listener);
+        this.mdkWidgetDelegate.registerChangeListener(listener);
     }
 
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
-        this.mdkDateTimePickerWidgetDelegate.unregisterChangeListener(listener);
+        this.mdkWidgetDelegate.unregisterChangeListener(listener);
     }
 
     /**
@@ -292,7 +292,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      * @return Date the max date
      */
     public Date getMax() {
-        return this.mdkDateTimePickerWidgetDelegate.getMax();
+        return this.mdkWidgetDelegate.getMax();
     }
 
     /**
@@ -300,7 +300,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      * @param maxDate the new max date
      */
     public void setMax(Date maxDate) {
-        this.mdkDateTimePickerWidgetDelegate.setMax(maxDate);
+        this.mdkWidgetDelegate.setMax(maxDate);
     }
 
     /**
@@ -308,7 +308,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      * @return Date the min date
      */
     public Date getMin() {
-        return this.mdkDateTimePickerWidgetDelegate.getMin();
+        return this.mdkWidgetDelegate.getMin();
     }
 
     /**
@@ -316,7 +316,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, MDKRest
      * @param minDate the new min date
      */
     public void setMin(Date minDate) {
-        this.mdkDateTimePickerWidgetDelegate.setMin(minDate);
+        this.mdkWidgetDelegate.setMin(minDate);
     }
 
     @Override

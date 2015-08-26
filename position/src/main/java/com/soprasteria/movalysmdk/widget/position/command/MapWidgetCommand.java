@@ -27,28 +27,6 @@ public class MapWidgetCommand implements WidgetCommand<Location, Void> {
     }
 
     /**
-     * Checks that the parameters of the command are valid, ie there should be two strings representing two double values.
-     * @param locations the parameters to check
-     * @return true if the parameters are valid
-     */
-    private boolean validParameters(String[] locations) {
-        boolean valid;
-
-        valid = locations.length == 2;
-
-        if (valid) {
-            try {
-                Double.parseDouble(locations[0]);
-                Double.parseDouble(locations[1]);
-            } catch (NumberFormatException e) {
-                valid = false;
-            }
-        }
-
-        return valid;
-    }
-
-    /**
      * get accurate URI.
      * @param locations address location
      * @return URI string
