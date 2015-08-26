@@ -30,6 +30,6 @@ public interface WidgetCommand<I, O> {
      * @param param parameters for the command
      * @return return of the command
      */
-    // params are not an array because java cannot cast from O[] to Whaterever[]
+    // params are not an array because java cannot cast from I[] to Whaterever[]
     O execute(Context context, I param);
 }
