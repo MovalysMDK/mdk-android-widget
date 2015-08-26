@@ -36,8 +36,6 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
-import java.util.List;
-
 /**
  * <p>Represents a Check Box conforming to the Material Design guidelines.</p>
  */

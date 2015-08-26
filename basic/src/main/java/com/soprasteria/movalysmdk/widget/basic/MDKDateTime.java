@@ -34,7 +34,6 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Base widget able to render a date picker, or a time picker.

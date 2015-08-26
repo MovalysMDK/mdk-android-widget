@@ -38,7 +38,6 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * <p>Represents an Edit Text conforming to the Material Design guidelines.</p>
