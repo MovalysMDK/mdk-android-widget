@@ -25,14 +25,8 @@ import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 public interface HasCommands extends View.OnClickListener {
 
     /**
-     * Register commands views on the components
-     * (or its WidgetCommandDelegate).
-     */
-//    void registerWidgetCommands();
-
-    /**
-     * Returns the {@link WidgetCommandDelegate} of the widget
-     * @return the {@link WidgetCommandDelegate}
+     * Returns the {@link WidgetCommandDelegate} of the widget.
+     * @return the {@link WidgetCommandDelegate} object
      */
     WidgetCommandDelegate getWidgetCommandDelegate();
 }
