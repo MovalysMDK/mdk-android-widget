@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Used strings -->
+    <string name="default_date_hint_text">Date</string>
+    <string name="default_time_hint_text">Time</string>
+
+</resources>
