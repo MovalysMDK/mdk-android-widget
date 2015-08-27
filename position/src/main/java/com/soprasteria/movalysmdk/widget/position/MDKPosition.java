@@ -68,7 +68,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
      */
     protected View init(Context context, AttributeSet attrs) {
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
-        inflater.inflate(R.layout.position_layout, this);
+        inflater.inflate(R.layout.mdkwidget_position_layout, this);
 
         this.mdkWidgetDelegate = new MDKPositionWidgetDelegate(this, attrs);
 
