@@ -17,27 +17,14 @@
 -->
 <resources>
 
-    <string name="mdkwidget_uri_chooser_label">Choose uri application</string>
-
     <string name="mdkwidget_uri_default_text_label">http://</string>
-
-    <string name="mdkwidget_uri_error">Invalid uri value</string>
 
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkuri_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.command.UriWidgetCommand</string>
-
-    <!-- validator string config -->
-    <string name="mdkwidget_mdkuri_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.UriValidator</string>
 
     <!-- rich selector config -->
     <string-array name="mdkwidget_uri_richselector_classes" translatable="false">
         <item>com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</item>
     </string-array>
-
-    <!-- Regular Expression for uri formatting-->
-    <!-- Regex control on:
-    <text_without_number>://<at_least_one_letter_or_number>
-    -->
-    <string name="mdkwidget_simple_uri_regex" translatable="false">((?:[a-z][a-z+.-]*)(?::\\/{2}[\\w]+)(?:[\\/|\\.]?)(?:[^\\s\"]*))</string>
 
 </resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Class -->
+    <string name="mdkvalidator_uri_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.UriValidator</string>
+
+    <!-- Validator's regular expression -->
+    <!-- Regex control on: <text_without_number>://<at_least_one_letter_or_number> -->
+    <string name="mdkvalidator_uri_regex" translatable="false">((?:[a-z][a-z+.-]*)(?::\\/{2}[\\w]+)(?:[\\/|\\.]?)(?:[^\\s\"]*))</string>
+
+    <!-- Used strings -->
+    <string name="mdkvalidator_uri_error_invalid">Invalid uri value</string>
+
+</resources>

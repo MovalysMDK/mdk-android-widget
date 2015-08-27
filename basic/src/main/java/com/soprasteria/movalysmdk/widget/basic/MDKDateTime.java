@@ -97,7 +97,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     @Override
     public int[] getValidators() {
-        return new int[] {R.string.mdkwidget_mdkdatetime_validator_class, R.string.mdkwidget_mdkdatetimerange_validator_class};
+        return new int[] {R.string.mdkvalidator_datetime_class, R.string.mdkvalidator_datetimerange_class};
     }
 
     /**

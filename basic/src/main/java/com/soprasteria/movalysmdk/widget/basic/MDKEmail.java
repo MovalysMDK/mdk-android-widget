@@ -74,7 +74,7 @@ public class MDKEmail extends MDKCommandsEditText implements HasEmail {
      * @param attrs the layout attributes
      */
     private final void init(AttributeSet attrs) {
-        setSpecificAttributes(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, new int[]{R.string.mdkwidget_mdkemail_validator_class});
+        setSpecificAttributes(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, new int[]{R.string.mdkvalidator_email_class});
         this.email = new Email();
     }
 

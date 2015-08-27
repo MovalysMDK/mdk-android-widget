@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkcommand_phone_error_notiddle">Impossible d\'effectuer l\'appel. La ligne est occupée.</string>
+
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkcommand_email_label_chooser">Choisir l\'application mail à exécuter</string>
+
+</resources>

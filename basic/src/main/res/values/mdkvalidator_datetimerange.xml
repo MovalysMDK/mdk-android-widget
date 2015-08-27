@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
@@ -17,10 +18,13 @@
 -->
 <resources>
 
-    <string name="mdkwidget_error_date_range_max_validator">Date out of limits (%1$s &lt; %2$s)</string>
-    <string name="mdkwidget_error_date_range_min_validator">Date out of limits (%2$s &lt; %1$s)</string>
+    <!-- Class -->
+    <string name="mdkvalidator_datetimerange_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.DateTimeRangeValidator</string>
 
-    <string name="mdkwidget_error_date_range_validator">Date out of limits</string>
-    <string name="mdkwidget_error_date_comparison">Error during date comparison</string>
+    <!-- Used strings -->
+    <string name="mdkvalidator_datetimerange_error_max">Date out of limits (%1$s &lt; %2$s)</string>
+    <string name="mdkvalidator_datetimerange_error_min">Date out of limits (%2$s &lt; %1$s)</string>
+    <string name="mdkvalidator_datetimerange_error_range">Date out of limits</string>
+    <string name="mdkvalidator_datetimerange_error_validation">Error during date comparison</string>
 
 </resources>

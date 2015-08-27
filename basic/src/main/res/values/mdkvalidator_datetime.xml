@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
@@ -17,8 +18,7 @@
 -->
 <resources>
 
-    <string name="mdkwidget_email_chooser_label" >Choisir l\'application mail à exécuter</string>
-    
-    <string name="mdkwidget_email_error">Adresse mail non valide</string>
+    <!-- Class -->
+    <string name="mdkvalidator_datetime_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.DateTimeValidator</string>
 
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkvalidator_phone_error_invalid">Numéro de téléphone non valide</string>
+
+</resources>

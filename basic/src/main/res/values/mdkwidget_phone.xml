@@ -17,17 +17,7 @@
 -->
 <resources>
 
-    <string name="mdkwidget_phone_error">Invalid phone number</string>
-
-    <string name="mdkwidget_error_phonecall_notiddle">Unable to call, the line is busy</string>
-
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkphone_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.command.PhoneWidgetCommand</string>
-
-    <!-- validator string config -->
-    <string name="mdkwidget_mdkphone_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.PhoneValidator</string>
-
-    <!-- Regular Expression for phone formatting-->
-    <string name="mdkwidget_phone_regex" translatable="false">^\\+?(\\([0-9-\\ ]+\\))?\\ ?[0-9-\\ ]+$</string>
 
 </resources>

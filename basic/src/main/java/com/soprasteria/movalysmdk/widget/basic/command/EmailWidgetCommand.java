@@ -60,9 +60,9 @@ public class EmailWidgetCommand implements WidgetCommand<Email, Void> {
         mailIntent.putExtra(Intent.EXTRA_SUBJECT, currentMail.getSubject());
         mailIntent.putExtra(Intent.EXTRA_TEXT, currentMail.getBody());
 
-        mailIntent.setType(context.getString(R.string.mdkwidget_email_mimetype_plain));
+        mailIntent.setType(context.getString(R.string.mdkcommand_email_mimetype));
 
-        context.startActivity(Intent.createChooser(mailIntent, context.getString(R.string.mdkwidget_email_chooser_label)));
+        context.startActivity(Intent.createChooser(mailIntent, context.getString(R.string.mdkcommand_email_label_chooser)));
 
         return null;
     }

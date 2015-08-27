@@ -37,6 +37,6 @@ public class EmailValidator extends BaseRegexValidator {
      * Constructor.
      */
     public EmailValidator() {
-        super(R.string.mdkwidget_mdkemail_validator_class, R.string.mdkwidget_email_regex, R.string.mdkwidget_email_error);
+        super(R.string.mdkvalidator_email_class, R.string.mdkvalidator_email_regex, R.string.mdkvalidator_email_error_invalid);
     }
 }

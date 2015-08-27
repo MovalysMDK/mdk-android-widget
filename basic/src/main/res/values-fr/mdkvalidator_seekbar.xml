@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkvalidator_seekbar_error_invalid">Valeur de la seekbar non valide</string>
+    <string name="mdkvalidator_seekbar_error_max">doit être inférieur à l\'attribut maxSeekBarValue du widget:</string>
+
+</resources>

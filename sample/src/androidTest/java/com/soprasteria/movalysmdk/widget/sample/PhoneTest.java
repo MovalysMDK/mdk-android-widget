@@ -77,7 +77,7 @@ public class PhoneTest {
 
         // check error
         onView(withId(R.id.checkbox_errorText)).check(matches(withConcatText(
-                R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_phone_error)));
+                R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
 
         SpoonScreenshotAction.perform("phone_invalidphone_errorstate");
 
@@ -86,12 +86,12 @@ public class PhoneTest {
         SpoonScreenshotAction.perform("phone_invalidphone_errorstate_landscape");
 
         onView(withId(R.id.checkbox_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_phone_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
 
         onView(isRoot()).perform(orientationPortrait());
 
         onView(withId(R.id.checkbox_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_phone_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
     }
 
     /**

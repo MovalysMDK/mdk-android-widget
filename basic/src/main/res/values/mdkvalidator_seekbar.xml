@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Class -->
+    <string name="mdkvalidator_seekbar_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.SeekBarValidator</string>
+
+    <!-- Used strings -->
+    <string name="mdkvalidator_seekbar_error_invalid">Invalid seekbar value</string>
+    <string name="mdkvalidator_seekbar_error_max">Value must be inferior to the max defined into the widget\'s attribute:</string>
+
+</resources>

@@ -37,7 +37,7 @@ public class PhoneValidator extends BaseRegexValidator {
      * Constructor.
      */
     public PhoneValidator() {
-        super(R.string.mdkwidget_mdkphone_validator_class, R.string.mdkwidget_phone_regex, R.string.mdkwidget_phone_error);
+        super(R.string.mdkvalidator_phone_class, R.string.mdkvalidator_phone_regex, R.string.mdkvalidator_phone_error_invalid);
     }
 
 }

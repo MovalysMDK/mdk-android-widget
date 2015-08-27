@@ -43,11 +43,11 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
     /**
      * ERROR_INVALID_SB.
      */
-    public static final int ERROR_INVALID_SB_VALUE = R.string.mdkwidget_seekbar_error;
+    public static final int ERROR_INVALID_SB_VALUE = R.string.mdkvalidator_seekbar_error_invalid;
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_mdkseekbar_validator_class);
+        return context.getResources().getResourceName(R.string.mdkvalidator_seekbar_class);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
                 mdkMessage = new MDKMessage();
                 mdkMessage.setErrorCode(ERROR_INVALID_SB_VALUE);
                 mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
-                String error = context.getString(R.string.mdkwidget_seekbar_max_value_error)+ " " + mdkAttributeSet.getInteger(R.attr.maxSeekBarValue) ;
+                String error = context.getString(R.string.mdkvalidator_seekbar_error_max)+ " " + mdkAttributeSet.getInteger(R.attr.maxSeekBarValue) ;
                 mdkMessage.setMessage(error);
             }
         }

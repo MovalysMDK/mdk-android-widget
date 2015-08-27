@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Used strings -->
+    <string name="mdkcommand_phone_error_notiddle">Unable to call, the line is busy</string>
+
+</resources>

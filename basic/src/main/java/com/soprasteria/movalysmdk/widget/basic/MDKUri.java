@@ -40,7 +40,7 @@ public class MDKUri extends MDKCommandsEditText implements HasUri {
      */
     public MDKUri(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setSpecificAttributes(InputType.TYPE_TEXT_VARIATION_URI, new int[]{R.string.mdkwidget_mdkuri_validator_class});
+        setSpecificAttributes(InputType.TYPE_TEXT_VARIATION_URI, new int[]{R.string.mdkvalidator_uri_class});
     }
 
     /**
@@ -51,7 +51,7 @@ public class MDKUri extends MDKCommandsEditText implements HasUri {
      */
     public MDKUri(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
-        setSpecificAttributes(InputType.TYPE_TEXT_VARIATION_URI, new int[]{R.string.mdkwidget_mdkuri_validator_class});
+        setSpecificAttributes(InputType.TYPE_TEXT_VARIATION_URI, new int[]{R.string.mdkvalidator_uri_class});
     }
 
     @Override

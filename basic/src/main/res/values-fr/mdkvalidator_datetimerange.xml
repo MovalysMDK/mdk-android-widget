@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
@@ -17,7 +18,10 @@
 -->
 <resources>
 
-    <string name="mdkwidget_mdkdatetime_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.DateTimeValidator</string>
-    <string name="mdkwidget_mdkdatetimerange_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.DateTimeRangeValidator</string>
+    <!-- Chaines utilisees -->
+    <string name="mdkvalidator_datetimerange_error_max">La date fournie n\'est pas dans la plage de valeurs (%1$s &lt; %2$s)</string>
+    <string name="mdkvalidator_datetimerange_error_min">La date fournie n\'est pas dans la plage de valeurs (%2$s &lt; %1$s)</string>
+    <string name="mdkvalidator_datetimerange_error_range">La date fournie n\'est pas dans la plage de valeurs</string>
+    <string name="mdkvalidator_datetimerange_error_validation">Erreur de comparaison de date</string>
 
 </resources>

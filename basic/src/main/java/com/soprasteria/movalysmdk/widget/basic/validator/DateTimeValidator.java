@@ -40,7 +40,7 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_mdkdatetime_validator_class);
+        return context.getResources().getResourceName(R.string.mdkvalidator_datetime_class);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
 
             mdkMessage = new MDKMessage();
             mdkMessage.setErrorCode(ERROR_MANDATORY);
-            String error = context.getString(R.string.mdkwidget_mandatory_error);
+            String error = context.getString(ERROR_MANDATORY);
             mdkMessage.setMessage(error);
         }
 

@@ -118,7 +118,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     @Override
     public int[] getValidators() {
         return new int[]
-                {R.string.mdkwidget_mdkseekbar_validator_class};
+                {R.string.mdkvalidator_seekbar_class};
     }
 
     @Override
@@ -175,7 +175,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     @Override
     public void setOnSeekBarChangeListener(OnSeekBarChangeListener listener){
         throw new MDKWidgetException(
-                getContext().getString(R.string.mdkwidget_seekbar_litsener_exception)
+                getContext().getString(R.string.mdkwidget_seekbar_listener_exception)
                         + MDKSeekBar.class);
     }
 

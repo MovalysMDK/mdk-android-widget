@@ -17,17 +17,12 @@
 -->
 <resources>
 
-    <!-- validator string config -->
-    <string name="mdkwidget_mdkseekbar_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.SeekBarValidator</string>
-
-    <string name="mdkwidget_seekbar_error">Invalid seekbar value</string>
-
     <!-- rich selector config -->
     <string-array name="mdkwidget_seekbar_richselector_classes" translatable="false">
         <item>com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</item>
     </string-array>
 
-    <string name="mdkwidget_seekbar_litsener_exception">Invalid listener procedure (Mandatory use of registerChangeListener): </string>
-    <string name="mdkwidget_seekbar_max_value_error">Value must be inferior to the max defined into the widget\'s attribute:</string>
+    <!-- Used strings -->
+    <string name="mdkwidget_seekbar_listener_exception">Invalid listener procedure (Mandatory use of registerChangeListener): </string>
 
 </resources>

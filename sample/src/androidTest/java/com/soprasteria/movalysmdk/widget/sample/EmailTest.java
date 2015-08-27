@@ -77,7 +77,7 @@ public class EmailTest {
 
         // check error
         onView(withId(R.id.checkbox_errorText)).check(matches(withConcatText(
-                R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+                R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
 
         SpoonScreenshotAction.perform("email_invalidemail_errorstate");
 
@@ -86,12 +86,12 @@ public class EmailTest {
         SpoonScreenshotAction.perform("email_invalidemail_errorstate_landscape");
 
         onView(withId(R.id.checkbox_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
 
         onView(isRoot()).perform(orientationPortrait());
 
         onView(withId(R.id.checkbox_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
     }
 
     /**

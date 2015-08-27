@@ -50,7 +50,7 @@ public class PhoneWidgetCommand implements WidgetCommand<String, Void> {
 
             context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(sToDial)));
         } else{
-            Toast.makeText(context, context.getResources().getText(R.string.mdkwidget_error_phonecall_notiddle), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getResources().getText(R.string.mdkcommand_phone_error_notiddle), Toast.LENGTH_SHORT).show();
         }
 
         return null;

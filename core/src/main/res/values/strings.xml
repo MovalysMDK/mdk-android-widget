@@ -28,9 +28,6 @@
     <string name="default_date_hint_text">Date</string>
     <string name="default_time_hint_text">Time</string>
 
-    <string name="application_date_format"></string>
-    <string name="application_time_format"></string>
-
     <string name="mdkwidget_error_checkable_validator">Value must be</string>
 
     <string name="mdkwidget_mandatory_error">Must be filled</string>

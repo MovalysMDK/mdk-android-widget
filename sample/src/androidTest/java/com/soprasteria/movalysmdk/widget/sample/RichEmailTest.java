@@ -71,7 +71,7 @@ public class RichEmailTest {
 
         // check error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
 
         SpoonScreenshotAction.perform("richemail_invalidemail_errorstate");
 
@@ -80,12 +80,12 @@ public class RichEmailTest {
         SpoonScreenshotAction.perform("richemail_invalidemail_errorstate_landscape");
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
 
         onView(isRoot()).perform(orientationPortrait());
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEmail_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_email_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
     }
 
     /**

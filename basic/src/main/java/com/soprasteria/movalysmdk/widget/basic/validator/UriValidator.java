@@ -47,7 +47,7 @@ public class UriValidator implements FormFieldValidator<String> {
     /**
      * ERROR_INVALID_URI.
      */
-    public static final int ERROR_INVALID_URI= R.string.mdkwidget_uri_error;
+    public static final int ERROR_INVALID_URI= R.string.mdkvalidator_uri_error_invalid;
 
     /**
      * Attribute for regex pattern.
@@ -56,7 +56,7 @@ public class UriValidator implements FormFieldValidator<String> {
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_mdkuri_validator_class);
+        return context.getResources().getResourceName(R.string.mdkvalidator_uri_class);
     }
 
     @Override
@@ -87,14 +87,14 @@ public class UriValidator implements FormFieldValidator<String> {
                 && !resultPreviousValidator.containsKey(this.getClass().getName())) {
 
             if (this.pattern == null) {
-                String regExp = context.getString(R.string.mdkwidget_simple_uri_regex);
+                String regExp = context.getString(R.string.mdkvalidator_uri_regex);
                 this.pattern = Pattern.compile(regExp);
             }
             Matcher matcher = this.pattern.matcher(objectToValidate);
-            if ((!matcher.find() && R.string.mdkwidget_uri_error != 0)|| objectToValidate.toString().contains(" ")){
+            if ((!matcher.find() && ERROR_INVALID_URI != 0)|| objectToValidate.toString().contains(" ")){
                 mdkMessage = new MDKMessage();
                 mdkMessage.setErrorCode(ERROR_INVALID_URI);
-                String error = context.getString(R.string.mdkwidget_uri_error);
+                String error = context.getString(ERROR_INVALID_URI);
                 mdkMessage.setMessage(error);
             }
         }

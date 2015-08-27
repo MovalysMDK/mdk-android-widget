@@ -36,7 +36,7 @@ public class MDKPhone extends MDKCommandsEditText {
      */
     public MDKPhone(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setSpecificAttributes(InputType.TYPE_CLASS_PHONE, new int[] { R.string.mdkwidget_mdkphone_validator_class });
+        setSpecificAttributes(InputType.TYPE_CLASS_PHONE, new int[]{R.string.mdkvalidator_phone_class});
     }
 
     /**
@@ -47,6 +47,6 @@ public class MDKPhone extends MDKCommandsEditText {
      */
     public MDKPhone(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
-        setSpecificAttributes(InputType.TYPE_CLASS_PHONE, new int[]{R.string.mdkwidget_mdkphone_validator_class});
+        setSpecificAttributes(InputType.TYPE_CLASS_PHONE, new int[]{R.string.mdkvalidator_phone_class});
     }
 }

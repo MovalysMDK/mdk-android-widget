@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Class -->
+    <string name="mdkvalidator_phone_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.validator.PhoneValidator</string>
+
+    <!-- Validator's regular expression -->
+    <string name="mdkvalidator_phone_regex" translatable="false">^\\+?(\\([0-9-\\ ]+\\))?\\ ?[0-9-\\ ]+$</string>
+
+    <!-- Used strings -->
+    <string name="mdkvalidator_phone_error_invalid">Invalid phone number</string>
+
+</resources>

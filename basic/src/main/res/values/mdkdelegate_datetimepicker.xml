@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Used strings -->
+    <string name="application_date_format"></string>
+    <string name="application_time_format"></string>
+
+</resources>

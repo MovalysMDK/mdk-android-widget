@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkvalidator_uri_error_invalid">Adresse uri non valide</string>
+
+</resources>
