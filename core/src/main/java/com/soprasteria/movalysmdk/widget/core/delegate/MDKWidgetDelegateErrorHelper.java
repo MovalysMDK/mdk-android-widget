@@ -28,6 +28,7 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
  * Error processing helper for the class {@link MDKWidgetDelegate}.
  * This class is a singleton.
  */
+// FIXME ? NO SINGLETON!!!
 public class MDKWidgetDelegateErrorHelper {
 
     /**
@@ -56,19 +57,19 @@ public class MDKWidgetDelegateErrorHelper {
 
     /**
      * Set error.
-     * @param rootView the view hosting the error component
+     * @param errorView the error component
      * @param valueObject the delegate value object
      * @param label the label to set
      * @param error the new error
      * @param context the context to use
      */
-    public void setError(View rootView, MDKWidgetDelegateValueObject valueObject, CharSequence label, CharSequence error, Context context) {
+    public void setError(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, CharSequence error, Context context) {
         // empty error and add the CharSequence as only error
-        clearError(rootView, valueObject, label, context);
+        clearError(errorView, valueObject, label, context);
         MDKMessage mdkMessage = new MDKMessage(label, error, MDKMessage.NO_ERROR_CODE);
         MDKMessages messages = new MDKMessages();
         messages.put(MDKWidgetDelegateValueObject.USER_ERROR, mdkMessage);
-        addError(rootView, valueObject, label, messages, context);
+        addError(errorView, valueObject, label, messages, context);
     }
 
     /**
@@ -94,20 +95,18 @@ public class MDKWidgetDelegateErrorHelper {
 
     /**
      * Set error.
-     * @param rootView the view hosting the error component
+     * @param errorView the error component
      * @param valueObject the delegate value object
      * @param label the label to set
      * @param messages the error to set
      * @param context the context to use
      */
-    public void addError(View rootView, MDKWidgetDelegateValueObject valueObject, CharSequence label, MDKMessages messages, Context context) {
-        if (rootView != null) {
-            TextView errorView = (TextView) rootView.findViewById(valueObject.getErrorViewId());
-            if (errorView instanceof MDKErrorWidget){
-                setMdkErrorWidget((MDKErrorWidget) errorView, messages, valueObject, label, context);
-            } else if (errorView != null){
-                errorView.setText(messages.getErrorMessage());
-            }
+    public void addError(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, MDKMessages messages, Context context) {
+        // FIXME : a revoir (au moins les noms)
+        if (errorView instanceof MDKErrorWidget){
+            setMdkErrorWidget((MDKErrorWidget) errorView, messages, valueObject, label, context);
+        } else if (errorView instanceof TextView) {
+            ((TextView)errorView).setText(messages != null ? messages.getErrorMessage() : null);
         }
         valueObject.setError(messages != null);
         View v = valueObject.getView();
@@ -118,19 +117,17 @@ public class MDKWidgetDelegateErrorHelper {
 
     /**
      * Remove error.
-     * @param rootView the view hosting the error component
+     * @param errorView the error component
      * @param valueObject the delegate value object
      * @param label the label to set
      * @param context the context to use
      */
-    public void clearError(View rootView, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
-        if (rootView != null) {
-            TextView errorView = (TextView) rootView.findViewById(valueObject.getErrorViewId());
-            if (errorView instanceof MDKErrorWidget){
-                setMdkErrorWidget((MDKErrorWidget) errorView, null, valueObject, label, context);
-            } else {
-                errorView.setText("");
-            }
+    public void clearError(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
+        // FIXME : a revoir (au moins les noms)
+        if (errorView instanceof MDKErrorWidget){
+            setMdkErrorWidget((MDKErrorWidget) errorView, null, valueObject, label, context);
+        } else if (errorView instanceof TextView) {
+            ((TextView)errorView).setText("");
         }
         valueObject.setError(false);
         View v = valueObject.getView();

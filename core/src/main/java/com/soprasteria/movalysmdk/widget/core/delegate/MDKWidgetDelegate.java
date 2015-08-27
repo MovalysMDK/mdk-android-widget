@@ -112,47 +112,27 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     }
 
     /**
-     * This function finds the root view of the error when this last is shared within components.
-     * @param useRootIdForError use id for error
+     * This function finds the view with the given identifier in the parents of the inner widget.
+     * @param id the identifier to look for
      * @return oView the root view
      */
-    public View findRootView(boolean useRootIdForError) {
-        View oView = null;
+    public View reverseFindViewById(@IdRes int id) {
+        // FIXME : optimiser avec un cache Map<id, weakref<result>>
+
+        View result = null;
+
         View v = this.valueObject.getView();
+
         if (v != null) {
-            if (!useRootIdForError) {
-                if (this.valueObject.getRootViewId() == 0 || this.valueObject.isUseRootIdOnlyForError() ) {
-                    oView = (View) v.getParent();
-                } else {
-                    oView = getMatchRootParent((View) v.getParent());
-                }
-            } else {
-                if (this.valueObject.isUseRootIdOnlyForError() || this.valueObject.getRootViewId() != 0) {
-                    oView = getMatchRootParent((View) v.getParent());
-                } else {
-                    oView = (View) v.getParent();
+            View parent = (View) v.getParent();
+            while (result == null && parent != null) {
+                result = parent.findViewById(id);
+                if (result == null) {
+                    parent = (View) parent.getParent();
                 }
             }
         }
-        return oView;
-    }
-
-    /**
-     * In the view hierarchy, recursively search for the parent's view according the widget root's id.
-     * @param parent the parent
-     * @return View the matched parent
-     */
-    private View getMatchRootParent(View parent) {
-        View viewToReturn ;
-        // Check if the current parent's id matches the widget root's id
-        if (parent.getId() == this.valueObject.getRootViewId()) {
-            viewToReturn = parent;
-        } else {
-            // Search recursively with the parent's view
-            viewToReturn = getMatchRootParent((View) parent.getParent());
-        }
-        // No parent found in the view hierarchy matching the widget root's id
-        return viewToReturn;
+        return result;
     }
 
     /**
@@ -160,7 +140,9 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @param error the new error
      */
     public void setError(CharSequence error) {
-        MDKWidgetDelegateErrorHelper.getInstance().setError(this.findRootView(true), this.valueObject, this.getLabel(), error, this.getContext());
+        if (this.valueObject.getErrorViewId() != 0) {
+            MDKWidgetDelegateErrorHelper.getInstance().setError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), error, this.getContext());
+        }
     }
 
     /**
@@ -168,14 +150,18 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @param messages the error to set
      */
     public void addError(MDKMessages messages) {
-        MDKWidgetDelegateErrorHelper.getInstance().addError(this.findRootView(true), this.valueObject, this.getLabel(), messages, this.getContext());
+        if (this.valueObject.getErrorViewId() != 0) {
+            MDKWidgetDelegateErrorHelper.getInstance().addError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), messages, this.getContext());
+        }
     }
 
     /**
      * Remove error.
      */
     public void clearError() {
-        MDKWidgetDelegateErrorHelper.getInstance().clearError(this.findRootView(true), this.valueObject, this.getLabel(), this.getContext());
+        if (this.valueObject.getErrorViewId() != 0) {
+            MDKWidgetDelegateErrorHelper.getInstance().clearError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), this.getContext());
+        }
     }
 
     @Override
@@ -196,15 +182,6 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
         if (v != null) {
             v.refreshDrawableState();
         }
-    }
-
-    /**
-     * Set the root's identifier of the MDK delegate widget to which it is attached to.
-     * @param rootId the root's id of a view
-     */
-    @Override
-    public void setRootViewId(@IdRes int rootId) {
-        this.valueObject.setRootViewId(rootId);
     }
 
     /**
@@ -232,16 +209,6 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     @Override
     public void setErrorViewId(@IdRes int errorId) {
         this.valueObject.setErrorViewId(errorId);
-    }
-
-    /**
-     * Set true if the root id must only be used for the MDK delegate widget's error.
-     * Only when this last is not in the same layout as the widget.
-     * @param useRootIdOnlyForError true if the error is not in the same layout as the component
-     */
-    @Override
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.valueObject.setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     /**
@@ -340,9 +307,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @return CharSequence the label
      */
     public CharSequence getLabel() {
-        View rootView = this.findRootView(false);
-        if (rootView != null) {
-            TextView labelView = (TextView) rootView.findViewById(this.valueObject.getLabelViewId());
+        if (this.valueObject.getLabelViewId() != 0) {
+            TextView labelView = (TextView) this.reverseFindViewById(this.valueObject.getLabelViewId());
             if (labelView != null) {
                 return labelView.getText();
             }
@@ -355,9 +321,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @param label the new label
      */
     public void setLabel(CharSequence label) {
-        View rootView = this.findRootView(false);
-        if (rootView != null) {
-            TextView labelView = (TextView) rootView.findViewById(this.valueObject.getLabelViewId());
+        if (this.valueObject.getLabelViewId() != 0) {
+            TextView labelView = (TextView) this.reverseFindViewById(this.valueObject.getLabelViewId());
             if (labelView != null) {
                 labelView.setText(label);
             }
@@ -434,13 +399,12 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @param playAnim the play anim toggle
      */
     private void playAnimIfNecessary(TextView labelTextView, int visibility, boolean playAnim) {
-        if(labelTextView != null) {
-            // Set visibility
-            labelTextView.setVisibility(visibility);
-            // Play animation
-            if (playAnim) {
-                playAnimIfVisible(labelTextView, visibility);
-            }
+        // labelTextView should never be null
+        // Set visibility
+        labelTextView.setVisibility(visibility);
+        // Play animation
+        if (playAnim) {
+            playAnimIfVisible(labelTextView, visibility);
         }
     }
 
@@ -452,11 +416,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      */
     public void setLabelVisibility(int visibility, boolean playAnim){
         if(this.valueObject.getLabelViewId() != 0) {
-            View rootView = this.findRootView(true);
-            if (rootView != null) {
-                TextView labelView = (TextView) rootView.findViewById(this.valueObject.getLabelViewId());
-                playAnimIfNecessary(labelView, visibility, playAnim);
-            }
+            TextView labelView = (TextView) this.reverseFindViewById(this.valueObject.getLabelViewId());
+            playAnimIfNecessary(labelView, visibility, playAnim);
         }
     }
 

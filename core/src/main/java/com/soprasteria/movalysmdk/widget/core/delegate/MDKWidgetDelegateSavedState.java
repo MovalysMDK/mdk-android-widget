@@ -39,11 +39,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
      * richSelectors.
      */
     List<String> richSelectors;
-
-    /**
-     * rootViewId.
-     */
-    int rootId;
     /**
      * labelViewId.
      */
@@ -68,11 +63,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
      * uniqueId.
      */
     int uniqueId;
-
-    /**
-     * useRootIdOnlyForError.
-     */
-    boolean useRootIdOnlyForError;
     /**
      * valid.
      */
@@ -106,15 +96,12 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
 
         // TODO : read the richSelectors
 
-        this.rootId = in.readInt();
         this.labelId = in.readInt();
         this.showFloatingLabelAnimId = in.readInt();
         this.hideFloatingLabelAnimId = in.readInt();
         this.helperId = in.readInt();
         this.errorId = in.readInt();
         this.uniqueId = in.readInt();
-
-        this.useRootIdOnlyForError = in.readByte() != 0;
         this.valid = in.readByte() != 0;
         this.mandatory = in.readByte() != 0;
         this.error = in.readByte() != 0;
@@ -129,7 +116,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         this.resHelperId = valueObject.getResHelperId();
         this.richSelectors = valueObject.getRichSelectors();
 
-        this.rootId = valueObject.getRootViewId();
         this.labelId = valueObject.getLabelViewId();
         this.showFloatingLabelAnimId = valueObject.getShowFloatingLabelAnimId();
         this.hideFloatingLabelAnimId = valueObject.getHideFloatingLabelAnimId();
@@ -137,7 +123,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         this.errorId = valueObject.getErrorViewId();
         this.uniqueId = valueObject.getUniqueId();
 
-        this.useRootIdOnlyForError = valueObject.isUseRootIdOnlyForError();
         this.valid = valueObject.isValid();
         this.mandatory = valueObject.isMandatory();
         this.error = valueObject.isError();
@@ -152,7 +137,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         valueObject.setResHelperId(this.resHelperId);
         valueObject.setRichSelectors(this.richSelectors);
 
-        valueObject.setRootViewId(this.rootId);
         valueObject.setLabelViewId(this.labelId);
         valueObject.setShowFloatingLabelAnimId(this.showFloatingLabelAnimId);
         valueObject.setHideFloatingLabelAnimId(this.hideFloatingLabelAnimId);
@@ -160,7 +144,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         valueObject.setErrorViewId(this.errorId);
         valueObject.setUniqueId(this.uniqueId);
 
-        valueObject.setUseRootIdOnlyForError(this.useRootIdOnlyForError);
         valueObject.setValid(this.valid);
         valueObject.setMandatory(this.mandatory);
         valueObject.setError(this.error);
@@ -174,7 +157,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         out.writeInt(this.resHelperId);
         out.writeStringList(this.richSelectors);
 
-        out.writeInt(this.rootId);
         out.writeInt(this.labelId);
         out.writeInt(this.showFloatingLabelAnimId);
         out.writeInt(this.hideFloatingLabelAnimId);
@@ -182,7 +164,6 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         out.writeInt(this.errorId);
         out.writeInt(this.uniqueId);
 
-        out.writeByte((byte) (this.useRootIdOnlyForError ? 1 : 0));
         out.writeByte((byte) (this.valid ? 1 : 0));
         out.writeByte((byte) (this.mandatory ? 1 : 0));
         out.writeByte((byte) (this.error ? 1 : 0));

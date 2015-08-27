@@ -419,11 +419,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             }
             // if there is no valid cached view, try to get it
             if (foundDateView == null) {
-                View rootView = findRootView(true);
-                if (rootView != null) {
-                    foundDateView = rootView.findViewById(this.dateViewId);
-                    this.cachedDateView = new WeakReference<View>(foundDateView);
-                }
+                foundDateView = reverseFindViewById(this.dateViewId);
+                this.cachedDateView = new WeakReference<View>(foundDateView);
             }
         }
 
@@ -445,11 +442,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             }
             // if there is no valid cached view, try to get it
             if (foundTimeView == null) {
-                View rootView = findRootView(true);
-                if (rootView != null) {
-                    foundTimeView = rootView.findViewById(this.timeViewId);
-                    this.cachedTimeView = new WeakReference<View>(foundTimeView);
-                }
+                foundTimeView = reverseFindViewById(this.timeViewId);
+                this.cachedTimeView = new WeakReference<View>(foundTimeView);
             }
         }
 

@@ -72,7 +72,6 @@
             android:layout_height="wrap_content"
             mdk:label="@string/testHintText"
             mdk:errorId="@+id/checkbox_errorText"
-            mdk:rootId="@id/root"
             mdk:mandatory="true" />
 
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
@@ -157,7 +156,6 @@
             android:layout_height="wrap_content"
             mdk:label="@string/testHintText"
             mdk:errorId="@+id/switch_errorText"
-            mdk:rootId="@id/root"
             mdk:mandatory="true" />
 
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView

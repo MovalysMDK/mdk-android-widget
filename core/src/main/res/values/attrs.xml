@@ -57,7 +57,6 @@
         <attr name="errorId" format="reference" />
         <attr name="labelId" format="reference" />
         <attr name="helperId" format="reference" />
-        <attr name="rootId" format="reference" />
         <attr name="qualifier" format="string" />
         <attr name="mandatory" format="boolean" />
         <attr name="hint" format="reference" />

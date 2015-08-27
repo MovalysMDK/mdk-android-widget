@@ -107,8 +107,7 @@
             android:layout_centerHorizontal="true"
             mdk:mode="time"
             mdk:mandatory="true"
-            mdk:errorId="@+id/checkbox_errorText"
-            mdk:rootId="@id/root" />
+            mdk:errorId="@+id/checkbox_errorText"/>
 
         <TextView
             android:id="@+id/checkbox_errorText"
@@ -136,8 +135,7 @@
             mdk:min="2015/05/12 11:52:33"
             mdk:dateHint="@string/dateHint"
             mdk:dateFormat="yyyy/MM/dd HH:mm:ss"
-            mdk:errorId="@+id/errorText2"
-            mdk:rootId="@id/root" />
+            mdk:errorId="@+id/errorText2"/>
 
         <TextView
             android:id="@+id/errorText2"

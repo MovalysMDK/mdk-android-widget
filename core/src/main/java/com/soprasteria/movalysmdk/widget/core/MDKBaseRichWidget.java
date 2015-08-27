@@ -142,11 +142,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
 
             // parse others attributes
             int errorId = typedArray.getResourceId(R.styleable.MDKCommons_errorId, 0);
+            // should override the inner widget only if it has a value
             if (errorId != 0) {
-                int rootId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
-                this.innerWidget.getMDKWidgetDelegate().setRootViewId(rootId);
                 this.innerWidget.getMDKWidgetDelegate().setErrorViewId(errorId);
-                this.innerWidget.getMDKWidgetDelegate().setUseRootIdOnlyForError(true);
             }
 
             boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
@@ -239,11 +237,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     }
 
     @Override
-    public void setRootViewId(@IdRes int rootId) {
-        this.getInnerWidget().getMDKWidgetDelegate().setRootViewId(rootId);
-    }
-
-    @Override
     public void setLabelViewId(@IdRes int labelId) {
         this.getInnerWidget().getMDKWidgetDelegate().setLabelViewId(labelId);
     }
@@ -256,11 +249,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     @Override
     public void setErrorViewId(@IdRes int errorId) {
         this.getInnerWidget().getMDKWidgetDelegate().setErrorViewId(errorId);
-    }
-
-    @Override
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.getInnerWidget().getMDKWidgetDelegate().setUseRootIdOnlyForError(useRootIdOnlyForError);
     }
 
     @Override

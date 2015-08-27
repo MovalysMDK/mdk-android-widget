@@ -58,8 +58,14 @@ public class MDKWidgetDelegateValueObject {
     private List<String> richSelectors;
     /** weakView. */
     private WeakReference<View> weakView;
-    /** Widget root id. */
-    private int rootViewId;
+
+    // FIXME :  not needed
+//    /** Widget root id. */
+//    private int rootViewId;
+//    /** Error root id. */
+//    private int errorRootViewId;
+
+
     /** Widget label id. */
     private int labelViewId;
     /** showFloatingLabelAnimId. */
@@ -72,8 +78,6 @@ public class MDKWidgetDelegateValueObject {
     private int errorViewId;
     /** uniqueId. */
     private int uniqueId;
-    /** useRootIdOnlyForError. */
-    private boolean useRootIdOnlyForError = false;
     /** valid. */
     private boolean valid = false;
     /** mandatory. */
@@ -97,7 +101,6 @@ public class MDKWidgetDelegateValueObject {
 
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
 
-        this.rootViewId = typedArray.getResourceId(R.styleable.MDKCommons_rootId, 0);
         this.labelViewId = typedArray.getResourceId(R.styleable.MDKCommons_labelId, 0);
         this.showFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_showFloatingLabelAnim, 0);
         this.hideFloatingLabelAnimId = typedArray.getResourceId(R.styleable.MDKCommons_hideFloatingLabelAnim, 0);
@@ -190,21 +193,37 @@ public class MDKWidgetDelegateValueObject {
         return this.weakView.get();
     }
 
-    /**
-     * Returns the widget root view identifier.
-     * @return the widget root view identifier
-     */
-    public int getRootViewId() {
-        return rootViewId;
-    }
-
-    /**
-     * Sets the widget root view identifier.
-     * @param rootViewId the value to set
-     */
-    public void setRootViewId(int rootViewId) {
-        this.rootViewId = rootViewId;
-    }
+//    /**
+//     * Returns the widget root view identifier.
+//     * @return the widget root view identifier
+//     */
+//    public int getRootViewId() {
+//        return rootViewId;
+//    }
+//
+//    /**
+//     * Sets the widget root view identifier.
+//     * @param rootViewId the value to set
+//     */
+//    public void setRootViewId(int rootViewId) {
+//        this.rootViewId = rootViewId;
+//    }
+//
+//    /**
+//     * Returns the error root view identifier.
+//     * @return the error root view identifier
+//     */
+//    public int getErrorRootViewId() {
+//        return errorRootViewId;
+//    }
+//
+//    /**
+//     * Sets the error root view identifier.
+//     * @param errorRootViewId the value to set
+//     */
+//    public void setErrorRootViewId(int errorRootViewId) {
+//        this.errorRootViewId = errorRootViewId;
+//    }
 
     /**
      * Returns the widget label view identifier.
@@ -300,22 +319,6 @@ public class MDKWidgetDelegateValueObject {
      */
     public void setUniqueId(int uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-    /**
-     * Returns true if the widget should use the root identifier for errors.
-     * @return true if the widget should use the root identifier for errors
-     */
-    public boolean isUseRootIdOnlyForError() {
-        return useRootIdOnlyForError;
-    }
-
-    /**
-     * Sets whether the widget should use the root identifier for errors.
-     * @param useRootIdOnlyForError the value to set
-     */
-    public void setUseRootIdOnlyForError(boolean useRootIdOnlyForError) {
-        this.useRootIdOnlyForError = useRootIdOnlyForError;
     }
 
     /**

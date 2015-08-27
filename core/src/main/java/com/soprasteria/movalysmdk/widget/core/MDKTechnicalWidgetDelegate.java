@@ -22,13 +22,6 @@ package com.soprasteria.movalysmdk.widget.core;
 public interface MDKTechnicalWidgetDelegate {
 
     /**
-     * Set the root id.
-     * <p>The layout contains the error view.</p>
-     * @param rootId the id of a view
-     */
-    void setRootViewId(int rootId);
-
-    /**
      * Set the label id.
      * <p>The view used as label for this widget.</p>
      * @param labelId the id of a view
@@ -48,14 +41,5 @@ public interface MDKTechnicalWidgetDelegate {
      * @param errorId the id of a view
      */
     void setErrorViewId(int errorId);
-
-    /**
-     * Set if the error view is not in the same layout as the others
-     * widget (used for commons errors in a layout).
-     * <p>If this value is passed to true, the root id must be set as well.</p>
-     * @param useRootIdOnlyForError true if the error is not in the same layout as
-     *                              the other sub widget
-     */
-    void setUseRootIdOnlyForError(boolean useRootIdOnlyForError);
 
 }

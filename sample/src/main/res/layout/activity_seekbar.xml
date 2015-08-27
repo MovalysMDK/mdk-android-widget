@@ -78,8 +78,7 @@
             android:layout_height="wrap_content"
             mdk:maxSeekBarValue="20"
             mdk:errorId="@+id/checkbox_errorText"
-            mdk:primaryCommandId="@+id/buttonCall"
-            mdk:rootId="@id/root" />
+            mdk:primaryCommandId="@+id/buttonCall"/>
 
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
             android:id="@+id/checkbox_errorText"
@@ -128,8 +127,7 @@
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_1"
             mdk:errorId="@+id/commons_error"
-            mdk:maxSeekBarValue="60"
-            mdk:rootId="@+id/root" />
+            mdk:maxSeekBarValue="60"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
             android:id="@+id/mdkRichSeekBar2_withSharedError"
@@ -137,8 +135,7 @@
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_2"
             mdk:errorId="@+id/commons_error"
-            mdk:maxSeekBarValue="50"
-            mdk:rootId="@+id/root" />
+            mdk:maxSeekBarValue="50"/>
 
         <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
             android:id="@+id/commons_error"

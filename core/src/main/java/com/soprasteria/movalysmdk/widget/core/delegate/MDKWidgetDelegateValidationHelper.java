@@ -40,6 +40,7 @@ import java.util.Set;
  * Helper for the validation of a component in the {@link MDKWidgetDelegate}.
  * This class is a singleton.
  */
+// FIXME ? NO SINGLETON!!!
 public class MDKWidgetDelegateValidationHelper {
 
     /**

@@ -130,11 +130,8 @@ public class WidgetCommandDelegate implements ValidationListener {
     private View findCommandView(@IdRes int commandViewId) {
         View commandView = null;
         MDKWidget v = this.weakView.get();
-        if (v instanceof HasDelegate) {
-            View rootView = ((HasDelegate)v).getMDKWidgetDelegate().findRootView(false);
-            if (rootView != null) {
-                commandView = rootView.findViewById(commandViewId);
-            }
+        if (v instanceof HasDelegate && commandViewId != 0) {
+            commandView = ((HasDelegate)v).getMDKWidgetDelegate().reverseFindViewById(commandViewId);
         }
         return commandView;
     }

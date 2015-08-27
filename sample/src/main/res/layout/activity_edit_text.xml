@@ -166,8 +166,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:labelId="@id/myLabel"
-            mdk:errorId="@+id/sharedError"
-            mdk:rootId="@id/root" />
+            mdk:errorId="@+id/sharedError"/>
 
         <TextView
             android:id="@+id/sharedError"
@@ -199,7 +198,6 @@
             android:layout_height="wrap_content"
             mdk:labelId="@id/myLabel2"
             mdk:errorId="@+id/errorText2"
-            mdk:rootId="@id/root"
             mdk:hint="@string/edit_text_hint" />
 
         <TextView
@@ -224,8 +222,7 @@
             android:id="@+id/test_case_7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:errorId="@+id/errorText3"
-            mdk:rootId="@id/root" />
+            mdk:errorId="@+id/errorText3"/>
 
         <TextView
             android:id="@+id/errorText3"
@@ -250,7 +247,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:errorId="@+id/errorText4"
-            mdk:rootId="@id/root"
             mdk:hint="@string/edit_text_hint"/>
 
         <TextView
