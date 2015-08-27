@@ -25,8 +25,8 @@
     <string name="mdkwidget_max_length_error"/>
     <string name="mdkwidget_min_length_error"/>
 
-    <string name="default_date_hint_text">--/--/---</string>
-    <string name="default_time_hint_text">--:--</string>
+    <string name="default_date_hint_text">Date</string>
+    <string name="default_time_hint_text">Time</string>
 
     <string name="application_date_format"></string>
     <string name="application_time_format"></string>
