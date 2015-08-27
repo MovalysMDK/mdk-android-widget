@@ -18,15 +18,16 @@
 -->
 <resources>
 
-
     <style name="Base"/>
+
     <style name="Base.MDKValue"/>
 
     <style name="Base.MDKLabel" parent="TextAppearance.AppCompat.Small"/>
 
     <style name="Base.MDKValue.MDKValueEditText" parent="Widget.AppCompat.EditText">
-        <!-- cutsom code here ... -->
+        <!-- custom code here ... -->
     </style>
+
     <style name="Base.MDKValue.MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"/>
 
     <style name="Base.MDKValue.MDKValuePosition" parent="Widget.AppCompat.EditText"/>
