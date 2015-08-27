@@ -151,7 +151,7 @@ public class PhoneTest {
 
         // Check widgets are mandatory
         onView(withId(R.id.mdkPhone_withErrorAndCommandOutside))
-                .check(matches(withConcatHint(R.string.testHintText, R.string.mandatory_char)));
+                .check(matches(withConcatHint(R.string.testHintText, R.string.mdkrichselector_mandatory_label_char)));
 
         // remove mandatory option on widget
         onView(withId(R.id.mandatoryButton)).perform(click());

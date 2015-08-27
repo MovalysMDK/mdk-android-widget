@@ -23,8 +23,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
-import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
-import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 /**
  * Length validator.
@@ -34,15 +32,15 @@ public class LengthValidator implements FormFieldValidator<String> {
     /**
      * max length error code.
      */
-    private static final int ERROR_MAX_LENGTH = R.string.mdkwidget_max_length_error;
+    private static final int ERROR_MAX_LENGTH = R.string.mdkvalidator_length_error_max;
     /**
      * min length error code.
      */
-    private static final int ERROR_MIN_LENGTH = R.string.mdkwidget_min_length_error;
+    private static final int ERROR_MIN_LENGTH = R.string.mdkvalidator_length_error_min;
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_mdkedittext_lengthvalidator_class);
+        return context.getResources().getResourceName(R.string.mdkvalidator_length_class);
     }
 
     @Override

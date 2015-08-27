@@ -18,17 +18,7 @@
 -->
 <resources>
 
-    <string name="mdkwidget_mandatory_selector_class" translatable="false">com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</string>
-    <string name="mandatory_char" translatable="false">" (*)"</string>
-    <string name="error_prefix" translatable="false">"42 /!\\ "</string>
-
-    <string name="mdkwidget_max_length_error"/>
-    <string name="mdkwidget_min_length_error"/>
-
     <string name="default_date_hint_text">Date</string>
     <string name="default_time_hint_text">Time</string>
 
-    <string name="mdkwidget_error_checkable_validator">Value must be</string>
-
-    <string name="mdkwidget_mandatory_error">Must be filled</string>
 </resources>

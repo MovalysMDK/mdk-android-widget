@@ -67,7 +67,7 @@ public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate {
      * @return the specific validators for Checkable widgets
      */
     public int[] getValidators() {
-        return new int[] { R.string.mdkwidget_checkable_validator_class };
+        return new int[] { R.string.mdkvalidator_checkable_class};
     }
 
     /**

@@ -39,12 +39,12 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     /**
      * ERROR_MANDATORY.
      */
-    public static final int ERROR_MANDATORY = R.string.mdkwidget_mandatory_error;
+    public static final int ERROR_MANDATORY = R.string.mdkvalidator_mandatory_error_invalid;
 
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_mdkedittext_validator_class);
+        return context.getResources().getResourceName(R.string.mdkvalidator_mandatory_class);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
 
             mdkMessage = new MDKMessage();
             mdkMessage.setErrorCode(ERROR_MANDATORY);
-            String error = context.getString(R.string.mdkwidget_mandatory_error);
+            String error = context.getString(ERROR_MANDATORY);
             mdkMessage.setMessage(error);
         }
 

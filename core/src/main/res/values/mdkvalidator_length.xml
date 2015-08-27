@@ -18,7 +18,11 @@
 -->
 <resources>
 
-    <!-- Chaines utilisees -->
-    <string name="mdkcommand_email_label_chooser">Choisir l\'application mail à exécuter</string>
+    <!-- Class -->
+    <string name="mdkvalidator_length_class" translatable="false">com.soprasteria.movalysmdk.widget.core.validator.LengthValidator</string>
+
+    <!-- Used strings -->
+    <string name="mdkvalidator_length_error_max"/>
+    <string name="mdkvalidator_length_error_min"/>
 
 </resources>

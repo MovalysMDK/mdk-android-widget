@@ -147,11 +147,11 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name with the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withHintLabel(R.string.edit_text_label, R.string.mandatory_char)));
+                .check(matches(withHintLabel(R.string.edit_text_label, R.string.mdkrichselector_mandatory_label_char)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_mandatory_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid)));
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
@@ -262,11 +262,11 @@ public class RichEditTextTest {
 
         // Check that the label got the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withHintLabel(R.string.edit_text_hint, R.string.mandatory_char)));
+                .check(matches(withHintLabel(R.string.edit_text_hint, R.string.mdkrichselector_mandatory_label_char)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_mandatory_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid)));
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))

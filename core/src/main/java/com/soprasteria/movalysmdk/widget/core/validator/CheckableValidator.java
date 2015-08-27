@@ -38,11 +38,11 @@ public class CheckableValidator implements FormFieldValidator<String> {
     /**
      * Mandatory value R.string.checkable_value_error error.
      */
-    public static final Integer ERROR_VALUE = R.string.mdkwidget_error_checkable_validator;
+    public static final Integer ERROR_VALUE = R.string.mdkvalidator_checkable_error_invalid;
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_checkable_validator_class);
+        return context.getResources().getResourceName(R.string.mdkvalidator_checkable_class);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class CheckableValidator implements FormFieldValidator<String> {
                 && !String.valueOf(mdkParameter.getBoolean(R.attr.mandatory_value)).equals(objectToValidate)) {
             mdkMessage = new MDKMessage();
             mdkMessage.setErrorCode(ERROR_VALUE);
-            String error = context.getString(R.string.mdkwidget_error_checkable_validator) + " " + mdkParameter.getBoolean(R.attr.mandatory_value);
+            String error = context.getString(ERROR_VALUE) + " " + mdkParameter.getBoolean(R.attr.mandatory_value);
             mdkMessage.setMessage(error);
 
             resultPreviousValidator.put(this.getClass().getName(), mdkMessage);

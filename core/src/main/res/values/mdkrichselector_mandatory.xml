@@ -18,7 +18,10 @@
 -->
 <resources>
 
-    <!-- Chaines utilisees -->
-    <string name="mdkcommand_email_label_chooser">Choisir l\'application mail à exécuter</string>
+    <!-- Class -->
+    <string name="mdkrichselector_mandatory_class" translatable="false">com.soprasteria.movalysmdk.widget.core.selector.SimpleMandatoryRichSelector</string>
+
+    <!-- Used strings -->
+    <string name="mdkrichselector_mandatory_label_char" translatable="false">" (*)"</string>
 
 </resources>

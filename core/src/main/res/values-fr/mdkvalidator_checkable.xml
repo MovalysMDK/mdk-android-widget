@@ -19,6 +19,6 @@
 <resources>
 
     <!-- Chaines utilisees -->
-    <string name="mdkcommand_email_label_chooser">Choisir l\'application mail à exécuter</string>
+    <string name="mdkvalidator_checkable_error_invalid">La valeur doit être</string>
 
 </resources>

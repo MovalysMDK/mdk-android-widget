@@ -68,7 +68,7 @@ public class ValidatorTest {
 
         // check error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_withCustomValidator))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkwidget_mandatory_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid)));
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_nomandatory_withCustomValidator))))
                 .check(matches(withText(isEmptyOrNullString())));

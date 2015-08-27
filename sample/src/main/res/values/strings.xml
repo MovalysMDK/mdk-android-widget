@@ -133,4 +133,6 @@
     <string name="true_text">true</string>
     <string name="false_text">false</string>
 
+    <string name="error_prefix" translatable="false">"42 /!\\ "</string>
+
 </resources>

@@ -39,8 +39,8 @@ public class SimpleMandatoryRichSelector implements RichSelector {
             // Check if the view is a hint
             if (view instanceof HasHint) {
                 CharSequence hint = ((HasHint) view).getHint();
-                if (hint != null && !hint.toString().endsWith(view.getContext().getString(R.string.mandatory_char))){
-                    hint = hint.toString() + view.getContext().getString(R.string.mandatory_char);
+                if (hint != null && !hint.toString().endsWith(view.getContext().getString(R.string.mdkrichselector_mandatory_label_char))){
+                    hint = hint.toString() + view.getContext().getString(R.string.mdkrichselector_mandatory_label_char);
                     ((HasHint) view).setHint(hint);
                 }
             }
@@ -49,8 +49,8 @@ public class SimpleMandatoryRichSelector implements RichSelector {
             CharSequence hint = ((HasHint) view).getHint();
 
             if (hint != null &&
-                    hint.toString().endsWith(view.getContext().getString(R.string.mandatory_char))) {
-                hint = hint.subSequence(0, hint.length() - view.getContext().getString(R.string.mandatory_char).length());
+                    hint.toString().endsWith(view.getContext().getString(R.string.mdkrichselector_mandatory_label_char))) {
+                hint = hint.subSequence(0, hint.length() - view.getContext().getString(R.string.mdkrichselector_mandatory_label_char).length());
             }
 
             ((HasHint) view).setHint(hint);

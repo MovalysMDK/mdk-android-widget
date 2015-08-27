@@ -189,7 +189,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
 
     @Override
     public int[] getValidators() {
-        int[] basicValidators = {R.string.mdkwidget_mdkedittext_validator_class};
+        int[] basicValidators = {R.string.mdkvalidator_mandatory_class};
         int[] validators;
 
         if (specificValidators!= null && specificValidators.length > 0) {

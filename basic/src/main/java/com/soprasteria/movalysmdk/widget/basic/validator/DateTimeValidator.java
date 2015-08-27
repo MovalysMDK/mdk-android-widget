@@ -36,7 +36,7 @@ public class DateTimeValidator implements FormFieldValidator<Date> {
     /**
      * Constant.
      */
-    public static final int ERROR_MANDATORY = R.string.mdkwidget_mandatory_error;
+    public static final int ERROR_MANDATORY = R.string.mdkvalidator_mandatory_error_invalid;
 
     @Override
     public String getIdentifier(Context context) {

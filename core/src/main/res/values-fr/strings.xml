@@ -18,9 +18,6 @@
 -->
 <resources>
 
-    <string name="mdkwidget_error_checkable_validator">La valeur doit être</string>
-    <string name="mdkwidget_mandatory_error">Ce champ est obligatoire</string>
-
     <string name="default_date_hint_text">Date</string>
     <string name="default_time_hint_text">Heure</string>
 

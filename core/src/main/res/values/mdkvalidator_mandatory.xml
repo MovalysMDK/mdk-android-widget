@@ -18,7 +18,10 @@
 -->
 <resources>
 
-    <!-- Chaines utilisees -->
-    <string name="mdkcommand_email_label_chooser">Choisir l\'application mail à exécuter</string>
+    <!-- Class -->
+    <string name="mdkvalidator_mandatory_class" translatable="false">com.soprasteria.movalysmdk.widget.core.validator.MandatoryValidator</string>
+
+    <!-- Used strings -->
+    <string name="mdkvalidator_mandatory_error_invalid">Must be filled</string>
 
 </resources>
