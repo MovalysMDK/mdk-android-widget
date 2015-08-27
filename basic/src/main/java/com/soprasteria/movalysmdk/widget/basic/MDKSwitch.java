@@ -16,10 +16,10 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.Switch;
 
+import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCheckableWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -28,7 +28,6 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
@@ -39,11 +38,8 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  */
 public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLabel, HasChecked, HasDelegate, HasChangeListener {
 
-    /** The MDKWidgetDelegate handling the component logic. */
-    protected MDKWidgetDelegate mdkWidgetDelegate;
-
-    /** change listener. */
-    private MDKChangeListenerDelegate mdkListenerDelegate;
+    /** The MDKCheckableWidgetDelegate handling the component logic. */
+    protected MDKCheckableWidgetDelegate mdkWidgetDelegate;
 
     /**
      * Constructor.
@@ -76,31 +72,18 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
      * @param attrs attributes set
      */
     private final void init(Context context, AttributeSet attrs) {
-
-        // Parse the MDKCommons:label attribute
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
-        int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
-        if (resLabelId != 0) {
-            this.setText(resLabelId);
-        }
-        typedArray.recycle();
-
-        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
-
-        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
+        this.mdkWidgetDelegate = new MDKCheckableWidgetDelegate(this, attrs);
     }
 
     @Override
     public int[] getValidators() {
-        return new int[] { R.string.mdkwidget_checkable_validator_class };
+        return this.mdkWidgetDelegate.getValidators();
     }
 
     @Override
     public void setChecked(boolean checked) {
         super.setChecked(checked);
-        if (this.mdkListenerDelegate != null) {
-            this.mdkListenerDelegate.notifyListeners();
-        }
+        this.mdkWidgetDelegate.doOnChecked();
     }
 
     /* technical delegate methods */
@@ -166,21 +149,21 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
 
     @Override
     public boolean validate() {
-        return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
+        return this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
     }
 
     @Override
     public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return this.getMDKWidgetDelegate().validate(true, validationMode);
+        return this.mdkWidgetDelegate.validate(true, validationMode);
     }
 
     @Override
     public void registerChangeListener(ChangeListener listener) {
-        this.mdkListenerDelegate.registerChangeListener(listener);
+        this.mdkWidgetDelegate.registerChangeListener(listener);
     }
 
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
-        this.mdkListenerDelegate.unregisterChangeListener(listener);
+        this.mdkWidgetDelegate.unregisterChangeListener(listener);
     }
 }
