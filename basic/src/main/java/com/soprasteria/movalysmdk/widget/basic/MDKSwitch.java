@@ -83,7 +83,9 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
     @Override
     public void setChecked(boolean checked) {
         super.setChecked(checked);
-        this.mdkWidgetDelegate.doOnChecked();
+        if (this.mdkWidgetDelegate != null) {
+            this.mdkWidgetDelegate.doOnChecked();
+        }
     }
 
     /* technical delegate methods */

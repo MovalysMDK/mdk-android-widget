@@ -83,7 +83,9 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, HasVali
     @Override
     public void setChecked(boolean checked) {
         super.setChecked(checked);
-        this.mdkWidgetDelegate.doOnChecked();
+        if (this.mdkWidgetDelegate != null) {
+            this.mdkWidgetDelegate.doOnChecked();
+        }
     }
 
     /* technical delegate methods */
