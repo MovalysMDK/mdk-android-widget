@@ -28,6 +28,7 @@
         <item name="mdkValuePositionStyle">@style/MDKValuePosition</item>
         <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
         <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
+        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
         <item name="mdkValueStyle">@style/MDKValue</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
@@ -71,7 +72,6 @@
     <style name="MDKValuePosition" parent="Base.MDKValue.MDKValuePosition"/>
     <style name="MDKValueCheckBox" parent="Base.MDKValue.MDKValueCheckBox"/>
     <style name="MDKValueSwitch" parent="Base.MDKValue.MDKValueSwitch"/>
-    <style name="MDKValueSeekBar" parent="Base.MDKValue.MDKValueSeekBar"/>
     <style name="MDKValue" parent="Base.MDKValue.TextView"/>
 
     <style name="MDKError" parent="Base.MDKError"/>
@@ -83,7 +83,7 @@
     <style name="MDKRichLayout" parent="Base.MDKValue"/>
 
     <!-- MDKSeekBar Style-->
-    <style name="mdkSeekBarStyle">
+    <style name="MDKValueSeekBar" parent="Base.MDKValue.MDKValueSeekBar">
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="android:minHeight">20dip</item>
