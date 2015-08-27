@@ -31,110 +31,58 @@ import java.util.List;
  * Object storing values processed by the class {@link MDKWidgetDelegate}.
  */
 public class MDKWidgetDelegateValueObject {
-
     /**
-     * ADDED_MDK_STATE.
-     * <p>
-     * Number of state handle by the mdk :
-     * <ul>
-     * <li>R.attr.state_mandatory</li>
-     * <li>R.attr.state_valid</li>
-     * <li>R.attr.state_error</li>
-     * </ul>
-     * </p>
+     * Number of state handle by the mdk :<br/>
+     * R.attr.state_mandatory<br/>
+     * R.attr.state_valid<br/>
+     * R.attr.state_error<br/>
      */
     protected static final int ADDED_MDK_STATE = 3;
-    /**
-     * MANDATORY_VALID_STATE.
-     */
+    /** MANDATORY_VALID_STATE. */
     static final int[] MANDATORY_VALID_STATE = {R.attr.state_valid, R.attr.state_mandatory};
-    /**
-     * MANDATORY_ERROR_STATE.
-     */
+    /** MANDATORY_ERROR_STATE. */
     static final int[] MANDATORY_ERROR_STATE = {R.attr.state_error, R.attr.state_mandatory};
-    /**
-     * MANDATORY_STATE.
-     */
+    /** MANDATORY_STATE. */
     static final int[] MANDATORY_STATE = {R.attr.state_mandatory};
-    /**
-     * VALID_STATE.
-     */
+    /** VALID_STATE. */
     static final int[] VALID_STATE = {R.attr.state_valid};
-    /**
-     * ERROR_STATE.
-     */
+    /** ERROR_STATE. */
     static final int[] ERROR_STATE = {R.attr.state_error};
-    /**
-     * user error key.
-     */
+    /** user error key. */
     static final String USER_ERROR = "user_error";
-    /**
-     * Component qualifier.
-     */
+    /** Component qualifier. */
     private String qualifier;
-    /**
-     * Resource id of the helper.
-     */
+    /** Resource id of the helper. */
     private int resHelperId;
-    /**
-     * richSelectors.
-     */
+    /** richSelectors. */
     private List<String> richSelectors;
-    /**
-     * weakView.
-     */
+    /** weakView. */
     private WeakReference<View> weakView;
-    /**
-     * Widget root id.
-     */
+    /** Widget root id. */
     private int rootViewId;
-    /**
-     * Widget label id.
-     */
+    /** Widget label id. */
     private int labelViewId;
-    /**
-     * showFloatingLabelAnimId.
-     */
+    /** showFloatingLabelAnimId. */
     private int showFloatingLabelAnimId;
-    /**
-     * hideFloatingLabelAnimId.
-     */
+    /** hideFloatingLabelAnimId. */
     private int hideFloatingLabelAnimId;
-    /**
-     * helperViewId.
-     */
+    /** helperViewId. */
     private int helperViewId;
-    /**
-     * errorViewId.
-     */
+    /** errorViewId. */
     private int errorViewId;
-    /**
-     * uniqueId.
-     */
+    /** uniqueId. */
     private int uniqueId;
-    /**
-     * useRootIdOnlyForError.
-     */
+    /** useRootIdOnlyForError. */
     private boolean useRootIdOnlyForError = false;
-    /**
-     * valid.
-     */
+    /** valid. */
     private boolean valid = false;
-    /**
-     * mandatory.
-     */
+    /** mandatory. */
     private boolean mandatory = false;
-    /**
-     * error.
-     */
+    /** error. */
     private boolean error = false;
-    /**
-     * Command state change listener, triggered when widget is validate.
-     */
+    /** Command state change listener, triggered when widget is validate. */
     private List<ValidationListener> validationListeners;
-    /**
-     * attribute map for validator.
-     */
+    /** attribute map for validator. */
     private MDKAttributeSet attributesMap;
 
     /**
@@ -144,10 +92,7 @@ public class MDKWidgetDelegateValueObject {
      */
     public void initialize(View view, AttributeSet attrs) {
         this.weakView = new WeakReference<View>(view);
-
         this.richSelectors = new ArrayList<>();
-
-
         this.validationListeners = new ArrayList<>();
 
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
@@ -167,7 +112,6 @@ public class MDKWidgetDelegateValueObject {
         for (String selectorKey : selectorKeys) {
             this.richSelectors.add(selectorKey);
         }
-
         typedArray.recycle();
 
         this.attributesMap = new MDKAttributeSet(attrs);
