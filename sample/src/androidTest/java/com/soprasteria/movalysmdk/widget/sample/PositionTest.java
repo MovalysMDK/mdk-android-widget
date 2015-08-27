@@ -74,7 +74,7 @@ public class PositionTest {
 
         // check mandatory error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkposition_mandatory_error)));
+                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_position_error_validation)));
 
         // remove mandatory option on widget
         onView(withId(R.id.mandatoryButton)).perform(click());

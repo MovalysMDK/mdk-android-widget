@@ -153,7 +153,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(oFine, true));
             this.onCurrentLocationChange();
         } else {
-            Toast.makeText(this.getContext(), this.getContext().getString(R.string.alert_gps_disabled), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(), this.getContext().getString(R.string.mdkcommand_position_error_gps_disabled), Toast.LENGTH_LONG).show();
         }
 
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {

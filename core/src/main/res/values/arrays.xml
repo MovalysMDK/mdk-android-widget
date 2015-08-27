@@ -22,7 +22,7 @@
     </integer-array>
 
     <string-array name="selectors" translatable="false">
-        <item>mdkwidget_mandatory_selector_class</item>
+        <item>mdkrichselector_mandatory_class</item>
     </string-array>
 
 </resources>

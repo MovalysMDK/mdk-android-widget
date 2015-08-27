@@ -42,6 +42,10 @@
         mdk:showFloatingLabelAnim="@anim/fwk_customcomponent_floating_label_show"
         mdk:hideFloatingLabelAnim="@anim/fwk_customcomponent_floating_label_hide"/>
 
+
+
+    </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,8 +54,6 @@
         android:layout_marginStart="20dp"
         android:layout_below="@id/component_internal"
         android:id="@id/component_label"/>
-
-    </RelativeLayout>
 
     <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
         android:layout_width="wrap_content"

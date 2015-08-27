@@ -19,16 +19,16 @@
 <resources>
 
     <string-array name="validatorKeys" translatable="false">
-        <item>mdkwidget_mdkedittext_validator_class</item>
-        <item>mdkwidget_mdkuri_validator_class</item>
-        <item>mdkwidget_mdkedittext_lengthvalidator_class</item>
-        <item>mdkwidget_mdkdatetime_validator_class</item>
-        <item>mdkwidget_mdkdatetimerange_validator_class</item>
-        <item>mdkwidget_mdkemail_validator_class</item>
-        <item>mdkwidget_mdkphone_validator_class</item>
-        <item>mdkwidget_mdkseekbar_validator_class</item>
-        <item>mdkwidget_checkable_validator_class</item>
-        <item>mdkwidget_mdkposition_validator_class</item>
+        <item>mdkvalidator_mandatory_class</item>
+        <item>mdkvalidator_uri_class</item>
+        <item>mdkvalidator_length_class</item>
+        <item>mdkvalidator_datetime_class</item>
+        <item>mdkvalidator_datetimerange_class</item>
+        <item>mdkvalidator_email_class</item>
+        <item>mdkvalidator_phone_class</item>
+        <item>mdkvalidator_seekbar_class</item>
+        <item>mdkvalidator_checkable_class</item>
+        <item>mdkvalidator_position_class</item>
     </string-array>
 
 </resources>

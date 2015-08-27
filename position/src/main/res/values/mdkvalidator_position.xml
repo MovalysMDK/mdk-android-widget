@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Class -->
+    <string name="mdkvalidator_position_class" translatable="false">com.soprasteria.movalysmdk.widget.position.validator.PositionValidator</string>
+
+    <!-- Used strings -->
+    <string name="mdkvalidator_position_error_validation">Latitude and longitude must be filled</string>
+
+</resources>

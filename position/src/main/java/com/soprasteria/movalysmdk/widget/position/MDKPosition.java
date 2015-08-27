@@ -95,7 +95,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public int[] getValidators() {
-        return new int[] {R.string.mdkwidget_mdkposition_validator_class};
+        return new int[] {R.string.mdkvalidator_position_class};
     }
 
     @Override

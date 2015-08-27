@@ -19,7 +19,7 @@
 <resources>
 
     <string-array name="myCustomSelectors" translatable="false">
-        <item>mdkwidget_mandatory_selector_class</item>
+        <item>mdkrichselector_mandatory_class</item>
         <item>custom_mandatory_bold_selector</item>
     </string-array>
 

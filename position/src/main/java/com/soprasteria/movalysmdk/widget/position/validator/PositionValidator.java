@@ -21,17 +21,17 @@ import com.soprasteria.movalysmdk.widget.position.R;
  * message R.string.mdkposition_mandatory_error if the value is empty and the
  * widget is mandatory.
  */
-public class MultiMandatoryValidator implements FormFieldValidator<String[]> {
+public class PositionValidator implements FormFieldValidator<String[]> {
 
     /**
      * ERROR_MANDATORY.
      */
-    public static final int ERROR_MANDATORY = R.string.mdkposition_mandatory_error;
+    public static final int ERROR_MANDATORY = R.string.mdkvalidator_position_error_validation;
 
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.mdkwidget_mdkposition_validator_class);
+        return context.getResources().getResourceName(R.string.mdkvalidator_position_class);
     }
 
     @Override

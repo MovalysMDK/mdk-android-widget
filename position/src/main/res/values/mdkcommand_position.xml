@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Used strings -->
+    <string name="mdkcommand_position_error_gps_disabled">GPS antenna is deactivated, positioning will be less precise&#8230;</string>
+
+</resources>

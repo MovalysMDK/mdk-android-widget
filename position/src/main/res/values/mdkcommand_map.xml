@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Used string -->
+    <string name="mdkcommand_map_error_map_missing">This feature requires a map displaying application. Please install such an application.</string>
+
+</resources>

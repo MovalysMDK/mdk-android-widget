@@ -52,7 +52,7 @@ public class MapWidgetCommand implements WidgetCommand<Location, Void> {
         if (!info.isEmpty()) {
             context.startActivity(mapIntent);
         } else {
-            Toast.makeText(context, context.getString(R.string.alert_map_missing), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.mdkcommand_map_error_map_missing), Toast.LENGTH_SHORT).show();
         }
     }
 }

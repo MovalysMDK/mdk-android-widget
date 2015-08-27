@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="mdkposition_mandatory_error">Latitude and longitude must be filled</string>
     <string name="latitude_hint">Latitude</string>
     <string name="longitude_hint">Longitude</string>
-    <string name="alert_gps_disabled">GPS antenna is deactivated, positioning will be less precise&#8230;</string>
-    <string name="alert_connection_disable">No connexion found</string>
-    <string name="alert_map_missing">This feature requires a map displaying application. Please install such an application.</string>
 
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkposition_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand</string>
     <string name="mdkwidget_mdkposition_secondary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.MapWidgetCommand</string>
-
-    <!-- validator -->
-    <string name="mdkwidget_mdkposition_validator_class" translatable="false">com.soprasteria.movalysmdk.widget.position.validator.MultiMandatoryValidator</string>
 
 </resources>
