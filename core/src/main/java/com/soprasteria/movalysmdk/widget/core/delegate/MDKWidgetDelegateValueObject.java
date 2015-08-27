@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class MDKWidgetDelegateValueObject {
     /**
-     * Number of state handle by the mdk :<br/>
+     * Number of state handle by the mdk.<br/>
      * R.attr.state_mandatory<br/>
      * R.attr.state_valid<br/>
      * R.attr.state_error<br/>
