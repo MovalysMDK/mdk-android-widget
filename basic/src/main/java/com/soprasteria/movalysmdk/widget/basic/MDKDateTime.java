@@ -26,6 +26,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
@@ -54,7 +55,7 @@ import java.util.Date;
  *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasChangeListener {
+public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkWidgetDelegate;
@@ -203,6 +204,11 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
         if (this.mdkWidgetDelegate != null) {
             return this.mdkWidgetDelegate.superOnCreateDrawableState(extraSpace);
         } else {
@@ -241,6 +247,16 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     @Override
     public void clearError() {
         this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
     }
 
     @Override

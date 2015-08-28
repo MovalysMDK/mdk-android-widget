@@ -106,4 +106,18 @@ public class DateActivity extends AppCompatActivity {
         this.richDateTimeWithLabelAndMandatoryAndMinDate.setEnabled(!this.richDateTimeWithLabelAndMandatoryAndMinDate.isEnabled());
         this.richDateTimeWithLabelAndMandatoryAndHints.setEnabled(!this.richDateTimeWithLabelAndMandatoryAndHints.isEnabled());
     }
+
+    /**
+     * Switch on/off mandatory state of all mdk widgets.
+     * @param view the view
+     */
+    public void mandatory(View view) {
+        this.richDateTimeWithLabelAndMandatory.setMandatory(!this.richDateTimeWithLabelAndMandatory.isMandatory());
+        this.richDateTimeWithLabelAndNotMandatory.setMandatory(!this.richDateTimeWithLabelAndNotMandatory.isMandatory());
+        this.richDateWithLabelAndMandatory.setMandatory(!this.richDateWithLabelAndMandatory.isMandatory());
+        this.richTimeWithLabelAndMandatory.setMandatory(!this.richTimeWithLabelAndMandatory.isMandatory());
+        this.richDateTimeWithLabelAndMandatoryAndSharedError.setMandatory(!this.richDateTimeWithLabelAndMandatoryAndSharedError.isMandatory());
+        this.richDateTimeWithLabelAndMandatoryAndMinDate.setMandatory(!this.richDateTimeWithLabelAndMandatoryAndMinDate.isMandatory());
+        this.richDateTimeWithLabelAndMandatoryAndHints.setMandatory(!this.richDateTimeWithLabelAndMandatoryAndHints.isMandatory());
+    }
 }
