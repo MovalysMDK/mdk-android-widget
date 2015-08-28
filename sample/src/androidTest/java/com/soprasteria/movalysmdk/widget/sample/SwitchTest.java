@@ -48,29 +48,13 @@ import static org.hamcrest.Matchers.notNullValue;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class CheckableTest {
+public class SwitchTest {
 
     /**
      * Activity used for this tests.
      */
     @Rule
-    public ActivityTestRule<CheckableActivity> mActivityRule = new ActivityTestRule<>(CheckableActivity.class);
-
-    /**
-     * Check MDK checkbox widget behaviour with invalid checkable format.
-     */
-    @Test
-    public void testCheckBox() {
-        testCheckable(R.id.mdkCheckbox_withErrorAndCommandOutside, false, 1);
-    }
-
-    /**
-     * Check MDK Rich checkbox widget behaviour with invalid checkable format.
-     */
-    @Test
-    public void testRichCheckBox() {
-        testCheckable(R.id.mdkRichCheckbox_withLabelAndError, true, 2);
-    }
+    public ActivityTestRule<SwitchActivity> mActivityRule = new ActivityTestRule<>(SwitchActivity.class);
 
     /**
      * Check MDK switch widget behaviour with invalid checkable format.
@@ -160,22 +144,6 @@ public class CheckableTest {
         } else {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
         }
-    }
-
-    /**
-     * Check MDK checkbox widget behaviour when this one is enabled and disabled.
-     */
-    @Test
-    public void testDisabledCheckBox() {
-        testDisabledCheckable(R.id.mdkCheckbox_withErrorAndCommandOutside, false, 1);
-    }
-
-    /**
-     * Check MDK rich checkbox widget behaviour when this one is enabled and disabled.
-     */
-    @Test
-    public void testDisabledRichCheckBox() {
-        testDisabledCheckable(R.id.mdkRichCheckbox_withLabelAndError, true, 2);
     }
 
     /**
@@ -279,22 +247,6 @@ public class CheckableTest {
         } else {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
         }
-    }
-
-    /**
-     * Check MDK checkbox widget behaviour when this one is checked and disabled.
-     */
-    @Test
-    public void testDisabledCheckedCheckBox() {
-        testDisabledCheckedCheckable(R.id.mdkCheckbox_withErrorAndCommandOutside, false, 1);
-    }
-
-    /**
-     * Check MDK rich checkbox widget behaviour when this one is checked and disabled.
-     */
-    @Test
-    public void testDisabledCheckedRichCheckBox() {
-        testDisabledCheckedCheckable(R.id.mdkRichCheckbox_withLabelAndError, true, 2);
     }
 
     /**

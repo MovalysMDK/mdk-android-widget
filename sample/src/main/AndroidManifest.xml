@@ -61,8 +61,16 @@
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
         <activity
-            android:name=".CheckableActivity"
-            android:label="@string/checkable_activity"
+            android:name=".CheckboxActivity"
+            android:label="@string/checkbox_activity"
+            android:parentActivityName=".ListWidgetActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
+            android:name=".SwitchActivity"
+            android:label="@string/switch_activity"
             android:parentActivityName=".ListWidgetActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -25,7 +25,8 @@
     <string name="email_activity">Email</string>
     <string name="phone_activity">Phone</string>
     <string name="position_activity">Position</string>
-    <string name="checkable_activity">CheckBoxes and Switches</string>
+    <string name="checkbox_activity">CheckBoxes</string>
+    <string name="switch_activity">Switches</string>
     <string name="title_activity_edit_text">EditText</string>
     <string name="title_activity_validator">Validator</string>
     <string name="title_activity_rich_selector">Rich Selector</string>
