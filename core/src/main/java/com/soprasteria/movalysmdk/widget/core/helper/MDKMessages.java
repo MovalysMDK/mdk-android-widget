@@ -45,6 +45,7 @@ public class MDKMessages implements Parcelable {
     protected MDKMessages(Parcel in) {
         componentId = in.readInt();
         componentLabel = in.readString();
+        messagesMap = new LinkedHashMap<>();
         in.readMap(messagesMap, null);
     }
 

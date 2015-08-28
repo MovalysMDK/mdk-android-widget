@@ -59,7 +59,6 @@ public class MDKWidgetDelegateValueObject {
     /** weakView. */
     private WeakReference<View> weakView;
 
-
     /** Widget label id. */
     private int labelViewId;
     /** showFloatingLabelAnimId. */
