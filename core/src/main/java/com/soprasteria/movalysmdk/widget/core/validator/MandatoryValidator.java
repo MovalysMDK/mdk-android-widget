@@ -20,7 +20,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
@@ -77,7 +77,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
             && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
 
             mdkMessage = new MDKMessage();
-            mdkMessage.setErrorCode(ERROR_MANDATORY);
+            mdkMessage.setMessageCode(ERROR_MANDATORY);
             String error = context.getString(ERROR_MANDATORY);
             mdkMessage.setMessage(error);
         }

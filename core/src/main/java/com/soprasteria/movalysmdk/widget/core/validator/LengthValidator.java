@@ -20,7 +20,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
@@ -72,14 +72,14 @@ public class LengthValidator implements FormFieldValidator<String> {
                 if ( objectToValidate.length() > mdkParameter.getInteger(R.attr.maxLength) ) {
                     // error
                     mdkMessage = new MDKMessage();
-                    mdkMessage.setErrorCode(ERROR_MAX_LENGTH);
+                    mdkMessage.setMessageCode(ERROR_MAX_LENGTH);
                     mdkMessage.setMessageType(MDKMessage.ERROR_TYPE);
                     String error = objectToValidate.length() +"/"+ mdkParameter.getInteger(R.attr.maxLength) ;
                     mdkMessage.setMessage(error);
                 } else {
                     // message ex:"2/6"
                     mdkMessage = new MDKMessage();
-                    mdkMessage.setErrorCode(ERROR_MAX_LENGTH);
+                    mdkMessage.setMessageCode(ERROR_MAX_LENGTH);
                     mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
                     String error = objectToValidate.length() +"/"+ mdkParameter.getInteger(R.attr.maxLength) ;
                     mdkMessage.setMessage(error);
@@ -91,14 +91,14 @@ public class LengthValidator implements FormFieldValidator<String> {
                 if ( objectToValidate.length() < mdkParameter.getInteger(R.attr.minLength) ) {
                     // error
                     mdkMessage = new MDKMessage();
-                    mdkMessage.setErrorCode(ERROR_MIN_LENGTH);
+                    mdkMessage.setMessageCode(ERROR_MIN_LENGTH);
                     mdkMessage.setMessageType(MDKMessage.ERROR_TYPE);
                     String error = objectToValidate.length() +"/"+ mdkParameter.getInteger(R.attr.minLength)+"+" ;
                     mdkMessage.setMessage(error);
                 } else {
                     // message ex:"6/2+"
                     mdkMessage = new MDKMessage();
-                    mdkMessage.setErrorCode(ERROR_MIN_LENGTH);
+                    mdkMessage.setMessageCode(ERROR_MIN_LENGTH);
                     mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
                     String error = objectToValidate.length() +"/"+ mdkParameter.getInteger(R.attr.minLength)+"+" ;
                     mdkMessage.setMessage(error);

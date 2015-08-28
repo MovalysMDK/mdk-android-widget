@@ -13,21 +13,23 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.error;
+package com.soprasteria.movalysmdk.widget.core.message;
 
 import android.content.Context;
 
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+
 /**
- * Error Formatter for MDK Widgets.
+ * Message Formatter for MDK Widgets.
  */
-public interface MDKErrorMessageFormat {
+public interface MDKMessageFormat {
 
     /**
-     * Message formatter for custom error widget.
+     * Message formatter for custom message widget.
      * @param context application context to access resource
-     * @param sharedErrorWidget true if the error view displays errors for more than one mdk widget.
-     * @param error Custom MDKError object
+     * @param messages Custom MDKMessage object
+     * @param sharedMessageWidget true if the message view displays messages for more than one mdk widget.
      * @return CharSequence Formatted message
      */
-    CharSequence formatText(Context context, MDKMessage error, boolean sharedErrorWidget);
+    CharSequence formatText(Context context, MDKMessages messages, boolean sharedMessageWidget);
 }

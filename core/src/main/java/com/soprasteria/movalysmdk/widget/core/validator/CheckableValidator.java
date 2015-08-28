@@ -22,7 +22,7 @@ import android.widget.Switch;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
@@ -73,7 +73,7 @@ public class CheckableValidator implements FormFieldValidator<String> {
                 && !resultPreviousValidator.containsKey(this.getClass().getName())
                 && !String.valueOf(mdkParameter.getBoolean(R.attr.mandatory_value)).equals(objectToValidate)) {
             mdkMessage = new MDKMessage();
-            mdkMessage.setErrorCode(ERROR_VALUE);
+            mdkMessage.setMessageCode(ERROR_VALUE);
             String error = context.getString(ERROR_VALUE) + " " + mdkParameter.getBoolean(R.attr.mandatory_value);
             mdkMessage.setMessage(error);
 

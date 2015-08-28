@@ -20,7 +20,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -92,12 +92,12 @@ public class DateTimeRangeValidator implements FormFieldValidator<Date> {
 
                 if (error.length() > 0) {
                     mdkMessage = new MDKMessage();
-                    mdkMessage.setErrorCode(ERROR_RANGE);
+                    mdkMessage.setMessageCode(ERROR_RANGE);
                     mdkMessage.setMessage(error);
                 }
             } catch (ParseException e) {
                 mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(ERROR_DATE_VALIDATION);
+                mdkMessage.setMessageCode(ERROR_DATE_VALIDATION);
                 mdkMessage.setMessage(context.getString(R.string.mdkvalidator_datetimerange_error_validation));
             }
         }

@@ -13,44 +13,43 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.error;
+package com.soprasteria.movalysmdk.widget.core.message;
 
 import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
 /**
- * MDKErrorWidget interface definition.
- * Created by MDK Team on 09/06/2015.
+ * MDKMessageWidget interface definition.
  */
-public interface MDKErrorWidget {
+public interface MDKMessageWidget {
 
     /**
-     * Add and the component and its associated error message to the current list of errors.
+     * Add the component and its associated messages to the current list of messages.
      * @param context application context to access resource
      * @param componentId the component id
-     * @param error MDKError object to add
+     * @param messages MDKMessages object to add
      */
-    void addError(Context context, int componentId, MDKMessages error);
+    void addMessages(Context context, int componentId, MDKMessages messages);
 
     /**
-     * Remove component from the error list.
+     * Remove component from the messages list.
      * @param context application context to access resource
      * @param innerComponentId Resource Id of the component
      */
     void clear(Context context, int innerComponentId);
 
     /**
-     * Remove all components from the error list.
+     * Remove all components from the messages list.
      * @param context application context to access resource
      */
     void clear(Context context);
 
     /**
      * Set priority to of the component to be displayed (0 higher).
-     * @param displayErrorOrder displayErrorOrder tab
+     * @param displayOrder displayOrder tab
      */
-    void setDisplayErrorOrder(int[] displayErrorOrder);
+    void setComponentDisplayOrder(int[] displayOrder);
 
     /**
      * Set widget visibility.

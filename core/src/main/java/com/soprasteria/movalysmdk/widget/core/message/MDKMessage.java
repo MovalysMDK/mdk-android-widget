@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.error;
+package com.soprasteria.movalysmdk.widget.core.message;
 
 
 import android.os.Parcel;
@@ -21,7 +21,7 @@ import android.os.Parcelable;
 import android.support.annotation.IntDef;
 
 /**
- * MDKError class definition.
+ * MDKMessage class definition.
  */
 public class MDKMessage implements Parcelable {
 
@@ -31,19 +31,18 @@ public class MDKMessage implements Parcelable {
     /**
      * Enum for message type.
      */
-    @IntDef({NO_ERROR_CODE, ERROR_TYPE, MESSAGE_TYPE})
+    @IntDef({NO_MESSAGE_CODE, ERROR_TYPE, MESSAGE_TYPE})
     @interface EnumKindOfMessage {
     }
-
-    /** No error code defined. */
-    public static final int NO_ERROR_CODE = -1;
-    /** Error type. */
-    public static final int ERROR_TYPE = 0;
+    /** No message code defined. */
+    public static final int NO_MESSAGE_CODE = -1;
     /** Message type. */
     public static final int MESSAGE_TYPE = 1;
+    /** Error type. */
+    public static final int ERROR_TYPE = 0;
 
     /**
-     * Id of the component raising the error. This one is set according:
+     * Id of the component raising the message. This one is set according:
      * <ul>
      *     <li>If the component is inside a rich one.</li>
      *     <li>If the component is a basic one.</li>
@@ -51,17 +50,17 @@ public class MDKMessage implements Parcelable {
      */
     private int componentId;
 
-    /** Name of the component raising the error.  */
+    /** Name of the component raising the message.  */
     private CharSequence componentLabelName;
 
     /** message raised by the component.  */
     private CharSequence message;
 
     /**
-     * Error code defining which kind of error it is.
+     * Message code defining which kind of message it is.
      * <p>For example, it can be used later for apply text style.</p>
      */
-    private int errorCode;
+    private int messageCode;
 
     /**
      * Type of this message.
@@ -75,7 +74,7 @@ public class MDKMessage implements Parcelable {
      */
     protected MDKMessage(Parcel in) {
         componentId = in.readInt();
-        errorCode = in.readInt();
+        messageCode = in.readInt();
         messageType = in.readInt();
     }
 
@@ -98,7 +97,7 @@ public class MDKMessage implements Parcelable {
      * Private initializer.
      */
     private void init() {
-        errorCode = NO_ERROR_CODE;
+        messageCode = NO_MESSAGE_CODE;
     }
 
     /**
@@ -109,35 +108,35 @@ public class MDKMessage implements Parcelable {
     }
 
     /**
-     * MDKError builder.
-     * @param componentLabelName set the name of the component raising the error
-     * @param message set the error message raised by the component
-     * @param errorCode set the error's code categorizing it
+     * MDKMessage builder.
+     * @param componentLabelName set the name of the component raising the message
+     * @param message set the message message raised by the component
+     * @param messageCode set the message code categorizing it
      */
     public MDKMessage(CharSequence componentLabelName,
                       CharSequence message,
-                      @EnumKindOfMessage int errorCode) {
+                      @EnumKindOfMessage int messageCode) {
         init();
         this.componentLabelName = componentLabelName;
         this.message = message;
-        this.errorCode = errorCode;
+        this.messageCode = messageCode;
     }
 
     /**
-     * MDKError builder.
-     * @param componentLabelName set the name of the component raising the error
-     * @param message set the error message raised by the component
-     * @param errorCode set the error's code categorizing it
+     * MDKMessage builder.
+     * @param componentLabelName set the name of the component raising the message
+     * @param message set the message message raised by the component
+     * @param messageCode set the message code categorizing it
      * @param messageType set the message type, default to ERROR_TYPE
      */
     public MDKMessage(CharSequence componentLabelName,
                       CharSequence message,
-                      @EnumKindOfMessage int errorCode,
+                      @EnumKindOfMessage int messageCode,
                       int messageType) {
         init();
         this.componentLabelName = componentLabelName;
         this.message = message;
-        this.errorCode = errorCode;
+        this.messageCode = messageCode;
         this.messageType = messageType;
     }
 
@@ -191,18 +190,18 @@ public class MDKMessage implements Parcelable {
 
     /**
      * Getter.
-     * @return errorCode the error code
+     * @return messageCode the message code
      */
-    public int getErrorCode() {
-        return this.errorCode;
+    public int getMessageCode() {
+        return this.messageCode;
     }
 
     /**
      * Setter.
-     * @param errorCode the new error code
+     * @param messageCode the new message code
      */
-    public void setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
+    public void setMessageCode(Integer messageCode) {
+        this.messageCode = messageCode;
     }
 
     /**
@@ -240,7 +239,7 @@ public class MDKMessage implements Parcelable {
         } else {
             dest.writeString(EMPTY_MESSAGE);
         }
-        dest.writeInt(errorCode);
+        dest.writeInt(messageCode);
         dest.writeInt(messageType);
     }
 }

@@ -20,8 +20,8 @@ import android.util.Log;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
-import com.soprasteria.movalysmdk.widget.core.error.MDKSimpleErrorMessageFormat;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessageFormat;
+import com.soprasteria.movalysmdk.widget.core.message.MDKSimpleMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
@@ -200,8 +200,8 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
     }
 
     @Override
-    public MDKErrorMessageFormat getErrorMessageFormat(Context context) {
-        MDKErrorMessageFormat errorMessageFormat = null;
+    public MDKMessageFormat getErrorMessageFormat(Context context) {
+        MDKMessageFormat errorMessageFormat = null;
 
         // Check the existence of a custom error message formatter resource
         String classPath = findStringFromResourceName(context, MDK_ERROR_MESSAGE_FORMAT_KEY);
@@ -209,13 +209,13 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         if (classPath != null) {
             try {
                 // Try to instantiate the class found in android resource
-                errorMessageFormat = (MDKErrorMessageFormat) Class.forName(classPath).newInstance();
+                errorMessageFormat = (MDKMessageFormat) Class.forName(classPath).newInstance();
             } catch (Exception e) {
                 throw new MDKWidgetException(MDK_ERROR_MESSAGE_NOT_INSTANCE + classPath + "\"", e);
             }
         } else {
             // Default error message formatter
-            errorMessageFormat = new MDKSimpleErrorMessageFormat();
+            errorMessageFormat = new MDKSimpleMessageFormat();
         }
 
         return errorMessageFormat;

@@ -18,7 +18,7 @@ package com.soprasteria.movalysmdk.widget.core.provider;
 import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorMessageFormat;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
@@ -56,9 +56,9 @@ public interface MDKWidgetComponentProvider {
     /**
      * Returns the error message formatter.
       * @param context the Android context
-     * @return MDKErrorMessageFormat MDKErrorMessageFormat
+     * @return MDKMessageFormat MDKMessageFormat
      */
-    MDKErrorMessageFormat getErrorMessageFormat(Context context);
+    MDKMessageFormat getErrorMessageFormat(Context context);
 
 
     /**

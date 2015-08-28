@@ -20,7 +20,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -84,7 +84,7 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
             if ((mdkAttributeSet.containsKey(R.attr.maxSeekBarValue))
                     &&(currentValueToValidate > mdkAttributeSet.getInteger(R.attr.maxSeekBarValue))){
                 mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(ERROR_INVALID_SB_VALUE);
+                mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
                 mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
                 String error = context.getString(R.string.mdkvalidator_seekbar_error_max)+ " " + mdkAttributeSet.getInteger(R.attr.maxSeekBarValue) ;
                 mdkMessage.setMessage(error);

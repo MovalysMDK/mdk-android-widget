@@ -21,7 +21,7 @@ import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -93,7 +93,7 @@ public class NoNumberValidator implements FormFieldValidator<String> {
             Matcher matcher = this.pattern.matcher(objectToValidate);
             if (matcher.find()) {
                 mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(ERROR_NONUMBER);
+                mdkMessage.setMessageCode(ERROR_NONUMBER);
                 String error = context.getString(R.string.no_number_allowed);
                 mdkMessage.setMessage(error);
             }

@@ -13,30 +13,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.error;
+package com.soprasteria.movalysmdk.widget.core.message;
 
 import android.content.Context;
 
+import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+
 /**
- * Class dedicated to methods on error messages formatting.
- * Formats an error as <em>component_label: error_message</em>
+ * Class dedicated to methods on messages formatting.
+ * Formats a message as <em>component_label: message</em>
  */
-public class MDKSimpleErrorMessageFormat implements MDKErrorMessageFormat {
+public class MDKSimpleMessageFormat implements MDKMessageFormat {
 
     /**
      * Constructor.
      * @param context application context to access resource
-     * @param error MDKError object containing
-     * @param sharedErrorWidget defined if the error is defined inside a Rich component
+     * @param messages MDKMessage object containing
+     * @param sharedMessageWidget defined if the message is defined inside a Rich component
      * @return oFormattedMessage the formatted message
      */
     @Override
-    public CharSequence formatText(Context context, MDKMessage error, boolean sharedErrorWidget) {
+    public CharSequence formatText(Context context, MDKMessages messages, boolean sharedMessageWidget) {
 
-        CharSequence oFormattedMessage = error.getMessage();
+        CharSequence oFormattedMessage = messages.getErrorMessage();
 
-        if (sharedErrorWidget) {
-            StringBuilder formattedText = new StringBuilder(error.getComponentLabelName());
+        if (sharedMessageWidget) {
+            StringBuilder formattedText = new StringBuilder(messages.getComponentLabel());
             formattedText.append(": ");
             formattedText.append(oFormattedMessage);
             oFormattedMessage = formattedText.toString();

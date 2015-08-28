@@ -20,7 +20,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -93,7 +93,7 @@ public class UriValidator implements FormFieldValidator<String> {
             Matcher matcher = this.pattern.matcher(objectToValidate);
             if ((!matcher.find() && ERROR_INVALID_URI != 0)|| objectToValidate.toString().contains(" ")){
                 mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(ERROR_INVALID_URI);
+                mdkMessage.setMessageCode(ERROR_INVALID_URI);
                 String error = context.getString(ERROR_INVALID_URI);
                 mdkMessage.setMessage(error);
             }

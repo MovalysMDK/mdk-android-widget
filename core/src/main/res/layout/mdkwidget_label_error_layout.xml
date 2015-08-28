@@ -29,7 +29,7 @@
         android:layout_alignParentTop="true"
         style="?attr/mdkLabelStyle" />
 
-    <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+    <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
         android:id="@id/component_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

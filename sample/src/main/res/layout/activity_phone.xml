@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sendButtonText" />
 
-        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/checkbox_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/phone_rich_common_error"
@@ -130,7 +130,7 @@
             mdk:label="@string/mdk_error_message_2"
             mdk:errorId="@+id/commons_error"/>
 
-        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/commons_error"
             mdk:errorCentralized="true"
             android:layout_width="match_parent"

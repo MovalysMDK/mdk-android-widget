@@ -18,9 +18,8 @@ package com.soprasteria.movalysmdk.widget.core.validator;
 import android.content.Context;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
@@ -115,7 +114,7 @@ public class BaseRegexValidator implements FormFieldValidator<String> {
             Matcher matcher = this.pattern.matcher(objectToValidate);
             if (!matcher.find() && errorMessageId != 0) {
                 mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(errorMessageId);
+                mdkMessage.setMessageCode(errorMessageId);
                 String error = context.getString(errorMessageId);
                 mdkMessage.setMessage(error);
             }

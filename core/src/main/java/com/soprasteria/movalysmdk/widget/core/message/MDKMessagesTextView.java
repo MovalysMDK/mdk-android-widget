@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.error;
+package com.soprasteria.movalysmdk.widget.core.message;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -32,11 +32,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The MDKErrorTextView display errors of a widget.
+ * The MDKMessagesTextView display messages of a widget.
  * <p>This is the simplest representation of an error. This widget
  * display the error message in a TextView</p>
  */
-public class MDKErrorTextView extends TextView implements MDKErrorWidget {
+public class MDKMessagesTextView extends TextView implements MDKMessageWidget {
 
     /** Keyword for instanceState in save instance state. */
     private static final String SAVE_BUNDLE_INSTANCE_STATE = "instanceState";
@@ -50,7 +50,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     private static final String SAVE_BUNDLE_ERROR_ORDER_ARRAY = "displayErrorOrderArrayList";
 
     /** Data structure to store component id and its associated error messages. */
-    private SparseArray<MDKMessage> errorSparseArray = new SparseArray<>();
+    private SparseArray<MDKMessages> errorSparseArray = new SparseArray<>();
 
     /** Array list of error Ids to display messages from first to last index. */
     List<Integer> displayErrorOrderArrayList;
@@ -70,7 +70,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * @param context Application context
      * @param attrs Collection of attributes
      */
-    public MDKErrorTextView(Context context, AttributeSet attrs) {
+    public MDKMessagesTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         if (!isInEditMode()) {
@@ -84,7 +84,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * @param attrs Collection of attributes
      * @param defStyleAttr Attribute in the current theme referencing a style resource
      */
-    public MDKErrorTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKMessagesTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         if (!isInEditMode()) {
@@ -116,7 +116,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         if (resErrorOrderId != 0) {
             int[] displayErrorOrderArray = getResources().getIntArray(resErrorOrderId);
-            this.setDisplayErrorOrder(displayErrorOrderArray);
+            this.setComponentDisplayOrder(displayErrorOrderArray);
         }
         typedArray.recycle();
     }
@@ -135,12 +135,12 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * Add and the component and its associated error message to the current list of errors.
      * @param context the android context
      * @param componentId the component id
-     * @param errors MDKError object to add
+     * @param messages MDKError object to add
      */
     @Override
-    public void addError(Context context, int componentId, MDKMessages errors) {
+    public void addMessages(Context context, int componentId, MDKMessages messages) {
         //TODO serialize MDKMessages
-        this.errorSparseArray.put(componentId, errors.getMultipleErrorMessage());
+        this.errorSparseArray.put(componentId, messages);
         this.updateErrorMessage(context);
     }
 
@@ -165,13 +165,13 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
     }
 
     /**
-     * setDisplayErrorOrder.
-     * @param displayErrorOrder Array of error Ids
+     * setComponentDisplayOrder.
+     * @param displayOrder Array of error Ids
      */
     @Override
-    public void setDisplayErrorOrder(int[] displayErrorOrder) {
+    public void setComponentDisplayOrder(int[] displayOrder) {
         this.displayErrorOrderArrayList = new ArrayList<>();
-        for (int current: displayErrorOrder) {
+        for (int current: displayOrder) {
             this.displayErrorOrderArrayList.add(current);
         }
     }
@@ -187,7 +187,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
 
         if (this.displayErrorOrderArrayList == null) {
             for(int currentComponentId = 0; currentComponentId < errorSparseArray.size(); currentComponentId++) {
-                MDKMessage currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
+                MDKMessages currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
                 sbErrorMessage = generateCurrentMessage(context,
                                                         sbErrorMessage,
                                                         currentMDKError);
@@ -196,7 +196,7 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
         } else {
             for(Integer currentComponentId : this.displayErrorOrderArrayList) {
                 if (this.errorSparseArray.get(currentComponentId) != null){
-                    MDKMessage currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
+                    MDKMessages currentMDKError = this.errorSparseArray.valueAt(currentComponentId);
                     sbErrorMessage = generateCurrentMessage(context,
                                                             sbErrorMessage,
                                                             currentMDKError);
@@ -217,8 +217,8 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * Returns the error message formatter.
      * @return mdkErrorMessageFormat the mdk error message
      */
-    private MDKErrorMessageFormat getMDKErrorMessageFormat() {
-        MDKErrorMessageFormat mdkErrorMessageFormat = null;
+    private MDKMessageFormat getMDKErrorMessageFormat() {
+        MDKMessageFormat mdkErrorMessageFormat = null;
 
         if (this.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
             mdkErrorMessageFormat = ((MDKWidgetApplication) this.getContext().getApplicationContext()).getMDKWidgetComponentProvider()
@@ -232,16 +232,15 @@ public class MDKErrorTextView extends TextView implements MDKErrorWidget {
      * Return a SpannableStringBuilder object in order to build messages to display.
      * @param context application context to access resource
      * @param outputStringBuild the output string
-     * @param mdkMessage the mdk error
+     * @param messages the mdk error
      * @return outputStringBuild the output string
      */
-    private SpannableStringBuilder generateCurrentMessage(Context context, SpannableStringBuilder outputStringBuild, MDKMessage mdkMessage){
+    private SpannableStringBuilder generateCurrentMessage(Context context, SpannableStringBuilder outputStringBuild, MDKMessages messages){
 
-        MDKErrorMessageFormat interfaceFormat = getMDKErrorMessageFormat();
+        MDKMessageFormat interfaceFormat = getMDKErrorMessageFormat();
 
-        if (mdkMessage != null) {
-            CharSequence message = mdkMessage.getMessage();
-            message = interfaceFormat.formatText(context, mdkMessage, isSharedErrorWidget());
+        if (messages.getErrorMessage() != null && messages.getErrorMessage().length() > 0) {
+            CharSequence message = interfaceFormat.formatText(context, messages, isSharedErrorWidget());
 
             if (outputStringBuild.length() > 0) {
                 outputStringBuild.append("\n");

@@ -32,8 +32,8 @@ import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView;
-import com.soprasteria.movalysmdk.widget.core.error.MDKErrorWidget;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessageWidget;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -61,7 +61,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     protected T innerWidget;
 
     /** the error view. */
-    protected MDKErrorWidget errorView;
+    protected MDKMessageWidget errorView;
     
     /** The string resource id for the hint. */
     private int resHintId;
@@ -133,11 +133,11 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
             }
 
             // getting the error view
-            this.errorView = (MDKErrorWidget) this.findViewById(R.id.component_error);
+            this.errorView = (MDKMessageWidget) this.findViewById(R.id.component_error);
             if (resHelperId != 0
                     && this.errorView != null
-                    && this.errorView instanceof MDKErrorTextView ) {
-                ((MDKErrorTextView) this.errorView).setHelper(context, context.getString(resHelperId));
+                    && this.errorView instanceof MDKMessagesTextView) {
+                ((MDKMessagesTextView) this.errorView).setHelper(context, context.getString(resHelperId));
             }
 
             // parse others attributes

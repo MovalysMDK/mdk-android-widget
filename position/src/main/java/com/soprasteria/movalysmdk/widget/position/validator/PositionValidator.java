@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -72,7 +72,7 @@ public class PositionValidator implements FormFieldValidator<String[]> {
 
             if (!isFilled) {
                 mdkMessage = new MDKMessage();
-                mdkMessage.setErrorCode(ERROR_MANDATORY);
+                mdkMessage.setMessageCode(ERROR_MANDATORY);
                 String error = context.getString(ERROR_MANDATORY);
                 mdkMessage.setMessage(error);
             }

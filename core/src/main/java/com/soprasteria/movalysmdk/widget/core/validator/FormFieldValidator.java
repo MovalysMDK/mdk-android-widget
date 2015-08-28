@@ -18,7 +18,7 @@ package com.soprasteria.movalysmdk.widget.core.validator;
 import android.content.Context;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 

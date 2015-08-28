@@ -36,7 +36,7 @@
         android:background="#4F443344"
         android:id="@id/component_label"/>
 
-    <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+    <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#4F443344"

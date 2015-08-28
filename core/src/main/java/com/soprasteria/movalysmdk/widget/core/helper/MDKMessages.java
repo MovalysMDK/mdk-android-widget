@@ -15,9 +15,11 @@
  */
 package com.soprasteria.movalysmdk.widget.core.helper;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.IdRes;
 
-import com.soprasteria.movalysmdk.widget.core.error.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,7 +28,7 @@ import java.util.Map;
  * The MDKMessages is a container for MDKMessage.
  * <p></p>
  */
-public class MDKMessages {
+public class MDKMessages implements Parcelable {
 
     /** the component id. */
     private int componentId;
@@ -35,6 +37,31 @@ public class MDKMessages {
 
     /** the error map. */
     private Map<String, MDKMessage> messagesMap;
+
+    /**
+     * Constructor from Parcel.
+     * @param in the Parcel to recover from
+     */
+    protected MDKMessages(Parcel in) {
+        componentId = in.readInt();
+        componentLabel = in.readString();
+        in.readMap(messagesMap, null);
+    }
+
+    /**
+     * The Parcelable CREATOR.
+     */
+    public static final Creator<MDKMessages> CREATOR = new Creator<MDKMessages>() {
+        @Override
+        public MDKMessages createFromParcel(Parcel in) {
+            return new MDKMessages(in);
+        }
+
+        @Override
+        public MDKMessages[] newArray(int size) {
+            return new MDKMessages[size];
+        }
+    };
 
     /**
      * Constructor.
@@ -112,20 +139,27 @@ public class MDKMessages {
     }
 
     /**
-     * Return all error messages within the same MDK error widget.
-     * @return the MDK message with all associated error messages
+     * Returns the stored messages.
+     * @return the messages map
      */
-    public MDKMessage getMultipleErrorMessage() {
+    public Map<String, MDKMessage> getMessagesMap() {
+        return this.messagesMap;
+    }
 
-        if (!this.messagesMap.isEmpty()) {
-            for (Map.Entry<String, MDKMessage> messageEntry : this.messagesMap.entrySet()) {
-                if (messageEntry.getValue() != null) {
-                    MDKMessage mdkMessage = messageEntry.getValue();
-                    mdkMessage.setMessage(getErrorMessage());
-                    return mdkMessage;
-                }
-            }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(componentId);
+
+        if (componentLabel != null) {
+            dest.writeString(componentLabel.toString());
+        } else {
+            dest.writeString("");
         }
-        return null;
+        dest.writeMap(messagesMap);
     }
 }

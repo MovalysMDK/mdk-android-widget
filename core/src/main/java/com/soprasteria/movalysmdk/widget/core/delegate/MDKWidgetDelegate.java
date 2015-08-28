@@ -151,7 +151,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      */
     public void addError(MDKMessages messages) {
         if (this.valueObject.getErrorViewId() != 0) {
-            MDKWidgetDelegateErrorHelper.getInstance().addError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), messages, this.getContext());
+            MDKWidgetDelegateErrorHelper.getInstance().displayMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), messages, this.getContext());
         }
     }
 
@@ -160,7 +160,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      */
     public void clearError() {
         if (this.valueObject.getErrorViewId() != 0) {
-            MDKWidgetDelegateErrorHelper.getInstance().clearError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), this.getContext());
+            MDKWidgetDelegateErrorHelper.getInstance().clearMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), this.getContext());
         }
     }
 

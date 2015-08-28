@@ -74,7 +74,7 @@
             mdk:errorId="@+id/checkbox_errorText"
             mdk:mandatory="true" />
 
-        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/checkbox_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
             mdk:errorId="@+id/switch_errorText"
             mdk:mandatory="true" />
 
-        <com.soprasteria.movalysmdk.widget.core.error.MDKErrorTextView
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/switch_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
