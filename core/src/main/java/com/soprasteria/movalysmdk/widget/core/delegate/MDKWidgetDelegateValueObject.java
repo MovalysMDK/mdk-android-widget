@@ -59,12 +59,6 @@ public class MDKWidgetDelegateValueObject {
     /** weakView. */
     private WeakReference<View> weakView;
 
-    // FIXME :  not needed
-//    /** Widget root id. */
-//    private int rootViewId;
-//    /** Error root id. */
-//    private int errorRootViewId;
-
 
     /** Widget label id. */
     private int labelViewId;
@@ -192,38 +186,6 @@ public class MDKWidgetDelegateValueObject {
     public View getView() {
         return this.weakView.get();
     }
-
-//    /**
-//     * Returns the widget root view identifier.
-//     * @return the widget root view identifier
-//     */
-//    public int getRootViewId() {
-//        return rootViewId;
-//    }
-//
-//    /**
-//     * Sets the widget root view identifier.
-//     * @param rootViewId the value to set
-//     */
-//    public void setRootViewId(int rootViewId) {
-//        this.rootViewId = rootViewId;
-//    }
-//
-//    /**
-//     * Returns the error root view identifier.
-//     * @return the error root view identifier
-//     */
-//    public int getErrorRootViewId() {
-//        return errorRootViewId;
-//    }
-//
-//    /**
-//     * Sets the error root view identifier.
-//     * @param errorRootViewId the value to set
-//     */
-//    public void setErrorRootViewId(int errorRootViewId) {
-//        this.errorRootViewId = errorRootViewId;
-//    }
 
     /**
      * Returns the widget label view identifier.
