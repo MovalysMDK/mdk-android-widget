@@ -27,19 +27,23 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.soprasteria.movalysmdk.espresso.action.DelayScrollToAction.delayScrollTo;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
 import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatHint;
 import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
@@ -53,52 +57,373 @@ import static org.hamcrest.Matchers.notNullValue;
 public class CheckableTest {
 
     /**
-     * ActiCheckused for this tests.
+     * Activity used for this tests.
      */
     @Rule
     public ActivityTestRule<CheckableActivity> mActivityRule = new ActivityTestRule<>(CheckableActivity.class);
 
     /**
-     * Check MDK checkable widget behaviour with invalid checkable format.
+     * Check MDK checkbox widget behaviour with invalid checkable format.
      */
     @Test
-    public void testCheckable() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
-
-        // Check enabled status of the view
-        onView(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)).check(matches(not(isChecked())));
-
-        // Click the view
-        onView(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)).perform(click());
-
-        onView(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)).check(matches(isChecked()));
-
-        SpoonScreenshotAction.perform("checkable_checked_status");
-
-        onView(isRoot()).perform(orientationLandscape());
-
-        SpoonScreenshotAction.perform("checkable_checked_status_landscape");
+    public void testCheckBox() {
+        testCheckable(R.id.mdkCheckbox_withErrorAndCommandOutside, false, 1);
     }
 
     /**
-     * Check MDK checkable widget behaviour when this one is enabled and disabled.
+     * Check MDK Rich checkbox widget behaviour with invalid checkable format.
      */
     @Test
-    public void testDisabledCheckable() {
+    public void testRichCheckBox() {
+        testCheckable(R.id.mdkRichCheckbox_withLabelAndError, true, 2);
+    }
+
+    /**
+     * Check MDK switch widget behaviour with invalid checkable format.
+     */
+    @Test
+    public void testSwitch() {
+        testCheckable(R.id.mdkSwitch_withErrorAndCommandOutside, false, 3);
+    }
+
+    /**
+     * Check MDK rich switch widget behaviour with invalid checkable format.
+     */
+    @Test
+    public void testRichSwitch() {
+        testCheckable(R.id.mdkRichSwitch_withLabelAndError, true, 4);
+    }
+
+    /**
+     * Tests a checkable with the given identifier
+     * @param viewId the checkable identifier
+     * @param isRich true if the component being tested is a Rich component
+     * @param testCaseNumber the test case number
+     */
+    private void testCheckable(int viewId, boolean isRich, int testCaseNumber) {
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Check not checked status of the view
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
+
+        // Click the view
+        onView(withId(viewId)).perform(click());
+
+        // Check checked status of the view
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(isChecked()));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
+        }
+
+        SpoonScreenshotAction.perform("checkable_checked_status" + testCaseNumber);
+
+        /* ------ orientation  change -------- */
+
+        onView(isRoot()).perform(orientationLandscape());
+
+        // screenshot
+        SpoonScreenshotAction.perform("checkable_checked_status_landscape" + testCaseNumber);
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // check that the widget is still checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(isChecked()));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
+        }
+
+        // Click the view
+        onView(withId(viewId)).perform(scrollTo(), click());
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
+
+        /* ------ orientation  change -------- */
+
+        onView(isRoot()).perform(orientationPortrait());
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // check that the widget is still not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
+    }
+
+    /**
+     * Check MDK checkbox widget behaviour when this one is enabled and disabled.
+     */
+    @Test
+    public void testDisabledCheckBox() {
+        testDisabledCheckable(R.id.mdkCheckbox_withErrorAndCommandOutside, false, 1);
+    }
+
+    /**
+     * Check MDK rich checkbox widget behaviour when this one is enabled and disabled.
+     */
+    @Test
+    public void testDisabledRichCheckBox() {
+        testDisabledCheckable(R.id.mdkRichCheckbox_withLabelAndError, true, 2);
+    }
+
+    /**
+     * Check MDK switch widget behaviour when this one is enabled and disabled.
+     */
+    @Test
+    public void testDisabledSwitch() {
+        testDisabledCheckable(R.id.mdkSwitch_withErrorAndCommandOutside, false, 3);
+    }
+
+    /**
+     * Check MDK rich switch widget behaviour when this one is enabled and disabled.
+     */
+    @Test
+    public void testDisabledRichSwitch() {
+        testDisabledCheckable(R.id.mdkRichSwitch_withLabelAndError, true, 4);
+    }
+
+    /**
+     * Tests a checkable with the given identifier
+     * @param viewId the checkable identifier
+     * @param isRich true if the component being tested is a Rich component
+     * @param testCaseNumber the test case number
+     */
+    private void testDisabledCheckable(int viewId, boolean isRich, int testCaseNumber) {
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
+
+        // scroll to the enable button
+        onView(withId(R.id.enableButton)).perform(delayScrollTo());
+
+        // Disable widgets
+        onView(withId(R.id.enableButton)).perform(click());
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Check widgets are disabled
+        onView(withId(viewId)).check(matches(not(isEnabled())));
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
+
+        /* ------ orientation  change -------- */
+
+        onView(isRoot()).perform(orientationLandscape());
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Check widgets are disabled
+        onView(withId(viewId)).check(matches(not(isEnabled())));
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
+
+        /* ------ orientation  change -------- */
+
+        onView(isRoot()).perform(orientationPortrait());
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Click the view
+        onView(withId(viewId)).perform(click());
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
+
+        // scroll to the enable button
+        onView(withId(R.id.enableButton)).perform(delayScrollTo());
+
+        // Re enabled widget
+        onView(withId(R.id.enableButton)).perform(click());
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Check widgets are enabled
+        onView(withId(viewId)).check(matches(isEnabled()));
+
+        // Click the view
+        onView(withId(viewId)).perform(click());
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(isChecked()));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
+        }
+    }
+
+    /**
+     * Check MDK checkbox widget behaviour when this one is checked and disabled.
+     */
+    @Test
+    public void testDisabledCheckedCheckBox() {
+        testDisabledCheckedCheckable(R.id.mdkCheckbox_withErrorAndCommandOutside, false, 1);
+    }
+
+    /**
+     * Check MDK rich checkbox widget behaviour when this one is checked and disabled.
+     */
+    @Test
+    public void testDisabledCheckedRichCheckBox() {
+        testDisabledCheckedCheckable(R.id.mdkRichCheckbox_withLabelAndError, true, 2);
+    }
+
+    /**
+     * Check MDK switch widget behaviour when this one is checked and disabled.
+     */
+    @Test
+    public void testDisabledCheckedSwitch() {
+        testDisabledCheckedCheckable(R.id.mdkSwitch_withErrorAndCommandOutside, false, 3);
+    }
+
+    /**
+     * Check MDK rich switch widget behaviour when this one is checked and disabled.
+     */
+    @Test
+    public void testDisabledCheckedRichSwitch() {
+        testDisabledCheckedCheckable(R.id.mdkRichSwitch_withLabelAndError, true, 4);
+    }
+
+    /**
+     * Tests a checkable with the given identifier
+     * @param viewId the checkable identifier
+     * @param isRich true if the component being tested is a Rich component
+     * @param testCaseNumber the test case number
+     */
+    private void testDisabledCheckedCheckable(int viewId, boolean isRich, int testCaseNumber) {
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // check that the widget is not checked
+        onView(withId(viewId)).check(matches(not(isChecked())));
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Click the view
+        onView(withId(viewId)).perform(click());
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(isChecked()));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
+        }
+
+        // scroll to the enable button
+        onView(withId(R.id.enableButton)).perform(delayScrollTo());
 
         // Disable widgets
         onView(withId(R.id.enableButton)).perform(click());
 
         // Check widgets are disabled
-        onView(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)).check(matches(not(isEnabled())));
+        onView(withId(viewId)).check(matches(not(isEnabled())));
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(isChecked()));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
+        }
+
+        /* ------ orientation  change -------- */
+
+        onView(isRoot()).perform(orientationLandscape());
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Check widgets are disabled
+        onView(withId(viewId)).check(matches(not(isEnabled())));
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(isChecked()));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
+        }
+
+        /* ------ orientation  change -------- */
+
+        onView(isRoot()).perform(orientationPortrait());
+
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
+        // Click the view
+        onView(withId(viewId)).perform(click());
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(isChecked()));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
+        }
+
+        // scroll to the enable button
+        onView(withId(R.id.enableButton)).perform(delayScrollTo());
 
         // Re enabled widget
         onView(withId(R.id.enableButton)).perform(click());
 
+        // scroll to the tested view
+        onView(withId(viewId)).perform(delayScrollTo());
+
         // Check widgets are enabled
-        onView(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)).check(matches(isEnabled()));
+        onView(withId(viewId)).check(matches(isEnabled()));
+
+        // Click the view
+        onView(withId(viewId)).perform(click());
+
+        // check that the widget is not checked
+        if (!isRich) {
+            onView(withId(viewId)).check(matches(not(isChecked())));
+        } else {
+            onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
+        }
     }
 }

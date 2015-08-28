@@ -70,6 +70,13 @@ public class CheckableActivity extends AppCompatActivity {
      */
     private MDKRichSwitch richSwitchWithExternalHelper;
 
+    /**
+     * Enable button
+     */
+    private Button enableButton;
+
+    private boolean isEnabled = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +91,8 @@ public class CheckableActivity extends AppCompatActivity {
         this.switchWithErrorAndCommandOutside = (MDKSwitch) findViewById(R.id.mdkSwitch_withErrorAndCommandOutside);
         this.richSwitchWithCustomLayout = (MDKRichSwitch) findViewById(R.id.mdkRichSwitch_withCustomLayout);
         this.richSwitchWithExternalHelper = (MDKRichSwitch) findViewById(R.id.switch_helper);
+
+        this.enableButton = (Button) findViewById(R.id.enableButton);
     }
 
     /**
@@ -108,7 +117,7 @@ public class CheckableActivity extends AppCompatActivity {
      * @param view the view
      */
     public void mandatory(View view) {
-        // nohting to do
+        // nothing to do
     }
 
     /**
@@ -118,16 +127,32 @@ public class CheckableActivity extends AppCompatActivity {
     public void switchEnable(View view) {
 
         Button button = (Button) view;
-        button.setText("Disable".equals(button.getText()) ? "Enable": "Disable");
+        button.setText(this.isEnabled ? "Enable" : "Disable");
 
-        this.richCheckBoxWithLabelAndError.setEnabled(!this.richCheckBoxWithLabelAndError.isEnabled());
-        this.checkboxWithErrorAndCommandOutside.setEnabled(!this.checkboxWithErrorAndCommandOutside.isEnabled());
-        this.richCheckBoxWithCustomLayout.setEnabled(!this.richCheckBoxWithCustomLayout.isEnabled());
-        this.richCheckBoxWithExternalHelper.setEnabled(!this.richCheckBoxWithExternalHelper.isEnabled());
+        this.isEnabled = !isEnabled;
 
-        this.richSwitchWithLabelAndError.setEnabled(!this.richSwitchWithLabelAndError.isEnabled());
-        this.switchWithErrorAndCommandOutside.setEnabled(!this.switchWithErrorAndCommandOutside.isEnabled());
-        this.richSwitchWithCustomLayout.setEnabled(!this.richSwitchWithCustomLayout.isEnabled());
-        this.richSwitchWithExternalHelper.setEnabled(!this.richSwitchWithExternalHelper.isEnabled());
+        this.richCheckBoxWithLabelAndError.setEnabled(this.isEnabled);
+        this.checkboxWithErrorAndCommandOutside.setEnabled(this.isEnabled);
+        this.richCheckBoxWithCustomLayout.setEnabled(this.isEnabled);
+        this.richCheckBoxWithExternalHelper.setEnabled(this.isEnabled);
+
+        this.richSwitchWithLabelAndError.setEnabled(this.isEnabled);
+        this.switchWithErrorAndCommandOutside.setEnabled(this.isEnabled);
+        this.richSwitchWithCustomLayout.setEnabled(this.isEnabled);
+        this.richSwitchWithExternalHelper.setEnabled(this.isEnabled);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("isEnabled", this.isEnabled);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.isEnabled = !savedInstanceState.getBoolean("isEnabled");
+
+        this.switchEnable(this.enableButton);
     }
 }
