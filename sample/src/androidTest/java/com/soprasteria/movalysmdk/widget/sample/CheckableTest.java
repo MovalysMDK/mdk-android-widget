@@ -220,11 +220,8 @@ public class CheckableTest {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
         }
 
-        // scroll to the enable button
-        onView(withId(R.id.enableButton)).perform(delayScrollTo());
-
         // Disable widgets
-        onView(withId(R.id.enableButton)).perform(click());
+        onView(withId(R.id.enableButton)).perform(scrollTo(), click());
 
         // scroll to the tested view
         onView(withId(viewId)).perform(delayScrollTo());
@@ -260,11 +257,8 @@ public class CheckableTest {
 
         onView(isRoot()).perform(orientationPortrait());
 
-        // scroll to the tested view
-        onView(withId(viewId)).perform(delayScrollTo());
-
         // Click the view
-        onView(withId(viewId)).perform(click());
+        onView(withId(viewId)).perform(scrollTo(), click());
 
         // check that the widget is not checked
         if (!isRich) {
@@ -273,11 +267,8 @@ public class CheckableTest {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
         }
 
-        // scroll to the enable button
-        onView(withId(R.id.enableButton)).perform(delayScrollTo());
-
         // Re enabled widget
-        onView(withId(R.id.enableButton)).perform(click());
+        onView(withId(R.id.enableButton)).perform(scrollTo(), click());
 
         // scroll to the tested view
         onView(withId(viewId)).perform(delayScrollTo());
@@ -286,7 +277,7 @@ public class CheckableTest {
         onView(withId(viewId)).check(matches(isEnabled()));
 
         // Click the view
-        onView(withId(viewId)).perform(click());
+        onView(withId(viewId)).perform(scrollTo(), click());
 
         // check that the widget is not checked
         if (!isRich) {
@@ -341,11 +332,8 @@ public class CheckableTest {
         // check that the widget is not checked
         onView(withId(viewId)).check(matches(not(isChecked())));
 
-        // scroll to the tested view
-        onView(withId(viewId)).perform(delayScrollTo());
-
         // Click the view
-        onView(withId(viewId)).perform(click());
+        onView(withId(viewId)).perform(scrollTo(), click());
 
         // check that the widget is not checked
         if (!isRich) {
@@ -354,11 +342,8 @@ public class CheckableTest {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
         }
 
-        // scroll to the enable button
-        onView(withId(R.id.enableButton)).perform(delayScrollTo());
-
         // Disable widgets
-        onView(withId(R.id.enableButton)).perform(click());
+        onView(withId(R.id.enableButton)).perform(scrollTo(), click());
 
         // Check widgets are disabled
         onView(withId(viewId)).check(matches(not(isEnabled())));
@@ -391,11 +376,8 @@ public class CheckableTest {
 
         onView(isRoot()).perform(orientationPortrait());
 
-        // scroll to the tested view
-        onView(withId(viewId)).perform(delayScrollTo());
-
         // Click the view
-        onView(withId(viewId)).perform(click());
+        onView(withId(viewId)).perform(scrollTo(), click());
 
         // check that the widget is not checked
         if (!isRich) {
@@ -404,11 +386,8 @@ public class CheckableTest {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
         }
 
-        // scroll to the enable button
-        onView(withId(R.id.enableButton)).perform(delayScrollTo());
-
         // Re enabled widget
-        onView(withId(R.id.enableButton)).perform(click());
+        onView(withId(R.id.enableButton)).perform(scrollTo(), click());
 
         // scroll to the tested view
         onView(withId(viewId)).perform(delayScrollTo());
@@ -417,7 +396,7 @@ public class CheckableTest {
         onView(withId(viewId)).check(matches(isEnabled()));
 
         // Click the view
-        onView(withId(viewId)).perform(click());
+        onView(withId(viewId)).perform(scrollTo(), click());
 
         // check that the widget is not checked
         if (!isRich) {
