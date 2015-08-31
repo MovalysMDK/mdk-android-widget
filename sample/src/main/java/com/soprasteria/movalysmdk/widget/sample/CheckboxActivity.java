@@ -22,8 +22,6 @@ import android.widget.Button;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKCheckBox;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch;
-import com.soprasteria.movalysmdk.widget.basic.MDKSwitch;
 
 /**
  * Test activity for the MDKRichCheckable widget.
@@ -51,10 +49,13 @@ public class CheckboxActivity extends AppCompatActivity {
     private MDKRichCheckbox richCheckBoxWithExternalHelper;
 
     /**
-     * Enable button
+     * Enable button.
      */
     private Button enableButton;
 
+    /**
+     * is enabled.
+     */
     private boolean isEnabled = true;
 
     @Override

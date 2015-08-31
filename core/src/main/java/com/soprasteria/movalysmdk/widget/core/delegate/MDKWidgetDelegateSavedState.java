@@ -94,7 +94,7 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         this.qualifier = in.readString();
         this.resHelperId = in.readInt();
 
-        // TODO : read the richSelectors
+        in.readStringList(this.richSelectors);
 
         this.labelId = in.readInt();
         this.showFloatingLabelAnimId = in.readInt();

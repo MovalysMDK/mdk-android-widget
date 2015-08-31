@@ -20,8 +20,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKCheckBox;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch;
 import com.soprasteria.movalysmdk.widget.basic.MDKSwitch;
 
@@ -57,6 +55,10 @@ public class SwitchActivity extends AppCompatActivity {
 
     private boolean isEnabled = true;
 
+    /**
+     * On activity created.
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
