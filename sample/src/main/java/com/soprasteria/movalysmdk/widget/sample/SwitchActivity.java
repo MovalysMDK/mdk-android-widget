@@ -49,10 +49,13 @@ public class SwitchActivity extends AppCompatActivity {
     private MDKRichSwitch richSwitchWithExternalHelper;
 
     /**
-     * Enable button
+     * Enable button.
      */
     private Button enableButton;
 
+    /**
+     * Is enabled.
+     */
     private boolean isEnabled = true;
 
     /**
