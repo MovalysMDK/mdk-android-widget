@@ -26,33 +26,15 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 
 /**
  * Error processing helper for the class {@link MDKWidgetDelegate}.
- * This class is a singleton.
+ * This class is a static class.
  */
-// FIXME ? NO SINGLETON!!!
 public class MDKWidgetDelegateErrorHelper {
-
-    /**
-     * instance of the singleton.
-     */
-    private static MDKWidgetDelegateErrorHelper instance;
 
     /**
      * private constructor.
      */
     private MDKWidgetDelegateErrorHelper() {
         // nothing to do
-    }
-
-    /**
-     * Returns the instance of the singleton.
-     * @return the instance of the singleton
-     */
-    public static MDKWidgetDelegateErrorHelper getInstance() {
-        if (instance == null) {
-            instance = new MDKWidgetDelegateErrorHelper();
-        }
-
-        return instance;
     }
 
     /**
@@ -63,7 +45,7 @@ public class MDKWidgetDelegateErrorHelper {
      * @param error the new error
      * @param context the context to use
      */
-    public void setError(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, CharSequence error, Context context) {
+    public static void setError(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, CharSequence error, Context context) {
         // empty error and add the CharSequence as only error
         clearMessages(errorView, valueObject, label, context);
         MDKMessage mdkMessage = new MDKMessage(label, error, MDKMessage.NO_MESSAGE_CODE);
@@ -80,7 +62,7 @@ public class MDKWidgetDelegateErrorHelper {
      * @param label the label to set
      * @param context the context to use
      */
-    private void setMdkErrorWidget(MDKMessageWidget mdkErrorWidget, MDKMessages messages, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
+    private static void setMdkErrorWidget(MDKMessageWidget mdkErrorWidget, MDKMessages messages, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
         View v = valueObject.getView();
         if (v instanceof MDKWidget) {
             if (messages == null) {
@@ -101,7 +83,7 @@ public class MDKWidgetDelegateErrorHelper {
      * @param messages the messages to set
      * @param context the context to use
      */
-    public void displayMessages(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, MDKMessages messages, Context context) {
+    public static void displayMessages(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, MDKMessages messages, Context context) {
         if (errorView instanceof MDKMessageWidget){
             setMdkErrorWidget((MDKMessageWidget) errorView, messages, valueObject, label, context);
         } else if (errorView instanceof TextView) {
@@ -121,7 +103,7 @@ public class MDKWidgetDelegateErrorHelper {
      * @param label the label to set
      * @param context the context to use
      */
-    public void clearMessages(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
+    public static void clearMessages(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
         displayMessages(errorView, valueObject, label, null, context);
     }
 

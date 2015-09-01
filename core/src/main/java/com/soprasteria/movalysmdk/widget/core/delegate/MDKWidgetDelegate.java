@@ -141,7 +141,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      */
     public void setError(CharSequence error) {
         if (this.valueObject.getErrorViewId() != 0) {
-            MDKWidgetDelegateErrorHelper.getInstance().setError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), error, this.getContext());
+            MDKWidgetDelegateErrorHelper.setError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), error, this.getContext());
         }
     }
 
@@ -151,7 +151,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      */
     public void addError(MDKMessages messages) {
         if (this.valueObject.getErrorViewId() != 0) {
-            MDKWidgetDelegateErrorHelper.getInstance().displayMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), messages, this.getContext());
+            MDKWidgetDelegateErrorHelper.displayMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), messages, this.getContext());
         }
     }
 
@@ -160,7 +160,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      */
     public void clearError() {
         if (this.valueObject.getErrorViewId() != 0) {
-            MDKWidgetDelegateErrorHelper.getInstance().clearMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), this.getContext());
+            MDKWidgetDelegateErrorHelper.clearMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), this.getContext());
         }
     }
 
@@ -346,7 +346,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @return a List of FormFieldValidator tha can validate the Set of parameters
      */
     protected List<FormFieldValidator> getValidators(Set<Integer> widgetAttrs) {
-        return MDKWidgetDelegateValidationHelper.getInstance().getValidators(this.valueObject.getView(), widgetAttrs);
+        return MDKWidgetDelegateValidationHelper.getValidators(this.valueObject.getView(), widgetAttrs);
     }
 
     /**
@@ -357,7 +357,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @return true if all validators passed, false otherwise
      */
     public boolean validate(boolean setError, @EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return MDKWidgetDelegateValidationHelper.getInstance().validate(this, setError, validationMode);
+        return MDKWidgetDelegateValidationHelper.validate(this, setError, validationMode);
     }
 
     /**

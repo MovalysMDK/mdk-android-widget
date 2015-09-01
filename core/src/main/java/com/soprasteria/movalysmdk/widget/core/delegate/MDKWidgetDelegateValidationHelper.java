@@ -38,33 +38,15 @@ import java.util.Set;
 
 /**
  * Helper for the validation of a component in the {@link MDKWidgetDelegate}.
- * This class is a singleton.
+ * This class is a static class.
  */
-// FIXME ? NO SINGLETON!!!
 public class MDKWidgetDelegateValidationHelper {
-
-    /**
-     * instance of the singleton.
-     */
-    private static MDKWidgetDelegateValidationHelper instance;
 
     /**
      * private constructor.
      */
     private MDKWidgetDelegateValidationHelper() {
         // nothing to do
-    }
-
-    /**
-     * Returns the instance of the singleton.
-     * @return the instance of the singleton
-     */
-    public static MDKWidgetDelegateValidationHelper getInstance() {
-        if (instance == null) {
-            instance = new MDKWidgetDelegateValidationHelper();
-        }
-
-        return instance;
     }
 
     /**
@@ -75,7 +57,7 @@ public class MDKWidgetDelegateValidationHelper {
      * @param widgetAttrs a Set of integer representing R.attr.* attributes to validate
      * @return a List of FormFieldValidator tha can validate the Set of parameters
      */
-    public List<FormFieldValidator> getValidators(View rootView, Set<Integer> widgetAttrs) {
+    public static List<FormFieldValidator> getValidators(View rootView, Set<Integer> widgetAttrs) {
         List<FormFieldValidator> rValidator = new ArrayList<>();
 
         if (rootView != null
@@ -93,7 +75,7 @@ public class MDKWidgetDelegateValidationHelper {
      * @return the FormFieldValidator associated to the parameter key
      */
     @Nullable
-    private FormFieldValidator getValidator(View rootView, String validatorKey) {
+    private static FormFieldValidator getValidator(View rootView, String validatorKey) {
         FormFieldValidator rValidator = null;
 
         if (rootView != null
@@ -113,7 +95,7 @@ public class MDKWidgetDelegateValidationHelper {
      * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if all validators passed, false otherwise
      */
-    public boolean validate(MDKWidgetDelegate delegate, boolean setError, @EnumFormFieldValidator.EnumValidationMode int validationMode) {
+    public static boolean validate(MDKWidgetDelegate delegate, boolean setError, @EnumFormFieldValidator.EnumValidationMode int validationMode) {
 
         boolean bValid = true;
 
@@ -171,7 +153,7 @@ public class MDKWidgetDelegateValidationHelper {
      * @param view the view having a value to be validated
      * @return the object to validate
      */
-    private Object getObjectToValidate(View view) {
+    private static Object getObjectToValidate(View view) {
         Object objectToValidate = null;
         if (view instanceof HasText) {
             objectToValidate = ((HasText) view).getText().toString();
@@ -198,7 +180,7 @@ public class MDKWidgetDelegateValidationHelper {
      * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if the FormFieldValidator return no error, false otherwise
      */
-    public boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView,
+    public static boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView,
                                     MDKAttributeSet attributesMap, MDKMessages returnMap,
                                     @EnumFormFieldValidator.EnumValidationMode int validationMode, Context context) {
         boolean bValid = true;

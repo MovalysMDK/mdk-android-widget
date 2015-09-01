@@ -20,6 +20,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -94,6 +95,8 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         this.qualifier = in.readString();
         this.resHelperId = in.readInt();
 
+        // readSringList take a initialized List
+        this.richSelectors = new ArrayList<>();
         in.readStringList(this.richSelectors);
 
         this.labelId = in.readInt();
