@@ -27,6 +27,7 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -201,7 +202,20 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
             // without label
             LayoutInflater.from(context).inflate(layoutWithoutLabelId, this);
         }
+
+        //enableSaveFromParent(this);
+
     }
+
+    /*private void enableSaveFromParent(View v) {
+        if (v instanceof ViewGroup) {
+            for (int i=0; i<this.getChildCount(); i++) {
+                View currentView = this.getChildAt(i);
+                enableSaveFromParent(currentView);
+            }
+        }
+        v.setSaveFromParentEnabled(true);
+    }*/
 
     /**
      * Initialise the attribute map for the widget.
@@ -300,20 +314,47 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
         Parcelable superState = super.onSaveInstanceState();
         MDKSavedState ss = new MDKSavedState(superState);
         ss.childrenStates = new SparseArray();
-        for (int i = 0; i < getChildCount(); i++) {
-            getChildAt(i).saveHierarchyState(ss.childrenStates);
-        }
+        saveAll(this, ss.childrenStates);
         return ss;
+    }
+
+    /**
+     * Save all subviews states on rich widget
+     * @param viewGroup the ViewGroup to save
+     * @param states the state so save
+     */
+    private void saveAll(ViewGroup viewGroup, SparseArray states) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                saveAll((ViewGroup) child, states);
+            } else {
+                child.saveHierarchyState(states);
+            }
+        }
     }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         MDKSavedState ss = (MDKSavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
-        for (int i = 0; i < getChildCount(); i++) {
-            getChildAt(i).restoreHierarchyState(ss.childrenStates);
-        }
+        restoreAll(this, ss.childrenStates);
+    }
 
+    /**
+     * Restore all subviews states on rich widget
+     * @param viewGroup the ViewGroup to restore
+     * @param state the state to restore
+     */
+    private void restoreAll(ViewGroup viewGroup, SparseArray state) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                restoreAll((ViewGroup) child, state);
+            } else {
+                child.restoreHierarchyState(state);
+            }
+        }
     }
 
     @Override
