@@ -53,10 +53,10 @@ allprojects {
     version = '1.0.0-SNAPSHOT'
 
     ext {
-        androidBuildToolsVersion = "23.0.0 rc3"
-        androidMinSdkVersion = 14
-        androidTargetSdkVersion = 22
-        androidCompileSdkVersion = 22
+        androidBuildToolsVersion = "23"
+        androidMinSdkVersion = 15
+        androidTargetSdkVersion = 23
+        androidCompileSdkVersion = 23
 
         androidVersionCode = 100
         androidVersionName = "1.0.0"
