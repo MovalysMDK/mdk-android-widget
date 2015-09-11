@@ -16,10 +16,23 @@ import java.util.List;
  */
 public abstract class AbstractWidgetTestableActivity extends AppCompatActivity {
 
+    /**
+     * the enable button boolean.
+     */
     protected boolean isEnabled = true;
-    private List<View> listWidget;
+    /**
+     * Mandatory button boolean.
+     */
     private boolean isMandatory = true;
+    /**
+     * The widget list.
+     */
+    private List<View> listWidget;
 
+    /**
+     * getter for the list of testable widgets.
+     * @return a array of widget ids
+     */
     protected abstract int[] getWidgetIds();
 
     /**
@@ -41,6 +54,10 @@ public abstract class AbstractWidgetTestableActivity extends AppCompatActivity {
         this.enableButton = (Button) findViewById(R.id.enableButton);
     }
 
+    /**
+     * Validate button callback.
+     * @param view the validate button view
+     */
     public void validate(View view) {
 
         for (View v : this.listWidget) {
@@ -51,6 +68,10 @@ public abstract class AbstractWidgetTestableActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Mandatory button callback.
+     * @param view the mandatory button view
+     */
     public void mandatory(View view) {
         this.isMandatory = !isMandatory;
 
@@ -62,6 +83,10 @@ public abstract class AbstractWidgetTestableActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Enable button callback.
+     * @param view the enable/disable button view
+     */
     public void switchEnable(View view) {
         Button button = (Button) view;
         button.setText(this.isEnabled ? "Enable" : "Disable");
@@ -77,6 +102,7 @@ public abstract class AbstractWidgetTestableActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean("isEnabled", this.isEnabled);
+        outState.putBoolean("isMandatory", this.isMandatory);
         super.onSaveInstanceState(outState);
     }
 
@@ -84,6 +110,7 @@ public abstract class AbstractWidgetTestableActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         this.isEnabled = !savedInstanceState.getBoolean("isEnabled");
+        this.isMandatory = savedInstanceState.getBoolean("isMandatory");
 
         this.switchEnable(this.enableButton);
     }
