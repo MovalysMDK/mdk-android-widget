@@ -16,30 +16,41 @@
     along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:addStatesFromChildren="true"
+    style="?attr/mdkRichLayoutStyle">
 
-    <com.soprasteria.movalysmdk.widget.basic.MDKEmail
-        android:id="@id/component_internal"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"/>
+        android:addStatesFromChildren="true"
+        android:saveEnabled="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#4F443344"
-        android:id="@id/component_label"/>
+        <com.soprasteria.movalysmdk.widget.basic.MDKEmail
+            android:id="@id/component_internal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:saveEnabled="true"
+            mdk:errorId="@id/component_error"
+            mdk:labelId="@id/component_label"/>
 
-    <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#4F443344"
-        android:id="@id/component_error"
-        android:layout_gravity="end" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#4F443344"
+            android:id="@id/component_label"/>
 
-</LinearLayout>
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#4F443344"
+            android:id="@id/component_error"
+            android:saveEnabled="true"
+            android:layout_gravity="end" />
+
+    </LinearLayout>
+</merge>

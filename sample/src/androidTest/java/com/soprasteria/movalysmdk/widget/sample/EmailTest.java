@@ -19,38 +19,18 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
-import com.soprasteria.movalysmdk.widget.basic.MDKEmail;
+import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandTextTest;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
-import static android.support.test.espresso.matcher.ViewMatchers.withHint;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
-import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatHint;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * Non regression testing class for custom MDK email widget.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class EmailTest {
+public class EmailTest extends AbstractCommandTextTest {
 
     /**
      * Activity used for this tests.
@@ -58,40 +38,25 @@ public class EmailTest {
     @Rule
     public ActivityTestRule<EmailActivity> mActivityRule = new ActivityTestRule<>(EmailActivity.class);
 
+    @Override
+    protected ActivityTestRule getActivity() {
+        return mActivityRule;
+    }
+
     /**
      * Check MDK email widget behaviour with invalid email format.
      */
     @Test
     public void testInvalidEmail() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        // Write invalid email
-        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("wrong format"));
-
-        // Check send button state
-        onView(withId(R.id.buttonSend)).check(matches(not(isEnabled())));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check error
-        onView(withId(R.id.checkbox_errorText)).check(matches(withConcatText(
-                R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
-
-        SpoonScreenshotAction.perform("email_invalidemail_errorstate");
-
-        onView(isRoot()).perform(orientationLandscape());
-
-        SpoonScreenshotAction.perform("email_invalidemail_errorstate_landscape");
-
-        onView(withId(R.id.checkbox_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
-
-        onView(isRoot()).perform(orientationPortrait());
-
-        onView(withId(R.id.checkbox_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid)));
+        testEntryOutsideWidget(
+                "wrong format",
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                R.id.mdkEmail_withErrorAndCommandOutside,
+                R.id.buttonSend,
+                R.id.checkbox_errorText,
+                false
+        );
     }
 
     /**
@@ -99,65 +64,102 @@ public class EmailTest {
      */
     @Test
     public void testValidEmail() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        // Write a valid email address
-        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).perform(typeText("myemail@soprasteria.com"));
-        // Check send button state
-        onView(withId(R.id.buttonSend)).check(matches(isEnabled()));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).check(matches(isEnabled()));
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // get value and check
-        CharSequence text = ((MDKEmail) mActivityRule.getActivity().findViewById(R.id.mdkEmail_withErrorAndCommandOutside)).getText();
-        assertThat("get equal set", "myemail@soprasteria.com".equals(text.toString()));
-
-        // check no error
-        onView(withId(R.id.checkbox_errorText)).check(matches(withText(isEmptyOrNullString())));
+        testEntryOutsideWidget(
+                "myemail@soprasteria.com",
+                new int[]{R.string.empty_string},
+                R.id.mdkEmail_withErrorAndCommandOutside,
+                R.id.buttonSend,
+                R.id.checkbox_errorText,
+                true
+        );
     }
 
-    /**
-     * Check MDK email widget behaviour when this one is enabled and disabled.
-     */
     @Test
-    public void testDisabledEmail() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
-
-        // Disable widgets
-        onView(withId(R.id.enableButton)).perform(click());
-
-        // Check widgets are disabled
-        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).check(matches(not(isEnabled())));
-
-        // Re enabled widget
-        onView(withId(R.id.enableButton)).perform(click());
-
-        // Check widgets are enabled
-        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside)).check(matches(isEnabled()));
+    public void testRichEmailWithLabelValidEntry() {
+        testEntryRichWidget(
+                "myemail@soprasteria.com",
+                new int[]{R.string.empty_string},
+                R.id.mdkRichEmail_withLabelAndError,
+                R.id.component_emailButton,
+                true
+        );
     }
 
-
-    /**
-     * Check MDK email widget behaviour when this one is mandatory or not.
-     */
     @Test
-    public void testMandatoryEmail() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
-
-        // Check widgets are mandatory
-        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside))
-                .check(matches(withConcatHint(R.string.testHintText, R.string.mdkrichselector_mandatory_label_char)));
-
-        // remove mandatory option on widget
-        onView(withId(R.id.mandatoryButton)).perform(click());
-
-        // Check widgets are no more mandatory
-        onView(withId(R.id.mdkEmail_withErrorAndCommandOutside))
-                .check(matches(withHint(R.string.testHintText)));
+    public void testRichEmailWithLabelInvalidEntry() {
+        testEntryRichWidget(
+                "wrong",
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                R.id.mdkRichEmail_withLabelAndError,
+                R.id.component_emailButton,
+                false
+        );
     }
+
+    @Test
+    public void testRichEmailWithCustomLayoutValidEntry() {
+        testEntryRichWidget(
+                "myemail@soprasteria.com",
+                new int[]{R.string.empty_string},
+                R.id.mdkRichEmail_withCustomLayout,
+                0,
+                true
+        );
+    }
+
+    @Test
+    public void testRichEmailWithCustomLayoutInvalidEntry() {
+        testEntryRichWidget(
+                "wrong",
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                R.id.mdkRichEmail_withCustomLayout,
+                0,
+                false
+        );
+    }
+
+    @Test
+    public void testRichEmailWithHelperValidEntry() {
+        testEntryRichWidget(
+                "myemail@soprasteria.com",
+                new int[]{R.string.uri_helper_text},
+                R.id.checkbox_helper,
+                R.id.component_emailButton,
+                true
+        );
+    }
+
+    @Test
+    public void testRichEmailWithHelperInvalidEntry() {
+        testEntryRichWidget(
+                "wrong",
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                R.id.checkbox_helper,
+                R.id.component_emailButton,
+                false
+        );
+    }
+
+
+    @Test
+    public void testDisableRichWidget() {
+        testDisableRichWidget(R.id.mdkRichEmail_withLabelAndError);
+    }
+
+    @Test
+    public void testDisableOutsideWidget() {
+        testDisableOutsideWidget(R.id.mdkEmail_withErrorAndCommandOutside);
+    }
+
+    @Test
+    public void testMandatoryRichWidget() {
+        testMandatoryRichWidget(R.id.mdkRichEmail_withLabelAndError, R.string.app_name);
+    }
+
+    @Test
+    public void testMandatoryOutsideWidget() {
+        testMandatoryOutsideWidget(R.id.mdkEmail_withErrorAndCommandOutside, R.string.testHintText);
+    }
+
 }

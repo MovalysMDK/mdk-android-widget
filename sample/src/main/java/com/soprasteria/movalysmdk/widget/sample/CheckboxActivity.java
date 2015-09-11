@@ -16,109 +16,25 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-
-import com.soprasteria.movalysmdk.widget.basic.MDKCheckBox;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox;
 
 /**
  * Test activity for the MDKRichCheckable widget.
  */
-public class CheckboxActivity extends AppCompatActivity {
+public class CheckboxActivity extends AbstractWidgetTestableActivity {
 
-    /**
-     * MDKRichCheckable with label and error.
-     */
-    private MDKRichCheckbox richCheckBoxWithLabelAndError;
-
-    /**
-     * MDKCheckBox with error and command outside.
-     */
-    private MDKCheckBox checkboxWithErrorAndCommandOutside;
-
-    /**
-     * MDKRichCheckable with custom layout.
-     */
-    private MDKRichCheckbox richCheckBoxWithCustomLayout;
-
-    /**
-     * MDKRichCheckable with external helper.
-     */
-    private MDKRichCheckbox richCheckBoxWithExternalHelper;
-
-    /**
-     * Enable button.
-     */
-    private Button enableButton;
-
-    /**
-     * is enabled.
-     */
-    private boolean isEnabled = true;
+    @Override
+    protected int[] getWidgetIds() {
+        return new int[] {
+                R.id.mdkRichCheckbox_withLabelAndError,
+                R.id.mdkCheckbox_withErrorAndCommandOutside,
+                R.id.mdkRichCheckbox_withCustomLayout,
+                R.id.checkbox_helper
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkbox);
-
-        this.richCheckBoxWithLabelAndError = (MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_withLabelAndError);
-        this.checkboxWithErrorAndCommandOutside = (MDKCheckBox) findViewById(R.id.mdkCheckbox_withErrorAndCommandOutside);
-        this.richCheckBoxWithCustomLayout = (MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_withCustomLayout);
-        this.richCheckBoxWithExternalHelper = (MDKRichCheckbox) findViewById(R.id.checkbox_helper);
-
-        this.enableButton = (Button) findViewById(R.id.enableButton);
-    }
-
-    /**
-     * Validate all the mdk widgets.
-     * @param view the view
-     */
-    public void validate(View view) {
-
-        this.richCheckBoxWithLabelAndError.validate();
-        this.checkboxWithErrorAndCommandOutside.validate();
-        this.richCheckBoxWithCustomLayout.validate();
-        this.richCheckBoxWithExternalHelper.validate();
-    }
-
-    /**
-     * Switch on/off mandatory state of all mdk widgets.
-     * @param view the view
-     */
-    public void mandatory(View view) {
-        // nothing to do
-    }
-
-    /**
-     * Switch to enabled/disabled state of all mdk widgets.
-     * @param view view
-     */
-    public void switchEnable(View view) {
-
-        Button button = (Button) view;
-        button.setText(this.isEnabled ? "Enable" : "Disable");
-
-        this.isEnabled = !isEnabled;
-
-        this.richCheckBoxWithLabelAndError.setEnabled(this.isEnabled);
-        this.checkboxWithErrorAndCommandOutside.setEnabled(this.isEnabled);
-        this.richCheckBoxWithCustomLayout.setEnabled(this.isEnabled);
-        this.richCheckBoxWithExternalHelper.setEnabled(this.isEnabled);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean("isEnabled", this.isEnabled);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        this.isEnabled = !savedInstanceState.getBoolean("isEnabled");
-
-        this.switchEnable(this.enableButton);
     }
 }

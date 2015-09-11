@@ -16,39 +16,29 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
-import com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch;
 
 /**
  * Test Activity for custom FormFieldValidator.
  */
-public class ValidatorActivity extends AppCompatActivity {
+public class ValidatorActivity extends AbstractWidgetTestableActivity {
+
+
+    @Override
+    protected int[] getWidgetIds() {
+        return new int[] {
+                R.id.mdkRichText_withCustomValidator,
+                R.id.mdkRichText_nomandatory_withCustomValidator,
+                R.id.mdkRichText_lenthvalidator_withCustomValidator,
+                R.id.mdkRichCheckbox_trueValidation,
+                R.id.mdkRichCheckbox_falseValidation,
+                R.id.mdkRichSwitch_trueValidation,
+                R.id.mdkRichSwitch_falseValidation
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator);
-    }
-
-    /**
-     * Callback method for widget validation.
-     * @param view the clicked view
-     */
-    public void validate(View view) {
-
-        /* text fields */
-        ((MDKRichEditText) findViewById(R.id.mdkRichText_withCustomValidator)).validate();
-        ((MDKRichEditText) findViewById(R.id.mdkRichText_nomandatory_withCustomValidator)).validate();
-        ((MDKRichEditText) findViewById(R.id.mdkRichText_lenthvalidator_withCustomValidator)).validate();
-
-        /* checkboxes */
-        ((MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_trueValidation)).validate();
-        ((MDKRichCheckbox) findViewById(R.id.mdkRichCheckbox_falseValidation)).validate();
-        ((MDKRichSwitch) findViewById(R.id.mdkRichSwitch_trueValidation)).validate();
-        ((MDKRichSwitch) findViewById(R.id.mdkRichSwitch_falseValidation)).validate();
     }
 }
