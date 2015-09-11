@@ -33,6 +33,16 @@ import org.junit.runner.RunWith;
 public class EmailTest extends AbstractCommandTextTest {
 
     /**
+     * Valid input.
+     */
+    private static final String EMAIL_VALUE = "myemail@soprasteria.com";
+
+    /**
+     * invalid input.
+     */
+    private static final String EMAIL_INVALD_VALUE = "wrong format";
+
+    /**
      * Activity used for this tests.
      */
     @Rule
@@ -50,7 +60,7 @@ public class EmailTest extends AbstractCommandTextTest {
     public void testInvalidEmail() {
 
         testEntryOutsideWidget(
-                "wrong format",
+                EMAIL_INVALD_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.mdkEmail_withErrorAndCommandOutside,
                 R.id.buttonSend,
@@ -66,7 +76,7 @@ public class EmailTest extends AbstractCommandTextTest {
     public void testValidEmail() {
 
         testEntryOutsideWidget(
-                "myemail@soprasteria.com",
+                EMAIL_VALUE,
                 new int[]{R.string.empty_string},
                 R.id.mdkEmail_withErrorAndCommandOutside,
                 R.id.buttonSend,
@@ -78,7 +88,7 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testRichEmailWithLabelValidEntry() {
         testEntryRichWidget(
-                "myemail@soprasteria.com",
+               EMAIL_VALUE,
                 new int[]{R.string.empty_string},
                 R.id.mdkRichEmail_withLabelAndError,
                 R.id.component_emailButton,
@@ -89,7 +99,7 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testRichEmailWithLabelInvalidEntry() {
         testEntryRichWidget(
-                "wrong",
+                EMAIL_INVALD_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.mdkRichEmail_withLabelAndError,
                 R.id.component_emailButton,
@@ -100,7 +110,7 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testRichEmailWithCustomLayoutValidEntry() {
         testEntryRichWidget(
-                "myemail@soprasteria.com",
+                EMAIL_VALUE,
                 new int[]{R.string.empty_string},
                 R.id.mdkRichEmail_withCustomLayout,
                 0,
@@ -111,7 +121,7 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testRichEmailWithCustomLayoutInvalidEntry() {
         testEntryRichWidget(
-                "wrong",
+                EMAIL_INVALD_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.mdkRichEmail_withCustomLayout,
                 0,
@@ -122,7 +132,7 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testRichEmailWithHelperValidEntry() {
         testEntryRichWidget(
-                "myemail@soprasteria.com",
+                EMAIL_VALUE,
                 new int[]{R.string.uri_helper_text},
                 R.id.checkbox_helper,
                 R.id.component_emailButton,
@@ -133,7 +143,7 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testRichEmailWithHelperInvalidEntry() {
         testEntryRichWidget(
-                "wrong",
+                EMAIL_INVALD_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.checkbox_helper,
                 R.id.component_emailButton,

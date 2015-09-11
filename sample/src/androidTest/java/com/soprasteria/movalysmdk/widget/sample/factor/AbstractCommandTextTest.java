@@ -71,10 +71,11 @@ public abstract class AbstractCommandTextTest {
      * Method use to execute AbstractCommandTextTest#testEntrySenarioBasicWithRotation with a RichWidget.
      * @param textInput the text input
      * @param errorMessages the error message reference
+     * @param richWidgetView the rich widget reference
      * @param commandView the command view reference
      * @param validEntry true if the input is a valid entry, false otherwise
      */
-    public void testEntryRichWidget(String textInput, int[] errorMessages, int richWidgetView, int commandView, boolean validEntry) {
+    public void testEntryRichWidget(String textInput, int[] errorMessages, @IdRes int richWidgetView, @IdRes int commandView, boolean validEntry) {
 
         testEntrySenarioBasicWithRotation(
                 textInput,
