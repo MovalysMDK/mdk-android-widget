@@ -319,7 +319,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     }
 
     /**
-     * Save all subviews states on rich widget
+     * Save all subviews states on rich widget.
      * @param viewGroup the ViewGroup to save
      * @param states the state so save
      */
@@ -342,7 +342,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     }
 
     /**
-     * Restore all subviews states on rich widget
+     * Restore all subviews states on rich widget.
      * @param viewGroup the ViewGroup to restore
      * @param state the state to restore
      */
