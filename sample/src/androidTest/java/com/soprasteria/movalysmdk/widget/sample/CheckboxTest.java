@@ -44,7 +44,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 
 /**
- * Non regression testing class for custom Mcheckedkable widget.
+ * Non regression testing class for custom MDKCheckbox widget.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest

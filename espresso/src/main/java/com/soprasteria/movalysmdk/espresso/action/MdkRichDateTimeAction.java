@@ -62,6 +62,19 @@ public class MdkRichDateTimeAction {
     }
 
     /**
+     * Set datetime on mdkRichDateWidget.
+     * @param year year
+     * @param monthOfYear month
+     * @param dayOfMonth day
+     * @param hour year
+     * @param minute month
+     * @return ViewAction
+     */
+    public static ViewAction setDateTime(final int year, final int monthOfYear, final int dayOfMonth, final int hour, final int minute) {
+        return new SetDateTimeViewAction(year, monthOfYear, dayOfMonth, hour, minute);
+    }
+
+    /**
      * SetTime action for MDKRichDateTimeWidget.
      */
     private static class SetTimeViewAction implements ViewAction {
@@ -161,6 +174,82 @@ public class MdkRichDateTimeAction {
         @Override
         public String getDescription() {
             return "set date";
+        }
+
+        @Override
+        public Matcher<View> getConstraints() {
+            return Matchers.allOf(
+                    ViewMatchers.isAssignableFrom(MDKBaseRichDateWidget.class),
+                    ViewMatchers.isDisplayed());
+        }
+    }
+
+    /**
+     * SetDateTime action for MDKRichDateTimeWidget.
+     */
+    private static class SetDateTimeViewAction implements ViewAction {
+
+        /**
+         * hour.
+         */
+        private final int hour ;
+
+        /**
+         * minute.
+         */
+        private final int minute ;
+
+        /**
+         * Year.
+         */
+        private final int year;
+
+        /**
+         * Month of year.
+         */
+        private final int monthOfYear;
+
+        /**
+         * Day of month.
+         */
+        private final int dayOfMonth;
+
+        /**
+         * Constructor.
+         * @param year year.
+         * @param monthOfYear month of year.
+         * @param dayOfMonth day of month.
+         * @param hour hour.
+         * @param minute minute.
+         */
+        public SetDateTimeViewAction(int year, int monthOfYear, int dayOfMonth, int hour, int minute) {
+            this.hour = hour;
+            this.minute = minute;
+            this.year = year;
+            this.monthOfYear = monthOfYear;
+            this.dayOfMonth = dayOfMonth;
+        }
+
+        @Override
+        public void perform(UiController uiController, View view) {
+            MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget)view;
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(0);
+            cal.set(Calendar.HOUR_OF_DAY, hour);
+            cal.set(Calendar.MINUTE, minute);
+            cal.set(Calendar.YEAR, year);
+            cal.set(Calendar.MONTH, monthOfYear - 1);
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            MDKDateTime dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            dateTimeView.setDate(cal.getTime());
+            dateTimeView.setTime(cal.getTime());
+        }
+
+        @Override
+        public String getDescription() {
+            return "set time";
         }
 
         @Override

@@ -52,12 +52,6 @@
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
-            android:id="@+id/mdkRichDateTime_withLabelAndNotMandatory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            mdk:label="@string/app_name" />
-
         <View
             android:background="@drawable/separator_background"
             android:layout_width="match_parent"

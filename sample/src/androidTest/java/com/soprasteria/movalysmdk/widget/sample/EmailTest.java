@@ -19,7 +19,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandTextTest;
+import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class EmailTest extends AbstractCommandTextTest {
+public class EmailTest extends AbstractCommandWidgetTest {
 
     /**
      * Valid input.
@@ -40,7 +40,7 @@ public class EmailTest extends AbstractCommandTextTest {
     /**
      * invalid input.
      */
-    private static final String EMAIL_INVALD_VALUE = "wrong format";
+    private static final String EMAIL_INVALID_VALUE = "wrong format";
 
     /**
      * Activity used for this tests.
@@ -59,8 +59,8 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testInvalidEmail() {
 
-        testEntryOutsideWidget(
-                EMAIL_INVALD_VALUE,
+        testTextEntryOutsideWidget(
+                EMAIL_INVALID_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.mdkEmail_withErrorAndCommandOutside,
                 R.id.buttonSend,
@@ -75,7 +75,7 @@ public class EmailTest extends AbstractCommandTextTest {
     @Test
     public void testValidEmail() {
 
-        testEntryOutsideWidget(
+        testTextEntryOutsideWidget(
                 EMAIL_VALUE,
                 new int[]{R.string.empty_string},
                 R.id.mdkEmail_withErrorAndCommandOutside,
@@ -90,8 +90,8 @@ public class EmailTest extends AbstractCommandTextTest {
      */
     @Test
     public void testRichEmailWithLabelValidEntry() {
-        testEntryRichWidget(
-               EMAIL_VALUE,
+        testTextEntryRichWidget(
+                EMAIL_VALUE,
                 new int[]{R.string.empty_string},
                 R.id.mdkRichEmail_withLabelAndError,
                 R.id.component_emailButton,
@@ -104,8 +104,8 @@ public class EmailTest extends AbstractCommandTextTest {
      */
     @Test
     public void testRichEmailWithLabelInvalidEntry() {
-        testEntryRichWidget(
-                EMAIL_INVALD_VALUE,
+        testTextEntryRichWidget(
+                EMAIL_INVALID_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.mdkRichEmail_withLabelAndError,
                 R.id.component_emailButton,
@@ -118,7 +118,7 @@ public class EmailTest extends AbstractCommandTextTest {
      */
     @Test
     public void testRichEmailWithCustomLayoutValidEntry() {
-        testEntryRichWidget(
+        testTextEntryRichWidget(
                 EMAIL_VALUE,
                 new int[]{R.string.empty_string},
                 R.id.mdkRichEmail_withCustomLayout,
@@ -132,8 +132,8 @@ public class EmailTest extends AbstractCommandTextTest {
      */
     @Test
     public void testRichEmailWithCustomLayoutInvalidEntry() {
-        testEntryRichWidget(
-                EMAIL_INVALD_VALUE,
+        testTextEntryRichWidget(
+                EMAIL_INVALID_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.mdkRichEmail_withCustomLayout,
                 0,
@@ -146,7 +146,7 @@ public class EmailTest extends AbstractCommandTextTest {
      */
     @Test
     public void testRichEmailWithHelperValidEntry() {
-        testEntryRichWidget(
+        testTextEntryRichWidget(
                 EMAIL_VALUE,
                 new int[]{R.string.uri_helper_text},
                 R.id.checkbox_helper,
@@ -160,8 +160,8 @@ public class EmailTest extends AbstractCommandTextTest {
      */
     @Test
     public void testRichEmailWithHelperInvalidEntry() {
-        testEntryRichWidget(
-                EMAIL_INVALD_VALUE,
+        testTextEntryRichWidget(
+                EMAIL_INVALID_VALUE,
                 new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
                 R.id.checkbox_helper,
                 R.id.component_emailButton,
