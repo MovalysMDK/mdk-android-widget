@@ -85,6 +85,9 @@ public class EmailTest extends AbstractCommandTextTest {
         );
     }
 
+    /**
+     * Check MDK rich email widget behaviour with valid email format.
+     */
     @Test
     public void testRichEmailWithLabelValidEntry() {
         testEntryRichWidget(
@@ -96,6 +99,9 @@ public class EmailTest extends AbstractCommandTextTest {
         );
     }
 
+    /**
+     * Check MDK rich email widget behaviour with invalid email format.
+     */
     @Test
     public void testRichEmailWithLabelInvalidEntry() {
         testEntryRichWidget(
@@ -107,6 +113,9 @@ public class EmailTest extends AbstractCommandTextTest {
         );
     }
 
+    /**
+     * Check MDK rich email with custom layout widget behaviour with valid email format.
+     */
     @Test
     public void testRichEmailWithCustomLayoutValidEntry() {
         testEntryRichWidget(
@@ -118,6 +127,9 @@ public class EmailTest extends AbstractCommandTextTest {
         );
     }
 
+    /**
+     * Check MDK rich email with custom layout widget behaviour with invalid email format.
+     */
     @Test
     public void testRichEmailWithCustomLayoutInvalidEntry() {
         testEntryRichWidget(
@@ -129,6 +141,9 @@ public class EmailTest extends AbstractCommandTextTest {
         );
     }
 
+    /**
+     * Check MDK rich email with helper widget behaviour with valid email format.
+     */
     @Test
     public void testRichEmailWithHelperValidEntry() {
         testEntryRichWidget(
@@ -140,6 +155,9 @@ public class EmailTest extends AbstractCommandTextTest {
         );
     }
 
+    /**
+     * Check MDK rich email with helper widget behaviour with invalid email format.
+     */
     @Test
     public void testRichEmailWithHelperInvalidEntry() {
         testEntryRichWidget(
@@ -151,22 +169,33 @@ public class EmailTest extends AbstractCommandTextTest {
         );
     }
 
-
+    /**
+     * Check MDK rich email widget disability behaviour toggle.
+     */
     @Test
     public void testDisableRichWidget() {
         testDisableRichWidget(R.id.mdkRichEmail_withLabelAndError);
     }
 
+    /**
+     * Check MDK rich email with outside error widget disability behaviour toggle.
+     */
     @Test
     public void testDisableOutsideWidget() {
         testDisableOutsideWidget(R.id.mdkEmail_withErrorAndCommandOutside);
     }
 
+    /**
+     * Check MDK rich email widget mandatory behaviour toggle.
+     */
     @Test
     public void testMandatoryRichWidget() {
         testMandatoryRichWidget(R.id.mdkRichEmail_withLabelAndError, R.string.app_name);
     }
 
+    /**
+     * Check MDK rich email with outside error widget mandatory behaviour toggle.
+     */
     @Test
     public void testMandatoryOutsideWidget() {
         testMandatoryOutsideWidget(R.id.mdkEmail_withErrorAndCommandOutside, R.string.testHintText);
