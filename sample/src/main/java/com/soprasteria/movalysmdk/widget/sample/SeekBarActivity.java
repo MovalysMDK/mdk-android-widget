@@ -16,76 +16,28 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-
-import com.soprasteria.movalysmdk.widget.basic.MDKSeekBar;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar;
 
 /**
  * Test activity for the MDKRichSeekBar widget.
  */
-public class SeekBarActivity extends AppCompatActivity {
+public class SeekBarActivity extends AbstractWidgetTestableActivity {
 
-    /**
-     * MDKRichSeekBar with label and error.
-     */
-    private MDKRichSeekBar richSeekBarWithLabelAndError;
-
-    /**
-     * MDKSeekBar with error and command outside.
-     */
-    private MDKSeekBar seekbarWithErrorAndCommandOutside;
-
-    /**
-     * MDKRichSeekBar with custom layout.
-     */
-    private MDKRichSeekBar richSeekBarWithCustomLayout;
-
-    /**
-     * MDKRichSeekBar with shared error.
-     */
-    private MDKRichSeekBar richSeekBar1WithSharedError;
-
-    /**
-     * MDKRichSeekBar with shared error.
-     */
-    private MDKRichSeekBar richSeekBar2WithSharedError;
-
-    /**
-     * MDKRichSeekBar with external helper.
-     */
-    private MDKRichSeekBar mdkRichSeekBarHelperAndInitValue;
+    @Override
+    protected int[] getWidgetIds() {
+        return new int[]{
+                R.id.mdkRichSeekBar_withLabelAndError,
+                R.id.mdkSeekBar_withErrorAndCommandOutside,
+                R.id.mdkRichSeekBar_withCustomLayout,
+                R.id.mdkRichSeekBar1_withSharedErrorAndInitValue,
+                R.id.mdkRichSeekBar2_withSharedError,
+                R.id.mdkRichSeekBar_helper_and_init_value
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seekbar);
-
-        this.richSeekBarWithLabelAndError = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar_withLabelAndError);
-        this.seekbarWithErrorAndCommandOutside = (MDKSeekBar) findViewById(R.id.mdkSeekBar_withErrorAndCommandOutside);
-        this.richSeekBarWithCustomLayout = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar_withCustomLayout);
-        this.richSeekBar1WithSharedError = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar1_withSharedErrorAndInitValue);
-        this.richSeekBar2WithSharedError = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar2_withSharedError);
-        this.mdkRichSeekBarHelperAndInitValue = (MDKRichSeekBar) findViewById(R.id.mdkRichSeekBar_helper_and_init_value);
     }
 
-
-    /**
-     * Switch to enabled/disabled state of all mdk widgets.
-     * @param view view
-     */
-    public void switchEnable(View view) {
-
-        Button button = (Button) view;
-        button.setText("Disable".equals(button.getText()) ? "Enable": "Disable");
-
-        this.richSeekBarWithLabelAndError.setEnabled(!this.richSeekBarWithLabelAndError.isEnabled());
-        this.seekbarWithErrorAndCommandOutside.setEnabled(!this.seekbarWithErrorAndCommandOutside.isEnabled());
-        this.richSeekBarWithCustomLayout.setEnabled(!this.richSeekBarWithCustomLayout.isEnabled());
-        this.richSeekBar1WithSharedError.setEnabled(!this.richSeekBar1WithSharedError.isEnabled());
-        this.richSeekBar2WithSharedError.setEnabled(!this.richSeekBar2WithSharedError.isEnabled());
-        this.mdkRichSeekBarHelperAndInitValue.setEnabled(!this.mdkRichSeekBarHelperAndInitValue.isEnabled());
-    }
 }

@@ -16,47 +16,21 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-
-import com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch;
-import com.soprasteria.movalysmdk.widget.basic.MDKSwitch;
 
 /**
- * Test activity for the MDKRichCheckable widget.
+ * Test activity for the MDKRichSwitch widget.
  */
-public class SwitchActivity extends AppCompatActivity {
+public class SwitchActivity extends AbstractWidgetTestableActivity {
 
-    /**
-     * MDKRichSwitch with label and error.
-     */
-    private MDKRichSwitch richSwitchWithLabelAndError;
-
-    /**
-     * MDKSwitch with error and command outside.
-     */
-    private MDKSwitch switchWithErrorAndCommandOutside;
-
-    /**
-     * MDKRichSwitch with custom layout.
-     */
-    private MDKRichSwitch richSwitchWithCustomLayout;
-
-    /**
-     * MDKRichSwitch with external helper.
-     */
-    private MDKRichSwitch richSwitchWithExternalHelper;
-
-    /**
-     * Enable button.
-     */
-    private Button enableButton;
-
-    /**
-     * Is enabled.
-     */
-    private boolean isEnabled = true;
+    @Override
+    protected int[] getWidgetIds() {
+        return new int[]{
+                R.id.mdkRichSwitch_withLabelAndError,
+                R.id.mdkSwitch_withErrorAndCommandOutside,
+                R.id.mdkRichSwitch_withCustomLayout,
+                R.id.switch_helper
+        };
+    }
 
     /**
      * On activity created.
@@ -66,63 +40,6 @@ public class SwitchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switch);
-
-        this.richSwitchWithLabelAndError = (MDKRichSwitch) findViewById(R.id.mdkRichSwitch_withLabelAndError);
-        this.switchWithErrorAndCommandOutside = (MDKSwitch) findViewById(R.id.mdkSwitch_withErrorAndCommandOutside);
-        this.richSwitchWithCustomLayout = (MDKRichSwitch) findViewById(R.id.mdkRichSwitch_withCustomLayout);
-        this.richSwitchWithExternalHelper = (MDKRichSwitch) findViewById(R.id.switch_helper);
-
-        this.enableButton = (Button) findViewById(R.id.enableButton);
     }
 
-    /**
-     * Validate all the mdk widgets.
-     * @param view the view
-     */
-    public void validate(View view) {
-
-        this.richSwitchWithLabelAndError.validate();
-        this.switchWithErrorAndCommandOutside.validate();
-        this.richSwitchWithCustomLayout.validate();
-        this.richSwitchWithExternalHelper.validate();
-    }
-
-    /**
-     * Switch on/off mandatory state of all mdk widgets.
-     * @param view the view
-     */
-    public void mandatory(View view) {
-        // nothing to do
-    }
-
-    /**
-     * Switch to enabled/disabled state of all mdk widgets.
-     * @param view view
-     */
-    public void switchEnable(View view) {
-
-        Button button = (Button) view;
-        button.setText(this.isEnabled ? "Enable" : "Disable");
-
-        this.isEnabled = !isEnabled;
-
-        this.richSwitchWithLabelAndError.setEnabled(this.isEnabled);
-        this.switchWithErrorAndCommandOutside.setEnabled(this.isEnabled);
-        this.richSwitchWithCustomLayout.setEnabled(this.isEnabled);
-        this.richSwitchWithExternalHelper.setEnabled(this.isEnabled);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean("isEnabled", this.isEnabled);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        this.isEnabled = !savedInstanceState.getBoolean("isEnabled");
-
-        this.switchEnable(this.enableButton);
-    }
 }
