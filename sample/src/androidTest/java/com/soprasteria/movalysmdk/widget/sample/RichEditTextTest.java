@@ -151,7 +151,7 @@ public class RichEditTextTest extends AbstractCommandWidgetTest {
     public void testRichEditWithHelperValidEntry() {
         testTextEntryRichWidget(
                 mActivityRule.getActivity().getString(R.string.test_hello_world),
-                new int[]{R.string.edit_rich_helper_text},
+                new int[]{R.string.test_edit_rich_helper_text},
                 R.id.mdkRichEditText_withHelper,
                 0,
                 true
@@ -165,7 +165,7 @@ public class RichEditTextTest extends AbstractCommandWidgetTest {
     public void testRichEmailWithHelperInvalidEntry() {
         testTextEntryRichWidget(
                 mActivityRule.getActivity().getString(R.string.test_empty_string),
-                new int[]{R.string.edit_rich_helper_text},
+                new int[]{R.string.test_edit_rich_helper_text},
                 R.id.mdkRichEditText_withHelper,
                 0,
                 false

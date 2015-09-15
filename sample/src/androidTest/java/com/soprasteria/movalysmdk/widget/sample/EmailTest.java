@@ -148,7 +148,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
     public void testRichEmailWithHelperValidEntry() {
         testTextEntryRichWidget(
                 EMAIL_VALUE,
-                new int[]{R.string.uri_helper_text},
+                new int[]{R.string.test_email_helper_text},
                 R.id.mdkRichEmail_withHelper,
                 R.id.component_emailButton,
                 true

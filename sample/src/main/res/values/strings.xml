@@ -49,7 +49,7 @@
     <string name="edit_text_case_8">EditText without label but hint</string>
     <string name="edit_rich_helper_text">Mandatory EditText</string>
 
-    <string name="email_helper_text">uri format text</string>
+    <string name="email_helper_text">email format text</string>
     <string name="email_with_label_error">Email Rich widget with label and error</string>
     <string name="email_standalone_widget">Email standalone widget with error field</string>
     <string name="email_rich_custom_layout">Email Rich widget custom layout</string>
@@ -164,5 +164,7 @@
     <string name="test_true_text">true</string>
     <string name="test_false_text">false</string>
     <string name="test_phone_helper_text">phone format text</string>
+    <string name="test_email_helper_text">email format text</string>
+    <string name="test_edit_rich_helper_text">Mandatory EditText</string>
 
 </resources>
