@@ -16,7 +16,6 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,7 +24,7 @@ import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 /**
  * Test activity for the MDKRichEditText widget.
  */
-public class EditTextActivity extends AppCompatActivity {
+public class EditTextActivity extends AbstractWidgetTestableActivity {
 
     /**
      * MDKRichEditText with custom layout.
@@ -36,6 +35,22 @@ public class EditTextActivity extends AppCompatActivity {
      * Button to clear/fill mdkRichEditText.
      */
     private Button fillEraseButton;
+
+    @Override
+    protected int[] getWidgetIds() {
+        return new int[] {
+                R.id.mdkRichEditText_withCustomLayout,
+                R.id.mdkRichEditText_withCustomLayoutAndButton,
+                R.id.mdkRichEditText_withLabelAndMandatory,
+                R.id.mdkRichEditText_withLabelAndHint,
+                R.id.mdkRichEditText_withoutLabelAndHint,
+                R.id.mdkRichEditText_withoutLabelButHint,
+                R.id.mdkEditText_withExternalLabelAndSharedError,
+                R.id.mdkEditText_withHintAndExternalLabelAndSharedError,
+                R.id.test_case_7,
+                R.id.mdkEditText_withHintAndSharedError,
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,33 +73,5 @@ public class EditTextActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    /**
-     * Validate all the mdk widgets.
-     * @param view view
-     */
-    public void validate(View view) {
-        // MDK EditText with label, no hint and mandatory
-        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).validate();
-
-        // MDK EditText without label but hint and mandatory
-        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withoutLabelButHint)).validate();
-
-    }
-
-    /**
-     * Change the mandatory state of the chosen view's components.
-     * @param view view
-     */
-    public void mandatory(View view) {
-
-        // MDK EditText with label, no hint and mandatory
-        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).setMandatory(
-                !(((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withLabelAndMandatory)).isMandatory()));
-
-        // MDK EditText without label but hint and mandatory
-        ((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withoutLabelButHint)).setMandatory(
-                !(((MDKRichEditText) this.findViewById(R.id.mdkRichEditText_withoutLabelButHint)).isMandatory()));
     }
 }

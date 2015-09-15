@@ -20,7 +20,7 @@ import android.os.Bundle;
 /**
  * Test activity for the MDKRichEmail widget.
  */
-public class EmailActivity extends AbstractWidgetTestableActivity/*AppCompatActivity*/ {
+public class EmailActivity extends AbstractWidgetTestableActivity {
 
     @Override
     protected int[] getWidgetIds() {

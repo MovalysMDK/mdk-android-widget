@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             mdk:hint="@string/edit_text_hint"
             mdk:label="@string/edit_text_label"
-            mdk:layout="@layout/custom_edittext_widget"/>
+            mdk:layout="@layout/custom_edittext_widget"
+            mdk:mandatory="true"/>
 
         <!-- MDKRichEditText with style and a button to fill/clear text -->
 
@@ -162,11 +163,12 @@
             android:text="@string/edit_text_label"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKEditText
-            android:id="@+id/mdkRichEditText_withExternalLabelAndSharedError"
+            android:id="@+id/mdkEditText_withExternalLabelAndSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:labelId="@id/myLabel"
-            mdk:errorId="@+id/sharedError"/>
+            mdk:errorId="@+id/sharedError"
+            mdk:mandatory="true"/>
 
         <TextView
             android:id="@+id/sharedError"

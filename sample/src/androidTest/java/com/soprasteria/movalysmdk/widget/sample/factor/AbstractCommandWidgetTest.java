@@ -66,7 +66,7 @@ public abstract class AbstractCommandWidgetTest {
                 matches(withText(textInput)),
                 errorMessages,
                 withId(inputView),
-                withId(commandView),
+                commandView != 0 ? withId(commandView) : null,
                 withId(errorView),
                 validEntry
         );
