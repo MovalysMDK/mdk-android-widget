@@ -101,14 +101,20 @@ public class MdkRichDateTimeAction {
 
         @Override
         public void perform(UiController uiController, View view) {
-            MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget)view;
-
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(0);
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
 
-            MDKDateTime dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            MDKDateTime dateTimeView;
+
+            if (view instanceof MDKBaseRichDateWidget) {
+                MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) view;
+                dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            } else {
+                dateTimeView = (MDKDateTime) view;
+            }
+
             dateTimeView.setTime(cal.getTime());
         }
 
@@ -120,7 +126,7 @@ public class MdkRichDateTimeAction {
         @Override
         public Matcher<View> getConstraints() {
             return Matchers.allOf(
-                    ViewMatchers.isAssignableFrom(MDKBaseRichDateWidget.class),
+                    Matchers.anyOf(ViewMatchers.isAssignableFrom(MDKBaseRichDateWidget.class), ViewMatchers.isAssignableFrom(MDKDateTime.class)),
                     ViewMatchers.isDisplayed());
         }
     }
@@ -159,15 +165,21 @@ public class MdkRichDateTimeAction {
 
         @Override
         public void perform(UiController uiController, View view) {
-            MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget)view;
-
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(0);
             cal.set(Calendar.YEAR, year);
             cal.set(Calendar.MONTH, monthOfYear -1);
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            MDKDateTime dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            MDKDateTime dateTimeView;
+
+            if (view instanceof MDKBaseRichDateWidget) {
+                MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) view;
+                dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            } else {
+                dateTimeView = (MDKDateTime) view;
+            }
+
             dateTimeView.setDate(cal.getTime());
         }
 
@@ -179,7 +191,7 @@ public class MdkRichDateTimeAction {
         @Override
         public Matcher<View> getConstraints() {
             return Matchers.allOf(
-                    ViewMatchers.isAssignableFrom(MDKBaseRichDateWidget.class),
+                    Matchers.anyOf(ViewMatchers.isAssignableFrom(MDKBaseRichDateWidget.class), ViewMatchers.isAssignableFrom(MDKDateTime.class)),
                     ViewMatchers.isDisplayed());
         }
     }
@@ -232,8 +244,6 @@ public class MdkRichDateTimeAction {
 
         @Override
         public void perform(UiController uiController, View view) {
-            MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget)view;
-
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(0);
             cal.set(Calendar.HOUR_OF_DAY, hour);
@@ -242,20 +252,28 @@ public class MdkRichDateTimeAction {
             cal.set(Calendar.MONTH, monthOfYear - 1);
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            MDKDateTime dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            MDKDateTime dateTimeView;
+
+            if (view instanceof MDKBaseRichDateWidget) {
+                MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) view;
+                dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            } else {
+                dateTimeView = (MDKDateTime) view;
+            }
+
             dateTimeView.setDate(cal.getTime());
             dateTimeView.setTime(cal.getTime());
         }
 
         @Override
         public String getDescription() {
-            return "set time";
+            return "set date time";
         }
 
         @Override
         public Matcher<View> getConstraints() {
             return Matchers.allOf(
-                    ViewMatchers.isAssignableFrom(MDKBaseRichDateWidget.class),
+                    Matchers.anyOf(ViewMatchers.isAssignableFrom(MDKBaseRichDateWidget.class), ViewMatchers.isAssignableFrom(MDKDateTime.class)),
                     ViewMatchers.isDisplayed());
         }
     }

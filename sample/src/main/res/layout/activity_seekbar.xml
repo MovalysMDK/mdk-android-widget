@@ -77,11 +77,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:maxSeekBarValue="20"
-            mdk:errorId="@+id/checkbox_errorText"
+            mdk:errorId="@+id/mdkemail_errorText"
             mdk:primaryCommandId="@+id/buttonCall"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
-            android:id="@+id/checkbox_errorText"
+            android:id="@+id/mdkemail_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />

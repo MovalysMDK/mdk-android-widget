@@ -30,7 +30,7 @@ public class EmailActivity extends AbstractWidgetTestableActivity/*AppCompatActi
                 R.id.mdkRichEmail_withCustomLayout,
                 R.id.mdkRichEmail1_withSharedError,
                 R.id.mdkRichEmail2_withSharedError,
-                R.id.checkbox_helper
+                R.id.mdkRichEmail_withHelper
         };
     }
 

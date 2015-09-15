@@ -28,7 +28,8 @@ public class DateActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichDateTime_withLabelAndMandatory,
                 R.id.mdkRichDate_withLabelAndMandatory,
                 R.id.mdkRichTime_withLabelAndMandatory,
-                R.id.mdkDateTime_withLabelAndMandatoryAndSharedError,
+                R.id.mdkDateTime_withSharedError,
+                R.id.mdkRichDateTime_withCustomLayout,
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
                 R.id.mdkRichDateTime_withLabelAndMandatoryAndHints,
         };

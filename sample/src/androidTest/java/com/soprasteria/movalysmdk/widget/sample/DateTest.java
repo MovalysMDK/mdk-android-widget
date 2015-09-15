@@ -15,45 +15,22 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 
-import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
+import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.espresso.action.MdkRichDateTimeAction.setDate;
-import static com.soprasteria.movalysmdk.espresso.action.MdkRichDateTimeAction.setTime;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkDateMatchers.withDate;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkDateMatchers.withDateTime;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkDateMatchers.withTime;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * Tests for MdkRichDate et MdkRichDateTime widgets.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class DateTest {
+public class DateTest extends AbstractCommandWidgetTest {
 
     /**
      *  Rule to initialize DateActivity.
@@ -61,155 +38,151 @@ public class DateTest {
     @Rule
     public ActivityTestRule<DateActivity> mActivityRule = new ActivityTestRule<>(DateActivity.class);
 
-    /**
-     * Test empty value.
-     */
-    @Test
-    public void testNotFilledDate1() {
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // Take screenshot
-        SpoonScreenshotAction.perform("richdatetime_emptyvalue");
-
-        // check error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid)));
+    @Override
+    protected ActivityTestRule getActivity() {
+        return mActivityRule;
     }
 
     /**
-     * Test with a valid date time value.
-     */
-    @Test
-    public void testValidTimeDate() {
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
-
-        // Update time
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setDate(2015, 2, 2));
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(10,30));
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).check(matches(withDateTime(2015, 2, 2, 10, 30)));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // Take screenshot
-        SpoonScreenshotAction.perform("richdatetime_validvalue");
-
-        // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
-                .check(matches(withText("")));
-
-        // Update time only
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(12,40));
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).check(matches(withDateTime(2015, 2, 2, 12, 40)));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
-                .check(matches(withText("")));
-    }
-
-    /**
-     * Test with a valid date value.
+     * Check MDK datetime widget behaviour with valid date.
      */
     @Test
     public void testValidDate() {
-        // update date
-        onView(withId(R.id.mdkRichDate_withLabelAndMandatory)).perform(click());
 
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).check(matches(isDisplayed()));
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2010, 4, 23));
-        onView(withId(android.R.id.button1)).perform(click());
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check date
-        onView(withId(R.id.mdkRichDate_withLabelAndMandatory)).check(matches(withDate(2010, 4, 23)));
-
-        // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDate_withLabelAndMandatory))))
-                .check(matches(withText("")));
+        testDateEntryOutsideWidget(
+                2015, 2, 2, 10, 30,
+                new int[]{R.string.empty_string},
+                R.id.mdkDateTime_withSharedError,
+                R.id.mdkdatetime_errorText,
+                true
+        );
     }
 
     /**
-     * Test with a valid time value.
+     * Check MDK datetime widget behaviour with invalid (empty) date.
      */
     @Test
-    public void testValidTime() {
-        // update time
-        onView(withId(R.id.mdkRichTime_withLabelAndMandatory)).perform(click());
+    public void testInvalidDate() {
 
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).check(matches(isDisplayed()));
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(4, 23));
-        onView(withId(android.R.id.button1)).perform(click());
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check time
-        onView(withId(R.id.mdkRichTime_withLabelAndMandatory)).check(matches(withTime(4, 23)));
-
-        // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichTime_withLabelAndMandatory))))
-                .check(matches(withText("")));
+        testEmptyDateEntryOutsideWidget(
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid},
+                R.id.mdkDateTime_withSharedError,
+                R.id.mdkdatetime_errorText,
+                false
+        );
     }
 
     /**
-     * Test with a valid date time value but not in range acceptable value.
+     * Check MDK datetime widget behaviour with valid date and range.
      */
     @Test
-    public void testNotValidDateRange() {
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+    public void testValidRangedDate() {
 
-        // Update time
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setDate(2015, 2, 2));
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(10,30));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // Take screenshot
-        SpoonScreenshotAction.perform("richdatetime_validvalue");
-
-        // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
-                .check(matches(withText("")));
-
-        // Update time only
-        onView(withId(R.id.mdkRichDateTime_withLabelAndMandatory)).perform(setTime(12, 40));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatory))))
-                .check(matches(withText("")));
+        testDateEntryOutsideWidget(
+                2015, 6, 20, 10, 30,
+                new int[]{R.string.empty_string},
+                R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
+                R.id.errorText2,
+                true
+        );
     }
 
     /**
-     * Test datehint and timehint.
+     * Check MDK datetime widget behaviour with invalid date and range.
      */
     @Test
-    public void testHints() {
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+    public void testInvalidRangedDate() {
 
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // Take screenshot
-        SpoonScreenshotAction.perform("richdatetime_hints");
-
-        // Check hint date value
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatoryAndHints))))
-                .check(matches(withText(R.string.dateHint)));
-
-        // Check hint time value
-        onView(allOf(withId(R.id.component_internal_time), isDescendantOfA(withId(R.id.mdkRichDateTime_withLabelAndMandatoryAndHints))))
-                .check(matches(withText(R.string.timeHint)));
+        testDateEntryOutsideWidget(
+                2015, 1, 1, 10, 30,
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_datetimerange_error_range, R.string.test_date_error_ranged},
+                R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
+                R.id.errorText2,
+                false
+        );
     }
+
+    /**
+     * Check MDK rich datetime widget behaviour with valid date.
+     */
+    @Test
+    public void testRichDateTimeWithLabelValidEntry() {
+        testDateEntryRichWidget(
+                2015, 2, 2, 10, 30,
+                new int[]{R.string.empty_string},
+                R.id.mdkRichDateTime_withLabelAndMandatory,
+                true
+        );
+    }
+
+    /**
+     * Check MDK rich datetime widget behaviour with invalid (empty) date.
+     */
+    @Test
+    public void testRichDateTimeWithLabelInvalidEntry() {
+        testEmptyDateEntryRichWidget(
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid},
+                R.id.mdkRichDateTime_withLabelAndMandatory,
+                false
+        );
+    }
+
+    /**
+     * Check MDK rich datetime with custom layout widget with valid date.
+     */
+    @Test
+    public void testRichDateTimeWithCustomLayoutValidEntry() {
+        testDateEntryRichWidget(
+                2015, 2, 2, 0, 0,
+                new int[]{R.string.empty_string},
+                R.id.mdkRichDateTime_withCustomLayout,
+                true
+        );
+    }
+
+    /**
+     * Check MDK rich datetime with custom layout widget with invalid (empty) date.
+     */
+    @Test
+    public void testRichDateTimeWithCustomLayoutInvalidEntry() {
+        testEmptyDateEntryRichWidget(
+                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid},
+                R.id.mdkRichDateTime_withCustomLayout,
+                false
+        );
+    }
+
+    /**
+     * Check MDK rich datetime widget disability behaviour toggle.
+     */
+    @Test
+    public void testDisableRichWidget() {
+        testDisableRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory);
+    }
+
+    /**
+     * Check MDK rich datetime with outside error widget disability behaviour toggle.
+     */
+    @Test
+    public void testDisableOutsideWidget() {
+        testDisableOutsideWidget(R.id.mdkDateTime_withSharedError);
+    }
+
+    /**
+     * Check MDK rich datetime widget mandatory behaviour toggle.
+     */
+    @Test
+    public void testMandatoryRichWidget() {
+        testMandatoryRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory, R.string.app_name);
+    }
+
+    /**
+     * Check MDK rich datetime with outside error widget mandatory behaviour toggle.
+     */
+    @Test
+    public void testMandatoryOutsideWidget() {
+        testMandatoryOutsideWidget(R.id.mdkDateTime_withSharedError, R.string.default_date_hint_text);
+    }
+
 }

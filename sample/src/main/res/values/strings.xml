@@ -111,8 +111,10 @@
     <string name="date_case_4">RichDate without label but hint</string>
     <string name="date_case_5">DateTime with label and min date</string>
     <string name="date_case_6">RichDateTime with label and dateHint and timeHint</string>
+    <string name="date_rich_custom_layout">DateTime rich widget custom layout</string>
     <string name="dateHint" tranlatable="false">DATE Hint</string>
     <string name="timeHint" tranlatable="false">TIME Hint</string>
+
     <string name="topbar_validatebutton">validate</string>
     <string name="topbar_mandatorybutton">mandatory</string>
     <string name="topbar_disablebutton">Disable</string>
@@ -135,5 +137,8 @@
     <string name="false_text">false</string>
 
     <string name="error_prefix" translatable="false">"42 /!\\ "</string>
+
+    <!-- TESTED RESOURCES -->
+    <string name="test_date_error_ranged">" (2015/01/01 10:30:00 &lt; 2015/05/12 11:52:33)\\n"</string>
 
 </resources>

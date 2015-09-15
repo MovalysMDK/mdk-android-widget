@@ -3,6 +3,7 @@ package com.soprasteria.movalysmdk.espresso.matcher;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.basic.MDKDateTime;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichDateWidget;
 
 import org.hamcrest.Description;
@@ -105,6 +106,8 @@ public class MdkDateMatchers {
          */
         private Calendar expectedDate ;
 
+        private Date actualDate;
+
         /**
          * Constructor.
          * @param year year.
@@ -114,7 +117,7 @@ public class MdkDateMatchers {
          * @param minute minute.
          */
         public DateTimeMatcher(int year, int month, int day, int hour, int minute) {
-            super(MDKBaseRichDateWidget.class);
+            super(View.class);
             this.year = year;
             this.month = month;
             this.day = day;
@@ -144,7 +147,6 @@ public class MdkDateMatchers {
 
         @Override
         public boolean matchesSafely(Object object) {
-            MDKBaseRichDateWidget dateView = (MDKBaseRichDateWidget) object;
             if(null == this.expectedDate) {
                 this.expectedDate = Calendar.getInstance();
                 expectedDate.set(Calendar.YEAR, year);
@@ -156,9 +158,18 @@ public class MdkDateMatchers {
                 expectedDate.set(Calendar.MILLISECOND, 0);
             }
 
-            Date actualDate = dateView.getDate();
+            MDKDateTime dateTimeView;
 
-            return null != this.expectedDate && null != actualDate ? this.expectedDate.getTime().equals(actualDate):false;
+            if (object instanceof MDKBaseRichDateWidget) {
+                MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) object;
+                dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+            } else {
+                dateTimeView = (MDKDateTime) object;
+            }
+
+            actualDate = dateTimeView.getDate();
+
+            return null != this.expectedDate && null != actualDate ? this.expectedDate.getTimeInMillis() == actualDate.getTime() : false;
         }
     }
 }

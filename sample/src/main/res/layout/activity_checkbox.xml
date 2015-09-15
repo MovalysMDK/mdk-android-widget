@@ -71,11 +71,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/testHintText"
-            mdk:errorId="@+id/checkbox_errorText"
+            mdk:errorId="@+id/mdkemail_errorText"
             mdk:mandatory="true" />
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
-            android:id="@+id/checkbox_errorText"
+            android:id="@+id/mdkemail_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -108,7 +108,7 @@
             android:text="@string/checkbox_rich_helper_text" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox
-            android:id="@+id/checkbox_helper"
+            android:id="@+id/mdkRichEmail_withHelper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/edit_text_label"

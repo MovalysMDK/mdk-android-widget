@@ -76,7 +76,7 @@ public class PhoneTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // check error
-        onView(withId(R.id.checkbox_errorText)).check(matches(withConcatText(
+        onView(withId(R.id.mdkemail_errorText)).check(matches(withConcatText(
                 R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
 
         SpoonScreenshotAction.perform("phone_invalidphone_errorstate");
@@ -85,12 +85,12 @@ public class PhoneTest {
 
         SpoonScreenshotAction.perform("phone_invalidphone_errorstate_landscape");
 
-        onView(withId(R.id.checkbox_errorText))
+        onView(withId(R.id.mdkemail_errorText))
                 .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
 
         onView(isRoot()).perform(orientationPortrait());
 
-        onView(withId(R.id.checkbox_errorText))
+        onView(withId(R.id.mdkemail_errorText))
                 .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
     }
 
@@ -116,7 +116,7 @@ public class PhoneTest {
         assertThat("get equal set", "0240389090".equals(text.toString()));
 
         // check no error
-        onView(withId(R.id.checkbox_errorText)).check(matches(withText(isEmptyOrNullString())));
+        onView(withId(R.id.mdkemail_errorText)).check(matches(withText(isEmptyOrNullString())));
     }
 
     /**

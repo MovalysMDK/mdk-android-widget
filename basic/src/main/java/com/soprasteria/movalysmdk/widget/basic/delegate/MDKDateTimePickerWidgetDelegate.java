@@ -54,7 +54,7 @@ import java.util.Date;
  */
 public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    /** emtpy string comparator. */
+    /** empty string comparator. */
     public static final String EMPTY_STRING = "";
 
     /**
@@ -148,7 +148,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         }
         timeHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeHint);
         if (timeHint == null) {
-            timeHint = view.getContext().getString(R.string.default_date_hint_text);
+            timeHint = view.getContext().getString(R.string.default_time_hint_text);
         }
         String minString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_min);
         String maxString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_max);

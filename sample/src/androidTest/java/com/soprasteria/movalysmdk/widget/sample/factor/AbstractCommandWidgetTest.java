@@ -8,6 +8,8 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
 import org.hamcrest.Matcher;
@@ -102,18 +104,38 @@ public abstract class AbstractCommandWidgetTest {
      * @param minute month
      * @param errorMessages the error message reference
      * @param inputView  the input view reference
-     * @param commandView the command view reference
      * @param errorView the error view reference
      * @param validEntry true if the input is a valid entry, false otherwise
      */
-    public void testDateEntryOutsideWidget(int year, int monthOfYear, int dayOfMonth, int hour, int minute, int[] errorMessages, @IdRes int inputView, @IdRes int commandView, @IdRes int errorView, boolean validEntry) {
+    public void testDateEntryOutsideWidget(int year, int monthOfYear, int dayOfMonth, int hour, int minute, int[] errorMessages, @IdRes int inputView, @IdRes int errorView, boolean validEntry) {
 
         testEntryScenarioBasicWithRotation(
                 setDateTime(year, monthOfYear, dayOfMonth, hour, minute),
                 matches(withDateTime(year, monthOfYear, dayOfMonth, hour, minute)),
                 errorMessages,
                 withId(inputView),
-                withId(commandView),
+                null,
+                withId(errorView),
+                validEntry
+        );
+
+    }
+
+    /**
+     * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a empty date widget outside a RichWidget.
+     * @param errorMessages the error message reference
+     * @param inputView  the input view reference
+     * @param errorView the error view reference
+     * @param validEntry true if the input is a valid entry, false otherwise
+     */
+    public void testEmptyDateEntryOutsideWidget(int[] errorMessages, @IdRes int inputView, @IdRes int errorView, boolean validEntry) {
+
+        testEntryScenarioBasicWithRotation(
+                null,
+                null,
+                errorMessages,
+                withId(inputView),
+                null,
                 withId(errorView),
                 validEntry
         );
@@ -129,17 +151,36 @@ public abstract class AbstractCommandWidgetTest {
      * @param minute month
      * @param errorMessages the error message reference
      * @param richWidgetView the rich widget reference
-     * @param commandView the command view reference
      * @param validEntry true if the input is a valid entry, false otherwise
      */
-    public void testDateEntryRichWidget(int year, int monthOfYear, int dayOfMonth, int hour, int minute, int[] errorMessages, @IdRes int richWidgetView, @IdRes int commandView, boolean validEntry) {
+    public void testDateEntryRichWidget(int year, int monthOfYear, int dayOfMonth, int hour, int minute, int[] errorMessages, @IdRes int richWidgetView, boolean validEntry) {
 
         testEntryScenarioBasicWithRotation(
                 setDateTime(year, monthOfYear, dayOfMonth, hour, minute),
                 matches(withDateTime(year, monthOfYear, dayOfMonth, hour, minute)),
                 errorMessages,
                 allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
-                commandView != 0 ? allOf(withId(commandView), isDescendantOfA(withId(richWidgetView))) : null,
+                null,
+                allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
+                validEntry
+        );
+
+    }
+
+    /**
+     * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with an empty date RichWidget.
+     * @param errorMessages the error message reference
+     * @param richWidgetView the rich widget reference
+     * @param validEntry true if the input is a valid entry, false otherwise
+     */
+    public void testEmptyDateEntryRichWidget(int[] errorMessages, @IdRes int richWidgetView, boolean validEntry) {
+
+        testEntryScenarioBasicWithRotation(
+                null,
+                null,
+                errorMessages,
+                allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
+                null,
                 allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
                 validEntry
         );
@@ -148,7 +189,7 @@ public abstract class AbstractCommandWidgetTest {
 
     /**
      * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a widget outside a RichWidget.
-     * @param action the action to perform
+     * @param action the action to perform on the view
      * @param assertion the matching assertion to check
      * @param errorMessages the error message reference as a int[]
      * @param inputView  the input as Matcher&lt;view&gt;
@@ -165,8 +206,10 @@ public abstract class AbstractCommandWidgetTest {
         // Make scroll to
         onView(inputView).perform(ViewActions.actionWithAssertions(delayScrollTo()));
 
-        // Write invalid email
-        onView(inputView).perform(action);
+        // perform given action
+        if (action != null) {
+            onView(inputView).perform(action);
+        }
 
         // Check send button state
         if (commandView != null) {
@@ -191,15 +234,21 @@ public abstract class AbstractCommandWidgetTest {
         onView(errorView).check(matches(withConcatText(errorMessages)));
 
         // get value and check
-        onView(inputView).check(assertion);
+        if (assertion != null) {
+            onView(inputView).check(assertion);
+        }
 
+        // change orientation to landscape
         onView(isRoot()).perform(orientationLandscape());
 
         // Make scroll to
         onView(inputView).perform(ViewActions.actionWithAssertions(delayScrollTo()));
 
         // get value and check
-        onView(inputView).check(assertion);
+        if (assertion != null) {
+            onView(inputView).check(assertion);
+        }
+
         // Check send button state
         if (commandView != null) {
             if (validEntry) {
@@ -213,19 +262,21 @@ public abstract class AbstractCommandWidgetTest {
             }
         }
 
+        // check error
         onView(errorView)
                 .check(matches(withConcatText(errorMessages)));
 
+        // change orientation to portrait
         onView(isRoot()).perform(orientationPortrait());
 
         // Make scroll to
         onView(inputView).perform(ViewActions.actionWithAssertions(delayScrollTo()));
 
         // get value and check
-        onView(inputView).check(assertion);
+        if (assertion != null) {
+            onView(inputView).check(assertion);
+        }
 
-        // get value and check
-        onView(inputView).check(assertion);
         // Check send button state
         if (commandView != null) {
             if (validEntry) {
@@ -244,30 +295,30 @@ public abstract class AbstractCommandWidgetTest {
     }
 
     /**
-     * Test the disable senario for widget outside RichWidget.
+     * Test the disable scenario for widget outside RichWidget.
      * @param inputView the input view reference
      */
     public void testDisableOutsideWidget(int inputView) {
-        testDisableSenarioBasicWithRotation(
+        testDisableScenarioBasicWithRotation(
                 withId(inputView)
         );
     }
 
     /**
-     * Test the disable senario for a RichWidget.
+     * Test the disable scenario for a RichWidget.
      * @param richWidgetView the input view reference
      */
     public void testDisableRichWidget(int richWidgetView) {
-        testDisableSenarioBasicWithRotation(
+        testDisableScenarioBasicWithRotation(
                 allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView)))
         );
     }
 
     /**
-     * Test the disable senario for a widget.
+     * Test the disable scenario for a widget.
      * @param inputView the input view as Matcher&lt;View&gt;
      */
-    public void testDisableSenarioBasicWithRotation(Matcher<View> inputView) {
+    public void testDisableScenarioBasicWithRotation(Matcher<View> inputView) {
         ActivityTestRule mActivityRule = this.getActivity();
 
         // Assertion that activity result is not null, nominal case
@@ -293,35 +344,46 @@ public abstract class AbstractCommandWidgetTest {
     }
 
     /**
-     * Test the mandatory senario for widget outside RichWidget.
+     * Test the mandatory scenario for widget outside RichWidget.
      * @param inputView the input view reference
      * @param stringRef the string reference to test
      */
     public void testMandatoryOutsideWidget(@IdRes int inputView, @StringRes int stringRef) {
-        testMandatorywidget(
+        testMandatoryWidget(
                 withId(inputView),
                 stringRef
         );
     }
 
     /**
-     * Test the mandatory senario for widget as RichWidget.
+     * Test the mandatory scenario for widget as RichWidget.
      * @param inputView the input view reference
      * @param stringRef the string reference to test
      */
     public void testMandatoryRichWidget(@IdRes int inputView, @StringRes int stringRef) {
-        testMandatorywidget(
-                allOf(withId(R.id.component_internal), isDescendantOfA(withId(inputView))),
-                stringRef
-        );
+        ActivityTestRule mActivityRule = this.getActivity();
+
+        View view = mActivityRule.getActivity().findViewById(inputView);
+
+        if (view instanceof HasHint) {
+            testMandatoryWidget(
+                    allOf(withId(R.id.component_internal), isDescendantOfA(withId(inputView))),
+                    stringRef
+            );
+        } else if (view instanceof HasLabel) {
+            testMandatoryWidget(
+                    allOf(withId(R.id.component_label), isDescendantOfA(withId(inputView))),
+                    stringRef
+            );
+        }
     }
 
     /**
-     * Test the mandatory senario for a widget.
+     * Test the mandatory scenario for a widget.
      * @param inputView the input view as Matcher&lt;View&gt;
      * @param stringRef the string reference
      */
-    public void testMandatorywidget(Matcher<View> inputView, @StringRes int stringRef) {
+    public void testMandatoryWidget(Matcher<View> inputView, @StringRes int stringRef) {
         ActivityTestRule mActivityRule = this.getActivity();
 
         // Assertion that activity result is not null, nominal case

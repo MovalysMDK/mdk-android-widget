@@ -28,7 +28,7 @@ public class CheckboxActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichCheckbox_withLabelAndError,
                 R.id.mdkCheckbox_withErrorAndCommandOutside,
                 R.id.mdkRichCheckbox_withCustomLayout,
-                R.id.checkbox_helper
+                R.id.mdkRichEmail_withHelper
         };
     }
 

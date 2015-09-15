@@ -52,12 +52,12 @@
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
+        <!-- RichDate -->
         <View
             android:background="@drawable/separator_background"
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <!-- RichDate -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,12 +70,12 @@
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
+        <!-- RichTime -->
         <View
             android:background="@drawable/separator_background"
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <!-- RichTime -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,33 +88,52 @@
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
+        <!-- Inner MDKDateTime widget with error and label outside -->
         <View
             android:background="@drawable/separator_background"
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
-            android:id="@+id/mdkDateTime_withLabelAndMandatoryAndSharedError"
+            android:id="@+id/mdkDateTime_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            mdk:mode="time"
             mdk:mandatory="true"
-            mdk:errorId="@+id/checkbox_errorText"/>
+            mdk:errorId="@+id/mdkdatetime_errorText"/>
 
-        <TextView
-            android:id="@+id/checkbox_errorText"
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+            android:id="@+id/mdkdatetime_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <!-- RICH DATETIME WITH CUSTOM LAYOUT -->
         <View
             android:background="@drawable/separator_background"
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_rich_custom_layout" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
+            android:id="@+id/mdkRichDateTime_withCustomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/app_name"
+            mdk:layout="@layout/custom_date_widget"
+            mdk:mandatory="true" />
+
         <!-- DateTime with minDate and datehint-->
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,18 +150,18 @@
             mdk:dateFormat="yyyy/MM/dd HH:mm:ss"
             mdk:errorId="@+id/errorText2"/>
 
-        <TextView
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/errorText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <!-- RichDateTime with label, hint -->
         <View
             android:background="@drawable/separator_background"
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <!-- RichDateTime with label, hint -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -156,11 +175,6 @@
             mdk:timeHint="@string/timeHint"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
-
-        <View
-            android:background="@drawable/separator_background"
-            android:layout_width="match_parent"
-            android:layout_height="4dp" />
 
     </LinearLayout>
 </ScrollView>
