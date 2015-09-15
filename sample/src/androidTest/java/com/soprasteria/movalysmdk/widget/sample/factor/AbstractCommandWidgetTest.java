@@ -188,6 +188,29 @@ public abstract class AbstractCommandWidgetTest {
     }
 
     /**
+     * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a uri RichWidget.
+     * @param textInput the text input
+     * @param textToCheck the text to check
+     * @param errorMessages the error message reference
+     * @param richWidgetView the rich widget reference
+     * @param commandView the command view reference
+     * @param validEntry true if the input is a valid entry, false otherwise
+     */
+    public void testTextEntryRichUriWidget(String textInput, String textToCheck, int[] errorMessages, @IdRes int richWidgetView, @IdRes int commandView, boolean validEntry) {
+
+        testEntryScenarioBasicWithRotation(
+                typeText(textInput),
+                matches(withText(textToCheck)),
+                errorMessages,
+                allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
+                commandView != 0 ? allOf(withId(commandView), isDescendantOfA(withId(richWidgetView))) : null,
+                allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
+                validEntry
+        );
+
+    }
+
+    /**
      * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a widget outside a RichWidget.
      * @param action the action to perform on the view
      * @param assertion the matching assertion to check
