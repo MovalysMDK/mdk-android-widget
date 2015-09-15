@@ -68,7 +68,7 @@ public class ValidatorTest {
 
         // check error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_withCustomValidator))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid)));
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_nomandatory_withCustomValidator))))
                 .check(matches(withText(isEmptyOrNullString())));
@@ -117,9 +117,9 @@ public class ValidatorTest {
 
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_withCustomValidator))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.no_number_allowed)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_no_number_allowed)));
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_nomandatory_withCustomValidator))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.no_number_allowed)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_no_number_allowed)));
     }
 
     /**
@@ -135,14 +135,14 @@ public class ValidatorTest {
         // Take screenshot
         SpoonScreenshotAction.perform("customvalidator_validcheckbox");
 
-        String error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
-            + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.true_text);
+        String error = mActivityRule.getActivity().getString(R.string.test_fortyTwoTextFormater_prefix)
+            + mActivityRule.getActivity().getString(R.string.test_checkable_error) + " " + mActivityRule.getActivity().getString(R.string.test_true_text);
 
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichCheckbox_trueValidation))))
                 .check(matches(withText(error)));
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichCheckbox_falseValidation))))
-                .check(matches(withText(R.string.empty_string)));
+                .check(matches(withText(R.string.test_empty_string)));
 
         // click the checkboxes
         onView(withId(R.id.mdkRichCheckbox_falseValidation)).perform(delayScrollTo());
@@ -157,8 +157,8 @@ public class ValidatorTest {
         // Take screenshot
         SpoonScreenshotAction.perform("customvalidator_invalidcheckbox");
 
-        error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
-                + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.false_text);
+        error = mActivityRule.getActivity().getString(R.string.test_fortyTwoTextFormater_prefix)
+                + mActivityRule.getActivity().getString(R.string.test_checkable_error) + " " + mActivityRule.getActivity().getString(R.string.test_false_text);
 
         // check no error
         onView(withId(R.id.mdkRichCheckbox_falseValidation)).perform(delayScrollTo());
@@ -182,8 +182,8 @@ public class ValidatorTest {
         // Take screenshot
         SpoonScreenshotAction.perform("customvalidator_validswitch");
 
-        String error = mActivityRule.getActivity().getString(R.string.fortyTwoTextFormater_prefix)
-                + mActivityRule.getActivity().getString(R.string.checkable_error) + " " + mActivityRule.getActivity().getString(R.string.true_text);
+        String error = mActivityRule.getActivity().getString(R.string.test_fortyTwoTextFormater_prefix)
+                + mActivityRule.getActivity().getString(R.string.test_checkable_error) + " " + mActivityRule.getActivity().getString(R.string.test_true_text);
 
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_trueValidation))))
@@ -205,7 +205,7 @@ public class ValidatorTest {
         onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(delayScrollTo());
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSwitch_trueValidation))))
-                .check(matches(withText(R.string.empty_string)));
+                .check(matches(withText(R.string.test_empty_string)));
     }
 
 }

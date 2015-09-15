@@ -52,7 +52,7 @@ public class DateTest extends AbstractCommandWidgetTest {
 
         testDateEntryOutsideWidget(
                 2015, 2, 2, 10, 30,
-                new int[]{R.string.empty_string},
+                new int[]{R.string.test_empty_string},
                 R.id.mdkDateTime_withSharedError,
                 R.id.mdkdatetime_errorText,
                 true
@@ -66,7 +66,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     public void testInvalidDate() {
 
         testEmptyDateEntryOutsideWidget(
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkDateTime_withSharedError,
                 R.id.mdkdatetime_errorText,
                 false
@@ -81,7 +81,7 @@ public class DateTest extends AbstractCommandWidgetTest {
 
         testDateEntryOutsideWidget(
                 2015, 6, 20, 10, 30,
-                new int[]{R.string.empty_string},
+                new int[]{R.string.test_empty_string},
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
                 R.id.errorText2,
                 true
@@ -96,7 +96,7 @@ public class DateTest extends AbstractCommandWidgetTest {
 
         testDateEntryOutsideWidget(
                 2015, 1, 1, 10, 30,
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_datetimerange_error_range, R.string.test_date_error_ranged},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_datetimerange_error_range, R.string.test_date_error_ranged},
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
                 R.id.errorText2,
                 false
@@ -110,7 +110,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     public void testRichDateTimeWithLabelValidEntry() {
         testDateEntryRichWidget(
                 2015, 2, 2, 10, 30,
-                new int[]{R.string.empty_string},
+                new int[]{R.string.test_empty_string},
                 R.id.mdkRichDateTime_withLabelAndMandatory,
                 true
         );
@@ -122,7 +122,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     @Test
     public void testRichDateTimeWithLabelInvalidEntry() {
         testEmptyDateEntryRichWidget(
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkRichDateTime_withLabelAndMandatory,
                 false
         );
@@ -135,7 +135,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     public void testRichDateTimeWithCustomLayoutValidEntry() {
         testDateEntryRichWidget(
                 2015, 2, 2, 0, 0,
-                new int[]{R.string.empty_string},
+                new int[]{R.string.test_empty_string},
                 R.id.mdkRichDateTime_withCustomLayout,
                 true
         );
@@ -147,7 +147,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     @Test
     public void testRichDateTimeWithCustomLayoutInvalidEntry() {
         testEmptyDateEntryRichWidget(
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkRichDateTime_withCustomLayout,
                 false
         );
@@ -174,7 +174,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryRichWidget() {
-        testMandatoryRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory, R.string.app_name);
+        testMandatoryRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory, R.string.test_app_name);
     }
 
     /**
@@ -182,7 +182,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryOutsideWidget() {
-        testMandatoryOutsideWidget(R.id.mdkDateTime_withSharedError, R.string.default_date_hint_text);
+        testMandatoryOutsideWidget(R.id.mdkDateTime_withSharedError, R.string.test_default_date_hint_text);
     }
 
 }

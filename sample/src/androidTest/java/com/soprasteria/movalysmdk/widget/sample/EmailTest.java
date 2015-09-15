@@ -61,7 +61,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
 
         testTextEntryOutsideWidget(
                 EMAIL_INVALID_VALUE,
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_email_error_invalid},
                 R.id.mdkEmail_withErrorAndCommandOutside,
                 R.id.buttonSend,
                 R.id.mdkemail_errorText,
@@ -77,7 +77,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
 
         testTextEntryOutsideWidget(
                 EMAIL_VALUE,
-                new int[]{R.string.empty_string},
+                new int[]{R.string.test_empty_string},
                 R.id.mdkEmail_withErrorAndCommandOutside,
                 R.id.buttonSend,
                 R.id.mdkemail_errorText,
@@ -92,7 +92,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
     public void testRichEmailWithLabelValidEntry() {
         testTextEntryRichWidget(
                 EMAIL_VALUE,
-                new int[]{R.string.empty_string},
+                new int[]{R.string.test_empty_string},
                 R.id.mdkRichEmail_withLabelAndError,
                 R.id.component_emailButton,
                 true
@@ -106,7 +106,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
     public void testRichEmailWithLabelInvalidEntry() {
         testTextEntryRichWidget(
                 EMAIL_INVALID_VALUE,
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_email_error_invalid},
                 R.id.mdkRichEmail_withLabelAndError,
                 R.id.component_emailButton,
                 false
@@ -120,7 +120,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
     public void testRichEmailWithCustomLayoutValidEntry() {
         testTextEntryRichWidget(
                 EMAIL_VALUE,
-                new int[]{R.string.empty_string},
+                new int[]{R.string.test_empty_string},
                 R.id.mdkRichEmail_withCustomLayout,
                 0,
                 true
@@ -134,7 +134,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
     public void testRichEmailWithCustomLayoutInvalidEntry() {
         testTextEntryRichWidget(
                 EMAIL_INVALID_VALUE,
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_email_error_invalid},
                 R.id.mdkRichEmail_withCustomLayout,
                 0,
                 false
@@ -162,7 +162,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
     public void testRichEmailWithHelperInvalidEntry() {
         testTextEntryRichWidget(
                 EMAIL_INVALID_VALUE,
-                new int[]{R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_email_error_invalid},
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_email_error_invalid},
                 R.id.mdkRichEmail_withHelper,
                 R.id.component_emailButton,
                 false
@@ -190,7 +190,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryRichWidget() {
-        testMandatoryRichWidget(R.id.mdkRichEmail_withLabelAndError, R.string.app_name);
+        testMandatoryRichWidget(R.id.mdkRichEmail_withLabelAndError, R.string.test_app_name);
     }
 
     /**
@@ -198,7 +198,7 @@ public class EmailTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryOutsideWidget() {
-        testMandatoryOutsideWidget(R.id.mdkEmail_withErrorAndCommandOutside, R.string.testHintText);
+        testMandatoryOutsideWidget(R.id.mdkEmail_withErrorAndCommandOutside, R.string.test_testHintText);
     }
 
 }

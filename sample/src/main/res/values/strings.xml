@@ -139,6 +139,27 @@
     <string name="error_prefix" translatable="false">"42 /!\\ "</string>
 
     <!-- TESTED RESOURCES -->
-    <string name="test_date_error_ranged">" (2015/01/01 10:30:00 &lt; 2015/05/12 11:52:33)\\n"</string>
+    <string name="test_app_name">MDK Android widget</string>
+    <string name="test_empty_string" tranlatable="false">""</string>
+    <string name="test_fortyTwoTextFormater_prefix" tranlatable="false">"42 /!\\ "</string>
+    <string name="test_date_error_ranged" tranlatable="false">" (2015/01/01 10:30:00 &lt; 2015/05/12 11:52:33)\\n"</string>
+    <string name="test_mdkvalidator_email_error_invalid">Invalid email value</string>
+    <string name="test_uri_helper_text">uri format text</string>
+    <string name="test_testHintText">Test hint</string>
+    <string name="test_mdkvalidator_mandatory_error_invalid">Must be filled</string>
+    <string name="test_mdkvalidator_datetimerange_error_range">Date out of limits</string>
+    <string name="test_default_date_hint_text">Date</string>
+    <string name="test_mdkvalidator_phone_error_invalid">Invalid phone number</string>
+    <string name="test_mdkrichselector_mandatory_label_char" translatable="false">" (*)"</string>
+    <string name="test_mdkvalidator_position_error_validation">Latitude and longitude must be filled</string>
+    <string name="test_hello_world">Hello world!</string>
+    <string name="test_edit_text_label">My label</string>
+    <string name="test_edit_text_hint">My hint</string>
+    <string name="test_seekbar_maxSeekBarValue_error_20">Value must be inferior to the max defined into the widget\'s attribute: 20</string>
+    <string name="test_mdkvalidator_uri_error_invalid">Invalid uri value</string>
+    <string name="test_checkable_error">Value must be </string>
+    <string name="test_no_number_allowed">No number allowed</string>
+    <string name="test_true_text">true</string>
+    <string name="test_false_text">false</string>
 
 </resources>

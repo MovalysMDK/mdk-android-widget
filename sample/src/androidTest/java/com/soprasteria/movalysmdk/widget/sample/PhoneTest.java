@@ -77,7 +77,7 @@ public class PhoneTest {
 
         // check error
         onView(withId(R.id.mdkemail_errorText)).check(matches(withConcatText(
-                R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
+                R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid)));
 
         SpoonScreenshotAction.perform("phone_invalidphone_errorstate");
 
@@ -86,12 +86,12 @@ public class PhoneTest {
         SpoonScreenshotAction.perform("phone_invalidphone_errorstate_landscape");
 
         onView(withId(R.id.mdkemail_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid)));
 
         onView(isRoot()).perform(orientationPortrait());
 
         onView(withId(R.id.mdkemail_errorText))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_phone_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid)));
     }
 
     /**
@@ -151,13 +151,13 @@ public class PhoneTest {
 
         // Check widgets are mandatory
         onView(withId(R.id.mdkPhone_withErrorAndCommandOutside))
-                .check(matches(withConcatHint(R.string.testHintText, R.string.mdkrichselector_mandatory_label_char)));
+                .check(matches(withConcatHint(R.string.test_testHintText, R.string.test_mdkrichselector_mandatory_label_char)));
 
         // remove mandatory option on widget
         onView(withId(R.id.mandatoryButton)).perform(click());
 
         // Check widgets are no more mandatory
         onView(withId(R.id.mdkPhone_withErrorAndCommandOutside))
-                .check(matches(withHint(R.string.testHintText)));
+                .check(matches(withHint(R.string.test_testHintText)));
     }
 }

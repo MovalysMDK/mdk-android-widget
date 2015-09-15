@@ -110,7 +110,7 @@ public class RichEditTextTest {
 
         // Check that "Hello" is well written into the RichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton))))
-                .check(matches(withText(R.string.hello_world)));
+                .check(matches(withText(R.string.test_hello_world)));
 
         // The label is now visible
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton))))
@@ -125,7 +125,7 @@ public class RichEditTextTest {
 
         // Check that the RichEditText component text is now empty
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton))))
-                .check(matches(withText(R.string.empty_string)));
+                .check(matches(withText(R.string.test_empty_string)));
 
     }
 
@@ -147,11 +147,11 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name with the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withHintLabel(R.string.edit_text_label, R.string.mdkrichselector_mandatory_label_char)));
+                .check(matches(withHintLabel(R.string.test_edit_text_label, R.string.test_mdkrichselector_mandatory_label_char)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid)));
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
@@ -163,14 +163,14 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name with the (*) for mandatory use
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withTextLabel(R.string.edit_text_label)));
+                .check(matches(withTextLabel(R.string.test_edit_text_label)));
 
         // Use CustomScrollToAction to manage problem with Espresso (it does not take account of padding during scrollTo action).
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withText(R.string.empty_string)));
+                .check(matches(withText(R.string.test_empty_string)));
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
@@ -181,14 +181,14 @@ public class RichEditTextTest {
 
         // Check that hint value is the label name without the (*) for mandatory use
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withTextLabel(R.string.edit_text_label)));
+                .check(matches(withTextLabel(R.string.test_edit_text_label)));
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withLabelAndMandatory))))
-                .check(matches(withText(R.string.empty_string)));
+                .check(matches(withText(R.string.test_empty_string)));
 
         // Reset mandatory state to true for later tests
         onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
@@ -219,7 +219,7 @@ public class RichEditTextTest {
 
         // Check that no hint are declared
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
-                .check(matches(withHint(R.string.empty_string)));
+                .check(matches(withHint(R.string.test_empty_string)));
 
         // Write text into editText
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelAndHint))))
@@ -262,11 +262,11 @@ public class RichEditTextTest {
 
         // Check that the label got the (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withHintLabel(R.string.edit_text_hint, R.string.mdkrichselector_mandatory_label_char)));
+                .check(matches(withHintLabel(R.string.test_edit_text_hint, R.string.test_mdkrichselector_mandatory_label_char)));
 
         // The error message is displayed
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_mandatory_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid)));
 
         // Write message into MDKRichEditText component
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
@@ -280,7 +280,7 @@ public class RichEditTextTest {
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withText(R.string.empty_string)));
+                .check(matches(withText(R.string.test_empty_string)));
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.mandatoryButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
@@ -294,7 +294,7 @@ public class RichEditTextTest {
 
         // Check that the label got no (*) for mandatory use
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withHintLabel(R.string.edit_text_hint)));
+                .check(matches(withHintLabel(R.string.test_edit_text_hint)));
 
         // Make MDKEditText not mandatory
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
@@ -304,6 +304,6 @@ public class RichEditTextTest {
 
         // Check that the MDKEditText component raises no error after validating it
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEditText_withoutLabelButHint))))
-                .check(matches(withText(R.string.empty_string)));
+                .check(matches(withText(R.string.test_empty_string)));
     }
 }

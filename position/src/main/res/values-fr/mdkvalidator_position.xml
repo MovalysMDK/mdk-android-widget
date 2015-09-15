@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkvalidator_position_error_validation">La latitude et la longitude doivent être renseignées</string>
+
+</resources>

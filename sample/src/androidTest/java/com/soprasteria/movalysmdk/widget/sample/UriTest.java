@@ -70,7 +70,7 @@ public class UriTest {
 
         // check error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichUri_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_uri_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_uri_error_invalid)));
 
         SpoonScreenshotAction.perform("uri_invaliduri_errorstate");
 
@@ -79,12 +79,12 @@ public class UriTest {
         SpoonScreenshotAction.perform("uri_invaliduri_errorstate_landscape");
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichUri_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_uri_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_uri_error_invalid)));
 
         onView(isRoot()).perform(orientationPortrait());
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichUri_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.mdkvalidator_uri_error_invalid)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_uri_error_invalid)));
 
     }
 

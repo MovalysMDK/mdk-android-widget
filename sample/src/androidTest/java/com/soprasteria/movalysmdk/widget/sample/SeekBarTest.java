@@ -67,7 +67,7 @@ public class SeekBarTest {
         // check error
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.seekbar_maxSeekBarValue_error_20)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_seekbar_maxSeekBarValue_error_20)));
 
         SpoonScreenshotAction.perform("seekbar_invalidseekbar_errorstate");
 
@@ -76,12 +76,12 @@ public class SeekBarTest {
         SpoonScreenshotAction.perform("seekbar_invalidseekbar_errorstate_landscape");
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.seekbar_maxSeekBarValue_error_20)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_seekbar_maxSeekBarValue_error_20)));
 
         onView(isRoot()).perform(orientationPortrait());
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError))))
-                .check(matches(withConcatText(R.string.fortyTwoTextFormater_prefix, R.string.seekbar_maxSeekBarValue_error_20)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_seekbar_maxSeekBarValue_error_20)));
 
     }
 
