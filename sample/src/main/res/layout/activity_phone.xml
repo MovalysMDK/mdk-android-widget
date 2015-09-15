@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/testHintText"
-            mdk:errorId="@+id/mdkemail_errorText"
+            mdk:errorId="@+id/mdkphone_errorText"
             mdk:primaryCommandId="@+id/buttonCall"
             mdk:mandatory="true" />
 
@@ -78,7 +78,7 @@
             android:text="@string/sendButtonText" />
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
-            android:id="@+id/mdkemail_errorText"
+            android:id="@+id/mdkphone_errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -103,35 +103,34 @@
             mdk:layout="@layout/custom_phone_widget"
             mdk:mandatory="true" />
 
-        <!-- RICH PHONES WITH COMMON ERROR FIELD -->
-
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
-        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+        <!-- RICH PHONES WITH COMMON ERROR FIELD -->
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_rich_common_error"
-            android:id="@+id/textView" />
+            android:text="@string/phone_rich_common_error" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
             android:id="@+id/mdkRichPhone1_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_1"
-            mdk:errorId="@+id/commons_error"/>
+            mdk:errorId="@+id/phone_commons_error"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
             android:id="@+id/mdkRichPhone2_withSharedError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_2"
-            mdk:errorId="@+id/commons_error"/>
+            mdk:errorId="@+id/phone_commons_error"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
-            android:id="@+id/commons_error"
+            android:id="@+id/phone_commons_error"
             mdk:errorCentralized="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,15 +146,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_rich_helper_text"
-            android:id="@+id/textView2" />
+            android:text="@string/phone_rich_helper_text"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
-            android:id="@+id/mdkRichEmail_withHelper"
+            android:id="@+id/mdkRichPhone_withHelper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/edit_text_label"
-            mdk:helper="@string/phone_helper_text" />
+            mdk:helper="@string/phone_helper_text"
+            mdk:mandatory="true"/>
 
         <View
             android:layout_width="match_parent"

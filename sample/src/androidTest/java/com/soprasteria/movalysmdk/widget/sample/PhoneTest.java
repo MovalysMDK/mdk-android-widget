@@ -19,38 +19,24 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
-import com.soprasteria.movalysmdk.widget.basic.MDKPhone;
+import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
-import static android.support.test.espresso.matcher.ViewMatchers.withHint;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
-import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatHint;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * Non regression testing class for custom MDK phone widget.
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class PhoneTest {
+public class PhoneTest extends AbstractCommandWidgetTest {
+
+    /* Valid phone number. */
+    private static final String PHONE_VALUE = "0123456789";
+
+    /* Invalid phone number. */
+    private static final String PHONE_INVALID_VALUE = "0+0+1+1+2";
 
     /**
      * Activity used for this tests.
@@ -58,40 +44,25 @@ public class PhoneTest {
     @Rule
     public ActivityTestRule<PhoneActivity> mActivityRule = new ActivityTestRule<>(PhoneActivity.class);
 
+    @Override
+    protected ActivityTestRule getActivity() {
+        return mActivityRule;
+    }
+
     /**
      * Check MDK phone widget behaviour with invalid phone format.
      */
     @Test
     public void testInvalidPhone() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        // Write invalid phone
-        onView(withId(R.id.mdkPhone_withErrorAndCommandOutside)).perform(typeText("wrong format"));
-
-        // Check send button state
-        onView(withId(R.id.buttonCall)).check(matches(not(isEnabled())));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check error
-        onView(withId(R.id.mdkemail_errorText)).check(matches(withConcatText(
-                R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid)));
-
-        SpoonScreenshotAction.perform("phone_invalidphone_errorstate");
-
-        onView(isRoot()).perform(orientationLandscape());
-
-        SpoonScreenshotAction.perform("phone_invalidphone_errorstate_landscape");
-
-        onView(withId(R.id.mdkemail_errorText))
-                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid)));
-
-        onView(isRoot()).perform(orientationPortrait());
-
-        onView(withId(R.id.mdkemail_errorText))
-                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid)));
+        testTextEntryOutsideWidget(
+                PHONE_INVALID_VALUE,
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
+                R.id.mdkPhone_withErrorAndCommandOutside,
+                R.id.buttonCall,
+                R.id.mdkphone_errorText,
+                false
+        );
     }
 
     /**
@@ -99,65 +70,130 @@ public class PhoneTest {
      */
     @Test
     public void testValidPhone() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        // Write a valid phone address
-        onView(withId(R.id.mdkPhone_withErrorAndCommandOutside)).perform(typeText("0240389090"));
-        // Check send button state
-        onView(withId(R.id.buttonCall)).check(matches(isEnabled()));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).check(matches(isEnabled()));
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // get value and check
-        CharSequence text = ((MDKPhone) mActivityRule.getActivity().findViewById(R.id.mdkPhone_withErrorAndCommandOutside)).getText();
-        assertThat("get equal set", "0240389090".equals(text.toString()));
-
-        // check no error
-        onView(withId(R.id.mdkemail_errorText)).check(matches(withText(isEmptyOrNullString())));
+        testTextEntryOutsideWidget(
+                PHONE_VALUE,
+                new int[]{R.string.test_empty_string},
+                R.id.mdkPhone_withErrorAndCommandOutside,
+                R.id.buttonCall,
+                R.id.mdkphone_errorText,
+                true
+        );
     }
 
     /**
-     * Check MDK phone widget behaviour when this one is enabled and disabled.
+     * Check MDK rich phone widget behaviour with valid phone format.
      */
     @Test
-    public void testDisabledPhone() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
-
-        // Disable widgets
-        onView(withId(R.id.enableButton)).perform(click());
-
-        // Check widgets are disabled
-        onView(withId(R.id.mdkPhone_withErrorAndCommandOutside)).check(matches(not(isEnabled())));
-
-        // Re enabled widget
-        onView(withId(R.id.enableButton)).perform(click());
-
-        // Check widgets are enabled
-        onView(withId(R.id.mdkPhone_withErrorAndCommandOutside)).check(matches(isEnabled()));
+    public void testRichPhoneWithLabelValidEntry() {
+        testTextEntryRichWidget(
+                PHONE_VALUE,
+                new int[]{R.string.test_empty_string},
+                R.id.mdkRichPhone_withLabelAndError,
+                R.id.component_phoneButton,
+                true
+        );
     }
 
-
     /**
-     * Check MDK phone widget behaviour when this one is mandatory or not.
+     * Check MDK rich phone widget behaviour with invalid phone format.
      */
     @Test
-    public void testMandatoryPhone() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+    public void testRichPhoneWithLabelInvalidEntry() {
+        testTextEntryRichWidget(
+                PHONE_INVALID_VALUE,
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
+                R.id.mdkRichPhone_withLabelAndError,
+                R.id.component_phoneButton,
+                false
+        );
+    }
 
-        // Check widgets are mandatory
-        onView(withId(R.id.mdkPhone_withErrorAndCommandOutside))
-                .check(matches(withConcatHint(R.string.test_testHintText, R.string.test_mdkrichselector_mandatory_label_char)));
+    /**
+     * Check MDK rich phone with custom layout widget behaviour with valid phone format.
+     */
+    @Test
+    public void testRichPhoneWithCustomLayoutValidEntry() {
+        testTextEntryRichWidget(
+                PHONE_VALUE,
+                new int[]{R.string.test_empty_string},
+                R.id.mdkRichPhone_withCustomLayout,
+                0,
+                true
+        );
+    }
 
-        // remove mandatory option on widget
-        onView(withId(R.id.mandatoryButton)).perform(click());
+    /**
+     * Check MDK rich phone with custom layout widget behaviour with invalid phone format.
+     */
+    @Test
+    public void testRichPhoneWithCustomLayoutInvalidEntry() {
+        testTextEntryRichWidget(
+                PHONE_INVALID_VALUE,
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
+                R.id.mdkRichPhone_withCustomLayout,
+                0,
+                false
+        );
+    }
 
-        // Check widgets are no more mandatory
-        onView(withId(R.id.mdkPhone_withErrorAndCommandOutside))
-                .check(matches(withHint(R.string.test_testHintText)));
+    /**
+     * Check MDK rich phone with helper widget behaviour with valid phone format.
+     */
+    @Test
+    public void testRichPhoneWithHelperValidEntry() {
+        testTextEntryRichWidget(
+                PHONE_VALUE,
+                new int[]{R.string.test_phone_helper_text},
+                R.id.mdkRichPhone_withHelper,
+                R.id.component_phoneButton,
+                true
+        );
+    }
+
+    /**
+     * Check MDK rich phone with helper widget behaviour with invalid phone format.
+     */
+    @Test
+    public void testRichPhoneWithHelperInvalidEntry() {
+        testTextEntryRichWidget(
+                PHONE_INVALID_VALUE,
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
+                R.id.mdkRichPhone_withHelper,
+                R.id.component_phoneButton,
+                false
+        );
+    }
+
+    /**
+     * Check MDK rich phone widget disability behaviour toggle.
+     */
+    @Test
+    public void testDisableRichWidget() {
+        testDisableRichWidget(R.id.mdkRichPhone_withLabelAndError);
+    }
+
+    /**
+     * Check MDK rich phone with outside error widget disability behaviour toggle.
+     */
+    @Test
+    public void testDisableOutsideWidget() {
+        testDisableOutsideWidget(R.id.mdkPhone_withErrorAndCommandOutside);
+    }
+
+    /**
+     * Check MDK rich phone widget mandatory behaviour toggle.
+     */
+    @Test
+    public void testMandatoryRichWidget() {
+        testMandatoryRichWidget(R.id.mdkRichPhone_withLabelAndError, R.string.test_app_name);
+    }
+
+    /**
+     * Check MDK rich phone with outside error widget mandatory behaviour toggle.
+     */
+    @Test
+    public void testMandatoryOutsideWidget() {
+        testMandatoryOutsideWidget(R.id.mdkPhone_withErrorAndCommandOutside, R.string.test_testHintText);
     }
 }

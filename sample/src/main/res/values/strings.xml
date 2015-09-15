@@ -163,5 +163,6 @@
     <string name="test_no_number_allowed">No number allowed</string>
     <string name="test_true_text">true</string>
     <string name="test_false_text">false</string>
+    <string name="test_phone_helper_text">phone format text</string>
 
 </resources>
