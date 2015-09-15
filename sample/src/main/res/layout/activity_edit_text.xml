@@ -154,6 +154,26 @@
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
+        <!-- MDKRichEditText WITH EXTERNAL HELPER -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_9" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+            android:id="@+id/mdkRichEditText_withHelper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/edit_text_label"
+            mdk:helper="@string/edit_rich_helper_text"
+            mdk:mandatory="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
         <!-- MDKEditText with external label and shared error -->
 
         <TextView

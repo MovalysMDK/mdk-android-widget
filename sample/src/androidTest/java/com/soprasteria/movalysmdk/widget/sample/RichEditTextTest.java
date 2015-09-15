@@ -145,6 +145,34 @@ public class RichEditTextTest extends AbstractCommandWidgetTest {
     }
 
     /**
+     * Check MDK rich edit with helper widget behaviour with valid entry.
+     */
+    @Test
+    public void testRichEditWithHelperValidEntry() {
+        testTextEntryRichWidget(
+                mActivityRule.getActivity().getString(R.string.test_hello_world),
+                new int[]{R.string.edit_rich_helper_text},
+                R.id.mdkRichEditText_withHelper,
+                0,
+                true
+        );
+    }
+
+    /**
+     * Check MDK rich edit with helper widget behaviour with invalid entry.
+     */
+    @Test
+    public void testRichEmailWithHelperInvalidEntry() {
+        testTextEntryRichWidget(
+                mActivityRule.getActivity().getString(R.string.test_empty_string),
+                new int[]{R.string.edit_rich_helper_text},
+                R.id.mdkRichEditText_withHelper,
+                0,
+                false
+        );
+    }
+
+    /**
      * Check MDK rich text widget disability behaviour toggle.
      */
     @Test
