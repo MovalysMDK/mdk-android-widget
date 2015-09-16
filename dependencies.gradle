@@ -1,9 +1,9 @@
 ext {
     //Version
-    supportLibrary = '22.2.1'
+    supportLibrary = '23.0.1'
 
-    espressoVersion = "2.2"
-    testRunnerVersion = "0.3"
+    espressoVersion = "2.2.1"
+    testRunnerVersion = "0.4"
     mdkEspressoVersion = "1.0.0-SNAPSHOT"
 
     spoonClientVersion = "1.1.9"
