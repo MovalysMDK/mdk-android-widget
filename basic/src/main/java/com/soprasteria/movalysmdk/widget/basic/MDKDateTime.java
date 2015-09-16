@@ -26,6 +26,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasHints;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
@@ -55,7 +56,7 @@ import java.util.Date;
  *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener {
+public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener, HasHints {
 
     /** Widget delegate that handles all the widget logic. */
     protected MDKDateTimePickerWidgetDelegate mdkWidgetDelegate;
@@ -305,5 +306,15 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
+    }
+
+    @Override
+    public CharSequence[] getHints() {
+        return this.mdkWidgetDelegate.getHints();
+    }
+
+    @Override
+    public void setHints(CharSequence[] hints) {
+        this.mdkWidgetDelegate.setHints(hints);
     }
 }

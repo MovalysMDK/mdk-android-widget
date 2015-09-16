@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasHints;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.helper.StateHelper;
 
@@ -41,18 +42,20 @@ public class SimpleMandatoryRichSelector implements RichSelector {
             // Check if the view is a hint or has a label
             if (view instanceof HasHint) {
                 ((HasHint) view).setHint(computeAddMandatoryString(view.getContext(), ((HasHint) view).getHint()));
+            } else if (view instanceof HasHints) {
+                ((HasHints) view).setHints(computeAddMandatoryStrings(view.getContext(), ((HasHints) view).getHints()));
             } else if (view instanceof HasLabel) {
                 ((HasLabel) view).setLabel(computeAddMandatoryString(view.getContext(), ((HasLabel) view).getLabel()));
             }
-
         } else {
             // Check if the view is a hint or has a label
             if (view instanceof HasHint) {
                 ((HasHint) view).setHint(computeRemoveMandatoryString(view.getContext(), ((HasHint) view).getHint()));
+            } else if (view instanceof HasHints) {
+                ((HasHints) view).setHints(computeRemoveMandatoryStrings(view.getContext(), ((HasHints) view).getHints()));
             } else if (view instanceof HasLabel) {
                 ((HasLabel) view).setLabel(computeRemoveMandatoryString(view.getContext(), ((HasLabel) view).getLabel()));
             }
-
         }
     }
 
@@ -76,6 +79,24 @@ public class SimpleMandatoryRichSelector implements RichSelector {
     }
 
     /**
+     * Adds the mandatory string to the displayed array values.
+     * @param context android context
+     * @param displayArray the displayed array of strings
+     * @return the computed array of strings
+     */
+    private String[] computeAddMandatoryStrings(Context context, CharSequence[] displayArray) {
+        String[] result = new String[displayArray.length];
+
+        int rank = 0;
+
+        for (CharSequence display : displayArray) {
+            result[rank++] = computeAddMandatoryString(context, display);
+        }
+
+        return result;
+    }
+
+    /**
      * Removes the mandatory string from the displayed value.
      * @param context android context
      * @param display the displayed string
@@ -89,6 +110,24 @@ public class SimpleMandatoryRichSelector implements RichSelector {
             if (result.endsWith(context.getString(R.string.mdkrichselector_mandatory_label_char))) {
                 result = display.subSequence(0, display.length() - context.getString(R.string.mdkrichselector_mandatory_label_char).length()).toString();
             }
+        }
+
+        return result;
+    }
+
+    /**
+     * Removes the mandatory string from the displayed array values.
+     * @param context android context
+     * @param displayArray the displayed array of strings
+     * @return the computed array of strings
+     */
+    private String[] computeRemoveMandatoryStrings(Context context, CharSequence[] displayArray) {
+        String[] result = new String[displayArray.length];
+
+        int rank = 0;
+
+        for (CharSequence display : displayArray) {
+            result[rank++] = computeRemoveMandatoryString(context, display);
         }
 
         return result;

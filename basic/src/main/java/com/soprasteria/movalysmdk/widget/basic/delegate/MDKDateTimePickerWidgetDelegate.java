@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -579,6 +580,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         Bundle bundle = new Bundle();
         bundle.putParcelable("state", state);
         bundle.putSerializable("date", this.mdkDate.getDate());
+        bundle.putString("dateHint", this.dateHint);
+        bundle.putString("timeHint", this.timeHint);
 
         return bundle;
     }
@@ -596,8 +599,58 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             this.mdkDate.setTime(date);
         }
 
+        String hint = bundle.getString("dateHint");
+        if (hint != null) {
+            this.dateHint = hint;
+        }
+        hint = bundle.getString("timeHint");
+        if (hint != null) {
+            this.timeHint = hint;
+        }
+
         // Restore the android view instance state
         return super.onRestoreInstanceState(view, parcelable);
     }
 
+    /**
+     * Returns the hints of the widget as an array.
+     * @return the hints as an array
+     */
+    public CharSequence[] getHints() {
+        CharSequence[] hints = new CharSequence[2];
+
+        hints[0] = this.dateHint;
+        hints[1] = this.timeHint;
+
+        return hints;
+    }
+
+    /**
+     * Sets the hints of the widget.
+     * @param hints the array of hints to set
+     */
+    public void setHints(CharSequence[] hints) {
+        if (hints.length < 2) {
+            Log.e(this.getClass().getSimpleName(), "The method should receive an array with two elements");
+            return;
+        }
+
+        this.dateHint = hints[0].toString();
+        this.timeHint = hints[1].toString();
+
+        if (this.cachedTimeView != null) {
+            TextView time = (TextView) this.cachedTimeView.get();
+            if (time != null) {
+                time.setHint(this.timeHint);
+            }
+        }
+        if (this.cachedDateView != null) {
+            TextView date = (TextView) this.cachedDateView.get();
+            if (date != null) {
+                date.setHint(this.dateHint);
+            }
+        }
+
+        updateShownDateTime();
+    }
 }
