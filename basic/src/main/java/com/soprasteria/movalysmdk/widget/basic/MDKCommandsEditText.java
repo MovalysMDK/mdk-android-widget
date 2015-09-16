@@ -39,8 +39,9 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
      */
     public MDKCommandsEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        init(attrs);
+        if(!isInEditMode()) {
+            init(attrs);
+        }
     }
 
     /**
@@ -51,15 +52,16 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
      */
     public MDKCommandsEditText(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
-
-        init(attrs);
+        if(!isInEditMode()) {
+            init(attrs);
+        }
     }
 
     /**
      * Initialization.
      * @param attrs the layout attributes
      */
-    private final void init(AttributeSet attrs) {
+    private void init(AttributeSet attrs) {
         this.commandDelegate = new WidgetCommandDelegate(this, attrs);
     }
 
@@ -71,7 +73,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     @Override
     public void onClick(View v) {
         String text = this.getText().toString();
-        if (text != null && text.length() > 0) {
+        if (text.length() > 0) {
             this.commandDelegate.getWidgetCommand(v.getId()).execute(this.getContext(), getCommandInput());
         }
     }
