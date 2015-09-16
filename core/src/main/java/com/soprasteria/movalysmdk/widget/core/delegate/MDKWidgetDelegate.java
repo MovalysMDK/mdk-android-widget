@@ -155,7 +155,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set error.
-     * @param messages the error to set
+     * @param messages the messages to set
      */
     public void addError(MDKMessages messages) {
         if (this.valueObject.getErrorViewId() != 0) {

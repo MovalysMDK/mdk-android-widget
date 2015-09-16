@@ -39,55 +39,55 @@ public class MDKWidgetDelegateErrorHelper {
 
     /**
      * Set error.
-     * @param errorView the error component
+     * @param messageView the message component
      * @param valueObject the delegate value object
      * @param label the label to set
      * @param error the new error
      * @param context the context to use
      */
-    public static void setError(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, CharSequence error, Context context) {
+    public static void setError(View messageView, MDKWidgetDelegateValueObject valueObject, CharSequence label, CharSequence error, Context context) {
         // empty error and add the CharSequence as only error
-        clearMessages(errorView, valueObject, label, context);
+        clearMessages(messageView, valueObject, label, context);
         MDKMessage mdkMessage = new MDKMessage(label, error, MDKMessage.NO_MESSAGE_CODE);
         MDKMessages messages = new MDKMessages();
         messages.put(MDKWidgetDelegateValueObject.USER_ERROR, mdkMessage);
-        displayMessages(errorView, valueObject, label, messages, context);
+        displayMessages(messageView, valueObject, label, messages, context);
     }
 
     /**
-     * Set mdk errors widget.
-     * @param mdkErrorWidget the error widget
-     * @param messages the errors
+     * Set mdk messages widget.
+     * @param mdkMessageWidget the message widget
+     * @param messages the messages
      * @param valueObject the delegate value object
      * @param label the label to set
      * @param context the context to use
      */
-    private static void setMdkErrorWidget(MDKMessageWidget mdkErrorWidget, MDKMessages messages, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
+    private static void setMdkMessageWidget(MDKMessageWidget mdkMessageWidget, MDKMessages messages, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
         View v = valueObject.getView();
         if (v instanceof MDKWidget) {
             if (messages == null) {
-                (mdkErrorWidget).clear(context, ((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId());
+                mdkMessageWidget.clear(context, ((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId());
             } else {
                 messages.setComponentId(((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId());
                 messages.setComponentLabelName(label);
-                (mdkErrorWidget).addMessages(context, ((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId(), messages);
+                mdkMessageWidget.addMessages(context, ((MDKWidget) v).getTechnicalInnerWidgetDelegate().getUniqueId(), messages);
             }
         }
     }
 
     /**
      * Set errors.
-     * @param errorView the error component
+     * @param messageView the message component
      * @param valueObject the delegate value object
      * @param label the label to set
      * @param messages the messages to set
      * @param context the context to use
      */
-    public static void displayMessages(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, MDKMessages messages, Context context) {
-        if (errorView instanceof MDKMessageWidget){
-            setMdkErrorWidget((MDKMessageWidget) errorView, messages, valueObject, label, context);
-        } else if (errorView instanceof TextView) {
-            ((TextView)errorView).setText(messages != null ? messages.getErrorMessage() : null);
+    public static void displayMessages(View messageView, MDKWidgetDelegateValueObject valueObject, CharSequence label, MDKMessages messages, Context context) {
+        if (messageView instanceof MDKMessageWidget){
+            setMdkMessageWidget((MDKMessageWidget) messageView, messages, valueObject, label, context);
+        } else if (messageView instanceof TextView) {
+            ((TextView)messageView).setText(messages != null ? messages.getErrorMessage() : null);
         }
         valueObject.setError(messages != null);
         View v = valueObject.getView();
@@ -98,13 +98,13 @@ public class MDKWidgetDelegateErrorHelper {
 
     /**
      * Remove messages.
-     * @param errorView the error component
+     * @param messageView the message component
      * @param valueObject the delegate value object
      * @param label the label to set
      * @param context the context to use
      */
-    public static void clearMessages(View errorView, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
-        displayMessages(errorView, valueObject, label, null, context);
+    public static void clearMessages(View messageView, MDKWidgetDelegateValueObject valueObject, CharSequence label, Context context) {
+        displayMessages(messageView, valueObject, label, null, context);
     }
 
 }
