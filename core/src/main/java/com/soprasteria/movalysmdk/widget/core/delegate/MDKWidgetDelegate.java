@@ -36,6 +36,7 @@ import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Set;
 
@@ -117,21 +118,28 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @return oView the root view
      */
     public View reverseFindViewById(@IdRes int id) {
-        // FIXME : optimiser avec un cache Map<id, weakref<result>>
-
         View result = null;
 
-        View v = this.valueObject.getView();
+        if (this.valueObject.getReverseFoundViews().containsKey(id)) {
+            result = this.valueObject.getReverseFoundViews().get(id).get();
+        } else {
 
-        if (v != null) {
-            View parent = (View) v.getParent();
-            while (result == null && parent != null) {
-                result = parent.findViewById(id);
-                if (result == null) {
-                    parent = (View) parent.getParent();
+            View v = this.valueObject.getView();
+
+            if (v != null) {
+                View parent = (View) v.getParent();
+                while (result == null && parent != null) {
+                    result = parent.findViewById(id);
+                    if (result == null) {
+                        parent = (View) parent.getParent();
+                    }
+                }
+                if (parent != null) {
+                    this.valueObject.getReverseFoundViews().put(id, new WeakReference<View>(result));
                 }
             }
         }
+
         return result;
     }
 

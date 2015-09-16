@@ -25,7 +25,9 @@ import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Object storing values processed by the class {@link MDKWidgetDelegate}.
@@ -81,6 +83,8 @@ public class MDKWidgetDelegateValueObject {
     private List<ValidationListener> validationListeners;
     /** attribute map for validator. */
     private MDKAttributeSet attributesMap;
+    /** cache for the reverseFindView method */
+    private Map<Integer, WeakReference<View>> reverseFoundViews;
 
     /**
      * Initializes the object.
@@ -88,7 +92,8 @@ public class MDKWidgetDelegateValueObject {
      * @param attrs the attributes set on the view
      */
     public void initialize(View view, AttributeSet attrs) {
-        this.weakView = new WeakReference<View>(view);
+        this.weakView = new WeakReference<>(view);
+        this.reverseFoundViews = new HashMap<>();
         this.richSelectors = new ArrayList<>();
         this.validationListeners = new ArrayList<>();
 
@@ -360,5 +365,21 @@ public class MDKWidgetDelegateValueObject {
      */
     public void setAttributesMap(MDKAttributeSet attributesMap) {
         this.attributesMap = attributesMap;
+    }
+
+    /**
+     * Returns the cache of views found via the method reverseFindView.
+     * @return the cache of found views
+     */
+    public Map<Integer, WeakReference<View>> getReverseFoundViews() {
+        return reverseFoundViews;
+    }
+
+    /**
+     * Sets the cache of views found via the method reverseFindView.
+     * @param reverseFoundViews the cache to set
+     */
+    public void setReverseFoundViews(Map<Integer, WeakReference<View>> reverseFoundViews) {
+        this.reverseFoundViews = reverseFoundViews;
     }
 }
