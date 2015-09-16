@@ -43,7 +43,7 @@ import static org.hamcrest.Matchers.notNullValue;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class RichEditTextTest extends AbstractCommandWidgetTest {
+public class EditTextTest extends AbstractCommandWidgetTest {
 
     /**
      * Rule to initialize EditTextActivity.
