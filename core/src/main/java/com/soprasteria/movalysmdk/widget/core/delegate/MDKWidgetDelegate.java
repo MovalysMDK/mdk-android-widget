@@ -435,8 +435,13 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @return mdkWidgetDelegateSavedState mdkWidgetDelegateSavedState
      */
     public Parcelable onSaveInstanceState(Parcelable superState) {
+        // we save the delegate's data
         MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = new MDKWidgetDelegateSavedState(superState);
         mdkWidgetDelegateSavedState.initializeFromValueObject(this.valueObject);
+
+        // we had errors to the MDKWidgetDelegateSavedState if necessary (ie if the error view is a TextView)
+        mdkWidgetDelegateSavedState.setDisplayedError(MDKWidgetDelegateErrorHelper.onSaveInstanceState(getErrorView()));
+
         return mdkWidgetDelegateSavedState;
     }
 
@@ -450,8 +455,14 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
         if(!(state instanceof MDKWidgetDelegateSavedState)) {
             return state;
         }
+
+        // we restore the delegate's data
         MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = (MDKWidgetDelegateSavedState)state;
         mdkWidgetDelegateSavedState.restoreValueObject(this.valueObject);
+
+        // we restore errors from the MDKWidgetDelegateSavedState if necessary (ie if the error view is a TextView)
+        MDKWidgetDelegateErrorHelper.onRestoreInstanceState(getErrorView(), mdkWidgetDelegateSavedState.getDisplayedError());
+
         return mdkWidgetDelegateSavedState.getSuperState();
     }
 
@@ -467,5 +478,19 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     @Override
     public void setRichSelectors(List<String> richSelectors) {
         this.valueObject.setRichSelectors(richSelectors);
+    }
+
+    /**
+     * Returns the widget error view, or null if the widget has none.
+     * @return the widget error view, or null if the widget has none
+     */
+    private View getErrorView() {
+        View error = null;
+
+        if (this.valueObject.getErrorViewId() != 0) {
+            error = this.reverseFindViewById(this.valueObject.getErrorViewId());
+        }
+
+        return error;
     }
 }

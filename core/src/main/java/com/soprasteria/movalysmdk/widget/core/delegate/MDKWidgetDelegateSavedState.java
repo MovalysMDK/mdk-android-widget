@@ -76,6 +76,10 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
      * error.
      */
     boolean error;
+    /**
+     * displayed error
+     */
+    String displayedError;
 
     /**
      * MDKWidgetDelegateSavedState public constructor.
@@ -108,6 +112,7 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         this.valid = in.readByte() != 0;
         this.mandatory = in.readByte() != 0;
         this.error = in.readByte() != 0;
+        this.displayedError = in.readString();
     }
 
     /**
@@ -152,6 +157,22 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         valueObject.setError(this.error);
     }
 
+    /**
+     * Returns the saved displayed error.
+     * @return the saved displayed error
+     */
+    public String getDisplayedError() {
+        return this.displayedError;
+    }
+
+    /**
+     * Sets the displayed error to save.
+     * @param error the error to save
+     */
+    public void setDisplayedError(String error) {
+        this.displayedError = error;
+    }
+
     @Override
     public void writeToParcel(@NonNull Parcel out, int flags) {
         super.writeToParcel(out, flags);
@@ -170,6 +191,8 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
         out.writeByte((byte) (this.valid ? 1 : 0));
         out.writeByte((byte) (this.mandatory ? 1 : 0));
         out.writeByte((byte) (this.error ? 1 : 0));
+
+        out.writeString(this.displayedError);
     }
 
     /**

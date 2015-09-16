@@ -20,9 +20,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessageWidget;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessageWidget;
 
 /**
  * Error processing helper for the class {@link MDKWidgetDelegate}.
@@ -107,4 +107,29 @@ public class MDKWidgetDelegateErrorHelper {
         displayMessages(messageView, valueObject, label, null, context);
     }
 
+    /**
+     * Returns the error displayed in a TextView.
+     * @param view the error view
+     * @return the state with the error if there was one to save
+     */
+    public static String onSaveInstanceState(View view) {
+        String error = null;
+
+        if (view != null && view instanceof TextView) {
+            error = ((TextView) view).getText().toString();
+        }
+
+        return error;
+    }
+
+    /**
+     * Restores the error to a TextView.
+     * @param view the error view
+     * @return the processed state
+     */
+    public static void onRestoreInstanceState(View view, String error) {
+        if (view != null && view instanceof TextView) {
+            ((TextView) view).setText(error);
+        }
+    }
 }
