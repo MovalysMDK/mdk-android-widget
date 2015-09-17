@@ -37,6 +37,11 @@
 
         <!-- RICH EMAIL WITH LABEL AND ERROR -->
 
+        <com.soprasteria.movalysmdk.widget.basic.MDKCommandButton
+            mdk:referenceWidget="@+id/mdkEmail_withErrorAndCommandOutside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +97,25 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+
+        <!-- RICH EMAIL WITHOUT LABEL -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email_rich_without_label"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
+            android:id="@+id/mdkRichEmail_withoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:mandatory="true"/>
+
         <!-- RICH EMAIL WITH CUSTOM LAYOUT -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
 
         <TextView
             android:layout_width="match_parent"

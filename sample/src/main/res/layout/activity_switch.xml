@@ -84,6 +84,24 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+        <!-- RICH SWITCH WITHOUT LABEL -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_rich_without_label" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSwitch
+            android:id="@+id/mdkRichSwitch_withoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:mandatory="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
         <!-- RICH SWITCH WITH CUSTOM LAYOUT -->
 
         <TextView
@@ -99,6 +117,11 @@
             mdk:layout="@layout/custom_switch_widget"
             mdk:mandatory="true"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
         <!-- RICH SWITCH WITH EXTERNAL HELPER -->
 
         <TextView
@@ -113,6 +136,11 @@
             android:layout_height="wrap_content"
             mdk:label="@string/edit_text_label"
             mdk:helper="@string/switch_helper_text"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
 
     </LinearLayout>
 

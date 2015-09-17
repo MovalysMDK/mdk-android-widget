@@ -27,6 +27,7 @@ public class EmailActivity extends AbstractWidgetTestableActivity {
         return new int[] {
                 R.id.mdkRichEmail_withLabelAndError,
                 R.id.mdkEmail_withErrorAndCommandOutside,
+                R.id.mdkRichEmail_withoutLabel,
                 R.id.mdkRichEmail_withCustomLayout,
                 R.id.mdkRichEmail1_withSharedError,
                 R.id.mdkRichEmail2_withSharedError,

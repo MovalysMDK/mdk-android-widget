@@ -27,6 +27,7 @@ public class UriActivity extends AbstractWidgetTestableActivity {
         return new int[] {
                 R.id.mdkRichUri_withLabelAndError,
                 R.id.mdkUri_withErrorAndCommandOutside,
+                R.id.mdkRichUri_withoutLabel,
                 R.id.mdkRichUri_withCustomLayout,
                 R.id.mdkRichUri1_withSharedError,
                 R.id.mdkRichUri2_withSharedError,

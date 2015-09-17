@@ -27,6 +27,7 @@ public class PhoneActivity extends AbstractWidgetTestableActivity {
         return new int[] {
                 R.id.mdkRichPhone_withLabelAndError,
                 R.id.mdkPhone_withErrorAndCommandOutside,
+                R.id.mdkRichPhone_withoutLabel,
                 R.id.mdkRichPhone_withCustomLayout,
                 R.id.mdkRichPhone1_withSharedError,
                 R.id.mdkRichPhone2_withSharedError,

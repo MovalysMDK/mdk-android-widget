@@ -27,6 +27,7 @@ public class PositionActivity extends AbstractWidgetTestableActivity {
         return new int[]{
                 R.id.mdkRichPosition_withLabelAndError,
                 R.id.mdkPosition_withErrorAndCommandOutside,
+                R.id.mdkRichPosition_withoutLabel,
                 R.id.mdkRichPosition_withCustomLayout,
                 R.id.mdkRichPosition1_withSharedError,
                 R.id.mdkRichPosition2_withSharedError,

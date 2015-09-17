@@ -88,6 +88,24 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+        <!-- RICH POSITION WITHOUT LABEL -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/position_rich_without_label" />
+
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition_withoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:mandatory="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
         <!-- RICH POSITION WITH CUSTOM LAYOUT -->
 
         <TextView

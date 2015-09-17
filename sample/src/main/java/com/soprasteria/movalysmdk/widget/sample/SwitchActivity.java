@@ -27,6 +27,7 @@ public class SwitchActivity extends AbstractWidgetTestableActivity {
         return new int[]{
                 R.id.mdkRichSwitch_withLabelAndError,
                 R.id.mdkSwitch_withErrorAndCommandOutside,
+                R.id.mdkRichSwitch_withoutLabel,
                 R.id.mdkRichSwitch_withCustomLayout,
                 R.id.switch_helper
         };

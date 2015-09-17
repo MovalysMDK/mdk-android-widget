@@ -92,6 +92,24 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+        <!-- RICH URI WITHOUT LABEL -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/uri_rich_without_label" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichUri
+            android:id="@+id/mdkRichUri_withoutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:mandatory="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
         <!-- RICH URI WITH CUSTOM LAYOUT -->
 
         <TextView
@@ -107,12 +125,12 @@
             mdk:layout="@layout/custom_uri_widget"
             mdk:mandatory="true" />
 
-        <!-- RICH URIS WITH COMMON ERROR FIELD -->
-
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
+
+        <!-- RICH URIS WITH COMMON ERROR FIELD -->
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:layout_width="wrap_content"

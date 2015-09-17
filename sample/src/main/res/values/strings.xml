@@ -59,6 +59,7 @@
     <string name="uri_helper_text">uri format text</string>
     <string name="uri_with_label_error">Uri Rich widget with label and error</string>
     <string name="uri_standalone_widget">Uri standalone widget with error field</string>
+    <string name="uri_rich_without_label">Uri Rich widget without label</string>
     <string name="uri_rich_custom_layout">Uri Rich widget custom layout</string>
     <string name="uri_rich_common_error">Uri rich widget common error</string>
     <string name="uri_rich_helper_text">Uri rich widget with helper</string>
@@ -68,6 +69,7 @@
     <string name="phone_with_label_error">Phone Rich widget with label and error</string>
     <string name="phone_standalone_widget">Phone standalone widget with error field</string>
     <string name="phone_rich_custom_layout">Phone Rich widget custom layout</string>
+    <string name="phone_rich_without_label">Phone Rich widget </string>
     <string name="phone_rich_common_error">Phone rich widget common error</string>
     <string name="phone_rich_helper_text">Phone rich widget with helper</string>
 
@@ -75,12 +77,14 @@
     <string name="checkbox_with_label_error">Checkbox Rich widget with label and error</string>
     <string name="checkbox_standalone_widget">Checkbox standalone widget with error field</string>
     <string name="checkbox_rich_custom_layout">Checkbox Rich widget custom layout</string>
+    <string name="checkbox_rich_without_label">Checkbox Rich widget without label</string>
     <string name="checkbox_rich_custom_validator">Checkbox rich widget custom validator</string>
     <string name="checkbox_rich_helper_text">Checkbox rich widget with helper</string>
 
     <string name="position_helper_text">Position format text</string>
     <string name="position_with_label_error">Position Rich widget with label and error</string>
     <string name="position_standalone_widget">Position standalone widget with error field</string>
+    <string name="position_rich_without_label">Position Rich widget without label</string>
     <string name="position_rich_custom_layout">Position Rich widget custom layout</string>
     <string name="position_rich_common_error">Position rich widget common error</string>
     <string name="position_rich_helper_text">Position rich widget with helper</string>
@@ -89,6 +93,7 @@
     <string name="switch_with_label_error">Switch Rich widget with label and error</string>
     <string name="switch_standalone_widget">Switch standalone widget with error field</string>
     <string name="switch_rich_custom_layout">Switch Rich widget custom layout</string>
+    <string name="switch_rich_without_label">Switch Rich widget without label</string>
     <string name="switch_rich_custom_validator">Switch rich widget custom validator</string>
     <string name="switch_rich_helper_text">Switch rich widget with helper</string>
 
@@ -113,6 +118,7 @@
     <string name="date_case_4">RichDate without label but hint</string>
     <string name="date_case_5">DateTime with label and min date</string>
     <string name="date_case_6">RichDateTime with label and dateHint and timeHint</string>
+    <string name="date_rich_without_label">DateTime rich widget without label</string>
     <string name="date_rich_custom_layout">DateTime rich widget custom layout</string>
     <string name="dateHint" tranlatable="false">DATE Hint</string>
     <string name="timeHint" tranlatable="false">TIME Hint</string>
@@ -166,5 +172,6 @@
     <string name="test_phone_helper_text">phone format text</string>
     <string name="test_email_helper_text">email format text</string>
     <string name="test_edit_rich_helper_text">Mandatory EditText</string>
+    <string name="email_rich_without_label">email rich without label</string>
 
 </resources>
