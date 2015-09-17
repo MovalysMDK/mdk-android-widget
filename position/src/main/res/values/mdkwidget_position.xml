@@ -3,6 +3,7 @@
 
     <string name="latitude_hint">Latitude</string>
     <string name="longitude_hint">Longitude</string>
+    <string name="address_hint">Address</string>
 
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkposition_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand</string>

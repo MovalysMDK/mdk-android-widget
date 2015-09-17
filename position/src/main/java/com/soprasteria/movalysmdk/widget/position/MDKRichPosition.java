@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.position;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.location.Location;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +26,7 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
      */
     public MDKRichPosition(Context context, AttributeSet attrs) {
         super(R.layout.mdkwidget_position_edit_label, R.layout.mdkwidget_position_edit, context, attrs);
+        init(context, attrs);
     }
 
     /**
@@ -35,6 +37,7 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
      */
     public MDKRichPosition(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.mdkwidget_position_edit_label, R.layout.mdkwidget_position_edit, context, attrs, defStyleAttr);
+        init(context, attrs);
     }
 
     @Override
@@ -80,5 +83,28 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return getInnerWidget().onCreateInputConnection(outAttrs);
+    }
+
+    /**
+     * Initialization.
+     * @param context the context
+     * @param attrs attributes
+     */
+    private final void init(Context context, AttributeSet attrs){
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
+
+        int mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
+
+        this.innerWidget.setMode(mode);
+
+        boolean autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
+
+        this.innerWidget.setAutoStart(autoStart);
+
+        boolean activateGoto = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true);
+
+        this.innerWidget.setActivateGoto(activateGoto);
+
+        typedArray.recycle();
     }
 }

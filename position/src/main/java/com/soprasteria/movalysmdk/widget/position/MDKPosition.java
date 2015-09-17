@@ -30,6 +30,18 @@ import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDele
 /**
  * MDK Position.
  * <p>Representing a position input field, allowing to set a latitude and a longitude or to retrieve it with the GPS function of the device.</p>
+ * <p>This widget has the following XML attributes:</p>
+ * <ul>
+ *     <li>
+ *         positionMode: sets one the the following modes on the widget
+ *         <ul>
+ *             <li>geopoint: the position will be shown as a latitude and a longitude (default option)</li>
+ *             <li>address: the position will be displayed has a list of addresses, the user will choose the most appropriate one</li>
+ *         </ul>
+ *     </li>
+ *     <li>autoStart: the widget will start looking for the current position as soon as it is inflated (default is false)</li>
+ *     <li>activeGoto: will hide the map action when set to false (default is true)</li>
+ * </ul>
  */
 public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocation, HasValidator, HasCommands, HasDelegate, HasChangeListener, PositionCommandListener {
 
@@ -61,21 +73,30 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
     }
 
     /**
-     * Inflation an initialization.
+     * Inflation on initialization.
      * @param context the android context
      * @param attrs the layout attributes
      * @return the inflated view
      */
-    protected View init(Context context, AttributeSet attrs) {
+    public void init(Context context, AttributeSet attrs) {
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
         inflater.inflate(R.layout.mdkwidget_position_layout, this);
 
         this.mdkWidgetDelegate = new MDKPositionWidgetDelegate(this, attrs);
 
-        // map should always be activated, even on not validated widget
+        // localization should always be activated, even on not validated widget
         this.commandDelegate = new WidgetCommandDelegate(this, attrs, false, true);
 
-        return this;
+        setMapButtonVisibility();
+    }
+
+    /**
+     * Sets the map action button visibility based on the activateGoto attribute.
+     */
+    public void setMapButtonVisibility() {
+        if (this.mdkWidgetDelegate != null && !this.mdkWidgetDelegate.isActivateGoto() && this.commandDelegate != null) {
+            this.commandDelegate.setCommandVisibility(WidgetCommandDelegate.SECOND_COMMAND, View.GONE);
+        }
     }
 
     /**
@@ -100,24 +121,26 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public void computingLocation() {
-        // nothing to do
+        this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, false);
     }
 
     @Override
     public void locationChanged(Location location) {
-        this.mdkWidgetDelegate.setLocation(location);
+        this.mdkWidgetDelegate.setLocation(getContext(), location);
+        this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, true);
     }
 
     @Override
     public void locationFixed(Location location) {
-        this.mdkWidgetDelegate.setLocation(location);
+        this.mdkWidgetDelegate.setLocation(getContext(), location);
+        this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, true);
     }
 
     @Override
     public String[] getCoordinates() {
         return new String[] {
-                this.mdkWidgetDelegate.getLongitudeView().getText().toString(),
-                this.mdkWidgetDelegate.getLatitudeView().getText().toString()
+                Double.toString(this.mdkWidgetDelegate.getLocation().getLongitude()),
+                Double.toString(this.mdkWidgetDelegate.getLocation().getLatitude())
         };
     }
 
@@ -128,7 +151,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public void setLocation(Location location) {
-        this.mdkWidgetDelegate.setLocation(location);
+        this.mdkWidgetDelegate.setLocation(getContext(), location);
     }
 
     @Override
@@ -141,14 +164,24 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
         this.mdkWidgetDelegate.setLongitudeHint(lngHint);
     }
 
+    // TODO : setAdressHint...?
+
     @Override
     public void onClick(View v) {
-        WidgetCommand command = this.commandDelegate.getWidgetCommand(v.getId());
+        WidgetCommand command = this.commandDelegate.getWidgetCommandById(v.getId());
         if (command instanceof PositionWidgetCommand) {
             ((PositionWidgetCommand) command).execute(this.getContext(), this);
         } else if (command instanceof MapWidgetCommand) {
             ((MapWidgetCommand) command).execute(this.getContext(), this.mdkWidgetDelegate.getLocation());
         }
+    }
+
+    /**
+     * Executes the localization command.
+     */
+    public void executePositionCommand() {
+        WidgetCommand command = this.commandDelegate.getWidgetCommand(WidgetCommandDelegate.FIRST_COMMAND);
+        ((PositionWidgetCommand) command).execute(this.getContext(), this);
     }
 
     /**
@@ -169,6 +202,30 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         this.mdkWidgetDelegate.setEnabled(enabled);
+    }
+
+    /**
+     * Sets the mode of the widget.
+     * @param mode the mode to set
+     */
+    public void setMode(int mode) {
+        this.mdkWidgetDelegate.setMode(mode);
+    }
+
+    /**
+     * Sets whether the widget should display an action button to launch an external localization app.
+     * @param activateGoto true if the widget should display an action button to launch an external localization app
+     */
+    public void setActivateGoto(boolean activateGoto) {
+        this.mdkWidgetDelegate.setActivateGoto(activateGoto);
+    }
+
+    /**
+     * Sets whether the widget should automatically start the localization on inflate.
+     * @param autoStart true to start the localization on inflate
+     */
+    public void setAutoStart(boolean autoStart) {
+        this.mdkWidgetDelegate.setAutoStart(autoStart);
     }
 
     /* technical delegate methods */
@@ -266,7 +323,6 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public Parcelable onSaveInstanceState() {
-
         // Save the android view instance state
         Parcelable state = super.onSaveInstanceState();
         // Save the MDKWidgetDelegate instance state
@@ -277,7 +333,6 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-
         // Restore the MDKWidgetDelegate instance state
         Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
         // Restore the android view instance state

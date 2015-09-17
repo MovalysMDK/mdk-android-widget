@@ -30,16 +30,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@android:drawable/ic_menu_mapmode"
+        android:src="@drawable/ic_map"
         style="?attr/mdkSecondaryCommandStyle"/>
 
-    <ImageButton
+    <com.soprasteria.movalysmdk.widget.core.MDKCheckableImageButton
         android:id="@+id/component_positionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/component_mapButton"
-        android:src="@android:drawable/ic_menu_mylocation"
+        android:src="@drawable/gps_action_button"
         style="?attr/mdkPrimaryCommandStyle"/>
 
     <com.soprasteria.movalysmdk.widget.position.MDKPosition
@@ -52,8 +52,6 @@
         android:layout_marginRight="8dp"
         mdk:errorId="@id/component_error"
         mdk:labelId="@id/component_label"
-        mdk:latHint="@string/latitude_hint"
-        mdk:lngHint="@string/longitude_hint"
         mdk:primaryCommandId="@id/component_positionButton"
         mdk:secondaryCommandId="@id/component_mapButton"
         style="?attr/mdkValuePositionStyle"/>

@@ -31,15 +31,15 @@
 
         <include layout="@layout/button_bar"/>
 
-        <!-- RICH POSITION WITH LABEL AND ERROR -->
+        <!-- RICH POSITION WITH LABEL, ERROR, DISPLAYING LOCATION -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/position_with_label_error" />
+            android:text="@string/position_with_label_error_location" />
 
         <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
-            android:id="@+id/mdkRichPosition_withLabelAndError"
+            android:id="@+id/mdkRichPosition_locationWithLabelAndError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
@@ -48,6 +48,55 @@
             android:padding="2dp"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH POSITION WITH LABEL, ERROR, DISPLAYING ADDRESSES AND NO MAP BUTTON -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/position_with_label_error_addresses" />
+
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition_addressesWithLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/position_background"
+            android:padding="2dp"
+            mdk:activeGoto="false"
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"
+            mdk:positionMode="address"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH POSITION WITH LABEL, ERROR, DISPLAYING LOCATION AND WITH AUTO-START -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/position_with_label_error_auto_start" />
+
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition_autostartWithLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/position_background"
+            android:padding="2dp"
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"
+            mdk:autoStart="true"/>
 
         <View
             android:layout_width="match_parent"

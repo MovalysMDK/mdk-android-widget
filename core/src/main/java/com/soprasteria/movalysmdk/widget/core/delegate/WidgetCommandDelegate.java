@@ -17,9 +17,12 @@ package com.soprasteria.movalysmdk.widget.core.delegate;
 
 import android.content.res.TypedArray;
 import android.support.annotation.IdRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.Checkable;
 
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
@@ -38,6 +41,19 @@ import java.lang.ref.WeakReference;
  * <p>Both commands may not be disabled on validation should the setup be properly done.</p>
  */
 public class WidgetCommandDelegate implements ValidationListener {
+
+    /**
+     * Enum for commands (first or second).
+     */
+    @IntDef({FIRST_COMMAND, SECOND_COMMAND})
+    @interface EnumKindOfCommand {
+    }
+
+    /** first command. */
+    public static final int FIRST_COMMAND = 1;
+
+    /** second command. */
+    public static final int SECOND_COMMAND = 2;
 
     /** Weak reference on view. */
     private final WeakReference<MDKWidget> weakView;
@@ -120,7 +136,55 @@ public class WidgetCommandDelegate implements ValidationListener {
 
     }
 
+    /**
+     * Sets a command visibility attribute.
+     * @param command the command to process
+     * @param visibility the visibility to set
+     */
+    public void setCommandVisibility(@EnumKindOfCommand int command, int visibility) {
+        if (command == FIRST_COMMAND) {
+            if (this.primaryCommandViewId != 0) {
+                View commandView = findCommandView(this.primaryCommandViewId);
+                if (commandView != null) {
+                    commandView.setVisibility(visibility);
+                }
+            }
+        } else {
+            if (this.secondaryCommandViewId != 0) {
+                View commandView = findCommandView(this.secondaryCommandViewId);
+                if (commandView != null) {
+                    commandView.setVisibility(visibility);
+                }
+            }
+        }
+    }
 
+    /**
+     * Sets a command checked attribute.
+     * @param command the command to process
+     * @param checked true to check the command
+     */
+    public void setCheckedCommand(@EnumKindOfCommand int command, boolean checked) {
+        if (command == FIRST_COMMAND) {
+            if (this.primaryCommandViewId != 0) {
+                View commandView = findCommandView(this.primaryCommandViewId);
+                if (commandView != null && commandView instanceof Checkable) {
+                    ((Checkable)commandView).setChecked(checked);
+                } else {
+                    Log.e("WidgetCommandDelegate", "the primary command view is not checkable");
+                }
+            }
+        } else {
+            if (this.secondaryCommandViewId != 0) {
+                View commandView = findCommandView(this.secondaryCommandViewId);
+                if (commandView != null && commandView instanceof Checkable) {
+                    ((Checkable)commandView).setChecked(checked);
+                } else {
+                    Log.e("WidgetCommandDelegate", "the secondary command view is not checkable");
+                }
+            }
+        }
+    }
 
     /**
      * Find command view for the specified id.
@@ -162,7 +226,7 @@ public class WidgetCommandDelegate implements ValidationListener {
      * @param id the id
      * @return command the command
      */
-    @Nullable public WidgetCommand getWidgetCommand(@IdRes int id) {
+    @Nullable public WidgetCommand getWidgetCommandById(@IdRes int id) {
 
         WidgetCommand<?,?> widgetCommand = null;
         MDKWidget v = this.weakView.get();
@@ -174,6 +238,23 @@ public class WidgetCommandDelegate implements ValidationListener {
         }
 
         return widgetCommand;
+    }
+
+    /**
+     * Get command.
+     * @param command the command
+     * @return command the command
+     */
+    @Nullable public WidgetCommand getWidgetCommand(@EnumKindOfCommand int command) {
+        int id;
+
+        if (command == FIRST_COMMAND) {
+            id = this.primaryCommandViewId;
+        } else {
+            id = this.secondaryCommandViewId;
+        }
+
+        return this.getWidgetCommandById(id);
     }
 
     /**

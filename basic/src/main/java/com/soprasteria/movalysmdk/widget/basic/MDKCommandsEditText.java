@@ -74,7 +74,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     public void onClick(View v) {
         String text = this.getText().toString();
         if (text.length() > 0) {
-            this.commandDelegate.getWidgetCommand(v.getId()).execute(this.getContext(), getCommandInput());
+            this.commandDelegate.getWidgetCommandById(v.getId()).execute(this.getContext(), getCommandInput());
         }
     }
 

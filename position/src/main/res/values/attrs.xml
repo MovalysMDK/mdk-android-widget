@@ -4,9 +4,20 @@
     <declare-styleable name="MDKCommons.MDKPositionComponent">
         <attr name="latitudeTextViewId" format="reference" />
         <attr name="longitudeTextViewId" format="reference" />
+        <attr name="addressSpinnerViewId" format="reference" />
 
         <attr name="latHint" format="string"/>
         <attr name="lngHint" format="string"/>
+        <attr name="addressHint" format="string"/>
+
+        <attr name="positionMode" format="enum">
+            <enum name="geopoint" value="0"/>
+            <enum name="address" value="1"/>
+        </attr>
+
+        <attr name="autoStart" format="boolean"/>
+
+        <attr name="activeGoto" format="boolean"/>
     </declare-styleable>
 
 </resources>

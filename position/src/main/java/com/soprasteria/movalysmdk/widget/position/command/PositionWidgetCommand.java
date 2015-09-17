@@ -95,8 +95,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
             // Will keep updating about every 500 ms until
             // accuracy is about 1000 meters to get accurate fix.
             // Replace oLocationManager.getBestProvider(oCoarse, true) to
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_TIMER, COARSE_ACCURACY_LEVEL,
-                    oListenerCoarse);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_TIMER, COARSE_ACCURACY_LEVEL, oListenerCoarse);
 
             locationRequested = true;
         }

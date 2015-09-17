@@ -82,7 +82,9 @@
     <string name="checkbox_rich_helper_text">Checkbox rich widget with helper</string>
 
     <string name="position_helper_text">Position format text</string>
-    <string name="position_with_label_error">Position Rich widget with label and error</string>
+    <string name="position_with_label_error_location">Position Rich widget with label and error and location</string>
+    <string name="position_with_label_error_addresses">Position Rich widget with label and error and addresses</string>
+    <string name="position_with_label_error_auto_start">Position Rich widget with label and error and auto-start</string>
     <string name="position_standalone_widget">Position standalone widget with error field</string>
     <string name="position_rich_without_label">Position Rich widget without label</string>
     <string name="position_rich_custom_layout">Position Rich widget custom layout</string>

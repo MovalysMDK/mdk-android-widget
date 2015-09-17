@@ -63,17 +63,17 @@ public class PositionTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // check map button not clickable
-        onView(allOf(withId(R.id.component_mapButton), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_mapButton), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(not(isEnabled())));
         // check location button is clickable
-        onView(allOf(withId(R.id.component_positionButton), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_positionButton), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(isEnabled()));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(click());
 
         // check mandatory error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation)));
 
         // remove mandatory option on widget
@@ -83,7 +83,7 @@ public class PositionTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(withText(isEmptyOrNullString())));
     }
 
@@ -96,13 +96,13 @@ public class PositionTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // check that latitude and longitude are empty
-        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(withText(isEmptyOrNullString())));
-        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(withText(isEmptyOrNullString())));
 
         // click on position button
-        onView(allOf(withId(R.id.component_positionButton), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError)))).perform(click());
+        onView(allOf(withId(R.id.component_positionButton), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError)))).perform(click());
 
         // TODO: should test the values, but does not work on emulator...
     }
@@ -113,17 +113,17 @@ public class PositionTest {
     @Test
     public void testFill() {
         // fill latitude and longitude
-        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .perform(typeText("1.5"));
-        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .perform(typeText("2.4"));
 
         onView(isRoot()).perform(orientationPortrait());
 
         // check that latitude and longitude are filled
-        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(withText("1.5")));
-        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_withLabelAndError))))
+        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
                 .check(matches(withText("2.4")));
     }
 

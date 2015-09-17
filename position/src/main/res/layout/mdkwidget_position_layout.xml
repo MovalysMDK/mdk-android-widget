@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal|numberSigned"/>
 
     <EditText
         android:id="@+id/component_internal_longitude"
@@ -17,6 +17,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/component_internal_latitude"
         android:layout_alignParentLeft="true"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal|numberSigned"/>
+
+    <Spinner
+        android:id="@+id/component_internal_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"/>
 
 </merge>

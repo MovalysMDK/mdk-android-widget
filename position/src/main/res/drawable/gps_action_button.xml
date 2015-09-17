@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@android:integer/config_mediumAnimTime"
+    android:enterFadeDuration="@android:integer/config_mediumAnimTime">
+
+    <item android:state_checked="false" android:drawable="@drawable/ic_gps_not_fixed" />
+    <item android:state_checked="true" android:drawable="@drawable/ic_gps_fixed" />
+
+</selector>
