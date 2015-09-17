@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.sample;
 import android.support.test.rule.ActivityTestRule;
 
 import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
+import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,7 +31,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
 import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
@@ -43,7 +43,7 @@ import static org.hamcrest.Matchers.notNullValue;
 /**
  * Tests for MdkRichseekbar widget.
  */
-public class SeekBarTest {
+public class SeekBarTest extends AbstractCommandWidgetTest {
 
     /**
      * Activity used for this tests.
@@ -65,7 +65,6 @@ public class SeekBarTest {
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).perform(swipeRight());
 
         // check error
-
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError))))
                 .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_seekbar_maxSeekBarValue_error_20)));
 
@@ -104,5 +103,12 @@ public class SeekBarTest {
 
         // Check widgets are enabled
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(isEnabled()));
+
+        testDisableOutsideWidget(R.id.mdkRichSeekBar_withLabelAndError);
+    }
+
+    @Override
+    protected ActivityTestRule getActivity() {
+        return mActivityRule;
     }
 }

@@ -25,4 +25,8 @@
     <!-- Used strings -->
     <string name="mdkwidget_seekbar_listener_exception">Invalid listener procedure (Mandatory use of registerChangeListener): </string>
 
+    <!-- EditText dimension & margin values -->
+    <dimen name="mdkwidget_seekbar_edittext_width">40dp</dimen>
+    <dimen name="mdkwidget_seekbar_edittext_margin">0dp</dimen>
+
 </resources>

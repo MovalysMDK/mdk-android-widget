@@ -23,16 +23,58 @@
     android:addStatesFromChildren="true"
     style="?attr/mdkRichLayoutStyle">
 
-    <include layout="@layout/mdkwidget_label_error_layout" />
-
-    <com.soprasteria.movalysmdk.widget.basic.MDKSeekBar
-        android:id="@id/component_internal"
+    <TextView
+        android:id="@id/component_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        style="?attr/mdkLabelStyle" />
+
+
+    <EditText
+        android:id="@+id/component_seekbarEditText"
+        android:layout_width="@dimen/mdkwidget_seekbar_edittext_width"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mdkwidget_seekbar_edittext_margin"
+        android:layout_marginStart="@dimen/mdkwidget_seekbar_edittext_margin"
+        android:gravity="center_horizontal"
         android:layout_below="@id/component_label"
-        mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"
-        style="?attr/mdkSeekBarStyle"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:inputType="number"
+        style="?attr/mdkValueEditTextStyle"/>
+
+    <RelativeLayout
+        android:id="@id/component_internal_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/component_seekbarEditText"
+        android:layout_toStartOf="@id/component_seekbarEditText"
+        android:layout_alignTop="@id/component_seekbarEditText"
+        android:layout_alignBottom="@id/component_seekbarEditText"
+        android:gravity="center_vertical">
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKSeekBar
+            android:id="@id/component_internal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:errorId="@id/component_error"
+            mdk:labelId="@id/component_label"
+            mdk:primaryCommandId="@id/component_seekbarEditText"
+            style="?attr/mdkSeekBarStyle"/>
+
+    </RelativeLayout>
+
+
+    <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+        android:id="@id/component_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/component_internal_parent"
+        style="?attr/mdkErrorStyle" />
 
 </merge>
