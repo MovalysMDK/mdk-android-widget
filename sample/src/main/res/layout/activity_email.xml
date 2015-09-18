@@ -37,11 +37,6 @@
 
         <!-- RICH EMAIL WITH LABEL AND ERROR -->
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKCommandButton
-            mdk:referenceWidget="@+id/mdkEmail_withErrorAndCommandOutside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
