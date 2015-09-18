@@ -1,6 +1,7 @@
 ext {
     //Version
     supportLibrary = '23.0.1'
+    //playServices = '7.8.0'
 
     espressoVersion = "2.2.1"
     testRunnerVersion = "0.4"
@@ -8,7 +9,7 @@ ext {
 
     spoonClientVersion = "1.1.9"
 
-    jacocoVersion = "0.7.1.201405082137"
+    jacocoVersion = "0.7.5.201505241946"
 
     //Support Libraries dependencies
     supportDependencies = [
@@ -18,6 +19,7 @@ ext {
             support:                    "com.android.support:support-v4:${supportLibrary}",
             appCompat:                  "com.android.support:appcompat-v7:${supportLibrary}",
             supportAnnotations:         "com.android.support:support-annotations:${supportLibrary}"
+            //,googlePlayServices:         "com.google.android.gms:play-services:${playServices}"
     ]
 
     testDependencies = [

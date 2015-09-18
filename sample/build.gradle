@@ -1,4 +1,3 @@
-apply plugin: 'jacoco'
 apply plugin: 'com.android.application'
 apply plugin: 'spoon'
 apply plugin: 'com.github.dcendents.android-maven'
@@ -16,7 +15,7 @@ android {
         versionCode androidVersionCode
         versionName androidVersionName
 
-        testInstrumentationRunner "com.soprasteria.movalysmdk.espresso.AndroidJacocoTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -57,8 +56,11 @@ dependencies {
     compile project(':core')
     compile project(':basic')
     compile project(':position')
+    //compile project(':positionmaps')
     compile supportDependencies.support
     compile supportDependencies.appCompat
+    //compile 'com.google.android.gms:play-services-location:7.8.0'
+    //compile 'com.google.android.gms:play-services-maps:7.8.0'
     //to run test: ./gradlew connectedAndroidTest
     androidTestCompile supportDependencies.supportAnnotations
     androidTestCompile testDependencies.espressoCore
