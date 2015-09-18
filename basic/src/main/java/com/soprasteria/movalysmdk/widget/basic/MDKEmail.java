@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
@@ -97,6 +98,13 @@ public class MDKEmail extends MDKCommandsEditText implements HasEmail {
         } else {
             this.setText(null);
         }
+    }
+
+    @Override
+    protected IntentFilter[] getBroadcastIntentFilters() {
+        return new IntentFilter[] {
+                new IntentFilter(getResources().getString(R.string.mdkcommand_email_action))
+        };
     }
 
     @Override

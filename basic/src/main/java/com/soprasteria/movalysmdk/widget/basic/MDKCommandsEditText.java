@@ -15,7 +15,11 @@
  */
 package com.soprasteria.movalysmdk.widget.basic;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -31,6 +35,19 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
 
     /** CommandDelegate attribute. */
     protected WidgetCommandDelegate commandDelegate;
+
+
+    private BroadcastReceiver actionReciver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getIntExtra(MDKCommandButton.REFERENCE_WIDGET, 0) == getId()) {
+                String text = getText().toString();
+                if (text.length() > 0) {
+                    commandDelegate.getWidgetCommand(intent.getStringExtra(MDKCommandButton.COMMAND_WIDGET)).execute(getContext(), getCommandInput());
+                }
+            }
+        }
+    };
 
     /**
      * Constructor.
@@ -78,6 +95,8 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
         }
     }
 
+    protected abstract IntentFilter[] getBroadcastIntentFilters();
+
     /**
      * Registers the command listeners.
      */
@@ -86,6 +105,11 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
         super.onAttachedToWindow();
 
         if (!isInEditMode()) {
+            for( IntentFilter intentFilter: getBroadcastIntentFilters() ) {
+                if (intentFilter != null) {
+                    LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(actionReciver, intentFilter);
+                }
+            }
             this.commandDelegate.registerCommands(this);
         }
     }

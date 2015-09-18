@@ -83,7 +83,7 @@ public class MDKWidgetDelegateValueObject {
     private List<ValidationListener> validationListeners;
     /** attribute map for validator. */
     private MDKAttributeSet attributesMap;
-    /** cache for the reverseFindView method */
+    /** cache for the reverseFindView method. */
     private Map<Integer, WeakReference<View>> reverseFoundViews;
 
     /**

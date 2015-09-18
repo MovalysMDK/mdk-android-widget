@@ -125,7 +125,7 @@ public class MDKWidgetDelegateErrorHelper {
     /**
      * Restores the error to a TextView.
      * @param view the error view
-     * @return the processed state
+     * @param error the error string
      */
     public static void onRestoreInstanceState(View view, String error) {
         if (view != null && view instanceof TextView) {

@@ -19,6 +19,9 @@
 
     <string name="mdkwidget_uri_default_text_label">http://</string>
 
+    <!-- uri action -->
+    <string name="mdkcommand_uri_action" translatable="false">com.soprasteria.movalysmdk.widget.basic.URI_INTENT</string>
+
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkuri_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.basic.command.UriWidgetCommand</string>
 

@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.text.InputType;
 import android.util.AttributeSet;
 
@@ -48,5 +49,12 @@ public class MDKPhone extends MDKCommandsEditText {
     public MDKPhone(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
         setSpecificAttributes(InputType.TYPE_CLASS_PHONE, new int[]{R.string.mdkvalidator_phone_class});
+    }
+
+    @Override
+    protected IntentFilter[] getBroadcastIntentFilters() {
+        return new IntentFilter[] {
+                new IntentFilter(getResources().getString(R.string.mdkcommand_phone_action))
+        };
     }
 }

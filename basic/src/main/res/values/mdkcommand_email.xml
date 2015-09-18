@@ -21,6 +21,9 @@
     <!-- Mime type -->
     <string name="mdkcommand_email_mimetype" translatable="false">plain/text</string>
 
+    <!-- email action -->
+    <string name="mdkcommand_email_action" translatable="false">com.soprasteria.movalysmdk.widget.basic.EMAIL_INTENT</string>
+
     <!-- Used strings -->
     <string name="mdkcommand_email_label_chooser">Choose mail application</string>
 

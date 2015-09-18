@@ -32,6 +32,10 @@
     <string name="title_activity_rich_selector">Rich Selector</string>
     <string name="title_activity_uri">Uri widget</string>
 
+    <string name="broadcast_email_button_text">Test Email Broadcast</string>
+    <string name="broadcast_phone_button_text">Test Phone Broadcast</string>
+    <string name="broadcast_uri_button_text">Test Uri Broadcast</string>
+
     <string name="edit_text_label">My label</string>
     <string name="edit_text_hint">My hint</string>
     <string name="action_remplir">FILL</string>

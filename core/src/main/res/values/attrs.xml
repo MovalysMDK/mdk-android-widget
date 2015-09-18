@@ -110,4 +110,10 @@
         <attr name="attachedEditText" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="MDKCommandButton">
+        <attr name="referenceWidget" format="reference"/>
+        <attr name="action" format="reference|string"/>
+        <attr name="command" format="string"/>
+    </declare-styleable>
+
 </resources>

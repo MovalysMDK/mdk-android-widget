@@ -77,7 +77,7 @@ class MDKWidgetDelegateSavedState extends View.BaseSavedState {
      */
     boolean error;
     /**
-     * displayed error
+     * displayed error.
      */
     String displayedError;
 

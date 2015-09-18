@@ -208,14 +208,27 @@ public class WidgetCommandDelegate implements ValidationListener {
      * @return the base key associated with the parameters
      */
     @Nullable private String baseKey(String widgetClassName, @IdRes int commandViewId) {
-        StringBuilder baseKey = new StringBuilder("mdkwidget_");
-        baseKey.append(widgetClassName.toLowerCase());
+        String command;
         if (commandViewId == primaryCommandViewId) {
-            baseKey.append("_primary");
+            command = "primary";
         } else {
-            baseKey.append("_secondary");
+            command = "secondary";
         }
+        return baseKey(widgetClassName, command);
+    }
 
+    /**
+     * Return the base key name for the specified parameters.
+     * @param widgetClassName the simple name class of the widget
+     * @param command the id of the command view
+     * @return the base key associated with the parameters
+     */
+    @Nullable private String baseKey(String widgetClassName, String command) {
+        StringBuilder baseKey = new StringBuilder("mdkwidget_");
+
+        baseKey.append(widgetClassName.toLowerCase());
+        baseKey.append("_");
+        baseKey.append(command);
         baseKey.append("_command_class");
 
         return baseKey.toString();
@@ -238,6 +251,25 @@ public class WidgetCommandDelegate implements ValidationListener {
         }
 
         return widgetCommand;
+    }
+
+    /**
+     * Get command.
+     * @param command the string command to get
+     * @return the command
+     */
+    @Nullable public WidgetCommand getWidgetCommand(String command) {
+        WidgetCommand<?,?> widgetCommand = null;
+
+        MDKWidget v = this.weakView.get();
+        if (v != null
+                && v.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+            MDKWidgetComponentProvider widgetComponentProvider = ((MDKWidgetApplication) v.getContext().getApplicationContext()).getMDKWidgetComponentProvider();
+            widgetCommand = widgetComponentProvider.getCommand(baseKey(v.getClass().getSimpleName(), command), this.qualifier, v.getContext());
+
+        }
+
+        return  widgetCommand;
     }
 
     /**

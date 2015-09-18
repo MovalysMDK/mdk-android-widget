@@ -14,12 +14,15 @@ public class MDKCheckableImageButton extends ImageButton implements Checkable {
     /** Is the widget checked? */
     private boolean mChecked;
 
-    /** true if the checked status is being processed */
+    /** true if the checked status is being processed. */
     private boolean mBroadcasting;
 
     /** change listener. */
     private OnCheckedChangeListener mOnCheckedChangeListener;
 
+    /**
+     * Checkable state.
+     */
     private static final int[] CHECKED_STATE_SET = {
             android.R.attr.state_checked
     };

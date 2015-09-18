@@ -181,7 +181,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     public void setSeekBarValue(int seekBarValue) {
         this.seekBarValue = seekBarValue;
         if (this.getMDKWidgetDelegate() != null && !isInEditMode() ) {
-            this.validate();
+            this.validate(EnumFormFieldValidator.ON_USER);
         }
     }
 
