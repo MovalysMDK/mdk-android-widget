@@ -73,7 +73,6 @@ dependencies {
     androidTestCompile(project(':espresso')) {
         transitive = false
     }
-    compile project(':position')
 }
 
 sonarRunner {
