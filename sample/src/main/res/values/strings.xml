@@ -174,6 +174,7 @@
     <string name="test_phone_helper_text">phone format text</string>
     <string name="test_email_helper_text">email format text</string>
     <string name="test_edit_rich_helper_text">Mandatory EditText</string>
+    <string name="seekbar_max_10000">Seekbar with a different max</string>
     <string name="email_rich_without_label">email rich without label</string>
-
+   
 </resources>

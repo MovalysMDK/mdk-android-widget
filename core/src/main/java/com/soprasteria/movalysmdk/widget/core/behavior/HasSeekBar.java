@@ -45,6 +45,18 @@ public interface HasSeekBar {
     void setSeekBarMaxValue(int seekBarMaxValue);
 
     /**
+     * Get the max attr of SeekBar.
+     * @return the maximum value of the component
+     */
+    int getMax();
+
+    /**
+     * Set the max attr SeekBar.
+     * @param max value to set
+     */
+    void setMax(int max);
+
+    /**
      * Set the progress of the seek bar.
      * @param value value to set
      */

@@ -75,17 +75,25 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
         // Retrieve attributes of the Seek Bar widget in order to initialize MDK widget class variables.
         TypedArray typedArrayCustom = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
 
+        String maxStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
+        if (maxStr != null) {
+            int max = Integer.parseInt(maxStr);
+            this.getInnerWidget().setMax(max);
+        }
+
         String maxValueStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_maxSeekBarValue);
         if (maxValueStr != null) {
             int seekBarMaxValue = Integer.parseInt(maxValueStr);
             setSeekBarMaxValue(seekBarMaxValue);
         }
 
-        String initalValueStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
-        if (initalValueStr != null) {
-            int seekBarValue = Integer.parseInt(initalValueStr);
+        String initialValueStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
+        if (initialValueStr != null) {
+            int seekBarValue = Integer.parseInt(initialValueStr);
             this.setSeekBarValue(seekBarValue);
             this.setSeekProgress(seekBarValue);
+        }else{
+            this.setSeekBarValue(0);
         }
 
         typedArrayCustom.recycle();
@@ -119,6 +127,17 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
     @Override
     public void setSeekBarMaxValue(int seekBarMaxValue) {
         this.getInnerWidget().setSeekBarMaxValue(seekBarMaxValue);
+    }
+
+
+    @Override
+    public int getMax() {
+        return this.getInnerWidget().getMax();
+    }
+
+    @Override
+    public void setMax(int max) {
+        this.getInnerWidget().setMax(max);
     }
 
     @Override
