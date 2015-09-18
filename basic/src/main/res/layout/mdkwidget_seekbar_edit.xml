@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             mdk:errorId="@id/component_error"
             mdk:labelId="@id/component_label"
+            mdk:attachedEditText="@id/component_seekbarEditText"
             style="?attr/mdkSeekBarStyle"/>
 
     </RelativeLayout>

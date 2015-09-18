@@ -27,6 +27,7 @@
 
     <!-- EditText dimension & margin values -->
     <dimen name="mdkwidget_seekbar_edittext_width">40dp</dimen>
+    <dimen name="mdkwidget_seekbar_edittext_incremental_width">12dp</dimen>
     <dimen name="mdkwidget_seekbar_edittext_margin">0dp</dimen>
 
 </resources>

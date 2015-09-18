@@ -61,6 +61,7 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
      * Getter for the inner widget of the rich widget.
      * @return the inner widget
      */
+    @Override
     public T getInnerWidget()   {
         return (T) super.getInnerWidget();
     }
@@ -85,7 +86,6 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
             int seekBarValue = Integer.parseInt(initalValueStr);
             this.setSeekBarValue(seekBarValue);
             this.setSeekProgress(seekBarValue);
-
         }
 
         typedArrayCustom.recycle();

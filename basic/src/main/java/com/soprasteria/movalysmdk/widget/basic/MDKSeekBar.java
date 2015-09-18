@@ -17,7 +17,12 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.IdRes;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -47,7 +52,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar {
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, TextWatcher{
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
@@ -60,6 +65,10 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     /** Maximum seek bar value from widget.*/
     private Integer seekBarMaxValue;
+
+    /** Seekbar value field **/
+    @IdRes private int seekbarEditTextId;
+    private EditText seekbarEditText;
 
     /**
      * Constructor.
@@ -92,27 +101,32 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
      * @param context the context
      * @param attrs attributes set
      */
-    private final void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs) {
+
+        super.setOnSeekBarChangeListener(this);
+        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
+
+        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
+
+        this.seekbarEditTextId = typedArray.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
 
         String maxValueStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_maxSeekBarValue);
         if (maxValueStr != null) {
             this.seekBarMaxValue = Integer.parseInt(maxValueStr);
         }
 
-        String initalValueStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
-        if (initalValueStr != null) {
-            seekBarValue = Integer.parseInt(initalValueStr);
-            this.setProgress(seekBarValue);
+        //TODO: init editText 0
+        String initialValueStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
+        if (initialValueStr != null) {
+            seekBarValue = Integer.parseInt(initialValueStr);
         }else{
             this.seekBarValue = 0;
         }
-        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+        this.onProgressChanged(this, seekBarValue, false);
 
-        super.setOnSeekBarChangeListener(this);
-
-        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
+        typedArray.recycle();
     }
 
     @Override
@@ -154,6 +168,32 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.setSeekBarValue(progress);
         if (this.mdkListenerDelegate != null) {
             this.mdkListenerDelegate.notifyListeners();
+        }
+
+        //changing edittext value
+
+        //finding edittext & initializing once
+        if (seekbarEditText == null && mdkWidgetDelegate!=null) {
+            seekbarEditText = (EditText) mdkWidgetDelegate.reverseFindViewById(seekbarEditTextId);
+
+            if (seekbarEditText != null) {
+
+                //init edittext
+                seekbarEditText.addTextChangedListener(this);
+                InputFilter[] FilterArray = new InputFilter[1];
+                FilterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(seekBar.getMax()))-1);
+                seekbarEditText.setFilters(FilterArray);
+
+                //growing edittext width if needed
+                if (seekBar.getMax() >= 1000)
+                    seekbarEditText.getLayoutParams().width += (Math.floor(Math.log(seekBar.getMax())) - 2) * getResources().getDimension(R.dimen.mdkwidget_seekbar_edittext_incremental_width);
+            }
+        }
+        //updating value
+        if (seekbarEditText != null) {
+            seekbarEditText.removeTextChangedListener(this);
+            seekbarEditText.setText(String.valueOf(progress));
+            seekbarEditText.addTextChangedListener(this);
         }
     }
 
@@ -271,4 +311,34 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+        super.setOnSeekBarChangeListener(null);
+
+        int value;
+        try {
+            value = Integer.parseInt(s.toString());
+
+            if(value>super.getMax()){
+                s.clear();
+                s.append(String.valueOf(super.getMax()));
+            }
+
+        }catch(NumberFormatException e){
+            value = 0;
+        }
+        setSeekProgress(value);
+
+        super.setOnSeekBarChangeListener(this);
+    }
 }
