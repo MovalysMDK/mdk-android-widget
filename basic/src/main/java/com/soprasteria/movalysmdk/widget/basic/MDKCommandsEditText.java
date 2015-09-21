@@ -115,6 +115,14 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     }
 
     @Override
+    protected void onDetachedFromWindow() {
+        if (!isInEditMode()) {
+            LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(actionReciver);
+        }
+        super.onDetachedFromWindow();
+    }
+
+    @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         super.onTextChanged(s, start, before, count);
         if (this.getMDKWidgetDelegate() != null && this.commandDelegate != null && !isInEditMode() &&

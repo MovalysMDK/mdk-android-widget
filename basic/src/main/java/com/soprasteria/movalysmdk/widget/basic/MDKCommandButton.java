@@ -1,12 +1,16 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 
 /**
  * Button to execute a widget broadcast action.
@@ -28,10 +32,19 @@ public class MDKCommandButton extends AppCompatButton implements View.OnClickLis
 
     /** reg widget id. */
     private int refWidgetId;
-    /** action name (broadcast to execute. */
+    /** action name (broadcast to execute). */
     private String actionName;
-    /** command name to execute */
+    /** command name to execute. */
     private String command;
+    /** broadcast enable reciver. */
+    private BroadcastReceiver enableReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getExtras() != null && intent.getIntExtra(MDKWidgetDelegate.EXTRA_WIDGET_ID, 0) == refWidgetId) {
+                setEnabled(intent.getBooleanExtra(MDKWidgetDelegate.EXTRA_VALID, false));
+            }
+        }
+    };
 
     /**
      * Default constructor.
@@ -84,6 +97,18 @@ public class MDKCommandButton extends AppCompatButton implements View.OnClickLis
         typedArray.recycle();
 
         this.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(enableReceiver, new IntentFilter(getContext().getString(R.string.mdkwidget_enableboadcast)));
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(enableReceiver);
+        super.onDetachedFromWindow();
     }
 
     @Override

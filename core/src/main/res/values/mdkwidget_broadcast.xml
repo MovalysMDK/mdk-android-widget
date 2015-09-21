@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="mdkwidget_enableboadcast">com.soprasteria.movalysmdk.widget.core.ENABLE_ACTION</string>
+
+</resources>

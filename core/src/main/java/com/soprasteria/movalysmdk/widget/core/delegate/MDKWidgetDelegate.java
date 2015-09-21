@@ -16,8 +16,10 @@
 package com.soprasteria.movalysmdk.widget.core.delegate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -45,6 +47,10 @@ import java.util.Set;
  */
 public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate, MDKTechnicalInnerWidgetDelegate {
 
+    /** Enable extras validation state. */
+    public static final String EXTRA_VALID = "valid";
+    /** Enable extras widget id. */
+    public static final String EXTRA_WIDGET_ID = "widgetId";
     /**
      * delegate value object.
      */
@@ -377,6 +383,10 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
         for (ValidationListener listener : this.valueObject.getValidationListeners()) {
             listener.notifyCommandStateChanged(bValid);
         }
+        Intent enableBroadcast = new Intent(this.getContext().getString(R.string.mdkwidget_enableboadcast));
+        enableBroadcast.putExtra(EXTRA_VALID, bValid);
+        enableBroadcast.putExtra(EXTRA_WIDGET_ID, this.getUniqueId());
+        LocalBroadcastManager.getInstance(this.getContext()).sendBroadcast(enableBroadcast);
     }
 
     /**
