@@ -186,6 +186,26 @@
             android:layout_height="wrap_content"
             mdk:initialSeekBarValue="4956"
             mdk:seekbar_max="10000"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SeekBar WITH DIFFERENT MIN -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_min_42"
+            android:id="@+id/textView4" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_min_42"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:seekbar_min="42"
+            mdk:seekbar_max="72"/>
     </LinearLayout>
 
 </ScrollView>

@@ -71,6 +71,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     /** linked EditText. */
     private EditText seekbarEditText;
 
+    /** Seekbar minimum, doesn't exist in original widget **/
+    private int min;
+
     /**
      * Constructor.
      * @param context the context
@@ -113,6 +116,13 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         this.seekbarEditTextId = typedArray.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
 
+        String minStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
+        if (minStr != null) {
+            this.min = Integer.parseInt(minStr);
+        }else{
+            this.min=0;
+        }
+
         String maxStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
         if (maxStr != null) {
             int max = Integer.parseInt(maxStr);
@@ -129,7 +139,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             seekBarValue = Integer.parseInt(initialValueStr);
             setSeekProgress(seekBarValue);
         }else{
-            seekBarValue=0;
+            seekBarValue=this.min;
         }
 
         typedArray.recycle();
@@ -198,18 +208,31 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     @Override
     public void setSeekProgress(int value) {
-        super.setProgress(value);
+
+        this.setSeekBarValue(value);
+
+        //updating seekbar thumb position with proper scaling
+        if((getMax()-getMin())!=0)
+            this.setProgress((int)(((float)value-min)/(getMax()-min)*getMax()));
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        this.setSeekBarValue(progress);
+
+        float valFloat=min;
+
+        //updating seekbar value with proper scaling
+        if(getMax()!=0)
+            valFloat=min+((float)progress/getMax())*(getMax()-min);
+
+        this.setSeekBarValue((int)valFloat);
+
         if (this.mdkListenerDelegate != null) {
             this.mdkListenerDelegate.notifyListeners();
         }
 
         //updating edittext value
-        setAttachedEditTextValue(progress);
+        setAttachedEditTextValue(seekBarValue);
     }
 
     @Override
@@ -282,6 +305,16 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    @Override
+    public int getMin() {
+        return min;
+    }
+
+    @Override
     public void setError(CharSequence error) {
         this.mdkWidgetDelegate.setError(error);
     }
@@ -334,6 +367,8 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
 
+    /** attached EditText listener methods **/
+
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }
@@ -343,6 +378,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     }
 
+    /** validating typed value and updating seekbar progress **/
     @Override
     public void afterTextChanged(Editable s) {
 
@@ -353,15 +389,16 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         if(s.length()>0){
             value = Integer.parseInt(s.toString());
 
-            if(value>super.getMax()){
+            if(value>this.getMax()){
                 s.clear();
-                s.append(String.valueOf(super.getMax()));
+                s.append(String.valueOf(this.getMax()));
             }
-
         }else{
-            value = 0;
+            value = this.getMin();
         }
-        setSeekProgress(value);
+
+        if(value>=getMin())
+            setSeekProgress(value);
 
         super.setOnSeekBarChangeListener(this);
     }
