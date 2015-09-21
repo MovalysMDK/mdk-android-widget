@@ -32,10 +32,10 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class PhoneTest extends AbstractCommandWidgetTest {
 
-    /* Valid phone number. */
+    /** Valid phone number. */
     private static final String PHONE_VALUE = "0123456789";
 
-    /* Invalid phone number. */
+    /** Invalid phone number. */
     private static final String PHONE_INVALID_VALUE = "0+0+1+1+2";
 
     /**
