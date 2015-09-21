@@ -55,7 +55,7 @@ public class MDKCommandButton extends AppCompatButton implements View.OnClickLis
     }
 
     /**
-     * Defaut Constructor
+     * Defaut Constructor.
      * @param context Android context
      * @param attrs android xml attributes
      */
@@ -67,7 +67,7 @@ public class MDKCommandButton extends AppCompatButton implements View.OnClickLis
     }
 
     /**
-     * Defaut Constructor
+     * Defaut Constructor.
      * @param context Android context
      * @param attrs android xml attributes
      * @param defStyleAttr default style attribut
@@ -80,7 +80,7 @@ public class MDKCommandButton extends AppCompatButton implements View.OnClickLis
     }
 
     /**
-     * Initialisation method
+     * Initialisation method.
      * @param attrs android xml attributes
      */
     private void init(AttributeSet attrs) {

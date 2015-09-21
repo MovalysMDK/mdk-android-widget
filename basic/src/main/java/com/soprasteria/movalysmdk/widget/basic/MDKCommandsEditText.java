@@ -37,6 +37,9 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     protected WidgetCommandDelegate commandDelegate;
 
 
+    /**
+     * Broadcast receiver for enable/disable button.
+     */
     private BroadcastReceiver actionReciver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -95,6 +98,10 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
         }
     }
 
+    /**
+     * Return the IntentFilters handeled by the widget.
+     * @return a IntentFilter array containing IntentFilters
+     */
     protected abstract IntentFilter[] getBroadcastIntentFilters();
 
     /**

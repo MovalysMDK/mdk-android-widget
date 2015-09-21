@@ -15,12 +15,27 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.soprasteria.movalysmdk.widget.basic.MDKCommandButton;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 
 /**
  * Test activity for the MDKRichEmail widget.
  */
 public class EmailActivity extends AbstractWidgetTestableActivity {
+
+    /** Broadcast reciver for disable action button. */
+    private BroadcastReceiver receiver;
+    /** active button. */
+    private boolean actionActivated = false;
 
     @Override
     protected int[] getWidgetIds() {
@@ -39,5 +54,45 @@ public class EmailActivity extends AbstractWidgetTestableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email);
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent != null && intent.getIntExtra(MDKWidgetDelegate.EXTRA_WIDGET_ID, 0) == R.id.mdkEmail_withErrorAndCommandOutside) {
+                    actionActivated = intent.getBooleanExtra(MDKWidgetDelegate.EXTRA_VALID, false);
+                    invalidateOptionsMenu();
+                }
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(getString(R.string.mdkwidget_enableboadcast)));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.menu_email, menu);
+        menu.findItem(R.id.send_email).setEnabled(actionActivated);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.send_email:
+                Intent intent = new Intent(this.getString(R.string.mdkcommand_email_action));
+                intent.putExtra(MDKCommandButton.REFERENCE_WIDGET, R.id.mdkEmail_withErrorAndCommandOutside);
+                intent.putExtra(MDKCommandButton.COMMAND_WIDGET, "primary");
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

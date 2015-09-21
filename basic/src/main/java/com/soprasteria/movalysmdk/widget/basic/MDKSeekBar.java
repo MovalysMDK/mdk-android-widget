@@ -66,8 +66,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     /** Maximum seek bar value from widget.*/
     private Integer seekBarMaxValue;
 
-    /** Seekbar value field **/
+    /** Seekbar value field. **/
     @IdRes private int seekbarEditTextId;
+    /** linked EditText. */
     private EditText seekbarEditText;
 
     /**
@@ -146,9 +147,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
                 //init edittext
                 seekbarEditText.addTextChangedListener(this);
-                InputFilter[] FilterArray = new InputFilter[1];
-                FilterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(getMax())) - 1);
-                seekbarEditText.setFilters(FilterArray);
+                InputFilter[] filterArray = new InputFilter[1];
+                filterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(getMax())) - 1);
+                seekbarEditText.setFilters(filterArray);
                 setAttachedEditTextValue(seekBarValue);
 
                 //growing edittext width if needed
