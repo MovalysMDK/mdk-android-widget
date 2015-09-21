@@ -16,6 +16,7 @@ import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
@@ -24,7 +25,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.soprasteria.movalysmdk.espresso.action.DelayScrollToAction.delayScrollTo;
 import static com.soprasteria.movalysmdk.espresso.action.MdkRichDateTimeAction.setDateTime;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
@@ -227,7 +227,7 @@ public abstract class AbstractCommandWidgetTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(delayScrollTo()));
+        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
 
         // perform given action
         if (action != null) {
@@ -248,10 +248,10 @@ public abstract class AbstractCommandWidgetTest {
         }
 
         // click validate button
-        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(delayScrollTo()), click());
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(scrollTo()), click());
 
         // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(delayScrollTo()));
+        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
 
         // check error
         onView(errorView).check(matches(withConcatText(errorMessages)));
@@ -265,7 +265,7 @@ public abstract class AbstractCommandWidgetTest {
         onView(isRoot()).perform(orientationLandscape());
 
         // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(delayScrollTo()));
+        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
 
         // get value and check
         if (assertion != null) {
@@ -293,7 +293,7 @@ public abstract class AbstractCommandWidgetTest {
         onView(isRoot()).perform(orientationPortrait());
 
         // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(delayScrollTo()));
+        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
 
         // get value and check
         if (assertion != null) {
