@@ -1,4 +1,4 @@
-package com.soprasteria.movalysmdk.widget.core;
+package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.util.AttributeSet;
