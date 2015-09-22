@@ -17,15 +17,20 @@ package com.soprasteria.movalysmdk.widget.sample;
 
 import android.support.test.rule.ActivityTestRule;
 
+import com.soprasteria.movalysmdk.espresso.action.MdkSeekBarAction;
 import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
+import com.soprasteria.movalysmdk.espresso.matcher.MdkSeekbarMatcher;
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
+import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
@@ -96,19 +101,92 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         onView(withId(R.id.enableButton)).perform(click());
 
         // Check widgets are disabled
-        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(not(isEnabled())));
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).check(matches(not(isEnabled())));
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).check(matches(not(isEnabled())));
 
-        // Re enabled widget
+        // Re enable widget
         onView(withId(R.id.enableButton)).perform(click());
 
         // Check widgets are enabled
-        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(isEnabled()));
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).check(matches(isEnabled()));
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).check(matches(isEnabled()));
 
         testDisableOutsideWidget(R.id.mdkRichSeekBar_withLabelAndError);
+    }
+
+    /**
+     * Check MDK seekbar returned value is the actual expected value
+     */
+    @Test
+    public void testSeekbarValue(){
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        //by seekbar input
+        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(50))
+                .check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(50)));
+
+        onView(withId(R.id.mdkSeekBar_withErrorAndCommandOutside)).perform(MdkSeekBarAction.setMDKSeekbarProgress(42))
+                .check(matches(MdkSeekbarMatcher.mdkSeekbarWithProgress(42)));
+
+
+        //by edittext input
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(), typeText("1"));//caret goes before zero, so we only have to type the 1 to test 10
+        //Log.d("TEST", String.valueOf(((MDKRichSeekBar) mActivityRule.getActivity().findViewById(R.id.mdkRichSeekBar_withLabelAndError)).getSeekBarValue()));
+        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(10)));
+
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(),typeText("hello"));
+        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(0)));
+
+    }
+
+    /**
+     * Check MDK seekbar returns value in the min/max range
+     */
+    @Test
+    public void testSeekbarValueRange(){
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        //by seekbar input
+        onView(withId(R.id.mdkRichSeekBar_min_42)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(50))
+                .check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(50)));
+
+        onView(withId(R.id.mdkRichSeekBar_min_42)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(25))
+                .check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(42)));
+
+        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(-1))
+                .check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(0)));
+
+        onView(withId(R.id.mdkRichSeekBar_min_42)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(150))
+                .check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(72)));
+
+        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(150))
+                .check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(100)));
+
+
+        //by edittext input
+
+        //espresso doesn't match R.id.component_seekbarEditText inside R.id.mdkRichSeekBar_min_42: espresso bug?
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(typeText("5"));//caret goes before zero, so we only have to type the 5 to test 50
+        onView(withId(R.id.mdkRichSeekBar_min_42)).check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(50)));
+
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(clearText(), typeText("1"));//caret goes before zero, so we only have to type the 1 to test 10
+        onView(withId(R.id.mdkRichSeekBar_min_42)).check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(42)));
+
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(clearText(), typeText("100"));
+        onView(withId(R.id.mdkRichSeekBar_min_42)).check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(72)));
+
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(), typeText("150"));
+        onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(MdkSeekbarMatcher.mdkRichSeekbarWithProgress(100)));
+
     }
 
     @Override
     protected ActivityTestRule getActivity() {
         return mActivityRule;
     }
+
+
+
 }

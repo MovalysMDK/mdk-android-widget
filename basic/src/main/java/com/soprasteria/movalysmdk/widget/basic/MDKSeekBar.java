@@ -22,6 +22,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -52,7 +53,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, TextWatcher{
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, TextWatcher, View.OnFocusChangeListener {
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
@@ -157,14 +158,16 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
                 //init edittext
                 seekbarEditText.addTextChangedListener(this);
+                seekbarEditText.setOnFocusChangeListener(this);
                 InputFilter[] filterArray = new InputFilter[1];
                 filterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(getMax())) - 1);
                 seekbarEditText.setFilters(filterArray);
                 setAttachedEditTextValue(seekBarValue);
 
                 //growing edittext width if needed
-                if (getMax() > getResources().getInteger(R.integer.mdkwidget_seekbar_edittext_max_value_before_resize))
+                if (getMax() > getResources().getInteger(R.integer.mdkwidget_seekbar_edittext_max_value_before_resize)) {
                     seekbarEditText.getLayoutParams().width += (Math.floor(Math.log(getMax())) - 2) * getResources().getDimension(R.dimen.mdkwidget_seekbar_edittext_incremental_width);
+                }
             }
         }
     }
@@ -209,11 +212,16 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     @Override
     public void setSeekProgress(int value) {
 
+        if(value<min) {
+            value = min;
+        }
+
         this.setSeekBarValue(value);
 
         //updating seekbar thumb position with proper scaling
-        if((getMax()-getMin())!=0)
-            this.setProgress((int)(((float)value-min)/(getMax()-min)*getMax()));
+        if((getMax()-getMin())!=0) {
+            this.setProgress(Math.round(((float) value - min) / (getMax() - min) * getMax()));
+        }
     }
 
     @Override
@@ -222,10 +230,11 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         float valFloat=min;
 
         //updating seekbar value with proper scaling
-        if(getMax()!=0)
-            valFloat=min+((float)progress/getMax())*(getMax()-min);
+        if(getMax()!=0) {
+            valFloat = min + ((float) progress / getMax()) * (getMax() - min);
+        }
 
-        this.setSeekBarValue((int)valFloat);
+        this.setSeekBarValue(Math.round(valFloat));
 
         if (this.mdkListenerDelegate != null) {
             this.mdkListenerDelegate.notifyListeners();
@@ -379,6 +388,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     /** validating typed value and updating seekbar progress **/
+
     @Override
     public void afterTextChanged(Editable s) {
 
@@ -392,13 +402,39 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             if(value>this.getMax()){
                 s.clear();
                 s.append(String.valueOf(this.getMax()));
+                value=this.getMax();
             }
         }else{
             value = this.getMin();
         }
 
-        if(value>=getMin())
+        if(value>=getMin()) {
             setSeekProgress(value);
+        }
+
+        super.setOnSeekBarChangeListener(this);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
+        Editable s = ((EditText)v).getText();
+
+        super.setOnSeekBarChangeListener(null);
+
+        if(s.length()>0){
+            int value = Integer.parseInt(s.toString());
+            if(value<this.getMin()){
+                s.clear();
+                s.append(String.valueOf(this.getMin()));
+                setSeekProgress(this.getMin());
+            }
+        }else{
+            s.clear();
+            s.append(String.valueOf(this.getMin()));
+            setSeekProgress(this.getMin());
+        }
+
 
         super.setOnSeekBarChangeListener(this);
     }
