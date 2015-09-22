@@ -27,7 +27,7 @@ import org.hamcrest.Matcher;
 /**
  * Espresso matchers for checking seekbar.
  */
-public class MdkSeekbarMatcher {
+public class MdkSeekbarMatchers {
 
     public static Matcher<View> mdkSeekbarWithProgress(final int expectedProgress) {
         return new BoundedMatcher<View, MDKSeekBar>(MDKSeekBar.class) {
