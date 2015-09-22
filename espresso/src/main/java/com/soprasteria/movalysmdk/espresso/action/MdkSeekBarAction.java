@@ -38,6 +38,11 @@ public class MdkSeekBarAction {
         // private because helper class.
     }
 
+    /**
+     * Set the value of a MDKSeekBar.
+     * @param progress the value to set
+     * @return ViewAction
+     */
     public static ViewAction setMDKSeekbarProgress(final int progress) {
         return new ViewAction() {
             @Override
@@ -59,6 +64,11 @@ public class MdkSeekBarAction {
     }
 
 
+    /**
+     * Set the value of a MDKRichSeekBar.
+     * @param progress the value to set
+     * @return ViewAction
+     */
     public static ViewAction setMDKRichSeekbarProgress(final int progress) {
         return new ViewAction() {
             @Override

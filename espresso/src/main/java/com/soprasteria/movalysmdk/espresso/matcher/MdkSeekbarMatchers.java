@@ -29,6 +29,18 @@ import org.hamcrest.Matcher;
  */
 public class MdkSeekbarMatchers {
 
+    /**
+     * Constructor.
+     */
+    private MdkSeekbarMatchers() {
+        // private because helper class.
+    }
+
+    /**
+     * Creates a matcher to check the value of a MDKSeekbar component.
+     * @param expectedProgress the seekbar value that was expected.
+     * @return matcher.
+     */
     public static Matcher<View> mdkSeekbarWithProgress(final int expectedProgress) {
         return new BoundedMatcher<View, MDKSeekBar>(MDKSeekBar.class) {
             @Override
@@ -43,6 +55,11 @@ public class MdkSeekbarMatchers {
         };
     }
 
+    /**
+     * Creates a matcher to check the value of a MDKRichSeekbar component.
+     * @param expectedProgress the seekbar value that was expected.
+     * @return matcher.
+     */
     public static Matcher<View> mdkRichSeekbarWithProgress(final int expectedProgress) {
         return new BoundedMatcher<View, MDKRichSeekBar>(MDKRichSeekBar.class) {
             @Override
