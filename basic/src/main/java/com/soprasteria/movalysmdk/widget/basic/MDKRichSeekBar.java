@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -74,6 +75,14 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
 
         // Retrieve attributes of the Seek Bar widget in order to initialize MDK widget class variables.
         TypedArray typedArrayCustom = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
+
+
+        String editableStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
+        if (editableStr != null) {
+            this.getInnerWidget().setEditableEditText(Boolean.parseBoolean(editableStr));
+        }else{
+            this.getInnerWidget().setEditableEditText(true);
+        }
 
         String minStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
         if (minStr != null) {
@@ -160,5 +169,25 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
     @Override
     public void setSeekProgress(int value) {
         this.getInnerWidget().setSeekProgress(value);
+    }
+
+    @Override
+    public EditText getAttachedEditText() {
+        return this.getInnerWidget().getAttachedEditText();
+    }
+
+    @Override
+    public void setAttachedEditText(EditText attachedEditText) {
+        this.getInnerWidget().setAttachedEditText(attachedEditText);
+    }
+
+    @Override
+    public boolean isEditableEditText() {
+        return this.getInnerWidget().isEditableEditText();
+    }
+
+    @Override
+    public void setEditableEditText(boolean editable) {
+        this.getInnerWidget().setEditableEditText(editable);
     }
 }

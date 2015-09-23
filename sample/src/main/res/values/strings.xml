@@ -181,5 +181,6 @@
     <string name="seekbar_max_10000">Seekbar with a different max</string>
     <string name="seekbar_min_42">Seekbar with a different min</string>
     <string name="email_rich_without_label">email rich without label</string>
-   
+    <string name="seekbar_edit_text_not_editable">Seekbar with edit text not editable</string>
+
 </resources>

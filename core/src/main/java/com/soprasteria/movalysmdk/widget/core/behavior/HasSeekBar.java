@@ -15,6 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
+import android.widget.EditText;
+
 /**
  * Add control behavior on values of the SeekBar widget.
  */
@@ -67,10 +69,37 @@ public interface HasSeekBar {
      * @param min value to set
      */
     void setMin(int min);
+
     /**
      * Set the progress of the seek bar.
      * @param value value to set
      */
     void setSeekProgress(int value);
+
+
+    /**
+     * Get the attached edittext of the SeekBar.
+     * @return the edittext component
+     */
+    EditText getAttachedEditText();
+
+    /**
+     * Get the attached edittext of the SeekBar.
+     * @param attachedEditText EditText to set
+     */
+    void setAttachedEditText(EditText attachedEditText);
+
+    /**
+     * Get the editable attribute of the seekbar's attached edittext.
+     * @return true if the edittext is editable
+     */
+    boolean isEditableEditText();
+
+
+    /**
+     * Set the editable attribute of the seekbar's attached edittext.
+     * @param editable editable parameter to set
+     */
+    void setEditableEditText(boolean editable);
 
 }

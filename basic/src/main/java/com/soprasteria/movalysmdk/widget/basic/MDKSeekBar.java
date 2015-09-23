@@ -20,6 +20,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.IdRes;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
@@ -75,6 +76,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     /** Seekbar minimum, doesn't exist in original widget **/
     private int min;
 
+    /** editable property of the attached edittext **/
+    private boolean editableEditText;
+
     /**
      * Constructor.
      * @param context the context
@@ -117,6 +121,13 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         this.seekbarEditTextId = typedArray.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
 
+        String editableStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
+        if (editableStr != null) {
+            this.editableEditText = Boolean.parseBoolean(editableStr);
+        }else{
+            this.editableEditText=true;
+        }
+
         String minStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
         if (minStr != null) {
             this.min = Integer.parseInt(minStr);
@@ -156,19 +167,29 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
             if (seekbarEditText != null) {
 
-                //init edittext
-                seekbarEditText.addTextChangedListener(this);
-                seekbarEditText.setOnFocusChangeListener(this);
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(getMax())) - 1);
-                seekbarEditText.setFilters(filterArray);
-                setAttachedEditTextValue(seekBarValue);
+                initEditText();
 
                 //growing edittext width if needed
                 if (getMax() > getResources().getInteger(R.integer.mdkwidget_seekbar_edittext_max_value_before_resize)) {
                     seekbarEditText.getLayoutParams().width += (Math.floor(Math.log(getMax())) - 2) * getResources().getDimension(R.dimen.mdkwidget_seekbar_edittext_incremental_width);
                 }
             }
+        }
+    }
+
+    private void initEditText(){
+        //init edittext
+        seekbarEditText.addTextChangedListener(this);
+        seekbarEditText.setOnFocusChangeListener(this);
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(getMax())) - 1);
+        seekbarEditText.setFilters(filterArray);
+        setAttachedEditTextValue(seekBarValue);
+
+        if(editableEditText) {
+            seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }else{
+            seekbarEditText.setInputType(InputType.TYPE_NULL);
         }
     }
 
@@ -221,6 +242,44 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         //updating seekbar thumb position with proper scaling
         if((getMax()-getMin())!=0) {
             this.setProgress(Math.round(((float) value - min) / (getMax() - min) * getMax()));
+        }
+    }
+
+    @Override
+    public EditText getAttachedEditText() {
+        return seekbarEditText;
+    }
+
+    @Override
+    public void setAttachedEditText(EditText attachedEditText) {
+
+        //unbinding previous edittext
+        if(seekbarEditText!=null) {
+            seekbarEditText.removeTextChangedListener(this);
+            seekbarEditText.setOnFocusChangeListener(null);
+        }
+
+        seekbarEditText = attachedEditText;
+        initEditText();
+    }
+
+    @Override
+    public boolean isEditableEditText() {
+        return seekbarEditText.getInputType() != InputType.TYPE_NULL;
+    }
+
+    @Override
+    public void setEditableEditText(boolean editable) {
+        if(editable) {
+            editableEditText = true;
+            if(seekbarEditText!=null) {
+                seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            }
+        }else{
+            editableEditText=false;
+            if(seekbarEditText!=null) {
+                seekbarEditText.setInputType(InputType.TYPE_NULL);
+            }
         }
     }
 

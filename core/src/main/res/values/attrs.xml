@@ -109,6 +109,7 @@
         <attr name="seekbar_max" format="integer"/>
         <attr name="seekbar_min" format="integer"/>
         <attr name="attachedEditText" format="reference"/>
+        <attr name="editableEditText" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="MDKCommandButton">

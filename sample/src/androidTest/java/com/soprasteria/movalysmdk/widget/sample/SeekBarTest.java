@@ -17,12 +17,10 @@ package com.soprasteria.movalysmdk.widget.sample;
 
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 
 import com.soprasteria.movalysmdk.espresso.action.MdkSeekBarAction;
 import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 import com.soprasteria.movalysmdk.espresso.matcher.MdkSeekbarMatchers;
-import com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar;
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
 import org.junit.Rule;

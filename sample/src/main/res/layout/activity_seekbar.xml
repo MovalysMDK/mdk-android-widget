@@ -206,6 +206,26 @@
             android:layout_height="wrap_content"
             mdk:seekbar_min="42"
             mdk:seekbar_max="72"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SeekBar WITH EDIT TEXT NOT EDITABLE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_edit_text_not_editable"
+            android:id="@+id/textView5" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_edit_text_not_editable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:editableEditText="false"/>
     </LinearLayout>
 
 </ScrollView>
