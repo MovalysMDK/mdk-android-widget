@@ -25,6 +25,7 @@
     <string name="email_activity">Email</string>
     <string name="phone_activity">Phone</string>
     <string name="position_activity">Position</string>
+    <string name="maps_activity">Maps with GApi</string>
     <string name="checkbox_activity">CheckBoxes</string>
     <string name="switch_activity">Switches</string>
     <string name="title_activity_edit_text">EditText</string>
@@ -94,6 +95,16 @@
     <string name="position_rich_custom_layout">Position Rich widget custom layout</string>
     <string name="position_rich_common_error">Position rich widget common error</string>
     <string name="position_rich_helper_text">Position rich widget with helper</string>
+
+    <string name="positionmaps_helper_text">MapsPosition format text</string>
+    <string name="positionmaps_with_label_error_location">MapsPosition Rich widget with label and error and location</string>
+    <string name="positionmaps_with_label_error_addresses">MapsPosition Rich widget with label and error and addresses</string>
+    <string name="positionmaps_with_label_error_auto_start">MapsPosition Rich widget with label and error and auto-start</string>
+    <string name="positionmaps_standalone_widget">MapsPosition standalone widget with error field</string>
+    <string name="positionmaps_rich_without_label">MapsPosition Rich widget without label</string>
+    <string name="positionmaps_rich_custom_layout">MapsPosition Rich widget custom layout</string>
+    <string name="positionmaps_rich_common_error">MapsPosition rich widget common error</string>
+    <string name="positionmaps_rich_helper_text">MapsPosition rich widget with helper</string>
 
     <string name="switch_helper_text">Switch format text</string>
     <string name="switch_with_label_error">Switch Rich widget with label and error</string>

@@ -61,6 +61,14 @@
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
         <activity
+            android:name=".MapsActivity"
+            android:label="@string/maps_activity"
+            android:parentActivityName=".ListWidgetActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
             android:name=".CheckboxActivity"
             android:label="@string/checkbox_activity"
             android:parentActivityName=".ListWidgetActivity" >
@@ -124,6 +132,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAUa-gmlwyhCdmGtAKJKt5LydN44rwSmX4"/>
     </application>
 
 </manifest>

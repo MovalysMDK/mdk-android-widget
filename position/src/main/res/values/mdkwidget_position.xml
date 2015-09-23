@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="latitude_hint">Latitude</string>
-    <string name="longitude_hint">Longitude</string>
-    <string name="address_hint">Address</string>
+    <!-- Used strings -->
+    <string name="mdkwidget_mdkposition_latitude_hint">Latitude</string>
+    <string name="mdkwidget_mdkposition_longitude_hint">Longitude</string>
+    <string name="mdkwidget_mdkposition_address_hint">Address</string>
+    <string name="mdkwidget_mdkposition_locate_timeout">The position could not be fixed.</string>
+    <string name="mdkwidget_mdkposition_noaddress">The position was fixed but no address exist for your position.</string>
 
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkposition_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand</string>

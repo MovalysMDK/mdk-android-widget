@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Chaines utilisees -->
-    <string name="mdkvalidator_position_error_validation">La latitude et la longitude doivent être renseignées</string>
+    <string name="mdkvalidator_position_error_validation_mandatory">La latitude et la longitude doivent être renseignées</string>
+    <string name="mdkvalidator_position_error_validation_incorrect">La latitude doit être comprise entre -90 et 90.\nLa longitude doit être comprise entre -180 et 180</string>
 
 </resources>

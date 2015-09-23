@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="maps_api_error_title">Erreur sur la carte</string>
+    <string name="maps_api_error_description">Le composant carte n\'a pas pu être affiché. Merci de vérifier votre clé d\'API Google Maps.</string>
+    <string name="maps_marker_geo_title">Géo Localisation</string>
+    <string name="maps_marker_address_title">Addresse de Localisation</string>
+
+</resources>

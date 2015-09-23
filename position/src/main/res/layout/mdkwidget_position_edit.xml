@@ -25,28 +25,35 @@
 
     <include layout="@layout/mdkwidget_error_layout" />
 
-    <ImageButton
-        android:id="@+id/component_mapButton"
+    <LinearLayout
+        android:id="@+id/component_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_map"
-        style="?attr/mdkSecondaryCommandStyle"/>
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
 
-    <com.soprasteria.movalysmdk.widget.basic.MDKCheckableImageButton
-        android:id="@+id/component_positionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/component_mapButton"
-        android:src="@drawable/gps_action_button"
-        style="?attr/mdkPrimaryCommandStyle"/>
+        <ImageButton
+            android:id="@+id/component_mapButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_map"
+            style="?attr/mdkSecondaryCommandStyle"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKCheckableImageButton
+            android:id="@+id/component_positionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gps_action_button"
+            style="?attr/mdkPrimaryCommandStyle"/>
+
+    </LinearLayout>
 
     <com.soprasteria.movalysmdk.widget.position.MDKPosition
         android:id="@id/component_internal"
         android:layout_below="@id/component_label"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/component_positionButton"
+        android:layout_toLeftOf="@id/component_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"

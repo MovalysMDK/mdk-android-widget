@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MDKCommons.MDKMapsPositionComponent">
+
+        <attr name="mapsMode" format="enum">
+            <enum name="places_picker" value="0"/>
+            <enum name="geopoint" value="1"/>
+            <enum name="gps" value="2"/>
+        </attr>
+
+        <attr name="displayMode" format="integer">
+            <flag name="coord" value="0x000000ff"/>
+            <flag name="address" value="0x0000ff00"/>
+            <flag name="markerCoord" value="0x00ff0000"/>
+            <flag name="markerAddress" value="0xff000000"/>
+        </attr>
+
+        <attr name="zoom" format="integer"/>
+
+        <attr name="gpsMarker" format="reference"/>
+
+        <attr name="addressMarker" format="reference"/>
+
+    </declare-styleable>
+
+</resources>

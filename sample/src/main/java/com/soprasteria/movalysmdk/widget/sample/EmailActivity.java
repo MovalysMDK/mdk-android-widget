@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKCommandButton;
+import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 
 /**
@@ -87,8 +88,8 @@ public class EmailActivity extends AbstractWidgetTestableActivity {
         switch (item.getItemId()) {
             case R.id.send_email:
                 Intent intent = new Intent(this.getString(R.string.mdkcommand_email_action));
-                intent.putExtra(MDKCommandButton.REFERENCE_WIDGET, R.id.mdkEmail_withErrorAndCommandOutside);
-                intent.putExtra(MDKCommandButton.COMMAND_WIDGET, "primary");
+                intent.putExtra(MDKCommandDelegate.REFERENCE_WIDGET, R.id.mdkEmail_withErrorAndCommandOutside);
+                intent.putExtra(MDKCommandDelegate.COMMAND_WIDGET, "primary");
                 LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
                 return true;
             default:

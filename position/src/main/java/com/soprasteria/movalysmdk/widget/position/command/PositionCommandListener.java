@@ -8,9 +8,16 @@ import android.location.Location;
 public interface PositionCommandListener {
 
     /**
-     * Indicated that the location is being calculated.
+     * Returns the time out to set on the location manager.
+     * @return the desired timeout
      */
-    void computingLocation();
+    int getTimeOut();
+
+    /**
+     * Indicated that the location is being calculated.
+     * @param location the last known location
+     */
+    void computingLocation(Location location);
 
     /**
      * Called when the location has been recalculated.
@@ -23,5 +30,10 @@ public interface PositionCommandListener {
      * @param location the precise location
      */
     void locationFixed(Location location);
+
+    /**
+     * Called when the location manager could not fix the position after a defined timeout.
+     */
+    void locationTimedOut();
 
 }

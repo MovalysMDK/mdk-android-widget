@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Used string -->
+    <string name="maps_api_error_title">Map error</string>
+    <string name="maps_api_error_description">The map widget could not be displayed. You may check your Google Maps API key.</string>
+    <string name="maps_marker_geo_title">Geo Location</string>
+    <string name="maps_marker_address_title">Address Location</string>
+
+    <!-- widgetCommand string config -->
+    <string name="mdkwidget_mdkmapsposition_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand</string>
+
+</resources>

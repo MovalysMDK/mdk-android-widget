@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Primary command class for the position widget.
  * Will try and locate the device and update the widget consequently
@@ -49,6 +52,9 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
     /** callback listener. */
     private PositionCommandListener listener;
 
+    /** timer for timeout management. */
+    private Timer timerTimeout = new Timer();
+
     /**
      * Send an email using the email parameters.
      * <p>This method call the ACTION_SEND Intent.</p>
@@ -75,7 +81,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * Starts the location command.
      */
     private void start() {
-        boolean locationRequested = false;
+        listener.computingLocation(location);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Criteria oFine = new Criteria();
@@ -84,8 +90,6 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
             // Will keep updating about every 500 ms until
             // accuracy is about 50 meters to get accurate fix.
             locationManager.requestLocationUpdates(locationManager.getBestProvider(oFine, true), UPDATE_TIMER, FINE_ACCURACY_LEVEL, oListenerFine);
-
-            locationRequested = true;
         }
 
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -96,13 +100,19 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
             // accuracy is about 1000 meters to get accurate fix.
             // Replace oLocationManager.getBestProvider(oCoarse, true) to
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_TIMER, COARSE_ACCURACY_LEVEL, oListenerCoarse);
-
-            locationRequested = true;
         }
 
-        if (locationRequested) {
-            listener.computingLocation();
-        }
+
+        timerTimeout.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if (listener != null) {
+                    listener.locationTimedOut();
+                }
+                stop();
+            }
+        }, listener.getTimeOut() * 1000);
     }
 
     /**
@@ -114,6 +124,12 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         }
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locationManager.removeUpdates(oListenerCoarse);
+        }
+
+        if (timerTimeout != null) {
+            timerTimeout.cancel();
+            timerTimeout.purge();
+            timerTimeout = null;
         }
     }
 

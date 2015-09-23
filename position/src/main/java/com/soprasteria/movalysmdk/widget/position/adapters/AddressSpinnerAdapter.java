@@ -52,25 +52,46 @@ public class AddressSpinnerAdapter extends ArrayAdapter<Address> {
     private View getCustomView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        if (convertView == null) {
+        View view = convertView;
+
+        if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(this.getContext());
-            convertView = inflater.inflate(layoutResourceId, parent, false);
+            view = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ViewHolder();
-            holder.street = (TextView) convertView.findViewById(R.id.component_internal_address_street);
-            holder.city = (TextView) convertView.findViewById(R.id.component_internal_address_city);
+            holder.street = (TextView) view.findViewById(R.id.component_internal_address_street);
+            holder.city = (TextView) view.findViewById(R.id.component_internal_address_city);
 
-            convertView.setTag(holder);
+            view.setTag(holder);
         }else{
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ViewHolder) view.getTag();
         }
 
         Address addr = this.getItem(position);
 
-        holder.street.setText(addr.getAddressLine(0));
-        holder.city.setText(addr.getPostalCode() + " " + addr.getLocality());
+        if (addr != null) {
+            String street = addr.getAddressLine(0);
+            if (street == null) {
+                street = "";
+            }
 
-        return convertView;
+            holder.street.setText(street);
+
+            String city = "";
+            if (addr.getPostalCode() != null) {
+                city = addr.getPostalCode();
+            }
+            if (addr.getLocality() != null) {
+                if (city.length() > 0) {
+                    city += " ";
+                }
+                city += addr.getLocality();
+            }
+
+            holder.city.setText(city);
+        }
+
+        return view;
     }
 
     /**

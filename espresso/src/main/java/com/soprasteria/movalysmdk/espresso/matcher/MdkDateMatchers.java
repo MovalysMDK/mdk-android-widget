@@ -106,6 +106,9 @@ public class MdkDateMatchers {
          */
         private Calendar expectedDate ;
 
+        /**
+         * The actual date.
+         */
         private Date actualDate;
 
         /**

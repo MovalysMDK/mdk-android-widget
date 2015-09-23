@@ -5,7 +5,10 @@ import android.content.res.TypedArray;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
@@ -23,6 +27,8 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.position.R;
 import com.soprasteria.movalysmdk.widget.position.adapters.AddressSpinnerAdapter;
+import com.soprasteria.movalysmdk.widget.position.filter.PositionInputFilter;
+import com.soprasteria.movalysmdk.widget.position.model.Position;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -31,10 +37,6 @@ import java.util.Locale;
 
 /**
  * Delegate for the MDKPositionWidgetDelegate widget.
- * This delegate implements the core concepts of the component : it handles the fact that the MDKPosition
- * widget can be used alone, or with the addition of an other TextView.
- * In this later case the MDKPosition will act
- * as the master component (as it hosts this delegate), and the TextView will act as the slave component.
  */
 public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, TextWatcher, AdapterView.OnItemSelectedListener {
 
@@ -42,13 +44,13 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     private static final String TAG = MDKPositionWidgetDelegate.class.getSimpleName();
 
     /** notify change listeners. */
-    private MDKChangeListenerDelegate mdkChangeListener;
+    protected MDKChangeListenerDelegate mdkChangeListener;
 
     /** Latitude hint.*/
-    private String latHint;
+    protected String latHint;
 
     /** Longitude hint.*/
-    private String lngHint;
+    protected String lngHint;
 
     /** Address hint. */
     private String addressHint;
@@ -63,28 +65,31 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     private int addressViewId;
 
     /** widget mode. */
-    private int mode = -1;
+    protected int mode = -1;
 
     /** true if the localization should be started on widget inflation. */
-    private boolean autoStart;
+    protected boolean autoStart;
 
     /** true if the action used to launch the map app should be visible. */
     private boolean activateGoto;
 
     /** latitude view. */
-    private WeakReference<EditText> latitudeView;
+    protected WeakReference<EditText> latitudeView;
 
     /** longitude view. */
-    private WeakReference<EditText> longitudeView;
+    protected WeakReference<EditText> longitudeView;
 
     /** address view. */
     private WeakReference<Spinner> addressView;
 
-    /** current location. */
-    private Location location;
+    /** current position. */
+    protected Position position;
 
     /** true if the data is being written by the command. */
-    private boolean writingData = false;
+    protected boolean writingData = false;
+
+    /** the time out in seconds to set on the location manager. */
+    private int timeout;
 
     /**
      * Constructor.
@@ -97,7 +102,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
         this.mdkChangeListener = new MDKChangeListenerDelegate();
 
         /// initialize the location object
-        location = new Location("dummyprovider");
+        position = new Position(new Location("dummyprovider"));
 
         // Position specific fields parsing
         TypedArray typedArray = root.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
@@ -111,6 +116,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
         final EditText latView = (EditText) root.findViewById(latitudeViewId);
 
         latView.addTextChangedListener(this);
+        latView.setFilters(new InputFilter[] { new PositionInputFilter(-90, 90, 6) });
 
         latitudeView = new WeakReference<>(latView);
 
@@ -123,6 +129,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
         final EditText lngView = (EditText) root.findViewById(longitudeViewId);
 
         lngView.addTextChangedListener(this);
+        lngView.setFilters(new InputFilter[] { new PositionInputFilter(-180, 180, 6) });
 
         longitudeView = new WeakReference<>(lngView);
 
@@ -133,38 +140,48 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
 
         final Spinner addrView = (Spinner) root.findViewById(addressViewId);
 
-        addrView.setOnItemSelectedListener(this);
+        if (addrView != null) {
+            addrView.setOnItemSelectedListener(this);
 
-        addressView = new WeakReference<>(addrView);
+            addressView = new WeakReference<>(addrView);
+        }
 
-        // set the mode of the widget
-        this.setMode(root, typedArray);
+        this.timeout = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_timeout, 30);
 
-        this.setAutoStart(typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false));
+        this.autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
 
         this.setActivateGoto(typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true));
 
         typedArray.recycle();
+
+        // set the mode of the widget
+        this.setMode(root, attrs);
+
+        toggleViews(this.mode);
     }
 
     /**
      * Sets the processing mode of the view based on the given attributes.
      * @param root the view being processed
+     * @param attrs the parameters set
      */
-    private void setMode(ViewGroup root, TypedArray typedArray) {
+    protected void setMode(ViewGroup root, AttributeSet attrs) {
+        // Position specific fields parsing
+        TypedArray typedArray = root.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
+
         if (mode == -1) {
-            this.mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
+            this.mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, MDKPosition.GEOPOINT);
         }
 
-        if (mode == 0) {
+        if (mode == MDKPosition.GEOPOINT) {
             // mode == 0 -> lat & long
             latHint = typedArray.getString(R.styleable.MDKCommons_MDKPositionComponent_latHint);
             if (latHint == null) {
-                latHint = root.getContext().getString(R.string.latitude_hint);
+                latHint = root.getContext().getString(R.string.mdkwidget_mdkposition_latitude_hint);
             }
             lngHint = typedArray.getString(R.styleable.MDKCommons_MDKPositionComponent_lngHint);
             if (lngHint == null) {
-                lngHint = root.getContext().getString(R.string.longitude_hint);
+                lngHint = root.getContext().getString(R.string.mdkwidget_mdkposition_longitude_hint);
             }
 
             final EditText latView = latitudeView.get();
@@ -180,11 +197,12 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
             // mode == 1 -> addresses spinner
             addressHint = typedArray.getString(R.styleable.MDKCommons_MDKPositionComponent_addressHint);
             if (addressHint == null) {
-                addressHint = root.getContext().getString(R.string.address_hint);
+                addressHint = root.getContext().getString(R.string.mdkwidget_mdkposition_address_hint);
             }
         }
 
-        toggleViews();
+        typedArray.recycle();
+
     }
 
     /**
@@ -193,22 +211,52 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
      */
     public void setMode(int mode) {
         this.mode = mode;
-        toggleViews();
+        toggleViews(this.mode);
+    }
+
+    /**
+     * Resets the view.
+     */
+    public void resetViews() {
+        toggleViews(this.mode);
     }
 
     /**
      * Toggles the sub views visibility depending on the mode of the widget.
      */
-    private void toggleViews() {
-        if (mode == 0) {
-            addressView.get().setVisibility(View.GONE);
-            latitudeView.get().setVisibility(View.VISIBLE);
-            longitudeView.get().setVisibility(View.VISIBLE);
+    protected void toggleViews(int mode) {
+        if (mode == MDKPosition.GEOPOINT) {
+            final Spinner addrView = getAddressView();
+            if (addrView != null) {
+                addrView.setVisibility(View.GONE);
+            }
+            final EditText latView = getLatitudeView();
+            if (latView != null) {
+                latView.setVisibility(View.VISIBLE);
+            }
+            final EditText lngView = getLongitudeView();
+            if (lngView != null) {
+                lngView.setVisibility(View.VISIBLE);
+            }
         } else {
-            addressView.get().setVisibility(View.VISIBLE);
+            final Spinner addrView = getAddressView();
+            if (addrView != null) {
+                addrView.setVisibility(View.VISIBLE);
+            }
             latitudeView.get().setVisibility(View.GONE);
             longitudeView.get().setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Returns the address selection spinner.
+     * @return the address spinner, or null if none exist (in the case of the MDKMapsPosition component)
+     */
+    private Spinner getAddressView() {
+        if (this.addressView != null) {
+            return this.addressView.get();
+        }
+        return null;
     }
 
     /**
@@ -230,17 +278,17 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     /**
      * Updates the displayed location with the current one.
      */
-    private void updateShownLocation() {
+    protected void updateShownLocation() {
         if (!writingData) {
             this.mdkChangeListener.notifyListeners();
 
-            if (this.mode == 0) {
+            if (this.mode == MDKPosition.GEOPOINT) {
                 try {
                     double lat = Double.parseDouble(this.getLatitudeView().getText().toString());
                     double lng = Double.parseDouble(this.getLongitudeView().getText().toString());
 
-                    location.setLatitude(lat);
-                    location.setLongitude(lng);
+                    position.setLatitude(lat);
+                    position.setLongitude(lng);
                 } catch (NumberFormatException e) {
                     Log.d(TAG, "an error occurred when parsing position");
                 }
@@ -289,37 +337,96 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
      * @return a {@link Location} object
      */
     public Location getLocation() {
-        return this.location;
+        // TODO : utiliser le modele Position
+        Location location = new Location("dummyprovider");
+
+        location.setLatitude(position.getLatitude());
+        location.setLongitude(position.getLongitude());
+
+        return location;
     }
 
     /**
      * Sets the current location of the component.
+     * @param context an Android context
      * @param location the {@link Location} to set
+     * @param isAccurate true if the location is accurate
      */
-    public void setLocation(Context context, Location location) {
+    public void setLocation(Context context, Location location, boolean isAccurate) {
         this.writingData = true;
 
-        this.location = location;
+        if (location != null) {
+            if (this.mode == MDKPosition.GEOPOINT) {
+                this.getLatitudeView().setText(String.valueOf(location.getLatitude()));
+                this.getLongitudeView().setText(String.valueOf(location.getLongitude()));
+            } else if (!this.position.equals(location) || !this.position.hasAddresses()) {
+                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                List<Address> addresses = null;
 
-        if (this.mode == 0) {
-            this.getLatitudeView().setText(String.valueOf(location.getLatitude()));
-            this.getLongitudeView().setText(String.valueOf(location.getLongitude()));
-        } else {
-            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-            List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 5);
+                    if (addresses != null && addresses.size() > 0) {
+                        addresses.add(0, null);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            try {
-                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            } catch (IOException e) {
-                e.printStackTrace();
+                if (isAccurate) {
+                    if (addresses != null && addresses.size() > 0) {
+                        toggleViews(MDKPosition.ADDRESS);
+
+                        this.position.setAddresses(addresses);
+                        this.position.setSelectedAddress(0);
+
+                        fillSpinner(context, addresses, 0);
+                    } else {
+                        Toast.makeText(getContext(), R.string.mdkwidget_mdkposition_noaddress, Toast.LENGTH_SHORT).show();
+                        this.mode = MDKPosition.GEOPOINT;
+
+                        toggleViews(this.mode);
+
+                        this.getLatitudeView().setText(String.valueOf(location.getLatitude()));
+                        this.getLongitudeView().setText(String.valueOf(location.getLongitude()));
+                    }
+                } else {
+                    toggleViews(MDKPosition.GEOPOINT);
+
+                    this.getLatitudeView().setEnabled(false);
+                    this.getLatitudeView().setText(String.valueOf(location.getLatitude()));
+
+                    this.getLongitudeView().setEnabled(false);
+                    this.getLongitudeView().setText(String.valueOf(location.getLongitude()));
+                }
             }
 
-            AddressSpinnerAdapter adapter = new AddressSpinnerAdapter(context, R.layout.mdkwidget_position_layout_address_item, addresses);
-
-            this.addressView.get().setAdapter(adapter);
+            this.position.setPositionFromLocation(location);
+        } else {
+            if (this.mode != MDKPosition.GEOPOINT) {
+                toggleViews(MDKPosition.GEOPOINT);
+                this.getLatitudeView().setEnabled(false);
+                this.getLongitudeView().setEnabled(false);
+            }
         }
 
         this.writingData = false;
+    }
+
+    /**
+     * Fills the spinner adapter and sets the selection.
+     * @param context an Android context
+     * @param addresses the addresses list
+     * @param selectedPosition the position to select
+     */
+    private void fillSpinner(Context context, List<Address> addresses, int selectedPosition) {
+        if (addresses != null && addresses.size() > 0) {
+            AddressSpinnerAdapter adapter = new AddressSpinnerAdapter(context, R.layout.mdkwidget_position_layout_address_item, addresses);
+            Spinner addrView = this.getAddressView();
+            if (addrView != null) {
+                addrView.setAdapter(adapter);
+            }
+            addrView.setSelection(selectedPosition);
+        }
     }
 
     /**
@@ -369,8 +476,8 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        this.position.setSelectedAddress(position);
         updateShownLocation();
-        //this.validate(false, EnumFormFieldValidator.ON_USER);
     }
 
     @Override
@@ -412,5 +519,81 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate implements MDKB
     public void setActivateGoto(boolean activateGoto) {
         this.activateGoto = activateGoto;
         ((MDKPosition)this.valueObject.getView()).setMapButtonVisibility();
+    }
+
+    /**
+     * Clears the widget content.
+     */
+    public void clear() {
+        this.position.setPositionFromLocation(new Location("dummyprovider"));
+
+        EditText lat = this.getLatitudeView();
+        if (lat != null) {
+            lat.setText("");
+        }
+
+        EditText lng = this.getLongitudeView();
+        if (lng != null) {
+            lng.setText("");
+        }
+
+        Spinner addr = this.getAddressView();
+        if (addr != null) {
+            addr.setSelection(0);
+        }
+    }
+
+    public int getTimeout() {
+        return this.timeout;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState(Parcelable superState) {
+
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState(superState);
+
+        // Save the widget
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("state", state);
+        bundle.putParcelable("position", this.position);
+
+        return bundle;
+    }
+
+    @Override
+    public Parcelable onRestoreInstanceState(View view, Parcelable state) {
+        Bundle bundle = (Bundle) state;
+
+        // Restore the widget
+        Parcelable parcelable = bundle.getParcelable("state");
+        this.position = bundle.getParcelable("position");
+
+        this.setLocation(getContext(), this.position.getLocation(), true);
+
+        this.fillSpinner(getContext(), this.position.getAddresses(), this.position.getSelectedAddress());
+
+        // Restore the android view instance state
+        return super.onRestoreInstanceState(view, parcelable);
+    }
+
+    /**
+     * Returns an array of strings for validation.
+     * Given the mode of the widget:
+     * <ul>
+     *     <li>geopoint: returns an array of strings representing the coordinates shown by the component</li>
+     *     <li>address: returns a string with the address on one line.</li>
+     * </ul>
+     * @return the coordinates of the component
+     */
+    public String[] getCoordinates() {
+        if (this.mode == MDKPosition.GEOPOINT) {
+            return new String[]{
+                    this.getLatitudeView().getText() != null ? this.getLatitudeView().getText().toString() : null,
+                    this.getLongitudeView().getText() != null ? this.getLongitudeView().getText().toString() : null
+            };
+        } else {
+            return new String[]{ this.position.getStringAddress() };
+        }
     }
 }

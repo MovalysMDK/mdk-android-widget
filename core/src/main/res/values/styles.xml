@@ -26,6 +26,7 @@
         <item name="mdkValuePhoneStyle">@style/MDKValuePhone</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
         <item name="mdkValuePositionStyle">@style/MDKValuePosition</item>
+        <item name="mdkValueMapsPositionStyle">@style/MDKValueMapsPosition</item>
         <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
         <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
         <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
@@ -34,6 +35,10 @@
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
+        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
 
     </style>
 
@@ -48,6 +53,8 @@
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
 
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+
     </style>
 
     <style name="MDKWidgetTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -60,6 +67,8 @@
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
         
     </style>
 
@@ -69,7 +78,9 @@
     <style name="MDKValueEmail" parent="Base.MDKValue.MDKValueEditText"/>
     <style name="MDKValuePhone" parent="Base.MDKValue.MDKValueEditText"/>
     <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"/>
+
     <style name="MDKValuePosition" parent="Base.MDKValue.MDKValuePosition"/>
+
     <style name="MDKValueCheckBox" parent="Base.MDKValue.MDKValueCheckBox"/>
     <style name="MDKValueSwitch" parent="Base.MDKValue.MDKValueSwitch"/>
     <style name="MDKValue" parent="Base.MDKValue.TextView"/>
@@ -90,6 +101,20 @@
         <item name="android:maxHeight">20dip</item>
         <item name="android:thumbOffset">8dip</item>
         <item name="android:focusable">true</item>
+    </style>
+
+    <style name="MDKValueMapsPosition" parent="Base.MDKValue.MDKValueEditText">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="MDKSpinner" parent="Base.MDKValue.MDKSpinner">
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+    </style>
+
+    <style name="MDKSpinnerDropDown" parent="Base.MDKValue.MDKSpinnerDropDown">
+        <item name="android:divider">#000000</item>
+        <item name="android:dividerHeight">5dp</item>
     </style>
 
 </resources>

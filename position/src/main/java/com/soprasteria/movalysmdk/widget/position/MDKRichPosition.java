@@ -3,6 +3,7 @@ package com.soprasteria.movalysmdk.widget.position;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.location.Location;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;

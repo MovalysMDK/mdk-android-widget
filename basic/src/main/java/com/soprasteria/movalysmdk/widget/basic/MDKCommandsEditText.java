@@ -23,6 +23,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCommands;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -43,10 +44,10 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     private BroadcastReceiver actionReciver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent != null && intent.getIntExtra(MDKCommandButton.REFERENCE_WIDGET, 0) == getId()) {
+            if (intent != null && intent.getIntExtra(MDKCommandDelegate.REFERENCE_WIDGET, 0) == getId()) {
                 String text = getText().toString();
                 if (text.length() > 0) {
-                    commandDelegate.getWidgetCommand(intent.getStringExtra(MDKCommandButton.COMMAND_WIDGET)).execute(getContext(), getCommandInput());
+                    commandDelegate.getWidgetCommand(intent.getStringExtra(MDKCommandDelegate.COMMAND_WIDGET)).execute(getContext(), getCommandInput());
                 }
             }
         }

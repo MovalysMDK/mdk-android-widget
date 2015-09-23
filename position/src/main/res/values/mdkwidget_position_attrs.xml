@@ -18,6 +18,8 @@
         <attr name="autoStart" format="boolean"/>
 
         <attr name="activeGoto" format="boolean"/>
+
+        <attr name="timeout" format="integer"/>
     </declare-styleable>
 
 </resources>

@@ -22,6 +22,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Checkable;
 
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -59,10 +60,10 @@ public class WidgetCommandDelegate implements ValidationListener {
     private final WeakReference<MDKWidget> weakView;
 
     /** Id of the primary command view. */
-    protected final int primaryCommandViewId;
+    protected int primaryCommandViewId;
 
     /** Id of the secondary command view. */
-    protected final int secondaryCommandViewId;
+    protected int secondaryCommandViewId;
 
     /** Attribute "Qualifier" of the component. */
     private final String qualifier;
@@ -72,6 +73,12 @@ public class WidgetCommandDelegate implements ValidationListener {
 
     /** should we deactivate the secondary command when the valid status of the widget is false. */
     private boolean deactivateSecondaryOnValidation = true;
+
+    /** true if the primary command view is out of the linked view. */
+    private boolean outerPrimaryCommandView = true;
+
+    /** true if the secondary command view is out of the linked view. */
+    private boolean outerSecondaryCommandView = true;
 
     /**
      * Constructor.
@@ -117,18 +124,36 @@ public class WidgetCommandDelegate implements ValidationListener {
     }
 
     /**
+     * Manually adds a command to the delegate.
+     * @param commandType the type of the command
+     * @param commandId the identifier of the view for the command
+     * @param deactivateOnValidation true to deactivate the command on validation
+     */
+    public void manuallyAddCommand(@EnumKindOfCommand int commandType, @IdRes int commandId, boolean deactivateOnValidation, boolean out) {
+        if (commandType == FIRST_COMMAND) {
+            this.primaryCommandViewId = commandId;
+            this.deactivatePrimaryOnValidation = deactivateOnValidation;
+            this.outerPrimaryCommandView = out;
+        } else if (commandType == SECOND_COMMAND) {
+            this.secondaryCommandViewId = commandId;
+            this.deactivateSecondaryOnValidation = deactivateOnValidation;
+            this.outerSecondaryCommandView = out;
+        }
+    }
+
+    /**
      * Register existing commands on a click listener.
      * @param listener the click listener to register command view
      */
     public void registerCommands(View.OnClickListener listener)  {
         if (this.primaryCommandViewId != 0) {
-            View commandView = findCommandView(this.primaryCommandViewId);
+            View commandView = findCommandView(this.primaryCommandViewId, this.outerPrimaryCommandView);
             if (commandView != null) {
                 commandView.setOnClickListener(listener);
             }
         }
         if (this.secondaryCommandViewId != 0) {
-            View commandView = findCommandView(this.secondaryCommandViewId);
+            View commandView = findCommandView(this.secondaryCommandViewId, this.outerSecondaryCommandView);
             if (commandView != null) {
                 commandView.setOnClickListener(listener);
             }
@@ -144,14 +169,14 @@ public class WidgetCommandDelegate implements ValidationListener {
     public void setCommandVisibility(@EnumKindOfCommand int command, int visibility) {
         if (command == FIRST_COMMAND) {
             if (this.primaryCommandViewId != 0) {
-                View commandView = findCommandView(this.primaryCommandViewId);
+                View commandView = findCommandView(this.primaryCommandViewId, this.outerPrimaryCommandView);
                 if (commandView != null) {
                     commandView.setVisibility(visibility);
                 }
             }
         } else {
             if (this.secondaryCommandViewId != 0) {
-                View commandView = findCommandView(this.secondaryCommandViewId);
+                View commandView = findCommandView(this.secondaryCommandViewId, this.outerSecondaryCommandView);
                 if (commandView != null) {
                     commandView.setVisibility(visibility);
                 }
@@ -167,7 +192,7 @@ public class WidgetCommandDelegate implements ValidationListener {
     public void setCheckedCommand(@EnumKindOfCommand int command, boolean checked) {
         if (command == FIRST_COMMAND) {
             if (this.primaryCommandViewId != 0) {
-                View commandView = findCommandView(this.primaryCommandViewId);
+                View commandView = findCommandView(this.primaryCommandViewId, this.outerPrimaryCommandView);
                 if (commandView != null && commandView instanceof Checkable) {
                     ((Checkable)commandView).setChecked(checked);
                 } else {
@@ -176,7 +201,7 @@ public class WidgetCommandDelegate implements ValidationListener {
             }
         } else {
             if (this.secondaryCommandViewId != 0) {
-                View commandView = findCommandView(this.secondaryCommandViewId);
+                View commandView = findCommandView(this.secondaryCommandViewId, this.outerSecondaryCommandView);
                 if (commandView != null && commandView instanceof Checkable) {
                     ((Checkable)commandView).setChecked(checked);
                 } else {
@@ -191,11 +216,15 @@ public class WidgetCommandDelegate implements ValidationListener {
      * @param commandViewId the command view id
      * @return the view if exists
      */
-    private View findCommandView(@IdRes int commandViewId) {
+    private View findCommandView(@IdRes int commandViewId, boolean out) {
         View commandView = null;
         MDKWidget v = this.weakView.get();
         if (v instanceof HasDelegate && commandViewId != 0) {
-            commandView = ((HasDelegate)v).getMDKWidgetDelegate().reverseFindViewById(commandViewId);
+            if (out) {
+                commandView = ((HasDelegate) v).getMDKWidgetDelegate().reverseFindViewById(commandViewId);
+            } else {
+                commandView = ((ViewGroup)v).findViewById(commandViewId);
+            }
         }
         return commandView;
     }
@@ -294,8 +323,8 @@ public class WidgetCommandDelegate implements ValidationListener {
      * @param enable Activation toggle
      * @param viewId the view id
      */
-    protected void enableCommandOnView(boolean enable, int viewId) {
-        View commandView = findCommandView(viewId);
+    protected void enableCommandOnView(boolean enable, int viewId, boolean out) {
+        View commandView = findCommandView(viewId, out);
         if (commandView != null) {
             commandView.setEnabled(enable);
             commandView.setFocusable(enable);
@@ -306,11 +335,11 @@ public class WidgetCommandDelegate implements ValidationListener {
     @Override
     public void notifyCommandStateChanged(boolean valid) {
         if (valid) {
-            enableCommandOnView(true, this.primaryCommandViewId);
-            enableCommandOnView(true, this.secondaryCommandViewId);
+            enableCommandOnView(true, this.primaryCommandViewId, this.outerPrimaryCommandView);
+            enableCommandOnView(true, this.secondaryCommandViewId, this.outerSecondaryCommandView);
         } else {
-            enableCommandOnView(!deactivatePrimaryOnValidation, this.primaryCommandViewId);
-            enableCommandOnView(!deactivateSecondaryOnValidation, this.secondaryCommandViewId);
+            enableCommandOnView(!deactivatePrimaryOnValidation, this.primaryCommandViewId, this.outerPrimaryCommandView);
+            enableCommandOnView(!deactivateSecondaryOnValidation, this.secondaryCommandViewId, this.outerSecondaryCommandView);
         }
 
     }

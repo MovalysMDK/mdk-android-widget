@@ -30,6 +30,7 @@
         <attr name="mdkValuePhoneStyle" format="reference"/>
         <attr name="mdkValueDateStyle" format="reference"/>
         <attr name="mdkValuePositionStyle" format="reference"/>
+        <attr name="mdkValueMapsPositionStyle" format="reference"/>
         <attr name="mdkValueCheckBoxStyle" format="reference"/>
         <attr name="mdkValueSwitchStyle" format="reference"/>
         <attr name="mdkValueStyle" format="reference"/>
@@ -38,6 +39,8 @@
         <attr name="mdkSecondaryCommandStyle" format="reference"/>
         <attr name="mdkRichLayoutStyle" format="reference"/>
         <attr name="mdkSeekBarStyle" format="reference"/>
+        <attr name="mdkSpinnerStyle" format="reference"/>
+        <attr name="mdkSpinnerDropDownStyle" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="InputView">

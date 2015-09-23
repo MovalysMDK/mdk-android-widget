@@ -23,10 +23,11 @@ import com.soprasteria.movalysmdk.widget.position.R;
  */
 public class PositionValidator implements FormFieldValidator<String[]> {
 
-    /**
-     * ERROR_MANDATORY.
-     */
-    public static final int ERROR_MANDATORY = R.string.mdkvalidator_position_error_validation;
+    /** ERROR_MANDATORY. */
+    public static final int ERROR_MANDATORY = R.string.mdkvalidator_position_error_validation_mandatory;
+
+    /** ERROR_INCORRECT. */
+    public static final int ERROR_INCORRECT = R.string.mdkvalidator_position_error_validation_incorrect;
 
 
     @Override
@@ -59,8 +60,7 @@ public class PositionValidator implements FormFieldValidator<String[]> {
 
         boolean isMandatory = mdkParameter.containsKey(R.attr.mandatory) && mdkParameter.getBoolean(R.attr.mandatory);
 
-        if (isMandatory
-                && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
+        if (isMandatory && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
 
             boolean isFilled = objectToValidate.length > 0;
 
@@ -75,6 +75,21 @@ public class PositionValidator implements FormFieldValidator<String[]> {
                 mdkMessage.setMessageCode(ERROR_MANDATORY);
                 String error = context.getString(ERROR_MANDATORY);
                 mdkMessage.setMessage(error);
+            } else if (objectToValidate.length == 2) {
+                boolean isCorrect = true;
+
+                // we check that the input value are correct
+                double value = Double.parseDouble(objectToValidate[0]);
+                isCorrect &= value >= -90 && value <= 90;
+                value = Double.parseDouble(objectToValidate[1]);
+                isCorrect &= value >= -180 && value <= 180;
+
+                if (!isCorrect) {
+                    mdkMessage = new MDKMessage();
+                    mdkMessage.setMessageCode(ERROR_INCORRECT);
+                    String error = context.getString(ERROR_INCORRECT);
+                    mdkMessage.setMessage(error);
+                }
             }
         }
 

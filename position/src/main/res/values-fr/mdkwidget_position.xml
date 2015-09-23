@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkwidget_mdkposition_latitude_hint">Latitude</string>
+    <string name="mdkwidget_mdkposition_longitude_hint">Longitude</string>
+    <string name="mdkwidget_mdkposition_address_hint">Addresse</string>
+    <string name="mdkwidget_mdkposition_locate_timeout">La localisation n\'a pu être obtenue.</string>
+    <string name="mdkwidget_mdkposition_noaddress">La position a été obtenue mais aucune adresse n\'existe pour votre position.</string>
+
+</resources>

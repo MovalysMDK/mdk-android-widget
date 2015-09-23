@@ -1,13 +1,18 @@
 package com.soprasteria.movalysmdk.widget.position;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.location.Location;
 import android.os.Parcelable;
+import android.support.annotation.IntDef;
+import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
@@ -18,6 +23,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
@@ -26,6 +32,9 @@ import com.soprasteria.movalysmdk.widget.position.command.MapWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.command.PositionCommandListener;
 import com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * MDK Position.
@@ -41,15 +50,30 @@ import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDele
  *     </li>
  *     <li>autoStart: the widget will start looking for the current position as soon as it is inflated (default is false)</li>
  *     <li>activeGoto: will hide the map action when set to false (default is true)</li>
+ *     <li>timeout: the time in seconds before the location gets timed out (default is 30 seconds)</li>
  * </ul>
  */
 public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocation, HasValidator, HasCommands, HasDelegate, HasChangeListener, PositionCommandListener {
+
+    /** MDKPosition mode enumeration. */
+    @IntDef({GEOPOINT, ADDRESS})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface PositionMode {
+    }
+
+    /** GEOPOINT. */
+    public static final int GEOPOINT = 0;
+    /** ADDRESS. */
+    public static final int ADDRESS = 1;
 
     /** WidgetCommandDelegate attribute. */
     protected WidgetCommandDelegate commandDelegate;
 
     /** MDK Widget implementation. */
     protected MDKPositionWidgetDelegate mdkWidgetDelegate;
+
+    /** clear button. */
+    private ImageButton clear;
 
     /**
      * Constructor.
@@ -76,22 +100,41 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
      * Inflation on initialization.
      * @param context the android context
      * @param attrs the layout attributes
-     * @return the inflated view
      */
-    public void init(Context context, AttributeSet attrs) {
-        LayoutInflater inflater = LayoutInflater.from(this.getContext());
-        inflater.inflate(R.layout.mdkwidget_position_layout, this);
+    private void init(Context context, AttributeSet attrs) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        inflater.inflate(this.getLayoutResource(), this);
 
+        clear = (ImageButton) findViewById(R.id.component_internal_clear);
+        clear.setOnClickListener(this);
+
+        initDelegates(attrs);
+
+        setMapButtonVisibility();
+    }
+
+    @LayoutRes
+    protected int getLayoutResource() {
+        return R.layout.mdkwidget_position_layout;
+    }
+
+    /**
+     * Initialize the delegates of the widget.
+     * @param attrs the xml attributes of the widget
+     */
+    protected void initDelegates(AttributeSet attrs) {
         this.mdkWidgetDelegate = new MDKPositionWidgetDelegate(this, attrs);
 
         // localization should always be activated, even on not validated widget
         this.commandDelegate = new WidgetCommandDelegate(this, attrs, false, true);
 
-        setMapButtonVisibility();
+        if (this.mdkWidgetDelegate.isAutoStart()) {
+            this.executePositionCommand();
+        }
     }
 
     /**
-     * Sets the map action button visibility based on the activateGoto attribute.
+     * Set the map action button visibility based on the activateGoto attribute.
      */
     public void setMapButtonVisibility() {
         if (this.mdkWidgetDelegate != null && !this.mdkWidgetDelegate.isActivateGoto() && this.commandDelegate != null) {
@@ -100,7 +143,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
     }
 
     /**
-     *  Called when the view is attached to a window.
+     * Called when the view is attached to a window.
      */
     @Override
     protected void onAttachedToWindow() {
@@ -120,28 +163,43 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
     }
 
     @Override
-    public void computingLocation() {
+    public int getTimeOut() {
+        return this.mdkWidgetDelegate.getTimeout();
+    }
+
+    @Override
+    public void computingLocation(Location location) {
+        this.mdkWidgetDelegate.setLocation(getContext(), location, false);
         this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, false);
     }
 
     @Override
     public void locationChanged(Location location) {
-        this.mdkWidgetDelegate.setLocation(getContext(), location);
+        this.mdkWidgetDelegate.setLocation(getContext(), location, false);
         this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, true);
     }
 
     @Override
     public void locationFixed(Location location) {
-        this.mdkWidgetDelegate.setLocation(getContext(), location);
+        this.mdkWidgetDelegate.setLocation(getContext(), location, true);
         this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, true);
     }
 
     @Override
+    public void locationTimedOut() {
+        ((Activity) this.getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), getResources().getString(R.string.mdkwidget_mdkposition_locate_timeout), Toast.LENGTH_SHORT).show();
+                MDKPosition.this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, false);
+                MDKPosition.this.mdkWidgetDelegate.resetViews();
+            }
+        });
+    }
+
+    @Override
     public String[] getCoordinates() {
-        return new String[] {
-                Double.toString(this.mdkWidgetDelegate.getLocation().getLongitude()),
-                Double.toString(this.mdkWidgetDelegate.getLocation().getLatitude())
-        };
+        return this.mdkWidgetDelegate.getCoordinates();
     }
 
     @Override
@@ -151,7 +209,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public void setLocation(Location location) {
-        this.mdkWidgetDelegate.setLocation(getContext(), location);
+        this.mdkWidgetDelegate.setLocation(getContext(), location, true);
     }
 
     @Override
@@ -168,11 +226,15 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public void onClick(View v) {
-        WidgetCommand command = this.commandDelegate.getWidgetCommandById(v.getId());
-        if (command instanceof PositionWidgetCommand) {
-            ((PositionWidgetCommand) command).execute(this.getContext(), this);
-        } else if (command instanceof MapWidgetCommand) {
-            ((MapWidgetCommand) command).execute(this.getContext(), this.mdkWidgetDelegate.getLocation());
+        if (v.getId() == clear.getId()) {
+            this.mdkWidgetDelegate.clear();
+        } else {
+            WidgetCommand command = this.commandDelegate.getWidgetCommandById(v.getId());
+            if (command instanceof PositionWidgetCommand) {
+                ((PositionWidgetCommand) command).execute(this.getContext(), this);
+            } else if (command instanceof MapWidgetCommand) {
+                ((MapWidgetCommand) command).execute(this.getContext(), this.mdkWidgetDelegate.getLocation());
+            }
         }
     }
 
@@ -208,7 +270,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
      * Sets the mode of the widget.
      * @param mode the mode to set
      */
-    public void setMode(int mode) {
+    public void setMode(@PositionMode int mode) {
         this.mdkWidgetDelegate.setMode(mode);
     }
 
@@ -241,7 +303,7 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
     }
 
     @Override
-    public MDKPositionWidgetDelegate getMDKWidgetDelegate() {
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
         return this.mdkWidgetDelegate;
     }
 
@@ -301,12 +363,24 @@ public class MDKPosition extends RelativeLayout implements MDKWidget, HasLocatio
 
     @Override
     public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
-        return this.mdkWidgetDelegate.validate(true, validationMode);
+        boolean isValidated = this.mdkWidgetDelegate.validate(true, validationMode);
+
+        if (isValidated) {
+            this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, true);
+        }
+
+        return isValidated;
     }
 
     @Override
     public boolean validate() {
-        return this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
+        boolean isValidated = this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
+
+        if (isValidated) {
+            this.commandDelegate.setCheckedCommand(WidgetCommandDelegate.FIRST_COMMAND, true);
+        }
+
+        return isValidated;
     }
 
     @Override

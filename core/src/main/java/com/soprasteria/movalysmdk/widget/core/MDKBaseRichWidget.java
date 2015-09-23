@@ -326,7 +326,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     private void saveAll(ViewGroup viewGroup, SparseArray states) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
-            if (child instanceof ViewGroup) {
+            if (child instanceof ViewGroup && !(child instanceof MDKWidget)) {
                 saveAll((ViewGroup) child, states);
             } else {
                 child.saveHierarchyState(states);
@@ -349,7 +349,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     private void restoreAll(ViewGroup viewGroup, SparseArray state) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
-            if (child instanceof ViewGroup) {
+            if (child instanceof ViewGroup && !(child instanceof MDKWidget)) {
                 restoreAll((ViewGroup) child, state);
             } else {
                 child.restoreHierarchyState(state);
