@@ -46,6 +46,6 @@
 
     <style name="Base.MDKValue.MDKSpinner" parent="@style/Widget.AppCompat.Spinner"/>
 
-    <style name="Base.MDKValue.MDKSpinnerDropDown" parent="@style/Widget.AppCompat.ListView.DropDown"/>
+    <style name="Base.MDKValue.MDKSpinnerDropDown" parent="android:Widget.Holo.Light.ListView"/>
 
 </resources>
