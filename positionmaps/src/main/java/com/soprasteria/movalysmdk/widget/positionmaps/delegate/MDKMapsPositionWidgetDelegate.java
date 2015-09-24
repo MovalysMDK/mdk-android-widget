@@ -415,7 +415,9 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     public void setLocation(Context context, Location location, boolean isAccurate) {
         this.writingData = true;
 
-        this.position.setPositionFromLocation(location);
+        if (location != null) {
+            this.position.setPositionFromLocation(location);
+        }
 
         this.writingData = false;
 
