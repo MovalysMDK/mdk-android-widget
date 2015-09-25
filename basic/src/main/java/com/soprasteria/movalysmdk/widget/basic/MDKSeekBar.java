@@ -23,10 +23,13 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
@@ -54,7 +57,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, TextWatcher, View.OnFocusChangeListener {
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, View.OnFocusChangeListener, TextView.OnEditorActionListener {
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
@@ -179,7 +182,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     private void initEditText(){
         //init edittext
-        seekbarEditText.addTextChangedListener(this);
+        //seekbarEditText.addTextChangedListener(this);
         seekbarEditText.setOnFocusChangeListener(this);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(getMax())) - 1);
@@ -195,9 +198,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     private void setAttachedEditTextValue(int value){
         if (seekbarEditText != null) {
-            seekbarEditText.removeTextChangedListener(this);
+            //seekbarEditText.removeTextChangedListener(this);
             seekbarEditText.setText(String.valueOf(value));
-            seekbarEditText.addTextChangedListener(this);
+            //seekbarEditText.addTextChangedListener(this);
         }
     }
 
@@ -255,7 +258,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         //unbinding previous edittext
         if(seekbarEditText!=null) {
-            seekbarEditText.removeTextChangedListener(this);
+            //seekbarEditText.removeTextChangedListener(this);
             seekbarEditText.setOnFocusChangeListener(null);
         }
 
@@ -438,46 +441,30 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     /** attached EditText listener methods **/
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    /** validating typed value and updating seekbar progress **/
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-        super.setOnSeekBarChangeListener(null);
-
-        int value;
-
-        if(s.length()>0){
-            value = Integer.parseInt(s.toString());
-
-            if(value>this.getMax()){
-                s.clear();
-                s.append(String.valueOf(this.getMax()));
-                value=this.getMax();
-            }
-        }else{
-            value = this.getMin();
-        }
-
-        if(value>=getMin()) {
-            setSeekProgress(value);
-        }
-
-        super.setOnSeekBarChangeListener(this);
-    }
-
-    @Override
     public void onFocusChange(View v, boolean hasFocus) {
+        if(!hasFocus) {
+            validateEditText((EditText) v);
+        }
+    }
 
-        Editable s = ((EditText)v).getText();
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+            validateEditText((EditText) v);
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Vzlidate the edittext and updates the seekbar value
+     * @param v the edittext to validate
+     */
+    private void validateEditText(EditText v) {
+
+        Editable s = v.getText();
 
         super.setOnSeekBarChangeListener(null);
 
@@ -487,6 +474,12 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
                 s.clear();
                 s.append(String.valueOf(this.getMin()));
                 setSeekProgress(this.getMin());
+            }else if(value>this.getMax()){
+                s.clear();
+                s.append(String.valueOf(this.getMax()));
+                setSeekProgress(this.getMax());
+            }else{
+                setSeekProgress(value);
             }
         }else{
             s.clear();
