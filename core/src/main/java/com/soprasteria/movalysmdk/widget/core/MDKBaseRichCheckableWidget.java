@@ -16,15 +16,22 @@
 package com.soprasteria.movalysmdk.widget.core;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.CompoundButton;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+
+import java.lang.ref.WeakReference;
 
 /**
  * MDK Rich Checkable Widget.
@@ -36,7 +43,7 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
  * <p>The layout can be customized with the attribute mdk:layout</p>
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichCheckableWidget<T extends MDKWidget & HasValidator & HasDelegate & HasChecked & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasChecked {
+public class MDKBaseRichCheckableWidget<T extends MDKWidget & HasValidator & HasDelegate & HasChecked & HasCheckedTexts & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasChecked {
 
     /**
      * Constructor.
@@ -47,6 +54,7 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & HasValidator & Has
      */
     public MDKBaseRichCheckableWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs);
+        init(context, attrs);
     }
 
     /**
@@ -59,12 +67,43 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & HasValidator & Has
      */
     public MDKBaseRichCheckableWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
+        init(context, attrs);
+    }
+
+    /**
+     * Initialise the object.
+     * @param ctx the related context
+     * @param attrs the view attributes
+     */
+    private void init(Context ctx, AttributeSet attrs) {
+
+        TypedArray typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKCheckableComponent);
+
+
+        String textFixedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_fixed);
+        if (textFixedStr != null) {
+            getInnerWidget().setFixedText(textFixedStr);
+        }else {
+            String textCheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_checked);
+            if (textCheckedStr != null) {
+                getInnerWidget().setCheckedText(textCheckedStr);
+            }
+
+            String textUncheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_unchecked);
+            if (textUncheckedStr != null) {
+                getInnerWidget().setUncheckedText(textUncheckedStr);
+            }
+        }
+
+        typedArray.recycle();
+
     }
 
     /**
      * Getter for the inner widget of the rich widget.
      * @return the inner widget
      */
+    @Override
     public T getInnerWidget()   {
         return (T) super.getInnerWidget();
     }

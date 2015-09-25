@@ -22,6 +22,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKBaseRichCheckableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
@@ -30,7 +31,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  * and including by default the error component.
  * @param <T> The class of the widget to encapsulate
  */
-public class MDKRichSwitch<T extends MDKWidget & HasValidator & HasDelegate & HasChecked & HasChangeListener> extends MDKBaseRichCheckableWidget<T> {
+public class MDKRichSwitch<T extends MDKWidget & HasValidator & HasDelegate & HasChecked &HasCheckedTexts & HasChangeListener> extends MDKBaseRichCheckableWidget<T> {
 
     /**
      * Constructor.

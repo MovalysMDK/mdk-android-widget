@@ -103,6 +103,9 @@
 
     <declare-styleable name="MDKCommons.MDKCheckableComponent">
         <attr name="mandatory_value" format="boolean" />
+        <attr name="text_checked" format="string"/>
+        <attr name="text_unchecked" format="string"/>
+        <attr name="text_fixed" format="string"/>
     </declare-styleable>
 
     <!-- MDKSeekBar specific attributes-->

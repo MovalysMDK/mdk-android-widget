@@ -25,6 +25,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -36,7 +37,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 /**
  * <p>Represents a Switch conforming to the Material Design guidelines.</p>
  */
-public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLabel, HasChecked, HasDelegate, HasChangeListener {
+public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLabel, HasChecked, HasCheckedTexts, HasDelegate, HasChangeListener {
 
     /** The MDKCheckableWidgetDelegate handling the component logic. */
     protected MDKCheckableWidgetDelegate mdkWidgetDelegate;
@@ -167,5 +168,35 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
         this.mdkWidgetDelegate.unregisterChangeListener(listener);
+    }
+
+    @Override
+    public String getFixedText() {
+        return mdkWidgetDelegate.getFixedText();
+    }
+
+    @Override
+    public void setFixedText(String text) {
+        mdkWidgetDelegate.setFixedText(text);
+    }
+
+    @Override
+    public String getCheckedText() {
+        return mdkWidgetDelegate.getCheckedText();
+    }
+
+    @Override
+    public void setCheckedText(String text) {
+        mdkWidgetDelegate.setCheckedText(text);
+    }
+
+    @Override
+    public String getUncheckedText() {
+        return mdkWidgetDelegate.getUncheckedText();
+    }
+
+    @Override
+    public void setUncheckedText(String text) {
+        mdkWidgetDelegate.setUncheckedText(text);
     }
 }

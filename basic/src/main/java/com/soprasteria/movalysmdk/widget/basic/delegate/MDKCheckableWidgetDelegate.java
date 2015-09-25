@@ -17,22 +17,43 @@ package com.soprasteria.movalysmdk.widget.basic.delegate;
 
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.soprasteria.movalysmdk.widget.basic.MDKCheckableImageButton;
 import com.soprasteria.movalysmdk.widget.basic.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Specific delegate for Checkable widgets.
  * Those include the CheckBox and the Switch.
  */
-public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate {
+public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate implements ChangeListener, HasCheckedTexts {
 
     /** change listener. */
     private MDKChangeListenerDelegate mdkListenerDelegate;
+
+    /** Text to display at all times if set. Overrides checkedText and uncheckedText */
+    private String fixedText;
+
+    /** Text to display when component is in checked state. */
+    private String checkedText;
+
+    /** Text to display when component is in unchecked state. */
+    private String uncheckedText;
+
+    /** ID of the checkable view. */
+    private int checkableViewId;
+
+    /** Cached reference of the checkable view. */
+    private WeakReference<CompoundButton> cachedCheckableView;
 
     /**
      * Constructor.
@@ -51,15 +72,73 @@ public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate {
      * @param attrs the view attributes
      */
     private void init(View view, AttributeSet attrs) {
-        // Parse the MDKCommons:label attribute
-        TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
-        int resLabelId = typedArray.getResourceId(R.styleable.MDKCommons_label, 0);
-        if (resLabelId != 0) {
-            ((CompoundButton)view).setText(resLabelId);
+
+        TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKCheckableComponent);
+
+        checkableViewId = view.getId();
+
+        String textFixedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_fixed);
+        if (textFixedStr != null) {
+            fixedText = textFixedStr;
+            ((CompoundButton) view).setText(fixedText);
+        }else {
+            String textCheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_checked);
+            if (textCheckedStr != null) {
+                checkedText = textCheckedStr;
+                if(((CompoundButton) view).isChecked()) {
+                    ((CompoundButton) view).setText(checkedText);
+                }
+            }
+
+            String textUncheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_unchecked);
+            if (textUncheckedStr != null) {
+                uncheckedText = textUncheckedStr;
+                if(!((CompoundButton) view).isChecked()) {
+                    ((CompoundButton) view).setText(uncheckedText);
+                }
+            }
         }
+
         typedArray.recycle();
 
+        cachedCheckableView = new WeakReference<>((CompoundButton) view);
+
         this.mdkListenerDelegate = new MDKChangeListenerDelegate();
+        registerChangeListener(this);
+
+    }
+
+    /**
+     * Updates the text beside the checkable.
+     */
+    private void updateText(){
+
+        if(fixedText==null && checkedText!= null && uncheckedText!= null){
+            getCheckableView().setText(getCheckableView().isChecked()?checkedText:uncheckedText);
+        }else if(fixedText!=null){
+            getCheckableView().setText(fixedText);
+        }
+    }
+
+    /**
+     * Returns the checkable CompoundView, if it exists.
+     * @return foundCheckableView the found view
+     */
+    private CompoundButton getCheckableView() {
+
+        View foundCheckableView = null;
+
+        // Try to reuse the cached view
+        if (this.cachedCheckableView != null) {
+            foundCheckableView = this.cachedCheckableView.get();
+        }
+        // if there is no valid cached view, try to get it
+        if (foundCheckableView == null) {
+            foundCheckableView = reverseFindViewById(this.checkableViewId);
+            this.cachedCheckableView = new WeakReference<>((CompoundButton)foundCheckableView);
+        }
+
+        return (CompoundButton) foundCheckableView;
     }
 
     /**
@@ -79,6 +158,7 @@ public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate {
         }
     }
 
+
     /**
      * Register a ChangeListener.
      * @param listener the ChangeListener to register
@@ -93,6 +173,44 @@ public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate {
      */
     public void unregisterChangeListener(ChangeListener listener) {
         this.mdkListenerDelegate.unregisterChangeListener(listener);
+    }
+
+    @Override
+    public void onChanged() {
+        updateText();
+    }
+
+    @Override
+    public String getFixedText() {
+        return fixedText;
+    }
+
+    @Override
+    public void setFixedText(String text) {
+        fixedText = text;
+        updateText();
+    }
+
+    @Override
+    public String getCheckedText() {
+        return checkedText;
+    }
+
+    @Override
+    public void setCheckedText(String text) {
+        checkedText = text;
+        updateText();
+    }
+
+    @Override
+    public String getUncheckedText() {
+        return uncheckedText;
+    }
+
+    @Override
+    public void setUncheckedText(String text) {
+        uncheckedText = text;
+        updateText();
     }
 
 }
