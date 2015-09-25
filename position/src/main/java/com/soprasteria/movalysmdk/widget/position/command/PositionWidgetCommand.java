@@ -7,7 +7,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
@@ -22,17 +21,14 @@ import java.util.TimerTask;
  */
 public class PositionWidgetCommand implements WidgetCommand<PositionCommandListener, Void> {
 
-    /** tag for logging. */
-    private static final String TAG = PositionWidgetCommand.class.getSimpleName();
-
     /** update timer value. */
     private static final int UPDATE_TIMER = 500;
 
+    // TODO : enum Android
     /** coarse accuracy level. */
-    private static final int COARSE_ACCURACY_LEVEL = 1000;
-
+    public static final int COARSE_ACCURACY_LEVEL = 1000;
     /** fine accuracy level. */
-    private static final int FINE_ACCURACY_LEVEL = 50;
+    public static final int FINE_ACCURACY_LEVEL = 50;
 
     /** android context. */
     private Context context;
@@ -81,7 +77,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * Starts the location command.
      */
     private void start() {
-        listener.computingLocation(location);
+        listener.acquireLocation(location);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Criteria oFine = new Criteria();
@@ -168,6 +164,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(oFine, true));
             this.onCurrentLocationChange();
         } else {
+            //TODO: renvoyer une erreur au composant pour traitement "standard"
             Toast.makeText(this.getContext(), this.getContext().getString(R.string.mdkcommand_position_error_gps_disabled), Toast.LENGTH_LONG).show();
         }
 
@@ -190,30 +187,32 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         oListenerFine = new PositionWidgetLocationListener(FINE_ACCURACY_LEVEL);
     }
 
-    /**
-     *
-     * called when the coarse location get the defined accuracy.
-     */
-    public void locationCoarseOk() {
-        Log.d(TAG, "CoarseLocartion ok " + location.getAccuracy());
-        Log.d(TAG, "CoarseLocartion ok-bLocationAvailable: " + locationAvailable);
-
-        listener.locationFixed(location);
-
-        stop();
-    }
+//    /**
+//     *
+//     * called when the coarse location get the defined accuracy.
+//     */
+//    public void locationCoarseOk() {
+//        Log.d(TAG, "CoarseLocartion ok " + location.getAccuracy());
+//        Log.d(TAG, "CoarseLocartion ok-bLocationAvailable: " + locationAvailable);
+//
+//        listener.locationFixed(location);
+//
+//        stop();
+//    }
 
     /**
      *
      * called when the fine location get the defined accuracy.
      */
-    public void locationFineOk() {
-        Log.d(TAG, "FineLocartion ok: " + location.getAccuracy());
-        Log.d(TAG, "FineLocartion ok-bLocationAvailable: " + locationAvailable);
+    private void locationOk(int precision) {
+//        Log.d(TAG, "FineLocartion ok: " + location.getAccuracy());
+//        Log.d(TAG, "FineLocartion ok-bLocationAvailable: " + locationAvailable);
 
-        listener.locationFixed(location);
+        listener.locationFixed(location, precision);
 
-        stop();
+        if (precision == this.FINE_ACCURACY_LEVEL) {
+            stop();
+        }
     }
 
     /**
@@ -238,11 +237,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
             PositionWidgetCommand.this.onCurrentLocationChange();
             if (location!=null && location.getAccuracy() < precision && location.hasAccuracy()) {
                 locationManager.removeUpdates(this);
-                if (precision == FINE_ACCURACY_LEVEL) {
-                    PositionWidgetCommand.this.locationFineOk();
-                } else {
-                    PositionWidgetCommand.this.locationCoarseOk();
-                }
+                PositionWidgetCommand.this.locationOk(precision);
             }
         }
 

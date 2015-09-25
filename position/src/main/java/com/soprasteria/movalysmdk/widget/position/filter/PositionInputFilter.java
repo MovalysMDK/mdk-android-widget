@@ -3,9 +3,11 @@ package com.soprasteria.movalysmdk.widget.position.filter;
 import android.text.InputFilter;
 import android.text.Spanned;
 
+import com.soprasteria.movalysmdk.widget.core.helper.InputFilterHelper;
+
 /**
  * Input filter for the MDKPosition widget.
- * Checks that the input value is in the correct range, with a number of decimal that does not exceed a given number
+ * Checks that the input value is in the correct range, with a number o*f decimal that does not exceed a given number
  */
 public class PositionInputFilter implements InputFilter {
 
@@ -30,27 +32,22 @@ public class PositionInputFilter implements InputFilter {
         this.maxDecimals = dec;
     }
 
-    /**
-     * Constructor.
-     * @param min the min value
-     * @param max the max value
-     * @param dec the max number of decimals
-     */
-    public PositionInputFilter(String min, String max, String dec) {
-        this.min = Double.parseDouble(min);
-        this.max = Double.parseDouble(max);
-        this.maxDecimals = Integer.parseInt(dec);
-    }
-
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+        String res = "";
+
         try {
-            double input = Double.parseDouble(dest.toString() + source.toString());
+            double input = Double.parseDouble(InputFilterHelper.getNewValue(source, start, end, dest, dstart, dend));
             if (isInRange(min, max, input) && hasCorrectDecimal(maxDecimals, input)) {
                 return null;
+            } else if (source.length() == 0) {
+                res = dest.subSequence(dstart, dend).toString();
             }
-        } catch (NumberFormatException nfe) { }
-        return "";
+        } catch (NumberFormatException nfe) {
+            // nothing to do
+        }
+
+        return res;
     }
 
     /**

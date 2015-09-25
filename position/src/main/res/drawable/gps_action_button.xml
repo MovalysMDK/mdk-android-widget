@@ -3,7 +3,9 @@
     android:exitFadeDuration="@android:integer/config_mediumAnimTime"
     android:enterFadeDuration="@android:integer/config_mediumAnimTime">
 
-    <item android:state_checked="false" android:drawable="@drawable/ic_gps_not_fixed" />
-    <item android:state_checked="true" android:drawable="@drawable/ic_gps_fixed" />
+    <item android:state_enabled="true" android:state_checked="false" android:drawable="@drawable/ic_gps_not_fixed" />
+    <item android:state_enabled="true" android:state_checked="true" android:drawable="@drawable/ic_gps_fixed" />
+    <item android:state_enabled="false" android:state_checked="true" android:drawable="@drawable/ic_gps_fixed_disabled"/>
+    <item android:state_enabled="false" android:state_checked="false" android:drawable="@drawable/ic_gps_not_fixed_disabled"/>
 
 </selector>

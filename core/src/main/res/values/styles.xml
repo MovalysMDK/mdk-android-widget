@@ -112,8 +112,13 @@
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
     </style>
 
-    <style name="MDKSpinnerDropDown" parent="Base.MDKValue.MDKSpinnerDropDown">
-        <item name="android:divider">#000000</item>
+    <!--<style name="MDKSpinnerDropDown" parent="Base.MDKValue.MDKSpinnerDropDown">-->
+        <!--<item name="android:divider">#000000</item>-->
+        <!--<item name="android:dividerHeight">5dp</item>-->
+    <!--</style>-->
+
+    <style name="MDKSpinnerDropDown" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">#ff0000</item>
         <item name="android:dividerHeight">5dp</item>
     </style>
 

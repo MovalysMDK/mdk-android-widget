@@ -16,7 +16,7 @@ import java.util.List;
  * Position class.
  * Represents a position object as processed by the MDKPosition widget
  */
-public class Position extends View.BaseSavedState {
+public class Position implements Parcelable {
 
     /** WGS84 Latitude. */
     private Double latitude;
@@ -32,10 +32,10 @@ public class Position extends View.BaseSavedState {
 
     /**
      * Position public constructor.
-     * @param superState the super state
      */
-    public Position(Parcelable superState) {
-        super(superState);
+    public Position() {
+        latitude = null;
+        longitude = null;
     }
 
     /**
@@ -43,8 +43,6 @@ public class Position extends View.BaseSavedState {
      * @param in the super state
      */
     private Position(Parcel in) {
-        super(in);
-
         this.latitude = in.readDouble();
         this.longitude = in.readDouble();
 
@@ -62,8 +60,21 @@ public class Position extends View.BaseSavedState {
      * @param location the location to set the position from
      */
     public void setPositionFromLocation(Location location) {
-        this.latitude = location.getLatitude();
-        this.longitude = location.getLongitude();
+        if (location != null) {
+            this.latitude = location.getLatitude();
+            this.longitude = location.getLongitude();
+        } else {
+            this.latitude = null;
+            this.longitude = null;
+        }
+    }
+
+    /**
+     * Returns true if latitude or longitude is null.
+     * @return true if latitude or longitude is null
+     */
+    public boolean isNull() {
+        return this.latitude == null || this.longitude == null;
     }
 
     /**
@@ -161,7 +172,8 @@ public class Position extends View.BaseSavedState {
         if (this.addresses == null) {
             return false;
         } else {
-            return this.addresses.size() > 0;
+            // there should be at least two elements as there is an empty address
+            return this.addresses.size() > 1;
         }
     }
 
@@ -193,13 +205,27 @@ public class Position extends View.BaseSavedState {
     }
 
     @Override
-    public void writeToParcel(@NonNull Parcel out, int flags) {
-        super.writeToParcel(out, flags);
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(@NonNull Parcel out, int flags) {
         out.writeDouble(this.latitude == null ? 0 : this.latitude);
         out.writeDouble(this.longitude == null ? 0 : this.longitude);
 
-        out.writeParcelableArray(this.addresses != null ? (Parcelable[]) this.addresses.toArray() : null, 0);
+
+        Parcelable[] addrs = null;
+
+        if (this.addresses != null) {
+            addrs = new Parcelable[this.addresses.size()];
+
+            for (int rank = 0; rank < this.addresses.size(); rank++) {
+                addrs[rank] = this.addresses.get(rank);
+            }
+        }
+
+        out.writeParcelableArray(addrs, 0);
     }
 
     /**

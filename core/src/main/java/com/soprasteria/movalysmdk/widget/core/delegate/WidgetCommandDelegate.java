@@ -15,7 +15,9 @@
  */
 package com.soprasteria.movalysmdk.widget.core.delegate;
 
+import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.AnimatorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
@@ -23,6 +25,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Checkable;
 
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -79,6 +82,12 @@ public class WidgetCommandDelegate implements ValidationListener {
 
     /** true if the secondary command view is out of the linked view. */
     private boolean outerSecondaryCommandView = true;
+
+    /** primary command animation identifier */
+    private int primaryCommandAnimationId = 0;
+
+    /** secondary command animation identifier */
+    private int secondaryCommandAnimationId = 0;
 
     /**
      * Constructor.
@@ -138,6 +147,56 @@ public class WidgetCommandDelegate implements ValidationListener {
             this.secondaryCommandViewId = commandId;
             this.deactivateSecondaryOnValidation = deactivateOnValidation;
             this.outerSecondaryCommandView = out;
+        }
+    }
+
+    /**
+     * Sets an animation to be triggered on a command.
+     * @param command the command to set the animation on
+     * @param animId the animation identifier to set
+     */
+    public void setCommandAnimation(@EnumKindOfCommand int command, int animId) {
+        if (command == FIRST_COMMAND) {
+            this.primaryCommandAnimationId = animId;
+        } else {
+            this.secondaryCommandAnimationId = animId;
+        }
+    }
+
+    /**
+     *
+     * @param context
+     * @param command
+     */
+    public void startAnimationOnCommand(Context context, @EnumKindOfCommand int command) {
+        if (command == FIRST_COMMAND && this.primaryCommandAnimationId != 0) {
+            View commandView = findCommandView(this.primaryCommandViewId, this.outerPrimaryCommandView);
+            if (commandView != null) {
+                commandView.startAnimation(AnimationUtils.loadAnimation(context, this.primaryCommandAnimationId));
+            }
+        } else if (command == SECOND_COMMAND && this.secondaryCommandAnimationId != 0) {
+            View commandView = findCommandView(this.secondaryCommandViewId, this.outerSecondaryCommandView);
+            if (commandView != null) {
+                commandView.startAnimation(AnimationUtils.loadAnimation(context, this.secondaryCommandAnimationId));
+            }
+        }
+    }
+
+    /**
+     *
+     * @param command
+     */
+    public void stopAnimationOnCommand(@EnumKindOfCommand int command) {
+        if (command == FIRST_COMMAND) {
+            View commandView = findCommandView(this.primaryCommandViewId, this.outerPrimaryCommandView);
+            if (commandView != null) {
+                commandView.clearAnimation();
+            }
+        } else {
+            View commandView = findCommandView(this.secondaryCommandViewId, this.outerSecondaryCommandView);
+            if (commandView != null) {
+                commandView.clearAnimation();
+            }
         }
     }
 
@@ -206,6 +265,29 @@ public class WidgetCommandDelegate implements ValidationListener {
                     ((Checkable)commandView).setChecked(checked);
                 } else {
                     Log.e("WidgetCommandDelegate", "the secondary command view is not checkable");
+                }
+            }
+        }
+    }
+
+    /**
+     * Sets a command checked attribute.
+     * @param command the command to process
+     * @param enabled true to check the command
+     */
+    public void setEnabledCommand(@EnumKindOfCommand int command, boolean enabled) {
+        if (command == FIRST_COMMAND) {
+            if (this.primaryCommandViewId != 0) {
+                View commandView = findCommandView(this.primaryCommandViewId, this.outerPrimaryCommandView);
+                if (commandView != null) {
+                    commandView.setEnabled(enabled);
+                }
+            }
+        } else {
+            if (this.secondaryCommandViewId != 0) {
+                View commandView = findCommandView(this.secondaryCommandViewId, this.outerSecondaryCommandView);
+                if (commandView != null) {
+                    commandView.setEnabled(enabled);
                 }
             }
         }

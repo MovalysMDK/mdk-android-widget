@@ -162,8 +162,10 @@ public class MDKWidgetDelegateValidationHelper {
         } else if (view instanceof HasChecked) {
             objectToValidate = String.valueOf(((HasChecked) view).isChecked());
         } else  if (view instanceof HasLocation) {
+            //TODO: a revoir
             objectToValidate = ((HasLocation) view).getCoordinates();
         } else if (view instanceof HasSeekBar) {
+            // TODO SMA: HasSeekBar à revoir -> utiliser un HasInteger
             objectToValidate = ((HasSeekBar) view).getSeekBarValue();
         }
         return objectToValidate;

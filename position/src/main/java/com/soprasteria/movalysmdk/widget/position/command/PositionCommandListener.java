@@ -17,7 +17,7 @@ public interface PositionCommandListener {
      * Indicated that the location is being calculated.
      * @param location the last known location
      */
-    void computingLocation(Location location);
+    void acquireLocation(Location location);
 
     /**
      * Called when the location has been recalculated.
@@ -28,8 +28,9 @@ public interface PositionCommandListener {
     /**
      * Called when the desired precision has been reached.
      * @param location the precise location
+     * @param precision the precision of the location found
      */
-    void locationFixed(Location location);
+    void locationFixed(Location location, int precision);
 
     /**
      * Called when the location manager could not fix the position after a defined timeout.
