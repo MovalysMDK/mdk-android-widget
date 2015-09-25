@@ -57,7 +57,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, View.OnFocusChangeListener, TextView.OnEditorActionListener {
+public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher {
 
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
@@ -160,6 +160,39 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         typedArray.recycle();
     }
 
+
+
+    /**
+     * Vzlidate the edittext and updates the seekbar value
+     * @param s the text of the edittext to validate
+     */
+    private void validateEditText(Editable s) {
+
+        super.setOnSeekBarChangeListener(null);
+
+        if(s.length()>0){
+            int value = Integer.parseInt(s.toString());
+            if(value<this.getMin()){
+                s.clear();
+                s.append(String.valueOf(this.getMin()));
+                setSeekProgress(this.getMin());
+            }else if(value>this.getMax()){
+                s.clear();
+                s.append(String.valueOf(this.getMax()));
+                setSeekProgress(this.getMax());
+            }else{
+                setSeekProgress(value);
+            }
+        }else{
+            s.clear();
+            s.append(String.valueOf(this.getMin()));
+            setSeekProgress(this.getMin());
+        }
+
+        super.setOnSeekBarChangeListener(this);
+    }
+
+
     @Override
     public void onAttachedToWindow(){
         super.onAttachedToWindow();
@@ -182,7 +215,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     private void initEditText(){
         //init edittext
-        //seekbarEditText.addTextChangedListener(this);
+        seekbarEditText.addTextChangedListener(this);
         seekbarEditText.setOnFocusChangeListener(this);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter((int) Math.floor(Math.log(getMax())) - 1);
@@ -198,9 +231,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     private void setAttachedEditTextValue(int value){
         if (seekbarEditText != null) {
-            //seekbarEditText.removeTextChangedListener(this);
+            seekbarEditText.removeTextChangedListener(this);
             seekbarEditText.setText(String.valueOf(value));
-            //seekbarEditText.addTextChangedListener(this);
+            seekbarEditText.addTextChangedListener(this);
         }
     }
 
@@ -258,7 +291,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         //unbinding previous edittext
         if(seekbarEditText!=null) {
-            //seekbarEditText.removeTextChangedListener(this);
+            seekbarEditText.removeTextChangedListener(this);
             seekbarEditText.setOnFocusChangeListener(null);
         }
 
@@ -443,7 +476,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if(!hasFocus) {
-            validateEditText((EditText) v);
+            validateEditText(((EditText) v).getText());
         }
     }
 
@@ -451,43 +484,32 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-            validateEditText((EditText) v);
+            validateEditText(((EditText) v).getText());
 
             return true;
         }
         return false;
     }
 
-    /**
-     * Vzlidate the edittext and updates the seekbar value
-     * @param v the edittext to validate
-     */
-    private void validateEditText(EditText v) {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        Editable s = v.getText();
+    }
 
-        super.setOnSeekBarChangeListener(null);
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        if(s.length()>0){
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+        if(s.length()>0) {
             int value = Integer.parseInt(s.toString());
-            if(value<this.getMin()){
-                s.clear();
-                s.append(String.valueOf(this.getMin()));
-                setSeekProgress(this.getMin());
-            }else if(value>this.getMax()){
-                s.clear();
-                s.append(String.valueOf(this.getMax()));
-                setSeekProgress(this.getMax());
-            }else{
-                setSeekProgress(value);
+            if(value>=this.getMin() && value<=this.getMax()) {
+                validateEditText(s);
             }
-        }else{
-            s.clear();
-            s.append(String.valueOf(this.getMin()));
-            setSeekProgress(this.getMin());
         }
 
-
-        super.setOnSeekBarChangeListener(this);
     }
 }
