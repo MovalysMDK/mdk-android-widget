@@ -84,23 +84,33 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
             this.getInnerWidget().setEditableEditText(true);
         }
 
+        String maxAllowedStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
+        if (maxAllowedStr != null) {
+            int seekBarMaxAllowed = Integer.parseInt(maxAllowedStr);
+            setSeekBarMaxAllowed(seekBarMaxAllowed);
+        }
+
+        String minAllowedStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed);
+        if (minAllowedStr != null) {
+            int seekBarMinAllowed = Integer.parseInt(minAllowedStr);
+            setSeekBarMinAllowed(seekBarMinAllowed);
+        }
+
         String minStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
         if (minStr != null) {
-            this.getInnerWidget().setMin(Integer.parseInt(minStr));
+            setMin(Integer.parseInt(minStr));
+        }else if (minAllowedStr != null) {
+            setMin(getSeekBarMinAllowed());
         }else{
-            this.getInnerWidget().setMin(0);
+            setMin(0);
         }
 
         String maxStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
         if (maxStr != null) {
             int max = Integer.parseInt(maxStr);
-            this.getInnerWidget().setMax(max);
-        }
-
-        String maxValueStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_maxSeekBarValue);
-        if (maxValueStr != null) {
-            int seekBarMaxValue = Integer.parseInt(maxValueStr);
-            setSeekBarMaxValue(seekBarMaxValue);
+            setMax(max);
+        }else if (maxAllowedStr != null) {
+            setMax(getSeekBarMaxAllowed());
         }
 
         String initialValueStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
@@ -136,13 +146,23 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
     }
 
     @Override
-    public int getSeekBarMaxValue() {
-        return this.getInnerWidget().getSeekBarMaxValue();
+    public int getSeekBarMinAllowed() {
+        return this.getInnerWidget().getSeekBarMinAllowed();
     }
 
     @Override
-    public void setSeekBarMaxValue(int seekBarMaxValue) {
-        this.getInnerWidget().setSeekBarMaxValue(seekBarMaxValue);
+    public void setSeekBarMinAllowed(int seekBarMinValue) {
+        this.getInnerWidget().setSeekBarMinAllowed(seekBarMinValue);
+    }
+
+    @Override
+    public int getSeekBarMaxAllowed() {
+        return this.getInnerWidget().getSeekBarMaxAllowed();
+    }
+
+    @Override
+    public void setSeekBarMaxAllowed(int seekBarMaxValue) {
+        this.getInnerWidget().setSeekBarMaxAllowed(seekBarMaxValue);
     }
 
 

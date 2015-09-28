@@ -20,6 +20,8 @@
 
     <!-- Chaines utilisees -->
     <string name="mdkvalidator_seekbar_error_invalid">Valeur de la seekbar non valide</string>
-    <string name="mdkvalidator_seekbar_error_max">doit être inférieur à l\'attribut maxSeekBarValue du widget:</string>
+    <string name="mdkvalidator_seekbar_error_max">La valeur doit être inférieur à %1$s.</string>
+    <string name="mdkvalidator_seekbar_error_min">La valeur doit être supérieur à %1$s.</string>
+    <string name="mdkvalidator_seekbar_error_max_min">La valeur doit être comprise entre %1$s et %2$s.</string>
 
 </resources>

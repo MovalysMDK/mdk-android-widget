@@ -54,7 +54,8 @@
             android:layout_marginBottom="1dp"
             android:layout_marginTop="1dp"
             android:padding="2dp"
-            mdk:maxSeekBarValue="20"
+            mdk:max_allowed="20"
+            mdk:seekbar_max="100"
             mdk:label="@string/app_name" />
 
         <View
@@ -76,7 +77,7 @@
             mdk:initialSeekBarValue="40"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:maxSeekBarValue="20"
+            mdk:max_allowed="20"
             mdk:errorId="@+id/mdkemail_errorText"
             mdk:primaryCommandId="@+id/buttonCall"/>
 
@@ -103,7 +104,7 @@
             android:id="@+id/mdkRichSeekBar_withCustomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:maxSeekBarValue="20"
+            mdk:max_allowed="20"
             mdk:label="@string/app_name"
             mdk:layout="@layout/custom_seekbar_widget" />
 
@@ -127,7 +128,8 @@
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_1"
             mdk:errorId="@+id/commons_error"
-            mdk:maxSeekBarValue="60"/>
+            mdk:seekbar_max="100"
+            mdk:max_allowed="60"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
             android:id="@+id/mdkRichSeekBar2_withSharedError"
@@ -135,7 +137,10 @@
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_2"
             mdk:errorId="@+id/commons_error"
-            mdk:maxSeekBarValue="50"/>
+            mdk:seekbar_max="100"
+            mdk:seekbar_min="0"
+            mdk:max_allowed="50"
+            mdk:min_allowed="20"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/commons_error"
@@ -207,6 +212,28 @@
             mdk:seekbar_min="42"
             mdk:seekbar_max="72"/>
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SeekBar WITH DIFFERENT MIN -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_min_max_allowed"
+            android:id="@+id/textView5" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_min_max_allowed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:min_allowed="20"
+            mdk:max_allowed="60"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_margin="10dp"
@@ -219,7 +246,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/seekbar_edit_text_not_editable"
-            android:id="@+id/textView5" />
+            android:id="@+id/textView6" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
             android:id="@+id/mdkRichSeekBar_edit_text_not_editable"

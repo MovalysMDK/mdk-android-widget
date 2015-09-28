@@ -23,6 +23,8 @@
 
     <!-- Used strings -->
     <string name="mdkvalidator_seekbar_error_invalid">Invalid seekbar value</string>
-    <string name="mdkvalidator_seekbar_error_max">Value must be inferior to the max defined into the widget\'s attribute:</string>
+    <string name="mdkvalidator_seekbar_error_max">Value must be inferior to %1$s.</string>
+    <string name="mdkvalidator_seekbar_error_min">Value must be superior to %1$s.</string>
+    <string name="mdkvalidator_seekbar_error_max_min">Value must be comprised between %1$s and %2$s.</string>
 
 </resources>

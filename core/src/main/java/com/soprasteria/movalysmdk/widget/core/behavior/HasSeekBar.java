@@ -35,16 +35,28 @@ public interface HasSeekBar {
     void setSeekBarValue(int seekBarValue);
 
     /**
-     * Get the maximum SeekBar's value.
+     * Get the minimum allowed SeekBar's value.
      * @return the maximum value of the component
      */
-    int getSeekBarMaxValue();
+    int getSeekBarMinAllowed();
 
     /**
-     * Set the maximum SeekBar's value.
+     * Set the minimum allowed SeekBar's value.
+     * @param seekBarMinValue value to set
+     */
+    void setSeekBarMinAllowed(int seekBarMinValue);
+
+    /**
+     * Get the maximum allowed SeekBar's value.
+     * @return the maximum value of the component
+     */
+    int getSeekBarMaxAllowed();
+
+    /**
+     * Set the maximum allowed SeekBar's value.
      * @param seekBarMaxValue value to set
      */
-    void setSeekBarMaxValue(int seekBarMaxValue);
+    void setSeekBarMaxAllowed(int seekBarMaxValue);
 
     /**
      * Get the max attr of SeekBar.

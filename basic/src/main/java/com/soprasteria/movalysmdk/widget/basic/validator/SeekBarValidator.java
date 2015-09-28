@@ -81,13 +81,33 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
 
             int currentValueToValidate = objectToValidate;
 
-            if ((mdkAttributeSet.containsKey(R.attr.maxSeekBarValue))
-                    &&(currentValueToValidate > mdkAttributeSet.getInteger(R.attr.maxSeekBarValue))){
+
+            if (mdkAttributeSet.containsKey(R.attr.max_allowed)&&mdkAttributeSet.containsKey(R.attr.min_allowed)
+                    && (currentValueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed) || currentValueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))){
                 mdkMessage = new MDKMessage();
                 mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
                 mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
-                String error = context.getString(R.string.mdkvalidator_seekbar_error_max)+ " " + mdkAttributeSet.getInteger(R.attr.maxSeekBarValue) ;
+                String error = context.getString(R.string.mdkvalidator_seekbar_error_max_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed)), String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed)));
                 mdkMessage.setMessage(error);
+            }else{
+
+                if ((mdkAttributeSet.containsKey(R.attr.max_allowed))
+                        && (currentValueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed))) {
+                    mdkMessage = new MDKMessage();
+                    mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
+                    mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
+                    String error = context.getString(R.string.mdkvalidator_seekbar_error_max, String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed)));
+                    mdkMessage.setMessage(error);
+                }
+
+                if ((mdkAttributeSet.containsKey(R.attr.min_allowed))
+                        && (currentValueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))) {
+                    mdkMessage = new MDKMessage();
+                    mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
+                    mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
+                    String error = context.getString(R.string.mdkvalidator_seekbar_error_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed)));
+                    mdkMessage.setMessage(error);
+                }
             }
         }
 

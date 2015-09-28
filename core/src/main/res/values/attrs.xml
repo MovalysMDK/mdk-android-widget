@@ -111,7 +111,8 @@
     <!-- MDKSeekBar specific attributes-->
     <declare-styleable name="MDKCommons.MDKSeekBarComponent">
         <attr name="initialSeekBarValue" format="integer"/>
-        <attr name="maxSeekBarValue" format="integer"/>
+        <attr name="min_allowed" format="integer"/>
+        <attr name="max_allowed" format="integer"/>
         <attr name="seekbar_max" format="integer"/>
         <attr name="seekbar_min" format="integer"/>
         <attr name="attachedEditText" format="reference"/>
