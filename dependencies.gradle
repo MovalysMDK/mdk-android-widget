@@ -1,7 +1,7 @@
 ext {
     //Version
     supportLibrary = '23.0.1'
-    //playServices = '7.8.0'
+    playServices = '8.1.0'
 
     espressoVersion = "2.2.1"
     testRunnerVersion = "0.4"
@@ -18,8 +18,10 @@ ext {
             //cardView         :         "com.android.support:cardview-v7:${supportLibrary}",
             support:                    "com.android.support:support-v4:${supportLibrary}",
             appCompat:                  "com.android.support:appcompat-v7:${supportLibrary}",
-            supportAnnotations:         "com.android.support:support-annotations:${supportLibrary}"
+            supportAnnotations:         "com.android.support:support-annotations:${supportLibrary}",
             //,googlePlayServices:         "com.google.android.gms:play-services:${playServices}"
+            mapsServices:               "com.google.android.gms:play-services-location:${playServices}",
+            locationServices:           "com.google.android.gms:play-services-maps:${playServices}"
     ]
 
     testDependencies = [
