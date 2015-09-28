@@ -50,6 +50,7 @@ public class PositionValidator implements FormFieldValidator<String[]> {
     }
 
     @Override
+    // TODO passer un objet Position
     public MDKMessage validate(String[] objectToValidate,
                                MDKAttributeSet mdkParameter,
                                MDKMessages resultPreviousValidator,

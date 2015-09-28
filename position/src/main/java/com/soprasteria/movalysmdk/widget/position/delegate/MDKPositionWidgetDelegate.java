@@ -194,22 +194,6 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
     }
 
     /**
-     * Returns the latitude view identifier.
-     * @return the latitude view identifier
-     */
-    public int getLatitudeViewId() {
-        return latitudeViewId;
-    }
-
-    /**
-     * Sets the latitude view identifier
-     * @param latitudeViewId the identifier to set
-     */
-    public void setLatitudeViewId(int latitudeViewId) {
-        this.latitudeViewId = latitudeViewId;
-    }
-
-    /**
      * Returns the longitude input view.
      * @return the longitude input view
      */
@@ -218,22 +202,6 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             return this.longitudeView.get();
         }
         return null;
-    }
-
-    /**
-     * Returns the longitude view identifier.
-     * @return the longitude view identifier
-     */
-    public int getLongitudeViewId() {
-        return longitudeViewId;
-    }
-
-    /**
-     * Sets the longitude view identifier
-     * @param longitudeViewId the identifier to set
-     */
-    public void setLongitudeViewId(int longitudeViewId) {
-        this.longitudeViewId = longitudeViewId;
     }
 
     /**
@@ -253,6 +221,14 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
      */
     public int getLocateButtonId() {
         return this.locateButtonId;
+    }
+
+    /**
+     * Sets the identifier of the locate button.
+     * @param locateButtonId the identifier to set
+     */
+    public void setLocateButtonId(int locateButtonId) {
+        this.locateButtonId = locateButtonId;
     }
 
     /**
