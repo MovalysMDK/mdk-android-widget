@@ -32,7 +32,9 @@ public class SeekBarActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichSeekBar2_withSharedError,
                 R.id.mdkRichSeekBar_helper_and_init_value,
                 R.id.mdkRichSeekBar_max_10000,
-                R.id.mdkRichSeekBar_min_42
+                R.id.mdkRichSeekBar_min_42,
+                R.id.mdkRichSeekBar_min_max_allowed,
+                R.id.mdkRichSeekBar_edit_text_not_editable
         };
     }
 

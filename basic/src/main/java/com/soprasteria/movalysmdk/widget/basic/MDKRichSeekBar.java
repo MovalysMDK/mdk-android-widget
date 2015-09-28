@@ -76,13 +76,8 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
         // Retrieve attributes of the Seek Bar widget in order to initialize MDK widget class variables.
         TypedArray typedArrayCustom = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
 
-
         String editableStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
-        if (editableStr != null) {
-            this.getInnerWidget().setEditableEditText(Boolean.parseBoolean(editableStr));
-        }else{
-            this.getInnerWidget().setEditableEditText(true);
-        }
+        this.getInnerWidget().setEditableEditText(editableStr == null || Boolean.parseBoolean(editableStr));
 
         String maxAllowedStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
         if (maxAllowedStr != null) {
@@ -210,4 +205,5 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
     public void setEditableEditText(boolean editable) {
         this.getInnerWidget().setEditableEditText(editable);
     }
+
 }

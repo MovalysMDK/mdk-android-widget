@@ -34,6 +34,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.soprasteria.movalysmdk.espresso.action.DelayScrollToAction.delayScrollTo;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
@@ -229,8 +230,7 @@ public class SwitchTest {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
         }
 
-        // FIXME : ne marche pas
-      /*  // Re enabled widget
+        // Re enabled widget
         onView(withId(R.id.enableButton)).perform(scrollTo(), click());
 
         // scroll to the tested view
@@ -247,7 +247,7 @@ public class SwitchTest {
             onView(withId(viewId)).check(matches(isChecked()));
         } else {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
-        }*/
+        }
     }
 
     /**
@@ -333,8 +333,7 @@ public class SwitchTest {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
         }
 
-        // FIXME : ne marche pas
-        /*// Re enabled widget
+        // Re enabled widget
         onView(withId(R.id.enableButton)).perform(scrollTo(), click());
 
         // scroll to the tested view
@@ -351,6 +350,32 @@ public class SwitchTest {
             onView(withId(viewId)).check(matches(not(isChecked())));
         } else {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
-        }*/
+        }
+    }
+
+
+
+    @Test
+    /**
+     * Check MDK switch widget text when this one is checked and unchecked.
+     */
+    public void testSwitchText() {
+
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // check that the widget with fixed text displays the right text
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSwitch_withLabelAndError))))
+                .check(matches(withText(R.string.switch_activity)));
+
+        // check that the widget with checked and unchecked text displays the right text
+        onView(allOf(withId(R.id.mdkSwitch_withErrorAndCommandOutside)))
+                .check(matches(withText(R.string.checkable_value_true)));
+
+        onView(allOf(withId(R.id.mdkSwitch_withErrorAndCommandOutside))).perform(click());
+
+        onView(allOf(withId(R.id.mdkSwitch_withErrorAndCommandOutside)))
+                .check(matches(withText(R.string.checkable_value_false)));
+
     }
 }

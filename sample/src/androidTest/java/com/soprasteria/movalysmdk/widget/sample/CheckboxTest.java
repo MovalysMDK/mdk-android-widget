@@ -34,6 +34,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.soprasteria.movalysmdk.espresso.action.DelayScrollToAction.delayScrollTo;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
@@ -350,5 +351,30 @@ public class CheckboxTest {
         } else {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(not(isChecked())));
         }
+    }
+
+
+    /**
+     * Check MDK checkbox widget text when this one is checked and unchecked.
+     */
+    @Test
+    public void testCheckboxText() {
+
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        // check that the widget with fixed text displays the right text
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichCheckbox_withLabelAndError))))
+                .check(matches(withText(R.string.checkbox_activity)));
+
+        // check that the widget with checked and unchecked text displays the right text
+        onView(allOf(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)))
+                .check(matches(withText(R.string.checkable_value_true)));
+
+        onView(allOf(withId(R.id.mdkCheckbox_withErrorAndCommandOutside))).perform(click());
+
+        onView(allOf(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)))
+                .check(matches(withText(R.string.checkable_value_false)));
+
     }
 }

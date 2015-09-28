@@ -180,7 +180,7 @@
     <string name="test_hello_world">Hello world!</string>
     <string name="test_edit_text_label">My label</string>
     <string name="test_edit_text_hint">My hint</string>
-    <string name="test_seekbar_maxSeekBarValue_error_20">Value must be inferior to the max defined into the widget\'s attribute: 20</string>
+    <string name="test_seekbar_maxSeekBarValue_error_20">Value must be inferior to 20.</string>
     <string name="test_mdkvalidator_uri_error_invalid">Invalid uri value</string>
     <string name="test_checkable_error">Value must be </string>
     <string name="test_no_number_allowed">No number allowed</string>

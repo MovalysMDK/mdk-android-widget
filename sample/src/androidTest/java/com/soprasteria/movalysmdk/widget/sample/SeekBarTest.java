@@ -29,6 +29,7 @@ import org.junit.Test;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -131,10 +132,10 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
 
 
         //by edittext input
-        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(), typeText("1"));//caret goes before zero, so we only have to type the 1 to test 10
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(), typeText("10"));
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(10)));
 
-        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(),typeText("hello"));
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(),typeText("hello"), pressImeActionButton());
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(0)));
 
     }
@@ -164,17 +165,18 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
                 .check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(100)));
 
 
+
         //by edittext input
 
-        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(), typeText("150"));
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(), typeText("150"), pressImeActionButton());
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(100)));
 
         onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(ViewActions.actionWithAssertions(ViewActions.scrollTo()));
 
-        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(clearText());
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(clearText(), typeText("0"), pressImeActionButton());
         onView(withId(R.id.mdkRichSeekBar_min_42)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(42)));
 
-        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(clearText(), typeText("100"));
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(clearText(), typeText("100"), pressImeActionButton());
         onView(withId(R.id.mdkRichSeekBar_min_42)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(72)));
 
     }

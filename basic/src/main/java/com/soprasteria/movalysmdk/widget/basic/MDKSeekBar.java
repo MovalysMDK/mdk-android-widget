@@ -19,11 +19,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IdRes;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -129,11 +127,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.seekbarEditTextId = typedArray.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
 
         String editableStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
-        if (editableStr != null) {
-            this.editableEditText = Boolean.parseBoolean(editableStr);
-        }else{
-            this.editableEditText=true;
-        }
+        this.editableEditText = editableStr == null || Boolean.parseBoolean(editableStr);
 
         String maxAllowedStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
         if (maxAllowedStr != null) {
@@ -148,17 +142,17 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         String minStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
         if (minStr != null) {
             this.min = Integer.parseInt(minStr);
-        }else if (seekBarMinAllowed != null) {
+        } else if (seekBarMinAllowed != null) {
             this.min = seekBarMinAllowed;
-        }else{
-            this.min=0;
+        } else {
+            this.min = 0;
         }
 
         String maxStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
         if (maxStr != null) {
             int max = Integer.parseInt(maxStr);
             this.setMax(max);
-        }else if (seekBarMaxAllowed != null) {
+        } else if (seekBarMaxAllowed != null) {
             this.setMax(seekBarMaxAllowed);
         }
 
@@ -166,12 +160,12 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         if (initialValueStr != null) {
             seekBarValue = Integer.parseInt(initialValueStr);
             setSeekProgress(seekBarValue);
-        }else{
-            seekBarValue=this.min;
+        } else {
+            seekBarValue = this.min;
         }
 
 
-        if (this.getMDKWidgetDelegate() != null && !isInEditMode() ) {
+        if (this.getMDKWidgetDelegate() != null && !isInEditMode()) {
             this.validate(EnumFormFieldValidator.ON_USER);
         }
 
@@ -241,6 +235,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         seekbarEditText.addTextChangedListener(this);
         seekbarEditText.setOnFocusChangeListener(this);
         seekbarEditText.setOnKeyListener(this);
+        seekbarEditText.setEnabled(this.isEnabled());
         setAttachedEditTextValue(seekBarValue);
 
         seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -531,12 +526,12 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        //No need for that
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+        //No need for that
     }
 
     @Override
