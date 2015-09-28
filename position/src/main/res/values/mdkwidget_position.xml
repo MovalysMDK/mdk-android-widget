@@ -11,5 +11,6 @@
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkposition_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand</string>
     <string name="mdkwidget_mdkposition_secondary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.MapWidgetCommand</string>
+    <string name="mdkwidget_mdkposition_tertiary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.NavigationWidgetCommand</string>
 
 </resources>

@@ -25,13 +25,75 @@
 
     <include layout="@layout/mdkwidget_label_error_layout" />
 
-    <com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition
-        android:id="@id/component_internal"
-        android:layout_below="@id/component_label"
+    <FrameLayout
+        android:id="@+id/map_frame"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/component_label">
+
+        <com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition
+            android:id="@id/component_internal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            mdk:errorId="@id/component_error"
+            mdk:labelId="@id/component_label"
+            mdk:latitudeTextViewId="@+id/richmaps_internal_latitude"
+            mdk:longitudeTextViewId="@+id/richmaps_internal_longitude"
+            mdk:locateButtonViewId="@+id/richmaps_internal_map_getpos"
+            mdk:addressTextOnMapViewId="@+id/richmaps_internal_map_address"
+            mdk:locationTextOnMapViewId="@+id/richmaps_internal_map_location"
+            mdk:clearButtonViewId="@+id/richmaps_internal_clear"
+            style="?attr/mdkValueMapsPositionStyle"/>
+
+        <TextView
+            android:id="@+id/richmaps_internal_map_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"/>
+
+        <TextView
+            android:id="@+id/richmaps_internal_map_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"/>
+
+        <ImageButton
+            android:id="@+id/richmaps_internal_map_getpos"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:padding="4dp"
+            android:background="@null"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/ic_locate"/>
+
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/richmaps_internal_clear"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/map_frame"
+        android:src="@drawable/ic_clear"
+        android:background="@null"/>
+
+    <EditText
+        android:id="@+id/richmaps_internal_latitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"
-        style="?attr/mdkValueMapsPositionStyle"/>
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/map_frame"
+        android:layout_toLeftOf="@id/richmaps_internal_clear"
+        android:inputType="numberDecimal|numberSigned"/>
+
+    <EditText
+        android:id="@+id/richmaps_internal_longitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/richmaps_internal_latitude"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/richmaps_internal_clear"
+        android:inputType="numberDecimal|numberSigned"/>
 
 </merge>

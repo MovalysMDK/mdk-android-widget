@@ -47,4 +47,9 @@ public class UriWidgetCommand implements WidgetCommand<Uri, Void> {
 
         return null;
     }
+
+    @Override
+    public void cancel() {
+        // nothing to do
+    }
 }

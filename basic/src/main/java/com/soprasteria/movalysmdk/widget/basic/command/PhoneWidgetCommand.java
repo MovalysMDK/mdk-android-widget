@@ -55,4 +55,9 @@ public class PhoneWidgetCommand implements WidgetCommand<String, Void> {
 
         return null;
     }
+
+    @Override
+    public void cancel() {
+        // nothing to do
+    }
 }

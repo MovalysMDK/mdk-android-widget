@@ -3,14 +3,10 @@ package com.soprasteria.movalysmdk.widget.positionmaps.delegate;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.os.Handler;
-import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -18,15 +14,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition;
 import com.soprasteria.movalysmdk.widget.positionmaps.R;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Delegate for the {@link MDKMapsPositionWidgetDelegate} widget.
@@ -40,16 +31,10 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     private GoogleMap map;
 
     /** the address text on the map. */
-    private WeakReference<TextView> addressTextOnMapView;
+    private int addressTextOnMapViewId;
 
     /** the location text on map. */
-    private WeakReference<TextView> locationOnMapView;
-
-    /** the layout with the input widgets. */
-    private WeakReference<RelativeLayout> inputZone;
-
-    /** the locate button on map. */
-    private WeakReference<ImageButton> locateButton;
+    private int locationTextOnMapViewId;
 
     /** display mode of the widget. */
     private int displayMode;
@@ -71,10 +56,17 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     public MDKMapsPositionWidgetDelegate(ViewGroup root, AttributeSet attrs) {
         super(root, attrs);
 
-        this.setMode(-1);
+        // Position specific fields parsing
+        TypedArray typedArray = root.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
+
+        this.setLatitudeViewId(typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_latitudeTextViewId, 0));
+
+        this.setLongitudeViewId(typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_longitudeTextViewId, 0));
+
+        typedArray.recycle();
 
         // Maps specific fields parsing
-        TypedArray typedArray = root.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);
+        typedArray = root.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);
 
         this.displayMode = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_displayMode, Integer.MAX_VALUE);
 
@@ -87,25 +79,14 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
 
         this.addressMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_addressMarker, 0);
 
-        final TextView addressOnMap = (TextView) root.findViewById(R.id.component_internal_map_address);
-        addressTextOnMapView = new WeakReference<>(addressOnMap);
-
-        final TextView locationOnMap = (TextView) root.findViewById(R.id.component_internal_map_location);
-        locationOnMapView = new WeakReference<>(locationOnMap);
-
-        final RelativeLayout input = (RelativeLayout) root.findViewById(R.id.component_internal_input);
-        inputZone = new WeakReference<>(input);
-
-        final ImageButton locateButtonOnMap = (ImageButton) root.findViewById(R.id.component_internal_map_getpos);
-        locateButton = new WeakReference<>(locateButtonOnMap);
+        this.addressTextOnMapViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_addressTextOnMapViewId, 0);
+        this.locationTextOnMapViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_locationTextOnMapViewId, 0);
 
         // we initialize the map
         initMap(root);
 
         // set the mode of the widget
-        if (this.getMode() == -1) {
-            this.setMode(typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_mapsMode, MDKMapsPosition.GPS));
-        }
+        this.setMode(typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_mapsMode, MDKMapsPosition.GPS));
 
         typedArray.recycle();
 
@@ -160,48 +141,71 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
         }
     }
 
+    /**
+     * Returns the map view.
+     * @return the map view
+     */
     public GoogleMap getMap() {
         return map;
     }
 
+    /**
+     * Returns the on map address text view.
+     * @return the on map address text view
+     */
     public TextView getAddressTextOnMapView() {
-        if (addressTextOnMapView != null) {
-            return this.addressTextOnMapView.get();
-        }
-        return null;
-    }
-
-    public TextView getLocationOnMapView() {
-        if (locationOnMapView != null) {
-            return this.locationOnMapView.get();
-        }
-        return null;
-    }
-
-    private RelativeLayout getInputZone() {
-        if (this.inputZone != null) {
-            return this.inputZone.get();
-        }
-        return null;
-    }
-
-    private ImageButton locateButton() {
-        if (this.locateButton != null) {
-            return this.locateButton.get();
+        if (addressTextOnMapViewId != 0) {
+            return (TextView) reverseFindViewById(addressTextOnMapViewId);
         }
         return null;
     }
 
     /**
-     * Sets the processing mode of the view based on the given attributes.
-     * @param mode the mode to set
+     * Returns the on map coordinates text view.
+     * @return the on map coordinates text view
      */
-    public void setMode(int mode) {
-        super.setMode(mode);
-
-        if (this.getMode() == MDKMapsPosition.GPS) {
-            this.setAutoStart(true);
+    public TextView getLocationOnMapView() {
+        if (locationTextOnMapViewId != 0) {
+            return (TextView) reverseFindViewById(locationTextOnMapViewId);
         }
+        return null;
+    }
+
+    @Override
+    public EditText getLatitudeView() {
+        if (this.getLatitudeViewId() != 0) {
+            return (EditText) reverseFindViewById(this.getLatitudeViewId());
+        }
+        return null;
+    }
+
+    @Override
+    public EditText getLongitudeView() {
+        if (this.getLongitudeViewId() != 0) {
+            return (EditText) reverseFindViewById(this.getLongitudeViewId());
+        }
+        return null;
+    }
+
+//    /**
+//     * Returns the on map locate button.
+//     * @return the on map locate button
+//     */
+//    @Override
+//    public View getLocateButton() {
+////        if (this.locateButton != null) {
+////            return this.locateButton.get();
+////        }
+////        return null;
+//        return reverseFindViewById(R.id.component_internal_map_getpos);
+//    }
+
+    /**
+     * Returns the on map display mode.
+     * @return the on map display mode
+     */
+    public int getDisplayMode() {
+        return this.displayMode;
     }
 
     /**
@@ -212,6 +216,10 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
         this.displayMode = displayMode;
     }
 
+    /**
+     * Returns the defined GPS marker drawable.
+     * @return the GPS marker drawable
+     */
     public int getGpsMarker() {
         return this.gpsMarker;
     }
@@ -224,6 +232,10 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
         this.gpsMarker = gpsMarker;
     }
 
+    /**
+     * Returns the defined address marker drawable.
+     * @return the address marker drawable
+     */
     public int getAddressMarker() {
         return this.addressMarker;
     }
@@ -242,5 +254,7 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
      */
     public void setZoom(int zoom) {
         this.zoom = zoom;
+        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomBy(zoom);
+        map.animateCamera(cameraUpdate);
     }
 }

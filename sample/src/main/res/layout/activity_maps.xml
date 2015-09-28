@@ -114,7 +114,7 @@
         <com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition
             android:id="@+id/mdkMapsPosition_withErrorAndCommandOutside"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:hint="@string/testHintText"
             mdk:errorId="@+id/position_errorText"
             mdk:primaryCommandId="@+id/buttonPosition"

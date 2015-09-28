@@ -3,10 +3,13 @@
 
     <declare-styleable name="MDKCommons.MDKMapsPositionComponent">
 
+        <attr name="addressTextOnMapViewId" format="reference" />
+        <attr name="locationTextOnMapViewId" format="reference" />
+
         <attr name="mapsMode" format="enum">
-            <enum name="places_picker" value="0"/>
-            <enum name="geopoint" value="1"/>
-            <enum name="gps" value="2"/>
+            <enum name="geopoint" value="0"/>
+            <enum name="gps" value="1"/>
+            <enum name="places_picker" value="2"/>
         </attr>
 
         <attr name="displayMode" format="integer">

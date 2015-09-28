@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.R;
 
+import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,8 +46,8 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
     /** true if a location is available. */
     private boolean locationAvailable;
 
-    /** callback listener. */
-    private PositionCommandListener listener;
+    /** callback commandListener. */
+    private WeakReference<PositionCommandListener> commandListener;
 
     /** timer for timeout management. */
     private Timer timerTimeout = new Timer();
@@ -62,7 +63,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
     @Override
     public Void execute(Context context, PositionCommandListener listener) {
         this.context = context;
-        this.listener = listener;
+        this.commandListener = new WeakReference<>(listener);
 
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
@@ -77,55 +78,61 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * Starts the location command.
      */
     private void start() {
-        listener.acquireLocation(location);
-
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Criteria oFine = new Criteria();
-            oFine.setAccuracy(Criteria.ACCURACY_FINE);
-
-            // Will keep updating about every 500 ms until
-            // accuracy is about 50 meters to get accurate fix.
-            locationManager.requestLocationUpdates(locationManager.getBestProvider(oFine, true), UPDATE_TIMER, FINE_ACCURACY_LEVEL, oListenerFine);
-        }
-
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            Criteria oCoarse = new Criteria();
-            oCoarse.setAccuracy(Criteria.ACCURACY_COARSE);
-
-            // Will keep updating about every 500 ms until
-            // accuracy is about 1000 meters to get accurate fix.
-            // Replace oLocationManager.getBestProvider(oCoarse, true) to
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_TIMER, COARSE_ACCURACY_LEVEL, oListenerCoarse);
-        }
+        final PositionCommandListener listener = this.commandListener.get();
+        if (listener != null) {
+            listener.acquireLocation(location);
 
 
-        timerTimeout.schedule(new TimerTask() {
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                Criteria oFine = new Criteria();
+                oFine.setAccuracy(Criteria.ACCURACY_FINE);
 
-            @Override
-            public void run() {
-                if (listener != null) {
-                    listener.locationTimedOut();
-                }
-                stop();
+                // Will keep updating about every 500 ms until
+                // accuracy is about 50 meters to get accurate fix.
+                locationManager.requestLocationUpdates(locationManager.getBestProvider(oFine, true), UPDATE_TIMER, FINE_ACCURACY_LEVEL, oListenerFine);
             }
-        }, listener.getTimeOut() * 1000);
+
+            if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                Criteria oCoarse = new Criteria();
+                oCoarse.setAccuracy(Criteria.ACCURACY_COARSE);
+
+                // Will keep updating about every 500 ms until
+                // accuracy is about 1000 meters to get accurate fix.
+                // Replace oLocationManager.getBestProvider(oCoarse, true) to
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_TIMER, COARSE_ACCURACY_LEVEL, oListenerCoarse);
+            }
+
+
+            timerTimeout.schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+                    if (listener != null) {
+                        listener.locationTimedOut();
+                    }
+                    PositionWidgetCommand.this.cancel();
+                    cancel();
+                }
+            }, listener.getTimeOut() * 1000);
+        }
     }
 
     /**
      * Stops the location command.
      */
-    private void stop() {
+    @Override
+    public void cancel() {
+        if (timerTimeout != null) {
+            timerTimeout.cancel();
+            timerTimeout.purge();
+            timerTimeout = null;
+        }
+
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.removeUpdates(oListenerFine);
         }
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locationManager.removeUpdates(oListenerCoarse);
-        }
-
-        if (timerTimeout != null) {
-            timerTimeout.cancel();
-            timerTimeout.purge();
-            timerTimeout = null;
         }
     }
 
@@ -141,13 +148,14 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
      * Updates the dialog ui to use the last currentLocation.
      */
     private void onCurrentLocationChange() {
-        if (location != null) {
+        PositionCommandListener listener = this.commandListener.get();
+        if (location != null && listener != null) {
             listener.locationChanged(location);
         }
     }
 
     /**
-     * registers the 2 listener on Coarse and Fine location.
+     * registers the 2 commandListener on Coarse and Fine location.
      */
     private void registerLocationListeners() {
         locationManager = (LocationManager) this.getContext().getSystemService(Context.LOCATION_SERVICE);
@@ -187,31 +195,18 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         oListenerFine = new PositionWidgetLocationListener(FINE_ACCURACY_LEVEL);
     }
 
-//    /**
-//     *
-//     * called when the coarse location get the defined accuracy.
-//     */
-//    public void locationCoarseOk() {
-//        Log.d(TAG, "CoarseLocartion ok " + location.getAccuracy());
-//        Log.d(TAG, "CoarseLocartion ok-bLocationAvailable: " + locationAvailable);
-//
-//        listener.locationFixed(location);
-//
-//        stop();
-//    }
-
     /**
      *
      * called when the fine location get the defined accuracy.
      */
     private void locationOk(int precision) {
-//        Log.d(TAG, "FineLocartion ok: " + location.getAccuracy());
-//        Log.d(TAG, "FineLocartion ok-bLocationAvailable: " + locationAvailable);
-
-        listener.locationFixed(location, precision);
+        PositionCommandListener listener = this.commandListener.get();
+        if (listener != null) {
+            listener.locationFixed(location, precision);
+        }
 
         if (precision == this.FINE_ACCURACY_LEVEL) {
-            stop();
+            cancel();
         }
     }
 
@@ -235,7 +230,9 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         public void onLocationChanged(Location location) {
             PositionWidgetCommand.this.location = location;
             PositionWidgetCommand.this.onCurrentLocationChange();
-            if (location!=null && location.getAccuracy() < precision && location.hasAccuracy()) {
+            // we check timeout != null because after removeUpdates, we may get some other calls to onLocationChanged
+            // we do not want that on the MDK components listening to that action
+            if (location!=null && location.getAccuracy() < precision && location.hasAccuracy() && timerTimeout != null) {
                 locationManager.removeUpdates(this);
                 PositionWidgetCommand.this.locationOk(precision);
             }

@@ -3,7 +3,6 @@ package com.soprasteria.movalysmdk.widget.position;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.location.Location;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -105,6 +104,10 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
         boolean activateGoto = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true);
 
         this.innerWidget.setActivateGoto(activateGoto);
+
+        int timeout = typedArray.getInteger(R.styleable.MDKCommons_MDKPositionComponent_timeout, 10);
+
+        this.innerWidget.setTimeOut(timeout);
 
         typedArray.recycle();
     }

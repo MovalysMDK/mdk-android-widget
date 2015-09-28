@@ -78,11 +78,16 @@ public class PositionValidator implements FormFieldValidator<String[]> {
             } else if (objectToValidate.length == 2) {
                 boolean isCorrect = true;
 
-                // we check that the input value are correct
-                double value = Double.parseDouble(objectToValidate[0]);
-                isCorrect &= value >= -90 && value <= 90;
-                value = Double.parseDouble(objectToValidate[1]);
-                isCorrect &= value >= -180 && value <= 180;
+                try {
+                    // we check that the input value are correct
+                    double value = Double.parseDouble(objectToValidate[0]);
+                    isCorrect &= value >= -90 && value <= 90;
+                    value = Double.parseDouble(objectToValidate[1]);
+                    isCorrect &= value >= -180 && value <= 180;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    isCorrect = false;
+                }
 
                 if (!isCorrect) {
                     mdkMessage = new MDKMessage();

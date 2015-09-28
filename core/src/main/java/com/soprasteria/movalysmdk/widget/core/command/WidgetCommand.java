@@ -32,4 +32,9 @@ public interface WidgetCommand<I, O> {
      */
     // params are not an array because java cannot cast from I[] to Whaterever[]
     O execute(Context context, I param);
+
+    /**
+     * cancel the process.
+     */
+    void cancel();
 }

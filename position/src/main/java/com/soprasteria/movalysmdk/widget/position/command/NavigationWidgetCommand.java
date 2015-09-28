@@ -14,17 +14,17 @@ import com.soprasteria.movalysmdk.widget.position.R;
 import java.util.List;
 
 /**
- * Secondary command class for the position widget.
- * Will launch a map application displaying the location of the widget.
+ * Tertiary command class for the position widget.
+ * Will launch a navigation application.
  */
-public class MapWidgetCommand implements WidgetCommand<Location, Void> {
+public class NavigationWidgetCommand implements WidgetCommand<Location, Void> {
 
     /** the default zoom level. */
     private static final String ZOOMLEVEL = "17";
 
     @Override
     public Void execute(Context context, Location location) {
-        openMap(context, getAccurateURI(location));
+        openDirections(context, getAccurateURI(location));
 
         return null;
     }
@@ -40,15 +40,15 @@ public class MapWidgetCommand implements WidgetCommand<Location, Void> {
      * @return URI string
      */
     private String getAccurateURI(Location locations){
-        return "geo:" + locations.getLatitude() + "," + locations.getLongitude() + "?z=" + ZOOMLEVEL;
+        return "http://maps.google.com/maps?daddr=" + locations.getLatitude() + "," + locations.getLongitude();
     }
 
     /**
-     * open the map.
+     * open the direction application.
      * @param context the android context
      * @param uri map URI
      */
-    private void openMap(Context context, String uri){
+    private void openDirections(Context context, String uri){
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 
         PackageManager manager = context.getPackageManager();

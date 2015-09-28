@@ -4,71 +4,9 @@
     android:layout_height="match_parent"
     android:addStatesFromChildren="true">
 
-    <FrameLayout
-        android:id="@+id/map_frame"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/component_internal_map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/component_internal_map"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"/>
-
-        <TextView
-            android:id="@+id/component_internal_map_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"/>
-
-        <TextView
-            android:id="@+id/component_internal_map_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"/>
-
-        <ImageButton
-            android:id="@+id/component_internal_map_getpos"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:padding="4dp"
-            android:background="@null"
-            android:layout_gravity="bottom|right"
-            android:src="@drawable/ic_locate"/>
-
-    </FrameLayout>
-
-    <RelativeLayout
-        android:id="@+id/component_internal_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/map_frame">
-
-        <ImageButton
-            android:id="@+id/component_internal_clear"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_clear"
-            android:background="@null"/>
-
-        <EditText
-            android:id="@+id/component_internal_latitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/component_internal_clear"
-            android:inputType="numberDecimal|numberSigned"/>
-
-        <EditText
-            android:id="@+id/component_internal_longitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/component_internal_latitude"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/component_internal_clear"
-            android:inputType="numberDecimal|numberSigned"/>
-
-    </RelativeLayout>
+        android:layout_height="match_parent"/>
 
 </merge>

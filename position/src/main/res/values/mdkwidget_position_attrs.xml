@@ -5,6 +5,12 @@
         <attr name="latitudeTextViewId" format="reference" />
         <attr name="longitudeTextViewId" format="reference" />
         <attr name="addressSpinnerViewId" format="reference" />
+        <attr name="locateButtonViewId" format="reference" />
+        <attr name="mapsButtonViewId" format="reference" />
+        <attr name="navButtonViewId" format="reference" />
+        <attr name="clearButtonViewId" format="reference" />
+
+        <attr name="locateButtonAnimationId" format="reference"/>
 
         <attr name="latHint" format="string"/>
         <attr name="lngHint" format="string"/>

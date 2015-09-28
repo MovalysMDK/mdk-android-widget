@@ -66,4 +66,9 @@ public class EmailWidgetCommand implements WidgetCommand<Email, Void> {
 
         return null;
     }
+
+    @Override
+    public void cancel() {
+        // nothing to do
+    }
 }

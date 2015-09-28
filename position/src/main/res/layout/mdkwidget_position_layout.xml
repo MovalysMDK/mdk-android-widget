@@ -4,21 +4,10 @@
     android:layout_height="match_parent"
     android:addStatesFromChildren="true">
 
-    <ImageButton
-        android:id="@+id/component_internal_clear"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/clear_action_button"
-        android:background="@null"/>
-
     <EditText
         android:id="@+id/component_internal_latitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/component_internal_clear"
         android:inputType="numberDecimal|numberSigned"/>
 
     <EditText
@@ -26,16 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/component_internal_latitude"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/component_internal_clear"
         android:inputType="numberDecimal|numberSigned"/>
 
     <Spinner
         android:id="@+id/component_internal_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/component_internal_clear"
         style="?attr/mdkSpinnerStyle"/>
 
 </merge>

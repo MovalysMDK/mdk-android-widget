@@ -38,6 +38,21 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
     /** address view identifier. */
     private int addressViewId;
 
+    /** locate button identifier. */
+    private int locateButtonId;
+
+    /** maps app open button identifier. */
+    private int mapsButtonId;
+
+    /** navigation app open button identifier. */
+    private int navButtonId;
+
+    /** clear button identifier. */
+    private int clearButtonId;
+
+    /** navigation button on locate animation. */
+    private int navButtonAnimationId;
+
     /** widget mode. */
     private int mode = -1;
 
@@ -101,7 +116,13 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             addressView = new WeakReference<>(addrView);
         }
 
-        this.timeout = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_timeout, 30);
+        locateButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_locateButtonViewId, 0);
+        mapsButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_mapsButtonViewId, 0);
+        navButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_navButtonViewId, 0);
+        clearButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_clearButtonViewId, 0);
+
+        // FIXME
+        this.timeout = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_timeout, 10);
 
         this.autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
 
@@ -132,6 +153,8 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             this.mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, MDKPosition.GEOPOINT);
         }
 
+        navButtonAnimationId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_locateButtonAnimationId, 0);
+
         typedArray.recycle();
     }
 
@@ -152,6 +175,14 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
     }
 
     /**
+     * sets the timeout to apply on the location action.
+     * @param timeout the timeout to set
+     */
+    public void setTimeOut(int timeout) {
+        this.timeout = timeout;
+    }
+
+    /**
      * Returns the latitude input view.
      * @return the latitude input view
      */
@@ -160,6 +191,22 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             return this.latitudeView.get();
         }
         return null;
+    }
+
+    /**
+     * Returns the latitude view identifier.
+     * @return the latitude view identifier
+     */
+    public int getLatitudeViewId() {
+        return latitudeViewId;
+    }
+
+    /**
+     * Sets the latitude view identifier
+     * @param latitudeViewId the identifier to set
+     */
+    public void setLatitudeViewId(int latitudeViewId) {
+        this.latitudeViewId = latitudeViewId;
     }
 
     /**
@@ -174,6 +221,22 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
     }
 
     /**
+     * Returns the longitude view identifier.
+     * @return the longitude view identifier
+     */
+    public int getLongitudeViewId() {
+        return longitudeViewId;
+    }
+
+    /**
+     * Sets the longitude view identifier
+     * @param longitudeViewId the identifier to set
+     */
+    public void setLongitudeViewId(int longitudeViewId) {
+        this.longitudeViewId = longitudeViewId;
+    }
+
+    /**
      * Returns the address spinner.
      * @return the address spinner
      */
@@ -182,6 +245,90 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             return this.addressView.get();
         }
         return null;
+    }
+
+    /**
+     * Returns the identifier of the locate button.
+     * @return the identifier of the locate button
+     */
+    public int getLocateButtonId() {
+        return this.locateButtonId;
+    }
+
+    /**
+     * Returns the locate button.
+     * @return the locate button
+     */
+    public View getLocateButton() {
+        if (this.locateButtonId != 0) {
+            return reverseFindViewById(this.locateButtonId);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the identifier of the maps button.
+     * @return the identifier of the maps button
+     */
+    public int getMapsButtonId() {
+        return this.mapsButtonId;
+    }
+
+    /**
+     * Returns the maps button.
+     * @return the maps button
+     */
+    public View getMapsButton() {
+        if (this.mapsButtonId != 0) {
+            return reverseFindViewById(this.mapsButtonId);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the identifier of the nav button.
+     * @return the identifier of the nav button
+     */
+    public int getNavButtonId() {
+        return this.navButtonId;
+    }
+
+    /**
+     * Returns the nav button.
+     * @return the nav button
+     */
+    public View getNavButton() {
+        if (this.navButtonId != 0) {
+            return reverseFindViewById(this.navButtonId);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the identifier of the clear button.
+     * @return the identifier of the clear button
+     */
+    public int getClearButtonId() {
+        return this.clearButtonId;
+    }
+
+    /**
+     * Returns the clear button.
+     * @return the clear button
+     */
+    public View getClearButton() {
+        if (this.clearButtonId != 0) {
+            return reverseFindViewById(this.clearButtonId);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the animation set for location command button.
+     * @return the animation for location command
+     */
+    public int getLocateButtonAnimationId() {
+        return navButtonAnimationId;
     }
 
     /**
@@ -218,7 +365,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
 
     /**
      * Returns true if the widget should display an action button to launch an external localization app.
-     * @return true if the widget should display an action button to launch an external localization app.
+     * @return true if the widget should display an action button to launch an external localization app
      */
     public boolean isActivateGoto() {
         return activateGoto;

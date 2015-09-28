@@ -2,6 +2,8 @@ package com.soprasteria.movalysmdk.widget.positionmaps;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
+import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IntDef;
@@ -9,17 +11,19 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Spinner;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.position.model.Position;
@@ -27,6 +31,7 @@ import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWi
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
 /**
  * MDK Maps Position.
@@ -58,25 +63,22 @@ import java.lang.annotation.RetentionPolicy;
  *     <li>gpsMarker: the drawable to use as the location marker</li>
  *     <li>addressMarker: the drawable to use as the address marker</li>
  * </ul>
- *
- * TODO
- * appliquer les masks au displayMode
- * appliquer le mapsMode
  */
 public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClickListener {
 
     /** mask for the coord option in the displayMode attribute. */
-    public static int COORD_MASK = 0x000000ff;
+    public static final int COORD_MASK = 0x000000ff;
 
     /** mask for the address option in the displayMode attribute. */
-    public static int ADDRESS_MASK = 0x0000ff00;
+    public static final int ADDRESS_MASK = 0x0000ff00;
 
     /** mask for the markerCoord option in the displayMode attribute. */
-    public static int MARKER_COORD_MASK = 0x00ff0000;
+    public static final int MARKER_COORD_MASK = 0x00ff0000;
 
     /** mask for the markerAddress option in the displayMode attribute. */
-    public static int MARKER_ADDRESS_MASK = 0xff000000;
+    public static final int MARKER_ADDRESS_MASK = 0xff000000;
 
+    /** request code for the PlacePicker ActivityResult. */
     private static final int PLACE_PICKER_REQUEST = 1;
 
     /** constant to get the location marker in the markers array. */
@@ -90,14 +92,14 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     @Retention(RetentionPolicy.SOURCE)
     public @interface MapsPositionMode {}
 
-    /** PLACES. */
-    public static final int PLACES = 0;
-
     /** GEOPOINT. */
-    public static final int GEOPOINT = 1;
+    public static final int GEOPOINT = 0;
 
     /** GPS. */
-    public static final int GPS = 2;
+    public static final int GPS = 1;
+
+    /** PLACES. */
+    public static final int PLACES = 2;
 
     /** markers on map. */
     private Marker[] markers;
@@ -113,23 +115,30 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
         @Override
         public void handleMessage(Message p_oMsg) {
             if (p_oMsg.what == MESSAGE_TEXT_CHANGED) {
-                try {
-                    // TODO : a revoir
-                    double lat = Double.parseDouble(mdkWidgetDelegate.getLatitudeView().getText().toString());
-                    double lng = Double.parseDouble(mdkWidgetDelegate.getLongitudeView().getText().toString());
+                Double lat = null;
+                Double lng = null;
 
-                    getPosition().setLatitude(lat);
-                    getPosition().setLongitude(lng);
+                try {
+                    lat = Double.parseDouble(mdkWidgetDelegate.getLatitudeView().getText().toString());
                 } catch (NumberFormatException e) {
-                    // TODO a faire mieux
+                    e.printStackTrace();
+                }
+                try {
+                    lng = Double.parseDouble(mdkWidgetDelegate.getLongitudeView().getText().toString());
+                } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
 
+                getPosition().setLatitude(lat);
+                getPosition().setLongitude(lng);
+
                 validate(EnumFormFieldValidator.ON_USER);
+
+                updateOnMapDisplay();
+                updateComponent();
             }
         }
     };
-
 
     /**
      * Constructor.
@@ -164,48 +173,16 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     protected void initDelegates(AttributeSet attrs) {
         this.mdkWidgetDelegate = new MDKMapsPositionWidgetDelegate(this, attrs);
 
-        this.commandDelegate = new WidgetCommandDelegate(this, attrs);
-
-        // we register the on map locate button as an action
-        this.commandDelegate.manuallyAddCommand(WidgetCommandDelegate.FIRST_COMMAND, R.id.component_internal_map_getpos, false, false);
-
         // Set the markers
         initMarkers();
-
-        toggleDisplayMode();
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         if (this.mdkWidgetDelegate.isAutoStart()) {
-            super.startAcquisition(null);
+            super.startAcquisition();
         }
-    }
-
-    /**
-     *
-     */
-    private void toggleDisplayMode() {
-        int visible;
-
-        if ((((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getMode() & this.COORD_MASK) != 0) {
-            visible = View.VISIBLE;
-        } else {
-            visible = View.GONE;
-        }
-        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getAddressTextOnMapView().setVisibility(visible);
-
-        if ((((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getMode() & this.ADDRESS_MASK) != 0) {
-            visible = View.VISIBLE;
-        } else {
-            visible = View.GONE;
-        }
-        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getLocationOnMapView().setVisibility(visible);
-
-        this.markers[LOCATION_MARKER].setVisible((((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getMode() & this.MARKER_COORD_MASK) != 0);
-
-        this.markers[ADDRESS_MARKER].setVisible((((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getMode() & this.MARKER_ADDRESS_MASK) != 0);
     }
 
     @Override
@@ -231,47 +208,6 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
         return PLACE_PICKER_REQUEST;
     }
 
-    /**
-     * Sets the mode of the widget.
-     * @param mode the mode to set
-     */
-    @Override
-    public void setMode(@MapsPositionMode int mode) {
-        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setMode(mode);
-    }
-
-    /**
-     * Sets the display mode of the widget.
-     * @param displayMode the mode to set
-     */
-    public void setDisplayMode(int displayMode) {
-        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setDisplayMode(displayMode);
-    }
-
-    /**
-     * Sets the zoom for map.
-     * @param zoom the zoom to set
-     */
-    public void setZoom(int zoom) {
-        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setZoom(zoom);
-    }
-
-    /**
-     * Sets the gps marker of the widget.
-     * @param gpsMarker the marker to set
-     */
-    public void setGpsMarker(int gpsMarker) {
-        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setGpsMarker(gpsMarker);
-    }
-
-    /**
-     * Sets the address marker of the widget.
-     * @param addressMarker the marker to set
-     */
-    public void setAddressMarker(int addressMarker) {
-        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setAddressMarker(addressMarker);
-    }
-
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (!this.writingData) {
@@ -279,6 +215,16 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
             final Message msg = Message.obtain(delayTextChangedHandler, MESSAGE_TEXT_CHANGED, s);
             delayTextChangedHandler.sendMessageDelayed(msg, UPDATE_DELAY);
         }
+    }
+
+    /**
+     * Clears the widget content.
+     */
+    @Override
+    public void clear() {
+        this.setLocation(null);
+
+        updateComponent();
     }
 
     /**
@@ -332,5 +278,169 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
             latlng = new LatLng(this.getPosition().getLatitude(), this.getPosition().getLongitude());
         }
         return latlng;
+    }
+
+    /**
+     * Updates on map displayed values.
+     */
+    private void updateOnMapDisplay() {
+        if (!this.getPosition().isNull()) {
+            // this occurs when the fix is done, ie we have a precise location
+            List<Address> addresses = getAddresses(this.getLocation(), false);
+
+            if (addresses != null && addresses.size() > 0) {
+                if (((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getAddressTextOnMapView() != null) {
+                    String address = addresses.get(0).getAddressLine(0);
+
+                    if (address == null) {
+                        address = "";
+                    }
+
+                    String city = "";
+                    if (addresses.get(0).getPostalCode() != null) {
+                        city = addresses.get(0).getPostalCode();
+                    }
+                    if (addresses.get(0).getLocality() != null) {
+                        if (city.length() > 0) {
+                            city += " ";
+                        }
+                        city += addresses.get(0).getLocality();
+                    }
+
+                    if (address.length() > 0) {
+                        address += "\n";
+                    }
+                    address += city;
+
+                    ((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getAddressTextOnMapView().setText(address);
+                }
+                markers[ADDRESS_MARKER].setPosition(new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude()));
+            }
+
+            if (((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getLocationOnMapView() != null) {
+                String location = String.valueOf(this.getPosition().getLatitude()) + " " + String.valueOf(this.getPosition().getLongitude());
+                ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getLocationOnMapView().setText(location);
+            }
+
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(getLatLng());
+            ((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getMap().animateCamera(cameraUpdate);
+
+            markers[LOCATION_MARKER].setPosition(getLatLng());
+
+        }
+    }
+
+    @Override
+    protected void updateComponent() {
+        int mode = this.mdkWidgetDelegate.getMode();
+        boolean isValid = !this.getPosition().isNull();
+
+        /* latitude input fields */
+        if (this.mdkWidgetDelegate.getLatitudeView() != null) {
+            this.mdkWidgetDelegate.getLatitudeView().setVisibility(
+                    mode == this.GEOPOINT
+                            ? View.VISIBLE : View.GONE
+            );
+        }
+
+        /* longitude input fields */
+        if (this.mdkWidgetDelegate.getLongitudeView() != null) {
+            this.mdkWidgetDelegate.getLongitudeView().setVisibility(
+                    mode == this.GEOPOINT
+                            ? View.VISIBLE : View.GONE
+            );
+        }
+
+        /* clear button */
+        if (this.mdkWidgetDelegate.getClearButton() != null) {
+            this.mdkWidgetDelegate.getClearButton().setVisibility(
+                    mode == this.GEOPOINT
+                            ? View.VISIBLE : View.GONE
+            );
+        }
+
+        /* on map locate button */
+        if (this.mdkWidgetDelegate.getLocateButton() != null) {
+            this.mdkWidgetDelegate.getLocateButton().setVisibility(
+                    mode == this.GEOPOINT
+                            ? View.VISIBLE : View.GONE
+            );
+        }
+
+        /* on map address */
+        if (((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getAddressTextOnMapView() != null) {
+            ((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getAddressTextOnMapView().setVisibility(
+                    (((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getDisplayMode() & MDKMapsPosition.COORD_MASK) != 0 && isValid
+                    ? View.VISIBLE : View.GONE
+            );
+        }
+
+        /* on map location */
+        if (((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getLocationOnMapView() != null) {
+            ((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getLocationOnMapView().setVisibility(
+                    (((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getDisplayMode() & MDKMapsPosition.ADDRESS_MASK) != 0 && isValid
+                            ? View.VISIBLE : View.GONE
+            );
+        }
+
+        /* location marker */
+        this.markers[LOCATION_MARKER].setVisible(
+                (((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getDisplayMode() & MDKMapsPosition.MARKER_COORD_MASK) != 0 && isValid
+        );
+
+        /* address marker */
+        this.markers[ADDRESS_MARKER].setVisible(
+                (((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getDisplayMode() & MDKMapsPosition.MARKER_ADDRESS_MASK) != 0 && isValid
+        );
+    }
+
+    /* delegate accelerator methods */
+
+    /**
+     * Sets the mode of the widget.
+     * @param mode the mode to set
+     */
+    @Override
+    public void setMode(@MapsPositionMode int mode) {
+        this.mdkWidgetDelegate.setMode(mode);
+    }
+
+    /**
+     * Sets the display mode of the widget.
+     * @param displayMode the mode to set
+     */
+    public void setDisplayMode(int displayMode) {
+        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setDisplayMode(displayMode);
+        updateComponent();
+    }
+
+    /**
+     * Sets the zoom for map.
+     * @param zoom the zoom to set
+     */
+    public void setZoom(int zoom) {
+        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setZoom(zoom);
+    }
+
+    /**
+     * Sets the gps marker of the widget.
+     * @param gpsMarker the marker to set
+     */
+    public void setGpsMarker(int gpsMarker) {
+        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setGpsMarker(gpsMarker);
+    }
+
+    /**
+     * Sets the address marker of the widget.
+     * @param addressMarker the marker to set
+     */
+    public void setAddressMarker(int addressMarker) {
+        ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).setAddressMarker(addressMarker);
+    }
+
+    @Override
+    public void setLocation(Location location) {
+        super.setLocation(location);
+        updateOnMapDisplay();
     }
 }
