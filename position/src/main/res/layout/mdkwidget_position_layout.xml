@@ -23,4 +23,15 @@
         android:layout_height="wrap_content"
         style="?attr/mdkSpinnerStyle"/>
 
+    <TextView
+        android:id="@+id/component_internal_info_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/component_internal_info_address"
+        android:layout_below="@+id/component_internal_info_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </merge>

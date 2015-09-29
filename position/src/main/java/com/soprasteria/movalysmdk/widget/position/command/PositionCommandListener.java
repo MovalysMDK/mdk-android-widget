@@ -37,4 +37,10 @@ public interface PositionCommandListener {
      */
     void locationTimedOut();
 
+    /**
+     * Called when an error occurs while retrieving the user's location.
+     * @param error the error message identifier
+     */
+    void onError(int error);
+
 }

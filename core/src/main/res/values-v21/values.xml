@@ -30,4 +30,6 @@
 
     <style name="Base.MDKCommand" parent="android:Widget.ActionButton"/>
 
+    <style name="Base.MDKCommandButton" parent="android:Widget.Button"/>
+
 </resources>

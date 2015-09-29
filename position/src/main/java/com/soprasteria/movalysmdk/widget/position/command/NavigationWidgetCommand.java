@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.location.Location;
 import android.net.Uri;
-import android.widget.Toast;
 
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.R;
@@ -17,16 +16,11 @@ import java.util.List;
  * Tertiary command class for the position widget.
  * Will launch a navigation application.
  */
-public class NavigationWidgetCommand implements WidgetCommand<Location, Void> {
-
-    /** the default zoom level. */
-    private static final String ZOOMLEVEL = "17";
+public class NavigationWidgetCommand implements WidgetCommand<Location, Integer> {
 
     @Override
-    public Void execute(Context context, Location location) {
-        openDirections(context, getAccurateURI(location));
-
-        return null;
+    public Integer execute(Context context, Location location) {
+        return openDirections(context, getAccurateURI(location));
     }
 
     @Override
@@ -48,7 +42,9 @@ public class NavigationWidgetCommand implements WidgetCommand<Location, Void> {
      * @param context the android context
      * @param uri map URI
      */
-    private void openDirections(Context context, String uri){
+    private int openDirections(Context context, String uri){
+        int res = 0;
+
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 
         PackageManager manager = context.getPackageManager();
@@ -57,7 +53,9 @@ public class NavigationWidgetCommand implements WidgetCommand<Location, Void> {
         if (!info.isEmpty()) {
             context.startActivity(mapIntent);
         } else {
-            Toast.makeText(context, context.getString(R.string.mdkcommand_map_error_map_missing), Toast.LENGTH_SHORT).show();
+            res = R.string.mdkcommand_map_error_map_missing;
         }
+
+        return res;
     }
 }

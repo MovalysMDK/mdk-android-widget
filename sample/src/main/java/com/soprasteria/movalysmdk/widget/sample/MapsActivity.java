@@ -34,7 +34,8 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
     protected int[] getWidgetIds() {
         return new int[]{
                 R.id.mdkRichMapsPosition_locationWithLabelAndError,
-//                R.id.mdkRichPosition_addressesWithLabelAndError,
+                R.id.mdkRichMapsPosition_addressesWithLabelAndError,
+                R.id.mdkRichMapsPosition_infoWithLabelAndError,
                 R.id.mdkMapsPosition_withErrorAndCommandOutside,
 //                R.id.mdkRichPosition_withoutLabel,
 //                R.id.mdkRichPosition_withCustomLayout,
@@ -54,7 +55,7 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        // TODO : a faire autrement
         if (requestCode == placesMapsPosition.getPlacePickerRequest()) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Chaines utilisees -->
+    <string name="mdkcommand_position_error_gps_disabled">Antenne GPS désactivée, la localisation sera moins précise..</string>
+    <string name="mdkcommand_position_error_permission">Exécuter cette tache nécessite d\'ajouter des permissions sur l\'application.</string>
+
+</resources>

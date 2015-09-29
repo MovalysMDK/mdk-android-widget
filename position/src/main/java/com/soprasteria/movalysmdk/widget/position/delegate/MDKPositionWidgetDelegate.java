@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.position.R;
+
+import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 
@@ -37,6 +40,12 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
 
     /** address view identifier. */
     private int addressViewId;
+
+    /** location info view identifier. */
+    private int locationInfoViewId;
+
+    /** address info view identifier. */
+    private int addressInfoViewId;
 
     /** locate button identifier. */
     private int locateButtonId;
@@ -70,6 +79,12 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
 
     /** address view. */
     private WeakReference<Spinner> addressView;
+
+    /** address view. */
+    private WeakReference<TextView> locationInfoView;
+
+    /** address view. */
+    private WeakReference<TextView> addressInfoView;
 
     /** the time out in seconds to set on the location manager. */
     private int timeout;
@@ -114,6 +129,28 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
 
         if (addrView != null) {
             addressView = new WeakReference<>(addrView);
+        }
+
+        locationInfoViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_locationInfoViewId, 0);
+        if (locationInfoViewId == 0) {
+            locationInfoViewId = R.id.component_internal_info_location;
+        }
+
+        final TextView locInfoView = (TextView) root.findViewById(locationInfoViewId);
+
+        if (locInfoView != null) {
+            locationInfoView = new WeakReference<>(locInfoView);
+        }
+
+        addressInfoViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_addressInfoViewId, 0);
+        if (addressInfoViewId == 0) {
+            addressInfoViewId = R.id.component_internal_info_address;
+        }
+
+        final TextView addrInfoView = (TextView) root.findViewById(addressInfoViewId);
+
+        if (addrInfoView != null) {
+            addressInfoView = new WeakReference<>(addrInfoView);
         }
 
         locateButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_locateButtonViewId, 0);
@@ -211,6 +248,28 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
     public Spinner getAddressView() {
         if (this.addressView != null) {
             return this.addressView.get();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the location info view.
+     * @return the location info view
+     */
+    public TextView getLocationInfoView() {
+        if (this.locationInfoView != null) {
+            return this.locationInfoView.get();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the address info view.
+     * @return the address info view
+     */
+    public TextView getAddressInfoView() {
+        if (this.addressInfoView != null) {
+            return this.addressInfoView.get();
         }
         return null;
     }

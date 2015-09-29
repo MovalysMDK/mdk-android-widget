@@ -44,6 +44,8 @@
 
     <style name="Base.MDKCommand" parent="Widget.AppCompat.ActionButton"/>
 
+    <style name="Base.MDKCommandButton" parent="Widget.AppCompat.Button"/>
+
     <style name="Base.MDKValue.MDKSpinner" parent="@style/Widget.AppCompat.Spinner"/>
 
     <style name="Base.MDKValue.MDKSpinnerDropDown" parent="android:style/Widget.ListView.DropDown"/>

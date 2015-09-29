@@ -37,6 +37,7 @@
         <attr name="mdkErrorStyle" format="reference"/>
         <attr name="mdkPrimaryCommandStyle" format="reference"/>
         <attr name="mdkSecondaryCommandStyle" format="reference"/>
+        <attr name="mdkCommandButtonStyle" format="reference"/>
         <attr name="mdkRichLayoutStyle" format="reference"/>
         <attr name="mdkSeekBarStyle" format="reference"/>
         <attr name="mdkSpinnerStyle" format="reference"/>

@@ -26,62 +26,56 @@
     <include layout="@layout/mdkwidget_error_layout" />
 
     <RelativeLayout
-        android:id="@+id/component_buttons"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" >
+        android:layout_below="@id/component_label">
 
         <ImageButton
             android:id="@+id/component_mapButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/map_action_button"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            style="?attr/mdkSecondaryCommandStyle"/>
+            android:layout_alignParentLeft="true"
+            style="?attr/mdkCommandButtonStyle"/>
 
         <ImageButton
             android:id="@+id/component_navigationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/navigation_action_button"
-            android:layout_below="@id/component_mapButton"
-            android:layout_alignParentLeft="true"
-            style="?attr/mdkSecondaryCommandStyle"/>
-
-        <ImageButton
-            android:id="@+id/component_internal_clear"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/clear_action_button"
-            android:layout_below="@id/component_mapButton"
-            android:layout_toRightOf="@id/component_navigationButton"
-            android:background="@null"/>
+            android:layout_toRightOf="@id/component_mapButton"
+            style="?attr/mdkCommandButtonStyle"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKCheckableImageButton
             android:id="@+id/component_positionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/gps_action_button"
-            android:layout_below="@id/component_navigationButton"
-            android:layout_centerHorizontal="true"
-            style="?attr/mdkPrimaryCommandStyle"/>
+            android:layout_toRightOf="@id/component_navigationButton"
+            style="?attr/mdkCommandButtonStyle"/>
+
+        <ImageButton
+            android:id="@+id/component_internal_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clear_action_button"
+            android:layout_toRightOf="@id/component_positionButton"
+            style="?attr/mdkCommandButtonStyle"/>
 
     </RelativeLayout>
 
     <com.soprasteria.movalysmdk.widget.position.MDKPosition
         android:id="@id/component_internal"
-        android:layout_below="@id/component_label"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/component_buttons"
-        android:layout_width="wrap_content"
+        android:layout_below="@+id/buttons_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        mdk:locateButtonViewId="@id/component_positionButton"
-        mdk:mapsButtonViewId="@id/component_mapButton"
-        mdk:navButtonViewId="@id/component_navigationButton"
+        mdk:errorId="@id/component_error"
+        mdk:locateButtonViewId="@+id/component_positionButton"
+        mdk:mapsButtonViewId="@+id/component_mapButton"
+        mdk:navButtonViewId="@+id/component_navigationButton"
         mdk:clearButtonViewId="@+id/component_internal_clear"
         mdk:locateButtonAnimationId="@anim/locate_rotation"
         style="?attr/mdkValuePositionStyle"/>
+
 </merge>

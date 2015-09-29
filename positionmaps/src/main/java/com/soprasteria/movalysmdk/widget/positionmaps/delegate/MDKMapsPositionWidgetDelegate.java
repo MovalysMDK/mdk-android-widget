@@ -4,10 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,10 +13,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition;
 import com.soprasteria.movalysmdk.widget.positionmaps.R;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Delegate for the {@link MDKMapsPositionWidgetDelegate} widget.
@@ -29,20 +23,14 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     /** the maximum zoom level. */
     public static final int MAX_ZOOM = 20;
 
+    /** default zoom value. */
+    public static final int DEFAULT_ZOOM = 10;
+
     /** the map view. */
     private GoogleMap map;
 
-    /** the address text on the map. */
-    private WeakReference<TextView> addressTextOnMapView;
-
-    /** the location text on map. */
-    private WeakReference<TextView> locationOnMapView;
-
-    /** the locate button on map. */
-    private WeakReference<ImageButton> locateButton;
-
-    /** display mode of the widget. */
-    private int displayMode;
+    /** true if a click on the map should launch the Google Places app. */
+    private boolean useGooglePlaces;
 
     /** the zoom level of the map. */
     private int zoom;
@@ -64,9 +52,9 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
         // Maps specific fields parsing
         TypedArray typedArray = root.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);
 
-        this.displayMode = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_displayMode, Integer.MAX_VALUE);
+        this.useGooglePlaces = typedArray.getBoolean(R.styleable.MDKCommons_MDKMapsPositionComponent_usePicker, false);
 
-        this.zoom = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_zoom, 0);
+        this.zoom = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_zoom, DEFAULT_ZOOM);
         if (this.zoom > MAX_ZOOM) {
             this.zoom = MAX_ZOOM;
         }
@@ -75,29 +63,10 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
 
         this.addressMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_addressMarker, 0);
 
-        final TextView addressOnMap = (TextView) root.findViewById(R.id.component_internal_map_address);
-        addressTextOnMapView = new WeakReference<>(addressOnMap);
-
-        final TextView locationOnMap = (TextView) root.findViewById(R.id.component_internal_map_location);
-        locationOnMapView = new WeakReference<>(locationOnMap);
-
-        setLocateButtonId(typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_locateButtonViewId, R.id.component_internal_map_getpos));
-        final ImageButton locateButtonOnMap = (ImageButton) root.findViewById(getLocateButtonId());
-        locateButton = new WeakReference<>(locateButtonOnMap);
-
         // we initialize the map
         initMap(root);
 
-        // set the mode of the widget
-        this.setMode(typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_mapsMode, MDKMapsPosition.GPS));
-
         typedArray.recycle();
-
-        if (this.getMode() == MDKMapsPosition.GPS) {
-            this.setAutoStart(true);
-        } else if (this.getMode() == MDKMapsPosition.PLACES) {
-            this.map.setOnMapClickListener((GoogleMap.OnMapClickListener) this.valueObject.getView());
-        }
     }
 
     /**
@@ -153,53 +122,19 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     }
 
     /**
-     * Returns the on map address text view.
-     * @return the on map address text view
+     * Returns true if Google Places is used for picking the location.
+     * @return true if Google Places is used
      */
-    public TextView getAddressTextOnMapView() {
-        if (addressTextOnMapView != null) {
-            return this.addressTextOnMapView.get();
-        }
-        return null;
+    public boolean useGooglePlaces() {
+        return useGooglePlaces;
     }
 
     /**
-     * Returns the on map coordinates text view.
-     * @return the on map coordinates text view
+     * Sets whether Google Places should be used to pick the location.
+     * @param useGooglePlaces true to use Google Places
      */
-    public TextView getLocationOnMapView() {
-        if (locationOnMapView != null) {
-            return this.locationOnMapView.get();
-        }
-        return null;
-    }
-
-    /**
-     * Returns the on map locate button.
-     * @return the on map locate button
-     */
-    @Override
-    public View getLocateButton() {
-        if (this.locateButton != null) {
-            return this.locateButton.get();
-        }
-        return null;
-    }
-
-    /**
-     * Returns the on map display mode.
-     * @return the on map display mode
-     */
-    public int getDisplayMode() {
-        return this.displayMode;
-    }
-
-    /**
-     * Sets the display mode of the widget.
-     * @param displayMode the mode to set
-     */
-    public void setDisplayMode(int displayMode) {
-        this.displayMode = displayMode;
+    public void setUseGooglePlaces(boolean useGooglePlaces) {
+        this.useGooglePlaces = useGooglePlaces;
     }
 
     /**

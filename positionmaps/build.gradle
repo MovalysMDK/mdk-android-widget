@@ -38,12 +38,12 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':core')
     compile project(':position')
     compile supportDependencies.support
     compile supportDependencies.appCompat
     compile supportDependencies.mapsServices
     compile supportDependencies.locationServices
-    compile project(':core')
 }
 
 sonarRunner {

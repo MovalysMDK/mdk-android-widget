@@ -79,6 +79,31 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+        <!-- RICH POSITION WITH LABEL, ERROR, DISPLAYING INFO -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/position_with_label_error_addresses" />
+
+        <com.soprasteria.movalysmdk.widget.position.MDKRichPosition
+            android:id="@+id/mdkRichPosition_infoWithLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/position_background"
+            android:padding="2dp"
+            mdk:activeGoto="false"
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"
+            mdk:positionMode="info"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
         <!-- RICH POSITION WITH LABEL, ERROR, DISPLAYING LOCATION AND WITH AUTO-START -->
 
         <TextView

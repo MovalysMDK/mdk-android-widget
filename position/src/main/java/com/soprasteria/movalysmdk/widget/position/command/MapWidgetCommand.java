@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.position.R;
 
 import java.util.List;
@@ -17,16 +18,14 @@ import java.util.List;
  * Secondary command class for the position widget.
  * Will launch a map application displaying the location of the widget.
  */
-public class MapWidgetCommand implements WidgetCommand<Location, Void> {
+public class MapWidgetCommand implements WidgetCommand<Location, Integer> {
 
     /** the default zoom level. */
     private static final String ZOOMLEVEL = "17";
 
     @Override
-    public Void execute(Context context, Location location) {
-        openMap(context, getAccurateURI(location));
-
-        return null;
+    public Integer execute(Context context, Location location) {
+        return openMap(context, getAccurateURI(location));
     }
 
     @Override
@@ -48,7 +47,9 @@ public class MapWidgetCommand implements WidgetCommand<Location, Void> {
      * @param context the android context
      * @param uri map URI
      */
-    private void openMap(Context context, String uri){
+    private int openMap(Context context, String uri){
+        int res = 0;
+
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 
         PackageManager manager = context.getPackageManager();
@@ -57,7 +58,9 @@ public class MapWidgetCommand implements WidgetCommand<Location, Void> {
         if (!info.isEmpty()) {
             context.startActivity(mapIntent);
         } else {
-            Toast.makeText(context, context.getString(R.string.mdkcommand_map_error_map_missing), Toast.LENGTH_SHORT).show();
+            res = R.string.mdkcommand_map_error_map_missing;
         }
+
+        return res;
     }
 }

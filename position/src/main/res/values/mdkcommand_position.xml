@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Used strings -->
-    <string name="mdkcommand_position_error_gps_disabled">GPS antenna is deactivated, positioning will be less precise&#8230;</string>
+    <string name="mdkcommand_position_error_gps_disabled">GPS antenna is deactivated, positioning will be less precise.</string>
+    <string name="mdkcommand_position_error_permission">Executing this task requires the application to be granted permission.</string>
 
 </resources>

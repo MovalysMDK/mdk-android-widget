@@ -94,6 +94,10 @@ public class MDKRichMapsPosition extends MDKBaseRichWidget<MDKMapsPosition> impl
     private final void init(Context context, AttributeSet attrs){
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
 
+        int mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
+
+        this.innerWidget.setMode(mode);
+
         boolean autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
 
         this.innerWidget.setAutoStart(autoStart);
@@ -106,15 +110,7 @@ public class MDKRichMapsPosition extends MDKBaseRichWidget<MDKMapsPosition> impl
 
         typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);
 
-        int mode = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_mapsMode, 0);
-
-        this.innerWidget.setMode(mode);
-
-        int displayMode = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_displayMode, Integer.MAX_VALUE);
-
-        this.innerWidget.setDisplayMode(displayMode);
-
-        int zoom = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_zoom, 0);
+        int zoom = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_zoom, MDKMapsPositionWidgetDelegate.DEFAULT_ZOOM);
         if (zoom > MDKMapsPositionWidgetDelegate.MAX_ZOOM) {
             zoom = MDKMapsPositionWidgetDelegate.MAX_ZOOM;
         }

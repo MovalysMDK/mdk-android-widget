@@ -5,6 +5,8 @@
         <attr name="latitudeTextViewId" format="reference" />
         <attr name="longitudeTextViewId" format="reference" />
         <attr name="addressSpinnerViewId" format="reference" />
+        <attr name="locationInfoViewId" format="reference" />
+        <attr name="addressInfoViewId" format="reference" />
         <attr name="locateButtonViewId" format="reference" />
         <attr name="mapsButtonViewId" format="reference" />
         <attr name="navButtonViewId" format="reference" />
@@ -19,6 +21,7 @@
         <attr name="positionMode" format="enum">
             <enum name="geopoint" value="0"/>
             <enum name="address" value="1"/>
+            <enum name="info" value="2"/>
         </attr>
 
         <attr name="autoStart" format="boolean"/>

@@ -48,7 +48,55 @@
             android:padding="2dp"
             mdk:label="@string/app_name"
             mdk:mandatory="true"
-            mdk:mapsMode="geopoint"/>
+            mdk:positionMode="geopoint"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH POSITION WITH LABEL, ERROR, DISPLAYING ADDRESS -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/positionmaps_with_label_error_addresses" />
+
+        <com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition
+            android:id="@+id/mdkRichMapsPosition_addressesWithLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/position_background"
+            android:padding="2dp"
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"
+            mdk:positionMode="address"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH POSITION WITH LABEL, ERROR, DISPLAYING INFO -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/positionmaps_with_label_error_addresses" />
+
+        <com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition
+            android:id="@+id/mdkRichMapsPosition_infoWithLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/position_background"
+            android:padding="2dp"
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"
+            mdk:positionMode="info"/>
 
         <View
             android:layout_width="match_parent"
@@ -122,7 +170,8 @@
             mdk:zoom="19"
             mdk:gpsMarker="@drawable/ic_position"
             mdk:addressMarker="@drawable/ic_place"
-            mdk:mapsMode="places_picker"/>
+            mdk:positionMode="geopoint"
+            mdk:usePicker="true"/>
 
         <Button
             android:id="@+id/buttonPosition"

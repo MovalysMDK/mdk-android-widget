@@ -34,6 +34,7 @@
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
+        <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
@@ -51,6 +52,7 @@
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
+        <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
@@ -66,6 +68,7 @@
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
+        <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
@@ -90,6 +93,15 @@
     <style name="MDKCommand" parent="Base.MDKCommand"/>
     <style name="MDKCommand.Primary"/>
     <style name="MDKCommand.Secondary"/>
+
+    <style name="MDKCommandButton" parent="Base.MDKCommandButton">
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
 
     <style name="MDKRichLayout" parent="Base.MDKValue"/>
 

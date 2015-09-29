@@ -5,8 +5,10 @@
     <string name="mdkwidget_mdkposition_latitude_hint">Latitude</string>
     <string name="mdkwidget_mdkposition_longitude_hint">Longitude</string>
     <string name="mdkwidget_mdkposition_address_hint">Address</string>
-    <string name="mdkwidget_mdkposition_locate_timeout">The position could not be fixed.</string>
+    <string name="mdkwidget_mdkposition_locate_timeout">The GPS position could not be fixed.</string>
     <string name="mdkwidget_mdkposition_noaddress">The position was fixed but no address exist for your position.</string>
+    <string name="mdkwidget_mdkposition_error_getting_addresses">An error occurred when retrieving the addresses for this position.</string>
+    <string name="mdkwidget_mdkposition_error_parsing_location">An error occurred when parsing this position.</string>
 
     <!-- widgetCommand string config -->
     <string name="mdkwidget_mdkposition_primary_command_class" translatable="false">com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand</string>
