@@ -20,12 +20,15 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import com.soprasteria.movalysmdk.widget.basic.formatter.SeekbarDefaultFormatter;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasFormatter;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 /**
@@ -33,7 +36,7 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
  * and including by default the error component.
  * @param <T> The class of the widget to encapsulate*
  */
-public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & HasSeekBar & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasSeekBar {
+public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> & HasValidator & HasDelegate & HasSeekBar & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasSeekBar, HasFormatter<Integer,String> {
 
     /**
      * Constructor.
@@ -71,6 +74,7 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
      * Initialize MDK widget class variables with layout attributes of the Rich component.
      * @param attrs Array of attributes of the MDK widget
      */
+    @SuppressWarnings("unchecked")
     private void initDedicatedAttributes(AttributeSet attrs){
 
         // Retrieve attributes of the Seek Bar widget in order to initialize MDK widget class variables.
@@ -78,6 +82,17 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
 
         String editableStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
         this.getInnerWidget().setEditableEditText(editableStr == null || Boolean.parseBoolean(editableStr));
+
+        String formatterStr = typedArrayCustom.getString(R.styleable.MDKCommons_formatter);
+        if (formatterStr != null) {
+            try {
+                setFormatter((MDKBaseFormatter<Integer, String>) Class.forName(formatterStr).newInstance());
+            } catch (Exception e) {
+                setFormatter(new SeekbarDefaultFormatter());
+            }
+        }else{
+            setFormatter(new SeekbarDefaultFormatter());
+        }
 
         String maxAllowedStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
         if (maxAllowedStr != null) {
@@ -206,4 +221,13 @@ public class MDKRichSeekBar <T extends MDKWidget & HasValidator & HasDelegate & 
         this.getInnerWidget().setEditableEditText(editable);
     }
 
+    @Override
+    public MDKBaseFormatter<Integer, String> getFormatter() {
+        return getInnerWidget().getFormatter();
+    }
+
+    @Override
+    public void setFormatter(MDKBaseFormatter<Integer, String> newFormatter) {
+        getInnerWidget().setFormatter(newFormatter);
+    }
 }
