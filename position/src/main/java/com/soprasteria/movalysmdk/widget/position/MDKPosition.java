@@ -30,17 +30,15 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasCommands;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandFactory;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.adapters.AddressSpinnerAdapter;
 import com.soprasteria.movalysmdk.widget.position.command.PositionCommandListener;
@@ -75,21 +73,36 @@ import java.util.Locale;
  *     <li>timeout: the time in seconds before the location gets timed out (default is 30 seconds)</li>
  * </ul>
  *
- * TODO explain rules
- * si le composant est disable ->
- *      address / latitude / longitude / clear / acquisition sont disable
- *      bouton carte actif uniquement si latitude & longitude OK
- * si le composant est enable ->
- *      si mode address,
- *          si ensemble adresses valide -> address visible et actif, longitude & latitude invisible et non actifs
- *          sinon address invisible et inactive, latitude & longitude visible et actifs si la saisie est autorisee (mode a ajouter)
- *      sinon
- *          address invisible et inactive, latitude longitude visibles et actifs si saisie manuelle autorisee
- *      bouton d'acquisition visible et disable si acquisition en cours, check si latitude & longitude valides
- *      bouton map visible et active si latitude & longitude valides
- *      bouton clear visible et actif pas d'acquisition en cours
+ * The component display has the following rules:
+ * <ul>
+ *     <li>
+ *         If the component is disabled
+ *         <ul>
+ *             <li>the address spinner, the latitude and longitude input field, the clear and the acquisition buttons are disabled</li>
+ *             <li>the map and direction buttons are active if the location is correct.</li>
+ *         </ul>
+ *     </li>
+ *     <li>
+ *         If the component is enabled
+ *         <ul>
+ *             <li>
+ *                If we are address mode
+ *                <ul>
+ *                   <li>If there are retrieved addresses, the address selection spinner is displayed, and the latitude and longitude input fields are hidden</li>
+ *                   <li>In other cases, the address spinner is hidden, the input fields are visible</li>
+ *                </ul>
+ *             </li>
+ *             <li>
+ *                 In other cases, the address spinner is hidden, the input fields are visible
+ *             </li>
+ *         </ul>
+ *         The acquisition button is visible and disabled if there is a pending acquisition, it is checked if the coordinates are correct.
+ *         The map and navigation buttons are active if the coordinates are correct.
+ *         The clear button is visible and disabled if there is a pending acquisition
+ *     </li>
+ * </ul>
  */
-public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, TextWatcher, MDKWidget, HasLocation, HasValidator, HasCommands, HasDelegate, HasChangeListener, PositionCommandListener {
+public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasLocation, HasValidator, HasDelegate, HasChangeListener, PositionCommandListener {
 
     /** tag for dummy provider. */
     private static final String DUMMY = "dummyprovider";
@@ -751,12 +764,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     @Override
     public MDKWidgetDelegate getMDKWidgetDelegate() {
         return this.mdkWidgetDelegate;
-    }
-
-    @Override
-    public WidgetCommandDelegate getWidgetCommandDelegate() {
-        // this component does not have a WidgetCommandDelegate
-        return null;
     }
 
     /* rich selector methods */

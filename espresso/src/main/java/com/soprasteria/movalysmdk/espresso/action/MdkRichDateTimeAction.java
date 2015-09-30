@@ -75,6 +75,46 @@ public class MdkRichDateTimeAction {
     }
 
     /**
+     * Returns the {@link MDKDateTime} from a given view.
+     * @param view the view to look the {@link MDKDateTime} from
+     * @return the {@link MDKDateTime} view
+     */
+    private static MDKDateTime getDateTimeView(View view) {
+        MDKDateTime dateTimeView;
+
+        if (view instanceof MDKBaseRichDateWidget) {
+            MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) view;
+            dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
+        } else {
+            dateTimeView = (MDKDateTime) view;
+        }
+
+        return dateTimeView;
+    }
+
+    /**
+     *
+     * @param year
+     * @param monthOfYear
+     * @param dayOfMonth
+     * @param hour
+     * @param minute
+     * @return
+     */
+    private static Calendar getCalendarForTime(final int year, final int monthOfYear, final int dayOfMonth, final int hour, final int minute) {
+        Calendar cal = Calendar.getInstance();
+
+        cal.setTimeInMillis(0);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, monthOfYear);
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        return cal;
+    }
+
+    /**
      * SetTime action for MDKRichDateTimeWidget.
      */
     private static class SetTimeViewAction implements ViewAction {
@@ -101,19 +141,9 @@ public class MdkRichDateTimeAction {
 
         @Override
         public void perform(UiController uiController, View view) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(0);
-            cal.set(Calendar.HOUR_OF_DAY, hour);
-            cal.set(Calendar.MINUTE, minute);
+            Calendar cal = getCalendarForTime(0, 0, 0, hour, minute);
 
-            MDKDateTime dateTimeView;
-
-            if (view instanceof MDKBaseRichDateWidget) {
-                MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) view;
-                dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
-            } else {
-                dateTimeView = (MDKDateTime) view;
-            }
+            MDKDateTime dateTimeView = getDateTimeView(view);
 
             dateTimeView.setTime(cal.getTime());
         }
@@ -165,20 +195,9 @@ public class MdkRichDateTimeAction {
 
         @Override
         public void perform(UiController uiController, View view) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(0);
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, monthOfYear -1);
-            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            Calendar cal = getCalendarForTime(year, monthOfYear - 1, dayOfMonth, 0, 0);
 
-            MDKDateTime dateTimeView;
-
-            if (view instanceof MDKBaseRichDateWidget) {
-                MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) view;
-                dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
-            } else {
-                dateTimeView = (MDKDateTime) view;
-            }
+            MDKDateTime dateTimeView = getDateTimeView(view);
 
             dateTimeView.setDate(cal.getTime());
         }
@@ -244,22 +263,9 @@ public class MdkRichDateTimeAction {
 
         @Override
         public void perform(UiController uiController, View view) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(0);
-            cal.set(Calendar.HOUR_OF_DAY, hour);
-            cal.set(Calendar.MINUTE, minute);
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, monthOfYear - 1);
-            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            Calendar cal = getCalendarForTime(year, monthOfYear - 1, dayOfMonth, hour, minute);
 
-            MDKDateTime dateTimeView;
-
-            if (view instanceof MDKBaseRichDateWidget) {
-                MDKBaseRichDateWidget dateTimeWidget = (MDKBaseRichDateWidget) view;
-                dateTimeView = (MDKDateTime) dateTimeWidget.getInnerWidget();
-            } else {
-                dateTimeView = (MDKDateTime) view;
-            }
+            MDKDateTime dateTimeView = getDateTimeView(view);
 
             dateTimeView.setDate(cal.getTime());
             dateTimeView.setTime(cal.getTime());
