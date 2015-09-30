@@ -31,7 +31,7 @@ public class Position implements Parcelable {
      * Position public constructor.
      */
     public Position() {
-        // TODO : faire une factory
+        // TODO : faire une factory -> basse priorité
         location = null;
         address = new Address(Locale.getDefault());
         // TODO : externaliser le formatage
