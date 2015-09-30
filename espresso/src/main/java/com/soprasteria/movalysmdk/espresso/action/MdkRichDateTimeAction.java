@@ -93,13 +93,13 @@ public class MdkRichDateTimeAction {
     }
 
     /**
-     *
-     * @param year
-     * @param monthOfYear
-     * @param dayOfMonth
-     * @param hour
-     * @param minute
-     * @return
+     * returns a {@link Calendar} object with the given attributes.
+     * @param year the year to set
+     * @param monthOfYear the month to set
+     * @param dayOfMonth the day to set
+     * @param hour the hour to set
+     * @param minute the minutes to set
+     * @return the {@link Calendar} object
      */
     private static Calendar getCalendarForTime(final int year, final int monthOfYear, final int dayOfMonth, final int hour, final int minute) {
         Calendar cal = Calendar.getInstance();
