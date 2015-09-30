@@ -192,7 +192,7 @@ public class Position implements Parcelable {
 
     /**
      * Returns true if the addresses list is filled and a selection is made on it.
-     * @return false when the addressses list is empty or no selection exists
+     * @return false when the addresses list is empty or no selection exists
      */
     public boolean hasAddresses() {
         if (this.addresses == null) {
@@ -205,7 +205,7 @@ public class Position implements Parcelable {
 
     /**
      * Returns the formatted selected address.
-     * @return a string represnting the selected address
+     * @return a string representing the selected address
      */
     public String getFormattedAddress() {
         String address = "";
