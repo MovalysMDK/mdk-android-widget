@@ -18,23 +18,13 @@ import java.util.Locale;
  */
 public class Position implements Parcelable {
 
-//    /** WGS84 Latitude. */
-//    private Double latitude;
-//
-//    /** WGS84 Longitude. */
-//    private Double longitude;
-//
-//    /** list of addresses read from the location. */
-//    private List<Address> addresses;
-//
-//    /** user selected address in the list. */
-//    private int selectedAddress = 0;
-
     /** double formatter. */
     private NumberFormat formatter;
 
+    /** location. */
     private Location location;
 
+    /** address. */
     private Address address;
 
     /**
@@ -42,9 +32,7 @@ public class Position implements Parcelable {
      */
     public Position() {
         // TODO : faire une factory
-//        latitude = null;
-//        longitude = null;
-        location = new Location("dummy");
+        location = null;
         address = new Address(Locale.getDefault());
         // TODO : externaliser le formatage
         formatter = new DecimalFormat("#0.0000000");
@@ -55,16 +43,6 @@ public class Position implements Parcelable {
      * @param in the super state
      */
     private Position(Parcel in) {
-//        this.latitude = in.readDouble();
-//        this.longitude = in.readDouble();
-//
-//        Parcelable[] inAddresses = in.readParcelableArray((ClassLoader) Address.CREATOR);
-//
-//        this.addresses = new ArrayList<>();
-//
-//        for (Parcelable address : inAddresses) {
-//            this.addresses.add((Address) address);
-//        }
         this.location = in.readParcelable((ClassLoader) Location.CREATOR);
         this.address = in.readParcelable((ClassLoader) Address.CREATOR);
     }
@@ -74,18 +52,6 @@ public class Position implements Parcelable {
      * @param location the location to set the position from
      */
     public void setPositionFromLocation(Location location) {
-//        if (location != null) {
-//            this.latitude = location.getLatitude();
-//            this.longitude = location.getLongitude();
-//        } else {
-//            this.latitude = null;
-//            this.longitude = null;
-//            // the address list is null when not in address mode
-//            if (this.addresses != null) {
-//                this.addresses.clear();
-//                this.addresses.add(0, null);
-//            }
-//        }
         this.location = location;
     }
 
@@ -122,14 +88,6 @@ public class Position implements Parcelable {
         return latitude;
     }
 
-//    /**
-//     * Sets the object's latitude.
-//     * @param latitude the latitude to set
-//     */
-//    public void setLatitude(Double latitude) {
-//        this.location.setLatitude(latitude);
-//    }
-
     /**
      * Returns the object's longitude.
      * @return the longitude
@@ -155,28 +113,11 @@ public class Position implements Parcelable {
         return longitude;
     }
 
-//    /**
-//     * Sets the object's longitude.
-//     * @param longitude the longitude to set
-//     */
-//    public void setLongitude(Double longitude) {
-//        this.longitude = longitude;
-//    }
-
     /**
      * Returns the location stored by the class.
      * @return the location stored by the class
      */
     public Location getLocation() {
-//        Location location = new Location("dummyprovider");
-//
-//        if (this.latitude != null) {
-//            location.setLatitude(this.latitude);
-//        }
-//        if (this.longitude != null) {
-//            location.setLongitude(this.longitude);
-//        }
-
         return location;
     }
 
@@ -199,22 +140,6 @@ public class Position implements Parcelable {
      * @return true if the location is near to the one stored in the instance of that class
      */
     public boolean isNearTo(Location location) {
-//        boolean isLatitudeEqual;
-//
-//        if (this.latitude == null) {
-//            isLatitudeEqual = false;
-//        } else {
-//            isLatitudeEqual = PositionHelper.round(location.getLatitude(), 4) == PositionHelper.round(this.latitude, 4);
-//        }
-//        boolean isLongitudeEqual;
-//        if (this.longitude == null) {
-//            isLongitudeEqual = false;
-//        } else {
-//            isLongitudeEqual = PositionHelper.round(location.getLongitude(), 4) == PositionHelper.round(this.longitude, 4);
-//        }
-//
-//        return isLatitudeEqual && isLongitudeEqual;
-
         if (this.location != null) {
             boolean isLatitudeEqual = PositionHelper.round(location.getLatitude(), 4) == PositionHelper.round(this.location.getLatitude(), 4);
             boolean isLongitudeEqual = PositionHelper.round(location.getLongitude(), 4) == PositionHelper.round(this.location.getLongitude(), 4);
@@ -225,62 +150,12 @@ public class Position implements Parcelable {
         }
     }
 
-//    /**
-//     * Returns the list of addresses stored in the object.
-//     * @return the list of addresses
-//     */
-//    public List<Address> getAddresses() {
-//        return this.addresses;
-//    }
-//
-//    /**
-//     * Sets the addresses found for the location.
-//     * @param addresses the addresses list
-//     */
-//    public void setAddresses(List<Address> addresses) {
-//        this.addresses = addresses;
-//    }
-//
-//    /**
-//     * Sets the index of the selected address.
-//     * @param selection the index of the selected address
-//     */
-//    public void setSelectedAddress(int selection) {
-//        this.selectedAddress = selection;
-//    }
-//
-//    /**
-//     * Returns true if the addresses list is filled and a selection is made on it.
-//     * @return false when the addresses list is empty or no selection exists
-//     */
-//    public boolean hasAddresses() {
-//        if (this.addresses == null) {
-//            return false;
-//        } else {
-//            // there should be at least two elements as there is an empty address
-//            return this.addresses.size() > 1 && this.selectedAddress != 0;
-//        }
-//    }
-
     /**
      * Returns the formatted selected address.
      * @return a string representing the selected address
      */
     public String getFormattedAddress() {
         String address = "";
-
-//        if (this.addresses != null && !this.addresses.isEmpty() && this.selectedAddress <= this.addresses.size() && this.selectedAddress != 0) {
-//            Address currentAddress = this.addresses.get(this.selectedAddress);
-//            if (currentAddress.getAddressLine(0) != null) {
-//                address = currentAddress.getAddressLine(0);
-//            }
-//            if (currentAddress.getLocality() != null) {
-//                if (address.length() > 0) {
-//                    address += " ";
-//                }
-//                address += currentAddress.getLocality();
-//            }
-//        }
         if (this.address != null) {
             if (this.address.getAddressLine(0) != null) {
                 address = this.address.getAddressLine(0);
@@ -295,26 +170,6 @@ public class Position implements Parcelable {
 
         return address;
     }
-
-//    /**
-//     * Returns the index of the selected address.
-//     * @return the index of the selected address
-//     */
-//    public int getSelectedAddressPosition() {
-//        return this.selectedAddress;
-//    }
-//
-//    /**
-//     * Returns the selected address.
-//     * @return the selected address
-//     */
-//    public Address getSelectedAddress() {
-//        if (this.addresses != null && !this.addresses.isEmpty() && this.selectedAddress <= this.addresses.size() && this.selectedAddress != 0) {
-//            return this.addresses.get(selectedAddress);
-//        } else {
-//            return null;
-//        }
-//    }
 
     /**
      * Returns the selected address.
@@ -339,22 +194,6 @@ public class Position implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel out, int flags) {
-//        out.writeDouble(this.latitude == null ? 0 : this.latitude);
-//        out.writeDouble(this.longitude == null ? 0 : this.longitude);
-//
-//
-//        Parcelable[] addrs = null;
-//
-//        if (this.addresses != null) {
-//            addrs = new Parcelable[this.addresses.size()];
-//
-//            for (int rank = 0; rank < this.addresses.size(); rank++) {
-//                addrs[rank] = this.addresses.get(rank);
-//            }
-//        }
-//
-//        out.writeParcelableArray(addrs, 0);
-
         out.writeParcelable(this.location, 0);
         out.writeParcelable(this.address, 0);
     }

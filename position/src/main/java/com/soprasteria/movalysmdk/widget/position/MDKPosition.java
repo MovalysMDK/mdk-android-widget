@@ -573,7 +573,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             }
         }
 
-        setLocation(location);
+        // we do not use setLocation here because we only update the input fields.
+        // there is no need to update the other fields
+        this.position.setPositionFromLocation(location);
 
         validate(EnumFormFieldValidator.ON_USER);
 
