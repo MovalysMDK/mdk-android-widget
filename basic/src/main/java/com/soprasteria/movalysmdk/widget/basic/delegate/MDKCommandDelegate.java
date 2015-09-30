@@ -51,7 +51,7 @@ public class MDKCommandDelegate {
     /** command name to execute. */
     private String command;
 
-    /** reference to the associated view */
+    /** reference to the associated view. */
     private WeakReference<View> widget;
 
     /** broadcast enable receiver. */
@@ -67,6 +67,7 @@ public class MDKCommandDelegate {
     /**
      * Constructor.
      * @param view the associated view
+     * @param attrs the XML attributes of the view
      */
     public MDKCommandDelegate(View view, AttributeSet attrs) {
 

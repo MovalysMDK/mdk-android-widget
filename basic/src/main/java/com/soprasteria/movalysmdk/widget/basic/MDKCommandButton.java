@@ -35,7 +35,7 @@ import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCommandDelegate;
  */
 public class MDKCommandButton extends AppCompatButton implements View.OnClickListener {
 
-    /** widget delegate */
+    /** widget delegate. */
     private MDKCommandDelegate delegate;
 
     /**
@@ -59,7 +59,7 @@ public class MDKCommandButton extends AppCompatButton implements View.OnClickLis
     }
 
     /**
-     * Defaut Constructor.
+     * Default Constructor.
      * @param context Android context
      * @param attrs android xml attributes
      * @param defStyleAttr default style attribut

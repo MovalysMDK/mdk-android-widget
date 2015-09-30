@@ -158,7 +158,6 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
         navButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_navButtonViewId, 0);
         clearButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_clearButtonViewId, 0);
 
-        // FIXME
         this.timeout = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_timeout, 10);
 
         this.autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);

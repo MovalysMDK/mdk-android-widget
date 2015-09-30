@@ -115,6 +115,10 @@ public class Position implements Parcelable {
         this.longitude = longitude;
     }
 
+    /**
+     * Returns the location stored by the class.
+     * @return the location stored by the class
+     */
     public Location getLocation() {
         Location location = new Location("dummyprovider");
 
@@ -140,10 +144,13 @@ public class Position implements Parcelable {
         }
     }
 
-    @Override
-    public boolean equals(Object object) {
-        Location location = (Location) object;
-
+    /**
+     * Returns true if the given location is near to the one stored in the class.
+     * This is used to avoid a calculation on addresses when the position is getting more accurate.
+     * @param location the location to compare
+     * @return true if the location is near to the one stored in the instance of that class
+     */
+    public boolean isNearTo(Location location) {
         boolean isLatitudeEqual;
         if (this.latitude == null) {
             isLatitudeEqual = false;
@@ -184,6 +191,10 @@ public class Position implements Parcelable {
         this.selectedAddress = selection;
     }
 
+    /**
+     * Returns true if the addresses list is filled and a selection is made on it.
+     * @return false when the addressses list is empty or no selection exists
+     */
     public boolean hasAddresses() {
         if (this.addresses == null) {
             return false;
@@ -193,10 +204,14 @@ public class Position implements Parcelable {
         }
     }
 
-    public String getStringAddress() {
+    /**
+     * Returns the formatted selected address.
+     * @return a string represnting the selected address
+     */
+    public String getFormattedAddress() {
         String address = "";
 
-        if (this.addresses != null && this.addresses.size() > 0 && this.selectedAddress <= this.addresses.size() && this.selectedAddress != 0) {
+        if (this.addresses != null && !this.addresses.isEmpty() && this.selectedAddress <= this.addresses.size() && this.selectedAddress != 0) {
             Address currentAddress = this.addresses.get(this.selectedAddress);
             if (currentAddress.getAddressLine(0) != null) {
                 address = currentAddress.getAddressLine(0);
@@ -225,7 +240,7 @@ public class Position implements Parcelable {
      * @return the selected address
      */
     public Address getSelectedAddress() {
-        if (this.addresses != null && this.addresses.size() > 0 && this.selectedAddress <= this.addresses.size() && this.selectedAddress != 0) {
+        if (this.addresses != null && !this.addresses.isEmpty() && this.selectedAddress <= this.addresses.size() && this.selectedAddress != 0) {
             return this.addresses.get(selectedAddress);
         } else {
             return null;

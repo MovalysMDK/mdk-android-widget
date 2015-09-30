@@ -9,13 +9,22 @@ import java.math.RoundingMode;
 public class PositionHelper {
 
     /**
+     * Constructor.
+     */
+    public PositionHelper()  {
+        // nothing to do
+    }
+
+    /**
      * Rounds a double value with the given number of decimals.
      * @param value the value to round
      * @param decimalNumber the number of decimal to keep
      * @return the rounded double value
      */
     public static double round(double value, int decimalNumber) {
-        if (decimalNumber < 0) throw new IllegalArgumentException();
+        if (decimalNumber < 0) {
+            throw new IllegalArgumentException();
+        }
 
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(decimalNumber, RoundingMode.HALF_UP);

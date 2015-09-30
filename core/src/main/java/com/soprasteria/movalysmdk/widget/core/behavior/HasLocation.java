@@ -20,7 +20,7 @@ import android.location.Location;
 /**
  * Add location behaviour to a widget.
  */
-// TODO: renommer en HasPosition ?
+// TODO: renommer en HasPosition & gerer un object Position
 public interface HasLocation {
 
     /**
@@ -40,11 +40,6 @@ public interface HasLocation {
      * @param location the {@link Location} to set on the component.
      */
     void setLocation(Location location);
-
-    // TODO
-//    Position getPosition();
-//
-//    void setPosition(Position position);
 
     /**
      * Sets the latitude hint.

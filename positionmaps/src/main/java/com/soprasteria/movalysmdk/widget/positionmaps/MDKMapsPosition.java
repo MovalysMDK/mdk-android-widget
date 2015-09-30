@@ -80,8 +80,8 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     /** Handler for text change cool down. */
     private Handler delayTextChangedHandler = new Handler() {
         @Override
-        public void handleMessage(Message p_oMsg) {
-            if (p_oMsg.what == MESSAGE_TEXT_CHANGED) {
+        public void handleMessage(Message msg) {
+            if (msg.what == MESSAGE_TEXT_CHANGED) {
                 updateLocationOnTextChanged();
                 updateOnMapDisplay();
             }

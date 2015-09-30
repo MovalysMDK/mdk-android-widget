@@ -353,12 +353,10 @@ public class SwitchTest {
         }
     }
 
-
-
-    @Test
     /**
      * Check MDK switch widget text when this one is checked and unchecked.
      */
+    @Test
     public void testSwitchText() {
 
         // Assertion that activity result is not null, nominal case

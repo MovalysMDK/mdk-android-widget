@@ -46,6 +46,7 @@ public class MapWidgetCommand implements WidgetCommand<Location, Integer> {
      * open the map.
      * @param context the android context
      * @param uri map URI
+     * @return returns the identifier of the error if one gets raised
      */
     private int openMap(Context context, String uri){
         int res = 0;

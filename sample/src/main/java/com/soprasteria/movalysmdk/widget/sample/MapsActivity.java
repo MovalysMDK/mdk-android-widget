@@ -28,6 +28,7 @@ import com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition;
  */
 public class MapsActivity extends AbstractWidgetTestableActivity {
 
+    /** the MDKMapsPosition with a PlacePicker option. */
     private MDKMapsPosition placesMapsPosition;
 
     @Override
@@ -56,16 +57,14 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO : a faire autrement
-        if (requestCode == placesMapsPosition.getPlacePickerRequest()) {
-            if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(data, this);
+        if (requestCode == placesMapsPosition.getPlacePickerRequest() && resultCode == RESULT_OK) {
+            Place place = PlacePicker.getPlace(data, this);
 
-                Location location = new Location("Test");
-                location.setLatitude(place.getLatLng().latitude);
-                location.setLongitude(place.getLatLng().longitude);
+            Location location = new Location("Test");
+            location.setLatitude(place.getLatLng().latitude);
+            location.setLongitude(place.getLatLng().longitude);
 
-                placesMapsPosition.setLocation(location);
-            }
+            placesMapsPosition.setLocation(location);
         }
 
     }

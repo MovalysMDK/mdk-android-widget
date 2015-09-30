@@ -78,12 +78,6 @@ public class WidgetCommandDelegate implements ValidationListener {
     /** true if the secondary command view is out of the linked view. */
     private boolean outerSecondaryCommandView = true;
 
-    /** primary command animation identifier */
-    private int primaryCommandAnimationId = 0;
-
-    /** secondary command animation identifier */
-    private int secondaryCommandAnimationId = 0;
-
     /**
      * Constructor.
      * @param mdkWidget view the widget view
@@ -132,6 +126,7 @@ public class WidgetCommandDelegate implements ValidationListener {
      * @param commandType the type of the command
      * @param commandId the identifier of the view for the command
      * @param deactivateOnValidation true to deactivate the command on validation
+     * @param out true if the given command is out of the widget, otherwise the command should be looked for inside of it
      */
     public void manuallyAddCommand(@EnumKindOfCommand int commandType, @IdRes int commandId, boolean deactivateOnValidation, boolean out) {
         if (commandType == FIRST_COMMAND) {
@@ -168,6 +163,7 @@ public class WidgetCommandDelegate implements ValidationListener {
     /**
      * Find command view for the specified id.
      * @param commandViewId the command view id
+     * @param out true if the given command is out of the widget, otherwise the command should be looked for inside of it
      * @return the view if exists
      */
     private View findCommandView(@IdRes int commandViewId, boolean out) {
@@ -181,17 +177,6 @@ public class WidgetCommandDelegate implements ValidationListener {
             }
         }
         return commandView;
-    }
-
-    /**
-     * Return the base key name for the specified parameters.
-     * @param widgetClassName the simple name class of the widget
-     * @param commandViewId the id of the command view
-     * @return the base key associated with the parameters
-     */
-    @Nullable private String baseKey(String widgetClassName, @IdRes int commandViewId) {
-        String command = getStringCommandById(commandViewId);
-        return WidgetCommandFactory.baseKey(widgetClassName, command);
     }
 
     /**
@@ -248,6 +233,7 @@ public class WidgetCommandDelegate implements ValidationListener {
      * Activate or not command on a specific view id.
      * @param enable Activation toggle
      * @param viewId the view id
+     * @param out true if the given command is out of the widget, otherwise the command should be looked for inside of it
      */
     protected void enableCommandOnView(boolean enable, int viewId, boolean out) {
         View commandView = findCommandView(viewId, out);

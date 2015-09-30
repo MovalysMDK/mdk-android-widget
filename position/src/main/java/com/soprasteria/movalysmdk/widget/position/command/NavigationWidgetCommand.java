@@ -41,6 +41,7 @@ public class NavigationWidgetCommand implements WidgetCommand<Location, Integer>
      * open the direction application.
      * @param context the android context
      * @param uri map URI
+     * @return returns the identifier of the error if one gets raised
      */
     private int openDirections(Context context, String uri){
         int res = 0;

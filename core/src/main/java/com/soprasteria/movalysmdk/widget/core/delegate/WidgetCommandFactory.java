@@ -22,7 +22,17 @@ import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 
+/**
+ * Widget command factory.
+ */
 public class WidgetCommandFactory {
+
+    /**
+     * Constructor.
+     */
+    public WidgetCommandFactory() {
+        // nothing to do
+    }
 
     /**
      * Return the base key name for the specified parameters.

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.helper.ApplicationPermissionHelper;
 import com.soprasteria.movalysmdk.widget.position.R;
 
 import java.lang.ref.WeakReference;
@@ -90,13 +91,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
 
                 // Will keep updating about every 500 ms until
                 // accuracy is about 50 meters to get accurate fix.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                            && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        listener.onError(R.string.mdkcommand_position_error_permission);
-                        return;
-                    }
-                }
+                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
                 locationManager.requestLocationUpdates(locationManager.getBestProvider(oFine, true), UPDATE_TIMER, FINE_ACCURACY_LEVEL, oListenerFine);
             }
 
@@ -106,7 +101,7 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
 
                 // Will keep updating about every 500 ms until
                 // accuracy is about 1000 meters to get accurate fix.
-                // Replace oLocationManager.getBestProvider(oCoarse, true) to
+                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_TIMER, COARSE_ACCURACY_LEVEL, oListenerCoarse);
             }
 
@@ -137,19 +132,17 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         }
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    PositionCommandListener listener = this.commandListener.get();
-                    if (listener != null) {
-                        listener.onError(R.string.mdkcommand_position_error_permission);
-                    }
-                    return;
-                }
+            PositionCommandListener listener = PositionWidgetCommand.this.commandListener.get();
+            if (listener != null) {
+                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
             }
             locationManager.removeUpdates(oListenerFine);
         }
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            PositionCommandListener listener = PositionWidgetCommand.this.commandListener.get();
+            if (listener != null) {
+                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
+            }
             locationManager.removeUpdates(oListenerCoarse);
         }
     }
@@ -189,14 +182,8 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         // Get at least something from the device,
         // could be very inaccurate though
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    if (listener != null) {
-                        listener.onError(R.string.mdkcommand_position_error_permission);
-                    }
-                    return;
-                }
+            if (listener != null) {
+                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
             }
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(oFine, true));
             this.onCurrentLocationChange();
@@ -208,6 +195,9 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         }
 
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            if (listener != null) {
+                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
+            }
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             this.onCurrentLocationChange();
         }
@@ -227,8 +217,8 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
     }
 
     /**
-     *
      * called when the fine location get the defined accuracy.
+     * @param precision the precision of the location found
      */
     private void locationOk(int precision) {
         PositionCommandListener listener = this.commandListener.get();
@@ -239,6 +229,14 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
         if (precision == PositionWidgetCommand.FINE_ACCURACY_LEVEL) {
             cancel();
         }
+    }
+
+    /**
+     * Returns true if a location has been made available.
+     * @return true if a location has been made available
+     */
+    public boolean isLocationAvailable() {
+        return locationAvailable;
     }
 
     /**
@@ -264,15 +262,9 @@ public class PositionWidgetCommand implements WidgetCommand<PositionCommandListe
             // we check timeout != null because after removeUpdates, we may get some other calls to onLocationChanged
             // we do not want that on the MDK components listening to that action
             if (location != null && location.getAccuracy() < precision && location.hasAccuracy() && timerTimeout != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                            && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        PositionCommandListener listener = PositionWidgetCommand.this.commandListener.get();
-                        if (listener != null) {
-                            listener.onError(R.string.mdkcommand_position_error_permission);
-                        }
-                        return;
-                    }
+                PositionCommandListener listener = PositionWidgetCommand.this.commandListener.get();
+                if (listener != null) {
+                    ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
                 }
                 locationManager.removeUpdates(this);
                 PositionWidgetCommand.this.locationOk(precision);

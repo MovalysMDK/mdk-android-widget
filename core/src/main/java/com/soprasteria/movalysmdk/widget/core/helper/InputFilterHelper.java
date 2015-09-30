@@ -24,6 +24,13 @@ import android.text.Spanned;
 public class InputFilterHelper {
 
     /**
+     * Constructor.
+     */
+    public InputFilterHelper() {
+        // nothing to do
+    }
+
+    /**
      * returns the string being typed.
      * @param source the replacement string
      * @param start the start of the replacement in source

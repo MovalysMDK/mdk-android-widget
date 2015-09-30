@@ -2,10 +2,12 @@ package com.soprasteria.movalysmdk.widget.position.command;
 
 import android.location.Location;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+
 /**
  * Position Command Widget listener.
  */
-public interface PositionCommandListener {
+public interface PositionCommandListener extends HasDelegate {
 
     /**
      * Returns the time out to set on the location manager.

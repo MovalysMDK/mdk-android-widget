@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -44,8 +43,6 @@ import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.adapters.AddressSpinnerAdapter;
-import com.soprasteria.movalysmdk.widget.position.command.MapWidgetCommand;
-import com.soprasteria.movalysmdk.widget.position.command.NavigationWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.command.PositionCommandListener;
 import com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
@@ -194,6 +191,10 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         }
     }
 
+    /**
+     * Returns the layout of the widget.
+     * @return the layout of the widget
+     */
     @LayoutRes
     protected int getLayoutResource() {
         return R.layout.mdkwidget_position_layout;
@@ -226,7 +227,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             if (latView != null) {
                 // Handle text changed events on components
                 latView.addTextChangedListener(this);
-//                latView.setFilters(new InputFilter[]{new PositionInputFilter(-90, 90, 7)});
+                latView.setFilters(new InputFilter[]{new PositionInputFilter(-90, 90, 7)});
             }
             final EditText lngView = this.mdkWidgetDelegate.getLongitudeView();
             if (lngView != null) {
@@ -304,7 +305,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     }
 
     /**
-     * Stops the animation on the locate button
+     * Stops the animation on the locate button.
      */
     private void stopAnimationOnLocate() {
         View locateButton = this.mdkWidgetDelegate.getLocateButton();
@@ -342,12 +343,12 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         } else if (v.getId() == this.mdkWidgetDelegate.getMapsButtonId()) {
             WidgetCommand command = WidgetCommandFactory.getWidgetCommand("secondary", "", this);
             if (command != null) {
-                error = ((MapWidgetCommand) command).execute(this.getContext(), this.getLocation());
+                error = ((WidgetCommand<Location, Integer>) command).execute(this.getContext(), this.getLocation());
             }
         } else if (v.getId() == this.mdkWidgetDelegate.getNavButtonId()) {
             WidgetCommand command = WidgetCommandFactory.getWidgetCommand("tertiary", "", this);
             if (command != null) {
-                error = ((NavigationWidgetCommand) command).execute(this.getContext(), this.getLocation());
+                error = ((WidgetCommand<Location, Integer>) command).execute(this.getContext(), this.getLocation());
             }
         }
 
@@ -377,7 +378,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                     longitude
             };
         } else {
-            return new String[]{ this.position.getStringAddress() };
+            return new String[]{ this.position.getFormattedAddress() };
         }
     }
 
@@ -402,10 +403,18 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         updateComponent();
     }
 
+    /**
+     * Returns the {@link Position} stored by the widget.
+     * @return the current {@link Position}
+     */
     public Position getPosition() {
         return this.position;
     }
 
+    /**
+     * Sets the {@link Position} on the widget.
+     * @param position the {@link Position} to set
+     */
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -436,11 +445,11 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         if (location != null) {
             if (this.mdkWidgetDelegate.getMode() == MDKPosition.GEOPOINT) {
                 this.position.setPositionFromLocation(location);
-            } else if (!this.position.equals(location) || !this.position.hasAddresses()) {
+            } else if (!this.position.isNearTo(location) || !this.position.hasAddresses()) {
                 // this occurs when the fix is done, ie we have a precise location
                 List<Address> addresses = getAddresses(location, true);
 
-                if (addresses != null && addresses.size() > 0) {
+                if (addresses != null && !addresses.isEmpty()) {
                     // we have found a list of addresses, the user will pick one
                     this.position.setAddresses(addresses);
                     this.position.setSelectedAddress(1);
@@ -482,7 +491,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             this.mdkWidgetDelegate.getLocationInfoView().setText(this.position.getFormattedLocation());
         }
         if (this.mdkWidgetDelegate.getAddressInfoView() != null) {
-            this.mdkWidgetDelegate.getAddressInfoView().setText(this.position.getStringAddress());
+            this.mdkWidgetDelegate.getAddressInfoView().setText(this.position.getFormattedAddress());
         }
 
         updateComponent();
@@ -493,6 +502,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     /**
      * Get the addresses from the location.
      * @param location the location to set
+     * @param addEmpty if true, will add the empty element to the list
      * @return the addresses list
      */
     @Nullable
@@ -502,7 +512,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), ADDRESSES_LIST_LENGTH);
-            if (addresses != null && addresses.size() > 0 && addEmpty) {
+            if (addresses != null && !addresses.isEmpty() && addEmpty) {
                 // we add an empty element
                 addresses.add(0, null);
             }
@@ -518,7 +528,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * @param addresses the addresses list
      */
     private void fillSpinner(List<Address> addresses) {
-        if (addresses != null && addresses.size() > 0) {
+        if (addresses != null && !addresses.isEmpty()) {
             AddressSpinnerAdapter adapter = new AddressSpinnerAdapter(getContext(), R.layout.mdkwidget_position_layout_address_item, addresses);
             Spinner addrView = this.mdkWidgetDelegate.getAddressView();
 
@@ -591,17 +601,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * Clears the widget content.
      */
     public void clear() {
-
-
-//        if (this.mdkWidgetDelegate.getMode() == ADDRESS) {
-//            Spinner addrView = this.mdkWidgetDelegate.getAddressView();
-//            if (addrView != null) {
-//                addrView.setSelection(this.position.getSelectedAddressPosition());
-//            }
-//        }
         this.setLocation(null);
-
-//        updateComponent();
     }
 
     /**
@@ -629,7 +629,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             updateComponent();
 
             if (commandToExecute != null) {
-                ((PositionWidgetCommand) commandToExecute).execute(this.getContext(), this);
+                ((WidgetCommand<PositionCommandListener, Void>) commandToExecute).execute(this.getContext(), this);
             }
         }
     }
@@ -855,6 +855,10 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         updateComponent();
     }
 
+    /**
+     * Sets the timeout to use for location.
+     * @param timeout the timeout to set
+     */
     public void setTimeOut(int timeout) {
         this.mdkWidgetDelegate.setTimeOut(timeout);
     }
