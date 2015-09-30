@@ -11,7 +11,7 @@ public class PositionHelper {
     /**
      * Constructor.
      */
-    public PositionHelper()  {
+    private PositionHelper()  {
         // nothing to do
     }
 

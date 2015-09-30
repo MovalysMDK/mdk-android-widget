@@ -30,7 +30,7 @@ public class WidgetCommandFactory {
     /**
      * Constructor.
      */
-    public WidgetCommandFactory() {
+    private WidgetCommandFactory() {
         // nothing to do
     }
 

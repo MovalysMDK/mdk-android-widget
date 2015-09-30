@@ -26,7 +26,7 @@ public class InputFilterHelper {
     /**
      * Constructor.
      */
-    public InputFilterHelper() {
+    private InputFilterHelper() {
         // nothing to do
     }
 
