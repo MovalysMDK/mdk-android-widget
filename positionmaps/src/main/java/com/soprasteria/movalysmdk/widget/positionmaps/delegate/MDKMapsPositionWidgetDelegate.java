@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -98,7 +99,7 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
             map.getUiSettings().setAllGesturesEnabled(false);
         } catch (RuntimeException e) {
             // this is most probably an API key problem. We notify the user
-            e.printStackTrace();
+            Log.e(this.getClass().getSimpleName(), root.getContext().getString(R.string.maps_api_error_title), e);
             new AlertDialog.Builder(root.getContext())
                     .setTitle(root.getContext().getString(R.string.maps_api_error_title))
                     .setMessage(root.getContext().getString(R.string.maps_api_error_description))

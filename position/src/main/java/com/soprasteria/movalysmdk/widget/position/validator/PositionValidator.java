@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.position.validator;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
@@ -86,7 +87,7 @@ public class PositionValidator implements FormFieldValidator<String[]> {
                     value = Double.parseDouble(objectToValidate[1]);
                     isCorrect &= value >= -180 && value <= 180;
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    Log.e(this.getClass().getSimpleName(), "NumberFormatException", e);
                     isCorrect = false;
                 }
 

@@ -140,12 +140,10 @@ public class Position implements Parcelable {
         }
     }
 
-    /**
-     * Returns true if the current location is equal to the one sent as parameter.
-     * @param location the location to test
-     * @return true if the location equals the current one
-     */
-    public boolean equals(Location location) {
+    @Override
+    public boolean equals(Object object) {
+        Location location = (Location) object;
+
         boolean isLatitudeEqual;
         if (this.latitude == null) {
             isLatitudeEqual = false;
