@@ -194,5 +194,6 @@
     <string name="email_rich_without_label">email rich without label</string>
     <string name="seekbar_edit_text_not_editable">Seekbar with edit text not editable</string>
     <string name="seekbar_min_max_allowed">Seekbar with min allowed and max allowed but neither min nor max</string>
+    <string name="seekbar_different_formatter">Seekbar with different formatter</string>
 
 </resources>

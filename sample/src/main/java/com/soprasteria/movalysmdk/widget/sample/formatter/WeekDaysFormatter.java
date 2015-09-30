@@ -13,27 +13,35 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.behavior;
+package com.soprasteria.movalysmdk.widget.sample.formatter;
 
 import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
 
+
 /**
- * Add formater behavior on a widget.
- * @param <X> Type to format to.
- * @param <Y> Type to unformat to.
+ * Formatter that transforms seekbar value into weekdays strings.
  */
-public interface HasFormatter<X, Y> {
+public class WeekDaysFormatter implements MDKBaseFormatter<Integer, String> {
 
-    /**
-     * Get the formatter used to display the value.
-     * @return true if the edittext is editable.
-     */
-    MDKBaseFormatter<X, Y> getFormatter();
+    /** String array of weekdays for formatting. **/
+    private String[] weekdays = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 
+    @Override
+    public String format(Integer valueToFormat) {
+        if (valueToFormat<7) {
+            return weekdays[valueToFormat];
+        }else{
+            return "###";
+        }
+    }
 
-    /**
-     * Set the formatter used to display the value.
-     * @param newFormatter formatter to set.
-     */
-    void setFormatter(MDKBaseFormatter<X, Y> newFormatter);
+    @Override
+    public Integer unformat(String valueToUnformat) {
+        for(int i=0;i<weekdays.length;i++){
+            if(weekdays[i].equals(valueToUnformat)){
+                return i;
+            }
+        }
+        return 0;
+    }
 }

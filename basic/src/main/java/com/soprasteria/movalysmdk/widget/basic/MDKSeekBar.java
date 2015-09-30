@@ -22,6 +22,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -61,6 +62,9 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  */
 public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasFormatter<Integer, String>, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, View.OnKeyListener{
 
+    /** Log tag.*/
+    public static final String LOG_TAG = "MDKRichSeekBar";
+
     /** MDK Widget implementation. */
     private MDKWidgetDelegate mdkWidgetDelegate;
 
@@ -78,15 +82,16 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     /** Seekbar value field. **/
     @IdRes private int seekbarEditTextId;
-    /** linked EditText. */
+    /** Linked EditText. */
     private EditText seekbarEditText;
 
-    /** Seekbar minimum, doesn't exist in original widget **/
+    /** Seekbar minimum, doesn't exist in original widget. **/
     private int min;
 
-    /** editable property of the attached edittext **/
+    /** Editable property of the attached edittext. **/
     private boolean editableEditText;
 
+    /** Formatter to convert seekbar value to and from displayed value. **/
     private MDKBaseFormatter<Integer, String> formatter;
 
     /**
@@ -139,6 +144,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             try {
                 this.formatter = (MDKBaseFormatter<Integer, String>) Class.forName(formatterStr).newInstance();
             } catch (Exception e) {
+                Log.e(LOG_TAG,"Unknown formatter class", e);
                 this.formatter = new SeekbarDefaultFormatter();
             }
         }else{
@@ -174,10 +180,10 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         String initialValueStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
         if (initialValueStr != null) {
-            seekBarValue = Integer.parseInt(initialValueStr);
+            setSeekBarValue(Integer.parseInt(initialValueStr));
             setSeekProgress(seekBarValue);
         } else {
-            seekBarValue = this.min;
+            setSeekBarValue(this.min);
         }
 
 
@@ -202,15 +208,18 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
                 initEditText();
 
-
             }
+        }
+
+        if (this.getMDKWidgetDelegate() != null ) {
+            validate(EnumFormFieldValidator.ON_USER);
         }
     }
 
 
     /**
-     * Vzlidate the edittext and updates the seekbar value
-     * @param s the text of the edittext to validate
+     * Validates the edittext and updates the seekbar value.
+     * @param s the text of the edittext to validate.
      */
     private void validateEditText(Editable s) {
 
@@ -246,6 +255,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         super.setOnSeekBarChangeListener(this);
     }
 
+    /**
+     * Initializes the attached edittext.
+     */
     private void initEditText(){
         //init edittext
         seekbarEditText.addTextChangedListener(this);
@@ -261,12 +273,16 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             seekbarEditText.setKeyListener(null);
         }
 
-        //growing edittext width if needed
-        if (getMax() > getResources().getInteger(R.integer.mdkwidget_seekbar_edittext_max_value_before_resize)) {
-            seekbarEditText.getLayoutParams().width += (Math.floor(Math.log(getMax())) - 2) * getResources().getDimension(R.dimen.mdkwidget_seekbar_edittext_incremental_width);
+        //grows the edittext automatically
+        if((formatter.format(getMax()).length()) * getResources().getDimensionPixelSize(R.dimen.mdkwidget_seekbar_edittext_incremental_width) > seekbarEditText.getLayoutParams().width) {
+            seekbarEditText.getLayoutParams().width = formatter.format(getMax()).length() * getResources().getDimensionPixelSize(R.dimen.mdkwidget_seekbar_edittext_incremental_width);
         }
     }
 
+    /**
+     * Formats the value and displays it in the attached edittext.
+     * @param value the value to set
+     */
     private void setAttachedEditTextValue(int value){
         if (seekbarEditText != null) {
             seekbarEditText.removeTextChangedListener(this);
@@ -326,9 +342,11 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
-    public void setSeekProgress(int value) {
+    public void setSeekProgress(int val) {
 
-        if(value<min) {
+        int value=val;
+
+        if(val<min) {
             value = min;
         }
 
@@ -535,7 +553,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
 
-    /** attached EditText listener methods **/
+    /** attached EditText listener methods. **/
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {

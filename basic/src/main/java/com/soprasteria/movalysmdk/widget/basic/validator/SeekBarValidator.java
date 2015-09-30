@@ -81,37 +81,48 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
 
             int currentValueToValidate = objectToValidate;
 
+            mdkMessage = executeValidation(currentValueToValidate, context, mdkAttributeSet);
 
-            if (mdkAttributeSet.containsKey(R.attr.max_allowed)&&mdkAttributeSet.containsKey(R.attr.min_allowed)
-                    && (currentValueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed) || currentValueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))){
-                mdkMessage = new MDKMessage();
-                mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
-                mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
-                String error = context.getString(R.string.mdkvalidator_seekbar_error_max_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed)), String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed)));
-                mdkMessage.setMessage(error);
-            }else{
-
-                if ((mdkAttributeSet.containsKey(R.attr.max_allowed))
-                        && (currentValueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed))) {
-                    mdkMessage = new MDKMessage();
-                    mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
-                    mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
-                    String error = context.getString(R.string.mdkvalidator_seekbar_error_max, String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed)));
-                    mdkMessage.setMessage(error);
-                }
-
-                if ((mdkAttributeSet.containsKey(R.attr.min_allowed))
-                        && (currentValueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))) {
-                    mdkMessage = new MDKMessage();
-                    mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
-                    mdkMessage.setMessageType(MDKMessage.MESSAGE_TYPE);
-                    String error = context.getString(R.string.mdkvalidator_seekbar_error_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed)));
-                    mdkMessage.setMessage(error);
-                }
-            }
         }
 
         resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
+        return mdkMessage;
+    }
+
+    /**
+     * Determines what error message must be used if applicable.
+     * @param valueToValidate the value of the seekbar.
+     * @param context the context of the message.
+     * @param mdkAttributeSet the attributes of the seekbar.
+     * @return the error message or null if validation passed.
+     */
+    private MDKMessage executeValidation(int valueToValidate, Context context, MDKAttributeSet mdkAttributeSet){
+        MDKMessage mdkMessage = null;
+
+        if (mdkAttributeSet.containsKey(R.attr.max_allowed)&&mdkAttributeSet.containsKey(R.attr.min_allowed)
+                && (valueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed) || valueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))){
+            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_max_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed)), String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed))));
+        }else if((mdkAttributeSet.containsKey(R.attr.max_allowed))
+                && (valueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed))) {
+            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_max, String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed))));
+        }else if ((mdkAttributeSet.containsKey(R.attr.min_allowed))
+                && (valueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))) {
+            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed))));
+        }
+
+        return mdkMessage;
+    }
+
+    /**
+     * Prepares the error message to deliver.
+     * @param errorStr the error string to put in the message.
+     * @return the error message.
+     */
+    private MDKMessage prepareErrorMessage(String errorStr){
+        MDKMessage mdkMessage = new MDKMessage();
+        mdkMessage.setMessageCode(ERROR_INVALID_SB_VALUE);
+        mdkMessage.setMessageType(MDKMessage.ERROR_TYPE);
+        mdkMessage.setMessage(errorStr);
         return mdkMessage;
     }
 }

@@ -73,4 +73,23 @@ public class MdkSeekbarMatchers {
             }
         };
     }
+
+    /**
+     * Creates a matcher to check the displayed value in the edittext of a MDKRichSeekbar component.
+     * @param expectedString the seekbar displayed value that was expected.
+     * @return matcher.
+     */
+    public static Matcher<View> mdkRichSeekbarWithDisplayedValue(final String expectedString) {
+        return new BoundedMatcher<View, MDKRichSeekBar>(MDKRichSeekBar.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText(expectedString);
+            }
+
+            @Override
+            public boolean matchesSafely(MDKRichSeekBar seekBar) {
+                return seekBar.getAttachedEditText().getText().toString().equals(expectedString);
+            }
+        };
+    }
 }

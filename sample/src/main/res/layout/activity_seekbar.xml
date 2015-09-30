@@ -78,6 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:max_allowed="20"
+            mdk:seekbar_max="100"
             mdk:errorId="@+id/mdkemail_errorText"
             mdk:primaryCommandId="@+id/buttonCall"/>
 
@@ -252,6 +253,28 @@
             android:id="@+id/mdkRichSeekBar_edit_text_not_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            mdk:editableEditText="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SeekBar WITH DIFFERENT FORMATTER -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_different_formatter"
+            android:id="@+id/textView7" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_different_formatter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:seekbar_max="6"
+            mdk:formatter="com.soprasteria.movalysmdk.widget.sample.formatter.WeekDaysFormatter"
             mdk:editableEditText="false"/>
     </LinearLayout>
 

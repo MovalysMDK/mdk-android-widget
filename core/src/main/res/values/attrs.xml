@@ -57,7 +57,6 @@
         <attr name="hideFloatingLabelAnim" format="reference" />
         <attr name="helper" format="reference" />
         <attr name="layout" />
-        <attr name="formatter" format="reference"/>
         <attr name="selectors" format="reference" />
         <attr name="errorId" format="reference" />
         <attr name="labelId" format="reference" />
@@ -67,6 +66,7 @@
         <attr name="hint" format="reference" />
         <attr name="minLength" format="integer" />
         <attr name="maxLength" format="integer" />
+        <attr name="formatter" format="string" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">

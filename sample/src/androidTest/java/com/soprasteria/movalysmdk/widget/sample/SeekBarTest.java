@@ -59,7 +59,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
 
 
     /**
-     * Check MDK seekbar widget behaviour with invalid email format.
+     * Check MDK seekbar widget behaviour with invalid seekbar format.
      */
     @Test
     public void testInvalidSeekBar() {
@@ -164,8 +164,6 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(150))
                 .check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(100)));
 
-
-
         //by edittext input
 
         onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).perform(clearText(), typeText("150"), pressImeActionButton());
@@ -179,6 +177,21 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_min_42)))).perform(clearText(), typeText("100"), pressImeActionButton());
         onView(withId(R.id.mdkRichSeekBar_min_42)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithProgress(72)));
 
+    }
+
+    /**
+     * Check MDK seekbar displays value in correct format.
+     */
+    @Test
+    public void testSeekbarFormatter() {
+        // Assertion that activity result is not null, nominal case
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_different_formatter)))).perform(ViewActions.actionWithAssertions(ViewActions.scrollTo()));
+
+        //by seekbar input
+        onView(withId(R.id.mdkRichSeekBar_different_formatter)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(5))
+                .check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithDisplayedValue("Friday")));
     }
 
     @Override

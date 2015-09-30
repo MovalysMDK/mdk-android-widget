@@ -20,10 +20,15 @@ import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
+/**
+ * Default formatter implementation for the seekbar widget.
+ */
 public class SeekbarDefaultFormatter implements MDKBaseFormatter<Integer, String> {
 
+    /** NumberFormat to make conversions. **/
     private NumberFormat nf;
 
+    /** Constructor. **/
     public SeekbarDefaultFormatter(){
         nf = NumberFormat.getIntegerInstance();
         nf.setGroupingUsed(false);

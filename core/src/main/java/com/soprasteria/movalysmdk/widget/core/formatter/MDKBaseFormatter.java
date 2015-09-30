@@ -15,10 +15,26 @@
  */
 package com.soprasteria.movalysmdk.widget.core.formatter;
 
-public interface MDKBaseFormatter<T1,T2>{
+/**
+ * Base formater iterface for widgets.
+ * @param <X> Type to format to.
+ * @param <Y> Type to unformat to.
+ */
+public interface MDKBaseFormatter<X, Y>{
 
-    T2 format(T1 valueToFormat);
+    /**
+     * Formats a value in the specified display format.
+     * @param valueToFormat the value to format.
+     * @return the formatted value.
+     */
+    Y format(X valueToFormat);
 
-    T1 unformat(T2 valueToUnformat);
+
+    /**
+     * Unformats a formatted value.
+     * @param valueToUnformat the value to format.
+     * @return the value in its original type.
+     */
+    X unformat(Y valueToUnformat);
 }
 

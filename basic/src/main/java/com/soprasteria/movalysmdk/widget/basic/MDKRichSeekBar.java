@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.basic.formatter.SeekbarDefaultFormatter;
@@ -37,6 +38,9 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
  * @param <T> The class of the widget to encapsulate*
  */
 public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> & HasValidator & HasDelegate & HasSeekBar & HasChangeListener> extends MDKBaseRichWidget implements HasChangeListener, HasSeekBar, HasFormatter<Integer,String> {
+
+    /** Log tag.*/
+    public static final String LOG_TAG = "MDKRichSeekBar";
 
     /**
      * Constructor.
@@ -66,6 +70,7 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
      * @return the inner widget
      */
     @Override
+    @SuppressWarnings("unchecked")
     public T getInnerWidget()   {
         return (T) super.getInnerWidget();
     }
@@ -88,6 +93,7 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
             try {
                 setFormatter((MDKBaseFormatter<Integer, String>) Class.forName(formatterStr).newInstance());
             } catch (Exception e) {
+                Log.e(LOG_TAG,"Unknown formatter class", e);
                 setFormatter(new SeekbarDefaultFormatter());
             }
         }else{
