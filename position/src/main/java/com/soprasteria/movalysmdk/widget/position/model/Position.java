@@ -5,7 +5,6 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.position.helper.PositionHelper;
 
@@ -138,7 +137,7 @@ public class Position implements Parcelable {
      */
     public String getFormattedLocation() {
         if (!isNull()) {
-            return String.valueOf(this.latitude) + " / " + String.valueOf(this.longitude);
+            return this.latitude + " / " + this.longitude;
         } else {
             return "";
         }

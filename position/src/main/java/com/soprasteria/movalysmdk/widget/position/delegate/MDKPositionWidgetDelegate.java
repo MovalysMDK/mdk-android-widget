@@ -14,8 +14,6 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.position.R;
 
-import org.w3c.dom.Text;
-
 import java.lang.ref.WeakReference;
 
 /**

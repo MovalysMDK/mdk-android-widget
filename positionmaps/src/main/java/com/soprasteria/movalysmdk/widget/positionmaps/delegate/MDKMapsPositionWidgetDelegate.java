@@ -81,7 +81,8 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
 
         try {
             mapView.onCreate(null);
-            mapView.onResume(); //without this, map showed but was empty
+            //without this, map showed but was empty
+            mapView.onResume();
 
             // Gets to GoogleMap from the MapView and does initialization stuff
             map = mapView.getMap();
