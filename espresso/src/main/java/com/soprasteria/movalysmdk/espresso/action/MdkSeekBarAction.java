@@ -48,7 +48,6 @@ public class MdkSeekBarAction {
             @Override
             public void perform(UiController uiController, View view) {
                 ((MDKSeekBar) view).setSeekProgress(progress);
-                //or ((SeekBar) view).setProgress(progress);
             }
 
             @Override
