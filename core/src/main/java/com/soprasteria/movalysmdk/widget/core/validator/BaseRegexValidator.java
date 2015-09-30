@@ -21,7 +21,7 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

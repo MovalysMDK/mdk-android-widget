@@ -39,7 +39,7 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandFactory;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.adapters.AddressSpinnerAdapter;

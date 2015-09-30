@@ -17,7 +17,7 @@ package com.soprasteria.movalysmdk.widget.sample.error;
 
 import android.content.Context;
 
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessageFormat;
 import com.soprasteria.movalysmdk.widget.sample.R;
 

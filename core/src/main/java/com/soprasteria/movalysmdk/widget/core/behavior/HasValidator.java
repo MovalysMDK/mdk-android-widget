@@ -15,7 +15,7 @@
  */
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**

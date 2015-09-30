@@ -36,7 +36,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessageWidget;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.ArrayList;

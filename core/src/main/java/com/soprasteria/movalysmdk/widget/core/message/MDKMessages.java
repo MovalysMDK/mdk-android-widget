@@ -13,13 +13,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.helper;
+package com.soprasteria.movalysmdk.widget.core.message;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
-
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

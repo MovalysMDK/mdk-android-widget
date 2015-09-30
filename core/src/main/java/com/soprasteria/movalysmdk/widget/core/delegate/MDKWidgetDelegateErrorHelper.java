@@ -20,7 +20,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessageWidget;
 

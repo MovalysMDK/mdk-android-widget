@@ -17,8 +17,6 @@ package com.soprasteria.movalysmdk.widget.core.message;
 
 import android.content.Context;
 
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
-
 /**
  * Class dedicated to methods on messages formatting.
  * Formats a message as <em>component_label: message</em>

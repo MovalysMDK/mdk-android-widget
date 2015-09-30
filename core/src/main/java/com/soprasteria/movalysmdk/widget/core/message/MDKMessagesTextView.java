@@ -25,7 +25,6 @@ import android.util.SparseArray;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.R;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 
 import java.util.ArrayList;

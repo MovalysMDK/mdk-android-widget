@@ -44,7 +44,7 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
-import com.soprasteria.movalysmdk.widget.core.helper.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
