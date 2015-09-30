@@ -24,7 +24,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHints;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -268,6 +268,11 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     @Override
     public boolean validate() {
         return this.getMDKWidgetDelegate().validate(true, EnumFormFieldValidator.VALIDATE);
+    }
+
+    @Override
+    public Object getValueToValidate() {
+        return getDate();
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;

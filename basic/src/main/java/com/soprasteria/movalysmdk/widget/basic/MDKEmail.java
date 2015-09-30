@@ -23,7 +23,7 @@ import android.text.InputType;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.basic.model.Email;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasEmail;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasEmail;
 
 /**
  * MDK Email

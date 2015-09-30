@@ -300,6 +300,11 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     }
 
     @Override
+    public Object getValueToValidate() {
+        return this.getInnerWidget().getValueToValidate();
+    }
+
+    @Override
     public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
         return this;
     }

@@ -224,16 +224,16 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(getLatLng());
             ((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getMap().animateCamera(cameraUpdate);
 
-            if (this.getPosition().hasAddresses()) {
-                markers[ADDRESS_MARKER].setPosition(new LatLng(this.getPosition().getSelectedAddress().getLatitude(), this.getPosition().getSelectedAddress().getLongitude()));
+            if (this.hasAddresses()) {
+                markers[ADDRESS_MARKER].setPosition(new LatLng(this.getPosition().getAddress().getLatitude(), this.getPosition().getAddress().getLongitude()));
             }
             markers[LOCATION_MARKER].setPosition(getLatLng());
         }
     }
 
     @Override
-    protected void updateComponent() {
-        super.updateComponent();
+    protected void updateComponentStatus() {
+        super.updateComponentStatus();
 
         boolean isValid = !this.getPosition().isNull();
 

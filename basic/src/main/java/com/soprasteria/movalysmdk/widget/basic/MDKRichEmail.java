@@ -21,7 +21,7 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasEmail;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasEmail;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 

@@ -19,14 +19,9 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasDate;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -107,7 +102,10 @@ public class MDKWidgetDelegateValidationHelper {
             MDKMessages returnMessages = new MDKMessages();
 
             // get the validation object
-            Object objectToValidate = getObjectToValidate(v);
+            Object objectToValidate = null;
+            if (v instanceof HasValidator) {
+                objectToValidate = ((HasValidator)v).getValueToValidate();
+            }
 
             // we have to clear all errors before validation
             if (setError) {
@@ -146,29 +144,6 @@ public class MDKWidgetDelegateValidationHelper {
 
         delegate.setValid(bValid);
         return bValid;
-    }
-
-    /**
-     * Returns the object to validate from the type of the view.
-     * @param view the view having a value to be validated
-     * @return the object to validate
-     */
-    private static Object getObjectToValidate(View view) {
-        Object objectToValidate = null;
-        if (view instanceof HasText) {
-            objectToValidate = ((HasText) view).getText().toString();
-        } else if (view instanceof HasDate) {
-            objectToValidate = ((HasDate) view).getDate();
-        } else if (view instanceof HasChecked) {
-            objectToValidate = String.valueOf(((HasChecked) view).isChecked());
-        } else  if (view instanceof HasLocation) {
-            //TODO: a revoir
-            objectToValidate = ((HasLocation) view).getCoordinates();
-        } else if (view instanceof HasSeekBar) {
-            // TODO SMA: HasSeekBar à revoir -> utiliser un HasInteger
-            objectToValidate = ((HasSeekBar) view).getSeekBarValue();
-        }
-        return objectToValidate;
     }
 
     /**

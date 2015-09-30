@@ -13,15 +13,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.behavior;
-
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
+package com.soprasteria.movalysmdk.widget.core.behavior.types;
 
 /**
- * Add Text behavior on a widget.
+ * Add checkable behaviour to a widget.
  */
-public interface HasText {
+public interface HasChecked {
 
     /**
      * Get the text from the component.
@@ -41,18 +38,15 @@ public interface HasText {
     void setText(CharSequence text);
 
     /**
-     * Set the type of the content.
-     *
-     * @see android.widget.TextView#setInputType(int)
-     * @param type content type
+     * Returns the checked status of the component.
+     * @return true if the component is checked
      */
-    void setInputType(int type);
+    boolean isChecked();
 
     /**
-     * Set the {@link EditorInfo} on the widget.
-     * @param outAttrs the {@link EditorInfo} to set
-     * @return the created {@link InputConnection}
+     * Sets the checked status of the component.
+     * @param isChecked true to set the component to checked.
      */
-    InputConnection onCreateInputConnection(EditorInfo outAttrs);
+    void setChecked(boolean isChecked);
 
 }

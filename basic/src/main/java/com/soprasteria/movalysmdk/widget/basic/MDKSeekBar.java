@@ -513,6 +513,11 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
+    public Object getValueToValidate() {
+        return getSeekBarValue();
+    }
+
+    @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         if(seekbarEditText!=null){

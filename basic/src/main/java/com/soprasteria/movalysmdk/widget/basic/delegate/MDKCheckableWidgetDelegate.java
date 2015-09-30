@@ -17,13 +17,10 @@ package com.soprasteria.movalysmdk.widget.basic.delegate;
 
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.soprasteria.movalysmdk.widget.basic.MDKCheckableImageButton;
 import com.soprasteria.movalysmdk.widget.basic.R;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;

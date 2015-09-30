@@ -21,7 +21,7 @@ import android.net.Uri;
 import android.text.InputType;
 import android.util.AttributeSet;
 
-import com.soprasteria.movalysmdk.widget.core.behavior.HasUri;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasUri;
 
 /**
  * MDK Uri

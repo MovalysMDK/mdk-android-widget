@@ -20,18 +20,13 @@ import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.CompoundButton;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
-
-import java.lang.ref.WeakReference;
 
 /**
  * MDK Rich Checkable Widget.

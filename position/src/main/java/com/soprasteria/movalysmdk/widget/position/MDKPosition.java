@@ -31,8 +31,8 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
@@ -51,8 +51,7 @@ import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -129,8 +128,11 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     /** current position. */
     private Position position;
 
-    /** double formatter. */
-    private NumberFormat formatter;
+    /** addresses list from current location. */
+    private List<Address> addresses;
+
+    /** selected address position in the list. */
+    private int selectedAddress;
 
     /** true if the data is being written by the command. */
     protected boolean writingData = false;
@@ -175,8 +177,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
         // initialize the location object
         position = new Position();
-
-        formatter = new DecimalFormat("#0.0000000");
 
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(this.getLayoutResource(), this);
@@ -269,7 +269,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 clearButton.setOnClickListener(this);
             }
 
-            updateComponent();
+            updateComponentStatus();
         }
     }
 
@@ -287,14 +287,14 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     public void acquireLocation(Location location) {
         this.setLocation(location);
 
-        updateComponent();
+        updateComponentStatus();
     }
 
     @Override
     public void locationChanged(Location location) {
         this.setLocation(location);
 
-        updateComponent();
+        updateComponentStatus();
     }
 
     @Override
@@ -309,7 +309,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             this.locationCommand = null;
         }
 
-        updateComponent();
+        updateComponentStatus();
     }
 
     @Override
@@ -337,7 +337,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 MDKPosition.this.stopAnimationOnLocate();
                 MDKPosition.this.acquiringPosition = false;
 
-                updateComponent();
+                updateComponentStatus();
 
                 MDKPosition.this.locationCommand.clear();
                 MDKPosition.this.locationCommand = null;
@@ -413,7 +413,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
 
-        updateComponent();
+        updateComponentStatus();
     }
 
     /**
@@ -452,53 +452,39 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     public void setLocation(Location location) {
         this.writingData = true;
 
-        String latitude = "";
-        String longitude = "";
+        if (this.mdkWidgetDelegate.getMode() == ADDRESS || this.mdkWidgetDelegate.getMode() == INFO) {
+            if (location != null) {
+                if (!this.position.isNearTo(location)) {
+                    // this occurs when the fix is done, ie we have a precise location
+                    List<Address> addresses = getAddresses(location, true);
 
-        if (location != null) {
-            if (this.mdkWidgetDelegate.getMode() == MDKPosition.GEOPOINT) {
-                this.position.setPositionFromLocation(location);
-            } else if (!this.position.isNearTo(location) || !this.position.hasAddresses()) {
-                // this occurs when the fix is done, ie we have a precise location
-                List<Address> addresses = getAddresses(location, true);
+                    if (addresses != null && !addresses.isEmpty()) {
+                        selectedAddress = 1;
 
-                if (addresses != null && !addresses.isEmpty()) {
-                    // we have found a list of addresses, the user will pick one
-                    this.position.setAddresses(addresses);
-                    this.position.setSelectedAddress(1);
+                        // we have found a list of addresses, the user will pick one
+                        this.position.setAddress(addresses.get(selectedAddress));
 
-                    fillSpinner(addresses);
-                } else {
-                    // no addresses were found
-                    this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_noaddress));
+                        fillSpinner(addresses, selectedAddress);
+                    } else {
+                        // no addresses were found
+                        this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_noaddress));
+                    }
                 }
-                this.position.setPositionFromLocation(location);
-            }
-
-            // There is a bug in Android, the input decimal is always a point no matter the comma : bug 2626
-            // We replace the comma by the point as a work around
-            latitude = formatter.format(location.getLatitude());
-            latitude = latitude.replaceAll(",", ".");
-            longitude = formatter.format(location.getLongitude());
-            longitude = longitude.replaceAll(",", ".");
-        } else {
-            this.position.setSelectedAddress(0);
-
-            if (this.mdkWidgetDelegate.getMode() == ADDRESS) {
+            } else {
                 Spinner addrView = this.mdkWidgetDelegate.getAddressView();
                 if (addrView != null) {
-                    addrView.setSelection(this.position.getSelectedAddressPosition());
+                    addrView.setSelection(0);
                 }
             }
-
-            this.position.setPositionFromLocation(null);
         }
+
+        this.position.setPositionFromLocation(location);
 
         if (this.mdkWidgetDelegate.getLatitudeView() != null) {
-            this.mdkWidgetDelegate.getLatitudeView().setText(latitude);
+            this.mdkWidgetDelegate.getLatitudeView().setText(this.position.getFormattedLatitude());
         }
         if (this.mdkWidgetDelegate.getLongitudeView() != null) {
-            this.mdkWidgetDelegate.getLongitudeView().setText(longitude);
+            this.mdkWidgetDelegate.getLongitudeView().setText(this.position.getFormattedLongitude());
         }
         if (this.mdkWidgetDelegate.getLocationInfoView() != null) {
             this.mdkWidgetDelegate.getLocationInfoView().setText(this.position.getFormattedLocation());
@@ -507,7 +493,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             this.mdkWidgetDelegate.getAddressInfoView().setText(this.position.getFormattedAddress());
         }
 
-        updateComponent();
+        updateComponentStatus();
 
         this.writingData = false;
     }
@@ -521,7 +507,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     @Nullable
     protected List<Address> getAddresses(Location location, boolean addEmpty) {
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        List<Address> addresses = null;
+        addresses = null;
 
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), ADDRESSES_LIST_LENGTH);
@@ -533,6 +519,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             Log.e(this.getClass().getSimpleName(), getResources().getString(R.string.mdkwidget_mdkposition_error_getting_addresses), e);
             this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_error_getting_addresses));
         }
+
         return addresses;
     }
 
@@ -540,14 +527,14 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * Fills the spinner adapter and sets the selection.
      * @param addresses the addresses list
      */
-    private void fillSpinner(List<Address> addresses) {
+    private void fillSpinner(List<Address> addresses, int selection) {
         if (addresses != null && !addresses.isEmpty()) {
             AddressSpinnerAdapter adapter = new AddressSpinnerAdapter(getContext(), R.layout.mdkwidget_position_layout_address_item, addresses);
             Spinner addrView = this.mdkWidgetDelegate.getAddressView();
 
             if (addrView != null) {
                 addrView.setAdapter(adapter);
-                addrView.setSelection(this.position.getSelectedAddressPosition());
+                addrView.setSelection(selection);
             }
         }
     }
@@ -568,12 +555,11 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * Updates the location from the values in the input field when their values change.
      */
     protected void updateLocationOnTextChanged() {
-        Double lat = null;
-        Double lng = null;
+        Location location = new Location(DUMMY);
 
         if (this.mdkWidgetDelegate.getLatitudeView() != null && this.mdkWidgetDelegate.getLatitudeView().getText().length() > 0) {
             try {
-                lat = Double.parseDouble(this.mdkWidgetDelegate.getLatitudeView().getText().toString());
+                location.setLatitude(Double.parseDouble(this.mdkWidgetDelegate.getLatitudeView().getText().toString()));
             } catch (NumberFormatException e) {
                 this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_error_parsing_location));
             }
@@ -581,18 +567,17 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
         if (this.mdkWidgetDelegate.getLongitudeView() != null && this.mdkWidgetDelegate.getLongitudeView().getText().length() > 0) {
             try {
-                lng = Double.parseDouble(this.mdkWidgetDelegate.getLongitudeView().getText().toString());
+                location.setLongitude(Double.parseDouble(this.mdkWidgetDelegate.getLongitudeView().getText().toString()));
             } catch (NumberFormatException e) {
                 this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_error_parsing_location));
             }
         }
 
-        position.setLatitude(lat);
-        position.setLongitude(lng);
+        setLocation(location);
 
         validate(EnumFormFieldValidator.ON_USER);
 
-        updateComponent();
+        updateComponentStatus();
     }
 
     @Override
@@ -602,7 +587,8 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        this.position.setSelectedAddress(position);
+        this.selectedAddress = position;
+        this.position.setAddress(addresses.get(this.selectedAddress));
     }
 
     @Override
@@ -639,7 +625,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 this.mdkWidgetDelegate.getLocateButton().startAnimation(AnimationUtils.loadAnimation(getContext(), this.mdkWidgetDelegate.getLocateButtonAnimationId()));
             }
 
-            updateComponent();
+            updateComponentStatus();
 
             if (commandToExecute != null) {
                 ((WidgetCommand<PositionCommandListener, Void>) commandToExecute).execute(this.getContext(), this);
@@ -648,104 +634,96 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     }
 
     /**
+     * set the enable status on a view.
+     * @param view the view to set
+     * @param isEnabled true if the view should be enabled
+     */
+    private void setEnabledView(View view, boolean isEnabled) {
+        if (view != null) {
+            view.setEnabled(isEnabled);
+        }
+    }
+
+    /**
+     * set the visible status on a view.
+     * @param view the view to set
+     * @param visible true if the view should be visible
+     */
+    private void setVisibleView(View view, boolean visible) {
+        if (view != null) {
+            view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    /**
+     * set the checked status on a view.
+     * @param view the view to set
+     * @param checked true if the view should be checked
+     */
+    private void setCheckedView(View view, boolean checked) {
+        if (view != null && view instanceof Checkable) {
+            ((Checkable) view).setChecked(checked);
+        }
+    }
+
+    /**
      * Changes the status of the sub components based on the state of MDKPosition.
      */
-    protected void updateComponent() {
+    protected void updateComponentStatus() {
         boolean isValid = !this.position.isNull();
 
-        if (this.mdkWidgetDelegate.getLatitudeView() != null) {
-            /* latitude input text setEnable */
-            this.mdkWidgetDelegate.getLatitudeView().setEnabled(
-                    isEnabled() && this.mdkWidgetDelegate.getMode() == GEOPOINT
-            );
+        /* latitude input text setEnable */
+        setEnabledView(this.mdkWidgetDelegate.getLatitudeView(), isEnabled() && this.mdkWidgetDelegate.getMode() == GEOPOINT);
+        /* latitude input text setVisible */
+        setVisibleView(this.mdkWidgetDelegate.getLatitudeView(),
+                this.mdkWidgetDelegate.getMode() == GEOPOINT || (this.mdkWidgetDelegate.getMode() == ADDRESS && !this.hasAddresses()));
 
-            /* latitude input text setVisible */
-            this.mdkWidgetDelegate.getLatitudeView().setVisibility(
-                    this.mdkWidgetDelegate.getMode() == GEOPOINT || (this.mdkWidgetDelegate.getMode() == ADDRESS && !this.position.hasAddresses())
-                            ? View.VISIBLE : View.GONE
-            );
-        }
-
-        if (this.mdkWidgetDelegate.getLongitudeView() != null) {
-            /* longitude input text setEnable */
-            this.mdkWidgetDelegate.getLongitudeView().setEnabled(
-                    isEnabled() && this.mdkWidgetDelegate.getMode() == GEOPOINT
-            );
-            /* longitude input text setVisible */
-            this.mdkWidgetDelegate.getLongitudeView().setVisibility(
-                    this.mdkWidgetDelegate.getMode() == GEOPOINT || (this.mdkWidgetDelegate.getMode() == ADDRESS && !this.position.hasAddresses())
-                            ? View.VISIBLE : View.GONE
-            );
-        }
+        /* longitude input text setEnable */
+        setEnabledView(this.mdkWidgetDelegate.getLongitudeView(), isEnabled() && this.mdkWidgetDelegate.getMode() == GEOPOINT);
+        /* longitude input text setVisible */
+        setVisibleView(this.mdkWidgetDelegate.getLongitudeView(),
+                this.mdkWidgetDelegate.getMode() == GEOPOINT || (this.mdkWidgetDelegate.getMode() == ADDRESS && !this.hasAddresses()));
 
         /* address spinner setEnable */
-        if (this.mdkWidgetDelegate.getAddressView() != null) {
-            this.mdkWidgetDelegate.getAddressView().setEnabled(
-                    isEnabled() && this.mdkWidgetDelegate.getMode() == ADDRESS && this.position.hasAddresses() && !acquiringPosition
-            );
-            /* address spinner setVisible */
-            this.mdkWidgetDelegate.getAddressView().setVisibility(
-                    this.mdkWidgetDelegate.getMode() == ADDRESS && this.position.hasAddresses()
-                            ? View.VISIBLE : View.GONE
-            );
-        }
+        setEnabledView(this.mdkWidgetDelegate.getAddressView(),
+                isEnabled() && this.mdkWidgetDelegate.getMode() == ADDRESS && this.hasAddresses() && !acquiringPosition);
+        /* address spinner setVisible */
+        setVisibleView(this.mdkWidgetDelegate.getAddressView(), this.mdkWidgetDelegate.getMode() == ADDRESS && this.hasAddresses());
 
         /* location info views */
-        if (this.mdkWidgetDelegate.getLocationInfoView() != null) {
-            this.mdkWidgetDelegate.getLocationInfoView().setVisibility(
-                    this.mdkWidgetDelegate.getMode() == INFO
-                    ? View.VISIBLE : View.GONE
-            );
-        }
+        setVisibleView(this.mdkWidgetDelegate.getLocationInfoView(), this.mdkWidgetDelegate.getMode() == INFO);
 
         /* address info view */
-        if (this.mdkWidgetDelegate.getAddressInfoView() != null) {
-            this.mdkWidgetDelegate.getAddressInfoView().setVisibility(
-                    this.mdkWidgetDelegate.getMode() == INFO
-                            ? View.VISIBLE : View.GONE
-            );
-        }
+        setVisibleView(this.mdkWidgetDelegate.getAddressInfoView(), this.mdkWidgetDelegate.getMode() == INFO);
 
         /* clear button setEnable */
-        if (this.mdkWidgetDelegate.getClearButton() != null) {
-            this.mdkWidgetDelegate.getClearButton().setEnabled(
-                    isEnabled() && !acquiringPosition
-            );
-        }
+        setEnabledView(this.mdkWidgetDelegate.getClearButton(), isEnabled() && !acquiringPosition);
 
-        /* locate button */
-        if (this.mdkWidgetDelegate.getLocateButton() != null) {
-            LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        /* locate button setEnable */
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        boolean isProviderEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        setEnabledView(this.mdkWidgetDelegate.getLocateButton(), isEnabled() && !acquiringPosition && isProviderEnabled);
+        /* locate button setChecked */
+        setCheckedView(this.mdkWidgetDelegate.getLocateButton(), isValid);
 
-            boolean isProviderEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                    || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        /* map button setEnable */
+        setEnabledView(this.mdkWidgetDelegate.getMapsButton(), isValid);
 
-            /* location button setEnable */
-            this.mdkWidgetDelegate.getLocateButton().setEnabled(
-                    isEnabled() && !acquiringPosition && isProviderEnabled
-            );
-            /* location button setChecked */
-            if (this.mdkWidgetDelegate.getLocateButton() instanceof Checkable) {
-                ((Checkable)this.mdkWidgetDelegate.getLocateButton()).setChecked(
-                        isValid
-                );
-            }
-        }
+        /* navigation button setEnable */
+        setEnabledView(this.mdkWidgetDelegate.getNavButton(), isValid);
+    }
 
-        /* map button */
-        if (this.mdkWidgetDelegate.getMapsButton() != null) {
-            /* map button setEnable */
-            this.mdkWidgetDelegate.getMapsButton().setEnabled(
-                    isValid
-            );
-        }
-
-        /* navigation button */
-        if (this.mdkWidgetDelegate.getNavButton() != null) {
-            /* navigation button setEnable */
-            this.mdkWidgetDelegate.getNavButton().setEnabled(
-                    isValid
-            );
+    /**
+     * Returns true if the component knows a list of addresses, and one was selected.
+     * @return true if the component knows a list of addresses, and one was selected
+     */
+    public boolean hasAddresses() {
+        if (this.addresses == null) {
+            return false;
+        } else {
+            // there should be at least two elements as there is an empty address
+            return this.addresses.size() > 1 && this.position.getAddress() != null;
         }
     }
 
@@ -819,7 +797,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
         boolean isValidated = this.mdkWidgetDelegate.validate(true, validationMode);
 
-        updateComponent();
+        updateComponentStatus();
 
         return isValidated;
     }
@@ -828,9 +806,14 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     public boolean validate() {
         boolean isValidated = this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
 
-        updateComponent();
+        updateComponentStatus();
 
         return isValidated;
+    }
+
+    @Override
+    public Object getValueToValidate() {
+        return getCoordinates();
     }
 
     @Override
@@ -859,7 +842,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      */
     public void setMode(@PositionMode int mode) {
         this.mdkWidgetDelegate.setMode(mode);
-        updateComponent();
+        updateComponentStatus();
     }
 
     /**
@@ -876,7 +859,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      */
     public void setActivateGoto(boolean activateGoto) {
         this.mdkWidgetDelegate.setActivateGoto(activateGoto);
-        updateComponent();
+        updateComponentStatus();
     }
 
     /**
@@ -904,6 +887,19 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         bundle.putParcelable("position", this.position);
         bundle.putBoolean("acquiringPosition", this.acquiringPosition);
 
+        Parcelable[] addrs = null;
+
+        if (this.addresses != null) {
+            addrs = new Parcelable[this.addresses.size()];
+
+            for (int rank = 0; rank < this.addresses.size(); rank++) {
+                addrs[rank] = this.addresses.get(rank);
+            }
+            bundle.putParcelableArray("addresses", addrs);
+        }
+
+        bundle.putInt("selectedAddress", this.selectedAddress);
+
         return bundle;
     }
 
@@ -919,13 +915,23 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
         this.position = bundle.getParcelable("position");
         this.acquiringPosition = bundle.getBoolean("acquiringPosition");
+        this.selectedAddress = bundle.getInt("selectedAddress");
 
-        this.fillSpinner(this.position.getAddresses());
+        Parcelable[] inAddresses = bundle.getParcelableArray("addresses");
+        if (inAddresses != null) {
+            this.addresses = new ArrayList<>();
+
+            for (Parcelable address : inAddresses) {
+                this.addresses.add((Address) address);
+            }
+
+            this.fillSpinner(this.addresses, selectedAddress);
+        }
 
         if (this.acquiringPosition && this.mdkWidgetDelegate.getLocateButton() != null && this.mdkWidgetDelegate.getLocateButtonAnimationId() != 0) {
             this.mdkWidgetDelegate.getLocateButton().startAnimation(AnimationUtils.loadAnimation(getContext(), this.mdkWidgetDelegate.getLocateButtonAnimationId()));
         }
 
-        updateComponent();
+        updateComponentStatus();
     }
 }

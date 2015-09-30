@@ -114,6 +114,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * Enum for extraction (time or date).
      */
     @IntDef({DATE_EXTRACTION, TIME_EXTRACTION})
+    @Retention(RetentionPolicy.SOURCE)
     @interface EnumKindOfExtraction {
     }
 

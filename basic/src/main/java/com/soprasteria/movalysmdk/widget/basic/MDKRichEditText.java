@@ -21,7 +21,7 @@ import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**

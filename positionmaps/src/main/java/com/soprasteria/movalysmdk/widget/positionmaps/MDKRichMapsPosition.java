@@ -9,9 +9,10 @@ import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasLocation;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWidgetDelegate;
 
 /**
@@ -91,10 +92,10 @@ public class MDKRichMapsPosition extends MDKBaseRichWidget<MDKMapsPosition> impl
      * @param context the context
      * @param attrs attributes
      */
-    private final void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs){
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
 
-        int mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
+        @MDKPosition.PositionMode int mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
 
         this.innerWidget.setMode(mode);
 

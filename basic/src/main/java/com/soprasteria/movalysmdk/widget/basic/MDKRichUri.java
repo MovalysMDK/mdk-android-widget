@@ -20,7 +20,7 @@ import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichEditWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasUri;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasUri;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**

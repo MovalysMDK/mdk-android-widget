@@ -13,28 +13,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.behavior;
+package com.soprasteria.movalysmdk.widget.core.behavior.types;
+
+import java.util.Date;
 
 /**
- * Add Text behavior on a uri widget.
+ * Add date behavior on a widget.
  */
-public interface HasUri {
+public interface HasDate {
 
     /**
-     * Get the text from the component.
-     *
-     * @see android.text
-     *
-     * @return the text of the component
+     * Getter.
+     * @return date the date
      */
-    String getUri();
+    Date getDate();
 
     /**
-     * Set the text on the component.
-     *
-     * @see android.widget.TextView#setText(CharSequence)
-     * @param text the text to set
+     * Setter.
+     * @param date the new date
      */
-    void setUri(String text);
+    void setDate(Date date);
 
+    /**
+     * Setter date hint.
+     * @param dateHint the new date hint
+     */
+    void setDateHint(String dateHint);
+
+    /**
+     * Setter time hint.
+     * @param timeHint the new time hint
+     */
+    void setTimeHint(String timeHint);
 }

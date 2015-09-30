@@ -19,7 +19,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;

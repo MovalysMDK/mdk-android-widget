@@ -21,7 +21,7 @@ import android.util.AttributeSet;
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichCheckableWidget;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;

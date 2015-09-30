@@ -21,7 +21,7 @@ import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
 /**

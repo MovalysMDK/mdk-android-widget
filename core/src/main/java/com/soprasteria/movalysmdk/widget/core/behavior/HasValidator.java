@@ -15,13 +15,16 @@
  */
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
+import android.view.View;
+
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
  * Interface to add validation capacity to a widget.
+ * @param <T> the type of the object to be validate
  */
-public interface HasValidator {
+public interface HasValidator<T> {
 
     /**
      * Get widget validator keys.
@@ -60,4 +63,10 @@ public interface HasValidator {
      * Remove error on the widget.
      */
     void clearError();
+
+    /**
+     * Returns the value to be validated on the component.
+     * @return the object to be validated
+     */
+    T getValueToValidate();
 }

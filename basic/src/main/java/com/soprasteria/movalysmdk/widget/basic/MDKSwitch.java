@@ -24,7 +24,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -158,6 +158,11 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
     @Override
     public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
         return this.mdkWidgetDelegate.validate(true, validationMode);
+    }
+
+    @Override
+    public Object getValueToValidate() {
+        return String.valueOf(isChecked());
     }
 
     @Override

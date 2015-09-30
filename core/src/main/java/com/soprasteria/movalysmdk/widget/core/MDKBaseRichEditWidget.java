@@ -26,7 +26,7 @@ import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasText;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 
