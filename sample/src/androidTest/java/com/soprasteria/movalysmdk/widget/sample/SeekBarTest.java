@@ -187,7 +187,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_different_formatter)))).perform(ViewActions.actionWithAssertions(ViewActions.scrollTo()));
+        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSeekBar_different_formatter)))).perform(ViewActions.actionWithAssertions(ViewActions.scrollTo()));
 
         //by seekbar input
         onView(withId(R.id.mdkRichSeekBar_different_formatter)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(5))
