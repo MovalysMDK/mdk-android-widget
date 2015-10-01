@@ -3,8 +3,10 @@ package com.soprasteria.movalysmdk.widget.positionmaps;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
@@ -286,6 +288,15 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     @Override
     public void setLocation(Location location) {
         super.setLocation(location);
+        updateOnMapDisplay();
+    }
+
+    /* save / restore */
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
+
         updateOnMapDisplay();
     }
 }

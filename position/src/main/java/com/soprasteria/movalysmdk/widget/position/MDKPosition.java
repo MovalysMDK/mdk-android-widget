@@ -890,14 +890,15 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         bundle.putParcelable("position", this.position);
         bundle.putBoolean("acquiringPosition", this.acquiringPosition);
 
-        Parcelable[] addrs = null;
-
         if (this.addresses != null) {
+            Parcelable[] addrs;
+
             addrs = new Parcelable[this.addresses.size()];
 
             for (int rank = 0; rank < this.addresses.size(); rank++) {
                 addrs[rank] = this.addresses.get(rank);
             }
+
             bundle.putParcelableArray("addresses", addrs);
         }
 

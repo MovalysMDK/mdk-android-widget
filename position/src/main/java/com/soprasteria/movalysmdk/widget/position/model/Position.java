@@ -68,7 +68,10 @@ public class Position implements Parcelable {
      * @return the latitude
      */
     public Double getLatitude() {
-        return location.getLatitude();
+        if (location != null) {
+            return location.getLatitude();
+        }
+        return null;
     }
 
     /**
@@ -93,7 +96,10 @@ public class Position implements Parcelable {
      * @return the longitude
      */
     public Double getLongitude() {
-        return location.getLongitude();
+        if (location != null) {
+            return location.getLongitude();
+        }
+        return null;
     }
 
     /**
