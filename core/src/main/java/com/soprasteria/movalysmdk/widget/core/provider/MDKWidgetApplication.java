@@ -29,4 +29,10 @@ public interface MDKWidgetApplication {
      */
     MDKWidgetComponentProvider getMDKWidgetComponentProvider();
 
+    /**
+     * Returns the implementation of MDKWidgetComponentActionHelper.
+     * @return the MDKWidgetComponentActionHelper implementation
+     */
+    MDKWidgetComponentActionHelper getMDKWidgetComponentActionHelper();
+
 }

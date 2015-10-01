@@ -23,6 +23,7 @@ import android.content.pm.PackageManager;
 
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHelper;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
@@ -91,5 +92,11 @@ public class MyApp extends Application implements MDKWidgetApplication {
         }
 
         return this.widgetComponentProvider;
+    }
+
+    @Override
+    public MDKWidgetComponentActionHelper getMDKWidgetComponentActionProvider() {
+        // TODO : a faire
+        return null;
     }
 }
