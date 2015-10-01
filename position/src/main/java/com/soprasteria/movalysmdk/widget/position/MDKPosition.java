@@ -1,6 +1,5 @@
 package com.soprasteria.movalysmdk.widget.position;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.location.Address;
@@ -37,11 +36,11 @@ import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandFactory;
+import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.adapters.AddressSpinnerAdapter;
-import com.soprasteria.movalysmdk.widget.position.command.PositionCommandListener;
 import com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.position.filter.PositionInputFilter;
@@ -101,7 +100,7 @@ import java.util.Locale;
  *     </li>
  * </ul>
  */
-public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasLocation, HasValidator, HasDelegate, HasChangeListener, PositionCommandListener {
+public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasLocation, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
 
     /** tag for dummy provider. */
     private static final String DUMMY = "dummyprovider";
@@ -284,37 +283,49 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     }
 
     @Override
-    public void acquireLocation(Location location) {
+    public void onStart(Location location) {
         this.setLocation(location);
 
         updateComponentStatus();
     }
 
     @Override
-    public void locationChanged(Location location) {
+    public void onUpdate(Location location) {
         this.setLocation(location);
 
         updateComponentStatus();
     }
 
     @Override
-    public void locationFixed(Location location, int precision) {
+    public void onFinish(Location location) {
         this.setLocation(location);
 
-        if (precision == PositionWidgetCommand.FINE_ACCURACY_LEVEL) {
+        this.stopAnimationOnLocate();
+        this.acquiringPosition = false;
+
+        this.locationCommand.clear();
+        this.locationCommand = null;
+
+        updateComponentStatus();
+    }
+
+    @Override
+    public void onError(int errorType) {
+        int errorMessage = 0;
+        if (errorType == PositionWidgetCommand.NO_GPS) {
+            errorMessage = R.string.mdkcommand_position_error_gps_disabled;
+        } else if (errorType == PositionWidgetCommand.TIME_OUT) {
+            errorMessage = R.string.mdkwidget_mdkposition_locate_timeout;
+
             this.stopAnimationOnLocate();
             this.acquiringPosition = false;
+
+            updateComponentStatus();
 
             this.locationCommand.clear();
             this.locationCommand = null;
         }
-
-        updateComponentStatus();
-    }
-
-    @Override
-    public void onError(int error) {
-        this.mdkWidgetDelegate.setError(getResources().getString(error));
+        this.mdkWidgetDelegate.setError(getResources().getString(errorMessage));
     }
 
     /**
@@ -325,24 +336,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         if (locateButton != null) {
             locateButton.clearAnimation();
         }
-    }
-
-    @Override
-    public void locationTimedOut() {
-        ((Activity) this.getContext()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                MDKPosition.this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_locate_timeout));
-
-                MDKPosition.this.stopAnimationOnLocate();
-                MDKPosition.this.acquiringPosition = false;
-
-                updateComponentStatus();
-
-                MDKPosition.this.locationCommand.clear();
-                MDKPosition.this.locationCommand = null;
-            }
-        });
     }
 
     @Override
@@ -631,7 +624,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             updateComponentStatus();
 
             if (commandToExecute != null) {
-                ((WidgetCommand<PositionCommandListener, Void>) commandToExecute).execute(this.getContext(), this);
+                ((WidgetCommand<AsyncWidgetCommandListener, Void>) commandToExecute).execute(this.getContext(), this);
             }
         }
     }
