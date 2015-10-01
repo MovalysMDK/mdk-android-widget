@@ -190,8 +190,8 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSeekBar_different_formatter)))).perform(ViewActions.actionWithAssertions(ViewActions.scrollTo()));
 
         //by seekbar input
-        onView(withId(R.id.mdkRichSeekBar_different_formatter)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(5))
-                .check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithDisplayedValue("Friday")));
+        onView(withId(R.id.mdkRichSeekBar_different_formatter)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(5));
+        onView(withId(R.id.mdkRichSeekBar_different_formatter)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithDisplayedValue("Friday")));
     }
 
     @Override

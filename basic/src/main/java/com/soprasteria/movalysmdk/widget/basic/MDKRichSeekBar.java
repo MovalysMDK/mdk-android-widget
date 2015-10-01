@@ -83,12 +83,14 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
     private void initDedicatedAttributes(AttributeSet attrs){
 
         // Retrieve attributes of the Seek Bar widget in order to initialize MDK widget class variables.
-        TypedArray typedArrayCustom = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
+        TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
+        TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
 
-        String editableStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
+        String editableStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
         this.getInnerWidget().setEditableEditText(editableStr == null || Boolean.parseBoolean(editableStr));
 
-        String formatterStr = typedArrayCustom.getString(R.styleable.MDKCommons_formatter);
+        int formatterResourceId = typedArray.getResourceId(R.styleable.MDKCommons_formatter,0);
+        String formatterStr = (formatterResourceId!=0?getResources().getString(formatterResourceId):null);
         if (formatterStr != null) {
             try {
                 setFormatter((MDKBaseFormatter<Integer, String>) Class.forName(formatterStr).newInstance());
@@ -100,19 +102,19 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
             setFormatter(new SeekbarDefaultFormatter());
         }
 
-        String maxAllowedStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
+        String maxAllowedStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
         if (maxAllowedStr != null) {
             int seekBarMaxAllowed = Integer.parseInt(maxAllowedStr);
             setSeekBarMaxAllowed(seekBarMaxAllowed);
         }
 
-        String minAllowedStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed);
+        String minAllowedStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed);
         if (minAllowedStr != null) {
             int seekBarMinAllowed = Integer.parseInt(minAllowedStr);
             setSeekBarMinAllowed(seekBarMinAllowed);
         }
 
-        String minStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
+        String minStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
         if (minStr != null) {
             setMin(Integer.parseInt(minStr));
         }else if (minAllowedStr != null) {
@@ -121,7 +123,7 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
             setMin(0);
         }
 
-        String maxStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
+        String maxStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
         if (maxStr != null) {
             int max = Integer.parseInt(maxStr);
             setMax(max);
@@ -129,7 +131,7 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
             setMax(getSeekBarMaxAllowed());
         }
 
-        String initialValueStr = typedArrayCustom.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
+        String initialValueStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
         if (initialValueStr != null) {
             int seekBarValue = Integer.parseInt(initialValueStr);
             this.setSeekBarValue(seekBarValue);
@@ -138,7 +140,8 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
             this.setSeekBarValue(getMin());
         }
 
-        typedArrayCustom.recycle();
+        typedArray.recycle();
+        typedArrayComponent.recycle();
     }
 
     @Override

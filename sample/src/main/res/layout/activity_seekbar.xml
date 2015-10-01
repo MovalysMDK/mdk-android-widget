@@ -274,7 +274,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:seekbar_max="6"
-            mdk:formatter="com.soprasteria.movalysmdk.widget.sample.formatter.WeekDaysFormatter"
+            mdk:formatter="@string/formatter_weekdays"
             mdk:editableEditText="false"/>
     </LinearLayout>
 

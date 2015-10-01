@@ -132,14 +132,16 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.mdkListenerDelegate = new MDKChangeListenerDelegate();
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
-        TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
+        TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
+        TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
 
-        this.seekbarEditTextId = typedArray.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
+        this.seekbarEditTextId = typedArrayComponent.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
 
-        String editableStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
+        String editableStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
         this.editableEditText = editableStr == null || Boolean.parseBoolean(editableStr);
 
-        String formatterStr = typedArray.getString(R.styleable.MDKCommons_formatter);
+        int formatterResourceId = typedArray.getResourceId(R.styleable.MDKCommons_formatter,0);
+        String formatterStr = (formatterResourceId!=0?getResources().getString(formatterResourceId):null);
         if (formatterStr != null) {
             try {
                 this.formatter = (MDKBaseFormatter<Integer, String>) Class.forName(formatterStr).newInstance();
@@ -151,17 +153,17 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             this.formatter = new SeekbarDefaultFormatter();
         }
 
-        String maxAllowedStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
+        String maxAllowedStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
         if (maxAllowedStr != null) {
             this.seekBarMaxAllowed = Integer.parseInt(maxAllowedStr);
         }
 
-        String minAllowedStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed);
+        String minAllowedStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed);
         if (minAllowedStr != null) {
             this.seekBarMinAllowed = Integer.parseInt(minAllowedStr);
         }
 
-        String minStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
+        String minStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
         if (minStr != null) {
             this.min = Integer.parseInt(minStr);
         } else if (seekBarMinAllowed != null) {
@@ -170,7 +172,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             this.min = 0;
         }
 
-        String maxStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
+        String maxStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
         if (maxStr != null) {
             int max = Integer.parseInt(maxStr);
             this.setMax(max);
@@ -178,7 +180,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             this.setMax(seekBarMaxAllowed);
         }
 
-        String initialValueStr = typedArray.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
+        String initialValueStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
         if (initialValueStr != null) {
             setSeekBarValue(Integer.parseInt(initialValueStr));
             setSeekProgress(seekBarValue);
@@ -192,6 +194,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         }
 
         typedArray.recycle();
+        typedArrayComponent.recycle();
     }
 
 

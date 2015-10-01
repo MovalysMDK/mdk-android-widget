@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Class -->
+    <string name="formatter_weekdays" translatable="false">com.soprasteria.movalysmdk.widget.sample.formatter.WeekDaysFormatter</string>
+
+</resources>

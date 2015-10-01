@@ -66,7 +66,7 @@
         <attr name="hint" format="reference" />
         <attr name="minLength" format="integer" />
         <attr name="maxLength" format="integer" />
-        <attr name="formatter" format="string" />
+        <attr name="formatter" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">
