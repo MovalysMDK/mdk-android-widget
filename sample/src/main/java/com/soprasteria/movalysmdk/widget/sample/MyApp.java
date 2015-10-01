@@ -25,6 +25,7 @@ import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHelper;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentProvider;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentActionHelper;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
 import com.soprasteria.movalysmdk.widget.sample.selector.BoldMandatorySelector;
@@ -43,6 +44,10 @@ public class MyApp extends Application implements MDKWidgetApplication {
      * Instance of the MDKWidgetComponentProvider.
      */
     private MDKWidgetComponentProvider widgetComponentProvider;
+    /**
+     * Instance of the MDKWidgetComponentActionHelper.
+     */
+    private MDKWidgetComponentActionHelper widgetComponentActionHelper;
 
     @Override
     public void onCreate() {
@@ -96,6 +101,9 @@ public class MyApp extends Application implements MDKWidgetApplication {
 
     @Override
     public MDKWidgetComponentActionHelper getMDKWidgetComponentActionHelper() {
-        return null;
+        if (this.widgetComponentActionHelper == null) {
+            this.widgetComponentActionHelper = new MDKWidgetSimpleComponentActionHelper();
+        }
+        return this.widgetComponentActionHelper;
     }
 }
