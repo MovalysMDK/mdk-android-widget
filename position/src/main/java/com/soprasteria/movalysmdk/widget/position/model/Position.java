@@ -155,20 +155,20 @@ public class Position implements Parcelable {
      * @return a string representing the selected address
      */
     public String getFormattedAddress() {
-        String address = "";
+        String textAddress = "";
         if (this.address != null) {
             if (this.address.getAddressLine(0) != null) {
-                address = this.address.getAddressLine(0);
+                textAddress = this.address.getAddressLine(0);
             }
             if (this.address.getLocality() != null) {
-                if (address.length() > 0) {
-                    address += " ";
+                if (textAddress.length() > 0) {
+                    textAddress += " ";
                 }
-                address += this.address.getLocality();
+                textAddress += this.address.getLocality();
             }
         }
 
-        return address;
+        return textAddress;
     }
 
     /**

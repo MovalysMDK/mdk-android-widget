@@ -456,7 +456,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             if (location != null) {
                 if (!this.position.isNearTo(location)) {
                     // this occurs when the fix is done, ie we have a precise location
-                    List<Address> addresses = getAddresses(location, true);
+                    getAddresses(location, true);
 
                     if (addresses != null && !addresses.isEmpty()) {
                         selectedAddress = 1;
@@ -526,6 +526,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     /**
      * Fills the spinner adapter and sets the selection.
      * @param addresses the addresses list
+     * @param selection the selection to make on the spinner
      */
     private void fillSpinner(List<Address> addresses, int selection) {
         if (addresses != null && !addresses.isEmpty()) {

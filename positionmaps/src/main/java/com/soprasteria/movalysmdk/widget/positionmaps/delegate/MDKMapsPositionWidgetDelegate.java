@@ -111,7 +111,6 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-            // TODO : the activity should stop
         }
     }
 
