@@ -90,7 +90,7 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
         this.getInnerWidget().setEditableEditText(editableStr == null || Boolean.parseBoolean(editableStr));
 
         int formatterResourceId = typedArray.getResourceId(R.styleable.MDKCommons_formatter,0);
-        String formatterStr = (formatterResourceId!=0?getResources().getString(formatterResourceId):null);
+        String formatterStr = formatterResourceId!=0?getResources().getString(formatterResourceId):null;
         if (formatterStr != null) {
             try {
                 setFormatter((MDKBaseFormatter<Integer, String>) Class.forName(formatterStr).newInstance());

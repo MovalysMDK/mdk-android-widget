@@ -141,7 +141,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.editableEditText = editableStr == null || Boolean.parseBoolean(editableStr);
 
         int formatterResourceId = typedArray.getResourceId(R.styleable.MDKCommons_formatter,0);
-        String formatterStr = (formatterResourceId!=0?getResources().getString(formatterResourceId):null);
+        String formatterStr = formatterResourceId!=0?getResources().getString(formatterResourceId):null;
         if (formatterStr != null) {
             try {
                 this.formatter = (MDKBaseFormatter<Integer, String>) Class.forName(formatterStr).newInstance();
