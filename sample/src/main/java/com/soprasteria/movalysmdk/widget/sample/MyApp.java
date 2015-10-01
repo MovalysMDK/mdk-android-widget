@@ -95,8 +95,7 @@ public class MyApp extends Application implements MDKWidgetApplication {
     }
 
     @Override
-    public MDKWidgetComponentActionHelper getMDKWidgetComponentActionProvider() {
-        // TODO : a faire
+    public MDKWidgetComponentActionHelper getMDKWidgetComponentActionHelper() {
         return null;
     }
 }
