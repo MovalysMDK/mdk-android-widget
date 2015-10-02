@@ -870,10 +870,10 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        CommandHelper.restoreAsyncCommandsOnWidget(this.getContext(), this);
-
         // Restore the MDKWidgetDelegate instance state
         Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
+
+        CommandHelper.restoreAsyncCommandsOnWidget(this.getContext(), this);
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
@@ -902,6 +902,5 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         }
 
         updateComponentStatus();
-
     }
 }
