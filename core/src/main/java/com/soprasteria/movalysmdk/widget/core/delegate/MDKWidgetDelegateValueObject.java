@@ -17,11 +17,13 @@ package com.soprasteria.movalysmdk.widget.core.delegate;
 
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -52,6 +54,8 @@ public class MDKWidgetDelegateValueObject {
     static final int[] ERROR_STATE = {R.attr.state_error};
     /** user error key. */
     static final String USER_ERROR = "user_error";
+    /** TAG for debug. */
+    private static final String TAG = MDKWidgetDelegateValueObject.class.getSimpleName();
     /** Component qualifier. */
     private String qualifier;
     /** Resource id of the helper. */
@@ -117,6 +121,13 @@ public class MDKWidgetDelegateValueObject {
 
         this.attributesMap = new MDKAttributeSet(attrs);
         this.attributesMap.setBoolean(R.attr.mandatory, this.mandatory);
+
+        // we compute the uniqueId
+        if (view.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
+            this.uniqueId = ((MDKWidgetApplication)view.getContext().getApplicationContext()).getMDKWidgetComponentActionHelper().getUniqueId();
+        } else {
+            Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
+        }
     }
 
     /**

@@ -121,7 +121,6 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
         if (!this.isInEditMode()) {
             // get innerWidget component
             this.innerWidget = (T) this.findViewById(R.id.component_internal);
-            this.innerWidget.getMDKWidgetDelegate().setUniqueId(this.getId());
 
             ((View)this.innerWidget).setSaveFromParentEnabled(false);
 

@@ -23,12 +23,6 @@ import java.util.List;
 public interface MDKTechnicalInnerWidgetDelegate {
 
     /**
-     * Set unique id of the widget.
-     * @param parentId the parent id
-     */
-    void setUniqueId(int parentId);
-
-    /**
      * Get uniqueId of the widget.
      * @return uniqueid the id
      */

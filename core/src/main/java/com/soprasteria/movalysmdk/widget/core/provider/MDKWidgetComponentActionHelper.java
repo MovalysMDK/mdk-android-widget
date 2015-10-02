@@ -20,6 +20,12 @@ import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListene
 public interface MDKWidgetComponentActionHelper {
 
     /**
+     * Computes a unique identifier to be used on views.
+     * @return a unique identifier
+     */
+    int getUniqueId();
+
+    /**
      * Starts an asynchronous command on a widget.
      * @param widget the widget
      * @param command the command to start

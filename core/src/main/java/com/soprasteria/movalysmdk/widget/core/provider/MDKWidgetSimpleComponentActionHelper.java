@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Simple implementation for the MDKWidgetComponentActionHelper interface.
@@ -35,6 +36,9 @@ public class MDKWidgetSimpleComponentActionHelper implements MDKWidgetComponentA
     /** The incrementing key for the handler map. **/
     Integer key;
 
+    /** AtomicInteger used to compute the views unique ids. */
+    private AtomicInteger atomicInteger;
+
     /**
      * Constructor.
      */
@@ -42,6 +46,13 @@ public class MDKWidgetSimpleComponentActionHelper implements MDKWidgetComponentA
         asyncCommandsMap = new HashMap<>();
         widgetHandlerForIntentMap = new HashMap<>();
         key=0;
+        atomicInteger = new AtomicInteger(0);
+    }
+
+    @Override
+    public int getUniqueId() {
+        atomicInteger.compareAndSet(65536, 0);
+        return atomicInteger.addAndGet(1);
     }
 
     @Override
