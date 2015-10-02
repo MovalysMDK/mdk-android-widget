@@ -2,11 +2,14 @@ package com.soprasteria.movalysmdk.widget.core.provider;
 
 import android.content.Context;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import com.soprasteria.movalysmdk.widget.core.command.AsyncWidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,14 +26,22 @@ import java.util.Map;
  */
 public class MDKWidgetSimpleComponentActionHelper implements MDKWidgetComponentActionHelper {
 
+    /** A map that stores all the registered handlers. **/
+    private Map<Integer, MDKWidgetComponentActionHandler> widgetHandlerForIntentMap;
+
     /** asynchronous commands list to widgets maps. */
     private Map<Integer, List<AsyncWidgetCommand>> asyncCommandsMap;
+
+    /** The incrementing key for the handler map. **/
+    Integer key;
 
     /**
      * Constructor.
      */
     public MDKWidgetSimpleComponentActionHelper() {
         asyncCommandsMap = new HashMap<>();
+        widgetHandlerForIntentMap = new HashMap<>();
+        key=0;
     }
 
     @Override
@@ -72,10 +83,8 @@ public class MDKWidgetSimpleComponentActionHelper implements MDKWidgetComponentA
             List<AsyncWidgetCommand> asyncCommands = asyncCommandsMap.get(widgetId);
 
             for (AsyncWidgetCommand cmd : asyncCommands) {
-                if (cmd != null) {
-                    if (commandClass.equals(cmd.getClass())) {
-                        cmd.setListener(null);
-                    }
+                if (cmd != null && commandClass.equals(cmd.getClass())) {
+                    cmd.setListener(null);
                 }
             }
         }
@@ -109,4 +118,28 @@ public class MDKWidgetSimpleComponentActionHelper implements MDKWidgetComponentA
             }
         }
     }
+
+    @Override
+    public void startActivityForResult(Activity activity, Intent intent, MDKWidgetComponentActionHandler handler) {
+
+        // Generate a unique request code.
+        Integer requestCode = key;
+        key++;
+
+        // Register the handler in the HashMap.
+        widgetHandlerForIntentMap.put(requestCode, handler);
+        // Start the intent.
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+
+    @Override
+    public void handleActivityResult(int requestCode, int resultCode, Intent data) {
+        // Retrieve the registered handler at the requestCode key, and give it the data.
+        if (widgetHandlerForIntentMap.containsKey(requestCode)) {
+            widgetHandlerForIntentMap.get(requestCode).handleActivityResult(resultCode, data);
+            widgetHandlerForIntentMap.remove(requestCode);
+        }
+    }
+
 }

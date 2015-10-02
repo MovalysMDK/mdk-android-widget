@@ -1,5 +1,8 @@
 package com.soprasteria.movalysmdk.widget.core.provider;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import android.content.Context;
 
 import com.soprasteria.movalysmdk.widget.core.command.AsyncWidgetCommand;
@@ -9,7 +12,8 @@ import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListene
  * Helper for the asynchronous actions handled by the components.
  * Use this helper to:
  * <ul>
- *     <li>execute a startActivityForResult action</li>
+ *     <li>execute a startActivityForResult action and registering a handler</li>
+ *     <li>pass the the result of this request to the right handler</li>
  *     <li>launch an asynchronous command</li>
  * </ul>
  */
@@ -43,4 +47,19 @@ public interface MDKWidgetComponentActionHelper {
      */
     void removeCommandListenerOnWidget(AsyncWidgetCommandListener widget, Class<?> commandClass);
 
+    /**
+     * Exececutes a startActivityForResult method from a given activity, registering a handler for the result.
+     * @param activity the activity to start the request from
+     * @param intent the intent of the request
+     * @param handler the result handler to register
+     */
+    void startActivityForResult(Activity activity, Intent intent, MDKWidgetComponentActionHandler handler);
+
+    /**
+     * Passes the result data to the right registered handler.
+     * @param requestCode the request code of the result
+     * @param resultCode the result code
+     * @param data the result data
+     */
+    void handleActivityResult(int requestCode, int resultCode, Intent data);
 }

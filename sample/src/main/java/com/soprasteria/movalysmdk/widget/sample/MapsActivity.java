@@ -15,21 +15,14 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
 import com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition;
 
 /**
  * Test activity for the MDKRichPosition widget.
  */
 public class MapsActivity extends AbstractWidgetTestableActivity {
-
-    /** the MDKMapsPosition with a PlacePicker option. */
-    private MDKMapsPosition placesMapsPosition;
 
     @Override
     protected int[] getWidgetIds() {
@@ -50,22 +43,6 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        placesMapsPosition = (MDKMapsPosition) findViewById(R.id.mdkMapsPosition_withErrorAndCommandOutside);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO : a faire autrement
-        if (requestCode == placesMapsPosition.getPlacePickerRequest() && resultCode == RESULT_OK) {
-            Place place = PlacePicker.getPlace(data, this);
-
-            Location location = new Location("Test");
-            location.setLatitude(place.getLatLng().latitude);
-            location.setLongitude(place.getLatLng().longitude);
-
-            placesMapsPosition.setLocation(location);
-        }
-
-    }
 }

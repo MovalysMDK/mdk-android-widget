@@ -2,6 +2,7 @@ package com.soprasteria.movalysmdk.widget.positionmaps;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.util.Log;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +25,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHandler;
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHelper;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.position.model.Position;
 import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWidgetDelegate;
@@ -58,10 +63,7 @@ import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWi
  *     <li>addressMarker: the drawable to use as the address marker</li>
  * </ul>
  */
-public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClickListener {
-
-    /** request code for the PlacePicker ActivityResult. */
-    private static final int PLACE_PICKER_REQUEST = 1;
+public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClickListener, MDKWidgetComponentActionHandler {
 
     /** constant to get the location marker in the markers array. */
     public static final int LOCATION_MARKER = 0;
@@ -138,22 +140,14 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     public void onMapClick(LatLng latLng) {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
-        Activity host = (Activity) getContext();
-
         try {
-            host.startActivityForResult(builder.build(this.getContext()), PLACE_PICKER_REQUEST);
+            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+            helper.startActivityForResult((Activity)getContext(),builder.build(this.getContext()), this);
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             Log.e(this.getClass().getSimpleName(), "Google Places Error", e);
+        } catch (ClassCastException e){
+            Log.e(this.getClass().getSimpleName(), "Application must implement MDKWidgetApplication", e);
         }
-    }
-
-    /**
-     * Returns the request identifier for the PlacePicker action.
-     * @return the request identifier
-     */
-    // TODO a enlever
-    public int getPlacePickerRequest() {
-        return PLACE_PICKER_REQUEST;
     }
 
     @Override
@@ -298,5 +292,22 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
         super.onRestoreInstanceState(state);
 
         updateOnMapDisplay();
+    }
+
+    /* handle activity results */
+
+    @Override
+    public void handleActivityResult(int resultCode, Intent data) {
+
+        if ( resultCode == Activity.RESULT_OK) {
+            Place place = PlacePicker.getPlace(data, getContext());
+
+            //TODO SBE: handle activity result properly
+            Location location = new Location("Test");
+            location.setLatitude(place.getLatLng().latitude);
+            location.setLongitude(place.getLatLng().longitude);
+
+            setLocation(location);
+        }
     }
 }
