@@ -15,8 +15,10 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition;
 
 /**
@@ -45,4 +47,8 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
         setContentView(R.layout.activity_maps);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ((MDKWidgetApplication)getApplication()).getMDKWidgetComponentActionHelper().handleActivityResult(requestCode, resultCode, data);
+    }
 }

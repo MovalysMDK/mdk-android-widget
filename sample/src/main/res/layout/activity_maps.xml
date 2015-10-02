@@ -162,7 +162,7 @@
         <com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition
             android:id="@+id/mdkMapsPosition_withErrorAndCommandOutside"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:hint="@string/testHintText"
             mdk:errorId="@+id/position_errorText"
             mdk:primaryCommandId="@+id/buttonPosition"
@@ -172,13 +172,6 @@
             mdk:addressMarker="@drawable/ic_place"
             mdk:positionMode="geopoint"
             mdk:usePicker="true"/>
-
-        <Button
-            android:id="@+id/buttonPosition"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sendButtonText" />
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/position_errorText"
