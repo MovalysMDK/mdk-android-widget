@@ -41,7 +41,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     /**
      * Broadcast receiver for enable/disable button.
      */
-    private BroadcastReceiver actionReciver = new BroadcastReceiver() {
+    private BroadcastReceiver actionReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getIntExtra(MDKCommandDelegate.REFERENCE_WIDGET, 0) == getId()) {
@@ -100,7 +100,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     }
 
     /**
-     * Return the IntentFilters handeled by the widget.
+     * Return the IntentFilters handled by the widget.
      * @return a IntentFilter array containing IntentFilters
      */
     protected abstract IntentFilter[] getBroadcastIntentFilters();
@@ -115,7 +115,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
         if (!isInEditMode()) {
             for( IntentFilter intentFilter: getBroadcastIntentFilters() ) {
                 if (intentFilter != null) {
-                    LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(actionReciver, intentFilter);
+                    LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(actionReceiver, intentFilter);
                 }
             }
             this.commandDelegate.registerCommands(this);
@@ -125,7 +125,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
     @Override
     protected void onDetachedFromWindow() {
         if (!isInEditMode()) {
-            LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(actionReciver);
+            LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(actionReceiver);
         }
         super.onDetachedFromWindow();
     }
