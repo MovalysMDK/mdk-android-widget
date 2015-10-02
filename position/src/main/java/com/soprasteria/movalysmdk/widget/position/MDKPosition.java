@@ -1,7 +1,6 @@
 package com.soprasteria.movalysmdk.widget.position;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.location.Address;
 import android.location.Geocoder;
@@ -33,12 +32,9 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
-import com.soprasteria.movalysmdk.widget.core.command.AsyncWidgetCommand;
-import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandFactory;
-import com.soprasteria.movalysmdk.widget.core.helper.AsyncCommandHelper;
+import com.soprasteria.movalysmdk.widget.core.helper.CommandHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
@@ -253,7 +249,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     protected void onDetachedFromWindow() {
-        AsyncCommandHelper.removeCommandListenerOnWidget(this.getContext(), this, PositionWidgetCommand.class);
+        CommandHelper.removeCommandListenerOnWidget(this.getContext(), this, PositionWidgetCommand.class);
 
         super.onDetachedFromWindow();
 
@@ -290,14 +286,14 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         this.stopAnimationOnLocate();
         this.acquiringPosition = false;
 
-        AsyncCommandHelper.removeCommandOnWidget(this.getContext(), this, PositionWidgetCommand.class, true);
+        CommandHelper.removeCommandOnWidget(this.getContext(), this, PositionWidgetCommand.class, true);
 
         updateComponentStatus();
     }
 
     @Override
     public void onError(int errorType) {
-        AsyncCommandHelper.removeCommandOnWidget(this.getContext(), this, PositionWidgetCommand.class, true);
+        CommandHelper.removeCommandOnWidget(this.getContext(), this, PositionWidgetCommand.class, true);
 
         int errorMessage = 0;
 
@@ -336,15 +332,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         } else if (v.getId() == this.mdkWidgetDelegate.getLocateButtonId()) {
             startAcquisition();
         } else if (v.getId() == this.mdkWidgetDelegate.getMapsButtonId()) {
-            WidgetCommand command = WidgetCommandFactory.getWidgetCommand("secondary", "", this);
-            if (command != null) {
-                error = ((WidgetCommand<Location, Integer>) command).execute(this.getContext(), this.getLocation());
-            }
+            CommandHelper.startCommandOnWidget(this, "secondary", this.getLocation());
         } else if (v.getId() == this.mdkWidgetDelegate.getNavButtonId()) {
-            WidgetCommand command = WidgetCommandFactory.getWidgetCommand("tertiary", "", this);
-            if (command != null) {
-                error = ((WidgetCommand<Location, Integer>) command).execute(this.getContext(), this.getLocation());
-            }
+            CommandHelper.startCommandOnWidget(this, "tertiary", this.getLocation());
         }
 
         if (error != 0) {
@@ -598,9 +588,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (this.mdkWidgetDelegate.getLocateButton() != null && isProviderEnabled) {
-            AsyncWidgetCommand commandToExecute = (AsyncWidgetCommand) WidgetCommandFactory.getWidgetCommand("primary", "", this);
-
-            AsyncCommandHelper.startAsyncCommandOnWidget(this.getContext(), this, commandToExecute, this);
+            CommandHelper.startAsyncCommandOnWidget(this.getContext(), this, "primary", this);
 
             this.acquiringPosition = true;
 
@@ -882,7 +870,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        AsyncCommandHelper.restoreAsyncCommandsOnWidget(this.getContext(), this);
+        CommandHelper.restoreAsyncCommandsOnWidget(this.getContext(), this);
 
         // Restore the MDKWidgetDelegate instance state
         Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);

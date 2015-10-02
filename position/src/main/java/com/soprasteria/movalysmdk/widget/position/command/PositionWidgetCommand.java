@@ -129,7 +129,7 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
                 @Override
                 public void run() {
 
-                    ((Activity)context).runOnUiThread(new Runnable() {
+                    ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             AsyncWidgetCommandListener listener = PositionWidgetCommand.this.commandListener.get();
@@ -157,15 +157,18 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
             timerTimeout = null;
         }
 
+        AsyncWidgetCommandListener listener = null;
+        if (PositionWidgetCommand.this.commandListener != null) {
+            listener = PositionWidgetCommand.this.commandListener.get();
+        }
+
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            AsyncWidgetCommandListener listener = PositionWidgetCommand.this.commandListener.get();
             if (listener != null) {
                 ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
             }
             locationManager.removeUpdates(oListenerFine);
         }
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            AsyncWidgetCommandListener listener = PositionWidgetCommand.this.commandListener.get();
             if (listener != null) {
                 ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(), R.string.mdkcommand_position_error_permission);
             }

@@ -3,7 +3,10 @@ package com.soprasteria.movalysmdk.widget.core.helper;
 import android.content.Context;
 import android.util.Log;
 
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.command.AsyncWidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandFactory;
 import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHelper;
@@ -11,10 +14,33 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionH
 /**
  * Asynchronous command execution helper.
  */
-public class AsyncCommandHelper {
+public class CommandHelper {
 
     /** TAG for logging. */
-    private static final String TAG = AsyncCommandHelper.class.getSimpleName();
+    private static final String TAG = CommandHelper.class.getSimpleName();
+
+    /**
+     * Will try to connect to the application and get the MDKWidgetComponentActionHelper object.
+     * If it is found, will launch the command.
+     * @param widget the widget attached to the command
+     * @param command the command to launch
+     * @param commandParam the parameters of the command
+     * @param <I> the Input type of the command
+     * @param <O> the Ouput type of the command
+     * @return the output object of the command
+     */
+    public static <I, O> O startCommandOnWidget(MDKWidget widget, String command, I commandParam) {
+        O res = null;
+        WidgetCommand<I, O> commandToExecute = WidgetCommandFactory.getWidgetCommand(command, "", widget);
+
+        if (commandToExecute != null) {
+            commandToExecute.execute(widget.getContext(), commandParam);
+        } else {
+            Log.e(TAG, "could not find command " + command + " for class " + widget.getClass().getSimpleName());
+        }
+
+        return res;
+    }
 
     /**
      * Will try to connect to the application and get the MDKWidgetComponentActionHelper object.
@@ -27,16 +53,24 @@ public class AsyncCommandHelper {
      * @param <O> the Ouput type of the command
      * @return the output object of the command
      */
-    public static <I, O> O startAsyncCommandOnWidget(Context context, AsyncWidgetCommandListener widget, AsyncWidgetCommand<I, O> command, I commandParam) {
+    public static <I, O> O startAsyncCommandOnWidget(Context context, MDKWidget widget, String command, I commandParam) {
         O result = null;
 
+        if (!(context.getApplicationContext() instanceof MDKWidgetApplication)) {
+            Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
+            return result;
+        }
+
+        if (!(widget instanceof AsyncWidgetCommandListener)) {
+            Log.e(TAG, "the widget should implement the AsyncWidgetCommandListener interface");
+            return result;
+        }
+
         if (context != null) {
-            if (context.getApplicationContext() instanceof MDKWidgetApplication) {
-                MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) context.getApplicationContext()).getMDKWidgetComponentActionHelper();
-                result = helper.startAsyncCommandOnWidget(context, widget, command, commandParam);
-            } else {
-                Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
-            }
+            AsyncWidgetCommand<I, O> commandToExecute = (AsyncWidgetCommand) WidgetCommandFactory.getWidgetCommand(command, "", widget);
+
+            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) context.getApplicationContext()).getMDKWidgetComponentActionHelper();
+            result = helper.startAsyncCommandOnWidget(context, (AsyncWidgetCommandListener)widget, commandToExecute, commandParam);
         }
 
         return result;
