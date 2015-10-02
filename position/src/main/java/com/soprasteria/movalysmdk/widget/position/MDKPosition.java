@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.position;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.location.Address;
 import android.location.Geocoder;
@@ -32,10 +33,12 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
+import com.soprasteria.movalysmdk.widget.core.command.AsyncWidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.WidgetCommandFactory;
+import com.soprasteria.movalysmdk.widget.core.helper.AsyncCommandHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
@@ -49,7 +52,6 @@ import com.soprasteria.movalysmdk.widget.position.model.Position;
 import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -142,9 +144,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     /** true if the location is being computed. */
     private boolean acquiringPosition = false;
 
-    /** weak reference to the location command. */
-    private WeakReference<WidgetCommand> locationCommand;
-
     /**
      * Constructor.
      * @param context the android context
@@ -181,26 +180,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         inflater.inflate(this.getLayoutResource(), this);
 
         initDelegates(attrs);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        cancelLocationCommand();
-
-        super.onDetachedFromWindow();
-
-    }
-
-    /**
-     * Cancels the pending location command if there is one.
-     */
-    private void cancelLocationCommand() {
-        if (locationCommand != null) {
-            WidgetCommand command = locationCommand.get();
-            if (command != null) {
-                command.cancel();
-            }
-        }
     }
 
     /**
@@ -273,6 +252,14 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     }
 
     @Override
+    protected void onDetachedFromWindow() {
+        AsyncCommandHelper.removeCommandListenerOnWidget(this.getContext(), this, PositionWidgetCommand.class);
+
+        super.onDetachedFromWindow();
+
+    }
+
+    @Override
     public int[] getValidators() {
         return new int[] {R.string.mdkvalidator_position_class};
     }
@@ -303,15 +290,17 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         this.stopAnimationOnLocate();
         this.acquiringPosition = false;
 
-        this.locationCommand.clear();
-        this.locationCommand = null;
+        AsyncCommandHelper.removeCommandOnWidget(this.getContext(), this, PositionWidgetCommand.class, true);
 
         updateComponentStatus();
     }
 
     @Override
     public void onError(int errorType) {
+        AsyncCommandHelper.removeCommandOnWidget(this.getContext(), this, PositionWidgetCommand.class, true);
+
         int errorMessage = 0;
+
         if (errorType == PositionWidgetCommand.NO_GPS) {
             errorMessage = R.string.mdkcommand_position_error_gps_disabled;
         } else if (errorType == PositionWidgetCommand.TIME_OUT) {
@@ -320,11 +309,11 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             this.stopAnimationOnLocate();
             this.acquiringPosition = false;
 
-            updateComponentStatus();
-
-            this.locationCommand.clear();
-            this.locationCommand = null;
         }
+
+        updateComponentStatus();
+
+
         this.mdkWidgetDelegate.setError(getResources().getString(errorMessage));
     }
 
@@ -609,11 +598,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (this.mdkWidgetDelegate.getLocateButton() != null && isProviderEnabled) {
-            WidgetCommand commandToExecute = WidgetCommandFactory.getWidgetCommand("primary", "", this);
+            AsyncWidgetCommand commandToExecute = (AsyncWidgetCommand) WidgetCommandFactory.getWidgetCommand("primary", "", this);
 
-            cancelLocationCommand();
-
-            locationCommand = new WeakReference<>(commandToExecute);
+            AsyncCommandHelper.startAsyncCommandOnWidget(this.getContext(), this, commandToExecute, this);
 
             this.acquiringPosition = true;
 
@@ -622,10 +609,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             }
 
             updateComponentStatus();
-
-            if (commandToExecute != null) {
-                ((WidgetCommand<AsyncWidgetCommandListener, Void>) commandToExecute).execute(this.getContext(), this);
-            }
         }
     }
 
@@ -864,9 +847,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      */
     public void setAutoStart(boolean autoStart) {
         this.mdkWidgetDelegate.setAutoStart(autoStart);
-        if (autoStart) {
-            startAcquisition();
-        }
     }
 
     /* save / restore */
@@ -902,6 +882,8 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
+        AsyncCommandHelper.restoreAsyncCommandsOnWidget(this.getContext(), this);
+
         // Restore the MDKWidgetDelegate instance state
         Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
 
@@ -925,10 +907,13 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             this.fillSpinner(this.addresses, selectedAddress);
         }
 
+        setLocation(this.position.getLocation());
+
         if (this.acquiringPosition && this.mdkWidgetDelegate.getLocateButton() != null && this.mdkWidgetDelegate.getLocateButtonAnimationId() != 0) {
             this.mdkWidgetDelegate.getLocateButton().startAnimation(AnimationUtils.loadAnimation(getContext(), this.mdkWidgetDelegate.getLocateButtonAnimationId()));
         }
 
         updateComponentStatus();
+
     }
 }

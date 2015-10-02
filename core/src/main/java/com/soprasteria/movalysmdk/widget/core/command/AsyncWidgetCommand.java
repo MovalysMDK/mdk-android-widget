@@ -5,6 +5,8 @@ import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListene
 /**
  * Asynchronous WidgetCommand.
  * You may link a listener with the type {@link AsyncWidgetCommandListener}
+ * @param <I> Input
+ * @param <O> output
  */
 public interface AsyncWidgetCommand<I, O> extends WidgetCommand<I, O> {
 
@@ -16,6 +18,7 @@ public interface AsyncWidgetCommand<I, O> extends WidgetCommand<I, O> {
 
     /**
      * Sets a listener on the command.
+     * Please note that, should the listener be an Android view or layout object, it should be stored as a WeakReference.
      * @param listener the listener to set
      */
     void setListener(AsyncWidgetCommandListener listener);

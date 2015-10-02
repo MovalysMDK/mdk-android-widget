@@ -1,8 +1,9 @@
 package com.soprasteria.movalysmdk.widget.core.provider;
 
-import com.soprasteria.movalysmdk.widget.core.command.AsyncWidgetCommand;
+import android.content.Context;
 
-import java.util.List;
+import com.soprasteria.movalysmdk.widget.core.command.AsyncWidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 
 /**
  * Helper for the asynchronous actions handled by the components.
@@ -16,16 +17,30 @@ public interface MDKWidgetComponentActionHelper {
 
     /**
      * Starts an asynchronous command on a widget.
-     * @param widgetId the widget identifier
+     * @param widget the widget
      * @param command the command to start
+     * @return the error code of the command execution, or 0 if everything went fine
      */
-    void startAsyncCommand(int widgetId, AsyncWidgetCommand command);
+    <I, O> O startAsyncCommandOnWidget(Context context, AsyncWidgetCommandListener widget, AsyncWidgetCommand<I, O> command, I commandParam);
 
     /**
-     * Returns a list of the asynchronous commands launched on a given widget.
-     * @param widgetId the widget identifier
-     * @return a list of commands, or null if none exist
+     * Restores the asynchronous commands launched on a given widget.
+     * @param widget the widget identifier
      */
-    List<AsyncWidgetCommand> getCommandsForWidget(int widgetId);
+    void restoreAsyncCommandsOnWidget(AsyncWidgetCommandListener widget);
+
+    /**
+     * Removes an asynchronous command on a given widget.
+     * @param widget the widget
+     * @param commandClass the class of the command to remove
+     */
+    void removeCommandOnWidget(AsyncWidgetCommandListener widget, Class<?> commandClass, boolean cancel);
+
+    /**
+     * Removes the listener on a given Command object.
+     * @param widget the listener to remove
+     * @param commandClass the command to clear
+     */
+    void removeCommandListenerOnWidget(AsyncWidgetCommandListener widget, Class<?> commandClass);
 
 }

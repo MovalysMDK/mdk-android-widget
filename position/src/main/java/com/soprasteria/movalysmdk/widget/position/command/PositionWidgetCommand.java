@@ -88,14 +88,18 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
 
     @Override
     public void setListener(AsyncWidgetCommandListener listener) {
-        this.commandListener = new WeakReference<>(listener);
+        if (listener == null) {
+            this.commandListener = null;
+        } else {
+            this.commandListener = new WeakReference<>(listener);
+        }
     }
 
     /**
      * Starts the location command.
      */
     private void start() {
-        final AsyncWidgetCommandListener listener = this.commandListener.get();
+        AsyncWidgetCommandListener listener = this.commandListener.get();
         if (listener != null) {
             listener.onStart(location);
 
@@ -122,17 +126,19 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
 
 
             timerTimeout.schedule(new TimerTask() {
-
                 @Override
                 public void run() {
-                    if (listener != null) {
-                        ((Activity)context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
+
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AsyncWidgetCommandListener listener = PositionWidgetCommand.this.commandListener.get();
+                            if (listener != null) {
                                 listener.onError(TIME_OUT);
                             }
-                        });
-                    }
+                        }
+                    });
+
                     PositionWidgetCommand.this.cancel();
                     cancel();
                 }
