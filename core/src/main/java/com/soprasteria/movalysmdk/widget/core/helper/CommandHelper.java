@@ -20,6 +20,13 @@ public class CommandHelper {
     private static final String TAG = CommandHelper.class.getSimpleName();
 
     /**
+     * Constructor.
+     */
+    private CommandHelper() {
+        // nothing to do
+    }
+
+    /**
      * Will try to connect to the application and get the MDKWidgetComponentActionHelper object.
      * If it is found, will launch the command.
      * @param widget the widget attached to the command
@@ -56,17 +63,17 @@ public class CommandHelper {
     public static <I, O> O startAsyncCommandOnWidget(Context context, MDKWidget widget, String command, I commandParam) {
         O result = null;
 
-        if (!(context.getApplicationContext() instanceof MDKWidgetApplication)) {
-            Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
-            return result;
-        }
-
-        if (!(widget instanceof AsyncWidgetCommandListener)) {
-            Log.e(TAG, "the widget should implement the AsyncWidgetCommandListener interface");
-            return result;
-        }
-
         if (context != null) {
+            if (!(context.getApplicationContext() instanceof MDKWidgetApplication)) {
+                Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
+                return result;
+            }
+
+            if (!(widget instanceof AsyncWidgetCommandListener)) {
+                Log.e(TAG, "the widget should implement the AsyncWidgetCommandListener interface");
+                return result;
+            }
+
             AsyncWidgetCommand<I, O> commandToExecute = (AsyncWidgetCommand) WidgetCommandFactory.getWidgetCommand(command, "", widget);
 
             MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) context.getApplicationContext()).getMDKWidgetComponentActionHelper();

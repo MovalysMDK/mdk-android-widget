@@ -27,8 +27,12 @@ public interface MDKWidgetComponentActionHelper {
 
     /**
      * Starts an asynchronous command on a widget.
+     * @param context an android context
      * @param widget the widget
      * @param command the command to start
+     * @param commandParam the parameters of the command
+     * @param <I> the command input type
+     * @param <O> the command output type
      * @return the error code of the command execution, or 0 if everything went fine
      */
     <I, O> O startAsyncCommandOnWidget(Context context, AsyncWidgetCommandListener widget, AsyncWidgetCommand<I, O> command, I commandParam);
@@ -43,6 +47,7 @@ public interface MDKWidgetComponentActionHelper {
      * Removes an asynchronous command on a given widget.
      * @param widget the widget
      * @param commandClass the class of the command to remove
+     * @param cancel true if the command should be canceled
      */
     void removeCommandOnWidget(AsyncWidgetCommandListener widget, Class<?> commandClass, boolean cancel);
 
