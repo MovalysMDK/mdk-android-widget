@@ -31,7 +31,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.CommandHelper;
@@ -43,7 +43,8 @@ import com.soprasteria.movalysmdk.widget.position.adapters.AddressSpinnerAdapter
 import com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.position.filter.PositionInputFilter;
-import com.soprasteria.movalysmdk.widget.position.model.Position;
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
+import com.soprasteria.movalysmdk.widget.position.helper.PositionHelper;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;
@@ -98,7 +99,7 @@ import java.util.Locale;
  *     </li>
  * </ul>
  */
-public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasLocation, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
+public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasPosition, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
 
     /** tag for dummy provider. */
     private static final String DUMMY = "dummyprovider";
@@ -342,31 +343,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         }
     }
 
-    @Override
-    public String[] getCoordinates() {
-        if (this.mdkWidgetDelegate.getMode() == MDKPosition.GEOPOINT) {
-            final EditText latView = this.mdkWidgetDelegate.getLatitudeView();
-            final EditText lngView = this.mdkWidgetDelegate.getLongitudeView();
-
-            String latitude = null;
-            String longitude = null;
-
-            if (latView != null) {
-                latitude = latView.getText().toString();
-            }
-            if (lngView != null) {
-                longitude = lngView.getText().toString();
-            }
-
-            return new String[]{
-                    latitude,
-                    longitude
-            };
-        } else {
-            return new String[]{ this.position.getFormattedAddress() };
-        }
-    }
-
     /**
      * To call when the focus state of a view has changed.
      * @param focused is component focused
@@ -401,10 +377,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * @param position the {@link Position} to set
      */
     public void setPosition(Position position) {
-        this.position = position;
+        this.setLocation(position.getLocation());
     }
 
-    @Override
     public Location getLocation() {
         Location location = null;
 
@@ -426,7 +401,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
         if (this.mdkWidgetDelegate.getMode() == ADDRESS || this.mdkWidgetDelegate.getMode() == INFO) {
             if (location != null) {
-                if (!this.position.isNearTo(location)) {
+                if (!PositionHelper.isNearTo(this.position, location)) {
                     // this occurs when the fix is done, ie we have a precise location
                     getAddresses(location, true);
 
@@ -453,16 +428,16 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         this.position.setPositionFromLocation(location);
 
         if (this.mdkWidgetDelegate.getLatitudeView() != null) {
-            this.mdkWidgetDelegate.getLatitudeView().setText(this.position.getFormattedLatitude());
+            this.mdkWidgetDelegate.getLatitudeView().setText(PositionHelper.getFormattedLatitude(this.position));
         }
         if (this.mdkWidgetDelegate.getLongitudeView() != null) {
-            this.mdkWidgetDelegate.getLongitudeView().setText(this.position.getFormattedLongitude());
+            this.mdkWidgetDelegate.getLongitudeView().setText(PositionHelper.getFormattedLongitude(this.position));
         }
         if (this.mdkWidgetDelegate.getLocationInfoView() != null) {
-            this.mdkWidgetDelegate.getLocationInfoView().setText(this.position.getFormattedLocation());
+            this.mdkWidgetDelegate.getLocationInfoView().setText(PositionHelper.getFormattedLocation(this.position));
         }
         if (this.mdkWidgetDelegate.getAddressInfoView() != null) {
-            this.mdkWidgetDelegate.getAddressInfoView().setText(this.position.getFormattedAddress());
+            this.mdkWidgetDelegate.getAddressInfoView().setText(PositionHelper.getFormattedAddress(this.position));
         }
 
         updateComponentStatus();
@@ -780,7 +755,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public Object getValueToValidate() {
-        return getCoordinates();
+        return this.position;
     }
 
     @Override

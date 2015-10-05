@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
@@ -28,7 +29,7 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHandler;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHelper;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
-import com.soprasteria.movalysmdk.widget.position.model.Position;
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWidgetDelegate;
 
 

@@ -4,13 +4,14 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.position.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 
 /**
  * This validator check the mandatory settings of a component.
@@ -22,14 +23,13 @@ import com.soprasteria.movalysmdk.widget.position.R;
  * message R.string.mdkposition_mandatory_error if the value is empty and the
  * widget is mandatory.
  */
-public class PositionValidator implements FormFieldValidator<String[]> {
+public class PositionValidator implements FormFieldValidator<Position> {
 
     /** ERROR_MANDATORY. */
     public static final int ERROR_MANDATORY = R.string.mdkvalidator_position_error_validation_mandatory;
 
     /** ERROR_INCORRECT. */
     public static final int ERROR_INCORRECT = R.string.mdkvalidator_position_error_validation_incorrect;
-
 
     @Override
     public String getIdentifier(Context context) {
@@ -39,7 +39,7 @@ public class PositionValidator implements FormFieldValidator<String[]> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
-        if (view instanceof HasLocation) {
+        if (view instanceof HasPosition) {
             accept = true;
         }
         return accept;
@@ -51,8 +51,7 @@ public class PositionValidator implements FormFieldValidator<String[]> {
     }
 
     @Override
-    // TODO passer un objet Position
-    public MDKMessage validate(String[] objectToValidate,
+    public MDKMessage validate(Position objectToValidate,
                                MDKAttributeSet mdkParameter,
                                MDKMessages resultPreviousValidator,
                                @EnumFormFieldValidator.EnumValidationMode int validationMode,
@@ -63,29 +62,20 @@ public class PositionValidator implements FormFieldValidator<String[]> {
         boolean isMandatory = mdkParameter.containsKey(R.attr.mandatory) && mdkParameter.getBoolean(R.attr.mandatory);
 
         if (isMandatory && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
-
-            boolean isFilled = objectToValidate.length > 0;
-
-            if (isFilled) {
-                for (String object : objectToValidate) {
-                    isFilled &= object != null && object.length() > 0;
-                }
-            }
+            boolean isFilled = objectToValidate.getLatitude() != null && objectToValidate.getLongitude() != null;
 
             if (!isFilled) {
                 mdkMessage = new MDKMessage();
                 mdkMessage.setMessageCode(ERROR_MANDATORY);
                 String error = context.getString(ERROR_MANDATORY);
                 mdkMessage.setMessage(error);
-            } else if (objectToValidate.length == 2) {
+            } else {
                 boolean isCorrect = true;
 
                 try {
                     // we check that the input value are correct
-                    double value = Double.parseDouble(objectToValidate[0]);
-                    isCorrect &= value >= -90 && value <= 90;
-                    value = Double.parseDouble(objectToValidate[1]);
-                    isCorrect &= value >= -180 && value <= 180;
+                    isCorrect &= objectToValidate.getLatitude() >= -90 && objectToValidate.getLatitude() <= 90;
+                    isCorrect &= objectToValidate.getLongitude() >= -180 && objectToValidate.getLongitude() <= 180;
                 } catch (NumberFormatException e) {
                     Log.e(this.getClass().getSimpleName(), "NumberFormatException", e);
                     isCorrect = false;

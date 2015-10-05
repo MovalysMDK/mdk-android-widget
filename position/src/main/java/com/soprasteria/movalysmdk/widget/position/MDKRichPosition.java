@@ -9,7 +9,8 @@ import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasLocation;
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
@@ -17,7 +18,7 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
  * Rich widget representing a position component, conforming to the Material Design guidelines,
  * and including by default the floating label and the error component.
  */
-public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements HasValidator, HasLocation, HasChangeListener {
+public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements HasValidator, HasPosition, HasChangeListener {
 
     /**
      * Constructor.
@@ -51,18 +52,13 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
     }
 
     @Override
-    public String[] getCoordinates() {
-        return this.getInnerWidget().getCoordinates();
+    public Position getPosition() {
+        return this.getInnerWidget().getPosition();
     }
 
     @Override
-    public Location getLocation() {
-        return this.getInnerWidget().getLocation();
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        this.getInnerWidget().setLocation(location);
+    public void setPosition(Position position) {
+        this.getInnerWidget().setPosition(position);
     }
 
     @Override

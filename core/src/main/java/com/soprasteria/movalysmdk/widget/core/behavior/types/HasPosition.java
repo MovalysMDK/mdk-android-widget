@@ -15,31 +15,24 @@
  */
 package com.soprasteria.movalysmdk.widget.core.behavior.types;
 
-import android.location.Location;
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 
 /**
  * Add location behaviour to a widget.
  */
-// TODO: renommer en HasPosition & gerer un object Position
-public interface HasLocation {
-
-    /**
-     * Returns an array of strings representing the coordinates shown by the component.
-     * @return the coordinates of the component
-     */
-     String[] getCoordinates();
+public interface HasPosition {
 
     /**
      * Returns the location of the component.
-     * @return the {@link Location} of component
+     * @return the {@link Position} of component
      */
-    Location getLocation();
+    Position getPosition();
 
     /**
      * Sets the location of the component.
-     * @param location the {@link Location} to set on the component.
+     * @param position the {@link Position} to set on the component.
      */
-    void setLocation(Location location);
+    void setPosition(Position position);
 
     /**
      * Sets the latitude hint.
