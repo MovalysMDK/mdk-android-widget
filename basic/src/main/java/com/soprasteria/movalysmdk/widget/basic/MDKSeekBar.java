@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.text.Editable;
 import android.text.InputType;
@@ -45,8 +46,8 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 /**
@@ -614,5 +615,26 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             return true;
         }
         return false;
+    }
+
+    /* save / restore */
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState();
+        // Save the MDKWidgetDelegate instance state
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
+
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        // Restore the MDKWidgetDelegate instance state
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
+
+        // Restore the android view instance state
+        super.onRestoreInstanceState(innerState);
     }
 }
