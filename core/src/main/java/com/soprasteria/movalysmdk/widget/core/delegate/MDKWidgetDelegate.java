@@ -91,6 +91,15 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     }
 
     /**
+     * Set a unique id to the widget from a view.
+     * @param parentId the parent id
+     */
+    @Override
+    public void setUniqueId(int parentId) {
+        this.valueObject.setUniqueId(parentId);
+    }
+
+    /**
      * Provide the context of the widget.
      * @return the widget context
      */

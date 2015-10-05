@@ -18,7 +18,7 @@ package com.soprasteria.movalysmdk.widget.core.behavior;
 import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
 
 /**
- * Add formater behavior on a widget.
+ * Add formatter behavior on a widget.
  * @param <X> Type to format to.
  * @param <Y> Type to unformat to.
  */

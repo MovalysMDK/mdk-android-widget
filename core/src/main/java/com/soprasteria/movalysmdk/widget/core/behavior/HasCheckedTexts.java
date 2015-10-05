@@ -16,7 +16,7 @@
 package com.soprasteria.movalysmdk.widget.core.behavior;
 
 /**
- * Created by maxime on 24/09/2015.
+ * Behavior for checkable widgets texts.
  */
 public interface HasCheckedTexts {
 

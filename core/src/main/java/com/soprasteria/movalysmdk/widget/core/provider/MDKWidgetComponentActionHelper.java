@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+ *
+ * This file is part of Movalys MDK.
+ * Movalys MDK is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Movalys MDK is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.soprasteria.movalysmdk.widget.core.provider;
 
 import android.app.Activity;
@@ -59,12 +74,17 @@ public interface MDKWidgetComponentActionHelper {
     void removeCommandListenerOnWidget(AsyncWidgetCommandListener widget, Class<?> commandClass);
 
     /**
-     * Exececutes a startActivityForResult method from a given activity, registering a handler for the result.
-     * @param activity the activity to start the request from
-     * @param intent the intent of the request
-     * @param handler the result handler to register
+     * Registers a given handler for ActivityResult at the handler key (also ActivityResult requestCode) in a map.
+     * @param handlerKey the key to the handler (requestCode)
+     * @param handler the handler to register
      */
-    void startActivityForResult(Activity activity, Intent intent, MDKWidgetComponentActionHandler handler);
+    void registerActivityResultHandler(int handlerKey, MDKWidgetComponentActionHandler handler);
+
+    /**
+     * Unregisters the handler at the specified key.
+     * @param handlerKey the key to the handler to unregister
+     */
+    void unregisterActivityResultHandler(int handlerKey);
 
     /**
      * Passes the result data to the right registered handler.

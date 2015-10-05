@@ -31,6 +31,7 @@ import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.position.model.Position;
 import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWidgetDelegate;
 
+
 /**
  * MDK Maps Position.
  * <p>Representing a map displaying the position set on the widget.</p>
@@ -79,6 +80,12 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     /** delay used before value is updated. */
     private static final int UPDATE_DELAY = 200;
 
+    /** Keyword instanceState. */
+    private static final String UID_STATE = "uidState";
+
+    /** Keyword innerState. */
+    private static final String INNER_STATE = "innerState";
+
     /** Handler for text change cool down. */
     private Handler delayTextChangedHandler = new Handler() {
         @Override
@@ -107,6 +114,25 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
      */
     public MDKMapsPosition(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+    }
+
+    @Override
+    public void onAttachedToWindow(){
+        super.onAttachedToWindow();
+
+        //register as handler
+        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+        helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(),this);
+    }
+
+    @Override
+    public void onDetachedFromWindow(){
+        super.onDetachedFromWindow();
+
+        //unregister as handler
+        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+        helper.unregisterActivityResultHandler(mdkWidgetDelegate.getUniqueId());
     }
 
     @Override
@@ -140,12 +166,9 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
         try {
-            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
-            helper.startActivityForResult((Activity)getContext(),builder.build(this.getContext()), this);
+            ((Activity)getContext()).startActivityForResult(builder.build(this.getContext()), mdkWidgetDelegate.getUniqueId());
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             Log.e(this.getClass().getSimpleName(), "Google Places Error", e);
-        } catch (ClassCastException e){
-            Log.e(this.getClass().getSimpleName(), "Application must implement MDKWidgetApplication", e);
         }
     }
 
@@ -287,8 +310,34 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     /* save / restore */
 
     @Override
+    public Parcelable onSaveInstanceState() {
+
+        Parcelable superState = super.onSaveInstanceState();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(INNER_STATE, superState);
+        bundle.putInt(UID_STATE, mdkWidgetDelegate.getUniqueId());
+
+        return bundle;
+    }
+
+    @Override
     public void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
+
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+
+            // Restore the uid
+            this.mdkWidgetDelegate.setUniqueId(bundle.getInt(UID_STATE));
+
+            //re-register as handler
+            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+            helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
+
+            super.onRestoreInstanceState(bundle.getParcelable(INNER_STATE));
+        }else {
+            super.onRestoreInstanceState(state);
+        }
 
         updateOnMapDisplay();
     }

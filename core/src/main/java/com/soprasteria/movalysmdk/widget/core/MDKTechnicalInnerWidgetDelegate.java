@@ -29,6 +29,12 @@ public interface MDKTechnicalInnerWidgetDelegate {
     int getUniqueId();
 
     /**
+     * Set unique id of the widget.
+     * @param parentId the parent id
+     */
+    void setUniqueId(int parentId);
+
+    /**
      * Sets a list of Rich Selectors on the component.
      * @param richSelectors the list of selectors to set
      */
