@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
-import com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition;
 
 /**
  * Test activity for the MDKRichPosition widget.

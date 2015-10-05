@@ -59,7 +59,7 @@ public class MDKWidgetSimpleComponentActionHelper implements MDKWidgetComponentA
     public <I, O> O startAsyncCommandOnWidget(Context context, AsyncWidgetCommandListener widget, AsyncWidgetCommand<I, O> command, I commandParam) {
         removeCommandOnWidget(widget, command.getClass(), true);
 
-        int widgetId = widget.getMDKWidgetDelegate().getUniqueId();//TODO pb le getUniqueId n'est pas unique dans le cas d'une liste
+        int widgetId = widget.getMDKWidgetDelegate().getUniqueId();
 
         if (!asyncCommandsMap.containsKey(widgetId)) {
             asyncCommandsMap.put(widgetId, new ArrayList<AsyncWidgetCommand>());
@@ -111,14 +111,12 @@ public class MDKWidgetSimpleComponentActionHelper implements MDKWidgetComponentA
             List<AsyncWidgetCommand> asyncCommandsToRemove = new ArrayList<>();
 
             for (AsyncWidgetCommand cmd : asyncCommands) {
-                if (cmd != null) {
-                    if (commandClass.equals(cmd.getClass())) {
-                        if (cancel) {
-                            cmd.cancel();
-                        }
-                        cmd.setListener(null);
-                        asyncCommandsToRemove.add(cmd);
+                if (cmd != null && commandClass.equals(cmd.getClass())) {
+                    if (cancel) {
+                        cmd.cancel();
                     }
+                    cmd.setListener(null);
+                    asyncCommandsToRemove.add(cmd);
                 }
             }
 

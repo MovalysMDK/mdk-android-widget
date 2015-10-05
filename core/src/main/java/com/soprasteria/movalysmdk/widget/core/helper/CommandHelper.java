@@ -19,6 +19,9 @@ public class CommandHelper {
     /** TAG for logging. */
     private static final String TAG = CommandHelper.class.getSimpleName();
 
+    /** Application should implement MDKWidgetApplication. */
+    private static final String IMPLEMENT_MDKWIDGET_INTERFACE = "the application class should implement the MDKWidgetApplication interface";
+
     /**
      * Constructor.
      */
@@ -65,7 +68,7 @@ public class CommandHelper {
 
         if (context != null) {
             if (!(context.getApplicationContext() instanceof MDKWidgetApplication)) {
-                Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
+                Log.e(TAG, IMPLEMENT_MDKWIDGET_INTERFACE);
                 return result;
             }
 
@@ -95,7 +98,7 @@ public class CommandHelper {
                 MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) context.getApplicationContext()).getMDKWidgetComponentActionHelper();
                 helper.restoreAsyncCommandsOnWidget(widget);
             } else {
-                Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
+                Log.e(TAG, IMPLEMENT_MDKWIDGET_INTERFACE);
             }
         }
     }
@@ -114,7 +117,7 @@ public class CommandHelper {
                 MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) context.getApplicationContext()).getMDKWidgetComponentActionHelper();
                 helper.removeCommandOnWidget(widget, commandClass, cancel);
             } else {
-                Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
+                Log.e(TAG, IMPLEMENT_MDKWIDGET_INTERFACE);
             }
         }
     }
@@ -132,7 +135,7 @@ public class CommandHelper {
                 MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) context.getApplicationContext()).getMDKWidgetComponentActionHelper();
                 helper.removeCommandListenerOnWidget(widget, commandClass);
             } else {
-                Log.e(TAG, "the application class should implement the MDKWidgetApplication interface");
+                Log.e(TAG, IMPLEMENT_MDKWIDGET_INTERFACE);
             }
         }
     }
