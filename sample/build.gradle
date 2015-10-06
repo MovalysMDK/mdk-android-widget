@@ -72,6 +72,7 @@ dependencies {
     androidTestCompile testDependencies.testRunner
     androidTestCompile testDependencies.spoonClient
     androidTestCompile testDependencies.mdkEspresso
+    androidTestCompile testDependencies.intentsClient
     androidTestCompile(project(':espresso')) {
         transitive = false
     }

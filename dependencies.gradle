@@ -29,6 +29,7 @@ ext {
             espressoContrib: "com.android.support.test.espresso:espresso-contrib:$espressoVersion",
             testRunner:      "com.android.support.test:runner:${testRunnerVersion}",
             mdkEspresso:     "com.soprasteria.movalysmdk.espresso:mdk-espresso:${mdkEspressoVersion}@aar",
-            spoonClient:     "com.squareup.spoon:spoon-client:${spoonClientVersion}"
+            spoonClient:     "com.squareup.spoon:spoon-client:${spoonClientVersion}",
+            intentsClient:   "com.android.support.test.espresso:espresso-intents:$espressoVersion"
     ]
 }
