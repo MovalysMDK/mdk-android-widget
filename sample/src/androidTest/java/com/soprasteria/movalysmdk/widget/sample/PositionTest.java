@@ -208,20 +208,4 @@ public class PositionTest extends AbstractCommandWidgetTest {
         testDisableOutsideWidget(R.id.mdkPosition_withErrorAndCommandOutside);
     }
 
-//    /**
-//     * Check MDK rich position widget mandatory behaviour toggle.
-//     */
-//    @Test
-//    public void testMandatoryRichWidget() {
-//        testMandatoryRichWidget(R.id.mdkRichPosition_locationWithLabelAndError, R.string.test_app_name);
-//    }
-//
-//    /**
-//     * Check MDK position with outside error widget mandatory behaviour toggle.
-//     */
-//    @Test
-//    public void testMandatoryOutsideWidget() {
-//        testMandatoryOutsideWidget(R.id.mdkPosition_withErrorAndCommandOutside, R.string.test_default_position_hint_text);
-//    }
-
 }

@@ -380,6 +380,10 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         this.setLocation(position.getLocation());
     }
 
+    /**
+     * Returns the current location of the component.
+     * @return the current location of the component
+     */
     public Location getLocation() {
         Location location = null;
 
