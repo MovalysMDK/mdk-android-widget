@@ -1,0 +1,77 @@
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_vertical_margin"
+    tools:context=".MapsActivity">
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/button_bar"/>
+
+        <!-- RICH EMAIL WITH LABEL AND ERROR -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enumimage_with_label_error" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEnumImage
+            android:id="@+id/mdkRichEnumImage_withLabelAndError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/app_name"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- INNER ENUMIMAGE WITH EXTERNAL ERROR/COMMAND -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enumimage_standalone_widget" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKEnumImage
+            android:id="@+id/mdkEnumImage_withErrorAndCommandOutside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+            android:id="@+id/enumimage_errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+    </LinearLayout>
+
+</ScrollView>

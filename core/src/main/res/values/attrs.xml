@@ -42,6 +42,7 @@
         <attr name="mdkSeekBarStyle" format="reference"/>
         <attr name="mdkSpinnerStyle" format="reference"/>
         <attr name="mdkSpinnerDropDownStyle" format="reference"/>
+        <attr name="mdkEnumImageStyle" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="InputView">
@@ -127,4 +128,9 @@
         <attr name="command" format="string"/>
     </declare-styleable>
 
+
+    <!-- MDKEnumImage specific attributes -->
+    <declare-styleable name="MDKCommons.MDKEnumImage">
+        <attr name="enum_prefix" format="string"/>
+    </declare-styleable>
 </resources>
