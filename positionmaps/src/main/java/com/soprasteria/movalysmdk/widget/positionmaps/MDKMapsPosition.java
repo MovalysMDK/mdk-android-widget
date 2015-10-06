@@ -351,7 +351,6 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
         if ( resultCode == Activity.RESULT_OK) {
             Place place = PlacePicker.getPlace(data, getContext());
 
-            //TODO SBE: handle activity result properly
             Location location = new Location("Test");
             location.setLatitude(place.getLatLng().latitude);
             location.setLongitude(place.getLatLng().longitude);
