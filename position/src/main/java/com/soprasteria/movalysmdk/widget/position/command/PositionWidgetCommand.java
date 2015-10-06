@@ -84,7 +84,11 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
 
     @Override
     public AsyncWidgetCommandListener getListener() {
-        return this.commandListener.get();
+        if (this.commandListener != null) {
+            return this.commandListener.get();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -100,7 +104,7 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
      * Starts the location command.
      */
     private void start() {
-        AsyncWidgetCommandListener listener = this.commandListener.get();
+        AsyncWidgetCommandListener listener = this.getListener();
         if (listener != null) {
             listener.onStart(location);
 
@@ -139,9 +143,11 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            AsyncWidgetCommandListener listener = PositionWidgetCommand.this.commandListener.get();
-                            if (listener != null) {
-                                listener.onError(TIME_OUT);
+                            if (PositionWidgetCommand.this.commandListener != null) {
+                                AsyncWidgetCommandListener listener = PositionWidgetCommand.this.getListener();
+                                if (listener != null) {
+                                    listener.onError(TIME_OUT);
+                                }
                             }
                         }
                     });
@@ -164,10 +170,7 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
             timerTimeout = null;
         }
 
-        AsyncWidgetCommandListener listener = null;
-        if (PositionWidgetCommand.this.commandListener != null) {
-            listener = PositionWidgetCommand.this.commandListener.get();
-        }
+        AsyncWidgetCommandListener listener = PositionWidgetCommand.this.getListener();
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             if (listener != null) {
@@ -193,7 +196,7 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
      * Updates the dialog ui to use the last currentLocation.
      */
     private void onCurrentLocationChange() {
-        AsyncWidgetCommandListener listener = commandListener.get();
+        AsyncWidgetCommandListener listener = getListener();
         if (location != null && listener != null) {
             listener.onUpdate(location);
         }
@@ -203,7 +206,7 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
      * registers the 2 commandListener on Coarse and Fine location.
      */
     private void registerLocationListeners() {
-        AsyncWidgetCommandListener listener = commandListener.get();
+        AsyncWidgetCommandListener listener = getListener();
 
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
@@ -225,7 +228,6 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(oFine, true));
             this.onCurrentLocationChange();
         } else {
-
             if (listener != null) {
                 listener.onError(NO_GPS);
             }
@@ -261,7 +263,7 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
      * @param precision the precision of the location found
      */
     private void locationOk(int precision) {
-        AsyncWidgetCommandListener listener = this.commandListener.get();
+        AsyncWidgetCommandListener listener = this.getListener();
         if (listener != null) {
             if (precision == PositionWidgetCommand.FINE_ACCURACY_LEVEL) {
                 listener.onFinish(location);
@@ -303,7 +305,7 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
             // we check timeout != null because after removeUpdates, we may get some other calls to onLocationChanged
             // we do not want that on the MDK components listening to that action
             if (location != null && location.getAccuracy() < precision && location.hasAccuracy() && timerTimeout != null) {
-                AsyncWidgetCommandListener listener = PositionWidgetCommand.this.commandListener.get();
+                AsyncWidgetCommandListener listener = PositionWidgetCommand.this.getListener();
                 if (listener != null) {
                     ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
                             Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
