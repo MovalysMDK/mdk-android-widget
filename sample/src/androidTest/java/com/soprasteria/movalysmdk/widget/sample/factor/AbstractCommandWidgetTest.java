@@ -318,7 +318,17 @@ public abstract class AbstractCommandWidgetTest {
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        checkView(assertions, null, inputViews, null);
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
+
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
+
+            // perform given action
+            if (actions != null && actions[i] != null) {
+                onView(matcher).perform(actions[i]);
+            }
+        }
 
         // Check send button state
         if (commandView != null) {
@@ -336,12 +346,33 @@ public abstract class AbstractCommandWidgetTest {
         // click validate button
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(scrollTo()), click());
 
-        checkView(assertions, errorMessages, inputViews, errorView);
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
+
+            // check error
+            onView(errorView).check(matches(withConcatText(errorMessages)));
+
+            // get value and check
+            if (assertions != null && assertions[i] != null) {
+                onView(matcher).check(assertions[i]);
+            }
+        }
 
         // change orientation to landscape
         onView(isRoot()).perform(orientationLandscape());
 
-        checkView(assertions, null, inputViews, null);
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
+
+            // get value and check
+            if (assertions != null && assertions[i] != null) {
+                onView(matcher).check(assertions[i]);
+            }
+        }
 
         // Check send button state
         if (commandView != null) {
@@ -363,7 +394,16 @@ public abstract class AbstractCommandWidgetTest {
         // change orientation to portrait
         onView(isRoot()).perform(orientationPortrait());
 
-        checkView(assertions, null, inputViews, null);
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
+
+            // get value and check
+            if (assertions != null && assertions[i] != null) {
+                onView(matcher).check(assertions[i]);
+            }
+        }
 
         // Check send button state
         if (commandView != null) {
@@ -380,31 +420,6 @@ public abstract class AbstractCommandWidgetTest {
 
         onView(errorView)
                 .check(matches(withConcatText(errorMessages)));
-    }
-
-    /**
-     * Checks a specific view.
-     * @param assertions the matching assertion to check
-     * @param errorMessages the error message reference as a int[]
-     * @param inputViews  the input as Matcher&lt;view&gt;
-     * @param errorView the error as Matcher&lt;view&gt;
-     */
-    protected void checkView(ViewAssertion[] assertions, int[] errorMessages, Matcher<View>[] inputViews, Matcher<View> errorView) {
-        for (int i=0; i<inputViews.length; i++) {
-            Matcher<View> matcher = inputViews[i];
-            // Make scroll to
-            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
-
-            if (errorView != null && errorMessages != null) {
-                // check error
-                onView(errorView).check(matches(withConcatText(errorMessages)));
-            }
-
-            // get value and check
-            if (assertions != null && assertions[i] != null) {
-                onView(matcher).check(assertions[i]);
-            }
-        }
     }
 
     /**
