@@ -77,10 +77,10 @@ public abstract class AbstractCommandWidgetTest {
     public void testTextEntryOutsideWidget(String textInput, int[] errorMessages, @IdRes int inputView, @IdRes int commandView, @IdRes int errorView, boolean validEntry) {
 
         testEntryScenarioBasicWithRotation(
-                typeText(textInput),
-                matches(withText(textInput)),
+                new ViewAction[] { typeText(textInput) },
+                new ViewAssertion[] { matches(withText(textInput)) },
                 errorMessages,
-                withId(inputView),
+                new Matcher[] { withId(inputView) },
                 commandView != 0 ? withId(commandView) : null,
                 withId(errorView),
                 validEntry
@@ -99,10 +99,86 @@ public abstract class AbstractCommandWidgetTest {
     public void testTextEntryRichWidget(String textInput, int[] errorMessages, @IdRes int richWidgetView, @IdRes int commandView, boolean validEntry) {
 
         testEntryScenarioBasicWithRotation(
-                typeText(textInput),
-                matches(withText(textInput)),
+                new ViewAction[] { typeText(textInput) },
+                new ViewAssertion[] { matches(withText(textInput)) },
                 errorMessages,
-                allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
+                new Matcher[] { allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))) },
+                commandView != 0 ? allOf(withId(commandView), isDescendantOfA(withId(richWidgetView))) : null,
+                allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
+                validEntry
+        );
+
+    }
+
+    /**
+     * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a text widget outside a RichWidget.
+     * @param textInput the text input
+     * @param errorMessages the error message reference
+     * @param widgetView the rich widget reference
+     * @param subViews  the input view reference
+     * @param commandView the command view reference
+     * @param errorView the error view reference
+     * @param validEntry true if the input is a valid entry, false otherwise
+     */
+    public void testMultiTextEntryOutsideWidget(String[] textInput, int[] errorMessages, @IdRes int widgetView, @IdRes int[] subViews, @IdRes int commandView, @IdRes int errorView, boolean validEntry) {
+
+        ViewAction[] actions = new ViewAction[textInput.length];
+        for (int i=0; i<textInput.length; i++) {
+            actions[i] = typeText(textInput[i]);
+        }
+
+        ViewAssertion[] assertions = new ViewAssertion[textInput.length];
+        for (int i=0; i<textInput.length; i++) {
+            assertions[i] = matches(withText(textInput[i]));
+        }
+
+        Matcher<View>[] inputViews = new Matcher[subViews.length];
+        for (int i=0; i<subViews.length; i++) {
+            inputViews[i] = allOf(withId(subViews[i]), isDescendantOfA(withId(widgetView)));
+        }
+
+        testEntryScenarioBasicWithRotation(
+                actions,
+                assertions,
+                errorMessages,
+                inputViews,
+                commandView != 0 ? withId(commandView) : null,
+                withId(errorView),
+                validEntry
+        );
+
+    }
+
+    /**
+     * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a text RichWidget.
+     * @param textInput the text input
+     * @param errorMessages the error message reference
+     * @param richWidgetView the rich widget reference
+     * @param commandView the command view reference
+     * @param validEntry true if the input is a valid entry, false otherwise
+     */
+    public void testMultiTextEntryRichWidget(String[] textInput, int[] errorMessages, @IdRes int richWidgetView, @IdRes int[] subViews, @IdRes int commandView, boolean validEntry) {
+
+        ViewAction[] actions = new ViewAction[textInput.length];
+        for (int i=0; i<textInput.length; i++) {
+            actions[i] = typeText(textInput[i]);
+        }
+
+        ViewAssertion[] assertions = new ViewAssertion[textInput.length];
+        for (int i=0; i<textInput.length; i++) {
+            assertions[i] = matches(withText(textInput[i]));
+        }
+
+        Matcher<View>[] inputViews = new Matcher[subViews.length];
+        for (int i=0; i<subViews.length; i++) {
+            inputViews[i] = allOf(withId(subViews[i]), isDescendantOfA(withId(richWidgetView)));
+        }
+
+        testEntryScenarioBasicWithRotation(
+                actions,
+                assertions,
+                errorMessages,
+                inputViews,
                 commandView != 0 ? allOf(withId(commandView), isDescendantOfA(withId(richWidgetView))) : null,
                 allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
                 validEntry
@@ -125,10 +201,10 @@ public abstract class AbstractCommandWidgetTest {
     public void testDateEntryOutsideWidget(int year, int monthOfYear, int dayOfMonth, int hour, int minute, int[] errorMessages, @IdRes int inputView, @IdRes int errorView, boolean validEntry) {
 
         testEntryScenarioBasicWithRotation(
-                setDateTime(year, monthOfYear, dayOfMonth, hour, minute),
-                matches(withDateTime(year, monthOfYear, dayOfMonth, hour, minute)),
+                new ViewAction[] { setDateTime(year, monthOfYear, dayOfMonth, hour, minute) },
+                new ViewAssertion[] { matches(withDateTime(year, monthOfYear, dayOfMonth, hour, minute)) },
                 errorMessages,
-                withId(inputView),
+                new Matcher[] { withId(inputView) },
                 null,
                 withId(errorView),
                 validEntry
@@ -149,7 +225,7 @@ public abstract class AbstractCommandWidgetTest {
                 null,
                 null,
                 errorMessages,
-                withId(inputView),
+                new Matcher[] { withId(inputView) },
                 null,
                 withId(errorView),
                 validEntry
@@ -171,10 +247,10 @@ public abstract class AbstractCommandWidgetTest {
     public void testDateEntryRichWidget(int year, int monthOfYear, int dayOfMonth, int hour, int minute, int[] errorMessages, @IdRes int richWidgetView, boolean validEntry) {
 
         testEntryScenarioBasicWithRotation(
-                setDateTime(year, monthOfYear, dayOfMonth, hour, minute),
-                matches(withDateTime(year, monthOfYear, dayOfMonth, hour, minute)),
+                new ViewAction[] { setDateTime(year, monthOfYear, dayOfMonth, hour, minute) },
+                new ViewAssertion[] { matches(withDateTime(year, monthOfYear, dayOfMonth, hour, minute)) },
                 errorMessages,
-                allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
+                new Matcher[] { allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))) },
                 null,
                 allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
                 validEntry
@@ -194,7 +270,7 @@ public abstract class AbstractCommandWidgetTest {
                 null,
                 null,
                 errorMessages,
-                allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
+                new Matcher[] { allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))) },
                 null,
                 allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
                 validEntry
@@ -214,10 +290,10 @@ public abstract class AbstractCommandWidgetTest {
     public void testTextEntryRichUriWidget(String textInput, String textToCheck, int[] errorMessages, @IdRes int richWidgetView, @IdRes int commandView, boolean validEntry) {
 
         testEntryScenarioBasicWithRotation(
-                typeText(textInput),
-                matches(withText(textToCheck)),
+                new ViewAction[] { typeText(textInput) },
+                new ViewAssertion[] { matches(withText(textToCheck)) },
                 errorMessages,
-                allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
+                new Matcher[] { allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))) },
                 commandView != 0 ? allOf(withId(commandView), isDescendantOfA(withId(richWidgetView))) : null,
                 allOf(withId(R.id.component_error), isDescendantOfA(withId(richWidgetView))),
                 validEntry
@@ -227,26 +303,30 @@ public abstract class AbstractCommandWidgetTest {
 
     /**
      * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a widget outside a RichWidget.
-     * @param action the action to perform on the view
-     * @param assertion the matching assertion to check
+     * @param actions the action to perform on the view
+     * @param assertions the matching assertion to check
      * @param errorMessages the error message reference as a int[]
-     * @param inputView  the input as Matcher&lt;view&gt;
+     * @param inputViews  the input as Matcher&lt;view&gt;
      * @param commandView the command as Matcher&lt;view&gt;
      * @param errorView the error as Matcher&lt;view&gt;
      * @param validEntry true if the input is a valid entry, false otherwise
      */
-    public void testEntryScenarioBasicWithRotation(ViewAction action, ViewAssertion assertion, int[] errorMessages, Matcher<View> inputView, Matcher<View> commandView, Matcher<View> errorView, boolean validEntry) {
+    public void testEntryScenarioBasicWithRotation(ViewAction[] actions, ViewAssertion[] assertions, int[] errorMessages, Matcher<View>[] inputViews, Matcher<View> commandView, Matcher<View> errorView, boolean validEntry) {
         ActivityTestRule mActivityRule = this.getActivity();
 
         // Assertion that activity result is not null, nominal case
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
 
-        // perform given action
-        if (action != null) {
-            onView(inputView).perform(action);
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
+
+            // perform given action
+            if (actions != null && actions[i] != null) {
+                onView(matcher).perform(actions[i]);
+            }
         }
 
         // Check send button state
@@ -265,26 +345,32 @@ public abstract class AbstractCommandWidgetTest {
         // click validate button
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(scrollTo()), click());
 
-        // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
 
-        // check error
-        onView(errorView).check(matches(withConcatText(errorMessages)));
+            // check error
+            onView(errorView).check(matches(withConcatText(errorMessages)));
 
-        // get value and check
-        if (assertion != null) {
-            onView(inputView).check(assertion);
+            // get value and check
+            if (assertions != null && assertions[i] != null) {
+                onView(matcher).check(assertions[i]);
+            }
         }
 
         // change orientation to landscape
         onView(isRoot()).perform(orientationLandscape());
 
-        // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
 
-        // get value and check
-        if (assertion != null) {
-            onView(inputView).check(assertion);
+            // get value and check
+            if (assertions != null && assertions[i] != null) {
+                onView(matcher).check(assertions[i]);
+            }
         }
 
         // Check send button state
@@ -307,12 +393,15 @@ public abstract class AbstractCommandWidgetTest {
         // change orientation to portrait
         onView(isRoot()).perform(orientationPortrait());
 
-        // Make scroll to
-        onView(inputView).perform(ViewActions.actionWithAssertions(scrollTo()));
+        for (int i=0; i<inputViews.length; i++) {
+            Matcher<View> matcher = inputViews[i];
+            // Make scroll to
+            onView(matcher).perform(ViewActions.actionWithAssertions(scrollTo()));
 
-        // get value and check
-        if (assertion != null) {
-            onView(inputView).check(assertion);
+            // get value and check
+            if (assertions != null && assertions[i] != null) {
+                onView(matcher).check(assertions[i]);
+            }
         }
 
         // Check send button state

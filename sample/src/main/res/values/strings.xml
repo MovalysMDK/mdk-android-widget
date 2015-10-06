@@ -95,6 +95,8 @@
     <string name="position_rich_custom_layout">Position Rich widget custom layout</string>
     <string name="position_rich_common_error">Position rich widget common error</string>
     <string name="position_rich_helper_text">Position rich widget with helper</string>
+    <string name="mapButtonText">map</string>
+    <string name="positionButtonText">locate</string>
 
     <string name="positionmaps_helper_text">MapsPosition format text</string>
     <string name="positionmaps_with_label_error_location">MapsPosition Rich widget with label and error and location</string>
@@ -137,8 +139,8 @@
     <string name="date_case_6">RichDateTime with label and dateHint and timeHint</string>
     <string name="date_rich_without_label">DateTime rich widget without label</string>
     <string name="date_rich_custom_layout">DateTime rich widget custom layout</string>
-    <string name="dateHint" tranlatable="false">DATE Hint</string>
-    <string name="timeHint" tranlatable="false">TIME Hint</string>
+    <string name="dateHint" translatable="false">DATE Hint</string>
+    <string name="timeHint" translatable="false">TIME Hint</string>
 
     <string name="topbar_validatebutton">validate</string>
     <string name="topbar_mandatorybutton">mandatory</string>
@@ -146,7 +148,7 @@
     <string name="testHintText">Test hint</string>
     <string name="sendButtonText">send</string>
 
-    <string name="fortyTwoTextFormater_prefix" tranlatable="false">"42 /!\\ "</string>
+    <string name="fortyTwoTextFormater_prefix" translatable="false">"42 /!\\ "</string>
 
     <string name="no_number_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator</string>
     <string name="no_number_allowed">No number allowed</string>
@@ -165,9 +167,9 @@
 
     <!-- TESTED RESOURCES -->
     <string name="test_app_name">MDK Android widget</string>
-    <string name="test_empty_string" tranlatable="false">""</string>
-    <string name="test_fortyTwoTextFormater_prefix" tranlatable="false">"42 /!\\ "</string>
-    <string name="test_date_error_ranged" tranlatable="false">" (2015/01/01 10:30:00 &lt; 2015/05/12 11:52:33)\\n"</string>
+    <string name="test_empty_string" translatable="false">""</string>
+    <string name="test_fortyTwoTextFormater_prefix" translatable="false">"42 /!\\ "</string>
+    <string name="test_date_error_ranged" translatable="false">" (2015/01/01 10:30:00 &lt; 2015/05/12 11:52:33)\\n"</string>
     <string name="test_mdkvalidator_email_error_invalid">Invalid email value</string>
     <string name="test_uri_helper_text">uri format text</string>
     <string name="test_testHintText">Test hint</string>
@@ -195,5 +197,8 @@
     <string name="seekbar_edit_text_not_editable">Seekbar with edit text not editable</string>
     <string name="seekbar_min_max_allowed">Seekbar with min allowed and max allowed but neither min nor max</string>
     <string name="seekbar_different_formatter">Seekbar with different formatter</string>
+    <string name="test_position_valid_latitude" translatable="false">4.5</string>
+    <string name="test_position_valid_longitude" translatable="false">6.4</string>
+    <string name="test_mdkvalidator_position_error_validation_mandatory">Latitude and longitude must be filled</string>
 
 </resources>

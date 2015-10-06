@@ -90,5 +90,6 @@
     <string name="test_mdkvalidator_uri_error_invalid">Adresse uri non valide</string>
     <string name="test_no_number_allowed">nombre non autoriser</string>
     <string name="test_seekbar_maxSeekBarValue_error_20">La valeur doit être inférieure à 20.</string>
+    <string name="testmdkvalidator_position_error_validation_mandatory">La latitude et la longitude doivent être renseignées</string>
 
 </resources>

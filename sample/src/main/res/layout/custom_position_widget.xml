@@ -27,7 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"/>
+        mdk:labelId="@id/component_label"
+        mdk:locateButtonViewId="@+id/locateButton"
+        mdk:mapsButtonViewId="@+id/mapButton"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,5 +43,17 @@
         android:background="#4F443344"
         android:id="@id/component_error"
         android:layout_gravity="end" />
+
+    <Button
+        android:id="@+id/mapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mapButtonText"/>
+
+    <Button
+        android:id="@+id/locateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/positionButtonText"/>
 
 </LinearLayout>

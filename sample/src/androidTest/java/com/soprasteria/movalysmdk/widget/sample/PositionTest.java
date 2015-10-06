@@ -19,6 +19,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,105 +48,180 @@ import static org.hamcrest.Matchers.notNullValue;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class PositionTest {
+public class PositionTest extends AbstractCommandWidgetTest {
 
     /**
-     * Activity used for this tests.
+     *  Rule to initialize PositionActivity.
      */
     @Rule
     public ActivityTestRule<PositionActivity> mActivityRule = new ActivityTestRule<>(PositionActivity.class);
 
-    /**
-      * Check MDK Position widget behaviour when this one is mandatory or not.
-      */
-    @Test
-    public void testMandatory() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        // check map button not clickable
-        onView(allOf(withId(R.id.component_mapButton), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(not(isEnabled())));
-        // check location button is clickable
-        onView(allOf(withId(R.id.component_positionButton), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(isEnabled()));
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check mandatory error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation)));
-
-        // remove mandatory option on widget
-        onView(withId(R.id.mandatoryButton)).perform(click());
-
-        // click validate button
-        onView(withId(R.id.validateButton)).perform(click());
-
-        // check no error
-        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(withText(isEmptyOrNullString())));
+    @Override
+    protected ActivityTestRule getActivity() {
+        return mActivityRule;
     }
 
     /**
-     * test the validity of the widget after clicking on the location button.
+     * Check MDK position widget behaviour with valid position.
      */
     @Test
-    public void testValidate() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+    public void testValidPosition() {
 
-        // check that latitude and longitude are empty
-        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(withText(isEmptyOrNullString())));
-        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(withText(isEmptyOrNullString())));
-
-        // click on position button
-        onView(allOf(withId(R.id.component_positionButton), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError)))).perform(click());
-
-        // TODO: should test the values, but does not work on emulator...
+        testMultiTextEntryOutsideWidget(
+                new String[] {
+                        mActivityRule.getActivity().getString(R.string.test_position_valid_latitude),
+                        mActivityRule.getActivity().getString(R.string.test_position_valid_longitude)
+                },
+                new int[]{R.string.test_empty_string},
+                R.id.mdkPosition_withErrorAndCommandOutside,
+                new int[] {
+                        R.id.component_internal_latitude,
+                        R.id.component_internal_longitude
+                },
+                R.id.buttonPosition,
+                R.id.commons_error,
+                true
+        );
     }
 
     /**
-     * Test the validity of the widget after text input.
+     * Check MDK position widget behaviour with invalid (empty) position.
      */
     @Test
-    public void testFill() {
-        // fill latitude and longitude
-        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .perform(typeText("1.5"));
-        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .perform(typeText("2.4"));
+    public void testInvalidPosition() {
 
-        onView(isRoot()).perform(orientationPortrait());
-
-        // check that latitude and longitude are filled
-        onView(allOf(withId(R.id.component_internal_latitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(withText("1.5")));
-        onView(allOf(withId(R.id.component_internal_longitude), isDescendantOfA(withId(R.id.mdkRichPosition_locationWithLabelAndError))))
-                .check(matches(withText("2.4")));
+        testMultiTextEntryOutsideWidget(
+                new String[] {
+                        mActivityRule.getActivity().getString(R.string.test_empty_string),
+                        mActivityRule.getActivity().getString(R.string.test_empty_string)
+                },
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation_mandatory},
+                R.id.mdkPosition_withErrorAndCommandOutside,
+                new int[] {
+                        R.id.component_internal_latitude,
+                        R.id.component_internal_longitude
+                },
+                R.id.buttonPosition,
+                R.id.position_errorText,
+                true
+        );
     }
 
     /**
-     * Test that the component is disabled by the button.
+     * Check MDK rich position widget behaviour with valid position.
      */
     @Test
-    public void testDisable() {
-        // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
-
-        // Disable widgets
-        onView(withId(R.id.enableButton)).perform(click());
-
-        // Check widgets are disabled
-        onView(withId(R.id.mdkPosition_withErrorAndCommandOutside)).check(matches(not(isEnabled())));
-
-        // Re enabled widget
-        onView(withId(R.id.enableButton)).perform(click());
-
-        // Check widgets are enabled
-        onView(withId(R.id.mdkPosition_withErrorAndCommandOutside)).check(matches(isEnabled()));
+    public void testRichPositionWithLabelValidEntry() {
+        testMultiTextEntryRichWidget(
+                new String[] {
+                        mActivityRule.getActivity().getString(R.string.test_position_valid_latitude),
+                        mActivityRule.getActivity().getString(R.string.test_position_valid_longitude)
+                },
+                new int[]{R.string.test_empty_string},
+                R.id.mdkRichPosition_locationWithLabelAndError,
+                new int[] {
+                        R.id.component_internal_latitude,
+                        R.id.component_internal_longitude
+                },
+                R.id.component_mapButton,
+                true
+        );
     }
+
+    /**
+     * Check MDK rich position widget behaviour with invalid (empty) position.
+     */
+    @Test
+    public void testRichPositionWithLabelInvalidEntry() {
+        testMultiTextEntryRichWidget(
+                new String[] {
+                        mActivityRule.getActivity().getString(R.string.test_empty_string),
+                        mActivityRule.getActivity().getString(R.string.test_empty_string)
+                },
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation_mandatory},
+                R.id.mdkRichPosition_locationWithLabelAndError,
+                new int[] {
+                        R.id.component_internal_latitude,
+                        R.id.component_internal_longitude
+                },
+                R.id.component_mapButton,
+                false
+        );
+    }
+
+    /**
+     * Check MDK rich position with custom layout widget with valid position.
+     */
+    @Test
+    public void testRichPositionWithCustomLayoutValidEntry() {
+        testMultiTextEntryRichWidget(
+                new String[] {
+                        mActivityRule.getActivity().getString(R.string.test_position_valid_latitude),
+                        mActivityRule.getActivity().getString(R.string.test_position_valid_longitude)
+                },
+                new int[]{R.string.test_empty_string},
+                R.id.mdkRichPosition_withCustomLayout,
+                new int[] {
+                        R.id.component_internal_latitude,
+                        R.id.component_internal_longitude
+                },
+                R.id.mapButton,
+                true
+        );
+    }
+
+    /**
+     * Check MDK rich position with custom layout widget with invalid (empty) position.
+     */
+    @Test
+    public void testRichPositionWithCustomLayoutInvalidEntry() {
+        testMultiTextEntryRichWidget(
+                new String[] {
+                        mActivityRule.getActivity().getString(R.string.test_empty_string),
+                        mActivityRule.getActivity().getString(R.string.test_empty_string)
+                },
+                new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation_mandatory},
+                R.id.mdkRichPosition_withCustomLayout,
+                new int[] {
+                        R.id.component_internal_latitude,
+                        R.id.component_internal_longitude
+                },
+                R.id.mapButton,
+                false
+        );
+    }
+
+    /**
+     * Check MDK rich position widget disability behaviour toggle.
+     */
+    @Test
+    public void testDisableRichWidget() {
+        testDisableRichWidget(R.id.mdkRichPosition_locationWithLabelAndError);
+    }
+
+    /**
+     * Check MDK position with outside error widget disability behaviour toggle.
+     */
+    @Test
+    public void testDisableOutsideWidget() {
+        testDisableOutsideWidget(R.id.mdkPosition_withErrorAndCommandOutside);
+    }
+
+//    /**
+//     * Check MDK rich position widget mandatory behaviour toggle.
+//     */
+//    @Test
+//    public void testMandatoryRichWidget() {
+//        testMandatoryRichWidget(R.id.mdkRichPosition_locationWithLabelAndError, R.string.test_app_name);
+//    }
+//
+//    /**
+//     * Check MDK position with outside error widget mandatory behaviour toggle.
+//     */
+//    @Test
+//    public void testMandatoryOutsideWidget() {
+//        testMandatoryOutsideWidget(R.id.mdkPosition_withErrorAndCommandOutside, R.string.test_default_position_hint_text);
+//    }
+
 }

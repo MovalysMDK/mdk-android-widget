@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/testHintText"
             mdk:errorId="@+id/position_errorText"
-            mdk:primaryCommandId="@+id/buttonPosition"
+            mdk:locateButtonViewId="@+id/buttonPosition"
             mdk:mandatory="true" />
 
         <Button
@@ -149,7 +149,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sendButtonText" />
+            android:text="@string/positionButtonText" />
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/position_errorText"
