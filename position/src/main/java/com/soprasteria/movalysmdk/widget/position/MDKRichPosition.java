@@ -2,16 +2,15 @@ package com.soprasteria.movalysmdk.widget.position;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.location.Location;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 /**
