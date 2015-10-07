@@ -17,6 +17,8 @@ package com.soprasteria.movalysmdk.widget.sample;
 
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.LargeTest;
 
 import com.soprasteria.movalysmdk.espresso.action.MdkSeekBarAction;
 import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
@@ -25,6 +27,7 @@ import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -49,6 +52,8 @@ import static org.hamcrest.Matchers.notNullValue;
 /**
  * Tests for MdkRichseekbar widget.
  */
+@RunWith(AndroidJUnit4.class)
+@LargeTest
 public class SeekBarTest extends AbstractCommandWidgetTest {
 
     /**

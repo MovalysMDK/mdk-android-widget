@@ -41,10 +41,14 @@ public class EnumImageActivity extends AbstractWidgetTestableActivity {
 
         //initializing images from enum
         MDKRichEnumImage withLabelAndError = (MDKRichEnumImage) findViewById(R.id.mdkRichEnumImage_withLabelAndError);
-        withLabelAndError.setEnumValue(BabyAnimals.PUPPY);
+        withLabelAndError.setValueFromEnum(BabyAnimals.PUPPY);
 
         MDKEnumImage withErrorAndCommandOutside = (MDKEnumImage) findViewById(R.id.mdkEnumImage_withErrorAndCommandOutside);
-        withErrorAndCommandOutside.setEnumValue(BabyAnimals.KITTEN);
+        withErrorAndCommandOutside.setValueFromEnum(BabyAnimals.KITTEN);
+
+        //initializing image from string
+        MDKEnumImage withImageSetByString = (MDKEnumImage) findViewById(R.id.mdkEnumImage_withImageSetByString);
+        withImageSetByString.setValueFromString("babyanimals_cub");
     }
 
 }

@@ -21,7 +21,7 @@ import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasEnum;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasEnum;
 
 /**
  * Rich widget representing an image from enumerated resources,
@@ -61,28 +61,48 @@ public class MDKRichEnumImage extends MDKBaseRichWidget<MDKEnumImage> implements
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumImage);
         String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumImage_enum_prefix);
         if(resEnumPrefix != null) {
-            setEnumPrefix(resEnumPrefix);
+            setResourceNamePrefix(resEnumPrefix);
         }
         typedArray.recycle();
     }
 
     @Override
-    public Enum getEnumValue() {
-        return getInnerWidget().getEnumValue();
+    public Enum getValueAsEnumValue() {
+        return getInnerWidget().getValueAsEnumValue();
     }
 
     @Override
-    public void setEnumValue(Enum value) {
-        getInnerWidget().setEnumValue(value);
+    public void setValueFromEnum(Enum value) {
+        getInnerWidget().setValueFromEnum(value);
     }
 
     @Override
-    public String getEnumPrefix() {
-        return getInnerWidget().getEnumPrefix();
+    public String getValueAsString() {
+        return getInnerWidget().getValueAsString();
     }
 
     @Override
-    public void setEnumPrefix(String prefix) {
-        getInnerWidget().setEnumPrefix(prefix);
+    public void setValueFromString(String name) {
+        getInnerWidget().setValueFromString(name);
+    }
+
+    @Override
+    public int getValueAsInt() {
+        return getInnerWidget().getValueAsInt();
+    }
+
+    @Override
+    public void setValueFromInt(int id) {
+        getInnerWidget().setValueFromInt(id);
+    }
+
+    @Override
+    public String getResourceNamePrefix() {
+        return getInnerWidget().getResourceNamePrefix();
+    }
+
+    @Override
+    public void setResourceNamePrefix(String prefix) {
+        getInnerWidget().setResourceNamePrefix(prefix);
     }
 }

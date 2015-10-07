@@ -23,8 +23,6 @@ public enum BabyAnimals {
     KITTEN,
     /** Puppy drawable. */
     PUPPY,
-    /** Calf drawable. */
-    CALF,
     /** Cub drawable. */
     CUB
 }
