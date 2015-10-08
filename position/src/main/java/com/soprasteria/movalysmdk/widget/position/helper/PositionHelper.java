@@ -99,7 +99,7 @@ public class PositionHelper {
      * @return true if the location is near to the one stored in the instance of that class
      */
     public static boolean isNearTo(Position position, Location location) {
-        if (position != null) {
+        if (position != null && position.getLocation() != null) {
             boolean isLatitudeEqual = PositionHelper.round(location.getLatitude(), 4) == PositionHelper.round(position.getLatitude(), 4);
             boolean isLongitudeEqual = PositionHelper.round(location.getLongitude(), 4) == PositionHelper.round(position.getLongitude(), 4);
 

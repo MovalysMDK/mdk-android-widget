@@ -46,6 +46,7 @@ import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
+import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -154,32 +155,13 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             this.formatter = new SeekbarDefaultFormatter();
         }
 
-        String maxAllowedStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed);
-        if (maxAllowedStr != null) {
-            this.seekBarMaxAllowed = Integer.parseInt(maxAllowedStr);
-        }
+        setSeekBarMaxAllowed(AttributesHelper.getAttributeValue(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed, String.class, 0));
 
-        String minAllowedStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed);
-        if (minAllowedStr != null) {
-            this.seekBarMinAllowed = Integer.parseInt(minAllowedStr);
-        }
+        setSeekBarMinAllowed(AttributesHelper.getAttributeValue(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed, String.class, 0));
 
-        String minStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min);
-        if (minStr != null) {
-            this.min = Integer.parseInt(minStr);
-        } else if (seekBarMinAllowed != null) {
-            this.min = seekBarMinAllowed;
-        } else {
-            this.min = 0;
-        }
+        setMin(AttributesHelper.getAttributeValue(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min, String.class, getSeekBarMinAllowed()));
 
-        String maxStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max);
-        if (maxStr != null) {
-            int max = Integer.parseInt(maxStr);
-            this.setMax(max);
-        } else if (seekBarMaxAllowed != null) {
-            this.setMax(seekBarMaxAllowed);
-        }
+        setMax(AttributesHelper.getAttributeValue(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max, String.class, getSeekBarMaxAllowed()));
 
         String initialValueStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
         if (initialValueStr != null) {

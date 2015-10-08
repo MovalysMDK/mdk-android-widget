@@ -1,5 +1,6 @@
 package com.soprasteria.movalysmdk.widget.position.delegate;
 
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -11,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 import com.soprasteria.movalysmdk.widget.position.R;
 
@@ -98,30 +100,22 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
         // Position specific fields parsing
         TypedArray typedArray = root.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
 
-        latitudeViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_latitudeTextViewId, 0);
-
-        if (latitudeViewId == 0) {
-            latitudeViewId = R.id.component_internal_latitude;
-        }
+        latitudeViewId = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_latitudeTextViewId,
+                Resources.class, R.id.component_internal_latitude);
 
         final EditText latView = (EditText) root.findViewById(latitudeViewId);
 
         latitudeView = new WeakReference<>(latView);
 
-        longitudeViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_longitudeTextViewId, 0);
-
-        if (longitudeViewId == 0) {
-            longitudeViewId = R.id.component_internal_longitude;
-        }
+        longitudeViewId = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_longitudeTextViewId,
+                Resources.class, R.id.component_internal_longitude);
 
         final EditText lngView = (EditText) root.findViewById(longitudeViewId);
 
         longitudeView = new WeakReference<>(lngView);
 
-        addressViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_addressSpinnerViewId, 0);
-        if (addressViewId == 0) {
-            addressViewId = R.id.component_internal_address;
-        }
+        addressViewId = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_addressSpinnerViewId,
+                Resources.class, R.id.component_internal_address);
 
         final Spinner addrView = (Spinner) root.findViewById(addressViewId);
 
@@ -129,10 +123,8 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             addressView = new WeakReference<>(addrView);
         }
 
-        locationInfoViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_locationInfoViewId, 0);
-        if (locationInfoViewId == 0) {
-            locationInfoViewId = R.id.component_internal_info_location;
-        }
+        locationInfoViewId = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_locationInfoViewId,
+                Resources.class, R.id.component_internal_info_location);
 
         final TextView locInfoView = (TextView) root.findViewById(locationInfoViewId);
 
@@ -140,10 +132,8 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             locationInfoView = new WeakReference<>(locInfoView);
         }
 
-        addressInfoViewId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_addressInfoViewId, 0);
-        if (addressInfoViewId == 0) {
-            addressInfoViewId = R.id.component_internal_info_address;
-        }
+        addressInfoViewId = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_addressInfoViewId,
+                Resources.class, R.id.component_internal_info_address);
 
         final TextView addrInfoView = (TextView) root.findViewById(addressInfoViewId);
 
@@ -162,14 +152,11 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
 
         this.setActivateGoto(typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true));
 
-        latHint = typedArray.getString(R.styleable.MDKCommons_MDKPositionComponent_latHint);
-        if (latHint == null) {
-            latHint = root.getContext().getString(R.string.mdkwidget_mdkposition_latitude_hint);
-        }
-        lngHint = typedArray.getString(R.styleable.MDKCommons_MDKPositionComponent_lngHint);
-        if (lngHint == null) {
-            lngHint = root.getContext().getString(R.string.mdkwidget_mdkposition_longitude_hint);
-        }
+        latHint = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_latHint,
+                String.class, root.getContext().getString(R.string.mdkwidget_mdkposition_latitude_hint));
+
+        lngHint = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_lngHint,
+                String.class, root.getContext().getString(R.string.mdkwidget_mdkposition_longitude_hint));
 
         if (latView != null) {
             latView.setHint(latHint);
@@ -178,10 +165,8 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
             lngView.setHint(lngHint);
         }
 
-        addressHint = typedArray.getString(R.styleable.MDKCommons_MDKPositionComponent_addressHint);
-        if (addressHint == null) {
-            addressHint = root.getContext().getString(R.string.mdkwidget_mdkposition_address_hint);
-        }
+        addressHint = AttributesHelper.getAttributeValue(typedArray, R.styleable.MDKCommons_MDKPositionComponent_addressHint,
+                String.class, root.getContext().getString(R.string.mdkwidget_mdkposition_address_hint));
 
         if (this.mode == -1) {
             this.mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, MDKPosition.GEOPOINT);

@@ -201,20 +201,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
             // without label
             LayoutInflater.from(context).inflate(layoutWithoutLabelId, this);
         }
-
-        //enableSaveFromParent(this);
-
     }
-
-    /*private void enableSaveFromParent(View v) {
-        if (v instanceof ViewGroup) {
-            for (int i=0; i<this.getChildCount(); i++) {
-                View currentView = this.getChildAt(i);
-                enableSaveFromParent(currentView);
-            }
-        }
-        v.setSaveFromParentEnabled(true);
-    }*/
 
     /**
      * Initialise the attribute map for the widget.

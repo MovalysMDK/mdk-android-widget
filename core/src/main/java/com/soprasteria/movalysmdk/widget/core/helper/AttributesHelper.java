@@ -1,5 +1,6 @@
 package com.soprasteria.movalysmdk.widget.core.helper;
 
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.Log;
 
@@ -31,10 +32,12 @@ public class AttributesHelper {
      * @return the read value, or the given default if there was a problem
      */
     public static <O> O getAttributeValue(TypedArray typedArray, int attributeIndex, Class attrClass, O defaultValue) {
-        Object attrValue = null;
+        Object attrValue;
 
         if (attrClass.equals(String.class)) {
             attrValue = typedArray.getString(attributeIndex);
+        } else if (attrClass.equals(Resources.class)) {
+            attrValue = typedArray.getResourceId(attributeIndex, (Integer)defaultValue);
         } else {
             Log.e(TAG, "Cannot convert from " + attrClass.getSimpleName());
             return null;
@@ -61,6 +64,10 @@ public class AttributesHelper {
      * @return the converted value
      */
     private static <O> O convert(Object value, Class<?> returnedClass) {
+        if (value.getClass().equals(returnedClass)) {
+            return (O)value;
+        }
+
         O returnedValue = null;
 
         String methodName = value.getClass().getSimpleName() + "To" + returnedClass.getSimpleName();
@@ -89,6 +96,7 @@ public class AttributesHelper {
      * @param valueToConvert the String value to convert
      * @return the int value
      */
+    @SuppressWarnings("unused")
     private static Integer stringToInteger(String valueToConvert) {
         return Integer.valueOf(valueToConvert);
     }
