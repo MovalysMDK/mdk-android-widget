@@ -44,7 +44,13 @@ public class AttributesHelper {
             return defaultValue;
         }
 
-        return convert(attrValue, defaultValue.getClass());
+        O returnedValue = convert(attrValue, defaultValue.getClass());
+
+        if (returnedValue == null) {
+            returnedValue = defaultValue;
+        }
+
+        return returnedValue;
     }
 
     /**
@@ -62,10 +68,10 @@ public class AttributesHelper {
         methodName = methodName.substring(0, 1).toLowerCase() + methodName.substring(1);
 
         try {
-            Method method = AttributesHelper.class.getMethod(methodName, value.getClass(), returnedClass);
+            Method method = AttributesHelper.class.getDeclaredMethod(methodName, value.getClass());
 
             if (method != null) {
-                method.invoke(returnedValue, value);
+                returnedValue = (O) method.invoke(null, value);
             }
         } catch (NoSuchMethodException e) {
             Log.e(TAG, "Convert method " + methodName + " does not exists.", e);
