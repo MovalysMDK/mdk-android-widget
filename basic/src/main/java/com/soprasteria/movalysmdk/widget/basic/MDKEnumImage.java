@@ -179,12 +179,7 @@ public class MDKEnumImage extends ImageView implements HasDelegate, HasEnum, MDK
 
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
-        if (this.getMDKWidgetDelegate() != null) {
-            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
-        } else {
-            // first called in the super constructor
-            return super.onCreateDrawableState(extraSpace);
-        }
+        return mdkWidgetDelegate.superOnCreateDrawableState(extraSpace);
     }
 
     @Override
