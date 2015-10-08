@@ -6,50 +6,84 @@ import android.util.Log;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * Helper class for the attributes reading and setting to class.
+ */
 public class AttributesHelper {
 
+    /** TAG for debug. */
+    private static final String TAG = AttributesHelper.class.getSimpleName();
+
+    /**
+     * Constructor.
+     */
+    private AttributesHelper() {
+        // nothing to do
+    }
+
+    /**
+     * Gets the value from an attribute and converts it to the given type.
+     * @param typedArray an array of attributes
+     * @param attributeIndex the index of the attribute to look for
+     * @param attrClass the class of the attribute to read
+     * @param defaultValue the default value to return
+     * @param <O> the class of the returned value
+     * @return the read value, or the given default if there was a problem
+     */
     public static <O> O getAttributeValue(TypedArray typedArray, int attributeIndex, Class attrClass, O defaultValue) {
         Object attrValue = null;
 
         if (attrClass.equals(String.class)) {
             attrValue = typedArray.getString(attributeIndex);
         } else {
-            Log.e("AttributesHelper", "Cannot convert from " + attrClass.getSimpleName());
+            Log.e(TAG, "Cannot convert from " + attrClass.getSimpleName());
+            return null;
         }
 
-        O returnedValue = convert(attrValue, defaultValue);
+        if (attrValue == null) {
+            return defaultValue;
+        }
 
-        return returnedValue;
+        return convert(attrValue, defaultValue.getClass());
     }
 
-    private static <O> O convert(Object value, O defaultValue) {
+    /**
+     * Convert the given value to the O type.
+     * @param value the value to convert
+     * @param returnedClass the return class
+     * @param <O> the type of the value to return
+     * @return the converted value
+     */
+    private static <O> O convert(Object value, Class<?> returnedClass) {
         O returnedValue = null;
 
-        if (value != null) {
-            String methodName = value.getClass().getSimpleName() + "To" + defaultValue.getClass().getSimpleName();
-            try {
-                Method method = AttributesHelper.class.getMethod(methodName, value.getClass(), defaultValue.getClass());
+        String methodName = value.getClass().getSimpleName() + "To" + returnedClass.getSimpleName();
 
-                if (method != null) {
-                    method.invoke(returnedValue, value);
-                }
-            } catch (NoSuchMethodException e) {
-                Log.e("AttributesHelper", "Convert method " + methodName + " does not exists.");
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+        methodName = methodName.substring(0, 1).toLowerCase() + methodName.substring(1);
+
+        try {
+            Method method = AttributesHelper.class.getMethod(methodName, value.getClass(), returnedClass);
+
+            if (method != null) {
+                method.invoke(returnedValue, value);
             }
-        }
-
-        if (returnedValue == null) {
-            returnedValue = defaultValue;
+        } catch (NoSuchMethodException e) {
+            Log.e(TAG, "Convert method " + methodName + " does not exists.", e);
+        } catch (InvocationTargetException e) {
+            Log.e(TAG, "InvocationTargetException", e);
+        } catch (IllegalAccessException e) {
+            Log.e(TAG, "IllegalAccessException", e);
         }
 
         return returnedValue;
     }
 
-    private static Integer StringToInteger(String valueToConvert) {
+    /**
+     * converts a String value to an int.
+     * @param valueToConvert the String value to convert
+     * @return the int value
+     */
+    private static Integer stringToInteger(String valueToConvert) {
         return Integer.valueOf(valueToConvert);
     }
 
