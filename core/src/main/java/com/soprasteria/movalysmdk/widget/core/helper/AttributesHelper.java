@@ -34,8 +34,7 @@ public class AttributesHelper {
         }
 
         try {
-            int result = Integer.valueOf(attrValue);
-            return result;
+            return Integer.valueOf(attrValue);
         } catch (NumberFormatException e) {
             Log.e(TAG, "Could not parse attribute value", e);
             return defaultValue;
