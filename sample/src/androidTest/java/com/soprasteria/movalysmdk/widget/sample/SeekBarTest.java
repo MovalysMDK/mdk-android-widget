@@ -16,7 +16,6 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
@@ -25,7 +24,6 @@ import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 import com.soprasteria.movalysmdk.espresso.matcher.MdkSeekbarMatchers;
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -57,10 +55,11 @@ import static org.hamcrest.Matchers.notNullValue;
 public class SeekBarTest extends AbstractCommandWidgetTest {
 
     /**
-     * Activity used for this tests.
+     * Constructor.
      */
-    @Rule
-    public ActivityTestRule<SeekBarActivity> mActivityRule = new ActivityTestRule<>(SeekBarActivity.class);
+    public SeekBarTest() {
+        super(SeekBarActivity.class);
+    }
 
 
     /**
@@ -70,7 +69,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
     public void testInvalidSeekBar() {
 
     // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+        assertThat(getActivityRule().getActivity(), is(notNullValue()));
 
         // Swipe bar to obtain an invalid value
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).perform(swipeRight());
@@ -101,7 +100,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
     @Test
     public void testDisabledSeekbar() {
         // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+        assertThat(getActivityRule().getActivity(), is(notNullValue()));
 
         // Disable widgets
         onView(withId(R.id.enableButton)).perform(click());
@@ -117,7 +116,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).check(matches(isEnabled()));
         onView(allOf(withId(R.id.component_seekbar_edittext), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError)))).check(matches(isEnabled()));
 
-        testDisableOutsideWidget(R.id.mdkRichSeekBar_withLabelAndError);
+        this.getEnabledScenario().testDisableOutsideWidget(R.id.mdkRichSeekBar_withLabelAndError);
     }
 
     /**
@@ -126,7 +125,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
     @Test
     public void testSeekbarValue(){
         // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+        assertThat(getActivityRule().getActivity(), is(notNullValue()));
 
         //by seekbar input
         onView(withId(R.id.mdkRichSeekBar_withLabelAndError)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(50))
@@ -151,7 +150,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
     @Test
     public void testSeekbarValueRange(){
         // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+        assertThat(getActivityRule().getActivity(), is(notNullValue()));
 
         //by seekbar input
         onView(withId(R.id.mdkRichSeekBar_min_42)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(50))
@@ -190,7 +189,7 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
     @Test
     public void testSeekbarFormatter() {
         // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+        assertThat(getActivityRule().getActivity(), is(notNullValue()));
 
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSeekBar_different_formatter)))).perform(ViewActions.actionWithAssertions(ViewActions.scrollTo()));
 
@@ -198,12 +197,5 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         onView(withId(R.id.mdkRichSeekBar_different_formatter)).perform(MdkSeekBarAction.setMDKRichSeekbarProgress(5));
         onView(withId(R.id.mdkRichSeekBar_different_formatter)).check(matches(MdkSeekbarMatchers.mdkRichSeekbarWithDisplayedValue("Friday")));
     }
-
-    @Override
-    protected ActivityTestRule getActivity() {
-        return mActivityRule;
-    }
-
-
 
 }

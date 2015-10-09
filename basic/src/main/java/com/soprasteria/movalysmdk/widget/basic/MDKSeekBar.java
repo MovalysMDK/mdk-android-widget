@@ -155,9 +155,9 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             this.formatter = new SeekbarDefaultFormatter();
         }
 
-        setSeekBarMaxAllowed(AttributesHelper.getIntFromStringAttribute(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed, 0));
-
         setSeekBarMinAllowed(AttributesHelper.getIntFromStringAttribute(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_min_allowed, 0));
+
+        setSeekBarMaxAllowed(AttributesHelper.getIntFromStringAttribute(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_max_allowed, 100));
 
         setMin(AttributesHelper.getIntFromStringAttribute(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_min, getSeekBarMinAllowed()));
 

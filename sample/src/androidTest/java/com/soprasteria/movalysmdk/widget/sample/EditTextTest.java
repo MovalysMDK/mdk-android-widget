@@ -16,13 +16,11 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,14 +44,10 @@ import static org.hamcrest.Matchers.notNullValue;
 public class EditTextTest extends AbstractCommandWidgetTest {
 
     /**
-     * Rule to initialize EditTextActivity.
+     * Constructor.
      */
-    @Rule
-    public ActivityTestRule<EditTextActivity> mActivityRule = new ActivityTestRule<>(EditTextActivity.class);
-
-    @Override
-    protected ActivityTestRule getActivity() {
-        return mActivityRule;
+    public EditTextTest() {
+        super(EditTextActivity.class);
     }
 
     /**
@@ -62,8 +56,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
     @Test
     public void testInvalidText() {
 
-        testTextEntryOutsideWidget(
-                mActivityRule.getActivity().getString(R.string.test_empty_string),
+        this.getEntryScenario().testTextEntryOutsideWidget(
+                getActivityRule().getActivity().getString(R.string.test_empty_string),
                 new int[]{R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkEditText_withExternalLabelAndSharedError,
                 0,
@@ -78,8 +72,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
     @Test
     public void testValidText() {
 
-        testTextEntryOutsideWidget(
-                mActivityRule.getActivity().getString(R.string.test_hello_world),
+        this.getEntryScenario().testTextEntryOutsideWidget(
+                getActivityRule().getActivity().getString(R.string.test_hello_world),
                 new int[]{R.string.test_empty_string},
                 R.id.mdkEditText_withExternalLabelAndSharedError,
                 0,
@@ -93,8 +87,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichTextWithLabelValidEntry() {
-        testTextEntryRichWidget(
-                mActivityRule.getActivity().getString(R.string.test_hello_world),
+        this.getEntryScenario().testTextEntryRichWidget(
+                getActivityRule().getActivity().getString(R.string.test_hello_world),
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichEditText_withLabelAndMandatory,
                 0,
@@ -107,8 +101,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichTextWithLabelInvalidEntry() {
-        testTextEntryRichWidget(
-                mActivityRule.getActivity().getString(R.string.test_empty_string),
+        this.getEntryScenario().testTextEntryRichWidget(
+                getActivityRule().getActivity().getString(R.string.test_empty_string),
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkRichEditText_withLabelAndMandatory,
                 0,
@@ -121,8 +115,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichTextWithCustomLayoutValidEntry() {
-        testTextEntryRichWidget(
-                mActivityRule.getActivity().getString(R.string.test_hello_world),
+        this.getEntryScenario().testTextEntryRichWidget(
+                getActivityRule().getActivity().getString(R.string.test_hello_world),
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichEditText_withCustomLayout,
                 0,
@@ -135,8 +129,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichTextWithCustomLayoutInvalidEntry() {
-        testTextEntryRichWidget(
-                mActivityRule.getActivity().getString(R.string.test_empty_string),
+        this.getEntryScenario().testTextEntryRichWidget(
+                getActivityRule().getActivity().getString(R.string.test_empty_string),
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkRichEditText_withCustomLayout,
                 0,
@@ -149,8 +143,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichEditWithHelperValidEntry() {
-        testTextEntryRichWidget(
-                mActivityRule.getActivity().getString(R.string.test_hello_world),
+        this.getEntryScenario().testTextEntryRichWidget(
+                getActivityRule().getActivity().getString(R.string.test_hello_world),
                 new int[]{R.string.test_edit_rich_helper_text},
                 R.id.mdkRichEditText_withHelper,
                 0,
@@ -163,8 +157,8 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichEmailWithHelperInvalidEntry() {
-        testTextEntryRichWidget(
-                mActivityRule.getActivity().getString(R.string.test_empty_string),
+        this.getEntryScenario().testTextEntryRichWidget(
+                getActivityRule().getActivity().getString(R.string.test_empty_string),
                 new int[]{R.string.test_edit_rich_helper_text},
                 R.id.mdkRichEditText_withHelper,
                 0,
@@ -177,7 +171,7 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableRichWidget() {
-        testDisableRichWidget(R.id.mdkRichEditText_withLabelAndMandatory);
+        this.getEnabledScenario().testDisableRichWidget(R.id.mdkRichEditText_withLabelAndMandatory);
     }
 
     /**
@@ -185,7 +179,7 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableOutsideWidget() {
-        testDisableOutsideWidget(R.id.mdkEditText_withExternalLabelAndSharedError);
+        this.getEnabledScenario().testDisableOutsideWidget(R.id.mdkEditText_withExternalLabelAndSharedError);
     }
 
     /**
@@ -193,7 +187,7 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryRichWidget() {
-        testMandatoryRichWidget(R.id.mdkRichEditText_withLabelAndMandatory, R.string.test_edit_text_label);
+        this.getMandatoryScenario().testMandatoryRichWidget(R.id.mdkRichEditText_withLabelAndMandatory, R.string.test_edit_text_label);
     }
 
     /**
@@ -201,7 +195,7 @@ public class EditTextTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryOutsideWidget() {
-        testMandatoryOutsideWidget(R.id.mdkEditText_withExternalLabelAndSharedError, R.string.test_edit_text_label);
+        this.getMandatoryScenario().testMandatoryOutsideWidget(R.id.mdkEditText_withExternalLabelAndSharedError, R.string.test_edit_text_label);
     }
 
     /**
@@ -216,7 +210,7 @@ public class EditTextTest extends AbstractCommandWidgetTest {
     public void testFillClear() {
 
         // Assertion that activity result is not null, nominal case
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+        assertThat(getActivityRule().getActivity(), is(notNullValue()));
 
         // The label is now invisible
         onView(allOf(withId(R.id.component_label), isDescendantOfA(withId(R.id.mdkRichEditText_withCustomLayoutAndButton))))

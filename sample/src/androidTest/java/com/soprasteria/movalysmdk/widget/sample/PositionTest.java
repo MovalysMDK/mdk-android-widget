@@ -15,13 +15,11 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,15 +31,10 @@ import org.junit.runner.RunWith;
 public class PositionTest extends AbstractCommandWidgetTest {
 
     /**
-     *  Rule to initialize PositionActivity.
+     * Constructor.
      */
-    @Rule
-    public ActivityTestRule<PositionActivity> mActivityRule = new ActivityTestRule<>(PositionActivity.class);
-
-
-    @Override
-    protected ActivityTestRule getActivity() {
-        return mActivityRule;
+    public PositionTest() {
+        super(PositionActivity.class);
     }
 
     /**
@@ -50,14 +43,14 @@ public class PositionTest extends AbstractCommandWidgetTest {
     @Test
     public void testValidPosition() {
 
-        testMultiTextEntryOutsideWidget(
-                new String[] {
-                        mActivityRule.getActivity().getString(R.string.test_position_valid_latitude),
-                        mActivityRule.getActivity().getString(R.string.test_position_valid_longitude)
+        this.getEntryScenario().testMultiTextEntryOutsideWidget(
+                new String[]{
+                        getActivityRule().getActivity().getString(R.string.test_position_valid_latitude),
+                        getActivityRule().getActivity().getString(R.string.test_position_valid_longitude)
                 },
                 new int[]{R.string.test_empty_string},
                 R.id.mdkPosition_withErrorAndCommandOutside,
-                new int[] {
+                new int[]{
                         R.id.component_internal_latitude,
                         R.id.component_internal_longitude
                 },
@@ -73,10 +66,10 @@ public class PositionTest extends AbstractCommandWidgetTest {
     @Test
     public void testInvalidPosition() {
 
-        testMultiTextEntryOutsideWidget(
+        this.getEntryScenario().testMultiTextEntryOutsideWidget(
                 new String[]{
-                        mActivityRule.getActivity().getString(R.string.test_empty_string),
-                        mActivityRule.getActivity().getString(R.string.test_empty_string)
+                        getActivityRule().getActivity().getString(R.string.test_empty_string),
+                        getActivityRule().getActivity().getString(R.string.test_empty_string)
                 },
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation_mandatory},
                 R.id.mdkPosition_withErrorAndCommandOutside,
@@ -95,10 +88,10 @@ public class PositionTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPositionWithLabelValidEntry() {
-        testMultiTextEntryRichWidget(
+        this.getEntryScenario().testMultiTextEntryRichWidget(
                 new String[]{
-                        mActivityRule.getActivity().getString(R.string.test_position_valid_latitude),
-                        mActivityRule.getActivity().getString(R.string.test_position_valid_longitude)
+                        getActivityRule().getActivity().getString(R.string.test_position_valid_latitude),
+                        getActivityRule().getActivity().getString(R.string.test_position_valid_longitude)
                 },
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichPosition_locationWithLabelAndError,
@@ -116,14 +109,14 @@ public class PositionTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPositionWithLabelInvalidEntry() {
-        testMultiTextEntryRichWidget(
-                new String[] {
-                        mActivityRule.getActivity().getString(R.string.test_empty_string),
-                        mActivityRule.getActivity().getString(R.string.test_empty_string)
+        this.getEntryScenario().testMultiTextEntryRichWidget(
+                new String[]{
+                        getActivityRule().getActivity().getString(R.string.test_empty_string),
+                        getActivityRule().getActivity().getString(R.string.test_empty_string)
                 },
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation_mandatory},
                 R.id.mdkRichPosition_locationWithLabelAndError,
-                new int[] {
+                new int[]{
                         R.id.component_internal_latitude,
                         R.id.component_internal_longitude
                 },
@@ -137,14 +130,14 @@ public class PositionTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPositionWithCustomLayoutValidEntry() {
-        testMultiTextEntryRichWidget(
-                new String[] {
-                        mActivityRule.getActivity().getString(R.string.test_position_valid_latitude),
-                        mActivityRule.getActivity().getString(R.string.test_position_valid_longitude)
+        this.getEntryScenario().testMultiTextEntryRichWidget(
+                new String[]{
+                        getActivityRule().getActivity().getString(R.string.test_position_valid_latitude),
+                        getActivityRule().getActivity().getString(R.string.test_position_valid_longitude)
                 },
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichPosition_withCustomLayout,
-                new int[] {
+                new int[]{
                         R.id.component_internal_latitude,
                         R.id.component_internal_longitude
                 },
@@ -158,10 +151,10 @@ public class PositionTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPositionWithCustomLayoutInvalidEntry() {
-        testMultiTextEntryRichWidget(
+        this.getEntryScenario().testMultiTextEntryRichWidget(
                 new String[]{
-                        mActivityRule.getActivity().getString(R.string.test_empty_string),
-                        mActivityRule.getActivity().getString(R.string.test_empty_string)
+                        getActivityRule().getActivity().getString(R.string.test_empty_string),
+                        getActivityRule().getActivity().getString(R.string.test_empty_string)
                 },
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_position_error_validation_mandatory},
                 R.id.mdkRichPosition_withCustomLayout,
@@ -179,7 +172,7 @@ public class PositionTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableRichWidget() {
-        testDisableRichWidget(R.id.mdkRichPosition_locationWithLabelAndError);
+        this.getEnabledScenario().testDisableRichWidget(R.id.mdkRichPosition_locationWithLabelAndError);
     }
 
     /**
@@ -187,7 +180,7 @@ public class PositionTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableOutsideWidget() {
-        testDisableOutsideWidget(R.id.mdkPosition_withErrorAndCommandOutside);
+        this.getEnabledScenario().testDisableOutsideWidget(R.id.mdkPosition_withErrorAndCommandOutside);
     }
 
 }

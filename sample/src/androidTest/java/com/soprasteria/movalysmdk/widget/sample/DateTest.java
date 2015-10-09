@@ -15,13 +15,11 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,15 +31,10 @@ import org.junit.runner.RunWith;
 public class DateTest extends AbstractCommandWidgetTest {
 
     /**
-     *  Rule to initialize DateActivity.
+     * Constructor.
      */
-    @Rule
-    public ActivityTestRule<DateActivity> mActivityRule = new ActivityTestRule<>(DateActivity.class);
-
-
-    @Override
-    protected ActivityTestRule getActivity() {
-        return mActivityRule;
+    public DateTest() {
+        super(DateActivity.class);
     }
 
     /**
@@ -50,7 +43,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     @Test
     public void testValidDate() {
 
-        testDateEntryOutsideWidget(
+        this.getEntryScenario().testDateEntryOutsideWidget(
                 2015, 2, 2, 10, 30,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkDateTime_withSharedError,
@@ -65,7 +58,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     @Test
     public void testInvalidDate() {
 
-        testEmptyDateEntryOutsideWidget(
+        this.getEntryScenario().testEmptyDateEntryOutsideWidget(
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkDateTime_withSharedError,
                 R.id.mdkdatetime_errorText,
@@ -79,7 +72,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     @Test
     public void testValidRangedDate() {
 
-        testDateEntryOutsideWidget(
+        this.getEntryScenario().testDateEntryOutsideWidget(
                 2015, 6, 20, 10, 30,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
@@ -94,7 +87,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     @Test
     public void testInvalidRangedDate() {
 
-        testDateEntryOutsideWidget(
+        this.getEntryScenario().testDateEntryOutsideWidget(
                 2015, 1, 1, 10, 30,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_datetimerange_error_range, R.string.test_date_error_ranged},
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
@@ -108,7 +101,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichDateTimeWithLabelValidEntry() {
-        testDateEntryRichWidget(
+        this.getEntryScenario().testDateEntryRichWidget(
                 2015, 2, 2, 10, 30,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichDateTime_withLabelAndMandatory,
@@ -121,7 +114,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichDateTimeWithLabelInvalidEntry() {
-        testEmptyDateEntryRichWidget(
+        this.getEntryScenario().testEmptyDateEntryRichWidget(
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkRichDateTime_withLabelAndMandatory,
                 false
@@ -133,7 +126,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichDateTimeWithCustomLayoutValidEntry() {
-        testDateEntryRichWidget(
+        this.getEntryScenario().testDateEntryRichWidget(
                 2015, 2, 2, 0, 0,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichDateTime_withCustomLayout,
@@ -146,7 +139,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichDateTimeWithCustomLayoutInvalidEntry() {
-        testEmptyDateEntryRichWidget(
+        this.getEntryScenario().testEmptyDateEntryRichWidget(
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_mandatory_error_invalid},
                 R.id.mdkRichDateTime_withCustomLayout,
                 false
@@ -158,7 +151,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableRichWidget() {
-        testDisableRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory);
+        this.getEnabledScenario().testDisableRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory);
     }
 
     /**
@@ -166,7 +159,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableOutsideWidget() {
-        testDisableOutsideWidget(R.id.mdkDateTime_withSharedError);
+        this.getEnabledScenario().testDisableOutsideWidget(R.id.mdkDateTime_withSharedError);
     }
 
     /**
@@ -174,7 +167,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryRichWidget() {
-        testMandatoryRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory, R.string.test_app_name);
+        this.getMandatoryScenario().testMandatoryRichWidget(R.id.mdkRichDateTime_withLabelAndMandatory, R.string.test_app_name);
     }
 
     /**
@@ -182,7 +175,7 @@ public class DateTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryOutsideWidget() {
-        testMandatoryOutsideWidget(R.id.mdkDateTime_withSharedError, R.string.test_default_date_hint_text);
+        this.getMandatoryScenario().testMandatoryOutsideWidget(R.id.mdkDateTime_withSharedError, R.string.test_default_date_hint_text);
     }
 
 }

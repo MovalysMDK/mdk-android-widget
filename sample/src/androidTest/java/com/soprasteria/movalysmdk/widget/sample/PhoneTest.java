@@ -15,13 +15,11 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,14 +37,10 @@ public class PhoneTest extends AbstractCommandWidgetTest {
     private static final String PHONE_INVALID_VALUE = "0+0+1+1+2";
 
     /**
-     * Activity used for this tests.
+     * Constructor.
      */
-    @Rule
-    public ActivityTestRule<PhoneActivity> mActivityRule = new ActivityTestRule<>(PhoneActivity.class);
-
-    @Override
-    protected ActivityTestRule getActivity() {
-        return mActivityRule;
+    public PhoneTest() {
+        super(PhoneActivity.class);
     }
 
     /**
@@ -55,7 +49,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
     @Test
     public void testInvalidPhone() {
 
-        testTextEntryOutsideWidget(
+        this.getEntryScenario().testTextEntryOutsideWidget(
                 PHONE_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
                 R.id.mdkPhone_withErrorAndCommandOutside,
@@ -71,7 +65,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
     @Test
     public void testValidPhone() {
 
-        testTextEntryOutsideWidget(
+        this.getEntryScenario().testTextEntryOutsideWidget(
                 PHONE_VALUE,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkPhone_withErrorAndCommandOutside,
@@ -86,7 +80,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPhoneWithLabelValidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 PHONE_VALUE,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichPhone_withLabelAndError,
@@ -100,7 +94,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPhoneWithLabelInvalidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 PHONE_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
                 R.id.mdkRichPhone_withLabelAndError,
@@ -114,7 +108,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPhoneWithCustomLayoutValidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 PHONE_VALUE,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichPhone_withCustomLayout,
@@ -128,7 +122,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPhoneWithCustomLayoutInvalidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 PHONE_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
                 R.id.mdkRichPhone_withCustomLayout,
@@ -142,7 +136,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPhoneWithHelperValidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 PHONE_VALUE,
                 new int[]{R.string.test_phone_helper_text},
                 R.id.mdkRichPhone_withHelper,
@@ -156,7 +150,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichPhoneWithHelperInvalidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 PHONE_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_phone_error_invalid},
                 R.id.mdkRichPhone_withHelper,
@@ -170,7 +164,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableRichWidget() {
-        testDisableRichWidget(R.id.mdkRichPhone_withLabelAndError);
+        this.getEnabledScenario().testDisableRichWidget(R.id.mdkRichPhone_withLabelAndError);
     }
 
     /**
@@ -178,7 +172,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableOutsideWidget() {
-        testDisableOutsideWidget(R.id.mdkPhone_withErrorAndCommandOutside);
+        this.getEnabledScenario().testDisableOutsideWidget(R.id.mdkPhone_withErrorAndCommandOutside);
     }
 
     /**
@@ -186,7 +180,7 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryRichWidget() {
-        testMandatoryRichWidget(R.id.mdkRichPhone_withLabelAndError, R.string.test_app_name);
+        this.getMandatoryScenario().testMandatoryRichWidget(R.id.mdkRichPhone_withLabelAndError, R.string.test_app_name);
     }
 
     /**
@@ -194,6 +188,6 @@ public class PhoneTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryOutsideWidget() {
-        testMandatoryOutsideWidget(R.id.mdkPhone_withErrorAndCommandOutside, R.string.test_testHintText);
+        this.getMandatoryScenario().testMandatoryOutsideWidget(R.id.mdkPhone_withErrorAndCommandOutside, R.string.test_testHintText);
     }
 }

@@ -15,11 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.support.test.rule.ActivityTestRule;
-
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
-import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -37,14 +34,10 @@ public class UriTest extends AbstractCommandWidgetTest {
     private static final String URI_INVALID_VALUE = "invalid uri";
 
     /**
-     * Activity used for this tests.
+     * Constructor.
      */
-    @Rule
-    public ActivityTestRule<UriActivity> mActivityRule = new ActivityTestRule<>(UriActivity.class);
-
-    @Override
-    protected ActivityTestRule getActivity() {
-        return mActivityRule;
+    public UriTest() {
+        super(UriActivity.class);
     }
 
     /**
@@ -53,7 +46,7 @@ public class UriTest extends AbstractCommandWidgetTest {
     @Test
     public void testInvalidUri() {
 
-        testTextEntryOutsideWidget(
+        this.getEntryScenario().testTextEntryOutsideWidget(
                 URI_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_uri_error_invalid},
                 R.id.mdkUri_withErrorAndCommandOutside,
@@ -69,7 +62,7 @@ public class UriTest extends AbstractCommandWidgetTest {
     @Test
     public void testValidUri() {
 
-        testTextEntryOutsideWidget(
+        this.getEntryScenario().testTextEntryOutsideWidget(
                 URI_VALUE_PREFIX + URI_VALUE,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkUri_withErrorAndCommandOutside,
@@ -84,7 +77,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichUriWithLabelValidEntry() {
-        testTextEntryRichUriWidget(
+        this.getEntryScenario().testTextEntryRichUriWidget(
                 URI_VALUE,
                 URI_VALUE_PREFIX + URI_VALUE,
                 new int[]{R.string.test_empty_string},
@@ -99,7 +92,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichUriWithLabelInvalidEntry() {
-        testTextEntryRichUriWidget(
+        this.getEntryScenario().testTextEntryRichUriWidget(
                 URI_INVALID_VALUE,
                 URI_VALUE_PREFIX + URI_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_uri_error_invalid},
@@ -114,7 +107,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichUriWithCustomLayoutValidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 URI_VALUE_PREFIX + URI_VALUE,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkRichUri_withCustomLayout,
@@ -128,7 +121,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichUriWithCustomLayoutInvalidEntry() {
-        testTextEntryRichWidget(
+        this.getEntryScenario().testTextEntryRichWidget(
                 URI_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_uri_error_invalid},
                 R.id.mdkRichUri_withCustomLayout,
@@ -142,7 +135,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichUriWithHelperValidEntry() {
-        testTextEntryRichUriWidget(
+        this.getEntryScenario().testTextEntryRichUriWidget(
                 URI_VALUE,
                 URI_VALUE_PREFIX + URI_VALUE,
                 new int[]{R.string.test_uri_helper_text},
@@ -157,7 +150,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testRichUriWithHelperInvalidEntry() {
-        testTextEntryRichUriWidget(
+        this.getEntryScenario().testTextEntryRichUriWidget(
                 URI_INVALID_VALUE,
                 URI_VALUE_PREFIX + URI_INVALID_VALUE,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_uri_error_invalid},
@@ -172,7 +165,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableRichWidget() {
-        testDisableRichWidget(R.id.mdkRichUri_withLabelAndError);
+        this.getEnabledScenario().testDisableRichWidget(R.id.mdkRichUri_withLabelAndError);
     }
 
     /**
@@ -180,7 +173,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testDisableOutsideWidget() {
-        testDisableOutsideWidget(R.id.mdkUri_withErrorAndCommandOutside);
+        this.getEnabledScenario().testDisableOutsideWidget(R.id.mdkUri_withErrorAndCommandOutside);
     }
 
     /**
@@ -188,7 +181,7 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryRichWidget() {
-        testMandatoryRichWidget(R.id.mdkRichUri_withLabelAndError, R.string.test_app_name);
+        this.getMandatoryScenario().testMandatoryRichWidget(R.id.mdkRichUri_withLabelAndError, R.string.test_app_name);
     }
 
     /**
@@ -196,6 +189,6 @@ public class UriTest extends AbstractCommandWidgetTest {
      */
     @Test
     public void testMandatoryOutsideWidget() {
-        testMandatoryOutsideWidget(R.id.mdkUri_withErrorAndCommandOutside, R.string.test_testHintText);
+        this.getMandatoryScenario().testMandatoryOutsideWidget(R.id.mdkUri_withErrorAndCommandOutside, R.string.test_testHintText);
     }
 }
