@@ -58,7 +58,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     }
 
     /** Default prefix of the images. */
-    public static final String DEFAULT_IMG_PREFIX = "enum";
+    public static final String DEFAULT_ENUM_PREFIX = "enum";
 
     /** Image EnumView mode. */
     public static final int MODE_IMAGE = 0;
@@ -125,7 +125,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumImage);
 
         // Parse the enum_prefix attribute
-        AttributesHelper.getStringFromStringAttribute(typedArray,R.styleable.MDKCommons_MDKEnumImage_enum_prefix,DEFAULT_IMG_PREFIX);
+        enumPrefix = AttributesHelper.getStringFromStringAttribute(typedArray,R.styleable.MDKCommons_MDKEnumImage_enum_prefix, DEFAULT_ENUM_PREFIX);
 
         // Parse the mode of EnumView
         mode = typedArray.getInt(R.styleable.MDKCommons_MDKEnumImage_enum_mode,0);
