@@ -1,11 +1,7 @@
 package com.soprasteria.movalysmdk.widget.core.helper;
 
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.Log;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Helper class for the attributes reading and setting to class.
@@ -23,82 +19,58 @@ public class AttributesHelper {
     }
 
     /**
-     * Gets the value from an attribute and converts it to the given type.
+     * Returns the integer value parsed from a String attribute.
+     * On any error, the default value is returned.
      * @param typedArray an array of attributes
      * @param attributeIndex the index of the attribute to look for
-     * @param attrClass the class of the attribute to read
      * @param defaultValue the default value to return
-     * @param <O> the class of the returned value
      * @return the read value, or the given default if there was a problem
      */
-    public static <O> O getAttributeValue(TypedArray typedArray, int attributeIndex, Class attrClass, O defaultValue) {
-        Object attrValue;
-
-        if (attrClass.equals(String.class)) {
-            attrValue = typedArray.getString(attributeIndex);
-        } else if (attrClass.equals(Resources.class)) {
-            attrValue = typedArray.getResourceId(attributeIndex, (Integer)defaultValue);
-        } else {
-            Log.e(TAG, "Cannot convert from " + attrClass.getSimpleName());
-            return null;
-        }
+    public static int getIntFromStringAttribute(TypedArray typedArray, int attributeIndex, int defaultValue) {
+        String attrValue = typedArray.getString(attributeIndex);
 
         if (attrValue == null) {
             return defaultValue;
         }
 
-        O returnedValue = convert(attrValue, defaultValue.getClass());
-
-        if (returnedValue == null) {
-            returnedValue = defaultValue;
-        }
-
-        return returnedValue;
-    }
-
-    /**
-     * Convert the given value to the O type.
-     * @param value the value to convert
-     * @param returnedClass the return class
-     * @param <O> the type of the value to return
-     * @return the converted value
-     */
-    private static <O> O convert(Object value, Class<?> returnedClass) {
-        if (value.getClass().equals(returnedClass)) {
-            return (O)value;
-        }
-
-        O returnedValue = null;
-
-        String methodName = value.getClass().getSimpleName() + "To" + returnedClass.getSimpleName();
-
-        methodName = methodName.substring(0, 1).toLowerCase() + methodName.substring(1);
-
         try {
-            Method method = AttributesHelper.class.getDeclaredMethod(methodName, value.getClass());
-
-            if (method != null) {
-                returnedValue = (O) method.invoke(null, value);
-            }
-        } catch (NoSuchMethodException e) {
-            Log.e(TAG, "Convert method " + methodName + " does not exists.", e);
-        } catch (InvocationTargetException e) {
-            Log.e(TAG, "InvocationTargetException", e);
-        } catch (IllegalAccessException e) {
-            Log.e(TAG, "IllegalAccessException", e);
+            int result = Integer.valueOf(attrValue);
+            return result;
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "Could not parse attribute value", e);
+            return defaultValue;
         }
 
-        return returnedValue;
     }
 
     /**
-     * converts a String value to an int.
-     * @param valueToConvert the String value to convert
-     * @return the int value
+     * Returns the String value parsed from a String attribute.
+     * On any error, the default value is returned.
+     * @param typedArray an array of attributes
+     * @param attributeIndex the index of the attribute to look for
+     * @param defaultValue the default value to return
+     * @return the read value, or the given default if there was a problem
      */
-    @SuppressWarnings("unused")
-    private static Integer stringToInteger(String valueToConvert) {
-        return Integer.valueOf(valueToConvert);
+    public static String getStringFromStringAttribute(TypedArray typedArray, int attributeIndex, String defaultValue) {
+        String attrValue = typedArray.getString(attributeIndex);
+
+        if (attrValue == null) {
+            return defaultValue;
+        } else {
+            return attrValue;
+        }
+    }
+
+    /**
+     * Returns the integer value parsed from a ResourceID attribute.
+     * On any error, the default value is returned.
+     * @param typedArray an array of attributes
+     * @param attributeIndex the index of the attribute to look for
+     * @param defaultValue the default value to return
+     * @return the read value, or the given default if there was a problem
+     */
+    public static int getIntFromResourceAttribute(TypedArray typedArray, int attributeIndex, int defaultValue) {
+        return typedArray.getResourceId(attributeIndex, defaultValue);
     }
 
 }
