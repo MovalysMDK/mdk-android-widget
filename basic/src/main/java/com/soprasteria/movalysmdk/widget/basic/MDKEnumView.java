@@ -35,6 +35,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasEnum;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
@@ -124,12 +125,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumImage);
 
         // Parse the enum_prefix attribute
-        String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumImage_enum_prefix);
-        if(resEnumPrefix != null) {
-            enumPrefix = resEnumPrefix;
-        }else{
-            enumPrefix = DEFAULT_IMG_PREFIX;
-        }
+        AttributesHelper.getStringFromStringAttribute(typedArray,R.styleable.MDKCommons_MDKEnumImage_enum_prefix,DEFAULT_IMG_PREFIX);
 
         // Parse the mode of EnumView
         mode = typedArray.getInt(R.styleable.MDKCommons_MDKEnumImage_enum_mode,0);
