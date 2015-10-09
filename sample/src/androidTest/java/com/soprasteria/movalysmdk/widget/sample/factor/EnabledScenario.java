@@ -24,12 +24,13 @@ import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * Enable scenario testing class.
+ * @param <T> class of the activity to test
  */
 public class EnabledScenario<T extends AppCompatActivity> extends AbstractScenario<T> {
 
     /**
      * Constructor.
-     * @param mActivityRule
+     * @param mActivityRule the linked ActivityTestRule
      */
     public EnabledScenario(ActivityTestRule<T> mActivityRule) {
         super(mActivityRule);

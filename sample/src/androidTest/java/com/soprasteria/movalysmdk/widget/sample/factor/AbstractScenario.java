@@ -7,6 +7,7 @@ import org.junit.Rule;
 
 /**
  * Abstract scenario class.
+ * @param <T> class of the activity to test
  */
 public abstract class AbstractScenario<T extends AppCompatActivity> {
 
@@ -18,7 +19,7 @@ public abstract class AbstractScenario<T extends AppCompatActivity> {
 
     /**
      * Constructor.
-     * @param mActivityRule
+     * @param mActivityRule the linked ActivityTestRule
      */
     public AbstractScenario(ActivityTestRule<T> mActivityRule) {
         this.mActivityRule = mActivityRule;

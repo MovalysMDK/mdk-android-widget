@@ -22,6 +22,7 @@ import org.junit.Rule;
 
 /**
  * Abstract implementation for mdk widget.
+ * @param <T> class of the activity to test
  */
 public abstract class AbstractCommandWidgetTest<T extends AppCompatActivity> {
 

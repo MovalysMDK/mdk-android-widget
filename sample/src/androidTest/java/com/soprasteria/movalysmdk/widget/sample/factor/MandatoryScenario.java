@@ -26,12 +26,13 @@ import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * Mandatory scenario testing class.
+ * @param <T> class of the activity to test
  */
 public class MandatoryScenario<T extends AppCompatActivity> extends AbstractScenario<T> {
 
     /**
      * Constructor.
-     * @param mActivityRules
+     * @param mActivityRules the linked ActivityTestRule
      */
     public MandatoryScenario(ActivityTestRule<T> mActivityRules) {
         super(mActivityRules);
