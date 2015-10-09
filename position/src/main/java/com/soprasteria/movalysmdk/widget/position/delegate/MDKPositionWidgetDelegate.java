@@ -1,6 +1,5 @@
 package com.soprasteria.movalysmdk.widget.position.delegate;
 
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -28,9 +27,6 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
 
     /** Longitude hint.*/
     private String lngHint;
-
-    /** Address hint. */
-    private String addressHint;
 
     /** latitude view identifier. */
     private int latitudeViewId;
@@ -164,9 +160,6 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
         if (lngView != null) {
             lngView.setHint(lngHint);
         }
-
-        addressHint = AttributesHelper.getStringFromStringAttribute(typedArray, R.styleable.MDKCommons_MDKPositionComponent_addressHint,
-                root.getContext().getString(R.string.mdkwidget_mdkposition_address_hint));
 
         if (this.mode == -1) {
             this.mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, MDKPosition.GEOPOINT);
