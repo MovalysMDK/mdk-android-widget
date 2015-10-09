@@ -29,6 +29,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/enableButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="switchEnable"
+            android:text="@string/topbar_disablebutton" />
+
         <!-- RICH EMAIL WITH LABEL AND ERROR -->
 
         <TextView
@@ -36,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="@string/enumimage_with_label_error" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKRichEnumImage
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView
             android:id="@+id/mdkRichEnumImage_withLabelAndError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,9 +61,10 @@
             android:layout_height="wrap_content"
             android:text="@string/enumimage_standalone_widget" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKEnumImage
+        <com.soprasteria.movalysmdk.widget.basic.MDKEnumView
             android:id="@+id/mdkEnumImage_withErrorAndCommandOutside"
             android:layout_width="match_parent"
+            mdk:enum_mode="image"
             android:layout_height="wrap_content"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
@@ -77,7 +85,7 @@
             android:layout_height="wrap_content"
             android:text="@string/enumimage_standalone_widget" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKEnumImage
+        <com.soprasteria.movalysmdk.widget.basic.MDKEnumView
             android:id="@+id/mdkEnumImage_withImageSetByString"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

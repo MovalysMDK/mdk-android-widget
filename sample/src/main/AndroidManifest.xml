@@ -133,8 +133,8 @@
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
         <activity
-            android:name=".EnumImageActivity"
-            android:label="@string/title_activity_enumimage"
+            android:name=".EnumViewActivity"
+            android:label="@string/title_activity_enumview"
             android:parentActivityName=".ListWidgetActivity"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

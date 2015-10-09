@@ -49,13 +49,13 @@ public interface HasEnum<T extends Enum> {
      * Gets the resource pointer of the value associated to a widget as an integer.
      * @return the resource pointer
      */
-    int getValueAsInt();
+    int getValueAsId();
 
     /**
      * Sets the value associated to a widget from an integer resource pointer.
      * @param id the resource pointer
      */
-    void setValueFromInt(int id);
+    void setValueFromId(int id);
     
     /**
      * Gets the widget's prefix for resource names.

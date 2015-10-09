@@ -132,5 +132,9 @@
     <!-- MDKEnumImage specific attributes -->
     <declare-styleable name="MDKCommons.MDKEnumImage">
         <attr name="enum_prefix" format="string"/>
+        <attr name="enum_mode" format="enum">
+            <enum name="image" value="0"/>
+            <enum name="text" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

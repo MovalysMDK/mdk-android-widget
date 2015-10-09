@@ -24,5 +24,9 @@ public enum BabyAnimals {
     /** Puppy drawable. */
     PUPPY,
     /** Cub drawable. */
-    CUB
+    CUB,
+    /** Calf string. */
+    CALF,
+    /** Piglet string. */
+    PIGLET
 }

@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
@@ -27,14 +28,14 @@ import com.soprasteria.movalysmdk.widget.core.behavior.types.HasEnum;
  * Rich widget representing an image from enumerated resources,
  * and including by default the label and the error component.
  */
-public class MDKRichEnumImage extends MDKBaseRichWidget<MDKEnumImage> implements HasValidator, HasEnum {
+public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements HasValidator, HasEnum {
 
     /**
      * Constructor.
      * @param context the context
      * @param attrs attributes
      */
-    public MDKRichEnumImage(Context context, AttributeSet attrs) {
+    public MDKRichEnumView(Context context, AttributeSet attrs) {
         super(R.layout.mdkwidget_enumimage_edit_label, R.layout.mdkwidget_enumimage_edit, context, attrs);
 
         initDedicatedAttributes(attrs);
@@ -46,7 +47,7 @@ public class MDKRichEnumImage extends MDKBaseRichWidget<MDKEnumImage> implements
      * @param attrs attributes
      * @param defStyleAttr defStyleAttr
      */
-    public MDKRichEnumImage(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MDKRichEnumView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.mdkwidget_enumimage_edit_label, R.layout.mdkwidget_enumimage_edit, context, attrs, defStyleAttr);
 
         initDedicatedAttributes(attrs);
@@ -57,12 +58,21 @@ public class MDKRichEnumImage extends MDKBaseRichWidget<MDKEnumImage> implements
      * @param attrs Array of attributes of the MDK widget
      */
     private void initDedicatedAttributes(AttributeSet attrs) {
-        // Parse the enum_prefix attribute
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumImage);
+
+        // Parse the enum_prefix attribute
         String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumImage_enum_prefix);
         if(resEnumPrefix != null) {
             setResourceNamePrefix(resEnumPrefix);
         }
+
+        // Parse the mode of EnumView
+        if (typedArray.getInt(R.styleable.MDKCommons_MDKEnumImage_enum_mode, MDKEnumView.MODE_IMAGE) == MDKEnumView.MODE_TEXT) {
+            setMode(MDKEnumView.MODE_TEXT);
+        } else {
+            setMode(MDKEnumView.MODE_IMAGE);
+        }
+
         typedArray.recycle();
     }
 
@@ -87,13 +97,13 @@ public class MDKRichEnumImage extends MDKBaseRichWidget<MDKEnumImage> implements
     }
 
     @Override
-    public int getValueAsInt() {
-        return getInnerWidget().getValueAsInt();
+    public int getValueAsId() {
+        return getInnerWidget().getValueAsId();
     }
 
     @Override
-    public void setValueFromInt(int id) {
-        getInnerWidget().setValueFromInt(id);
+    public void setValueFromId(int id) {
+        getInnerWidget().setValueFromId(id);
     }
 
     @Override
@@ -104,5 +114,31 @@ public class MDKRichEnumImage extends MDKBaseRichWidget<MDKEnumImage> implements
     @Override
     public void setResourceNamePrefix(String prefix) {
         getInnerWidget().setResourceNamePrefix(prefix);
+    }
+
+    /**
+     * Gets the view managed by this widget. Type depends on the mode:
+     * - ImageView for image mode.
+     * - TextView for text mode.
+     * @return the inner view
+     */
+    public View getModeView(){
+        return getInnerWidget().getModeView();
+    }
+
+    /**
+     * Gets the widget's mode.
+     * @return the resource name prefix
+     */
+    public int getMode() {
+        return getInnerWidget().getMode();
+    }
+
+    /**
+     * Sets the widget's mode.
+     * @param mode the mode from the list of possible modes
+     */
+    public void setMode(@MDKEnumView.EnumMode int mode) {
+        getInnerWidget().setMode(mode);
     }
 }
