@@ -39,7 +39,7 @@ public class MDKCommandDelegate {
     public static final String REFERENCE_WIDGET = "referenceWidget";
 
     /** Command widget string tag in Broadcast. */
-    public static final String COMMAND_WIDGET = "commmand";
+    public static final String COMMAND_WIDGET = "command";
 
     /** reg widget id. */
     private int refWidgetId;
