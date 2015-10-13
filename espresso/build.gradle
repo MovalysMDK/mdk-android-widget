@@ -84,8 +84,10 @@ android.libraryVariants.all { variant ->
         failOnError false
         title project.archivesBaseName + " " + project.version
         options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PRIVATE
-        options.links("http://docs.oracle.com/javase/7/docs/api/");
-        options.links("http://d.android.com/reference/");
+        options {
+            links "http://docs.oracle.com/javase/7/docs/api/"
+            linksOffline "http://d.android.com/reference/","${android.sdkDirectory}/docs/reference"
+        }
         exclude '**/BuildConfig.java'
         exclude '**/R.java'
     }
