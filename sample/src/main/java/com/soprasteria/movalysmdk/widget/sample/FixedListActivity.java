@@ -109,7 +109,7 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("FIXEDACTIVITY", "REQ :"+requestCode);
 
-        Log.d("FIXEDACTIVITY", "RC :"+String.format("0x%8s", Integer.toHexString((requestCode&RC_MASK))).replace(' ', '0'));
+        Log.d("FIXEDACTIVITY", "RC :" + String.format("0x%8s", Integer.toHexString(requestCode & RC_MASK)).replace(' ', '0'));
 
         Log.d("FIXEDACTIVITY", "POS :"+(requestCode&POS_MASK));
 
@@ -124,20 +124,30 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
         /** the displayed dataset. */
         private List<String> mDataset;
 
+        /**
+         * Constructor.
+         * @param dataset the set displayed dataset
+         */
         public MyAdapter(String[] dataset) {
             this.mDataset = new ArrayList<>(Arrays.asList(dataset));
         }
 
         /**
-         * Provide a reference to the views for each data item
+         * Provide a reference to the views for each data item.
          * Complex data items may need more than one view per item, and
          * you provide access to all the views for a data item in a view holder
          */
         public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
+            /** first text view. */
             public TextView mTextView;
+            /** second text view. */
             public TextView mTextView2;
 
+            /**
+             * Constructor.
+             * @param v the view to hold
+             */
             public ViewHolder(View v) {
                 super(v);
                 mTextView = (TextView) v.findViewById(android.R.id.text1);

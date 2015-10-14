@@ -23,6 +23,9 @@ import java.lang.reflect.Field;
  */
 public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
 
+	/** Tag for debugging. */
+	private static final String TAG = WrapLinearLayoutManager.class.getSimpleName();
+
 	/** set to true if the insets can be made dirty. */
 	private static boolean canMakeInsetsDirty = true;
 
@@ -268,11 +271,9 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 	public void setOrientation(int orientation) {
 		// might be called before the constructor of this class is called
 		//noinspection ConstantConditions
-		if (childDimensions != null) {
-			if (getOrientation() != orientation) {
-				childDimensions[CHILD_WIDTH] = 0;
-				childDimensions[CHILD_HEIGHT] = 0;
-			}
+		if (childDimensions != null && getOrientation() != orientation) {
+			childDimensions[CHILD_WIDTH] = 0;
+			childDimensions[CHILD_HEIGHT] = 0;
 		}
 		super.setOrientation(orientation);
 	}
@@ -360,14 +361,16 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 			}
 			insetsDirtyField.set(p, true);
 		} catch (NoSuchFieldException e) {
+			Log.e(TAG, "NoSuchFieldException", e);
 			onMakeInsertDirtyFailed();
 		} catch (IllegalAccessException e) {
+			Log.e(TAG, "IllegalAccessException", e);
 			onMakeInsertDirtyFailed();
 		}
 	}
 
 	/**
-	 * Called when the makeInsetsDirty method fails
+	 * Called when the makeInsetsDirty method fails.
 	 */
 	private static void onMakeInsertDirtyFailed() {
 		canMakeInsetsDirty = false;
