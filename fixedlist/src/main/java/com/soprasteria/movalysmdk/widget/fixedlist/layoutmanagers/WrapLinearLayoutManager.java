@@ -23,10 +23,13 @@ import java.lang.reflect.Field;
  */
 public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
 
-	/** Tag for debugging. */
+    /** Tag for debugging. */
 	private static final String TAG = WrapLinearLayoutManager.class.getSimpleName();
 
-	/** set to true if the insets can be made dirty. */
+    /** Tag for debugging. */
+    private static final String LINEAR_LAYOUT_MANAGER = "LinearLayoutManager";
+
+    /** set to true if the insets can be made dirty. */
 	private static boolean canMakeInsetsDirty = true;
 
 	/** insets dirty field. */
@@ -242,7 +245,7 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 	 */
 	private void logMeasureWarning(int child) {
 		if (BuildConfig.DEBUG) {
-			Log.w("LinearLayoutManager", "Can't measure child #" + child + ", previously used dimensions will be reused." +
+			Log.w(LINEAR_LAYOUT_MANAGER, "Can't measure child #" + child + ", previously used dimensions will be reused." +
 					"To remove this message either use #setChildSize() method or don't run RecyclerView animations");
 		}
 	}
@@ -312,7 +315,7 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 			child = recycler.getViewForPosition(position);
 		} catch (IndexOutOfBoundsException e) {
 			if (BuildConfig.DEBUG) {
-				Log.w("LinearLayoutManager", "LinearLayoutManager doesn't work well with animations. Consider switching them off", e);
+				Log.w(LINEAR_LAYOUT_MANAGER, "LinearLayoutManager doesn't work well with animations. Consider switching them off", e);
 			}
 			return;
 		}
@@ -375,7 +378,7 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 	private static void onMakeInsertDirtyFailed() {
 		canMakeInsetsDirty = false;
 		if (BuildConfig.DEBUG) {
-			Log.w("LinearLayoutManager", "Can't make LayoutParams insets dirty, decorations measurements might be incorrect");
+			Log.w(LINEAR_LAYOUT_MANAGER, "Can't make LayoutParams insets dirty, decorations measurements might be incorrect");
 		}
 	}
 }

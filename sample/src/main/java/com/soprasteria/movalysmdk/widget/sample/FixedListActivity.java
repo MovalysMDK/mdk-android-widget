@@ -17,7 +17,6 @@ package com.soprasteria.movalysmdk.widget.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ import com.soprasteria.movalysmdk.widget.fixedlist.FixedListItemClickListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.FixedListRemoveListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList;
 import com.soprasteria.movalysmdk.widget.fixedlist.MDKRichFixedList;
-import com.soprasteria.movalysmdk.widget.fixedlist.layoutmanagers.WrapLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +37,9 @@ import java.util.List;
  * Test activity for the MDKRichFixedList widget.
  */
 public class FixedListActivity extends AbstractWidgetTestableActivity {
+
+    /** Tag for debugging. */
+    private static final String FIXEDACTIVITY = "FIXEDACTIVITY";
 
     /** mask for the request code. */
     public static final int RC_MASK = 0xC000;
@@ -107,11 +108,11 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("FIXEDACTIVITY", "REQ :"+requestCode);
+        Log.d(FIXEDACTIVITY, "REQ :"+requestCode);
 
-        Log.d("FIXEDACTIVITY", "RC :" + String.format("0x%8s", Integer.toHexString(requestCode & RC_MASK)).replace(' ', '0'));
+        Log.d(FIXEDACTIVITY, "RC :" + String.format("0x%8s", Integer.toHexString(requestCode & RC_MASK)).replace(' ', '0'));
 
-        Log.d("FIXEDACTIVITY", "POS :"+(requestCode&POS_MASK));
+        Log.d(FIXEDACTIVITY, "POS :"+(requestCode&POS_MASK));
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -140,9 +141,9 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             /** first text view. */
-            public TextView mTextView;
+            private TextView mTextView;
             /** second text view. */
-            public TextView mTextView2;
+            private TextView mTextView2;
 
             /**
              * Constructor.
@@ -152,6 +153,22 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
                 super(v);
                 mTextView = (TextView) v.findViewById(android.R.id.text1);
                 mTextView2 = (TextView) v.findViewById(android.R.id.text2);
+            }
+
+            /**
+             * returns the first TextView.
+             * @return the first Textview
+             */
+            public TextView getmTextView() {
+                return mTextView;
+            }
+
+            /**
+             * returns the second TextView.
+             * @return the second Textview
+             */
+            public TextView getmTextView2() {
+                return mTextView2;
             }
         }
 
@@ -171,8 +188,8 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.mTextView.setText(mDataset.get(position));
-            holder.mTextView2.setText(mDataset.get(position));
+            holder.getmTextView().setText(mDataset.get(position));
+            holder.getmTextView2().setText(mDataset.get(position));
         }
 
         // Return the size of your dataset (invoked by the layout manager)
