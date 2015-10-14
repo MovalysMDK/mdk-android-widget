@@ -48,23 +48,13 @@
 
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
-        <item name="mdkValueEmailStyle">@style/MDKValueEmail</item>
-        <item name="mdkValuePhoneStyle">@style/MDKValuePhone</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
-        <item name="mdkValuePositionStyle">@style/MDKValuePosition</item>
-        <item name="mdkValueMapsPositionStyle">@style/MDKValueMapsPosition</item>
-        <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
-        <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
-        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
         <item name="mdkValueStyle">@style/MDKValue</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
-        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
-        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
-        <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
 
@@ -74,23 +64,13 @@
 
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
-        <item name="mdkValueEmailStyle">@style/MDKValueEmail</item>
-        <item name="mdkValuePhoneStyle">@style/MDKValuePhone</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
-        <item name="mdkValuePositionStyle">@style/MDKValuePosition</item>
-        <item name="mdkValueMapsPositionStyle">@style/MDKValueMapsPosition</item>
-        <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
-        <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
-        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
         <item name="mdkValueStyle">@style/MDKValue</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
-        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
-        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
-        <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
         

@@ -51,7 +51,9 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
     public MDKRichSeekBar(Context context, AttributeSet attrs) {
         super(R.layout.mdkwidget_seekbar_edit_label, R.layout.mdkwidget_seekbar_edit, context, attrs);
 
-        initDedicatedAttributes(attrs);
+        if (!isInEditMode()) {
+            initDedicatedAttributes(attrs);
+        }
     }
 
     /**
@@ -63,7 +65,9 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
     public MDKRichSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.mdkwidget_seekbar_edit_label, R.layout.mdkwidget_seekbar_edit, context, attrs, defStyleAttr);
 
-        initDedicatedAttributes(attrs);
+        if (!isInEditMode()) {
+            initDedicatedAttributes(attrs);
+        }
     }
 
     /**
