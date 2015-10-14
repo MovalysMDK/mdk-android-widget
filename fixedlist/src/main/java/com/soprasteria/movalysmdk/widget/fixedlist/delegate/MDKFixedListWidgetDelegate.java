@@ -36,6 +36,7 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
     /** class of the layout manager to apply on the fixed list. */
     private Class<? extends RecyclerView.LayoutManager> layoutManagerClass;
 
+    /** orientation to apply to the layout manager. */
     private int layoutManagerOrientation;
 
     /**

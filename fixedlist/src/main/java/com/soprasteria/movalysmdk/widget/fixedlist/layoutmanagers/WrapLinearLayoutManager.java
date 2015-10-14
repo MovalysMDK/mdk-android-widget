@@ -23,33 +23,65 @@ import java.lang.reflect.Field;
  */
 public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
 
+	/** set to true if the insets can be made dirty. */
 	private static boolean canMakeInsetsDirty = true;
+
+	/** insets dirty field. */
 	private static Field insetsDirtyField = null;
 
+	/** width of the child. */
 	private static final int CHILD_WIDTH = 0;
+
+	/** height of the child. */
 	private static final int CHILD_HEIGHT = 1;
+
+	/** default child size. */
 	private static final int DEFAULT_CHILD_SIZE = 100;
 
+	/** array storing a child dimensions. */
 	private final int[] childDimensions = new int[2];
+
+	/** a view of the RecyclerView. */
 	private final RecyclerView view;
 
+	/** current child size. */
 	private int childSize = DEFAULT_CHILD_SIZE;
+
+	/** true if a child size was set. */
 	private boolean hasChildSize;
+
+	/** overscroll mode. */
 	private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
+
+	/** temporary rectangle. */
 	private final Rect tmpRect = new Rect();
 
+	/**
+	 * Constructor.
+	 * @param context an Android context
+	 */
 	@SuppressWarnings("UnusedDeclaration")
 	public WrapLinearLayoutManager(Context context) {
 		super(context);
 		this.view = null;
 	}
 
+	/**
+	 * Constructor.
+	 * @param context an Android context
+	 * @param orientation the orientation to set
+	 * @param reverseLayout true if the layout can be reversed
+	 */
 	@SuppressWarnings("UnusedDeclaration")
 	public WrapLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
 		super(context, orientation, reverseLayout);
 		this.view = null;
 	}
 
+	/**
+	 * Constructor.
+	 * @param view the view of the RecyclerView
+	 */
 	@SuppressWarnings("UnusedDeclaration")
 	public WrapLinearLayoutManager(RecyclerView view) {
 		super(view.getContext());
@@ -57,6 +89,12 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		this.overScrollMode = ViewCompat.getOverScrollMode(view);
 	}
 
+	/**
+	 * Constructor.
+	 * @param view the view of the RecyclerView
+	 * @param orientation the orientation to set
+	 * @param reverseLayout true if the layout can be reversed
+	 */
 	@SuppressWarnings("UnusedDeclaration")
 	public WrapLinearLayoutManager(RecyclerView view, int orientation, boolean reverseLayout) {
 		super(view.getContext(), orientation, reverseLayout);
@@ -64,6 +102,10 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		this.overScrollMode = ViewCompat.getOverScrollMode(view);
 	}
 
+	/**
+	 * Sets the overscroll mode.
+	 * @param overScrollMode the mode to apply
+	 */
 	public void setOverScrollMode(int overScrollMode) {
 		if (overScrollMode < ViewCompat.OVER_SCROLL_ALWAYS || overScrollMode > ViewCompat.OVER_SCROLL_NEVER) {
 			throw new IllegalArgumentException("Unknown overscroll mode: " + overScrollMode);
@@ -77,6 +119,10 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		ViewCompat.setOverScrollMode(view, overScrollMode);
 	}
 
+	/**
+	 * returns an unspecified measure spec.
+	 * @return an unspecified measure spec
+	 */
 	public static int makeUnspecifiedSpec() {
 		return View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
 	}
@@ -187,6 +233,10 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		}
 	}
 
+	/**
+	 * logger method for the widget measurement.
+	 * @param child the identifier of the child being measured
+	 */
 	private void logMeasureWarning(int child) {
 		if (BuildConfig.DEBUG) {
 			Log.w("LinearLayoutManager", "Can't measure child #" + child + ", previously used dimensions will be reused." +
@@ -194,6 +244,12 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		}
 	}
 
+	/**
+	 * Initializes the child dimensions.
+	 * @param width the width to set
+	 * @param height the height to set
+	 * @param vertical true if the child will be made vertical
+	 */
 	private void initChildDimensions(int width, int height, boolean vertical) {
 		if (childDimensions[CHILD_WIDTH] != 0 || childDimensions[CHILD_HEIGHT] != 0) {
 			// already initialized, skipping
@@ -221,11 +277,18 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		super.setOrientation(orientation);
 	}
 
+	/**
+	 * Clears the child size.
+	 */
 	public void clearChildSize() {
 		hasChildSize = false;
 		setChildSize(DEFAULT_CHILD_SIZE);
 	}
 
+	/**
+	 * Sets the child size.
+	 * @param childSize the size to set
+	 */
 	public void setChildSize(int childSize) {
 		hasChildSize = true;
 		if (this.childSize != childSize) {
@@ -234,6 +297,14 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		}
 	}
 
+	/**
+	 * Internal measurement method.
+	 * @param recycler the RecyclerView being measured
+	 * @param position the position of the view in the RecyclerView
+	 * @param widthSize the width to measure
+	 * @param heightSize the height to measure
+	 * @param dimensions the measured dimensions
+	 */
 	private void measureChild(RecyclerView.Recycler recycler, int position, int widthSize, int heightSize, int[] dimensions) {
 		final View child;
 		try {
@@ -274,6 +345,10 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		recycler.recycleView(child);
 	}
 
+	/**
+	 * call this to make insets dirty.
+	 * @param p the params to set
+	 */
 	private static void makeInsetsDirty(RecyclerView.LayoutParams p) {
 		if (!canMakeInsetsDirty) {
 			return;
@@ -291,6 +366,9 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		}
 	}
 
+	/**
+	 * Called when the makeInsetsDirty method fails
+	 */
 	private static void onMakeInsertDirtyFailed() {
 		canMakeInsetsDirty = false;
 		if (BuildConfig.DEBUG) {

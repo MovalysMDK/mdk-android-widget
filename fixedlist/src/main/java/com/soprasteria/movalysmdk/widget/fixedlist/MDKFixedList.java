@@ -75,7 +75,7 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
     private BroadcastReceiver actionReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent != null && intent.getIntExtra(REFERENCE_WIDGET, 0) == getId() && intent.getStringExtra(COMMAND_WIDGET).equals("primary")) {
+            if (intent != null && intent.getIntExtra(REFERENCE_WIDGET, 0) == getId() && "primary".equals(intent.getStringExtra(COMMAND_WIDGET))) {
                 for (FixedListAddListener listener : MDKFixedList.this.addListeners) {
                     listener.onAddClick();
                 }

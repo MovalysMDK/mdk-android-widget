@@ -19,9 +19,9 @@ import java.util.List;
 /**
  * Wrapper adapter for the MDKFixedList widget.
  * Wraps the set adapter to add a click ability on the items of the list, and set a delete button for each of them.
- * @param <WVH> the class of the view holder of the wrapper
+ * @param <W> the class of the view holder of the wrapper
  */
-public class WrapperAdapter<WVH extends WrapperViewHolder> extends RecyclerView.Adapter<WVH> implements View.OnClickListener {
+public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Adapter<W> implements View.OnClickListener {
 
     /** tag for debugging. */
     private static final String TAG = WrapperAdapter.class.getSimpleName();
@@ -39,7 +39,7 @@ public class WrapperAdapter<WVH extends WrapperViewHolder> extends RecyclerView.
     private List<FixedListItemClickListener> itemClickListeners;
 
     /** the class of the view holder element of the wrapper. */
-    private Class<WVH> viewHolderClass;
+    private Class<W> viewHolderClass;
 
     /** the layout of the view holder of the wrapper. */
     private int viewHolderLayout;
@@ -54,7 +54,7 @@ public class WrapperAdapter<WVH extends WrapperViewHolder> extends RecyclerView.
      * @param viewHolderLayout the layout of the view holder
      * @param deleteId the identifier of the delete button in the layout
      */
-    public WrapperAdapter(RecyclerView.Adapter adapter, Class<WVH> viewHolderClass, @LayoutRes int viewHolderLayout, @IdRes int deleteId) {
+    public WrapperAdapter(RecyclerView.Adapter adapter, Class<W> viewHolderClass, @LayoutRes int viewHolderLayout, @IdRes int deleteId) {
         this.adapter = adapter;
         this.viewHolderClass = viewHolderClass;
         this.viewHolderLayout = viewHolderLayout;
@@ -81,14 +81,14 @@ public class WrapperAdapter<WVH extends WrapperViewHolder> extends RecyclerView.
     }
 
     @Override
-    public WVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public W onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder adapterViewHolder = this.adapter.onCreateViewHolder(parent, viewType);
 
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(viewHolderLayout, (ViewGroup) adapterViewHolder.itemView, true);
 
-        WVH vh = null;
+        W vh = null;
 
         try {
             vh = viewHolderClass
@@ -108,7 +108,7 @@ public class WrapperAdapter<WVH extends WrapperViewHolder> extends RecyclerView.
     }
 
     @Override
-    public void onBindViewHolder(WVH holder, int position) {
+    public void onBindViewHolder(W holder, int position) {
         this.adapter.onBindViewHolder(holder.getViewHolder(), position);
         if (holder.getDeleteButton() != null) {
             holder.getDeleteButton().setTag(R.id.fixedlist_item_position, position);

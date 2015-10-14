@@ -35,17 +35,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Test activity for the MDKRichFixedList widget.
+ */
 public class FixedListActivity extends AbstractWidgetTestableActivity {
 
+    /** mask for the request code. */
     public static final int RC_MASK = 0xC000;
+
+    /** mask for the position of the clicked item in the request code. */
     public static final int POS_MASK = 0x3FFF;
 
+    /** request code for the item clicked event. */
     private static final int RC_CODE = 0x8000;
 
+    /** the MDKFixedList widget. */
     private MDKFixedList mFixedList;
+
+    /** the MDKRichFixedList widget. */
     private MDKRichFixedList mRichFixedList;
+
+    /** the MDKFixedList adapter. */
     private RecyclerView.Adapter mFxlAdapter;
+
+    /** the MDKRichFixedList adapter. */
     private RecyclerView.Adapter mRichFxlAdapter;
+
+    /** the displayed dataset. */
     private String[] myDataset = new String[] {"test 1","test 2","test 3","test 4","test 5","test 6","test 7","test 8","test 9","test 10","test 11","test 12","test 13"};
 
     @Override
@@ -100,16 +116,23 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Adapter class for the widgets.
+     */
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+        /** the displayed dataset. */
         private List<String> mDataset;
 
         public MyAdapter(String[] dataset) {
             this.mDataset = new ArrayList<>(Arrays.asList(dataset));
         }
 
-        // Provide a reference to the views for each data item
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder
+        /**
+         * Provide a reference to the views for each data item
+         * Complex data items may need more than one view per item, and
+         * you provide access to all the views for a data item in a view holder
+         */
         public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public TextView mTextView;
@@ -148,6 +171,10 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
             return mDataset.size();
         }
 
+        /**
+         * Removes the item at the given position.
+         * @param position the position of the item to remove
+         */
         public void removeItemAt(int position) {
             this.mDataset.remove(position);
             notifyDataSetChanged();

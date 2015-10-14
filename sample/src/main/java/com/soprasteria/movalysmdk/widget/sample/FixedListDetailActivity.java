@@ -19,6 +19,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * Detail activity for the MDKRichFixedList widget.
+ */
 public class FixedListDetailActivity extends Activity {
 
     @Override
@@ -33,9 +36,6 @@ public class FixedListDetailActivity extends Activity {
 
         ((TextView) findViewById(R.id.pos)).setText(String.valueOf(position));
         ((TextView) findViewById(R.id.request_code)).setText(String.format("0x%8s", Integer.toHexString(requestCodeF)).replace(' ', '0'));
-
-
-
     }
 
 }
