@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MDKCommons.MDKFixedListComponent">
+
+        <attr name="addButtonViewId" format="reference" />
+
+        <attr name="wrapperViewHolderClass" format="string" />
+        <attr name="wrapperViewHolderLayout" format="reference" />
+        <attr name="wrapperViewHolderDeleteId" format="reference" />
+
+        <attr name="layoutManagerClass" format="string" />
+        <attr name="layoutManagerOrientation" format="enum" >
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+
+    </declare-styleable>
+
+</resources>

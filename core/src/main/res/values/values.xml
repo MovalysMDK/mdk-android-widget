@@ -50,4 +50,6 @@
 
     <style name="Base.MDKValue.MDKSpinnerDropDown" parent="android:style/Widget.ListView.DropDown"/>
 
+    <style name="Base.MDKValue.MDKFixedList"/>
+
 </resources>

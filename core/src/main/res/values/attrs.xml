@@ -43,6 +43,7 @@
         <attr name="mdkSpinnerStyle" format="reference"/>
         <attr name="mdkSpinnerDropDownStyle" format="reference"/>
         <attr name="mdkEnumImageStyle" format="reference"/>
+        <attr name="mdkValueFixedListStyle" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="InputView">

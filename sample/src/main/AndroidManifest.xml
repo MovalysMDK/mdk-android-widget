@@ -140,6 +140,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
+        <activity
+            android:name=".FixedListActivity"
+            android:label="@string/title_activity_fixedlist"
+            android:parentActivityName=".ListWidgetActivity"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
+            android:name=".FixedListDetailActivity"
+            android:label="@string/title_activity_fixedlistdetail"
+            android:parentActivityName=".FixedListActivity"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.FixedListActivity" />
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUa-gmlwyhCdmGtAKJKt5LydN44rwSmX4"/>

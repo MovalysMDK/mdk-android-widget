@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- email action -->
+    <string name="mdkcommand_fixedlist_action" translatable="false">com.soprasteria.movalysmdk.widget.fixedlist.ADD_INTENT</string>
+
+</resources>

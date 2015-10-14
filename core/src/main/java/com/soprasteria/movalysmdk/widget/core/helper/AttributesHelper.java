@@ -106,11 +106,65 @@ public class AttributesHelper {
             View view = rootView.findViewById(viewId);
 
             if (view != null) {
-                return new WeakReference<View>(view);
+                return new WeakReference<>(view);
             }
         }
 
         return null;
     }
 
+    /**
+     * Returns a View from a resourceId.
+     * On any error, returns null.
+     * @param rootView the root view to look the view into
+     * @param typedArray an array of attributes
+     * @param attributeIndex the index of the attribute to look for
+     * @param defaultValue the default value to return
+     * @return the view if it was found, null otherwise
+     */
+    public static View getViewFromResourceAttribute(View rootView, TypedArray typedArray, int attributeIndex, int defaultValue) {
+        int viewId = getIntFromResourceAttribute(typedArray, attributeIndex, defaultValue);
+
+        if (viewId != 0) {
+            return rootView.findViewById(viewId);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns a class from a string attribute.
+     * @param typedArray an array of attributes
+     * @param attributeIndex the index of the attribute to look for
+     * @param defaultValue the default value to return
+     * @return the Class object if it could be found, null otherwise
+     */
+    public static Class<?> getClassFromStringAttribute(TypedArray typedArray, int attributeIndex, String defaultValue) {
+        String attrValue = typedArray.getString(attributeIndex);
+
+        if (attrValue == null) {
+            attrValue = defaultValue;
+        }
+
+        Class<?> classFound = null;
+
+        try {
+            classFound = Class.forName(attrValue);
+        } catch (ClassNotFoundException e) {
+            Log.e(TAG, "Could not find class from attribute", e);
+        }
+
+        return classFound;
+    }
+
+    /**
+     * Returns an int value attribute.
+     * @param typedArray an array of attributes
+     * @param attributeIndex the index of the attribute to look for
+     * @param defaultValue the default value to return
+     * @return the int value of the attribute
+     */
+    public static int getIntFromIntAttribute(TypedArray typedArray, int attributeIndex, int defaultValue) {
+        return typedArray.getInt(attributeIndex, defaultValue);
+    }
 }

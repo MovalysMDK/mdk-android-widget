@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="fixedlist_item_position" type="id"/>
+    <item name="fixedlist_item_root_view" type="id"/>
+
+</resources>
