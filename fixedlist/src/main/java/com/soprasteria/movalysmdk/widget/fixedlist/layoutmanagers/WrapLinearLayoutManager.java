@@ -174,7 +174,9 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		// done). As we want to measure the view with actual data we must use data from the adapter and not from  the
 		// state
 		for (int i = 0; i < adapterItemCount; i++) {
-			if (vertical) {
+            boolean shouldBreak = false;
+
+            if (vertical) {
 				if (!hasChildSize) {
 					if (i < stateItemCount) {
 						// we should not exceed state count, otherwise we'll get IndexOutOfBoundsException. For such items
@@ -189,7 +191,7 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 					width = childDimensions[CHILD_WIDTH];
 				}
 				if (hasHeightSize && height >= heightSize) {
-					break;
+                    shouldBreak = true;
 				}
 			} else {
 				if (!hasChildSize) {
@@ -206,9 +208,13 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 					height = childDimensions[CHILD_HEIGHT];
 				}
 				if (hasWidthSize && width >= widthSize) {
-					break;
+                    shouldBreak = true;
 				}
 			}
+
+            if (shouldBreak) {
+                break;
+            }
 		}
 
 		if (exactWidth) {
