@@ -2,7 +2,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-project.archivesBaseName = 'widget-position'
+project.archivesBaseName = 'widget-positionmaps'
 
 android {
     compileSdkVersion androidCompileSdkVersion
