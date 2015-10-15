@@ -69,4 +69,17 @@ public interface HasEnum<T extends Enum> {
      */
     void setResourceNamePrefix(String prefix);
 
+    /**
+     * States if the widget's value can be changed by user or not.
+     * @return the editable property
+     */
+    boolean isEditable();
+
+    /**
+     * Set the editable property of the widget.
+     * When set to true, the user can click on the EnumView to cycle through its possible values.
+     * @param editable the editable property
+     */
+    void setEditable(boolean editable);
+
 }

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKEnumView;
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView;
 import com.soprasteria.movalysmdk.widget.sample.enums.BabyAnimals;
 
 import org.junit.Rule;
@@ -32,6 +33,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xmlpull.v1.XmlPullParser;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -95,6 +100,57 @@ public class EnumViewTest {
 
         enumimage.setValueFromString("hello_world");
         assertThat(null, "enum_hello_world".equals(((TextView) enumimage.getModeView()).getText().toString()));
+
+    }
+
+    /**
+     * Tests the editable property. Clicks the view to cycle through possible values of the enum.
+     */
+    @Test
+    public void editableTest(){
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_puppy).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_cub).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
+        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_babyanimals_calf).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
+        assertThat(null, "enum_babyanimals_piglet".equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
+        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_babyanimals_duckling).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+
+        // END OF ENUM REACHED
+        // MUST GO BACK TO FIRST ELEMENT IN ENUM
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_kitten).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
+
+    }
+
+    /**
+     * Tests the editable property when no enum specified. Should not change the value on user click.
+     */
+    @Test
+    public void editableNoEnumTest() {
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+        onView(withId(R.id.mdkRichEnumText_withLabelAndError)).perform(scrollTo());
+        assertThat(null, mActivityRule.getActivity().getString(R.string.hello_world).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumText_withLabelAndError)).getModeView()).getText().toString()));
+
+        //SHOULD BE THE SAME VALUE AFTER CLICK
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumText_withLabelAndError)).perform(scrollTo(), click());
+        assertThat(null, mActivityRule.getActivity().getString(R.string.hello_world).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumText_withLabelAndError)).getModeView()).getText().toString()));
 
     }
 }

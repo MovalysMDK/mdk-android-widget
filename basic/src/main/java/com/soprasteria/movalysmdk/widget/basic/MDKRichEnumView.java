@@ -73,6 +73,10 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
             setMode(MDKEnumView.MODE_IMAGE);
         }
 
+        // Parse the editable property of EnumView
+        setEditable(typedArray.getBoolean(R.styleable.MDKCommons_MDKEnumImage_enum_editable, false));
+
+
         typedArray.recycle();
     }
 
@@ -114,6 +118,16 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
     @Override
     public void setResourceNamePrefix(String prefix) {
         getInnerWidget().setResourceNamePrefix(prefix);
+    }
+
+    @Override
+    public boolean isEditable() {
+        return getInnerWidget().isEditable();
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        getInnerWidget().setEditable(editable);
     }
 
     /**

@@ -28,5 +28,7 @@ public enum BabyAnimals {
     /** Calf string. */
     CALF,
     /** Piglet string. */
-    PIGLET
+    PIGLET,
+    /** Duckling string. */
+    DUCKLING
 }

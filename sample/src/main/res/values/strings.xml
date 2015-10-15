@@ -204,7 +204,9 @@
     <string name="test_mdkvalidator_position_error_validation_mandatory">Latitude and longitude must be filled</string>
     <string name="enumimage_standalone_widget">Standalone enumimage</string>
     <string name="title_activity_enumview">EnumView</string>
-    <string name="enumimage_with_label_error">MDKEnumImage with label and error</string>
+    <string name="enumimage_editable_with_label_error">Editable (clickable) MDKEnumImage with label and error</string>
+    <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
     <string name="enum_babyanimals_calf">calf</string>
+    <string name="enum_babyanimals_duckling">duckling</string>
 
 </resources>

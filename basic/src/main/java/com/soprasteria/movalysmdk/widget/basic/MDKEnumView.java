@@ -42,12 +42,14 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
  * ImageView widget where the image can be set with enum values.
  */
-public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum, MDKWidget, HasValidator {
+public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum, MDKWidget, HasValidator, View.OnClickListener {
+
 
     /**
      * Enumeration listing possible MDKEnumView modes.
@@ -90,6 +92,9 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     /** Internal view (view type depends on the mode). */
     private View view;
 
+    /** Editable property of the widget. **/
+    private boolean editable;
+
     /**
      * Constructor.
      * @param context the context
@@ -128,7 +133,13 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         enumPrefix = AttributesHelper.getStringFromStringAttribute(typedArray,R.styleable.MDKCommons_MDKEnumImage_enum_prefix, DEFAULT_ENUM_PREFIX);
 
         // Parse the mode of EnumView
-        mode = typedArray.getInt(R.styleable.MDKCommons_MDKEnumImage_enum_mode,0);
+        mode = typedArray.getInt(R.styleable.MDKCommons_MDKEnumImage_enum_mode, 0);
+
+        // Parse the editable property of EnumView
+        editable = typedArray.getBoolean(R.styleable.MDKCommons_MDKEnumImage_enum_editable,false);
+        if(editable){
+            this.setOnClickListener(this);
+        }
 
         typedArray.recycle();
 
@@ -294,6 +305,8 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         //recreating the resource name, in the form "prefix_name"
         String resourceCompleteName = (enumPrefix + "_" + resourceName).toLowerCase();
 
+        removeView(view);
+
         switch(mode){
             case 1:
                 setTextFromString(resourceCompleteName);
@@ -304,6 +317,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
                 setDrawableFromString(resourceCompleteName);
                 break;
         }
+        this.validate(EnumFormFieldValidator.VALIDATE);
     }
 
     /**
@@ -311,7 +325,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      * @param textStr the resource name
      */
     private void setTextFromString(String textStr){
-        if(view==null){
+        if(view==null || !(view instanceof TextView)){
             initTextMode();
         }
         try{
@@ -328,7 +342,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      * @param drawableStr the resource name
      */
     private void setDrawableFromString(String drawableStr){
-        if(view==null) {
+        if(view==null || !(view instanceof ImageView)) {
             initImageMode();
         }
         try {
@@ -336,7 +350,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         }catch(Resources.NotFoundException e){
             Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + drawableStr, e);
             //fallback behavior: look for text
-            setMode(MODE_TEXT);
+            removeView(view);
             setTextFromString(drawableStr);
         }
     }
@@ -367,14 +381,15 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      * @param id the resource id
      */
     private void setTextFromId(int id){
-        if(view==null){
+        if(view==null || !(view instanceof TextView)){
             initTextMode();
         }
         try{
             ((TextView) view).setText(getContext().getString(id));
-        }catch(Resources.NotFoundException e){
+        }catch(Resources.NotFoundException e) {
             Log.w(this.getClass().getSimpleName(), "String resource not found: " + id, e);
             //fallback behavior: displaying id
+            removeView(view);
             ((TextView)view).setText(String.valueOf(id));
         }
     }
@@ -384,7 +399,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      * @param id the resource id
      */
     private void setDrawableFromId(int id){
-        if(view==null) {
+        if(view==null || !(view instanceof ImageView)) {
             initImageMode();
         }
         try{
@@ -392,7 +407,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         }catch(Resources.NotFoundException e){
             Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + id, e);
             //fallback behavior: look for text
-            setMode(MODE_TEXT);
+            removeView(view);
             setTextFromId(id);
         }
     }
@@ -424,6 +439,41 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     public void setMode(@EnumMode int mode) {
         this.mode=mode;
         removeView(view);
+    }
+
+    @Override
+    public void removeView(View v){
+        super.removeView(view);
         view=null;
+    }
+
+    @Override
+    public boolean isEditable() {
+        return editable;
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+        if(editable){
+            this.setOnClickListener(this);
+        }else {
+            this.setOnClickListener(null);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        //Cycling through the possible enum values
+        if(resourceEnumValue !=null) {
+            List<Enum> values = new ArrayList<>(EnumSet.allOf(resourceEnumValue.getClass()));
+
+            //going back to the first element if we reached the end of the list.
+            if(values.indexOf(resourceEnumValue)+1<values.size()) {
+                setValueFromEnum(values.get(values.indexOf(resourceEnumValue) + 1));
+            }else{
+                setValueFromEnum(values.get(0));
+            }
+        }
     }
 }

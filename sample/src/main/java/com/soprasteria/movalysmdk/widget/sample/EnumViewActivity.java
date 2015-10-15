@@ -49,6 +49,10 @@ public class EnumViewActivity extends AbstractWidgetTestableActivity {
         //initializing image from string
         MDKEnumView withImageSetByString = (MDKEnumView) findViewById(R.id.mdkEnumImage_withImageSetByString);
         withImageSetByString.setValueFromString("babyanimals_cub");
+
+        //initializing text from enum
+        MDKRichEnumView withText = (MDKRichEnumView) findViewById(R.id.mdkRichEnumText_withLabelAndError);
+        withText.setValueFromId(R.string.hello_world);
     }
 
 }

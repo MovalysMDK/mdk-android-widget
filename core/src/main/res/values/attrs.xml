@@ -137,5 +137,6 @@
             <enum name="image" value="0"/>
             <enum name="text" value="1"/>
         </attr>
+        <attr name="enum_editable" format="boolean"/>
     </declare-styleable>
 </resources>
