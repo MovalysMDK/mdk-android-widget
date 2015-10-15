@@ -39,10 +39,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile supportDependencies.appCompat
-    //compile supportDependencies.recyclerView
+    compile supportDependencies.recyclerView
     compile supportDependencies.supportAnnotations
     compile project(':core')
-    compile 'com.android.support:recyclerview-v7:23.0.1'
 }
 
 sonarRunner {
