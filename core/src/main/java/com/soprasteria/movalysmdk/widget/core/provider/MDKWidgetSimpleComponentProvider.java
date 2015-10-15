@@ -18,19 +18,24 @@ package com.soprasteria.movalysmdk.widget.core.provider;
 import android.content.Context;
 import android.util.Log;
 
-import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessageFormat;
 import com.soprasteria.movalysmdk.widget.core.message.MDKSimpleMessageFormat;
-import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Simple implementation of the MDKWidgetComponentProvider.
@@ -78,10 +83,37 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         this.validatorListMap = new HashMap<>();
         this.richSelector = new HashMap<>();
 
-        String[] validatorsKeys = context.getResources().getStringArray(R.array.validatorKeys);
-        createValidatorsFromKeys(context, validatorsKeys);
+        String[] validator = null;
+        try {
+            validator = getAssetsValidator(context);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error reading validators declaration : " + e.getMessage(), e);
+        }
 
+        createValidatorsFromKeys(context, validator);
 
+    }
+
+    /**
+     * Read all entries form files in validators folder.
+     * @param context the application context
+     * @return an array of String containing validators key
+     * @throws IOException throw IOException on file read exception
+     */
+    private String[] getAssetsValidator(Context context) throws IOException {
+        String[] listValidatorFiles = context.getAssets().list("validators");
+        Collection<String> keyList = new TreeSet<>();
+        for (String file :
+                listValidatorFiles) {
+            InputStream is = context.getAssets().open("validators/" + file);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                keyList.add(line);
+            }
+        }
+        String[] r_array = new String[]{};
+        return keyList.toArray(r_array);
     }
 
     /**
