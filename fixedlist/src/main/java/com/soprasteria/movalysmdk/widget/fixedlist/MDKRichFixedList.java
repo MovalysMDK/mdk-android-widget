@@ -60,8 +60,8 @@ public class MDKRichFixedList extends MDKBaseRichWidget<MDKFixedList> implements
     private void init(AttributeSet attrs) {
         TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKFixedListComponent);
 
-        this.innerWidget.getMDKWidgetDelegate().setAddButtonView(
-                AttributesHelper.getViewFromResourceAttribute(this, typedArray, R.styleable.MDKCommons_MDKFixedListComponent_addButtonViewId, 0)
+        this.innerWidget.getMDKWidgetDelegate().setAddButtonViewId(
+                AttributesHelper.getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_addButtonViewId, 0)
         );
 
         this.innerWidget.getMDKWidgetDelegate().setWrapperViewHolderClass(

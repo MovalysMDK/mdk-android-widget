@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
+import com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList;
 import com.soprasteria.movalysmdk.widget.fixedlist.R;
 import com.soprasteria.movalysmdk.widget.fixedlist.adapters.WrapperViewHolder;
 import com.soprasteria.movalysmdk.widget.fixedlist.layoutmanagers.WrapLinearLayoutManager;
@@ -22,7 +24,7 @@ import java.lang.ref.WeakReference;
 public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
 
     /** weak reference to the add button of the widget. */
-    private WeakReference<View> addButtonView;
+    private int addButtonViewId;
 
     /** class of the wrapping view holder of the list views. */
     private Class<? extends WrapperViewHolder> wrapperViewHolderClass;
@@ -49,7 +51,7 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
 
         TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKFixedListComponent);
 
-        addButtonView = AttributesHelper.getWeakViewFromResourceAttribute(view, typedArray, R.styleable.MDKCommons_MDKFixedListComponent_addButtonViewId, 0);
+        addButtonViewId = AttributesHelper.getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_addButtonViewId, 0);
 
         wrapperViewHolderClass = (Class<? extends WrapperViewHolder>) AttributesHelper
                 .getClassFromStringAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderClass, WrapperViewHolder.class.getName());
@@ -71,18 +73,20 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
      * @return the add button set, null if none
      */
     public View getAddButton() {
-        if (this.addButtonView != null) {
-            return addButtonView.get();
+        if (this.addButtonViewId != 0) {
+            return reverseFindViewById(addButtonViewId);
         }
         return null;
     }
 
     /**
      * Sets the add button on the widget.
-     * @param addButtonView the view to set as add button
+     * @param addButtonViewId the identifier of the view to set as add button
      */
-    public void setAddButtonView(View addButtonView) {
-        this.addButtonView = new WeakReference<>(addButtonView);
+    public void setAddButtonViewId(int addButtonViewId) {
+        if (addButtonViewId != 0) {
+            this.addButtonViewId = addButtonViewId;
+        }
     }
 
     /**

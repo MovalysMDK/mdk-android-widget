@@ -112,8 +112,8 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
                 keyList.add(line);
             }
         }
-        String[] r_array = new String[]{};
-        return keyList.toArray(r_array);
+        String[] array = new String[]{};
+        return keyList.toArray(array);
     }
 
     /**

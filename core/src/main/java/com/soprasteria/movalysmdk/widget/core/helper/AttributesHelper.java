@@ -17,9 +17,6 @@ package com.soprasteria.movalysmdk.widget.core.helper;
 
 import android.content.res.TypedArray;
 import android.util.Log;
-import android.view.View;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Helper class for the attributes reading and setting to class.
@@ -88,48 +85,6 @@ public class AttributesHelper {
      */
     public static int getIntFromResourceAttribute(TypedArray typedArray, int attributeIndex, int defaultValue) {
         return typedArray.getResourceId(attributeIndex, defaultValue);
-    }
-
-    /**
-     * Returns a WeakReference to a View from a resourceId.
-     * On any error, returns null.
-     * @param rootView the root view to look the view into
-     * @param typedArray an array of attributes
-     * @param attributeIndex the index of the attribute to look for
-     * @param defaultValue the default value to return
-     * @return a WeakReference to the view if it was found, null otherwise
-     */
-    public static WeakReference<View> getWeakViewFromResourceAttribute(View rootView, TypedArray typedArray, int attributeIndex, int defaultValue) {
-        int viewId = getIntFromResourceAttribute(typedArray, attributeIndex, defaultValue);
-
-        if (viewId != 0) {
-            View view = rootView.findViewById(viewId);
-
-            if (view != null) {
-                return new WeakReference<>(view);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Returns a View from a resourceId.
-     * On any error, returns null.
-     * @param rootView the root view to look the view into
-     * @param typedArray an array of attributes
-     * @param attributeIndex the index of the attribute to look for
-     * @param defaultValue the default value to return
-     * @return the view if it was found, null otherwise
-     */
-    public static View getViewFromResourceAttribute(View rootView, TypedArray typedArray, int attributeIndex, int defaultValue) {
-        int viewId = getIntFromResourceAttribute(typedArray, attributeIndex, defaultValue);
-
-        if (viewId != 0) {
-            return rootView.findViewById(viewId);
-        }
-
-        return null;
     }
 
     /**

@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/component_addButton"
-        mdk:primaryCommandId="@id/component_addButton"
+        mdk:addButtonViewId="@id/component_addButton"
         mdk:errorId="@id/component_error"
         style="?attr/mdkValueFixedListStyle"/>
 

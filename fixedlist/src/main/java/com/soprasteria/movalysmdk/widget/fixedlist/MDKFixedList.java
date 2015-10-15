@@ -138,6 +138,10 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
                 setLayoutManager(mLayoutManager);
             }
+
+            if (this.mdkWidgetDelegate.getAddButton() != null) {
+                this.mdkWidgetDelegate.getAddButton().setOnClickListener(this);
+            }
         }
     }
 
