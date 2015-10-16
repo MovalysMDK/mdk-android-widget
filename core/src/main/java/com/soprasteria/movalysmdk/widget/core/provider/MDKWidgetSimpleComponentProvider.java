@@ -60,6 +60,9 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      */
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
+    /**
+     * Folder name for validator.
+     */
     private static final String MDK_VALIDATORS_DECLARATION_FOLDER = "validators";
 
     /**
@@ -109,7 +112,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         for (String file :
                 listValidatorFiles) {
             InputStream is = context.getAssets().open(MDK_VALIDATORS_DECLARATION_FOLDER + File.separator + file);
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, "utf-8"));
             String line = null;
             while ((line = br.readLine()) != null) {
                 keyList.add(line);

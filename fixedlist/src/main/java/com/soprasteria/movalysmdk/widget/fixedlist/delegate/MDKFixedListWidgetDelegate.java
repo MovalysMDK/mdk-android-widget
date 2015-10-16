@@ -7,16 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
-import com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList;
 import com.soprasteria.movalysmdk.widget.fixedlist.R;
 import com.soprasteria.movalysmdk.widget.fixedlist.adapters.WrapperViewHolder;
 import com.soprasteria.movalysmdk.widget.fixedlist.layoutmanagers.WrapLinearLayoutManager;
 
-import java.lang.ref.WeakReference;
 
 /**
  * Delegate class for the MDKFixedList widget.
