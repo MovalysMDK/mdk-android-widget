@@ -46,7 +46,13 @@ import java.util.List;
  *     <li>layoutManagerOrientation: the orientation to set on the layout manager</li>
  * </ul>
  *
- * TODO : layout manager géré dans le layout avec uniquement orientation. Si plus de parametres, passer par le widget
+ * Some LayoutManager implementations can be found in the layoutmanagers package:
+ * <ul>
+ *     <li>WrapLinearLayoutManager: vertical layout manager, allows to use the widget wrapped in a layout.</li>
+ * </ul>
+ * The setup layout attributes for the layout managers allow to set a class and an orientation.
+ * Should you need to set more parameters on your preferred layout manager, you should set it directly on the view in your code.
+ * Also please note that the standard Android layout managers implementations do not allow to wrap the widget, so you may have to adapt your layouts.
  */
 public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasValidator, HasDelegate, HasChangeListener {
 
