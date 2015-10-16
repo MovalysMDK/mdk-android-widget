@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,21 +20,22 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 
 /**
  * This validator check the mandatory settings of a component.
- *
+ * <p/>
  * If the component is mandatory and the value is empty, return
  * an empty mandatory error.
- *
+ * <p/>
  * This validator return an error code ERROR_MANDATORY and associate the
  * message R.string.mdk_mandatory_error if the value is empty and the
  * widget is mandatory.
  */
-public class MandatoryValidator implements FormFieldValidator<String> {
+public class MandatoryValidator implements FormFieldValidator<Object> {
 
     /**
      * ERROR_MANDATORY.
@@ -50,7 +51,7 @@ public class MandatoryValidator implements FormFieldValidator<String> {
     @Override
     public boolean accept(View view) {
         boolean accept = false;
-        if (view instanceof HasText) {
+        if (view instanceof IsNullable || view instanceof HasText) {
             accept = true;
         }
         return accept;
@@ -58,11 +59,11 @@ public class MandatoryValidator implements FormFieldValidator<String> {
 
     @Override
     public int[] configuration() {
-        return new int[] {R.attr.mandatory};
+        return new int[]{R.attr.mandatory};
     }
 
     @Override
-    public MDKMessage validate(String objectToValidate,
+    public MDKMessage validate(Object objectToValidate,
                                MDKAttributeSet mdkParameter,
                                MDKMessages resultPreviousValidator,
                                @EnumFormFieldValidator.EnumValidationMode int validationMode,
@@ -70,20 +71,29 @@ public class MandatoryValidator implements FormFieldValidator<String> {
 
         MDKMessage mdkMessage = null;
 
+
         boolean isMandatory = mdkParameter.containsKey(R.attr.mandatory) && mdkParameter.getBoolean(R.attr.mandatory);
 
         if (isMandatory
-            && objectToValidate.length() < 1
-            && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
+                && !resultPreviousValidator.containsKey(this.getClass().getName())
+                && (isEmptyObjectToValidate(objectToValidate))) {
 
             mdkMessage = new MDKMessage();
             mdkMessage.setMessageCode(ERROR_MANDATORY);
             String error = context.getString(ERROR_MANDATORY);
             mdkMessage.setMessage(error);
         }
-
         resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
         return mdkMessage;
     }
 
+    /**
+     * Validation if the objectToValidate is a null object or empty string.
+     *
+     * @param objectToValidate the object to validate
+     * @return true if object is empty
+     */
+    private boolean isEmptyObjectToValidate(Object objectToValidate) {
+        return objectToValidate == null || (objectToValidate instanceof String && ((String) objectToValidate).length() < 1);
+    }
 }

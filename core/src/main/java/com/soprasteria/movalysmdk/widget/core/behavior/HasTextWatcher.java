@@ -29,6 +29,7 @@ public interface HasTextWatcher {
     void addTextChangedListener(TextWatcher textWatcher);
 
     /**
+     *
      * Remove a text watcher from the widget.
      * @param textWatcher the text watcher to remove
      */

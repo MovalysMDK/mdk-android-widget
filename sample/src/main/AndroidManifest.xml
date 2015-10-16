@@ -164,6 +164,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".WrappedFixedListActivity" />
         </activity>
+        <activity
+            android:name=".SpinnerActivity"
+            android:label="@string/title_activity_spinner"
+            android:parentActivityName=".ListWidgetActivity"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUa-gmlwyhCdmGtAKJKt5LydN44rwSmX4"/>

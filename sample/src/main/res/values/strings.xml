@@ -119,6 +119,7 @@
     <string name="switch_rich_custom_validator">Switch rich widget custom validator</string>
     <string name="switch_rich_helper_text">Switch rich widget with helper</string>
 
+
     <string name="title_activity_seekbar">SeekBar widget</string>
     <string name="seekbar_maxSeekBarValue_error_20">Value must be inferior to the max defined into the widget\'s attribute: 20</string>
 
@@ -128,6 +129,12 @@
     <string name="seekbar_rich_custom_layout">SeekBar Rich widget custom layout</string>
     <string name="seekbar_rich_common_error">SeekBar rich widget common error</string>
     <string name="seekbar_rich_helper_text">SeekBar rich widget with helper</string>
+
+    <string name="spinner_label">My label spinner</string>
+
+
+    <string name="spinner_standalone_widget">Spinner standalone widget</string>
+    <string name="rich_spinner_with_label_and_error_field">Rich spinner with label and error field</string>
 
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
     <string name="mdk_error_message_1">"42 /!\\ Must be filled"</string>
@@ -202,6 +209,7 @@
     <string name="seekbar_edit_text_not_editable">Seekbar with edit text not editable</string>
     <string name="seekbar_min_max_allowed">Seekbar with min allowed and max allowed but neither min nor max</string>
     <string name="seekbar_different_formatter">Seekbar with different formatter</string>
+    <string name="title_activity_spinner">SpinnerActivity</string>
     <string name="test_position_valid_latitude" translatable="false">4.5</string>
     <string name="test_position_valid_longitude" translatable="false">6.4</string>
     <string name="test_mdkvalidator_position_error_validation_mandatory">Latitude and longitude must be filled</string>

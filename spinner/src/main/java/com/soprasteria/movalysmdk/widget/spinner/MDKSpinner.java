@@ -1,0 +1,276 @@
+package com.soprasteria.movalysmdk.widget.spinner;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatSpinner;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.SpinnerAdapter;
+
+import com.example.spinner.R;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
+
+import java.util.Arrays;
+
+/**
+ * MDK Spinner.
+ * <p>Represents a Spinner.</p>
+ * <p>This spinner could add a blank row to any of your adapter.</p>
+ * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
+ * <p>The mdk:has_blank_row default value is false.</p>
+ */
+public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel {
+    /**
+     * The MDKWidgetDelegate handling the component logic.
+     */
+    protected MDKWidgetDelegate mdkWidgetDelegate;
+    /**
+     * Widget specific validators.
+     */
+    protected int[] specificValidators;
+
+    /**
+     * Value of the selected item in dropDown spinner.
+     */
+    protected Object valueToValidate;
+
+    /**
+     * Boolean to test if blank row is required (True for Blank row).
+     */
+    private boolean hasBlank;
+
+    /**
+     * ExternalListener.
+     */
+    private OnItemSelectedListener externalListener;
+
+    /**
+     * Constructor.
+     *
+     * @param context      the context
+     * @param attrs        attributes set
+     * @param defStyleAttr spinner defStyleAttr
+     * @param mode         spinner mode
+     */
+    public MDKSpinner(Context context, AttributeSet attrs, int defStyleAttr, int mode) {
+        super(context, attrs, defStyleAttr, mode);
+        if (!isInEditMode()) {
+            init(attrs);
+        }
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param context the context
+     * @param attrs   attributes set
+     */
+    public MDKSpinner(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        if (!isInEditMode()) {
+            init(attrs);
+        }
+    }
+
+    /**
+     * Instantiate the MDKWidgetDelegate and get XML attrs.
+     * Called by the constructor.
+     *
+     * @param attrs attributes set
+     */
+    private final void init(AttributeSet attrs) {
+        TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSpinnerComponent);
+        this.hasBlank = typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false);
+        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+        this.valueToValidate(0);
+        super.setOnItemSelectedListener(this);
+        typedArrayComponent.recycle();
+    }
+
+    /**
+     * Sets hasBlank value.
+     *
+     * @param spinnerBlankValue boolean that represent if blankRow is needed
+     */
+    public void setSpinnerHasBlankRow(boolean spinnerBlankValue) {
+        this.hasBlank = spinnerBlankValue;
+    }
+
+    /**
+     * Sets the data behind this ListView with the user's adapter.
+     *
+     * @param adapter user's adapter.
+     */
+    @Override
+    public void setAdapter(SpinnerAdapter adapter) {
+        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank));
+    }
+
+    /**
+     * Sets the data behind this ListView with the user's adapter and allow to use a same custom layout for dropDownBlankView and spinnerBlankView.
+     *
+     * @param adapter     user's adapter.
+     * @param blankLayout layout for dropDownBlankView and spinnerBlankView
+     */
+    public void setAdapterWithCustomBlankLayout(SpinnerAdapter adapter, int blankLayout) {
+        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, blankLayout, blankLayout));
+    }
+
+    /**
+     * Sets the data behind this ListView with the user's adapter and allow to use a custom layout for dropDownBlankView and spinnerBlankView.
+     * Example : to have an hint you can have an hint layout for spinnerBlankLayout and a layout without dimensions for dropDownBlankLayout.
+     *
+     * @param adapter             user's adapter.
+     * @param spinnerBlankLayout  layout for spinnerBlankView
+     * @param dropDownBlankLayout layout for dropDownBlankView
+     */
+    public void setAdapterSpinnerDropDownBlankLayout(SpinnerAdapter adapter, int spinnerBlankLayout, int dropDownBlankLayout) {
+        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, spinnerBlankLayout, dropDownBlankLayout));
+    }
+
+    /**
+     * Set the value for valueToValidate.
+     *
+     * @param position position in the adapter
+     */
+    private void valueToValidate(int position) {
+        if (hasBlank && position == 0) {
+            this.valueToValidate = null;
+        } else {
+            this.valueToValidate = this.getItemAtPosition(position);
+        }
+    }
+
+    @Override
+    public void setOnItemSelectedListener(OnItemSelectedListener listener) {
+        this.externalListener = listener;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (this.externalListener != null) {
+            this.externalListener.onItemSelected(parent, view, position, id);
+        }
+        this.valueToValidate(position);
+        this.validate(EnumFormFieldValidator.ON_FOCUS);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        if (this.externalListener != null) {
+            this.externalListener.onNothingSelected(parent);
+        }
+
+        this.validate(EnumFormFieldValidator.ON_FOCUS);
+    }
+
+
+    @Override
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+
+        return this.mdkWidgetDelegate;
+    }
+
+    @Override
+    public int[] getValidators() {
+
+        int[] basicValidators = {R.string.mdkvalidator_mandatory_class};
+        int[] validators;
+
+        if (this.specificValidators != null && this.specificValidators.length > 0) {
+            validators = Arrays.copyOf(basicValidators, basicValidators.length + this.specificValidators.length);
+
+            System.arraycopy(this.specificValidators, 0, validators, basicValidators.length, this.specificValidators.length);
+        } else {
+            validators = basicValidators;
+        }
+
+        return validators;
+    }
+
+    @Override
+    public boolean validate() {
+        return this.mdkWidgetDelegate.validate(true, EnumFormFieldValidator.VALIDATE);
+    }
+
+    @Override
+    public boolean validate(@EnumFormFieldValidator.EnumValidationMode int validationMode) {
+        return this.mdkWidgetDelegate.validate(true, validationMode);
+    }
+
+    @Override
+    public void setError(CharSequence error) {
+
+        this.mdkWidgetDelegate.setError(error);
+    }
+
+    @Override
+    public void addError(MDKMessages error) {
+
+        this.mdkWidgetDelegate.addError(error);
+    }
+
+    @Override
+    public void clearError() {
+
+        this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public Object getValueToValidate() {
+        return this.valueToValidate;
+    }
+
+    @Override
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
+        return this.mdkWidgetDelegate.getTechnicalInnerWidgetDelegate();
+    }
+
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return new int[0];
+    }
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+
+    }
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate.getTechnicalWidgetDelegate();
+    }
+
+    @Override
+    public boolean isMandatory() {
+
+        return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
+    }
+
+}

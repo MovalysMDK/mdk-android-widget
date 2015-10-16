@@ -57,6 +57,7 @@ dependencies {
     compile project(':basic')
     compile project(':position')
     compile project(':positionmaps')
+    compile project(':spinner')
     compile supportDependencies.support
     compile supportDependencies.appCompat
     compile supportDependencies.recyclerView

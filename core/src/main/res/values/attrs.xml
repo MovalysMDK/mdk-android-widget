@@ -33,6 +33,7 @@
         <attr name="mdkValueMapsPositionStyle" format="reference"/>
         <attr name="mdkValueCheckBoxStyle" format="reference"/>
         <attr name="mdkValueSwitchStyle" format="reference"/>
+        <attr name="mdkValueSpinnerStyle" format="reference"/>
         <attr name="mdkValueStyle" format="reference"/>
         <attr name="mdkErrorStyle" format="reference"/>
         <attr name="mdkPrimaryCommandStyle" format="reference"/>
@@ -138,5 +139,10 @@
             <enum name="text" value="1"/>
         </attr>
         <attr name="enum_editable" format="boolean"/>
+    </declare-styleable>
+
+    <!-- MDKSpinner specific attributes -->
+    <declare-styleable name="MDKCommons.MDKSpinnerComponent">
+        <attr name="has_blank_row" format="boolean"/>
     </declare-styleable>
 </resources>
