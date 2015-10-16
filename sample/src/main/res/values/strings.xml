@@ -32,7 +32,8 @@
     <string name="title_activity_validator">Validator</string>
     <string name="title_activity_rich_selector">Rich Selector</string>
     <string name="title_activity_uri">Uri widget</string>
-    <string name="title_activity_fixedlist">FixedList</string>
+    <string name="title_activity_wrapped_fixedlist">Wrapped FixedList</string>
+    <string name="title_activity_staggered_fixedlist">Staggered FixedList</string>
     <string name="title_activity_fixedlistdetail">FixedList Detail</string>
 
     <string name="broadcast_email_button_text">Test Email Broadcast</string>

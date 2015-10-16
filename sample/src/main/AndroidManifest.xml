@@ -142,7 +142,7 @@
         </activity>
         <activity
             android:name=".WrappedFixedListActivity"
-            android:label="@string/title_activity_fixedlist"
+            android:label="@string/title_activity_wrapped_fixedlist"
             android:parentActivityName=".ListWidgetActivity"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -150,7 +150,7 @@
         </activity>
         <activity
             android:name=".StaggeredFixedListActivity"
-            android:label="@string/title_activity_fixedlist"
+            android:label="@string/title_activity_staggered_fixedlist"
             android:parentActivityName=".ListWidgetActivity"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

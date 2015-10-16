@@ -30,13 +30,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_circle"
+        android:layout_below="@id/component_label"
+        android:layout_alignParentLeft="true"
         style="?attr/mdkCommandButtonStyle"/>
 
     <com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList
         android:id="@id/component_internal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_below="@id/component_addButton"
         mdk:addButtonViewId="@id/component_addButton"
         mdk:errorId="@id/component_error"
         mdk:labelId="@id/component_label"
