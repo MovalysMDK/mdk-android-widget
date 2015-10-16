@@ -20,6 +20,8 @@
 
     <declare-styleable name="CustomValidatorAttr">
         <attr name="no_number" format="boolean" />
+        <attr name="enum_animals_puppy_validator" format="boolean" />
+
     </declare-styleable>
 
 

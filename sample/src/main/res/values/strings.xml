@@ -153,7 +153,9 @@
     <string name="fortyTwoTextFormater_prefix" translatable="false">"42 /!\\ "</string>
 
     <string name="no_number_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator</string>
+    <string name="baby_animals_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.BabyAnimalsPuppyValidator</string>
     <string name="no_number_allowed">No number allowed</string>
+    <string name="wrong_animal">Wrong animal. Please select a puppy.</string>
     <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
     <string name="rich_selector_solo">Rich selector for single widget</string>
     

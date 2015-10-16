@@ -29,6 +29,7 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentA
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetSimpleComponentProvider;
 import com.soprasteria.movalysmdk.widget.sample.content.WidgetContent;
 import com.soprasteria.movalysmdk.widget.sample.selector.BoldMandatorySelector;
+import com.soprasteria.movalysmdk.widget.sample.validator.BabyAnimalsPuppyValidator;
 import com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator;
 
 /**
@@ -92,6 +93,7 @@ public class MyApp extends Application implements MDKWidgetApplication {
         if (this.widgetComponentProvider == null) {
             this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider(this);
             this.widgetComponentProvider.registerValidator(this, new NoNumberValidator());
+            this.widgetComponentProvider.registerValidator(this, new BabyAnimalsPuppyValidator());
 
             this.widgetComponentProvider.registerRichSelector("custom_mandatory_bold_selector", new BoldMandatorySelector());
         }

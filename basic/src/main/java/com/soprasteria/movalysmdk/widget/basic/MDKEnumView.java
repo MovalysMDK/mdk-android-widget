@@ -87,7 +87,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     private MDKWidgetDelegate mdkWidgetDelegate;
 
     /** widget specific validators. */
-    private List<Integer> validators;
+    private int[] validators;
 
     /** Internal view (view type depends on the mode). */
     private View view;
@@ -146,8 +146,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         // Create the widget delegate
         mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
-        //initializing
-        validators = new ArrayList<>();
+        validators = new int[]{};
     }
 
     /**
@@ -190,29 +189,15 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
 
     @Override
     public int[] getValidators() {
-        //converting list of Integer to array of int
-        int[] validatorsArray = new int[validators.size()];
-        for(int i = 0;i < validatorsArray.length;i++) {
-            validatorsArray[i] = validators.get(i);
-        }
-
-        return validatorsArray;
+        return validators;
     }
 
     /**
-     * Adds the resource pointer of a validator class name to this widget's list of validators.
-     * @param validator the validator to add
+     * Sets the specific validators on the widget.
+     * @param specificValidators the specific validators
      */
-    public void addValidator(int validator){
-        validators.add(validator);
-    }
-
-    /**
-     * Removes a validator from the list of validators.
-     * @param validator the validator to remove
-     */
-    public void removeValidator(int validator){
-        validators.remove(validator);
+    protected void setSpecificValidators(int[]  specificValidators){
+        this.validators = specificValidators;
     }
 
     @Override

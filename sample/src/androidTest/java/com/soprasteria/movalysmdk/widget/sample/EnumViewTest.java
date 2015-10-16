@@ -36,8 +36,12 @@ import org.xmlpull.v1.XmlPullParser;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -153,4 +157,22 @@ public class EnumViewTest {
         assertThat(null, mActivityRule.getActivity().getString(R.string.hello_world).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumText_withLabelAndError)).getModeView()).getText().toString()));
 
     }
+
+    /**
+     * Tests the custom validator of an EnumView.
+     */
+    @Test
+    public void enumValidatorTest() {
+
+        assertThat(mActivityRule.getActivity(), is(notNullValue()));
+
+        //SHOULD NOT VALIDATE AFTER CLICK
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
+        onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEnumImage_withLabelAndError))))
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.wrong_animal)));
+    }
+
+
 }
