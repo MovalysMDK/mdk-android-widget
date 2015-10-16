@@ -9,7 +9,7 @@
         <attr name="wrapperViewHolderLayout" format="reference" />
         <attr name="wrapperViewHolderDeleteId" format="reference" />
 
-        <attr name="layoutManagerClass" format="string" />
+        <attr name="layoutManagerClass" format="reference|string" />
         <attr name="layoutManagerOrientation" format="enum" >
             <enum name="horizontal" value="0"/>
             <enum name="vertical" value="1"/>

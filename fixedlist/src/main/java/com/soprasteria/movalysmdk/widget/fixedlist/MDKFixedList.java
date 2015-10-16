@@ -45,6 +45,8 @@ import java.util.List;
  *     <li>layoutManagerClass: the class of the layout manager to apply on the component</li>
  *     <li>layoutManagerOrientation: the orientation to set on the layout manager</li>
  * </ul>
+ *
+ * TODO : layout manager géré dans le layout avec uniquement orientation. Si plus de parametres, passer par le widget
  */
 public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasValidator, HasDelegate, HasChangeListener {
 
