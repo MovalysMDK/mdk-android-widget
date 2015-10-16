@@ -26,6 +26,7 @@ import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -59,6 +60,8 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      */
     private static final String MDK_ERROR_MESSAGE_NOT_INSTANCE = "could not instanciate class : \"";
 
+    private static final String MDK_VALIDATORS_DECLARATION_FOLDER = "validators";
+
     /**
      * A Map of String key and FormFieldValidator instance.
      */
@@ -83,7 +86,7 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
         this.validatorListMap = new HashMap<>();
         this.richSelector = new HashMap<>();
 
-        String[] validator = null;
+        String[] validator = new String[] {};
         try {
             validator = getAssetsValidator(context);
         } catch (IOException e) {
@@ -101,16 +104,17 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
      * @throws IOException throw IOException on file read exception
      */
     private String[] getAssetsValidator(Context context) throws IOException {
-        String[] listValidatorFiles = context.getAssets().list("validators");
+        String[] listValidatorFiles = context.getAssets().list(MDK_VALIDATORS_DECLARATION_FOLDER);
         Collection<String> keyList = new TreeSet<>();
         for (String file :
                 listValidatorFiles) {
-            InputStream is = context.getAssets().open("validators/" + file);
+            InputStream is = context.getAssets().open(MDK_VALIDATORS_DECLARATION_FOLDER + File.separator + file);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
             while ((line = br.readLine()) != null) {
                 keyList.add(line);
             }
+            br.close();
         }
         String[] array = new String[]{};
         return keyList.toArray(array);
