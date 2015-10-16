@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Test activity for the MDKRichFixedList widget.
  */
-public class FixedListActivity extends AbstractWidgetTestableActivity {
+public class WrappedFixedListActivity extends AbstractWidgetTestableActivity {
 
     /** Tag for debugging. */
     private static final String FIXEDACTIVITY = "FIXEDACTIVITY";
@@ -76,7 +76,7 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fixed_list);
+        setContentView(R.layout.activity_wrapped_fixed_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mFixedList = (MDKFixedList) findViewById(R.id.mdkFixedList);
@@ -92,7 +92,7 @@ public class FixedListActivity extends AbstractWidgetTestableActivity {
         mFixedList.addItemClickListener(new FixedListItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(FixedListActivity.this, FixedListDetailActivity.class);
+                Intent intent = new Intent(WrappedFixedListActivity.this, FixedListDetailActivity.class);
                 intent.putExtra("RC", RC_CODE | position);
                 startActivityForResult(intent, RC_CODE | position);
             }

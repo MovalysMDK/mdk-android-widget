@@ -141,7 +141,15 @@
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
         <activity
-            android:name=".FixedListActivity"
+            android:name=".WrappedFixedListActivity"
+            android:label="@string/title_activity_fixedlist"
+            android:parentActivityName=".ListWidgetActivity"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
+            android:name=".StaggeredFixedListActivity"
             android:label="@string/title_activity_fixedlist"
             android:parentActivityName=".ListWidgetActivity"  >
             <meta-data
@@ -151,10 +159,10 @@
         <activity
             android:name=".FixedListDetailActivity"
             android:label="@string/title_activity_fixedlistdetail"
-            android:parentActivityName=".FixedListActivity"  >
+            android:parentActivityName=".WrappedFixedListActivity"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.soprasteria.movalysmdk.widget.sample.FixedListActivity" />
+                android:value=".WrappedFixedListActivity" />
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

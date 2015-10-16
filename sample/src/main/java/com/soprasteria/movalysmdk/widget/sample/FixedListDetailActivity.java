@@ -31,8 +31,8 @@ public class FixedListDetailActivity extends Activity {
 
         int requestCode = getIntent().getIntExtra("RC", -1);
 
-        int requestCodeF = requestCode & FixedListActivity.RC_MASK;
-        int position = requestCode & FixedListActivity.POS_MASK;
+        int requestCodeF = requestCode & WrappedFixedListActivity.RC_MASK;
+        int position = requestCode & WrappedFixedListActivity.POS_MASK;
 
         ((TextView) findViewById(R.id.pos)).setText(String.valueOf(position));
         ((TextView) findViewById(R.id.request_code)).setText(String.format("0x%8s", Integer.toHexString(requestCodeF)).replace(' ', '0'));
