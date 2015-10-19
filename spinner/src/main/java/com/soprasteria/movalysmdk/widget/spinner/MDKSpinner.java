@@ -238,12 +238,17 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
 
     @Override
     public int[] superOnCreateDrawableState(int extraSpace) {
-        return new int[0];
+        if (this.getMDKWidgetDelegate() != null) {
+            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
     }
 
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
-
+        mergeDrawableStates(baseState, additionalState);
     }
 
     @Override
