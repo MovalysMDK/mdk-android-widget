@@ -21,14 +21,16 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasEnum;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 /**
  * Rich widget representing an image from enumerated resources,
  * and including by default the label and the error component.
  */
-public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements HasValidator, HasEnum {
+public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements HasValidator, HasEnum, HasChangeListener {
 
     /**
      * Constructor.
@@ -58,23 +60,23 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
      * @param attrs Array of attributes of the MDK widget
      */
     private void initDedicatedAttributes(AttributeSet attrs) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumImage);
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumView);
 
         // Parse the enum_prefix attribute
-        String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumImage_enum_prefix);
+        String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumView_enum_prefix);
         if(resEnumPrefix != null) {
             setResourceNamePrefix(resEnumPrefix);
         }
 
         // Parse the mode of EnumView
-        if (typedArray.getInt(R.styleable.MDKCommons_MDKEnumImage_enum_mode, MDKEnumView.MODE_IMAGE) == MDKEnumView.MODE_TEXT) {
+        if (typedArray.getInt(R.styleable.MDKCommons_MDKEnumView_enum_mode, MDKEnumView.MODE_IMAGE) == MDKEnumView.MODE_TEXT) {
             setMode(MDKEnumView.MODE_TEXT);
         } else {
             setMode(MDKEnumView.MODE_IMAGE);
         }
 
         // Parse the editable property of EnumView
-        setEditable(typedArray.getBoolean(R.styleable.MDKCommons_MDKEnumImage_enum_editable, false));
+        setEditable(typedArray.getBoolean(R.styleable.MDKCommons_MDKEnumView_enum_editable, false));
 
 
         typedArray.recycle();
@@ -154,5 +156,15 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
      */
     public void setMode(@MDKEnumView.EnumMode int mode) {
         getInnerWidget().setMode(mode);
+    }
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.getInnerWidget().registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.getInnerWidget().unregisterChangeListener(listener);
     }
 }

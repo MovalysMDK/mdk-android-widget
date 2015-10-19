@@ -132,13 +132,13 @@
 
 
     <!-- MDKEnumImage specific attributes -->
-    <declare-styleable name="MDKCommons.MDKEnumImage">
+    <declare-styleable name="MDKCommons.MDKEnumView">
         <attr name="enum_prefix" format="string"/>
         <attr name="enum_mode" format="enum">
             <enum name="image" value="0"/>
             <enum name="text" value="1"/>
         </attr>
-        <attr name="enum_editable" format="boolean"/>
+            <attr name="enum_editable" format="boolean"/>
     </declare-styleable>
 
     <!-- MDKSpinner specific attributes -->

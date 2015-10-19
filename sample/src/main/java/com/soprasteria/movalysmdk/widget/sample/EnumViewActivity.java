@@ -29,7 +29,10 @@ public class EnumViewActivity extends AbstractWidgetTestableActivity {
     @Override
     protected int[] getWidgetIds() {
         return new int[]{
-                R.id.mdkEnumImage_withErrorAndCommandOutside
+                R.id.mdkRichEnumImage_withLabelAndError,
+                R.id.mdkEnumImage_withErrorAndCommandOutside,
+                R.id.mdkEnumImage_withImageSetByString,
+                R.id.mdkRichEnumText_withLabelAndError
         };
     }
 

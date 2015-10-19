@@ -31,11 +31,14 @@ import android.widget.TextView;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasEnum;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
@@ -48,7 +51,7 @@ import java.util.List;
 /**
  * ImageView widget where the image can be set with enum values.
  */
-public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum, MDKWidget, HasValidator, View.OnClickListener {
+public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum, MDKWidget, HasValidator, View.OnClickListener, HasChangeListener {
 
 
     /**
@@ -58,6 +61,11 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     @Retention(RetentionPolicy.SOURCE)
     public @interface EnumMode {
     }
+
+    /**
+     * notify change listeners.
+     */
+    private MDKChangeListenerDelegate mdkListenerDelegate;
 
     /** Default prefix of the images. */
     public static final String DEFAULT_ENUM_PREFIX = "enum";
@@ -127,16 +135,16 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      */
     private void init(Context context, AttributeSet attrs) {
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumImage);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumView);
 
         // Parse the enum_prefix attribute
-        enumPrefix = AttributesHelper.getStringFromStringAttribute(typedArray,R.styleable.MDKCommons_MDKEnumImage_enum_prefix, DEFAULT_ENUM_PREFIX);
+        enumPrefix = AttributesHelper.getStringFromStringAttribute(typedArray,R.styleable.MDKCommons_MDKEnumView_enum_prefix, DEFAULT_ENUM_PREFIX);
 
         // Parse the mode of EnumView
-        mode = typedArray.getInt(R.styleable.MDKCommons_MDKEnumImage_enum_mode, 0);
+        mode = typedArray.getInt(R.styleable.MDKCommons_MDKEnumView_enum_mode, 0);
 
         // Parse the editable property of EnumView
-        editable = typedArray.getBoolean(R.styleable.MDKCommons_MDKEnumImage_enum_editable,false);
+        editable = typedArray.getBoolean(R.styleable.MDKCommons_MDKEnumView_enum_editable,false);
         if(editable){
             this.setOnClickListener(this);
         }
@@ -145,6 +153,8 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
 
         // Create the widget delegate
         mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+
+        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
 
         validators = new int[]{};
     }
@@ -302,6 +312,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
                 setDrawableFromString(resourceCompleteName);
                 break;
         }
+        this.mdkListenerDelegate.notifyListeners();
         this.validate(EnumFormFieldValidator.VALIDATE);
     }
 
@@ -359,6 +370,9 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
                 setDrawableFromId(id);
                 break;
         }
+
+        this.mdkListenerDelegate.notifyListeners();
+        this.validate(EnumFormFieldValidator.VALIDATE);
     }
 
     /**
@@ -460,5 +474,17 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
                 setValueFromEnum(values.get(0));
             }
         }
+    }
+
+
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+    this.mdkListenerDelegate.registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
 }
