@@ -49,7 +49,7 @@ public class MDKRichFixedList extends MDKBaseRichWidget<MDKFixedList> implements
      * Sets an adapter on the inner MDKFixedList.
      * @param adapter the adapter to set
      */
-    public void setAdapter(RecyclerView.Adapter adapter) {
+    public void setAdapter(RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter) {
         this.innerWidget.setAdapter(adapter);
     }
 
