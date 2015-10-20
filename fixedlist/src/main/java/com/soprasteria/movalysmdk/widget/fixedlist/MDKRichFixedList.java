@@ -69,6 +69,10 @@ public class MDKRichFixedList extends MDKBaseRichWidget<MDKFixedList> implements
                         .getClassFromStringAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderClass, WrapperViewHolder.class.getName())
         );
 
+        this.innerWidget.getMDKWidgetDelegate().setWrapperViewHolderInnerItemId(
+                AttributesHelper.getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderInnerItemId, R.id.inner_item)
+        );
+
         this.innerWidget.getMDKWidgetDelegate().setWrapperViewHolderLayout(
                 AttributesHelper.getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderLayout, R.layout.delete_item_wrapper)
         );

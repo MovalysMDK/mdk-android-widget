@@ -7,6 +7,7 @@
 
         <attr name="wrapperViewHolderClass" format="string" />
         <attr name="wrapperViewHolderLayout" format="reference" />
+        <attr name="wrapperViewHolderInnerItemId" format="reference" />
         <attr name="wrapperViewHolderDeleteId" format="reference" />
 
         <attr name="layoutManagerClass" format="reference|string" />

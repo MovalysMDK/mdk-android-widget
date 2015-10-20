@@ -29,6 +29,9 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
     /** layout of the wrapping view holder. */
     @LayoutRes private int wrapperViewHolderLayout;
 
+    /** identifier of the layout replaced by the list item in the wrapping view holder. */
+    @IdRes private int wrapperViewHolderInnerItemId;
+
     /** identifier of the delete button in the layout of the wrapping view holder. */
     @IdRes private int wrapperViewHolderDeleteId;
 
@@ -54,6 +57,8 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
                 .getClassFromStringAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderClass, WrapperViewHolder.class.getName());
         wrapperViewHolderLayout = AttributesHelper
                 .getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderLayout, R.layout.delete_item_wrapper);
+        wrapperViewHolderInnerItemId = AttributesHelper
+                .getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderInnerItemId, R.id.inner_item);
         wrapperViewHolderDeleteId = AttributesHelper
                 .getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKFixedListComponent_wrapperViewHolderDeleteId, R.id.delete_item);
 
@@ -116,6 +121,22 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
      */
     public void setWrapperViewHolderLayout(int wrapperViewHolderLayout) {
         this.wrapperViewHolderLayout = wrapperViewHolderLayout;
+    }
+
+    /**
+     * Returns the identifier of the layout replaced by the list item in the wrapping view holder
+     * @return the identifier of the layout
+     */
+    public int getWrapperViewHolderInnerItemId() {
+        return wrapperViewHolderInnerItemId;
+    }
+
+    /**
+     * Sets the identifier of the layout replaced by the list item in the wrapping view holder
+     * @param wrapperViewHolderInnerItemId the identifier of the layout
+     */
+    public void setWrapperViewHolderInnerItemId(int wrapperViewHolderInnerItemId) {
+        this.wrapperViewHolderInnerItemId = wrapperViewHolderInnerItemId;
     }
 
     /**

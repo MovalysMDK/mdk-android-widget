@@ -44,6 +44,9 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
     /** the layout of the view holder of the wrapper. */
     private int viewHolderLayout;
 
+    /** the identifier of the layout replaced with the list item view. */
+    private int innerItemId;
+
     /** the identifier of the delete button in the layout of the view holder. */
     private int deleteId;
 
@@ -52,12 +55,14 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
      * @param adapter the adapter to wrap
      * @param viewHolderClass the class of the view holder
      * @param viewHolderLayout the layout of the view holder
+     * @param innerItemId the identifier of the layout replaced with the list item view
      * @param deleteId the identifier of the delete button in the layout
      */
-    public WrapperAdapter(RecyclerView.Adapter adapter, Class<W> viewHolderClass, @LayoutRes int viewHolderLayout, @IdRes int deleteId) {
+    public WrapperAdapter(RecyclerView.Adapter adapter, Class<W> viewHolderClass, @LayoutRes int viewHolderLayout, @IdRes int innerItemId, @IdRes int deleteId) {
         this.adapter = adapter;
         this.viewHolderClass = viewHolderClass;
         this.viewHolderLayout = viewHolderLayout;
+        this.innerItemId = innerItemId;
         this.deleteId = deleteId;
 
         this.removeListener = new ArrayList<>();
@@ -85,8 +90,10 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
         RecyclerView.ViewHolder adapterViewHolder = this.adapter.onCreateViewHolder(parent, viewType);
 
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(viewHolderLayout, (ViewGroup) adapterViewHolder.itemView, true);
+        View v = LayoutInflater.from(parent.getContext()).inflate(viewHolderLayout, null);
+
+        ViewGroup inner = (ViewGroup) v.findViewById(innerItemId);
+        inner.addView(adapterViewHolder.itemView);
 
         W vh = null;
 

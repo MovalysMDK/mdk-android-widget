@@ -26,6 +26,7 @@ import com.soprasteria.movalysmdk.widget.fixedlist.delegate.MDKFixedListWidgetDe
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,15 +34,25 @@ import java.util.List;
  *
  * Used to display a list of elements and give the possibility to add / remove items directly from the list.
  *
- * The component will wrap the given adapter to add the click ability on its items.
- * This wrapping will also add a delete button on each item.
- *
- * The available attributes are the following:
+ * The component relies on the {@link WrapperAdapter} class to wrap the given adapter and add
  * <ul>
- *     <li>addButtonViewId: defines the identifier of the "Add" button</li>
+ *     <li>The click ability on the items of the list</li>
+ *     <li>A delete button for each item.</li>
+ * </ul>
+ * The wrapping view holder may be customized with the given parameters:
+ * <ul>
  *     <li>wrapperViewHolderClass: defines the class of the wrapper view holder</li>
  *     <li>wrapperViewHolderLayout: defines the layout of the wrapper view holder</li>
+ *     <li>wrapperViewHolderInnerItemId: defines the identifier of the layout in the wrapper which will be hosting the list item view</li>
  *     <li>wrapperViewHolderDeleteId: defines the identifier of the delete button in the wrapper view holder</li>
+ * </ul>
+ *
+ * The component also allows to have an "add" button which may indifferently be inside the layout, or be a MDKCommandButton widget
+ * which will communicate through a BroadcastListener.
+ *
+ * The additional available attributes are the following:
+ * <ul>
+ *     <li>addButtonViewId: defines the identifier of the "Add" button</li>
  *     <li>layoutManagerClass: the class of the layout manager to apply on the component</li>
  *     <li>layoutManagerOrientation: the orientation to set on the layout manager</li>
  * </ul>
@@ -51,10 +62,17 @@ import java.util.List;
  *     <li>WrapLinearLayoutManager: vertical layout manager, allows to use the widget wrapped in a layout.</li>
  * </ul>
  * The setup layout attributes for the layout managers allow to set a class and an orientation.
- * Should you need to set more parameters on your preferred layout manager, you should set it directly on the view in your code.
+ * Should you need to set more parameters on your preferred layout manager, you should set it directly on the view in your code as follows:
+ * * <pre>
+ * {@code
+ * MDKFixedList fixedList = new MDKFixedList(context);
+ * fixedList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+ * }
+ * </pre>
+ *
  * Also please note that the standard Android layout managers implementations do not allow to wrap the widget, so you may have to adapt your layouts.
  */
-public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasValidator, HasDelegate, HasChangeListener {
+public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasValidator, HasDelegate, HasChangeListener, FixedListRemoveListener {
 
     /** Reference widget id tag in Broadcast. */
     private static final String REFERENCE_WIDGET = "referenceWidget";
@@ -76,6 +94,9 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     /** add element listener. */
     private List<FixedListAddListener> addListeners;
+
+    /** Widget specific validators. */
+    protected int[] specificValidators;
 
     /**
      * Broadcast receiver for the add button.
@@ -126,7 +147,8 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
                 }
             }
 
-            // we should only do this if no LayoutManager was set
+            // if the method getLayoutManager() returns null, then no LayoutManager was set programmatically on the component.
+            // we then set one from the delegate configuration.
             if (this.getLayoutManager() == null) {
                 RecyclerView.LayoutManager mLayoutManager = null;
 
@@ -193,18 +215,10 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     @Override
     public void setAdapter(Adapter adapter) {
-        adapter.registerAdapterDataObserver(new AdapterDataObserver() {
-
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                // TODO : change title
-            }
-
-        });
-
         WrapperAdapter wrapperAdapter = new WrapperAdapter(adapter, this.mdkWidgetDelegate.getWrapperViewHolderClass(),
-                this.mdkWidgetDelegate.getWrapperViewHolderLayout(), this.mdkWidgetDelegate.getWrapperViewHolderDeleteId());
+                this.mdkWidgetDelegate.getWrapperViewHolderLayout(), this.mdkWidgetDelegate.getWrapperViewHolderInnerItemId(),
+                this.mdkWidgetDelegate.getWrapperViewHolderDeleteId());
+        wrapperAdapter.addRemoveListener(this);
         super.setAdapter(wrapperAdapter);
     }
 
@@ -316,8 +330,11 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     @Override
     public Object getValueToValidate() {
-        // TODO
-        return null;
+        if (this.getAdapter().getItemCount() > 0) {
+            return this.getAdapter().getItemCount();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -332,8 +349,18 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     @Override
     public int[] getValidators() {
-        // TODO
-        return new int[0];
+        int[] basicValidators = {R.string.mdkvalidator_mandatory_class};
+        int[] validators;
+
+        if (this.specificValidators != null && this.specificValidators.length > 0) {
+            validators = Arrays.copyOf(basicValidators, basicValidators.length + this.specificValidators.length);
+
+            System.arraycopy(this.specificValidators, 0, validators, basicValidators.length, this.specificValidators.length);
+        } else {
+            validators = basicValidators;
+        }
+
+        return validators;
     }
 
     /* save / restore */
@@ -356,5 +383,10 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
+    }
+
+    @Override
+    public void onRemoveItemClick(int position) {
+        validate(EnumFormFieldValidator.ON_USER);
     }
 }
