@@ -115,11 +115,13 @@ public class MDKWidgetDelegateValidationHelper {
             // run "mandatory" validator defined by the widget
             if (v instanceof HasValidator) {
                 int[] validatorsResKey = ((HasValidator) v).getValidators();
-                for (int validatorRes : validatorsResKey) {
-                    // this get the last part of the resource name
-                    String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
-                    FormFieldValidator mandatoryValidator = getValidator(v, validatorKey);
-                    bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext());
+                if(validatorsResKey!=null){
+                    for (int validatorRes : validatorsResKey) {
+                        // this get the last part of the resource name
+                        String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
+                        FormFieldValidator mandatoryValidator = getValidator(v, validatorKey);
+                        bValid = bValid & executeValidator(mandatoryValidator, objectToValidate, v, delegate.valueObject.getAttributesMap(), returnMessages, validationMode, delegate.getContext());
+                    }
                 }
             }
 

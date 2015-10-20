@@ -94,9 +94,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     /** The default widget delegate. */
     private MDKWidgetDelegate mdkWidgetDelegate;
 
-    /** widget specific validators. */
-    private int[] validators;
-
     /** Internal view (view type depends on the mode). */
     private View view;
 
@@ -155,8 +152,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
         this.mdkListenerDelegate = new MDKChangeListenerDelegate();
-
-        validators = new int[]{};
     }
 
     /**
@@ -199,16 +194,9 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
 
     @Override
     public int[] getValidators() {
-        return validators;
+        return null;
     }
 
-    /**
-     * Sets the specific validators on the widget.
-     * @param specificValidators the specific validators
-     */
-    protected void setSpecificValidators(int[]  specificValidators){
-        this.validators = specificValidators;
-    }
 
     @Override
     public boolean validate() {
