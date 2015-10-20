@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 /**
  * MDK Adapter Wrapper.
@@ -13,7 +14,10 @@ import android.widget.SpinnerAdapter;
  */
 public class MDKWrapperAdapter extends BaseAdapter {
 
-
+    /**
+     * The hint for the spinner view.
+     */
+    private CharSequence hint;
     /**
      * User's adapter.
      */
@@ -50,9 +54,10 @@ public class MDKWrapperAdapter extends BaseAdapter {
      *
      * @param innerAdapter user's adapter.
      * @param hasBlank     boolean to test if blank row is required (True for Blank row).
+     * @param hint         the user's hint specified in XML attrs
      */
-    public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank) {
-        this(innerAdapter, hasBlank, android.R.layout.simple_spinner_dropdown_item, android.R.layout.simple_spinner_dropdown_item);
+    public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank, CharSequence hint) {
+        this(innerAdapter, hasBlank, android.R.layout.simple_spinner_item, android.R.layout.simple_list_item_1, hint);
     }
 
 
@@ -63,12 +68,14 @@ public class MDKWrapperAdapter extends BaseAdapter {
      * @param hasBlank            boolean to test if blank row is required (True for Blank row)
      * @param spinnerBlankLayout  resource layout for spinnerBlankView
      * @param dropDownBlankLayout resource layout for dropDownBlankView
+     * @param hint                the user's hint specified in XML attrs
      */
-    public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout) {
+    public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout, CharSequence hint) {
         this.innerAdapter = innerAdapter;
         this.hasBlank = hasBlank;
         this.spinnerBlankLayout = spinnerBlankLayout;
         this.dropDownBlankLayout = dropDownBlankLayout;
+        this.hint = hint;
     }
 
     /**
@@ -135,8 +142,7 @@ public class MDKWrapperAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (hasBlank) {
             if (position == 0) {
-                this.spinnerBlankView = this.viewInflater(convertView, parent, this.spinnerBlankLayout);
-                return this.spinnerBlankView;
+                return this.spinnerViewInflater(convertView, parent, this.spinnerBlankLayout);
             } else {
                 if (convertView != null && convertView.equals(this.spinnerBlankView)) {
                     return innerAdapter.getView(position - 1, null, parent);
@@ -161,8 +167,7 @@ public class MDKWrapperAdapter extends BaseAdapter {
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (hasBlank) {
             if (position == 0) {
-                this.dropDownBlankView = this.viewInflater(convertView, parent, this.dropDownBlankLayout);
-                return this.dropDownBlankView;
+                return this.dropDownViewInflater(convertView, parent, this.dropDownBlankLayout);
             } else {
                 if (convertView != null && convertView.equals(this.dropDownBlankView)) {
                     return innerAdapter.getDropDownView(position - 1, null, parent);
@@ -181,13 +186,35 @@ public class MDKWrapperAdapter extends BaseAdapter {
      * @param convertView Convert view of the adapter (to know if the view is recycled or not)
      * @param parent      Parent View
      * @param blankLayout The layout used to inflate rhe blankView
-     * @return the blank view for spinner or dropDown view
+     * @return the blank view for spinner view
      */
-    private View viewInflater(View convertView, ViewGroup parent, int blankLayout) {
-        if (convertView == null) {
+    private View spinnerViewInflater(View convertView, ViewGroup parent, int blankLayout) {
+        if (convertView == null || this.spinnerBlankView == null) {
             LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
-            return mInflater.inflate(blankLayout, null);
+            if (this.hint != null && this.hint.length() > 0) {
+                TextView hintView = (TextView) mInflater.inflate(android.R.layout.simple_spinner_item, null);
+                hintView.setText(this.hint);
+                this.spinnerBlankView = hintView;
+            } else {
+                this.spinnerBlankView = mInflater.inflate(blankLayout, null);
+            }
         }
-        return convertView;
+        return this.spinnerBlankView;
+    }
+
+    /**
+     * Return the blank view and take in account recycling to optimise adapter performances.
+     *
+     * @param convertView Convert view of the adapter (to know if the view is recycled or not)
+     * @param parent      Parent View
+     * @param blankLayout The layout used to inflate rhe blankView
+     * @return the blank view dropDown view
+     */
+    private View dropDownViewInflater(View convertView, ViewGroup parent, int blankLayout) {
+        if (convertView == null || this.dropDownBlankView == null) {
+            LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
+            this.dropDownBlankView = mInflater.inflate(blankLayout, null);
+        }
+        return this.dropDownBlankView;
     }
 }

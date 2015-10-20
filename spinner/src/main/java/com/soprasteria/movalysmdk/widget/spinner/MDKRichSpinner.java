@@ -17,7 +17,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  * <p>The mdk:has_blank_row default value is false.</p>
  * <p>The following behaviors are implemented:</p>
  * <ul>
- *      <li>Mandatory : When XML attrs mandatory is set to "true" when blank row is selected the MDK spinner will return an error</li>
+ * <li>Mandatory : When XML attrs mandatory is set to "true" when blank row is selected the MDK spinner will return an error</li>
  * </ul>
  */
 public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements HasValidator {
@@ -56,19 +56,16 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
      * @param attrs attributes set
      */
     private final void init(AttributeSet attrs) {
+        TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSpinnerComponent);
-        this.setSpinnerHasBlankRow(typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false));
+
+        this.getInnerWidget().setSpinnerHasBlankRow(typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false));
+        this.getInnerWidget().setHint(typedArray.getString(R.styleable.MDKCommons_hint));
+
+        typedArray.recycle();
         typedArrayComponent.recycle();
     }
 
-    /**
-     * Sets hasBlank value.
-     *
-     * @param spinnerBlankValue boolean that represent if blankRow is needed
-     */
-    public void setSpinnerHasBlankRow(boolean spinnerBlankValue) {
-        this.getInnerWidget().setSpinnerHasBlankRow(spinnerBlankValue);
-    }
 
     /**
      * Sets the data behind this ListView with the user's adapter.

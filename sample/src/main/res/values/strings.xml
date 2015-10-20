@@ -131,9 +131,15 @@
     <string name="seekbar_rich_helper_text">SeekBar rich widget with helper</string>
 
     <string name="spinner_label">My label spinner</string>
-
-
-    <string name="spinner_standalone_widget">Spinner standalone widget</string>
+    <string name="User_hint_value">User hint value</string>
+    <string name="spinner_1">Rich spinner with label and error (no blank row, no custom layout, no hint)</string>
+    <string name="spinner_2">Rich spinner with label and error (has blank row, no custom layout, no hint)</string>
+    <string name="spinner_3">Rich spinner with label and error (has blank row, no custom layout, has hint)</string>
+    <string name="spinner_4">Rich spinner with label and error (has blank row, has same custom layout, has hint)</string>
+    <string name="spinner_5">Rich spinner with label and error (has blank row, has two custom layout, has hint)</string>
+    <string name="spinner_6">Rich spinner with label and error (has blank row, has same custom layout, no hint)</string>
+    <string name="spinner_7">Rich spinner with label and error (has blank row, has two custom layout, no hint)</string>
+    <string name="spinner_standalone_widget">Spinner standalone widget (has blank row, no custom layout, has hint)</string>
     <string name="rich_spinner_with_label_and_error_field">Rich spinner with label and error field</string>
 
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>

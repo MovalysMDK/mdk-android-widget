@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -34,7 +34,13 @@ public class SpinnerActivity extends AbstractWidgetTestableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spinner);
 
-        MDKRichSpinner rSpinner = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_withLabelAndError);
+        MDKRichSpinner spinner1 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_1);
+        MDKRichSpinner spinner2 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_2);
+        MDKRichSpinner spinner3 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_3);
+        MDKRichSpinner spinner4 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_4);
+        MDKRichSpinner spinner5 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_5);
+        MDKRichSpinner spinner6 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_6);
+        MDKRichSpinner spinner7 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_7);
         MDKSpinner iSpinner = (MDKSpinner) findViewById(R.id.MDKSpinner);
 
         //Creat adapter
@@ -48,16 +54,28 @@ public class SpinnerActivity extends AbstractWidgetTestableActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, exemple);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //
+        spinner1.setAdapter(adapter);
+        spinner2.setAdapter(adapter);
+        spinner3.setAdapter(adapter);
+        spinner4.setAdapterWithCustomBlankLayout(adapter, R.layout.custom_spinner_layout);
+        spinner5.setAdapterSpinnerDropDownBlankLayout(adapter, R.layout.custom_spinner_layout_1, R.layout.custom_spinner_layout_2);
+        spinner6.setAdapterWithCustomBlankLayout(adapter, R.layout.custom_spinner_layout);
+        spinner7.setAdapterSpinnerDropDownBlankLayout(adapter, R.layout.custom_spinner_layout_1, R.layout.custom_spinner_layout_2);
+        iSpinner.setAdapter(adapter);
 
-        iSpinner.setAdapterWithCustomBlankLayout(adapter, R.layout.custom_spinner_hint);
-        rSpinner.setAdapterSpinnerDropDownBlankLayout(adapter, R.layout.custom_spinner_hint, R.layout.custom_spinner_hint_2);
     }
 
     @Override
     protected int[] getWidgetIds() {
         return new int[]{
-                R.id.MDKRichSpinner_withLabelAndError,
-                R.id.MDKSpinner,
+                R.id.MDKRichSpinner_1,
+                R.id.MDKRichSpinner_2,
+                R.id.MDKRichSpinner_3,
+                R.id.MDKRichSpinner_4,
+                R.id.MDKRichSpinner_5,
+                R.id.MDKRichSpinner_6,
+                R.id.MDKRichSpinner_7,
+                R.id.MDKSpinner
         };
     }
 }

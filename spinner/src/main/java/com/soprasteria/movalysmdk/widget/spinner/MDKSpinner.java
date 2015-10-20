@@ -2,6 +2,7 @@ package com.soprasteria.movalysmdk.widget.spinner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
@@ -29,7 +31,11 @@ import java.util.Arrays;
  * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
  * <p>The mdk:has_blank_row default value is false.</p>
  */
-public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel {
+public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
+    /**
+     * The hint for the spinner view.
+     */
+    private CharSequence hint;
     /**
      * The MDKWidgetDelegate handling the component logic.
      */
@@ -89,11 +95,17 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param attrs attributes set
      */
     private final void init(AttributeSet attrs) {
+        TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSpinnerComponent);
+
         this.hasBlank = typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false);
+        this.hint = typedArray.getString(R.styleable.MDKCommons_hint);
+
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
-        this.valueToValidate(0);
+        this.setValueToValidate(0);
         super.setOnItemSelectedListener(this);
+
+        typedArray.recycle();
         typedArrayComponent.recycle();
     }
 
@@ -113,7 +125,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      */
     @Override
     public void setAdapter(SpinnerAdapter adapter) {
-        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank));
+        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, hint));
     }
 
     /**
@@ -123,7 +135,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param blankLayout layout for dropDownBlankView and spinnerBlankView
      */
     public void setAdapterWithCustomBlankLayout(SpinnerAdapter adapter, int blankLayout) {
-        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, blankLayout, blankLayout));
+        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, blankLayout, blankLayout, hint));
     }
 
     /**
@@ -135,7 +147,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param dropDownBlankLayout layout for dropDownBlankView
      */
     public void setAdapterSpinnerDropDownBlankLayout(SpinnerAdapter adapter, int spinnerBlankLayout, int dropDownBlankLayout) {
-        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, spinnerBlankLayout, dropDownBlankLayout));
+        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, spinnerBlankLayout, dropDownBlankLayout, hint));
     }
 
     /**
@@ -143,12 +155,8 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      *
      * @param position position in the adapter
      */
-    private void valueToValidate(int position) {
-        if (hasBlank && position == 0) {
-            this.valueToValidate = null;
-        } else {
-            this.valueToValidate = this.getItemAtPosition(position);
-        }
+    private void setValueToValidate(int position) {
+        this.valueToValidate = this.getItemAtPosition(position);
     }
 
     @Override
@@ -161,7 +169,8 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
         if (this.externalListener != null) {
             this.externalListener.onItemSelected(parent, view, position, id);
         }
-        this.valueToValidate(position);
+
+        this.setValueToValidate(position);
         this.validate(EnumFormFieldValidator.ON_FOCUS);
     }
 
@@ -170,7 +179,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
         if (this.externalListener != null) {
             this.externalListener.onNothingSelected(parent);
         }
-
         this.validate(EnumFormFieldValidator.ON_FOCUS);
     }
 
@@ -278,4 +286,32 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
         this.mdkWidgetDelegate.setLabel(label);
     }
 
+    @Override
+    public Parcelable onSaveInstanceState() {
+        // Save the android view instance state
+        Parcelable state = super.onSaveInstanceState();
+        // Save the MDKWidgetDelegate instance state
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
+
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        // Restore the MDKWidgetDelegate instance state
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
+
+        // Restore the android view instance state
+        super.onRestoreInstanceState(innerState);
+    }
+
+    @Override
+    public CharSequence getHint() {
+        return this.hint;
+    }
+
+    @Override
+    public void setHint(CharSequence hint) {
+        this.hint = hint;
+    }
 }
