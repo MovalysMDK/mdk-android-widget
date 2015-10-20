@@ -118,10 +118,9 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
         String initialValueStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
         if (initialValueStr != null) {
             int seekBarValue = Integer.parseInt(initialValueStr);
-            this.setSeekBarValue(seekBarValue);
             this.setSeekProgress(seekBarValue);
         }else{
-            this.setSeekBarValue(getMin());
+            this.setSeekProgress(getMin());
         }
 
         typedArray.recycle();
@@ -141,11 +140,6 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
     @Override
     public int getSeekBarValue() {
         return this.getInnerWidget().getSeekBarValue();
-    }
-
-    @Override
-    public void setSeekBarValue(int seekBarValue) {
-        this.getInnerWidget().setSeekBarValue(seekBarValue);
     }
 
     @Override
