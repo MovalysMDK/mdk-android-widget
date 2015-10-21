@@ -163,18 +163,8 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         setMax(AttributesHelper.getIntFromStringAttribute(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_seekbar_max, getSeekBarMaxAllowed()));
 
-        String initialValueStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue);
-        if (initialValueStr != null) {
-            setSeekBarValue(Integer.parseInt(initialValueStr));
-            setSeekProgress(seekBarValue);
-        } else {
-            setSeekBarValue(this.min);
-        }
+        setSeekProgress(AttributesHelper.getIntFromStringAttribute(typedArrayComponent, R.styleable.MDKCommons_MDKSeekBarComponent_initialSeekBarValue, getSeekBarMinAllowed()));
 
-
-        if (this.getMDKWidgetDelegate() != null && !isInEditMode()) {
-            this.validate(EnumFormFieldValidator.ON_USER);
-        }
 
         typedArray.recycle();
         typedArrayComponent.recycle();
