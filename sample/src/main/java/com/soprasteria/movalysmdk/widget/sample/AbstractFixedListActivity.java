@@ -1,5 +1,21 @@
+/**
+ * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+ *
+ * This file is part of Movalys MDK.
+ * Movalys MDK is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Movalys MDK is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +25,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
@@ -208,6 +225,9 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
 }
