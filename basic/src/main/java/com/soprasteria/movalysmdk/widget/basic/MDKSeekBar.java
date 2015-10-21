@@ -294,6 +294,11 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
      */
     private void setSeekBarValue(int seekBarValue) {
         this.seekBarValue = seekBarValue;
+
+        if (this.mdkListenerDelegate != null) {
+            this.mdkListenerDelegate.notifyListeners();
+        }
+
         if (this.getMDKWidgetDelegate() != null && !isInEditMode() ) {
             this.validate(EnumFormFieldValidator.ON_USER);
         }
@@ -386,10 +391,6 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         }
 
         this.setSeekBarValue(Math.round(valFloat));
-
-        if (this.mdkListenerDelegate != null) {
-            this.mdkListenerDelegate.notifyListeners();
-        }
 
         //updating edittext value
         setAttachedEditTextValue(seekBarValue);

@@ -82,10 +82,12 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
             int currentValueToValidate = objectToValidate;
 
             mdkMessage = executeValidation(currentValueToValidate, context, mdkAttributeSet);
-
         }
 
-        resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
+        if(mdkMessage!=null){
+            resultPreviousValidator.put(this.getClass().getName(), mdkMessage);
+        }
+
         return mdkMessage;
     }
 
