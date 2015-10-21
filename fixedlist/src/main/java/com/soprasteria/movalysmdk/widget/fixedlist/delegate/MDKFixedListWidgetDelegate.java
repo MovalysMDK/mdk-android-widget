@@ -124,7 +124,7 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
     }
 
     /**
-     * Returns the identifier of the layout replaced by the list item in the wrapping view holder
+     * Returns the identifier of the layout replaced by the list item in the wrapping view holder.
      * @return the identifier of the layout
      */
     public int getWrapperViewHolderInnerItemId() {
@@ -132,7 +132,7 @@ public class MDKFixedListWidgetDelegate extends MDKWidgetDelegate {
     }
 
     /**
-     * Sets the identifier of the layout replaced by the list item in the wrapping view holder
+     * Sets the identifier of the layout replaced by the list item in the wrapping view holder.
      * @param wrapperViewHolderInnerItemId the identifier of the layout
      */
     public void setWrapperViewHolderInnerItemId(int wrapperViewHolderInnerItemId) {
