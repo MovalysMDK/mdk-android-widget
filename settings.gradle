@@ -1,3 +1,3 @@
-include ':core', ':basic', ':espresso', ':sample', ':position', ':positionmaps', ':spinner', ':fixedlist'
+include ':core', ':basic', ':espresso', ':sample', ':position', ':positionmaps', ':fixedlist', ':spinner'
 
 rootProject.name = 'mdk-widget'
