@@ -13,7 +13,14 @@ import android.widget.TextView;
  * <p>Use XML attrs to specify if Blank row is require.</p>
  */
 public class MDKWrapperAdapter extends BaseAdapter {
-
+    /**
+     * The default layout for spinnerBlankView.
+     */
+    private static final int DEFAULT_SPINNER_BLANK_LAYOUT = android.R.layout.simple_spinner_item;
+    /**
+     * The default layout for dropDownBlankView.
+     */
+    private static final int DEFAULT_DROP_DOWN_BLANK_LAYOUT = android.R.layout.simple_list_item_1;
     /**
      * The hint for the spinner view.
      */
@@ -57,7 +64,7 @@ public class MDKWrapperAdapter extends BaseAdapter {
      * @param hint         the user's hint specified in XML attrs
      */
     public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank, CharSequence hint) {
-        this(innerAdapter, hasBlank, android.R.layout.simple_spinner_item, android.R.layout.simple_list_item_1, hint);
+        init(innerAdapter, hasBlank, this.DEFAULT_SPINNER_BLANK_LAYOUT, this.DEFAULT_DROP_DOWN_BLANK_LAYOUT, hint);
     }
 
 
@@ -71,11 +78,48 @@ public class MDKWrapperAdapter extends BaseAdapter {
      * @param hint                the user's hint specified in XML attrs
      */
     public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout, CharSequence hint) {
+        init(innerAdapter, hasBlank, spinnerBlankLayout, dropDownBlankLayout, hint);
+    }
+
+    /**
+     * Instantiate MDKWrapperAdapter variables.
+     *
+     * @param innerAdapter        user's adapter
+     * @param hasBlank            boolean to test if blank row is required (True for Blank row)
+     * @param spinnerBlankLayout  resource layout for spinnerBlankView
+     * @param dropDownBlankLayout resource layout for dropDownBlankView
+     * @param hint                the user's hint specified in XML attrs
+     */
+    private void init(SpinnerAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout, CharSequence hint) {
         this.innerAdapter = innerAdapter;
         this.hasBlank = hasBlank;
         this.spinnerBlankLayout = spinnerBlankLayout;
         this.dropDownBlankLayout = dropDownBlankLayout;
         this.hint = hint;
+    }
+
+    /**
+     * Return the hint value (called from MDKSpinner).
+     *
+     * @return the hint for the spinner view
+     */
+    public CharSequence getHint() {
+        return this.hint;
+    }
+
+    /**
+     * Set the hint value (called from MDKSpinner).
+     *
+     * @param hint The hint for the spinner view
+     */
+    public void setHint(CharSequence hint) {
+        this.spinnerBlankView = null;
+        if (hint == null && this.spinnerBlankLayout == this.DEFAULT_SPINNER_BLANK_LAYOUT) {
+            this.hint = "";
+        } else {
+            this.hint = hint;
+        }
+        this.notifyDataSetChanged();
     }
 
     /**

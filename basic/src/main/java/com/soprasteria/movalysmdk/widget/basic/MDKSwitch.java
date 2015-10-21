@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -118,6 +118,15 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
         mergeDrawableStates(baseState, additionalState);
     }
 
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        if (this.getMDKWidgetDelegate() != null) {
+            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
+    }
     /* delegate accelerator methods */
 
     @Override

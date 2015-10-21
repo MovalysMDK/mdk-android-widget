@@ -33,6 +33,10 @@ import java.util.Arrays;
  */
 public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
     /**
+     * User's adapter.
+     */
+    private MDKWrapperAdapter innerAdapter;
+    /**
      * The hint for the spinner view.
      */
     private CharSequence hint;
@@ -125,7 +129,8 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      */
     @Override
     public void setAdapter(SpinnerAdapter adapter) {
-        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, hint));
+        this.innerAdapter = new MDKWrapperAdapter(adapter, this.hasBlank, this.hint);
+        super.setAdapter(this.innerAdapter);
     }
 
     /**
@@ -135,7 +140,8 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param blankLayout layout for dropDownBlankView and spinnerBlankView
      */
     public void setAdapterWithCustomBlankLayout(SpinnerAdapter adapter, int blankLayout) {
-        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, blankLayout, blankLayout, hint));
+        this.innerAdapter = new MDKWrapperAdapter(adapter, this.hasBlank, blankLayout, blankLayout, this.hint);
+        super.setAdapter(this.innerAdapter);
     }
 
     /**
@@ -147,7 +153,8 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param dropDownBlankLayout layout for dropDownBlankView
      */
     public void setAdapterSpinnerDropDownBlankLayout(SpinnerAdapter adapter, int spinnerBlankLayout, int dropDownBlankLayout) {
-        super.setAdapter(new MDKWrapperAdapter(adapter, hasBlank, spinnerBlankLayout, dropDownBlankLayout, hint));
+        this.innerAdapter = new MDKWrapperAdapter(adapter, this.hasBlank, spinnerBlankLayout, dropDownBlankLayout, this.hint);
+        super.setAdapter(this.innerAdapter);
     }
 
     /**
@@ -184,12 +191,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
 
 
     @Override
-    public MDKWidgetDelegate getMDKWidgetDelegate() {
-
-        return this.mdkWidgetDelegate;
-    }
-
-    @Override
     public int[] getValidators() {
 
         int[] basicValidators = {R.string.mdkvalidator_mandatory_class};
@@ -204,6 +205,84 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
         }
 
         return validators;
+    }
+
+    @Override
+    public CharSequence getHint() {
+        if (this.innerAdapter != null) {
+            this.hint = this.innerAdapter.getHint();
+        }
+        return this.hint;
+
+    }
+
+    @Override
+    public void setHint(CharSequence hint) {
+        if (this.innerAdapter != null) {
+            this.innerAdapter.setHint(hint);
+        }
+        this.hint = hint;
+    }
+
+    /* technical delegate methods */
+    @Override
+    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
+        return this.mdkWidgetDelegate.getTechnicalInnerWidgetDelegate();
+    }
+
+    @Override
+    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
+        return this.mdkWidgetDelegate.getTechnicalWidgetDelegate();
+    }
+
+    @Override
+    public MDKWidgetDelegate getMDKWidgetDelegate() {
+
+        return this.mdkWidgetDelegate;
+    }
+
+    /* rich selector methods */
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
+        mergeDrawableStates(baseState, additionalState);
+    }
+
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        if (this.getMDKWidgetDelegate() != null) {
+            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
+    }
+    /* delegate accelerator methods */
+
+    @Override
+    public boolean isMandatory() {
+
+        return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void setMandatory(boolean mandatory) {
+
+        this.mdkWidgetDelegate.setMandatory(mandatory);
+    }
+
+    @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
     }
 
     @Override
@@ -239,53 +318,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
         return this.valueToValidate;
     }
 
-    @Override
-    public MDKTechnicalInnerWidgetDelegate getTechnicalInnerWidgetDelegate() {
-        return this.mdkWidgetDelegate.getTechnicalInnerWidgetDelegate();
-    }
-
-    @Override
-    public int[] superOnCreateDrawableState(int extraSpace) {
-        if (this.getMDKWidgetDelegate() != null) {
-            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
-        } else {
-            // first called in the super constructor
-            return super.onCreateDrawableState(extraSpace);
-        }
-    }
-
-    @Override
-    public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
-        mergeDrawableStates(baseState, additionalState);
-    }
-
-    @Override
-    public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
-        return this.mdkWidgetDelegate.getTechnicalWidgetDelegate();
-    }
-
-    @Override
-    public boolean isMandatory() {
-
-        return this.mdkWidgetDelegate.isMandatory();
-    }
-
-    @Override
-    public void setMandatory(boolean mandatory) {
-
-        this.mdkWidgetDelegate.setMandatory(mandatory);
-    }
-
-    @Override
-    public CharSequence getLabel() {
-        return this.mdkWidgetDelegate.getLabel();
-    }
-
-    @Override
-    public void setLabel(CharSequence label) {
-        this.mdkWidgetDelegate.setLabel(label);
-    }
-
+    /* save / restore */
     @Override
     public Parcelable onSaveInstanceState() {
         // Save the android view instance state
@@ -305,13 +338,4 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
         super.onRestoreInstanceState(innerState);
     }
 
-    @Override
-    public CharSequence getHint() {
-        return this.hint;
-    }
-
-    @Override
-    public void setHint(CharSequence hint) {
-        this.hint = hint;
-    }
 }
