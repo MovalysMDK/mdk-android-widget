@@ -35,7 +35,7 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
     protected static final int RC_CODE = 0x8000;
 
     /** the displayed dataset. */
-    protected String[] myDataset = new String[] {"test 1","test 2","test 3","test 4","test 5","test 6","test 7","test 8","test 9","test 10","test 11","test 12","test 13"};
+    protected String[] myDataset = new String[] {};
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -170,6 +170,7 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
 
     /**
      * Shows a dialog to input data in the adapter.
+     * @param adapter the adapter on which data should be modified / added
      * @param position the position of the data to input, -1 to add a new cell
      */
     protected void showInputDialog(final MyAdapter adapter, final int position) {
@@ -189,7 +190,7 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
 
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
-                .setPositiveButton("Valid", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getApplication().getText(R.string.fixedlist_addDialog_validate), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (position == -1) {
                             adapter.addItem(editText.getText().toString());
@@ -198,7 +199,7 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
                         }
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getApplication().getText(R.string.fixedlist_addDialog_cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

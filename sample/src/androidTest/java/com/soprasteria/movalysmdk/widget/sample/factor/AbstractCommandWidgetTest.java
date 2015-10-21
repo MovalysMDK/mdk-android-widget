@@ -35,6 +35,9 @@ public abstract class AbstractCommandWidgetTest<T extends AppCompatActivity> {
     /** entry scenario object. */
     private EntryScenario<T> entryScenario;
 
+    /** list entry scenario object. */
+    private ListEntryScenario<T> listEntryScenario;
+
     /** enable scenario object. */
     private EnabledScenario<T> enabledScenario;
 
@@ -48,9 +51,10 @@ public abstract class AbstractCommandWidgetTest<T extends AppCompatActivity> {
     public AbstractCommandWidgetTest(Class<T> activityClass) {
         activityRule = new ActivityTestRule<>(activityClass);
 
-        this.entryScenario = new EntryScenario<T>(activityRule);
-        this.enabledScenario = new EnabledScenario<T>(activityRule);
-        this.mandatoryScenario = new MandatoryScenario<T>(activityRule);
+        this.entryScenario = new EntryScenario<>(activityRule);
+        this.listEntryScenario = new ListEntryScenario<>(activityRule);
+        this.enabledScenario = new EnabledScenario<>(activityRule);
+        this.mandatoryScenario = new MandatoryScenario<>(activityRule);
     }
 
     /**
@@ -67,6 +71,14 @@ public abstract class AbstractCommandWidgetTest<T extends AppCompatActivity> {
      */
     public EntryScenario<T> getEntryScenario() {
         return entryScenario;
+    }
+
+    /**
+     * Returns the list entry scenario object.
+     * @return the list entry scenario object
+     */
+    public ListEntryScenario<T> getListEntryScenario() {
+        return listEntryScenario;
     }
 
     /**

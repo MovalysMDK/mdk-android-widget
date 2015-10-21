@@ -142,6 +142,10 @@
     <string name="spinner_standalone_widget">Spinner standalone widget (has blank row, no custom layout, has hint)</string>
     <string name="rich_spinner_with_label_and_error_field">Rich spinner with label and error field</string>
 
+    <string name="fixedlist_addButton_text">Add</string>
+    <string name="fixedlist_addDialog_validate">Validate</string>
+    <string name="fixedlist_addDialog_cancel">Cancel</string>
+
     <string name="mdk_error_message_format">com.soprasteria.movalysmdk.widget.sample.error.FortyTwoErrorMessageFormat</string>
     <string name="mdk_error_message_1">"42 /!\\ Must be filled"</string>
     <string name="mdk_error_message_2">mdk_error_message_2</string>
@@ -225,5 +229,6 @@
     <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
     <string name="enum_babyanimals_calf">calf</string>
     <string name="enum_babyanimals_duckling">duckling</string>
+    <string name="test_fixedlist_entry" translatable="false">Test 1</string>
 
 </resources>

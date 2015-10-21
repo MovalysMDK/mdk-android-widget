@@ -309,7 +309,7 @@ public class EntryScenario<T extends AppCompatActivity> extends AbstractScenario
             }
         }
 
-        // Check send button state
+        // Check command button state
         if (commandView != null) {
             if (validEntry) {
                 onView(commandView).check(matches(isEnabled()));

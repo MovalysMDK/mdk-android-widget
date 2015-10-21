@@ -38,12 +38,27 @@
             mdk:label="@string/app_name"
             mdk:mandatory="true"/>
 
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fixedlist_addButton_text"/>
+
         <com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList
             android:id="@+id/mdkFixedList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mdkRichFixedList"
-            mdk:label="@string/app_name"/>
+            mdk:addButtonViewId="@id/addButton"
+            mdk:errorId="@+id/fixedlist_error"
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"/>
+
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+            android:id="@+id/fixedlist_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 

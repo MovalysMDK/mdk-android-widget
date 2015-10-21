@@ -75,6 +75,10 @@
     <string name="checkable_value_true">Le composant doit être coché</string>
     <string name="checkable_value_false">Le composant NE doit PAS être coché</string>
 
+    <string name="fixedlist_addButton_text">Ajouter</string>
+    <string name="fixedlist_addDialog_validate">Valider</string>
+    <string name="fixedlist_addDialog_cancel">Annuler</string>
+
     <!-- TESTED RESOURCES -->
     <string name="test_app_name">MDK Android widget</string>
     <string name="test_mdkvalidator_email_error_invalid">Adresse mail non valide</string>

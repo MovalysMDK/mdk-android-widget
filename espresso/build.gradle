@@ -39,6 +39,7 @@ android {
 dependencies {
     compile testDependencies.espressoCore
     compile testDependencies.mdkEspresso
+    compile supportDependencies.recyclerView
 
     compile project(":basic")
 }
