@@ -15,10 +15,9 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 
+import com.soprasteria.movalysmdk.widget.fixedlist.FixedListAddListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.FixedListItemClickListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.FixedListRemoveListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList;
@@ -36,10 +35,10 @@ public class WrappedFixedListActivity extends AbstractFixedListActivity {
     private MDKRichFixedList mRichFixedList;
 
     /** the MDKFixedList adapter. */
-    private RecyclerView.Adapter mFxlAdapter;
+    private MyAdapter mFxlAdapter;
 
     /** the MDKRichFixedList adapter. */
-    private RecyclerView.Adapter mRichFxlAdapter;
+    private MyAdapter mRichFxlAdapter;
 
     @Override
     protected int[] getWidgetIds() {
@@ -55,29 +54,49 @@ public class WrappedFixedListActivity extends AbstractFixedListActivity {
         setContentView(R.layout.activity_wrapped_fixed_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // "Inner" fixed list
         mFixedList = (MDKFixedList) findViewById(R.id.mdkFixedList);
-        mRichFixedList = (MDKRichFixedList) findViewById(R.id.mdkRichFixedList);
-
-        // specify an adapter (see also next example)
         mFxlAdapter = new MyAdapter(myDataset);
         mFixedList.setAdapter(mFxlAdapter);
-
-        mRichFxlAdapter = new MyAdapter(myDataset);
-        mRichFixedList.setAdapter(mRichFxlAdapter);
-
-        mFixedList.addItemClickListener(new FixedListItemClickListener() {
+        mFixedList.addAddListener(new FixedListAddListener() {
             @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(WrappedFixedListActivity.this, FixedListDetailActivity.class);
-                intent.putExtra("RC", RC_CODE | position);
-                startActivityForResult(intent, RC_CODE | position);
+            public void onAddClick() {
+                showInputDialog(mFxlAdapter, -1);
             }
         });
-
         mFixedList.addRemoveListener(new FixedListRemoveListener() {
             @Override
             public void onRemoveItemClick(int position) {
-                ((MyAdapter)mFixedList.getAdapter()).removeItemAt(position);
+                ((MyAdapter) mFixedList.getAdapter()).removeItemAt(position);
+            }
+        });
+        mFixedList.addItemClickListener(new FixedListItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                showInputDialog(mFxlAdapter, position);
+            }
+        });
+
+        // Rich fixed list
+        mRichFixedList = (MDKRichFixedList) findViewById(R.id.mdkRichFixedList);
+        mRichFxlAdapter = new MyAdapter(myDataset);
+        mRichFixedList.setAdapter(mRichFxlAdapter);
+        mRichFixedList.addAddListener(new FixedListAddListener() {
+            @Override
+            public void onAddClick() {
+                showInputDialog(mRichFxlAdapter, -1);
+            }
+        });
+        mRichFixedList.addRemoveListener(new FixedListRemoveListener() {
+            @Override
+            public void onRemoveItemClick(int position) {
+                ((MyAdapter) mRichFixedList.getInnerWidget().getAdapter()).removeItemAt(position);
+            }
+        });
+        mRichFixedList.addItemClickListener(new FixedListItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                showInputDialog(mRichFxlAdapter, position);
             }
         });
     }

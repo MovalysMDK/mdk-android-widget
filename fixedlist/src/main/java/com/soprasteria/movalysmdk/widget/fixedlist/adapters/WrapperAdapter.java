@@ -50,6 +50,9 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
     /** the identifier of the delete button in the layout of the view holder. */
     private int deleteId;
 
+    /** true if the views should be enabled. */
+    private boolean isEnabled = true;
+
     /**
      * Constructor.
      * @param adapter the adapter to wrap
@@ -142,12 +145,22 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
     }
 
     /**
+     * Sets the enabled status of the widget on the adapter.
+     * @param isEnabled true to enable the wrapper
+     */
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    /**
      * Notifies the registered delete listeners.
      * @param position the position of the deleted item
      */
     private void notifyItemDeleteListeners(int position) {
-        for (FixedListRemoveListener listener : this.removeListener) {
-            listener.onRemoveItemClick(position);
+        if (isEnabled) {
+            for (FixedListRemoveListener listener : this.removeListener) {
+                listener.onRemoveItemClick(position);
+            }
         }
     }
 
@@ -156,8 +169,10 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
      * @param position the position of the clicked item
      */
     private void notifyItemClickListeners(int position) {
-        for (FixedListItemClickListener listener : this.itemClickListeners) {
-            listener.onItemClick(position);
+        if (isEnabled) {
+            for (FixedListItemClickListener listener : this.itemClickListeners) {
+                listener.onItemClick(position);
+            }
         }
     }
 

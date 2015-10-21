@@ -35,7 +35,8 @@
             android:id="@+id/mdkRichFixedList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:label="@string/app_name"/>
+            mdk:label="@string/app_name"
+            mdk:mandatory="true"/>
 
         <com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList
             android:id="@+id/mdkFixedList"

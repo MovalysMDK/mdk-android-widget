@@ -16,7 +16,9 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
@@ -63,7 +65,7 @@ import java.util.List;
  * </ul>
  * The setup layout attributes for the layout managers allow to set a class and an orientation.
  * Should you need to set more parameters on your preferred layout manager, you should set it directly on the view in your code as follows:
- * * <pre>
+ * <pre>
  * {@code
  * MDKFixedList fixedList = new MDKFixedList(context);
  * fixedList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -72,7 +74,7 @@ import java.util.List;
  *
  * Also please note that the standard Android layout managers implementations do not allow to wrap the widget, so you may have to adapt your layouts.
  */
-public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasValidator, HasDelegate, HasChangeListener, FixedListRemoveListener {
+public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasLabel, HasValidator, HasDelegate, HasChangeListener, FixedListRemoveListener, IsNullable {
 
     /** Reference widget id tag in Broadcast. */
     private static final String REFERENCE_WIDGET = "referenceWidget";
@@ -228,6 +230,16 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
         return wrapperAdapter.getAdapter();
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+
+        if (this.mdkWidgetDelegate.getAddButton() != null) {
+            this.mdkWidgetDelegate.getAddButton().setEnabled(enabled);
+        }
+        ((WrapperAdapter)super.getAdapter()).setEnabled(enabled);
+    }
+
     /**
      * Add a {@link FixedListAddListener} element.
      * @param listener the listener to add
@@ -316,6 +328,16 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
     @Override
     public void clearError() {
         this.mdkWidgetDelegate.clearError();
+    }
+
+    @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
     }
 
     @Override
