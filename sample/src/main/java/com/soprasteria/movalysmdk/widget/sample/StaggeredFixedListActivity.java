@@ -17,9 +17,9 @@ package com.soprasteria.movalysmdk.widget.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import com.soprasteria.movalysmdk.widget.fixedlist.FixedListAddListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.FixedListItemClickListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.FixedListRemoveListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.MDKRichFixedList;
@@ -33,7 +33,7 @@ public class StaggeredFixedListActivity extends AbstractFixedListActivity {
     private MDKRichFixedList mRichFixedList;
 
     /** the MDKRichFixedList adapter. */
-    private RecyclerView.Adapter mRichFxlAdapter;
+    private MyAdapter mRichFxlAdapter;
 
     @Override
     protected int[] getWidgetIds() {
@@ -55,20 +55,51 @@ public class StaggeredFixedListActivity extends AbstractFixedListActivity {
 
         mRichFixedList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        mRichFixedList.addItemClickListener(new FixedListItemClickListener() {
+
+        mRichFixedList.addAddListener(new FixedListAddListener() {
             @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(StaggeredFixedListActivity.this, FixedListDetailActivity.class);
-                intent.putExtra("RC", RC_CODE | position);
-                startActivityForResult(intent, RC_CODE | position);
+            public void onAddClick() {
+                startDetailActivity(-1, "");
             }
         });
-
         mRichFixedList.addRemoveListener(new FixedListRemoveListener() {
             @Override
             public void onRemoveItemClick(int position) {
                 ((MyAdapter) mRichFixedList.getInnerWidget().getAdapter()).removeItemAt(position);
             }
         });
+        mRichFixedList.addItemClickListener(new FixedListItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                startDetailActivity(position, mRichFxlAdapter.getItemAt(position));
+            }
+        });
+    }
+
+    /**
+     * Start the detail activity with the given request code and values.
+     * @param position the request code to send
+     * @param itemAt the value of the detail to modify
+     */
+    private void startDetailActivity(int position, String itemAt) {
+        Intent intent = new Intent(StaggeredFixedListActivity.this, FixedListDetailActivity.class);
+        intent.putExtra("pos", position);
+        intent.putExtra("value", itemAt);
+        startActivityForResult(intent, RC_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_CODE && resultCode == RESULT_OK) {
+            String res = data.getStringExtra("value");
+            int position = data.getIntExtra("position", -1);
+
+            if (position == -1) {
+                mRichFxlAdapter.addItem(res);
+            } else {
+                mRichFxlAdapter.updateItemAt(position, res);
+            }
+        }
     }
 }

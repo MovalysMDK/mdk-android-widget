@@ -16,26 +16,39 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
 
 /**
  * Detail activity for the MDKRichFixedList widget.
  */
 public class FixedListDetailActivity extends Activity {
 
+    MDKRichEditText edit;
+    int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fixed_list_detail);
 
-        int requestCode = getIntent().getIntExtra("RC", -1);
-
-        int requestCodeF = requestCode & WrappedFixedListActivity.RC_MASK;
-        int position = requestCode & WrappedFixedListActivity.POS_MASK;
+        position = getIntent().getIntExtra("pos", -1);
+        String itemValue = getIntent().getStringExtra("value");
 
         ((TextView) findViewById(R.id.pos)).setText(String.valueOf(position));
-        ((TextView) findViewById(R.id.request_code)).setText(String.format("0x%8s", Integer.toHexString(requestCodeF)).replace(' ', '0'));
+        edit = (MDKRichEditText) findViewById(R.id.item_value);
+        edit.setText(itemValue);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("value", edit.getText().toString());
+        returnIntent.putExtra("position", position);
+        setResult(RESULT_OK, returnIntent);
+        super.onBackPressed();
+    }
 }

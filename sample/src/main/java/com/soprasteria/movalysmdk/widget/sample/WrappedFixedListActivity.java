@@ -15,7 +15,14 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.app.Dialog;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.fixedlist.FixedListAddListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.FixedListItemClickListener;
@@ -99,6 +106,52 @@ public class WrappedFixedListActivity extends AbstractFixedListActivity {
                 showInputDialog(mRichFxlAdapter, position);
             }
         });
+    }
+
+    /**
+     * Shows a dialog to input data in the adapter.
+     * @param adapter the adapter on which data should be modified / added
+     * @param position the position of the data to input, -1 to add a new cell
+     */
+    private void showInputDialog(final MyAdapter adapter, final int position) {
+        String value = "";
+        if (position > -1) {
+            value = adapter.getItemAt(position);
+        }
+
+        LayoutInflater layoutInflater = LayoutInflater.from(this.getApplicationContext());
+        View promptView = layoutInflater.inflate(R.layout.dialog_staggered_fixed_list, null);
+
+        final EditText editText = (EditText) promptView.findViewById(R.id.item_value);
+        final Button valid = (Button) promptView.findViewById(R.id.validateButton);
+        final Button cancel = (Button) promptView.findViewById(R.id.cancelButton);
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(promptView);
+
+        editText.setTextColor(ColorStateList.valueOf(Color.BLACK));
+        editText.setText(value);
+
+        valid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (position == -1) {
+                    adapter.addItem(editText.getText().toString());
+                } else {
+                    adapter.updateItemAt(position, editText.getText().toString());
+                }
+                dialog.cancel();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
     }
 
 }

@@ -22,11 +22,31 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+    <EditText
         android:id="@+id/item_value"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        mdk:label="@string/edit_text_label"
-        mdk:mandatory="true"/>
+        android:layout_height="wrap_content">
+
+        <requestFocus />
+
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/validateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fixedlist_addDialog_validate"/>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fixedlist_addDialog_cancel"/>
+
+    </LinearLayout>
 
 </LinearLayout>
