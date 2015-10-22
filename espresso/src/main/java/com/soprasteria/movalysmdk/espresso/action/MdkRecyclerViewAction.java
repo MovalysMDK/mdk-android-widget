@@ -12,6 +12,13 @@ import org.hamcrest.Matcher;
 public class MdkRecyclerViewAction {
 
     /**
+     * Constructor.
+     */
+    private MdkRecyclerViewAction() {
+        // nothing to do
+    }
+
+    /**
      * Sends a click action on a subview of a RecyclerView row.
      * @param id the id of the subview to click
      * @return ViewAction

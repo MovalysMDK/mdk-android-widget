@@ -13,6 +13,13 @@ import org.hamcrest.TypeSafeMatcher;
 public class MdkRecyclerViewMatchers {
 
     /**
+     * Constructor.
+     */
+    private MdkRecyclerViewMatchers() {
+        // nothing to do
+    }
+
+    /**
      * Creates a matcher to check if a RecyclerView has a given number of elements.
      * @param size the expected number of elements of the RecyclerView
      * @return matcher

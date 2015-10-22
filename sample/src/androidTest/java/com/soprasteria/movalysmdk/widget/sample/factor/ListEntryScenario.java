@@ -83,7 +83,6 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
     public void testTextEntryOutsideWidget(String textInput, int[] errorMessages, @IdRes int listView, @IdRes int inputView, @IdRes int addButtonView, @IdRes int errorView) {
         testListEntryScenarioBasicWithRotation(
                 typeText(textInput),
-                withText(textInput),
                 errorMessages,
                 withId(listView),
                 withId(inputView),
@@ -104,7 +103,6 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
     public void testTextEntryRichWidget(String textInput, int[] errorMessages, @IdRes int richWidgetView, @IdRes int inputView, @IdRes int addButtonView) {
         testListEntryScenarioBasicWithRotation(
                 typeText(textInput),
-                withText(textInput),
                 errorMessages,
                 allOf(withId(R.id.component_internal), isDescendantOfA(withId(richWidgetView))),
                 withId(inputView),
@@ -117,7 +115,6 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
     /**
      * Method use to execute AbstractCommandWidgetTest#testEntryScenarioBasicWithRotation with a widget outside a RichWidget.
      * @param action the action to perform on the view
-     * @param matcher the matcher of the performed action
      * @param errorMessages the error message reference as a int[]
      * @param listView the list view as Matcher&lt;view&gt;
      * @param inputView the detail input view as Matcher&lt;view&gt;
@@ -126,9 +123,8 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
      * @param errorView the error as Matcher&lt;view&gt;
      */
     public void testListEntryScenarioBasicWithRotation(
-            ViewAction action, Matcher<View> matcher, int[] errorMessages, Matcher<View> listView,
-            Matcher<View> inputView, int[] actionButtons, Matcher<View> commandView, Matcher<View> errorView)
-    {
+            ViewAction action, int[] errorMessages, Matcher<View> listView,
+            Matcher<View> inputView, int[] actionButtons, Matcher<View> commandView, Matcher<View> errorView) {
         ActivityTestRule mActivityRule = this.getActivity();
 
         // Assertion that activity result is not null, nominal case

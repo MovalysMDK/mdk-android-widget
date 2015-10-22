@@ -27,8 +27,11 @@ import com.soprasteria.movalysmdk.widget.basic.MDKRichEditText;
  */
 public class FixedListDetailActivity extends Activity {
 
-    MDKRichEditText edit;
-    int position;
+    /** the input value component. */
+    private MDKRichEditText edit;
+
+    /** the position of the item in the list being modified. */
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
