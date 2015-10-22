@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -364,16 +364,16 @@ public class SwitchTest {
 
         // check that the widget with fixed text displays the right text
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichSwitch_withLabelAndError))))
-                .check(matches(withText(R.string.switch_activity)));
+                .check(matches(withText(mActivityRule.getActivity().getString(R.string.switch_activity) + " (*)")));
 
         // check that the widget with checked and unchecked text displays the right text
         onView(allOf(withId(R.id.mdkSwitch_withErrorAndCommandOutside)))
-                .check(matches(withText(R.string.checkable_value_true)));
+                .check(matches(withText(mActivityRule.getActivity().getString(R.string.checkable_value_true) + " (*)")));
 
         onView(allOf(withId(R.id.mdkSwitch_withErrorAndCommandOutside))).perform(click());
 
         onView(allOf(withId(R.id.mdkSwitch_withErrorAndCommandOutside)))
-                .check(matches(withText(R.string.checkable_value_false)));
+                .check(matches(withText(mActivityRule.getActivity().getString(R.string.checkable_value_false) + " (*)")));
 
     }
 }

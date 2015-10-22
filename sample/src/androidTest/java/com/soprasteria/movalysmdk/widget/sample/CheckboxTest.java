@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -75,8 +75,9 @@ public class CheckboxTest {
 
     /**
      * Tests a checkable with the given identifier.
-     * @param viewId the checkable identifier
-     * @param isRich true if the component being tested is a Rich component
+     *
+     * @param viewId         the checkable identifier
+     * @param isRich         true if the component being tested is a Rich component
      * @param testCaseNumber the test case number
      */
     private void testCheckable(int viewId, boolean isRich, int testCaseNumber) {
@@ -165,8 +166,9 @@ public class CheckboxTest {
 
     /**
      * Tests a checkable with the given identifier.
-     * @param viewId the checkable identifier
-     * @param isRich true if the component being tested is a Rich component
+     *
+     * @param viewId         the checkable identifier
+     * @param isRich         true if the component being tested is a Rich component
      * @param testCaseNumber the test case number
      */
     private void testDisabledCheckable(int viewId, boolean isRich, int testCaseNumber) {
@@ -268,8 +270,9 @@ public class CheckboxTest {
 
     /**
      * Tests a checkable with the given identifier.
-     * @param viewId the checkable identifier
-     * @param isRich true if the component being tested is a Rich component
+     *
+     * @param viewId         the checkable identifier
+     * @param isRich         true if the component being tested is a Rich component
      * @param testCaseNumber the test case number
      */
     private void testDisabledCheckedCheckable(int viewId, boolean isRich, int testCaseNumber) {
@@ -365,16 +368,16 @@ public class CheckboxTest {
 
         // check that the widget with fixed text displays the right text
         onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichCheckbox_withLabelAndError))))
-                .check(matches(withText(R.string.checkbox_activity)));
+                .check(matches(withText(mActivityRule.getActivity().getString(R.string.checkbox_activity) + " (*)")));
 
         // check that the widget with checked and unchecked text displays the right text
         onView(allOf(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)))
-                .check(matches(withText(R.string.checkable_value_true)));
+                .check(matches(withText(mActivityRule.getActivity().getString(R.string.checkable_value_true) + " (*)")));
 
         onView(allOf(withId(R.id.mdkCheckbox_withErrorAndCommandOutside))).perform(click());
 
         onView(allOf(withId(R.id.mdkCheckbox_withErrorAndCommandOutside)))
-                .check(matches(withText(R.string.checkable_value_false)));
+                .check(matches(withText(mActivityRule.getActivity().getString(R.string.checkable_value_false) + " (*)")));
 
     }
 }
