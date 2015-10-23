@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 /**
@@ -28,7 +27,7 @@ public class MDKWrapperAdapter extends BaseAdapter {
     /**
      * User's adapter.
      */
-    private SpinnerAdapter innerAdapter;
+    private BaseAdapter innerAdapter;
 
     /**
      * Boolean to test if blank row is required (True for Blank row).
@@ -63,7 +62,7 @@ public class MDKWrapperAdapter extends BaseAdapter {
      * @param hasBlank     boolean to test if blank row is required (True for Blank row).
      * @param hint         the user's hint specified in XML attrs
      */
-    public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank, CharSequence hint) {
+    public MDKWrapperAdapter(BaseAdapter innerAdapter, boolean hasBlank, CharSequence hint) {
         init(innerAdapter, hasBlank, this.DEFAULT_SPINNER_BLANK_LAYOUT, this.DEFAULT_DROP_DOWN_BLANK_LAYOUT, hint);
     }
 
@@ -77,7 +76,7 @@ public class MDKWrapperAdapter extends BaseAdapter {
      * @param dropDownBlankLayout resource layout for dropDownBlankView
      * @param hint                the user's hint specified in XML attrs
      */
-    public MDKWrapperAdapter(SpinnerAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout, CharSequence hint) {
+    public MDKWrapperAdapter(BaseAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout, CharSequence hint) {
         init(innerAdapter, hasBlank, spinnerBlankLayout, dropDownBlankLayout, hint);
     }
 
@@ -90,7 +89,7 @@ public class MDKWrapperAdapter extends BaseAdapter {
      * @param dropDownBlankLayout resource layout for dropDownBlankView
      * @param hint                the user's hint specified in XML attrs
      */
-    private void init(SpinnerAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout, CharSequence hint) {
+    private void init(BaseAdapter innerAdapter, boolean hasBlank, int spinnerBlankLayout, int dropDownBlankLayout, CharSequence hint) {
         this.innerAdapter = innerAdapter;
         this.hasBlank = hasBlank;
         this.spinnerBlankLayout = spinnerBlankLayout;

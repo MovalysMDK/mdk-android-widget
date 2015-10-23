@@ -3,10 +3,11 @@ package com.soprasteria.movalysmdk.widget.spinner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.SpinnerAdapter;
+import android.widget.BaseAdapter;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
 
 /**
  * MDK RichSpinner.
@@ -19,7 +20,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  * <li>Mandatory : When XML attrs mandatory is set to "true" when blank row is selected the MDK spinner will return an error</li>
  * </ul>
  */
-public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements HasValidator {
+public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements HasValidator,HasAdapter {
 
     /**
      * Constructor.
@@ -71,7 +72,8 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
      *
      * @param adapter user's adapter.
      */
-    public void setAdapter(SpinnerAdapter adapter) {
+    @Override
+    public void setAdapter(BaseAdapter adapter) {
         this.getInnerWidget().setAdapter(adapter);
     }
 
@@ -81,7 +83,7 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
      * @param adapter     user's adapter.
      * @param blankLayout layout for dropDownBlankView and spinnerBlankView
      */
-    public void setAdapterWithCustomBlankLayout(SpinnerAdapter adapter, int blankLayout) {
+    public void setAdapterWithCustomBlankLayout(BaseAdapter adapter, int blankLayout) {
         this.getInnerWidget().setAdapterWithCustomBlankLayout(adapter, blankLayout);
     }
 
@@ -93,9 +95,8 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
      * @param spinnerBlankLayout  layout for spinnerBlankView
      * @param dropDownBlankLayout layout for dropDownBlankView
      */
-    public void setAdapterSpinnerDropDownBlankLayout(SpinnerAdapter adapter, int spinnerBlankLayout, int dropDownBlankLayout) {
+    public void setAdapterSpinnerDropDownBlankLayout(BaseAdapter adapter, int spinnerBlankLayout, int dropDownBlankLayout) {
         this.getInnerWidget().setAdapterSpinnerDropDownBlankLayout(adapter, spinnerBlankLayout, dropDownBlankLayout);
     }
-
 
 }

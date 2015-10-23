@@ -7,7 +7,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.SpinnerAdapter;
+import android.widget.BaseAdapter;
 
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
@@ -16,6 +16,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
@@ -30,7 +31,7 @@ import java.util.Arrays;
  * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
  * <p>The mdk:has_blank_row default value is false.</p>
  */
-public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
+public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapter, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
     /**
      * User's adapter.
      */
@@ -127,7 +128,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param adapter user's adapter.
      */
     @Override
-    public void setAdapter(SpinnerAdapter adapter) {
+    public void setAdapter(BaseAdapter adapter) {
         this.innerAdapter = new MDKWrapperAdapter(adapter, this.hasBlank, this.hint);
         super.setAdapter(this.innerAdapter);
     }
@@ -138,7 +139,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param adapter     user's adapter.
      * @param blankLayout layout for dropDownBlankView and spinnerBlankView
      */
-    public void setAdapterWithCustomBlankLayout(SpinnerAdapter adapter, int blankLayout) {
+    public void setAdapterWithCustomBlankLayout(BaseAdapter adapter, int blankLayout) {
         this.innerAdapter = new MDKWrapperAdapter(adapter, this.hasBlank, blankLayout, blankLayout, this.hint);
         super.setAdapter(this.innerAdapter);
     }
@@ -151,7 +152,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasValida
      * @param spinnerBlankLayout  layout for spinnerBlankView
      * @param dropDownBlankLayout layout for dropDownBlankView
      */
-    public void setAdapterSpinnerDropDownBlankLayout(SpinnerAdapter adapter, int spinnerBlankLayout, int dropDownBlankLayout) {
+    public void setAdapterSpinnerDropDownBlankLayout(BaseAdapter adapter, int spinnerBlankLayout, int dropDownBlankLayout) {
         this.innerAdapter = new MDKWrapperAdapter(adapter, this.hasBlank, spinnerBlankLayout, dropDownBlankLayout, this.hint);
         super.setAdapter(this.innerAdapter);
     }
