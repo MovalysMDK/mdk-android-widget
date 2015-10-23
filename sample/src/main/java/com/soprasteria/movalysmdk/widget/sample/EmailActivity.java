@@ -24,6 +24,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.soprasteria.movalysmdk.widget.basic.MDKRichEmail;
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCommandDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 
@@ -46,7 +47,8 @@ public class EmailActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichEmail_withCustomLayout,
                 R.id.mdkRichEmail1_withSharedError,
                 R.id.mdkRichEmail2_withSharedError,
-                R.id.mdkRichEmail_withHelper
+                R.id.mdkRichEmail_withHelper,
+                R.id.mdkRichEmail_non_editable
         };
     }
 
@@ -66,6 +68,9 @@ public class EmailActivity extends AbstractWidgetTestableActivity {
         };
 
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(getString(R.string.mdkwidget_enableboadcast)));
+
+        MDKRichEmail nonEditable = (MDKRichEmail) findViewById(R.id.mdkRichEmail_non_editable);
+        nonEditable.setText("hello@world.com");
 
     }
 

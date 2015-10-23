@@ -20,6 +20,7 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -108,6 +109,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
      */
     private final void init(Context context, AttributeSet attrs) {
 
+        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+
         // Parse the MDKCommons:hint attribute
         // so that both android:hint and MDKCommons:hint can be used
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
@@ -115,9 +118,12 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         if (resHintId != 0) {
             this.setHint(resHintId);
         }
+
+        boolean editable = typedArray.getBoolean(R.styleable.MDKCommons_editable, true);
+        this.setEditable(editable);
         typedArray.recycle();
 
-        this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+
     }
 
     /**
@@ -139,10 +145,6 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
                 this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
             }
 
-            if (this.specificInputType != -1) {
-                // TODO : fuites mémoire ?
-                this.setInputType(this.specificInputType);
-            }
         }
     }
 
@@ -252,6 +254,35 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     @Override
     public boolean isMandatory() {
         return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        this.mdkWidgetDelegate.setEditable(editable);
+        if(editable) {
+            if(specificInputType!=-1) {
+                super.setInputType(specificInputType);
+            }else{
+                super.setInputType(InputType.TYPE_CLASS_TEXT);
+            }
+        }else{
+            super.setInputType(InputType.TYPE_NULL);
+        }
+    }
+
+
+    @Override
+    public void setInputType(int type){
+        if(isEditable()) {
+            super.setInputType(type);
+        }else{
+            specificInputType = type;
+        }
+    }
+
+    @Override
+    public boolean isEditable() {
+        return this.mdkWidgetDelegate.isEditable();
     }
 
     @Override

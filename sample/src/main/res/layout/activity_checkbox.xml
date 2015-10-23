@@ -147,6 +147,25 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+        <!-- RICH CHECKBOX NON EDITABLE -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/checkbox_non_editable" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichCheckbox
+            android:id="@+id/mdkRichCheckbox_non_editable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/checkbox_background"
+            android:padding="2dp"
+            mdk:label="@string/app_name"
+            mdk:text_fixed="@string/checkbox_activity"
+            mdk:editable="false" />
+
     </LinearLayout>
 
 </ScrollView>

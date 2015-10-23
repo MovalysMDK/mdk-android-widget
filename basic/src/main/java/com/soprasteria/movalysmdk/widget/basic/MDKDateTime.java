@@ -236,6 +236,16 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     }
 
     @Override
+    public void setEditable(boolean editable) {
+        this.mdkWidgetDelegate.setEditable(editable);
+    }
+
+    @Override
+    public boolean isEditable() {
+        return this.mdkWidgetDelegate.isEditable();
+    }
+
+    @Override
     public void addError(MDKMessages error) {
         this.mdkWidgetDelegate.addError(error);
     }

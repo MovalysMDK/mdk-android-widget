@@ -97,9 +97,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     /** Internal view (view type depends on the mode). */
     private View view;
 
-    /** Editable property of the widget. **/
-    private boolean editable;
-
     /**
      * Constructor.
      * @param context the context
@@ -138,13 +135,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         enumPrefix = AttributesHelper.getStringFromStringAttribute(typedArray,R.styleable.MDKCommons_MDKEnumView_enum_prefix, DEFAULT_ENUM_PREFIX);
 
         // Parse the mode of EnumView
-        mode = typedArray.getInt(R.styleable.MDKCommons_MDKEnumView_enum_mode, 0);
-
-        // Parse the editable property of EnumView
-        editable = typedArray.getBoolean(R.styleable.MDKCommons_MDKEnumView_enum_editable,false);
-        if(editable){
-            this.setOnClickListener(this);
-        }
+        mode = AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKEnumView_enum_mode, 0);
 
         typedArray.recycle();
 
@@ -374,7 +365,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         try{
             ((TextView) view).setText(getContext().getString(id));
         }catch(Resources.NotFoundException e) {
-            Log.w(this.getClass().getSimpleName(), "String resource not found: " + id);
+            Log.w(this.getClass().getSimpleName(), "String resource not found: " + id,e);
             //fallback behavior: displaying id
             removeView(view);
             ((TextView)view).setText(String.valueOf(id));
@@ -392,7 +383,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         try{
             ((ImageView) view).setImageResource(id);
         }catch(Resources.NotFoundException e){
-            Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + id);
+            Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + id,e);
             //fallback behavior: look for text
             removeView(view);
             setTextFromId(id);
@@ -436,12 +427,12 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
 
     @Override
     public boolean isEditable() {
-        return editable;
+        return mdkWidgetDelegate.isEditable();
     }
 
     @Override
     public void setEditable(boolean editable) {
-        this.editable = editable;
+        this.mdkWidgetDelegate.setEditable(editable);
         if(editable){
             this.setOnClickListener(this);
         }else {

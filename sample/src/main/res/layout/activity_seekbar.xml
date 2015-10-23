@@ -276,6 +276,28 @@
             mdk:seekbar_max="6"
             mdk:formatter="@string/formatter_weekdays"
             mdk:editableEditText="false"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <!-- RICH SeekBar NON EDITABLE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seekbar_non_editable"
+            android:id="@+id/textView8" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
+            android:id="@+id/mdkRichSeekBar_non_editable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:initialSeekBarValue="42"
+            mdk:editable="false"/>
     </LinearLayout>
 
 </ScrollView>

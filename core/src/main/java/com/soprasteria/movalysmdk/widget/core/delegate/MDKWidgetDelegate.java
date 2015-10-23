@@ -346,6 +346,25 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
         return this.valueObject.isMandatory();
     }
 
+    @Override
+    public void setEditable(boolean editable) {
+        this.valueObject.setEditable(editable);
+        this.valueObject.getAttributesMap().setBoolean(R.attr.editable, editable);
+        View v = this.valueObject.getView();
+        if (v != null) {
+            v.refreshDrawableState();
+        }
+    }
+
+    /**
+     * Return true if the MDK widget is editable.
+     * @return boolean depending on editable state
+     */
+    @Override
+    public boolean isEditable() {
+        return this.valueObject.isEditable();
+    }
+
     /**
      * Returns a List of FormFieldValidator to use based on the Set of attributes passed as
      * parameters.

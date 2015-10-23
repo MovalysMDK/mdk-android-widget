@@ -209,5 +209,4 @@ public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate implements Cha
         uncheckedText = text;
         updateText();
     }
-
 }

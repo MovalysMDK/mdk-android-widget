@@ -193,5 +193,23 @@
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
+        <!-- RichDateTime with label, no hint -->
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_non_editable"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
+            android:id="@+id/mdkRichDateTime_non_editable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/app_name"
+            mdk:editable="false" />
+
     </LinearLayout>
 </ScrollView>

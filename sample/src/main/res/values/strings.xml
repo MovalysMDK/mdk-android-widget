@@ -223,12 +223,16 @@
     <string name="test_position_valid_latitude" translatable="false">4.5</string>
     <string name="test_position_valid_longitude" translatable="false">6.4</string>
     <string name="test_mdkvalidator_position_error_validation_mandatory">Latitude and longitude must be filled</string>
-    <string name="enumimage_standalone_widget">Standalone enumimage</string>
+    <string name="enumimage_standalone_widget">Standalone enumimage non editable</string>
     <string name="title_activity_enumview">EnumView</string>
     <string name="enumimage_editable_with_label_error">Editable (clickable) MDKEnumImage with label and error</string>
     <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
     <string name="enum_babyanimals_calf">calf</string>
     <string name="enum_babyanimals_duckling">duckling</string>
     <string name="test_fixedlist_entry" translatable="false">Test 1</string>
+    <string name="email_rich_non_editable">Non-editable rich email</string>
+    <string name="date_non_editable">Non editable rich date time</string>
+    <string name="seekbar_non_editable">Non editable seekbar</string>
+    <string name="checkbox_non_editable">Non editable checkbox</string>
 
 </resources>

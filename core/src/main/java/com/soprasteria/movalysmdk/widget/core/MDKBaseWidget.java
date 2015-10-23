@@ -37,4 +37,17 @@ public interface MDKBaseWidget {
      * @return true if the widget is mandatory, false otherwise
      */
     boolean isMandatory();
+
+
+    /**
+     * Set editable properties on widget.
+     * @param editable true if editable, false otherwise
+     */
+    void setEditable(boolean editable);
+
+    /**
+     * Return true if the widget is editable.
+     * @return true if the widget is editable, false otherwise
+     */
+    boolean isEditable();
 }

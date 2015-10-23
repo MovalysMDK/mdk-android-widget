@@ -81,6 +81,8 @@ public class MDKWidgetDelegateValueObject {
     private boolean valid = false;
     /** mandatory. */
     private boolean mandatory = false;
+    /** editable. */
+    private boolean editable = true;
     /** error. */
     private boolean error = false;
     /** Command state change listener, triggered when widget is validate. */
@@ -111,6 +113,7 @@ public class MDKWidgetDelegateValueObject {
         this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
         this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
+        this.editable = typedArray.getBoolean(R.styleable.MDKCommons_editable,true);
 
         int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);
         String[] selectorKeys = view.getContext().getResources().getStringArray(selectorResId);
@@ -330,6 +333,21 @@ public class MDKWidgetDelegateValueObject {
         this.mandatory = mandatory;
     }
 
+    /**
+     * Returns true if the widget is editable.
+     * @return true if the widget is editable
+     */
+    public boolean isEditable() {
+        return editable;
+    }
+
+    /**
+     * Sets whether the widget is mandatory.
+     * @param editable the value to set
+     */
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
     /**
      * Returns true if the component has an error.
      * @return true if the component has an error

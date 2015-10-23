@@ -25,6 +25,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -367,13 +368,20 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
     @Override
     public void setEditableEditText(boolean editable) {
+        editableEditText=editable;
+        toggleEditableEditText(editable);
+    }
+
+    /**
+     * Toggles the editable state of the attached edit text.
+     * @param editable the editable state
+     */
+    private void toggleEditableEditText(boolean editable){
         if(editable) {
-            editableEditText = true;
             if(seekbarEditText!=null) {
                 seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
             }
         }else{
-            editableEditText=false;
             if(seekbarEditText!=null) {
                 seekbarEditText.setInputType(InputType.TYPE_NULL);
             }
@@ -463,6 +471,26 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     public boolean isMandatory() {
         // Widget control left to the integrator
         return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        mdkWidgetDelegate.setEditable(editable);
+        if(!editable) {
+            toggleEditableEditText(false);
+        }else{
+            toggleEditableEditText(editableEditText);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return isEditable() && super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean isEditable() {
+        return mdkWidgetDelegate.isEditable();
     }
 
     @Override

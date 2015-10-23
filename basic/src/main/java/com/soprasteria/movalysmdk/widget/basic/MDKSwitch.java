@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.Switch;
 
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCheckableWidgetDelegate;
@@ -140,6 +141,16 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
     }
 
     @Override
+    public void setEditable(boolean editable) {
+        mdkWidgetDelegate.setEditable(editable);
+    }
+
+    @Override
+    public boolean isEditable() {
+        return mdkWidgetDelegate.isEditable();
+    }
+
+    @Override
     public void addError(MDKMessages error) {
         this.mdkWidgetDelegate.addError(error);
     }
@@ -212,5 +223,10 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
     @Override
     public void setUncheckedText(String text) {
         mdkWidgetDelegate.setUncheckedText(text);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return isEditable() && super.onTouchEvent(event);
     }
 }

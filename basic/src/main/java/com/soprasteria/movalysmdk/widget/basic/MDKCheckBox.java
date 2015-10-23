@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCheckableWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
@@ -140,6 +141,16 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, HasVali
     }
 
     @Override
+    public void setEditable(boolean editable) {
+        mdkWidgetDelegate.setEditable(editable);
+    }
+
+    @Override
+    public boolean isEditable() {
+        return mdkWidgetDelegate.isEditable();
+    }
+
+    @Override
     public void setError(CharSequence error) {
         this.mdkWidgetDelegate.setError(error);
     }
@@ -217,5 +228,10 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, HasVali
     @Override
     public void setUncheckedText(String text) {
         mdkWidgetDelegate.setUncheckedText(text);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return isEditable() && super.onTouchEvent(event);
     }
 }

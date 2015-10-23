@@ -70,6 +70,7 @@
         <attr name="minLength" format="integer" />
         <attr name="maxLength" format="integer" />
         <attr name="formatter" format="reference" />
+        <attr name="editable" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">
@@ -87,6 +88,7 @@
         <attr name="state_error" format="boolean" />
         <attr name="state_valid" format="boolean" />
         <attr name="state_mandatory" format="boolean" />
+        <attr name="state_editable" format="boolean" />
     </declare-styleable>
 
     <!-- MDKDateTime specific attributes-->
@@ -138,7 +140,6 @@
             <enum name="image" value="0"/>
             <enum name="text" value="1"/>
         </attr>
-            <attr name="enum_editable" format="boolean"/>
     </declare-styleable>
 
     <!-- MDKSpinner specific attributes -->

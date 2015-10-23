@@ -150,6 +150,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
             boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
             this.getInnerWidget().setMandatory(mandatory);
 
+            boolean editable = typedArray.getBoolean(R.styleable.MDKCommons_editable, true);
+            this.getInnerWidget().setEditable(editable);
+
             int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);
             String[] selectorKeys = this.getContext().getResources().getStringArray(selectorResId);
             List<String> richSelectors = new ArrayList<>();
@@ -298,6 +301,16 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     @Override
     public void setMandatory(boolean mandatory) {
         this.getInnerWidget().setMandatory(mandatory);
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        this.getInnerWidget().setEditable(editable);
+    }
+
+    @Override
+    public boolean isEditable() {
+        return this.getInnerWidget().isEditable();
     }
 
     @Override

@@ -17,6 +17,10 @@ package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
 
+import com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime;
+
+import java.util.Date;
+
 /**
  * Test activity for the date widget.
  */
@@ -33,6 +37,7 @@ public class DateActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichDateTime_withCustomLayout,
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
                 R.id.mdkRichDateTime_withLabelAndMandatoryAndHints,
+                R.id.mdkRichDateTime_non_editable,
         };
     }
 
@@ -40,6 +45,11 @@ public class DateActivity extends AbstractWidgetTestableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
+
+        MDKRichDateTime nonEditable = (MDKRichDateTime) findViewById(R.id.mdkRichDateTime_non_editable);
+        Date now = new Date();
+        nonEditable.setDate(now);
+        nonEditable.getInnerWidget().setTime(now);
     }
 
 }

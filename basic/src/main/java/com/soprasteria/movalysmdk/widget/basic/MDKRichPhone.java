@@ -45,4 +45,5 @@ public class MDKRichPhone extends MDKBaseRichEditWidget<MDKPhone> implements MDK
     public MDKRichPhone(Context context, AttributeSet attrs, int defStyleAttr) {
         super(R.layout.mdkwidget_phone_edit_label, R.layout.mdkwidget_phone_edit, context, attrs, defStyleAttr);
     }
+
 }

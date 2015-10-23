@@ -274,6 +274,16 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
     }
 
     @Override
+    public void setEditable(boolean editable) {
+        //todo: not yet implemented
+    }
+
+    @Override
+    public boolean isEditable() {
+        return false;
+    }
+
+    @Override
     public void setMandatory(boolean mandatory) {
 
         this.mdkWidgetDelegate.setMandatory(mandatory);

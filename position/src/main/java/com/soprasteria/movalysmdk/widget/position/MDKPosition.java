@@ -368,6 +368,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * Returns the {@link Position} stored by the widget.
      * @return the current {@link Position}
      */
+    @Override
     public Position getPosition() {
         return this.position;
     }
@@ -376,6 +377,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * Sets the {@link Position} on the widget.
      * @param position the {@link Position} to set
      */
+    @Override
     public void setPosition(Position position) {
         this.setLocation(position.getLocation());
     }
@@ -722,6 +724,16 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     @Override
     public boolean isMandatory() {
         return this.mdkWidgetDelegate.isMandatory();
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        //todo: not yet implemented
+    }
+
+    @Override
+    public boolean isEditable() {
+        return false;
     }
 
     @Override

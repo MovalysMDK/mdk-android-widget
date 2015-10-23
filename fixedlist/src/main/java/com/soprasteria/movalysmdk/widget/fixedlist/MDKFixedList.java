@@ -316,6 +316,16 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
     }
 
     @Override
+    public void setEditable(boolean editable) {
+        //nothing to do here.
+    }
+
+    @Override
+    public boolean isEditable() {
+        return false;
+    }
+
+    @Override
     public void addError(MDKMessages error) {
         this.mdkWidgetDelegate.addError(error);
     }

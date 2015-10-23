@@ -122,4 +122,15 @@ public class AttributesHelper {
     public static int getIntFromIntAttribute(TypedArray typedArray, int attributeIndex, int defaultValue) {
         return typedArray.getInt(attributeIndex, defaultValue);
     }
+
+    /**
+     * Returns a boolean value attribute.
+     * @param typedArray an array of attributes
+     * @param attributeIndex the index of the attribute to look for
+     * @param defaultValue the default value to return
+     * @return the int value of the attribute
+     */
+    public static boolean getBooleanFromBooleanAttribute(TypedArray typedArray, int attributeIndex, boolean defaultValue) {
+        return typedArray.getBoolean(attributeIndex, defaultValue);
+    }
 }

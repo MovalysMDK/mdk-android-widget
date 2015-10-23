@@ -94,6 +94,7 @@ public class MDKCheckableImageButton extends ImageButton implements Checkable {
      * Changes the checked state of this button.
      * @param checked true to check the button, false to uncheck it
      */
+    @Override
     public void setChecked(boolean checked) {
         if (mChecked != checked) {
             mChecked = checked;
