@@ -12,4 +12,12 @@ public interface HasAdapter {
      * @param adapter the adapter created by the user
      */
     void setAdapter(BaseAdapter adapter);
+
+    /**
+     * Returns the adapter currently associated with this widget.
+     *
+     * @return The adapter used to provide this view's content.
+     */
+    BaseAdapter getAdapter();
+
 }

@@ -31,7 +31,7 @@ import java.util.Arrays;
  * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
  * <p>The mdk:has_blank_row default value is false.</p>
  */
-public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapter, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
+public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
     /**
      * User's adapter.
      */
@@ -78,7 +78,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
             init(attrs);
         }
     }
-
     /**
      * Constructor.
      *
@@ -164,6 +163,11 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
      */
     private void setValueToValidate(int position) {
         this.valueToValidate = this.getItemAtPosition(position);
+    }
+
+    @Override
+    public BaseAdapter getAdapter() {
+        return (BaseAdapter)super.getAdapter();
     }
 
     @Override

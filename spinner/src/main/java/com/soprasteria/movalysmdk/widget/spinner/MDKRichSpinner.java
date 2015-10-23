@@ -20,7 +20,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
  * <li>Mandatory : When XML attrs mandatory is set to "true" when blank row is selected the MDK spinner will return an error</li>
  * </ul>
  */
-public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements HasValidator,HasAdapter {
+public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements HasValidator, HasAdapter {
 
     /**
      * Constructor.
@@ -76,6 +76,12 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
     public void setAdapter(BaseAdapter adapter) {
         this.getInnerWidget().setAdapter(adapter);
     }
+
+    @Override
+    public BaseAdapter getAdapter() {
+        return this.getInnerWidget().getAdapter();
+    }
+
 
     /**
      * Sets the data behind this ListView with the user's adapter and allow to use a same custom layout for dropDownBlankView and spinnerBlankView.
