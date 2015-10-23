@@ -374,7 +374,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         try{
             ((TextView) view).setText(getContext().getString(id));
         }catch(Resources.NotFoundException e) {
-            Log.w(this.getClass().getSimpleName(), "String resource not found: " + id, e);
+            Log.w(this.getClass().getSimpleName(), "String resource not found: " + id);
             //fallback behavior: displaying id
             removeView(view);
             ((TextView)view).setText(String.valueOf(id));
@@ -392,7 +392,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         try{
             ((ImageView) view).setImageResource(id);
         }catch(Resources.NotFoundException e){
-            Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + id, e);
+            Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + id);
             //fallback behavior: look for text
             removeView(view);
             setTextFromId(id);
