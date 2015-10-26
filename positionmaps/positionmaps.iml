@@ -102,8 +102,4 @@
     <orderEntry type="module" module-name="core" exported="" />
     <orderEntry type="module" module-name="position" exported="" />
   </component>
-  <component name="sonarModuleSettings">
-    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
-    <option name="serverName" value="&lt;PROJECT&gt;" />
-  </component>
 </module>

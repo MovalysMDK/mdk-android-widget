@@ -303,10 +303,10 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         if(view==null || !(view instanceof TextView)){
             initTextMode();
         }
-        try{
-            ((TextView)view).setText(getContext().getString(getResources().getIdentifier(textStr, "string", getContext().getPackageName())));
-        }catch(Resources.NotFoundException e){
-            Log.w(this.getClass().getSimpleName(), "String resource not found: " + textStr, e);
+        int textRes = getResources().getIdentifier(textStr, "string", getContext().getPackageName());
+        if (textRes != 0) {
+            ((TextView) view).setText(getContext().getString(textRes));
+        } else {
             //fallback behavior: displaying resource name
             ((TextView)view).setText(textStr);
         }
@@ -320,10 +320,10 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         if(view==null || !(view instanceof ImageView)) {
             initImageMode();
         }
-        try {
-            ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(getContext(), getResources().getIdentifier(drawableStr, "drawable", getContext().getPackageName())));
-        }catch(Resources.NotFoundException e){
-            Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + drawableStr, e);
+        int imgRes = getResources().getIdentifier(drawableStr, "drawable", getContext().getPackageName());
+        if (imgRes != 0) {
+            ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(getContext(), imgRes));
+        } else {
             //fallback behavior: look for text
             removeView(view);
             setTextFromString(drawableStr);
