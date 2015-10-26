@@ -124,7 +124,7 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
 
         //register as handler
         MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
-        helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(),this);
+        helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
     }
 
     @Override
@@ -164,12 +164,14 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
 
     @Override
     public void onMapClick(LatLng latLng) {
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        if(isEditable()) {
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
-        try {
-            ((Activity)getContext()).startActivityForResult(builder.build(this.getContext()), mdkWidgetDelegate.getUniqueId());
-        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-            Log.e(this.getClass().getSimpleName(), "Google Places Error", e);
+            try {
+                ((Activity) getContext()).startActivityForResult(builder.build(this.getContext()), mdkWidgetDelegate.getUniqueId());
+            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                Log.e(this.getClass().getSimpleName(), "Google Places Error", e);
+            }
         }
     }
 

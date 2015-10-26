@@ -41,6 +41,7 @@ public class SpinnerActivity extends AbstractWidgetTestableActivity {
         MDKRichSpinner spinner5 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_5);
         MDKRichSpinner spinner6 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_6);
         MDKRichSpinner spinner7 = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_7);
+        MDKRichSpinner spinnerNotEditable = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_not_editable);
         MDKSpinner iSpinner = (MDKSpinner) findViewById(R.id.MDKSpinner);
 
         //Creat adapter
@@ -61,6 +62,7 @@ public class SpinnerActivity extends AbstractWidgetTestableActivity {
         spinner5.setAdapterSpinnerDropDownBlankLayout(adapter, R.layout.custom_spinner_layout_1, R.layout.custom_spinner_layout_2);
         spinner6.setAdapterWithCustomBlankLayout(adapter, R.layout.custom_spinner_layout);
         spinner7.setAdapterSpinnerDropDownBlankLayout(adapter, R.layout.custom_spinner_layout_1, R.layout.custom_spinner_layout_2);
+        spinnerNotEditable.setAdapter(adapter);
         iSpinner.setAdapter(adapter);
 
     }
@@ -75,7 +77,8 @@ public class SpinnerActivity extends AbstractWidgetTestableActivity {
                 R.id.MDKRichSpinner_5,
                 R.id.MDKRichSpinner_6,
                 R.id.MDKRichSpinner_7,
-                R.id.MDKSpinner
+                R.id.MDKSpinner,
+                R.id.MDKRichSpinner_not_editable
         };
     }
 }

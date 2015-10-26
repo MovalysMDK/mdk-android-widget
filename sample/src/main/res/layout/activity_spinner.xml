@@ -206,6 +206,20 @@
             android:layout_margin="10dp"
             android:background="@drawable/separator_background" />
 
+        <!-- RICH Spinner NOT EDITABLE) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/spinner_not_editable" />
+
+        <com.soprasteria.movalysmdk.widget.spinner.MDKRichSpinner
+            android:id="@+id/MDKRichSpinner_not_editable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/app_name"
+            mdk:editable="false" />
+
     </LinearLayout>
 
 </ScrollView>

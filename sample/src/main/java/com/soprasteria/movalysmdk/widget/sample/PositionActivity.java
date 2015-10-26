@@ -34,6 +34,7 @@ public class PositionActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichPosition1_withSharedError,
                 R.id.mdkRichPosition2_withSharedError,
                 R.id.position_helper,
+                R.id.position_non_editable
         };
     }
 

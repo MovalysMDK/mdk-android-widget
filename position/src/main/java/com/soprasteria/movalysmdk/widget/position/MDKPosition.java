@@ -1,6 +1,7 @@
 package com.soprasteria.movalysmdk.widget.position;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.location.Address;
 import android.location.Geocoder;
@@ -13,6 +14,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,6 +36,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.CommandHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
@@ -173,10 +176,15 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         // initialize the location object
         position = new Position();
 
+
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(this.getLayoutResource(), this);
 
         initDelegates(attrs);
+
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
+        setEditable(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_editable, true));
+        typedArray.recycle();
     }
 
     /**
@@ -194,6 +202,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      */
     protected void initDelegates(AttributeSet attrs) {
         this.mdkWidgetDelegate = new MDKPositionWidgetDelegate(this, attrs);
+
     }
 
     @Override
@@ -633,8 +642,12 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 this.mdkWidgetDelegate.getMode() == GEOPOINT || (this.mdkWidgetDelegate.getMode() == ADDRESS && !this.hasAddresses()));
 
         /* address spinner setEnable */
-        setEnabledView(this.mdkWidgetDelegate.getAddressView(),
-                isEnabled() && this.mdkWidgetDelegate.getMode() == ADDRESS && this.hasAddresses() && !acquiringPosition);
+        if(isEditable()) {
+            setEnabledView(this.mdkWidgetDelegate.getAddressView(),
+                    isEnabled() && this.mdkWidgetDelegate.getMode() == ADDRESS && this.hasAddresses() && !acquiringPosition);
+        }else{
+            setEnabledView(this.mdkWidgetDelegate.getAddressView(), false);
+        }
         /* address spinner setVisible */
         setVisibleView(this.mdkWidgetDelegate.getAddressView(), this.mdkWidgetDelegate.getMode() == ADDRESS && this.hasAddresses());
 
@@ -645,13 +658,13 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         setVisibleView(this.mdkWidgetDelegate.getAddressInfoView(), this.mdkWidgetDelegate.getMode() == INFO);
 
         /* clear button setEnable */
-        setEnabledView(this.mdkWidgetDelegate.getClearButton(), isEnabled() && !acquiringPosition);
+        setEnabledView(this.mdkWidgetDelegate.getClearButton(), isEnabled() && isEditable() && !acquiringPosition);
 
         /* locate button setEnable */
         LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         boolean isProviderEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        setEnabledView(this.mdkWidgetDelegate.getLocateButton(), isEnabled() && !acquiringPosition && isProviderEnabled);
+        setEnabledView(this.mdkWidgetDelegate.getLocateButton(), isEnabled() && isEditable() && !acquiringPosition && isProviderEnabled);
         /* locate button setChecked */
         setCheckedView(this.mdkWidgetDelegate.getLocateButton(), isValid);
 
@@ -728,12 +741,22 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public void setEditable(boolean editable) {
-        //todo: not yet implemented
+        this.mdkWidgetDelegate.setEditable(editable);
+
+        if(editable) {
+            this.mdkWidgetDelegate.getLongitudeView().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+            this.mdkWidgetDelegate.getLatitudeView().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        }else{
+            this.mdkWidgetDelegate.getLongitudeView().setInputType(InputType.TYPE_NULL);
+            this.mdkWidgetDelegate.getLatitudeView().setInputType(InputType.TYPE_NULL);
+        }
+
+        updateComponentStatus();
     }
 
     @Override
     public boolean isEditable() {
-        return false;
+        return this.mdkWidgetDelegate.isEditable();
     }
 
     @Override

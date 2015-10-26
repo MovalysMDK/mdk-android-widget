@@ -32,6 +32,7 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichMapsPosition_addressesWithLabelAndError,
                 R.id.mdkRichMapsPosition_infoWithLabelAndError,
                 R.id.mdkMapsPosition_withErrorAndCommandOutside,
+                R.id.mdkMapsPosition_non_editable,
 //                R.id.mdkRichPosition_withoutLabel,
 //                R.id.mdkRichPosition_withCustomLayout,
 //                R.id.mdkRichPosition1_withSharedError,

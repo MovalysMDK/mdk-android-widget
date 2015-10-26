@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -19,6 +20,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
@@ -100,6 +102,9 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
     private final void init(AttributeSet attrs) {
         TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSpinnerComponent);
+
+
+        setEditable(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_editable, true));
 
         this.hasBlank = typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false);
         this.hint = typedArray.getString(R.styleable.MDKCommons_hint);
@@ -275,12 +280,12 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
 
     @Override
     public void setEditable(boolean editable) {
-        //todo: not yet implemented
+        this.mdkWidgetDelegate.setEditable(editable);
     }
 
     @Override
     public boolean isEditable() {
-        return false;
+        return this.mdkWidgetDelegate.isEditable();
     }
 
     @Override
@@ -350,6 +355,12 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return isEditable() && super.onTouchEvent(event);
     }
 
 }

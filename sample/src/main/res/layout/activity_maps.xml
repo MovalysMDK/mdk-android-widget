@@ -184,6 +184,28 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+
+
+        <!-- RICH POSITION MAPS NON EDITABLE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/position_non_editable"
+            android:id="@+id/textView3" />
+
+        <com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition
+            android:id="@+id/mdkMapsPosition_non_editable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/testHintText"
+            mdk:zoom="19"
+            mdk:gpsMarker="@drawable/ic_position"
+            mdk:addressMarker="@drawable/ic_place"
+            mdk:positionMode="geopoint"
+            mdk:usePicker="true"
+            mdk:editable="false"/>
+
         <!-- RICH POSITION WITHOUT LABEL -->
 
         <!--<TextView-->

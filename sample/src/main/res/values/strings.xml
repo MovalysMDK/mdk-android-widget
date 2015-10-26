@@ -234,5 +234,7 @@
     <string name="date_non_editable">Non editable rich date time</string>
     <string name="seekbar_non_editable">Non editable seekbar</string>
     <string name="checkbox_non_editable">Non editable checkbox</string>
+    <string name="position_non_editable">Non editable rich position widget</string>
+    <string name="spinner_not_editable">Non editable rich spinner</string>
 
 </resources>
