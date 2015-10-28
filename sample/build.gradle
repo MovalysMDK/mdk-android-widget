@@ -61,8 +61,8 @@ dependencies {
     compile supportDependencies.support
     compile supportDependencies.appCompat
     compile supportDependencies.recyclerView
-    compile 'com.google.android.gms:play-services-location:7.8.0'
-    compile 'com.google.android.gms:play-services-maps:7.8.0'
+    compile googleApis.mapsServices
+    compile googleApis.locationServices
     //to run test: ./gradlew connectedAndroidTest
     androidTestCompile supportDependencies.supportAnnotations
     androidTestCompile testDependencies.espressoCore

@@ -42,8 +42,8 @@ dependencies {
     compile project(':position')
     compile supportDependencies.support
     compile supportDependencies.appCompat
-    compile supportDependencies.mapsServices
-    compile supportDependencies.locationServices
+    compile googleApis.mapsServices
+    compile googleApis.locationServices
 }
 
 sonarRunner {

@@ -20,8 +20,13 @@ ext {
             appCompat:                  "com.android.support:appcompat-v7:${supportLibrary}",
             supportAnnotations:         "com.android.support:support-annotations:${supportLibrary}",
             //,googlePlayServices:         "com.google.android.gms:play-services:${playServices}"
-            mapsServices:               "com.google.android.gms:play-services-location:${playServices}",
-            locationServices:           "com.google.android.gms:play-services-maps:${playServices}"
+            // mapsServices:               "com.google.android.gms:play-services-location:${playServices}",
+            //locationServices:           "com.google.android.gms:play-services-maps:${playServices}"
+    ]
+
+    googleApis = [
+            locationServices: "com.google.android.gms:play-services-location:${playServices}",
+            mapsServices: "com.google.android.gms:play-services-maps:${playServices}"
     ]
 
     testDependencies = [
