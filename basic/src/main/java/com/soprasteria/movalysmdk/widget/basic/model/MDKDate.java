@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -56,10 +56,10 @@ public class MDKDate {
     public static final int TIME_NULL = 3;
 
     /** Current user's date displayed. */
-    private Calendar dateDisplayed ;
+    private Calendar dateDisplayed;
 
     /** Current user's time displayed. */
-    private Calendar timeDisplayed ;
+    private Calendar timeDisplayed;
 
     /**
      * Setter.
@@ -104,14 +104,14 @@ public class MDKDate {
      * Get the current user's date and time selected.
      * @return date according user's fields
      */
-    public Date getDate(){
+    public Date getDate() {
 
-        Date dateToReturn = null ;
-        if ( this.dateDisplayed != null || this.timeDisplayed != null ) {
+        Date dateToReturn = null;
+        if (this.dateDisplayed != null || this.timeDisplayed != null) {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(0);
 
-            if ( this.dateDisplayed != null ) {
+            if (this.dateDisplayed != null) {
                 cal.set(Calendar.YEAR, dateDisplayed.get(Calendar.YEAR));
                 cal.set(Calendar.MONTH, dateDisplayed.get(Calendar.MONTH));
                 cal.set(Calendar.DAY_OF_MONTH, dateDisplayed.get(Calendar.DAY_OF_MONTH));
@@ -121,7 +121,7 @@ public class MDKDate {
                 cal.set(Calendar.DAY_OF_MONTH, 0);
             }
 
-            if ( this.timeDisplayed != null ) {
+            if (this.timeDisplayed != null) {
                 cal.set(Calendar.HOUR_OF_DAY, timeDisplayed.get(Calendar.HOUR_OF_DAY));
                 cal.set(Calendar.MINUTE, timeDisplayed.get(Calendar.MINUTE));
             } else {
@@ -131,7 +131,7 @@ public class MDKDate {
 
             dateToReturn = cal.getTime();
         }
-        return dateToReturn ;
+        return dateToReturn;
     }
 
     /**
@@ -147,22 +147,31 @@ public class MDKDate {
      * Get the component state.
      * @return state of the date and time components
      */
-    public int getDateState(){
+    public int getDateState() {
 
-        if (this.dateDisplayed == null && this.timeDisplayed == null){
+        if (this.dateDisplayed == null && this.timeDisplayed == null) {
             return this.DATE_TIME_NULL;
         }
 
-        if (this.dateDisplayed == null){
+        if (this.dateDisplayed == null) {
             return this.DATE_NULL;
         }
 
-        if (this.timeDisplayed == null){
+        if (this.timeDisplayed == null) {
             return this.TIME_NULL;
         }
 
         return DATE_TIME_NOT_NULL;
     }
+
+    /**
+     * Set to null the dateDisplayed and the timeDisplayed.
+     */
+    public void clearDateState() {
+        this.dateDisplayed = null;
+        this.timeDisplayed = null;
+    }
+
 
     /**
      * Check if the MDKDate is before.

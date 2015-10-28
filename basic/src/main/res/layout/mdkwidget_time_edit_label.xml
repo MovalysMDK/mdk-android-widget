@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -18,20 +17,56 @@
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mdk="http://schemas.android.com/apk/res-auto"
+    style="?attr/mdkRichLayoutStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:addStatesFromChildren="true"
-    style="?attr/mdkRichLayoutStyle">
+    android:addStatesFromChildren="true">
 
-    <include layout="@layout/mdkwidget_label_error_layout" />
-
-    <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
-        android:id="@id/component_internal"
-        android:layout_below="@id/component_label"
+    <TextView
+        android:id="@id/component_label"
+        style="?attr/mdkLabelStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"
-        mdk:mode="time"
-        style="?attr/mdkValueDateStyle"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/groupDateClear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/component_label"
+        android:orientation="horizontal">
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
+            android:id="@id/component_internal"
+            style="?attr/mdkValueDateStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/component_internal_clear"
+            mdk:clearButtonViewId="@+id/component_internal_clear"
+            mdk:errorId="@id/component_error"
+            mdk:labelId="@id/component_label"
+            mdk:mode="time" />
+
+        <ImageButton
+            android:id="@+id/component_internal_clear"
+            style="?attr/mdkCommandButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/clear_action_button" />
+    </RelativeLayout>
+
+    <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+        android:id="@id/component_error"
+        style="?attr/mdkErrorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/groupDateClear" />
 </merge>

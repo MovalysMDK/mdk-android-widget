@@ -140,7 +140,7 @@ public class MDKPositionWidgetDelegate extends MDKWidgetDelegate {
         locateButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_locateButtonViewId, 0);
         mapsButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_mapsButtonViewId, 0);
         navButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_navButtonViewId, 0);
-        clearButtonId = typedArray.getResourceId(R.styleable.MDKCommons_MDKPositionComponent_clearButtonViewId, 0);
+        clearButtonId = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons).getResourceId(R.styleable.MDKCommons_clearButtonViewId, 0);
 
         this.timeout = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_timeout, 10);
 

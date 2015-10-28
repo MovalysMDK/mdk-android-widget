@@ -10,7 +10,6 @@
         <attr name="locateButtonViewId" format="reference" />
         <attr name="mapsButtonViewId" format="reference" />
         <attr name="navButtonViewId" format="reference" />
-        <attr name="clearButtonViewId" format="reference" />
 
         <attr name="locateButtonAnimationId" format="reference"/>
 

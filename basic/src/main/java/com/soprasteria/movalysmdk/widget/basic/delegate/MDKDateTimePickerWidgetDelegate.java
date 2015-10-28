@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -55,7 +55,9 @@ import java.util.Date;
  */
 public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implements MDKBaseWidget, View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    /** empty string comparator. */
+    /**
+     * empty string comparator.
+     */
     public static final String EMPTY_STRING = "";
 
     /**
@@ -63,52 +65,92 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     private MDKChangeListenerDelegate mdkListenerDelegate;
 
-    /** MDKDateTime active mode enumeration. */
+    /**
+     * MDKDateTime active mode enumeration.
+     */
     @IntDef({DATE_PICKER, TIME_PICKER, DATE_TIME_PICKER})
     @Retention(RetentionPolicy.SOURCE)
     public @interface DateTimeMode {
     }
 
-    /** DATE_PICKER. */
+    /**
+     * DATE_PICKER.
+     */
     public static final int DATE_PICKER = 0;
-    /** TIME_PICKER. */
+    /**
+     * TIME_PICKER.
+     */
     public static final int TIME_PICKER = 1;
-    /** DATE_TIME_PICKER. */
+    /**
+     * DATE_TIME_PICKER.
+     */
     public static final int DATE_TIME_PICKER = 2;
 
-    /** Mode in which the widget is. */
+    /**
+     * Mode in which the widget is.
+     */
     private int dateTimePickerMode;
-    /** ID of the date TextView. */
+    /**
+     * ID of the date TextView.
+     */
     private int dateViewId;
-    /** ID of the time TextView. */
+    /**
+     * ID of the time TextView.
+     */
     private int timeViewId;
 
-    /** Date hint.*/
+    /**
+     * Date hint.
+     */
     private String dateHint;
-    /** Time hint.*/
+    /**
+     * Time hint.
+     */
     private String timeHint;
-    /** Cached reference of the date view. */
+    /**
+     * Cached reference of the date view.
+     */
     private WeakReference<View> cachedDateView;
-    /** Cached reference of the time view. */
+    /**
+     * Cached reference of the time view.
+     */
     private WeakReference<View> cachedTimeView;
 
 
-    /** Formatter used to display the date. */
+    /**
+     * Formatter used to display the date.
+     */
     private DateFormat dateFormatter;
-    /** Formatter used to display the time. */
+    /**
+     * Formatter used to display the time.
+     */
     private DateFormat timeFormatter;
-    /** If true, the time input is in 24H format. */
+    /**
+     * If true, the time input is in 24H format.
+     */
     private boolean is24HourFormat;
 
-    /** True if the component is enabled. */
+    /**
+     * True if the component is enabled.
+     */
     private boolean enabled = true;
 
-    /** Handle processing on min date and time. */
+    /**
+     * Handle processing on min date and time.
+     */
     private MDKDate minMDKDate = new MDKDate();
-    /** Handle processing on max date and time. */
+    /**
+     * Handle processing on max date and time.
+     */
     private MDKDate maxMDKDate = new MDKDate();
-    /** Handle processing on date and time. */
+    /**
+     * Handle processing on date and time.
+     */
     private final MDKDate mdkDate = new MDKDate();
+    /**
+     * clear button identifier.
+     */
+    private int clearButtonId;
 
     /**
      * Enum for extraction (time or date).
@@ -118,15 +160,20 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     @interface EnumKindOfExtraction {
     }
 
-    /** Indicates that the widget will be displaying a date. */
+    /**
+     * Indicates that the widget will be displaying a date.
+     */
     public static final int DATE_EXTRACTION = 1;
 
-    /** Indicates that the widget will be displaying a time. */
+    /**
+     * Indicates that the widget will be displaying a time.
+     */
     public static final int TIME_EXTRACTION = 2;
 
     /**
      * Constructor.
-     * @param view the view
+     *
+     * @param view  the view
      * @param attrs attributes
      */
     public MDKDateTimePickerWidgetDelegate(View view, AttributeSet attrs) {
@@ -154,6 +201,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         }
         String minString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_min);
         String maxString = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_max);
+
+        clearButtonId = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons).getResourceId(R.styleable.MDKCommons_clearButtonViewId, 0);
 
         typedArray.recycle();
 
@@ -183,7 +232,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Sets the processing mode of the view based on the given attributes.
-     * @param view the view being processed
+     *
+     * @param view     the view being processed
      * @param modeAttr the mode set in the layout attributes
      */
     private void setMode(View view, int modeAttr) {
@@ -231,8 +281,9 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Extract date or time format from pattern.
-     * @param pattern the pattern.
-     * @param context the android context.
+     *
+     * @param pattern        the pattern.
+     * @param context        the android context.
      * @param extractionType the kind of extraction (EnumKindOfExtraction)
      * @return formattedDate the extracted date/time;
      */
@@ -277,7 +328,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         if (timeViewId != 0) {
             // Update time value
             if (this.mdkDate.getDateState() == MDKDate.DATE_TIME_NOT_NULL ||
-                    this.mdkDate.getDateState() == MDKDate.DATE_NULL)  {
+                    this.mdkDate.getDateState() == MDKDate.DATE_NULL) {
                 getTimeTextView().setText(this.timeFormatter.format(this.mdkDate.getDate()));
             } else {
                 getTimeTextView().setText(timeHint);
@@ -287,6 +338,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Register a ChangeListener in delegate.
+     *
      * @param listener the ChangeListener to register
      */
     public void registerChangeListener(ChangeListener listener) {
@@ -295,6 +347,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Unregisters a ChangeListener in delegate.
+     *
      * @param listener the ChangeListener to unregister
      */
     public void unregisterChangeListener(ChangeListener listener) {
@@ -323,6 +376,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Handles the click on the date view or the time view in order to show the right dialog.
+     *
      * @param view the view
      */
     @Override
@@ -366,10 +420,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Callback in order to retrieve the selected date from the dialog.
-     * @param view the view
-     * @param year the new year
+     *
+     * @param view        the view
+     * @param year        the new year
      * @param monthOfYear the new month
-     * @param dayOfMonth th new day
+     * @param dayOfMonth  th new day
      */
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -380,7 +435,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         this.mdkDate.setDate(calendar.getTime());
 
-        if(view.isShown()) {
+        if (view.isShown()) {
             updateShownDateTime();
             this.mdkListenerDelegate.notifyListeners();
         }
@@ -388,9 +443,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Callback in order to retrieve the selected time from the dialog.
-     * @param view the view
+     *
+     * @param view      the view
      * @param hourOfDay the new hour
-     * @param minute the new minute
+     * @param minute    the new minute
      */
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -400,7 +456,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         calendar.set(Calendar.MINUTE, minute);
         this.mdkDate.setTime(calendar.getTime());
 
-        if(view.isShown()) {
+        if (view.isShown()) {
             updateShownDateTime();
             this.mdkListenerDelegate.notifyListeners();
         }
@@ -408,6 +464,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Returns the date TextView, if it exists.
+     *
      * @return foundDateView th found date TextView
      */
     private TextView getDateTextView() {
@@ -426,11 +483,12 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             }
         }
 
-        return (TextView)foundDateView;
+        return (TextView) foundDateView;
     }
 
     /**
      * Returns the time TextView, if it exists.
+     *
      * @return foundTimeView the found time TextView if exists
      */
     private TextView getTimeTextView() {
@@ -449,11 +507,12 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             }
         }
 
-        return (TextView)foundTimeView;
+        return (TextView) foundTimeView;
     }
 
     /**
      * Sets the Date displayed by the widget.
+     *
      * @param date the new date
      */
     public void setDisplayedDate(Date date) {
@@ -465,6 +524,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Return the displayed date and time of the widget.
+     *
      * @return Date object according picking mode
      */
     public Date getDisplayedDate() {
@@ -474,6 +534,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Sets the Time displayed by the widget.
+     *
      * @param time the new time
      */
     public void setDisplayedTime(Date time) {
@@ -486,6 +547,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Returns the mode in which the widget is.
+     *
      * @return dateTimePickerMode the dateTimePickerMode
      */
     @DateTimeMode
@@ -495,6 +557,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * True if the widget is enabled.
+     *
      * @return enabled enabled
      */
     public boolean isEnabled() {
@@ -503,10 +566,14 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Sets the enabled flag.
+     *
      * @param enabled the new flag
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+
+        /* clear button setEnable */
+        setEnabledView(this.getClearButton(), enabled);
 
         // Propagates the enabled flag to the slave view, if any.
         // Note: Only propagate to slave view, calling setEnabled on master view will result in
@@ -525,6 +592,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Get min date (in Date format).
+     *
      * @return Date the min date
      */
     public Date getMin() {
@@ -533,6 +601,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Set the min date.
+     *
      * @param minDate the new min date
      */
     public void setMin(Date minDate) {
@@ -541,6 +610,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Get max date (in Date format).
+     *
      * @return Date th max date
      */
     public Date getMax() {
@@ -549,6 +619,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Set the max date.
+     *
      * @param maxDate the new max date
      */
     public void setMax(Date maxDate) {
@@ -557,6 +628,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Setter date hint.
+     *
      * @param dateHint the new date hint
      */
     public void setDateHint(String dateHint) {
@@ -565,6 +637,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Setter time hint.
+     *
      * @param timeHint the new time hint
      */
     public void setTimeHint(String timeHint) {
@@ -580,6 +653,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         // Save the mdkDate
         Bundle bundle = new Bundle();
         bundle.putParcelable("state", state);
+        bundle.putInt("dateState", this.mdkDate.getDateState());
         bundle.putSerializable("date", this.mdkDate.getDate());
         bundle.putString("dateHint", this.dateHint);
         bundle.putString("timeHint", this.timeHint);
@@ -596,8 +670,13 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         final Date date = (Date) bundle.getSerializable("date");
 
         if (date != null) {
-            this.mdkDate.setDate(date);
-            this.mdkDate.setTime(date);
+            int dateTimeState = bundle.getInt("dateState");
+            if (dateTimeState == 0 || dateTimeState == 3) {
+                this.mdkDate.setDate(date);
+            }
+            if (dateTimeState == 0 || dateTimeState == 2) {
+                this.mdkDate.setTime(date);
+            }
         }
 
         String hint = bundle.getString("dateHint");
@@ -615,6 +694,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Returns the hints of the widget as an array.
+     *
      * @return the hints as an array
      */
     public CharSequence[] getHints() {
@@ -628,6 +708,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Sets the hints of the widget.
+     *
      * @param hints the array of hints to set
      */
     public void setHints(CharSequence[] hints) {
@@ -653,6 +734,47 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         }
 
         updateShownDateTime();
+    }
+
+    /**
+     * Returns the identifier of the clear button.
+     *
+     * @return the identifier of the clear button
+     */
+    public int getClearButtonId() {
+        return this.clearButtonId;
+    }
+
+    /**
+     * Returns the clear button.
+     *
+     * @return the clear button
+     */
+    public View getClearButton() {
+        if (this.clearButtonId != 0) {
+            return reverseFindViewById(this.clearButtonId);
+        }
+        return null;
+    }
+
+    /**
+     * Sets the Date to null.
+     */
+    public void clearDate() {
+        this.mdkDate.clearDateState();
+        updateShownDateTime();
+    }
+
+    /**
+     * set the enable status on a view.
+     *
+     * @param view      the view to set
+     * @param isEnabled true if the view should be enabled
+     */
+    private void setEnabledView(View view, boolean isEnabled) {
+        if (view != null) {
+            view.setEnabled(isEnabled);
+        }
     }
 
 }

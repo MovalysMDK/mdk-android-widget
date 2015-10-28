@@ -70,6 +70,7 @@
         <attr name="minLength" format="integer" />
         <attr name="maxLength" format="integer" />
         <attr name="formatter" format="reference" />
+        <attr name="clearButtonViewId" format="reference" />
         <attr name="editable" format="boolean"/>
     </declare-styleable>
 

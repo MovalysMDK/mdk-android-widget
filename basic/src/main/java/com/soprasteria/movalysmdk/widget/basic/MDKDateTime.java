@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKDateTimePickerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
@@ -40,31 +41,34 @@ import java.util.Date;
  * Base widget able to render a date picker, or a time picker.
  * <p>This widget has several use possibilities :</p>
  * <ul>
- *     <li>used alone : by default, it will represent a date picker. by using the "mode" attribute, you can specify wether you want a date, or a time picker.</li>
- *     <li>used with the addition of an other TextView : in this case, the current component acts as the master component,
- *          and the TextView as the slave component. You can link the TextView to the MDKDateTime by setting on the MDKDateTime
- *          one of the following attributes :
- *          <ul>
- *              <li>dateTextViewId : the MDKDateTime will act as a time picker, and the TextView referenced in dateTextViewId will act as a date picker</li>
- *              <li>timeTextViewId : the MDKDateTime will act as a date picker, and the TextView referenced in dateTextViewId will act as a time picker</li>
- *          </ul>
- *     </li>
+ * <li>used alone : by default, it will represent a date picker. by using the "mode" attribute, you can specify wether you want a date, or a time picker.</li>
+ * <li>used with the addition of an other TextView : in this case, the current component acts as the master component,
+ * and the TextView as the slave component. You can link the TextView to the MDKDateTime by setting on the MDKDateTime
+ * one of the following attributes :
+ * <ul>
+ * <li>dateTextViewId : the MDKDateTime will act as a time picker, and the TextView referenced in dateTextViewId will act as a date picker</li>
+ * <li>timeTextViewId : the MDKDateTime will act as a date picker, and the TextView referenced in dateTextViewId will act as a time picker</li>
+ * </ul>
+ * </li>
  * </ul>
  * <p>Other optional attributes :</p>
  * <ul>
- *     <li>dateFormat : specify a custom format that will be used to display the date. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
- *     <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
+ * <li>dateFormat : specify a custom format that will be used to display the date. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
+ * <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener, HasHints {
+public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener, HasHints, View.OnClickListener {
 
-    /** Widget delegate that handles all the widget logic. */
+    /**
+     * Widget delegate that handles all the widget logic.
+     */
     protected MDKDateTimePickerWidgetDelegate mdkWidgetDelegate;
 
     /**
      * Constructor.
+     *
      * @param context the context
-     * @param attrs attributes
+     * @param attrs   attributes
      */
     public MDKDateTime(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,8 +79,9 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Constructor.
-     * @param context the context
-     * @param attrs attributes
+     *
+     * @param context      the context
+     * @param attrs        attributes
      * @param defStyleAttr the style
      */
     public MDKDateTime(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -88,8 +93,9 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Instanciates the widget delegate.
+     *
      * @param context the context
-     * @param attrs attributes
+     * @param attrs   attributes
      */
     private final void init(Context context, AttributeSet attrs) {
 
@@ -99,11 +105,12 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     @Override
     public int[] getValidators() {
-        return new int[] {R.string.mdkvalidator_datetime_class, R.string.mdkvalidator_datetimerange_class};
+        return new int[]{R.string.mdkvalidator_datetime_class, R.string.mdkvalidator_datetimerange_class};
     }
 
     /**
      * Returns the widget date and time according the chosen picking mode.
+     *
      * @return date the current date
      */
     @Override
@@ -113,6 +120,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Sets the displayed date.
+     *
      * @param date the new date
      */
     @Override
@@ -133,6 +141,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Sets the displayed time.
+     *
      * @param time the new time
      */
     public void setTime(Date time) {
@@ -141,6 +150,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Get max date (in Date format).
+     *
      * @return Date the max date
      */
     public Date getMax() {
@@ -149,6 +159,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Set the max date.
+     *
      * @param maxDate the new max date
      */
     public void setMax(Date maxDate) {
@@ -157,6 +168,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Get min date (in Date format).
+     *
      * @return Date the min date
      */
     public Date getMin() {
@@ -165,6 +177,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * Set the new min date (in Date format).
+     *
      * @param minDate the new min date
      */
     public void setMin(Date minDate) {
@@ -173,7 +186,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     /**
      * {@inheritDoc}
-     *
+     * <p/>
      * Overridden in order to add post initialisation.
      */
     @Override
@@ -181,6 +194,10 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
         super.onAttachedToWindow();
         if (!isInEditMode()) {
             this.mdkWidgetDelegate.onAttachedToWindow();
+            final View clearButton = this.mdkWidgetDelegate.getClearButton();
+            if (clearButton != null) {
+                clearButton.setOnClickListener(this);
+            }
         }
     }
 
@@ -238,6 +255,15 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     @Override
     public void setEditable(boolean editable) {
         this.mdkWidgetDelegate.setEditable(editable);
+
+        final View clearButton = this.mdkWidgetDelegate.getClearButton();
+        if (clearButton != null) {
+            if (editable) {
+                clearButton.setVisibility(View.VISIBLE);
+            } else {
+                clearButton.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -332,4 +358,22 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     public void setHints(CharSequence[] hints) {
         this.mdkWidgetDelegate.setHints(hints);
     }
+
+
+    /**
+     * Called when the view is attached to a window.
+     */
+    @Override
+    public void onClick(View v) {
+        int error = 0;
+
+        if (v.getId() == this.mdkWidgetDelegate.getClearButtonId()) {
+            this.mdkWidgetDelegate.clearDate();
+        }
+
+        if (error != 0) {
+            this.mdkWidgetDelegate.setError(getResources().getString(error));
+        }
+    }
+
 }
