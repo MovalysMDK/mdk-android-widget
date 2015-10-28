@@ -189,7 +189,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         }
 
         if (this.getMDKWidgetDelegate() != null ) {
-            validate(EnumFormFieldValidator.ON_USER);
+            this.validate();
         }
     }
 
@@ -300,9 +300,6 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
             this.mdkListenerDelegate.notifyListeners();
         }
 
-        if (this.getMDKWidgetDelegate() != null && !isInEditMode() ) {
-            this.validate(EnumFormFieldValidator.ON_USER);
-        }
     }
 
     @Override
@@ -399,6 +396,10 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         }
 
         this.setSeekBarValue(Math.round(valFloat));
+
+        if (this.getMDKWidgetDelegate() != null && !isInEditMode() ) {
+            this.validate(EnumFormFieldValidator.ON_USER);
+        }
 
         //updating edittext value
         setAttachedEditTextValue(seekBarValue);
