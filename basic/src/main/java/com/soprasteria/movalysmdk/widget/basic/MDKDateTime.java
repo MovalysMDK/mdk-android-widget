@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- * <p/>
+ *
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -194,10 +194,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
         super.onAttachedToWindow();
         if (!isInEditMode()) {
             this.mdkWidgetDelegate.onAttachedToWindow();
-            final View clearButton = this.mdkWidgetDelegate.getClearButton();
-            if (clearButton != null) {
-                clearButton.setOnClickListener(this);
-            }
         }
     }
 
@@ -308,7 +304,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
 
     @Override
     public Object getValueToValidate() {
-        return getDate();
+        return this.mdkWidgetDelegate.getValueToValidate();
     }
 
     @Override
@@ -366,11 +362,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     @Override
     public void onClick(View v) {
         int error = 0;
-
-        if (v.getId() == this.mdkWidgetDelegate.getClearButtonId()) {
-            this.mdkWidgetDelegate.clearDate();
-        }
-
         if (error != 0) {
             this.mdkWidgetDelegate.setError(getResources().getString(error));
         }

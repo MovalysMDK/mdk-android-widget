@@ -191,7 +191,7 @@
     <string name="test_app_name">MDK Android widget</string>
     <string name="test_empty_string" translatable="false">""</string>
     <string name="test_fortyTwoTextFormater_prefix" translatable="false">"42 /!\\ "</string>
-    <string name="test_date_error_ranged" translatable="false">" (2015/01/01 10:30:00 &lt; 2015/05/12 11:52:33)\\n"</string>
+    <string name="test_date_error_ranged" translatable="false">" (2015/01/01 00:00:00 &lt; 2015/05/12 11:52:33)\\n"</string>
     <string name="test_mdkvalidator_email_error_invalid">Invalid email value</string>
     <string name="test_uri_helper_text">uri format text</string>
     <string name="test_testHintText">Test hint</string>

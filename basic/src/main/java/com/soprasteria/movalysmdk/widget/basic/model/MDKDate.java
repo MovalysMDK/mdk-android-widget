@@ -29,12 +29,11 @@ import java.util.Date;
  * Class container to manage MDKDateTime information.
  * <p>It can provides the user's widget Date but also informs on several states according date and time values settings:</p>
  * <ul>
- *      <li>1: The date and time have been both set.</li>
- *      <li>2: The date and time are both not set./li>
- *      <li>3: The date is not set.</li>
- *      <li>4: The time is not set.</li>
+ * <li>1: The date and time have been both set.</li>
+ * <li>2: The date and time are both not set./li>
+ * <li>3: The date is not set.</li>
+ * <li>4: The time is not set.</li>
  * </ul>
- *
  */
 public class MDKDate {
 
@@ -43,26 +42,39 @@ public class MDKDate {
      */
     public static final String LOG_TAG = "MDKDate";
 
-    /** The date and time are not null. */
+    /**
+     * The date and time are not null.
+     */
     public static final int DATE_TIME_NOT_NULL = 0;
 
-    /** The date and time are null. */
+    /**
+     * The date and time are null.
+     */
     public static final int DATE_TIME_NULL = 1;
 
-    /** The date is null. */
+    /**
+     * The date is null.
+     */
     public static final int DATE_NULL = 2;
 
-    /** The time is null. */
+    /**
+     * The time is null.
+     */
     public static final int TIME_NULL = 3;
 
-    /** Current user's date displayed. */
+    /**
+     * Current user's date displayed.
+     */
     private Calendar dateDisplayed;
 
-    /** Current user's time displayed. */
+    /**
+     * Current user's time displayed.
+     */
     private Calendar timeDisplayed;
 
     /**
      * Setter.
+     *
      * @param stringDate the date in string format
      * @param dateFormat the format pattern
      */
@@ -101,10 +113,11 @@ public class MDKDate {
     }
 
     /**
-     * Get the current user's date and time selected.
+     * Get the current user's date or time selected.
+     *
      * @return date according user's fields
      */
-    public Date getDate() {
+    public Date getDateOrTime() {
 
         Date dateToReturn = null;
         if (this.dateDisplayed != null || this.timeDisplayed != null) {
@@ -135,8 +148,52 @@ public class MDKDate {
     }
 
     /**
+     * Get the current user's date and time selected.
+     *
+     * @return date according user's fields
+     */
+    public Date getDateTime() {
+
+        if (this.dateDisplayed != null && this.timeDisplayed != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, dateDisplayed.get(Calendar.YEAR));
+            cal.set(Calendar.MONTH, dateDisplayed.get(Calendar.MONTH));
+            cal.set(Calendar.DAY_OF_MONTH, dateDisplayed.get(Calendar.DAY_OF_MONTH));
+            cal.set(Calendar.HOUR_OF_DAY, timeDisplayed.get(Calendar.HOUR_OF_DAY));
+            cal.set(Calendar.MINUTE, timeDisplayed.get(Calendar.MINUTE));
+            return cal.getTime();
+        }
+        return null;
+    }
+
+    /**
+     * Get the current user's time selected.
+     *
+     * @return date according user's fields
+     */
+    public Date getTime() {
+        if (this.timeDisplayed != null) {
+            return timeDisplayed.getTime();
+        }
+        return null;
+    }
+
+    /**
+     * Get the current user's date selected.
+     *
+     * @return date according user's fields
+     */
+    public Date getDate() {
+        if (this.dateDisplayed != null) {
+            return dateDisplayed.getTime();
+        }
+        return null;
+    }
+
+    /**
      * Define the list of possible MDKDate states.
      */
+
     @IntDef({DATE_TIME_NOT_NULL, DATE_TIME_NULL, DATE_NULL, TIME_NULL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface DateState {
@@ -145,6 +202,7 @@ public class MDKDate {
 
     /**
      * Get the component state.
+     *
      * @return state of the date and time components
      */
     public int getDateState() {
@@ -175,19 +233,21 @@ public class MDKDate {
 
     /**
      * Check if the MDKDate is before.
+     *
      * @param dateToCompare the date to compare
      * @return true if the date is before other else
      */
     public boolean beforeDate(MDKDate dateToCompare) {
-        return this.getDate().before(dateToCompare.getDate());
+        return this.getDateOrTime().before(dateToCompare.getDateOrTime());
     }
 
     /**
      * Check if the MDKDate is after.
+     *
      * @param dateToCompare the date to compare
      * @return true if the date is after other else
      */
     public boolean afterDate(MDKDate dateToCompare) {
-        return this.getDate().after(dateToCompare.getDate());
+        return this.getDateOrTime().after(dateToCompare.getDateOrTime());
     }
 }
