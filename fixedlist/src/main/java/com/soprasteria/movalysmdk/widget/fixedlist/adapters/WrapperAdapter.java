@@ -144,6 +144,11 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
         }
     }
 
+    public void destroy() {
+        this.removeListener.clear();
+        this.itemClickListeners.clear();
+    }
+
     /**
      * Sets the enabled status of the widget on the adapter.
      * @param isEnabled true to enable the wrapper

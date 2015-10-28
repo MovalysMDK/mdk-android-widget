@@ -7,16 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
-import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.fixedlist.adapters.WrapperViewHolder;
 
 /**
  * Rich widget representing a fixed list component, conforming to the Material Design guidelines,
  * and including by default the error component.
  */
-public class MDKRichFixedList extends MDKBaseRichWidget<MDKFixedList> implements HasChangeListener {
+public class MDKRichFixedList extends MDKBaseRichWidget<MDKFixedList> {
 
     /**
      * Constructor.
@@ -106,16 +104,6 @@ public class MDKRichFixedList extends MDKBaseRichWidget<MDKFixedList> implements
      */
     public void addItemClickListener(FixedListItemClickListener listener) {
         this.innerWidget.addItemClickListener(listener);
-    }
-
-    @Override
-    public void registerChangeListener(ChangeListener listener) {
-        this.innerWidget.registerChangeListener(listener);
-    }
-
-    @Override
-    public void unregisterChangeListener(ChangeListener listener) {
-        this.innerWidget.unregisterChangeListener(listener);
     }
 
     /**

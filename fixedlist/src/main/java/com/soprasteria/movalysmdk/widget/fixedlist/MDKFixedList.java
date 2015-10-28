@@ -14,13 +14,10 @@ import android.view.View;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
-import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
-import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.fixedlist.adapters.WrapperAdapter;
@@ -74,7 +71,7 @@ import java.util.List;
  *
  * Also please note that the standard Android layout managers implementations do not allow to wrap the widget, so you may have to adapt your layouts.
  */
-public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasLabel, HasValidator, HasDelegate, HasChangeListener, FixedListRemoveListener, IsNullable {
+public class MDKFixedList extends RecyclerView implements View.OnClickListener, MDKWidget, HasLabel, HasValidator, HasDelegate, FixedListRemoveListener, IsNullable {
 
     /** Reference widget id tag in Broadcast. */
     private static final String REFERENCE_WIDGET = "referenceWidget";
@@ -90,9 +87,6 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     /** The MDKWidgetDelegate handling the component logic. */
     private MDKFixedListWidgetDelegate mdkWidgetDelegate;
-
-    /** notify change listeners. */
-    private MDKChangeListenerDelegate mdkChangeListener;
 
     /** add element listener. */
     private List<FixedListAddListener> addListeners;
@@ -181,6 +175,8 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
     protected void onDetachedFromWindow() {
         if (!isInEditMode()) {
             LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(actionReceiver);
+            this.addListeners.clear();
+            ((WrapperAdapter)super.getAdapter()).destroy();
         }
         super.onDetachedFromWindow();
     }
@@ -202,7 +198,6 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
      */
     private void init(Context context, AttributeSet attrs) {
         this.mdkWidgetDelegate = new MDKFixedListWidgetDelegate(this, attrs);
-        this.mdkChangeListener = new MDKChangeListenerDelegate();
         this.addListeners = new ArrayList<>();
     }
 
@@ -367,16 +362,6 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
         } else {
             return null;
         }
-    }
-
-    @Override
-    public void registerChangeListener(ChangeListener listener) {
-        this.mdkChangeListener.registerChangeListener(listener);
-    }
-
-    @Override
-    public void unregisterChangeListener(ChangeListener listener) {
-        this.mdkChangeListener.unregisterChangeListener(listener);
     }
 
     @Override
