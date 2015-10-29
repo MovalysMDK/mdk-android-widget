@@ -103,15 +103,14 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
         TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSpinnerComponent);
 
-
-        setEditable(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_editable, true));
-
         this.hasBlank = typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false);
         this.hint = typedArray.getString(R.styleable.MDKCommons_hint);
 
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
         this.setValueToValidate(0);
         super.setOnItemSelectedListener(this);
+
+        setEditable(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_editable, true));
 
         typedArray.recycle();
         typedArrayComponent.recycle();
