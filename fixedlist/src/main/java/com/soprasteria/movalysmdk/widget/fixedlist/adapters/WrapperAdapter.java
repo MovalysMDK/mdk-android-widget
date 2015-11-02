@@ -144,6 +144,9 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
         }
     }
 
+    /**
+     * Called on destroy.
+     */
     public void destroy() {
         this.removeListener.clear();
         this.itemClickListeners.clear();

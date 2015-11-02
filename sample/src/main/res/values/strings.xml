@@ -185,7 +185,27 @@
     <string name="true_text">true</string>
     <string name="false_text">false</string>
 
-    <string name="error_prefix" translatable="false">"42 /!\\ "</string>
+    <string name="error_prefix" translatable="false">"42 /!\\ "</string><string name="seekbar_max_10000">Seekbar with a higher max</string>
+    <string name="seekbar_min_42">Seekbar with a different min and max</string>
+    <string name="email_rich_without_label">email rich without label</string>
+    <string name="seekbar_edit_text_not_editable">Seekbar with edit text not editable</string>
+    <string name="seekbar_min_max_allowed">Seekbar with min allowed and max allowed but neither min nor max</string>
+    <string name="seekbar_different_formatter">Seekbar with different formatter</string>
+    <string name="title_activity_spinner">SpinnerActivity</string><string name="enumimage_standalone_widget">Standalone enumimage non editable</string>
+    <string name="title_activity_enumview">EnumView</string>
+    <string name="enumimage_editable_with_label_error">Editable (clickable) MDKEnumImage with label and error</string>
+    <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
+    <string name="enum_babyanimals_calf">calf</string>
+    <string name="enum_babyanimals_duckling">duckling</string>
+    <string name="email_rich_non_editable">Non-editable rich email</string>
+    <string name="date_non_editable">Non editable rich date time</string>
+    <string name="seekbar_non_editable">Non editable seekbar</string>
+    <string name="checkbox_non_editable">Non editable checkbox</string>
+    <string name="position_non_editable">Non editable rich position widget</string>
+    <string name="spinner_not_editable">Non editable rich spinner</string>
+
+
+
 
     <!-- TESTED RESOURCES -->
     <string name="test_app_name">MDK Android widget</string>
@@ -213,28 +233,9 @@
     <string name="test_phone_helper_text">phone format text</string>
     <string name="test_email_helper_text">email format text</string>
     <string name="test_edit_rich_helper_text">Mandatory EditText</string>
-    <string name="seekbar_max_10000">Seekbar with a higher max</string>
-    <string name="seekbar_min_42">Seekbar with a different min and max</string>
-    <string name="email_rich_without_label">email rich without label</string>
-    <string name="seekbar_edit_text_not_editable">Seekbar with edit text not editable</string>
-    <string name="seekbar_min_max_allowed">Seekbar with min allowed and max allowed but neither min nor max</string>
-    <string name="seekbar_different_formatter">Seekbar with different formatter</string>
-    <string name="title_activity_spinner">SpinnerActivity</string>
     <string name="test_position_valid_latitude" translatable="false">4.5</string>
     <string name="test_position_valid_longitude" translatable="false">6.4</string>
     <string name="test_mdkvalidator_position_error_validation_mandatory">Latitude and longitude must be filled</string>
-    <string name="enumimage_standalone_widget">Standalone enumimage non editable</string>
-    <string name="title_activity_enumview">EnumView</string>
-    <string name="enumimage_editable_with_label_error">Editable (clickable) MDKEnumImage with label and error</string>
-    <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
-    <string name="enum_babyanimals_calf">calf</string>
-    <string name="enum_babyanimals_duckling">duckling</string>
     <string name="test_fixedlist_entry" translatable="false">Test 1</string>
-    <string name="email_rich_non_editable">Non-editable rich email</string>
-    <string name="date_non_editable">Non editable rich date time</string>
-    <string name="seekbar_non_editable">Non editable seekbar</string>
-    <string name="checkbox_non_editable">Non editable checkbox</string>
-    <string name="position_non_editable">Non editable rich position widget</string>
-    <string name="spinner_not_editable">Non editable rich spinner</string>
 
 </resources>
