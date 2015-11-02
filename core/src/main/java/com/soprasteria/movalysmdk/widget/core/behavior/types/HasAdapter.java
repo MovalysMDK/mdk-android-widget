@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -35,4 +35,24 @@ public interface HasAdapter {
      */
     BaseAdapter getAdapter();
 
+    /**
+     * To get selected item.
+     *
+     * @return item selected by the user
+     */
+    Object getSelectedItem();
+
+    /**
+     * To set the selection a the specific position.
+     *
+     * @param position the position to set the selection
+     */
+    void setSelection(int position);
+
+    /**
+     * To get selected item position.
+     *
+     * @return the position of the item selected by the user
+     */
+    int getSelectedItemPosition();
 }

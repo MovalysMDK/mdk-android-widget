@@ -82,6 +82,21 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
         return this.getInnerWidget().getAdapter();
     }
 
+    @Override
+    public Object getSelectedItem() {
+        return this.getInnerWidget().getSelectedItem();
+    }
+
+    @Override
+    public void setSelection(int position) {
+        this.getInnerWidget().setSelection(position);
+    }
+
+    @Override
+    public int getSelectedItemPosition() {
+        return this.innerWidget.getSelectedItemPosition();
+    }
+
 
     /**
      * Sets the data behind this ListView with the user's adapter and allow to use a same custom layout for dropDownBlankView and spinnerBlankView.
