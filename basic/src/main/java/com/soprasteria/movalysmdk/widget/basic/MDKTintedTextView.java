@@ -17,21 +17,32 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.v4.util.LruCache;
 import android.support.v4.view.TintableBackgroundView;
 import android.support.v7.internal.widget.TintInfo;
 import android.support.v7.internal.widget.TintManager;
 import android.support.v7.internal.widget.TintTypedArray;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.view.View;
 
 /**
  * The TintedTextView should be used to add Tinted behavior to a TextView.
  * <p>This class implement basic background tinted behavior (copied from AppCompatEditText)</p>
  */
 public class MDKTintedTextView extends AppCompatTextView implements TintableBackgroundView {
+
+    /** default mode. */
+    private static final PorterDuff.Mode DEFAULT_MODE = PorterDuff.Mode.SRC_IN;
+
+    /** Color filter cache. */
+    private static final ColorFilterLruCache COLOR_FILTER_CACHE = new ColorFilterLruCache(6);
 
     /**
      * Attributes to apply tint.
@@ -180,9 +191,9 @@ public class MDKTintedTextView extends AppCompatTextView implements TintableBack
     private void applySupportBackgroundTint() {
         if (getBackground() != null) {
             if (mBackgroundTint != null) {
-                TintManager.tintViewBackground(this, mBackgroundTint);
+                tintViewBackground(this, mBackgroundTint);
             } else if (mInternalBackgroundTint != null) {
-                TintManager.tintViewBackground(this, mInternalBackgroundTint);
+                tintViewBackground(this, mInternalBackgroundTint);
             }
         }
     }
@@ -203,4 +214,107 @@ public class MDKTintedTextView extends AppCompatTextView implements TintableBack
         }
         applySupportBackgroundTint();
     }
+
+    /**
+     * Adds a tint on the view background.
+     * @param view the view to tint
+     * @param tint the tint to apply
+     */
+    private void tintViewBackground(View view, TintInfo tint) {
+        final Drawable background = view.getBackground();
+        if (tint.mHasTintList || tint.mHasTintMode) {
+            background.setColorFilter(createTintFilter(
+                    tint.mHasTintList ? tint.mTintList : null,
+                    tint.mHasTintMode ? tint.mTintMode : DEFAULT_MODE,
+                    view.getDrawableState()));
+        } else {
+            background.clearColorFilter();
+        }
+        if (Build.VERSION.SDK_INT <= 10) {
+            // On Gingerbread, GradientDrawable does not invalidate itself when it's ColorFilter
+            // has changed, so we need to force an invalidation
+            view.invalidate();
+        }
+    }
+
+    /**
+     * Creates a tint filter.
+     * @param tint the tint to set
+     * @param tintMode the mode of the tint
+     * @param state the state of the view
+     * @return the filter
+     */
+    private PorterDuffColorFilter createTintFilter(ColorStateList tint,
+                                                   PorterDuff.Mode tintMode, final int[] state) {
+        if (tint == null || tintMode == null) {
+            return null;
+        }
+        final int color = tint.getColorForState(state, Color.TRANSPARENT);
+        return getPorterDuffColorFilter(color, tintMode);
+    }
+
+    /**
+     * Returns the color filter.
+     * @param color the color to apply on the filter
+     * @param mode the mode of the filter
+     * @return the filter
+     */
+    private PorterDuffColorFilter getPorterDuffColorFilter(int color, PorterDuff.Mode mode) {
+        // First, lets see if the cache already contains the color filter
+        PorterDuffColorFilter filter = COLOR_FILTER_CACHE.get(color, mode);
+        if (filter == null) {
+            // Cache miss, so create a color filter and add it to the cache
+            filter = new PorterDuffColorFilter(color, mode);
+            COLOR_FILTER_CACHE.put(color, mode, filter);
+        }
+        return filter;
+    }
+
+    /**
+     * Class used to cache the filter.
+     */
+    private static class ColorFilterLruCache extends LruCache<Integer, PorterDuffColorFilter> {
+        /**
+         * Constructor.
+         * @param maxSize the maximum cache size
+         */
+        public ColorFilterLruCache(int maxSize) {
+            super(maxSize);
+        }
+
+        /**
+         * returns a filter for a given color.
+         * @param color the color
+         * @param mode the mode
+         * @return a filter
+         */
+        PorterDuffColorFilter get(int color, PorterDuff.Mode mode) {
+            return get(generateCacheKey(color, mode));
+        }
+
+        /**
+         * Adds a filter for a given color.
+         * @param color the color
+         * @param mode the mode
+         * @param filter the filter
+         * @return the filter
+         */
+        PorterDuffColorFilter put(int color, PorterDuff.Mode mode, PorterDuffColorFilter filter) {
+            return put(generateCacheKey(color, mode), filter);
+        }
+
+        /**
+         * Generates a chache key.
+         * @param color the color
+         * @param mode the mode
+         * @return the key
+         */
+        private static int generateCacheKey(int color, PorterDuff.Mode mode) {
+            int hashCode = 1;
+            hashCode = 31 * hashCode + color;
+            hashCode = 31 * hashCode + mode.hashCode();
+            return hashCode;
+        }
+    }
+
 }

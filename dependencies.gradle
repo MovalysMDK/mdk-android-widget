@@ -1,6 +1,6 @@
 ext {
     //Version
-    supportLibrary = '23.0.1'
+    supportLibrary = '23.1.0'
     playServices = '8.1.0'
 
     espressoVersion = "2.2.1"
