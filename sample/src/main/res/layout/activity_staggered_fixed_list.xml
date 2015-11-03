@@ -24,7 +24,10 @@
     android:fadingEdgeLength="0dp"
     android:overScrollMode="never"
     android:scrollbars="none"
+    android:orientation="vertical"
     tools:context="com.soprasteria.movalysmdk.widget.sample.FixedListActivity">
+
+    <include layout="@layout/button_bar"/>
 
     <com.soprasteria.movalysmdk.widget.fixedlist.MDKRichFixedList
         android:id="@+id/mdkRichFixedList"

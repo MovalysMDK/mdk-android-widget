@@ -34,6 +34,7 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
     protected static final int RC_CODE = 0x8000;
 
     /** the displayed dataset. */
+    // TODO save data on rotate
     protected String[] myDataset = new String[] {};
 
     /**
