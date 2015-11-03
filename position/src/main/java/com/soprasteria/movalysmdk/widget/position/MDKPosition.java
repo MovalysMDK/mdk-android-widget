@@ -33,6 +33,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
@@ -46,7 +47,6 @@ import com.soprasteria.movalysmdk.widget.position.adapters.AddressSpinnerAdapter
 import com.soprasteria.movalysmdk.widget.position.command.PositionWidgetCommand;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.position.filter.PositionInputFilter;
-import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.position.helper.PositionHelper;
 
 import java.io.IOException;
@@ -743,12 +743,21 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     public void setEditable(boolean editable) {
         this.mdkWidgetDelegate.setEditable(editable);
 
-        if(editable) {
-            this.mdkWidgetDelegate.getLongitudeView().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-            this.mdkWidgetDelegate.getLatitudeView().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-        }else{
-            this.mdkWidgetDelegate.getLongitudeView().setInputType(InputType.TYPE_NULL);
-            this.mdkWidgetDelegate.getLatitudeView().setInputType(InputType.TYPE_NULL);
+        if(this.mdkWidgetDelegate.getLongitudeView()!=null && this.mdkWidgetDelegate.getLatitudeView()!=null) {
+            EditText lon = this.mdkWidgetDelegate.getLongitudeView();
+            EditText lat = this.mdkWidgetDelegate.getLatitudeView();
+
+            if (editable) {
+                lon.setFocusableInTouchMode(true);
+                lat.setFocusableInTouchMode(true);
+                lon.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                lat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+            } else {
+                lon.setInputType(InputType.TYPE_NULL);
+                lat.setInputType(InputType.TYPE_NULL);
+                lon.setFocusable(false);
+                lat.setFocusable(false);
+            }
         }
 
         updateComponentStatus();
