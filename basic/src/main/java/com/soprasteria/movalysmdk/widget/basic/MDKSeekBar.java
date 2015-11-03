@@ -141,7 +141,7 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
         this.seekbarEditTextId = typedArrayComponent.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
 
         String editableStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
-        this.editableEditText = editableStr == null || Boolean.parseBoolean(editableStr);
+        setEditableEditText(editableStr == null || Boolean.parseBoolean(editableStr));
 
         int formatterResourceId = typedArray.getResourceId(R.styleable.MDKCommons_formatter,0);
         String formatterStr = formatterResourceId!=0?getResources().getString(formatterResourceId):null;
@@ -245,9 +245,8 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        if(!editableEditText) {
-            seekbarEditText.setFocusable(false);
-            seekbarEditText.setKeyListener(null);
+        if(!editableEditText || !isEditable()) {
+            toggleEditableEditText(false);
         }
 
         //grows the edittext automatically
@@ -374,13 +373,13 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
      * @param editable the editable state
      */
     private void toggleEditableEditText(boolean editable){
-        if(editable) {
-            if(seekbarEditText!=null) {
+        if(seekbarEditText!=null) {
+            if (editable) {
                 seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            }
-        }else{
-            if(seekbarEditText!=null) {
+                seekbarEditText.setFocusableInTouchMode(true);
+            } else {
                 seekbarEditText.setInputType(InputType.TYPE_NULL);
+                seekbarEditText.setFocusable(false);
             }
         }
     }

@@ -38,7 +38,7 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
      * @param attrs attributes
      */
     public MDKRichEnumView(Context context, AttributeSet attrs) {
-        super(R.layout.mdkwidget_enumimage_edit_label, R.layout.mdkwidget_enumimage_edit, context, attrs);
+        super(R.layout.mdkwidget_enumview_edit_label, R.layout.mdkwidget_enumview_edit, context, attrs);
 
         initDedicatedAttributes(attrs);
     }
@@ -50,7 +50,7 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
      * @param defStyleAttr defStyleAttr
      */
     public MDKRichEnumView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(R.layout.mdkwidget_enumimage_edit_label, R.layout.mdkwidget_enumimage_edit, context, attrs, defStyleAttr);
+        super(R.layout.mdkwidget_enumview_edit_label, R.layout.mdkwidget_enumview_edit, context, attrs, defStyleAttr);
 
         initDedicatedAttributes(attrs);
     }
@@ -63,6 +63,15 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumView);
 
         // Parse the enum_prefix attribute
+        //set inner widget width and height
+        int hdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_height, 0);
+        int wdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_width, 0);
+        if(hdp!=0 && wdp!=0) {
+            getInnerWidget().getLayoutParams().width = wdp;
+            getInnerWidget().getLayoutParams().height = hdp;
+            getInnerWidget().requestLayout();
+        }
+
         String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumView_enum_prefix);
         if(resEnumPrefix != null) {
             setResourceNamePrefix(resEnumPrefix);

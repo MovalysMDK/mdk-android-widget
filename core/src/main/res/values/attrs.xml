@@ -43,7 +43,8 @@
         <attr name="mdkSeekBarStyle" format="reference"/>
         <attr name="mdkSpinnerStyle" format="reference"/>
         <attr name="mdkSpinnerDropDownStyle" format="reference"/>
-        <attr name="mdkEnumImageStyle" format="reference"/>
+        <attr name="mdkEnumViewStyle" format="reference"/>
+        <attr name="mdkMediaStyle" format="reference"/>
         <attr name="mdkValueFixedListStyle" format="reference"/>
     </declare-styleable>
 
@@ -72,6 +73,8 @@
         <attr name="formatter" format="reference" />
         <attr name="clearButtonViewId" format="reference" />
         <attr name="editable" format="boolean"/>
+        <attr name="thumbnail_width" format="dimension"/>
+        <attr name="thumbnail_height" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">
@@ -146,5 +149,16 @@
     <!-- MDKSpinner specific attributes -->
     <declare-styleable name="MDKCommons.MDKSpinnerComponent">
         <attr name="has_blank_row" format="boolean"/>
+    </declare-styleable>
+
+
+    <!-- MDKMedia specific attributes -->
+    <declare-styleable name="MDKCommons.MDKMediaComponent">
+        <attr name="placeholder" format="reference"/>
+        <attr name="media_type" forma="enum">
+            <enum name="photo" value="0"/>
+            <enum name="video" value="1"/>
+            <enum name="file" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>

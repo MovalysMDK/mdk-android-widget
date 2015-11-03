@@ -153,6 +153,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         view.setLayoutParams(new LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
+        ((ImageView)view).setScaleType(ImageView.ScaleType.CENTER_CROP);
         addView(view);
     }
 
