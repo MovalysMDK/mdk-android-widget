@@ -19,6 +19,8 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -456,7 +458,46 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         }
     }
 
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable state = super.onSaveInstanceState();
 
+        // Save the MDKWidgetDelegate instance state
+        state = this.mdkWidgetDelegate.onSaveInstanceState(state);
+
+        // Save the enum value
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("state", state);
+
+        if(resourceEnumValue!=null) {
+            bundle.putString("enumValueName", resourceEnumValue.name());
+        }
+
+        return bundle;
+
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+
+            // Restoring the enum value
+            String enumValueName = bundle.getString("enumValueName");
+            if(resourceEnumValue!= null && enumValueName!=null && !enumValueName.isEmpty()){
+                setValueFromEnum(Enum.valueOf(resourceEnumValue.getClass(), enumValueName));
+            }
+
+            Parcelable parcelable = bundle.getParcelable("state");
+            parcelable = this.mdkWidgetDelegate.onRestoreInstanceState(this, parcelable);
+            super.onRestoreInstanceState(parcelable);
+
+
+            return;
+        }
+        // Restore the android view instance state
+        super.onRestoreInstanceState(state);
+    }
 
     @Override
     public void registerChangeListener(ChangeListener listener) {
