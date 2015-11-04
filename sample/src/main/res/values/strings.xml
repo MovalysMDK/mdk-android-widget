@@ -188,19 +188,19 @@
     <string name="error_prefix" translatable="false">"42 /!\\ "</string><string name="seekbar_max_10000">Seekbar with a higher max</string>
     <string name="seekbar_min_42">Seekbar with a different min and max</string>
     <string name="email_rich_without_label">email rich without label</string>
-    <string name="seekbar_edit_text_not_editable">Seekbar with edit text not editable</string>
+    <string name="seekbar_edit_text_not_editable">Seekbar with edit text readonly</string>
     <string name="seekbar_min_max_allowed">Seekbar with min allowed and max allowed but neither min nor max</string>
     <string name="seekbar_different_formatter">Seekbar with different formatter</string>
-    <string name="title_activity_spinner">SpinnerActivity</string><string name="enumimage_standalone_widget">Standalone enumimage non editable</string>
+    <string name="title_activity_spinner">SpinnerActivity</string><string name="enumimage_standalone_widget">Standalone enumimage readonly</string>
     <string name="title_activity_enumview">EnumView</string>
     <string name="enumimage_editable_with_label_error">Editable (clickable) MDKEnumImage with label and error</string>
     <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
-    <string name="email_rich_non_editable">Non-editable rich email</string>
-    <string name="date_non_editable">Non editable rich date time</string>
-    <string name="seekbar_non_editable">Non editable seekbar</string>
-    <string name="checkbox_non_editable">Non editable checkbox</string>
-    <string name="position_non_editable">Non editable rich position widget</string>
-    <string name="spinner_not_editable">Non editable rich spinner</string>
+    <string name="email_rich_non_editable">readonly rich email</string>
+    <string name="date_non_editable">readonly rich date time</string>
+    <string name="seekbar_non_editable">readonly seekbar</string>
+    <string name="checkbox_non_editable">readonly checkbox</string>
+    <string name="position_non_editable">readonly rich position widget</string>
+    <string name="spinner_not_editable">readonly rich spinner</string>
     <string name="enum_mobileos_blackberry">BlackBerry</string>
     <string name="enum_mobileos_symbian">Symbian</string>
 

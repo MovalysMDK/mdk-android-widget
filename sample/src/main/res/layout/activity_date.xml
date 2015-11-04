@@ -203,7 +203,7 @@
             android:id="@+id/mdkRichDateTime_non_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:editable="false"
+            mdk:readonly="true"
             mdk:label="@string/app_name" />
 
     </LinearLayout>

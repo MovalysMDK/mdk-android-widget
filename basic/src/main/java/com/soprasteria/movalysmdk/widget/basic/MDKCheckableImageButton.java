@@ -18,13 +18,14 @@ package com.soprasteria.movalysmdk.widget.basic;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Checkable;
-import android.widget.ImageButton;
+
+import com.soprasteria.movalysmdk.widget.core.helper.AlphaButton;
 
 /**
  * ImageButton with a checkable status.
  * Used for Position widget.
  */
-public class MDKCheckableImageButton extends ImageButton implements Checkable {
+public class MDKCheckableImageButton extends AlphaButton implements Checkable {
 
     /** Is the widget checked? */
     private boolean mChecked;
@@ -53,14 +54,6 @@ public class MDKCheckableImageButton extends ImageButton implements Checkable {
          * @param isChecked  The new checked state of button.
          */
         void onCheckedChanged(MDKCheckableImageButton button, boolean isChecked);
-    }
-
-    /**
-     * Constructor.
-     * @param context an Android context
-     */
-    public MDKCheckableImageButton(Context context) {
-        super(context);
     }
 
     /**

@@ -39,6 +39,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -267,18 +268,23 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     public int[] getWidgetState() {
         int[] state;
 
-        if (this.valueObject.isValid() && this.valueObject.isMandatory()) {
-            state = MDKWidgetDelegateValueObject.MANDATORY_VALID_STATE;
-        } else if (this.valueObject.isError() && this.valueObject.isMandatory()) {
-            state = MDKWidgetDelegateValueObject.MANDATORY_ERROR_STATE;
-        } else if (this.valueObject.isMandatory()) {
-            state = MDKWidgetDelegateValueObject.MANDATORY_STATE;
-        } else if (this.valueObject.isValid()) {
-            state = MDKWidgetDelegateValueObject.VALID_STATE;
+        List<Integer> stateList = new ArrayList<>();
+        if (this.valueObject.isValid()) {
+            stateList.add(R.attr.state_valid);
         } else if (this.valueObject.isError()) {
-            state = MDKWidgetDelegateValueObject.ERROR_STATE;
-        } else {
-            state = new int[] {};
+            stateList.add(R.attr.state_error);
+        }
+        if (this.valueObject.isReadonly()) {
+            stateList.add(R.attr.readonly);
+        }
+        if (this.isMandatory()) {
+            stateList.add(R.attr.mandatory);
+        }
+
+        state = new int[stateList.size()];
+
+        for (int i=0; i<stateList.size(); i++) {
+            state[i] = stateList.get(i);
         }
 
         return state;
@@ -347,9 +353,9 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        this.valueObject.setEditable(editable);
-        this.valueObject.getAttributesMap().setBoolean(R.attr.editable, editable);
+    public void setReadonly(boolean readonly) {
+        this.valueObject.setReadonly(readonly);
+        this.valueObject.getAttributesMap().setBoolean(R.attr.readonly, readonly);
         View v = this.valueObject.getView();
         if (v != null) {
             v.refreshDrawableState();
@@ -361,8 +367,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * @return boolean depending on editable state
      */
     @Override
-    public boolean isEditable() {
-        return this.valueObject.isEditable();
+    public boolean isReadonly() {
+        return this.valueObject.isReadonly();
     }
 
     /**

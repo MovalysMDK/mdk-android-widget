@@ -91,8 +91,8 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
         TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSeekBarComponent);
 
-        String editableStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
-        this.getInnerWidget().setEditableEditText(editableStr == null || Boolean.parseBoolean(editableStr));
+        String readonlyStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_readonlyEditText);
+        this.getInnerWidget().setReadonlyEditText(readonlyStr != null && Boolean.parseBoolean(readonlyStr));
 
         int formatterResourceId = typedArray.getResourceId(R.styleable.MDKCommons_formatter,0);
         String formatterStr = formatterResourceId!=0?getResources().getString(formatterResourceId):null;
@@ -199,13 +199,13 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
     }
 
     @Override
-    public boolean isEditableEditText() {
-        return this.getInnerWidget().isEditableEditText();
+    public boolean isReadonlyEditText() {
+        return this.getInnerWidget().isReadonlyEditText();
     }
 
     @Override
-    public void setEditableEditText(boolean editable) {
-        this.getInnerWidget().setEditableEditText(editable);
+    public void setReadonlyEditText(boolean readonly) {
+        this.getInnerWidget().setReadonlyEditText(readonly);
     }
 
     @Override

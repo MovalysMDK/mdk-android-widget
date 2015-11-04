@@ -18,11 +18,7 @@
 -->
 <resources>
 
-    <!-- phone action -->
-    <string name="mdkcommand_phone_action" translatable="false">com.soprasteria.movalysmdk.widget.basic.PHONE_INTENT</string>
-
-    <!-- Used strings -->
-    <string name="mdkcommand_phone_error_notiddle">Unable to call, the line is busy</string>
-    <string name="mdkcommand_phone_error_nophoneapp">No phone application installed</string>
+    <!-- Class -->
+    <string name="mdkrichselector_readonly_class" translatable="false">com.soprasteria.movalysmdk.widget.core.selector.ReadOnlySelector</string>
 
 </resources>

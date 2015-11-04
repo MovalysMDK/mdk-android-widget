@@ -18,9 +18,11 @@
 -->
 <resources>
 
+    <!-- This MUST not be modified. You should change the MDKxxx styles instead -->
+
     <style name="Base.MDKLabel" parent="android:TextAppearance.Material.Small"/>
 
-    <style name="Base.MDKValue.MDKValueEditText" parent="android:Widget.EditText"/>
+    <style name="Base.MDKValue.MDKValueEditText" parent="android:Widget.Material.EditText"/>
 
     <style name="Base.MDKValue.MDKValueDate" parent="android:Widget.Material.Spinner.Underlined"/>
 
@@ -28,8 +30,22 @@
 
     <style name="Base.MDKError" parent="android:TextAppearance.Material.Small"/>
 
-    <style name="Base.MDKCommand" parent="android:Widget.ActionButton"/>
+    <style name="Base.MDKCommand" parent="android:Widget.Material.ActionButton"/>
 
-    <style name="Base.MDKCommandButton" parent="android:Widget.Button"/>
+    <style name="Base.MDKCommandButton" parent="android:Widget.Material.Button"/>
+
+    <style name="Base.MDKSeekbar" parent="android:Widget.Material.SeekBar"/>
+
+    <style name="Base.MDKValue.MDKValueCheckBox" parent="android:Widget.Material.CompoundButton.CheckBox"/>
+
+    <style name="Base.MDKValue.MDKValueSeekBar" parent="android:Widget.Material.SeekBar"/>
+
+    <style name="Base.MDKValue.MDKValueSwitch" parent="Base.TextAppearance.AppCompat.Widget.Switch"/>
+
+    <style name="Base.MDKValue.MDKSpinner" parent="android:Widget.Material.Spinner"/>
+
+    <style name="Base.MDKValue.MDKSpinnerDropDown" parent="android:Widget.Material.ListView.DropDown"/>
+
+    <style name="Base.MDKValue.MDKFixedList"/>
 
 </resources>

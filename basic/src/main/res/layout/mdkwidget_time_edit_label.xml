@@ -50,9 +50,9 @@
             mdk:labelId="@id/component_label"
             mdk:mode="time" />
 
-        <ImageButton
+        <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_internal_clear"
-            style="?attr/mdkCommandButtonStyle"
+            style="?attr/mdkCommandStyle"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

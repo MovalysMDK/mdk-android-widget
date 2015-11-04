@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -63,7 +64,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
  *     order to protect the MDK widget behaviour.
  * </p>
  */
-public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKWidget, HasFormatter<Integer, String>, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, View.OnKeyListener{
+public class MDKSeekBar extends AppCompatSeekBar implements OnSeekBarChangeListener, MDKWidget, HasFormatter<Integer, String>, HasValidator, HasLabel, HasDelegate, HasChangeListener, HasSeekBar, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, View.OnKeyListener{
 
     /** Log tag.*/
     public static final String LOG_TAG = "MDKRichSeekBar";
@@ -91,8 +92,8 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     /** Seekbar minimum, doesn't exist in original widget. **/
     private int min;
 
-    /** Editable property of the attached edittext. **/
-    private boolean editableEditText;
+    /** readonly property of the attached edittext. **/
+    private boolean readonlyEditText;
 
     /** Formatter to convert seekbar value to and from displayed value. **/
     private MDKBaseFormatter<Integer, String> formatter;
@@ -140,8 +141,8 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         this.seekbarEditTextId = typedArrayComponent.getResourceId(R.styleable.MDKCommons_MDKSeekBarComponent_attachedEditText, 0);
 
-        String editableStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_editableEditText);
-        setEditableEditText(editableStr == null || Boolean.parseBoolean(editableStr));
+        String readonlyStr = typedArrayComponent.getString(R.styleable.MDKCommons_MDKSeekBarComponent_readonlyEditText);
+        setReadonlyEditText(readonlyStr != null && Boolean.parseBoolean(readonlyStr));
 
         int formatterResourceId = typedArray.getResourceId(R.styleable.MDKCommons_formatter,0);
         String formatterStr = formatterResourceId!=0?getResources().getString(formatterResourceId):null;
@@ -245,8 +246,8 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
 
         seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        if(!editableEditText || !isEditable()) {
-            toggleEditableEditText(false);
+        if(readonlyEditText || isReadonly()) {
+            toggleReadonlyEditText(true);
         }
 
         //grows the edittext automatically
@@ -358,28 +359,28 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
-    public boolean isEditableEditText() {
-        return seekbarEditText.getInputType() != InputType.TYPE_NULL;
+    public boolean isReadonlyEditText() {
+        return seekbarEditText.getInputType() == InputType.TYPE_NULL;
     }
 
     @Override
-    public void setEditableEditText(boolean editable) {
-        editableEditText=editable;
-        toggleEditableEditText(editable);
+    public void setReadonlyEditText(boolean readonly) {
+        readonlyEditText =readonly;
+        toggleReadonlyEditText(readonly);
     }
 
     /**
-     * Toggles the editable state of the attached edit text.
-     * @param editable the editable state
+     * Toggles the readonly state of the attached edit text.
+     * @param readonly the readonly state
      */
-    private void toggleEditableEditText(boolean editable){
+    private void toggleReadonlyEditText(boolean readonly){
         if(seekbarEditText!=null) {
-            if (editable) {
-                seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                seekbarEditText.setFocusableInTouchMode(true);
-            } else {
+            if (readonly) {
                 seekbarEditText.setInputType(InputType.TYPE_NULL);
                 seekbarEditText.setFocusable(false);
+            } else {
+                seekbarEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                seekbarEditText.setFocusableInTouchMode(true);
             }
         }
     }
@@ -474,23 +475,23 @@ public class MDKSeekBar extends SeekBar implements OnSeekBarChangeListener, MDKW
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        mdkWidgetDelegate.setEditable(editable);
-        if(!editable) {
-            toggleEditableEditText(false);
+    public void setReadonly(boolean readonly) {
+        mdkWidgetDelegate.setReadonly(readonly);
+        if(readonly) {
+            toggleReadonlyEditText(readonlyEditText);
         }else{
-            toggleEditableEditText(editableEditText);
+            toggleReadonlyEditText(false);
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return isEditable() && super.onTouchEvent(event);
+        return !isReadonly() && super.onTouchEvent(event);
     }
 
     @Override
-    public boolean isEditable() {
-        return mdkWidgetDelegate.isEditable();
+    public boolean isReadonly() {
+        return mdkWidgetDelegate.isReadonly();
     }
 
     @Override

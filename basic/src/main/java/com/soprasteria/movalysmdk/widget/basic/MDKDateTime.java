@@ -249,22 +249,22 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        this.mdkWidgetDelegate.setEditable(editable);
+    public void setReadonly(boolean readonly) {
+        this.mdkWidgetDelegate.setReadonly(readonly);
 
         final View clearButton = this.mdkWidgetDelegate.getClearButton();
         if (clearButton != null) {
-            if (editable) {
-                clearButton.setVisibility(View.VISIBLE);
-            } else {
+            if (readonly) {
                 clearButton.setVisibility(View.GONE);
+            } else {
+                clearButton.setVisibility(View.VISIBLE);
             }
         }
     }
 
     @Override
-    public boolean isEditable() {
-        return this.mdkWidgetDelegate.isEditable();
+    public boolean isReadonly() {
+        return this.mdkWidgetDelegate.isReadonly();
     }
 
     @Override

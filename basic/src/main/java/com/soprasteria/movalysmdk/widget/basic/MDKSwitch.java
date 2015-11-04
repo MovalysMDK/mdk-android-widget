@@ -16,9 +16,9 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
+import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.Switch;
 
 import com.soprasteria.movalysmdk.widget.basic.delegate.MDKCheckableWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
@@ -38,7 +38,7 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 /**
  * <p>Represents a Switch conforming to the Material Design guidelines.</p>
  */
-public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLabel, HasChecked, HasCheckedTexts, HasDelegate, HasChangeListener {
+public class MDKSwitch extends SwitchCompat implements MDKWidget, HasValidator, HasLabel, HasChecked, HasCheckedTexts, HasDelegate, HasChangeListener {
 
     /** The MDKCheckableWidgetDelegate handling the component logic. */
     protected MDKCheckableWidgetDelegate mdkWidgetDelegate;
@@ -141,13 +141,13 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        mdkWidgetDelegate.setEditable(editable);
+    public void setReadonly(boolean readonly) {
+        mdkWidgetDelegate.setReadonly(readonly);
     }
 
     @Override
-    public boolean isEditable() {
-        return mdkWidgetDelegate.isEditable();
+    public boolean isReadonly() {
+        return mdkWidgetDelegate.isReadonly();
     }
 
     @Override
@@ -227,6 +227,6 @@ public class MDKSwitch extends Switch implements MDKWidget, HasValidator, HasLab
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return isEditable() && super.onTouchEvent(event);
+        return !isReadonly() && super.onTouchEvent(event);
     }
 }

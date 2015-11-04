@@ -23,6 +23,7 @@
 
     <string-array name="selectors" translatable="false">
         <item>mdkrichselector_mandatory_class</item>
+        <item>mdkrichselector_readonly_class</item>
     </string-array>
 
 </resources>

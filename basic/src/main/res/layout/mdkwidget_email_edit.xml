@@ -25,7 +25,7 @@
 
     <include layout="@layout/mdkwidget_error_layout" />
 
-    <ImageButton
+    <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
         android:id="@+id/component_emailButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_alignBottom="@id/component_emailButton"
         mdk:primaryCommandId="@id/component_emailButton"
         mdk:errorId="@id/component_error"
-        style="?attr/mdkValueEmailStyle"/>
+        style="?attr/mdkValueEditTextStyle"/>
 
 
 </merge>

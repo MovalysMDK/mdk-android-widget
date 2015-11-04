@@ -18,6 +18,8 @@
 -->
 <resources>
 
+    <!-- This MUST not be modified. You should change the MDKxxx styles instead -->
+
     <style name="Base"/>
 
     <style name="Base.MDKValue"/>
@@ -30,11 +32,9 @@
 
     <style name="Base.MDKValue.MDKValueDate" parent="Widget.AppCompat.Spinner.Underlined"/>
 
-    <style name="Base.MDKValue.MDKValuePosition" parent="Widget.AppCompat.EditText"/>
-
     <style name="Base.MDKValue.MDKValueCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox"/>
 
-    <style name="Base.MDKValue.MDKValueSeekBar" parent="Widget.AppCompat.ProgressBar"/>
+    <style name="Base.MDKValue.MDKValueSeekBar" parent="Widget.AppCompat.SeekBar"/>
 
     <style name="Base.MDKValue.MDKValueSwitch" parent="Widget.AppCompat.CompoundButton.Switch"/>
 

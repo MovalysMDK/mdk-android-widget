@@ -96,16 +96,16 @@ public interface HasSeekBar {
     void setAttachedEditText(EditText attachedEditText);
 
     /**
-     * Get the editable attribute of the seekbar's attached edittext.
-     * @return true if the edittext is editable
+     * Get the readonly attribute of the seekbar's attached edittext.
+     * @return true if the edittext is readonly
      */
-    boolean isEditableEditText();
+    boolean isReadonlyEditText();
 
 
     /**
-     * Set the editable attribute of the seekbar's attached edittext.
-     * @param editable editable parameter to set
+     * Set the readonly attribute of the seekbar's attached edittext.
+     * @param readonly parameter to set
      */
-    void setEditableEditText(boolean editable);
+    void setReadonlyEditText(boolean readonly);
 
 }

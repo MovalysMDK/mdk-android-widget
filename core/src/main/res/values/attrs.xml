@@ -22,30 +22,169 @@
 
         <attr name="mdkTintedTextViewStyle" format="reference"/>
 
-        <!-- fonctionnal attributes for theme -->
+        <!-- functional attributes for theme -->
         <attr name="mdkLabelStyle" format="reference"/>
         <attr name="mdkValueEditTextStyle" format="reference"/>
-        <attr name="mdkValueEmailStyle" format="reference"/>
-        <attr name="mdkValueUriStyle" format="reference"/>
-        <attr name="mdkValuePhoneStyle" format="reference"/>
         <attr name="mdkValueDateStyle" format="reference"/>
-        <attr name="mdkValuePositionStyle" format="reference"/>
-        <attr name="mdkValueMapsPositionStyle" format="reference"/>
+        <!-- TODO : renommer -->
+        <attr name="mdkValueMapsStyle" format="reference"/>
         <attr name="mdkValueCheckBoxStyle" format="reference"/>
         <attr name="mdkValueSwitchStyle" format="reference"/>
         <attr name="mdkValueSpinnerStyle" format="reference"/>
-        <attr name="mdkValueStyle" format="reference"/>
-        <attr name="mdkErrorStyle" format="reference"/>
-        <attr name="mdkPrimaryCommandStyle" format="reference"/>
-        <attr name="mdkSecondaryCommandStyle" format="reference"/>
-        <attr name="mdkCommandButtonStyle" format="reference"/>
-        <attr name="mdkRichLayoutStyle" format="reference"/>
         <attr name="mdkSeekBarStyle" format="reference"/>
         <attr name="mdkSpinnerStyle" format="reference"/>
         <attr name="mdkSpinnerDropDownStyle" format="reference"/>
         <attr name="mdkEnumViewStyle" format="reference"/>
         <attr name="mdkMediaStyle" format="reference"/>
         <attr name="mdkValueFixedListStyle" format="reference"/>
+
+        <attr name="mdkErrorStyle" format="reference"/>
+        <attr name="mdkPrimaryCommandStyle" format="reference"/>
+        <attr name="mdkSecondaryCommandStyle" format="reference"/>
+        <attr name="mdkCommandStyle" format="reference"/>
+        <attr name="mdkRichLayoutStyle" format="reference"/>
+
+        <!-- theme attributes -->
+        <attr name="mdk_t_primaryColor" format="reference"/>
+        <attr name="mdk_t_primaryDarkColor" format="reference"/>
+        <attr name="mdk_t_accentColor" format="reference"/>
+        <attr name="mdk_t_textColorPrimary" format="reference"/>
+        <attr name="mdk_t_textColorSecondary" format="reference"/>
+        <attr name="mdk_t_smallTextSize" format="reference"/>
+        <attr name="mdk_t_mediumTextSize" format="reference"/>
+        <attr name="mdk_t_largeTextSize" format="reference"/>
+        <attr name="mdk_t_noBackground" format="reference"/>
+
+        <!-- component label attributes -->
+        <attr name="mdk_b_labelTextColor" format="reference"/>
+        <attr name="mdk_b_labelTextSize" format="reference"/>
+        <attr name="mdk_b_labelTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_labelBackground" format="reference"/>
+
+        <!-- component edit attributes -->
+        <attr name="mdk_b_editTextColor" format="reference"/>
+        <attr name="mdk_b_editTextSize" format="reference"/>
+        <attr name="mdk_b_editTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_editBackground" format="reference"/>
+        <attr name="mdk_b_editTint" format="reference"/>
+
+        <!-- component date attributes -->
+        <attr name="mdk_b_dateTextColor" format="reference"/>
+        <attr name="mdk_b_dateTextSize" format="reference"/>
+        <attr name="mdk_b_dateTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_dateBackground" format="reference"/>
+        <attr name="mdk_b_dateTint" format="reference"/>
+
+        <!-- component maps attributes -->
+        <attr name="mdk_b_mapsTextColor" format="reference"/>
+        <attr name="mdk_b_mapsTextSize" format="reference"/>
+        <attr name="mdk_b_mapsTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_mapsBackground" format="reference"/>
+        <attr name="mdk_b_mapsTint" format="reference"/>
+
+        <!-- component checkbox attributes -->
+        <attr name="mdk_b_checkboxTextColor" format="reference"/>
+        <attr name="mdk_b_checkboxTextSize" format="reference"/>
+        <attr name="mdk_b_checkboxTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_checkboxBackground" format="reference"/>
+        <attr name="mdk_b_checkboxTint" format="reference"/>
+
+        <!-- component switch attributes -->
+        <attr name="mdk_b_switchTextColor" format="reference"/>
+        <attr name="mdk_b_switchTextSize" format="reference"/>
+        <attr name="mdk_b_switchTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_switchBackground" format="reference"/>
+        <attr name="mdk_b_switchTint" format="reference"/>
+
+        <!-- component seekbar attributes -->
+        <attr name="mdk_b_seekbarTextColor" format="reference"/>
+        <attr name="mdk_b_seekbarTextSize" format="reference"/>
+        <attr name="mdk_b_seekbarTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_seekbarBackground" format="reference"/>
+        <attr name="mdk_b_seekbarTint" format="reference"/>
+
+        <!-- component spinner attributes -->
+        <attr name="mdk_b_spinnerTextColor" format="reference"/>
+        <attr name="mdk_b_spinnerTextSize" format="reference"/>
+        <attr name="mdk_b_spinnerTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_spinnerBackground" format="reference"/>
+        <attr name="mdk_b_spinnerTint" format="reference"/>
+
+        <!-- component spinnerDropDown attributes -->
+        <attr name="mdk_b_spinnerDropDownTextColor" format="reference"/>
+        <attr name="mdk_b_spinnerDropDownTextSize" format="reference"/>
+        <attr name="mdk_b_spinnerDropDownTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_spinnerDropDownBackground" format="reference"/>
+        <attr name="mdk_b_spinnerDropDownTint" format="reference"/>
+
+        <!-- component fixedlist attributes -->
+        <attr name="mdk_b_fixedlistBackground" format="reference"/>
+        <attr name="mdk_b_fixedlistItemBackground" format="reference"/>
+        <attr name="mdk_b_fixedlistAddTint" format="reference"/>
+
+        <!-- component error attributes -->
+        <attr name="mdk_b_errorTextColor" format="reference"/>
+        <attr name="mdk_b_errorTextSize" format="reference"/>
+        <attr name="mdk_b_errorTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_errorBackground" format="reference"/>
+        <attr name="mdk_b_errorTint" format="reference"/>
+
+        <!-- component primaryCommand attributes -->
+        <attr name="mdk_b_primaryCommandTint" format="reference"/>
+        <attr name="mdk_b_primaryCommandBackground" format="reference"/>
+
+        <!-- component secondaryCommand attributes -->
+        <attr name="mdk_b_secondaryCommandTint" format="reference"/>
+        <attr name="mdk_b_secondaryCommandBackground" format="reference"/>
+
+        <!-- component command attributes -->
+        <attr name="mdk_b_commandTint" format="reference"/>
+        <attr name="mdk_b_commandBackground" format="reference"/>
+
+        <!-- component richLayout attributes -->
+        <attr name="mdk_b_richLayoutTint" format="reference"/>
+        <attr name="mdk_b_richLayoutBackground" format="reference"/>
+
     </declare-styleable>
 
     <declare-styleable name="InputView">
@@ -72,7 +211,7 @@
         <attr name="maxLength" format="integer" />
         <attr name="formatter" format="reference" />
         <attr name="clearButtonViewId" format="reference" />
-        <attr name="editable" format="boolean"/>
+        <attr name="readonly" format="boolean"/>
         <attr name="thumbnail_width" format="dimension"/>
         <attr name="thumbnail_height" format="dimension"/>
     </declare-styleable>
@@ -92,7 +231,7 @@
         <attr name="state_error" format="boolean" />
         <attr name="state_valid" format="boolean" />
         <attr name="state_mandatory" format="boolean" />
-        <attr name="state_editable" format="boolean" />
+        <attr name="state_readonly" format="boolean" />
     </declare-styleable>
 
     <!-- MDKDateTime specific attributes-->
@@ -127,7 +266,7 @@
         <attr name="seekbar_max" format="integer"/>
         <attr name="seekbar_min" format="integer"/>
         <attr name="attachedEditText" format="reference"/>
-        <attr name="editableEditText" format="boolean"/>
+        <attr name="readonlyEditText" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="MDKCommandButton">

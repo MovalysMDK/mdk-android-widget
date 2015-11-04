@@ -386,7 +386,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     @Override
     public void onClick(View view) {
         // If disabled, don't permit to edit the date or time
-        if (enabled && isEditable()) {
+        if (enabled && !isReadonly()) {
             if (view.getId() == this.dateViewId) {
                 // Display the date picker dialog
                 Calendar calendar = Calendar.getInstance();

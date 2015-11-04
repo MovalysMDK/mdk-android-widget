@@ -22,19 +22,15 @@
 
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
-        <item name="mdkValueEmailStyle">@style/MDKValueEmail</item>
-        <item name="mdkValuePhoneStyle">@style/MDKValuePhone</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
-        <item name="mdkValuePositionStyle">@style/MDKValuePosition</item>
-        <item name="mdkValueMapsPositionStyle">@style/MDKValueMapsPosition</item>
+        <item name="mdkValueMapsStyle">@style/MDKValueMaps</item>
         <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
         <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
         <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
-        <item name="mdkValueStyle">@style/MDKValue</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
-        <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
+        <item name="mdkCommandStyle">@style/MDKCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
@@ -46,15 +42,22 @@
 
     <style name="MDKWidgetTheme.Light" parent="Theme.AppCompat.Light">
 
+        <!-- MDKWidget components styles -->
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
-        <item name="mdkValueStyle">@style/MDKValue</item>
+        <item name="mdkValueMapsStyle">@style/MDKValueMaps</item>
+        <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
+        <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
+        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
-        <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
+        <item name="mdkCommandStyle">@style/MDKCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
+        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
 
@@ -62,49 +65,202 @@
 
     <style name="MDKWidgetTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
 
+        <!-- technical attributes -->
+        <!-- to change your application colors, change these settings -->
+        <item name="mdk_t_primaryColor">?android:attr/colorPrimary</item>
+        <item name="mdk_t_primaryDarkColor">?android:attr/colorPrimaryDark</item>
+        <item name="mdk_t_accentColor">?android:attr/colorAccent</item>
+        <item name="mdk_t_textColorPrimary">?android:attr/textColorPrimary</item>
+        <item name="mdk_t_textColorSecondary">?android:attr/textColorSecondary</item>
+        <item name="mdk_t_smallTextSize">@dimen/abc_text_size_small_material</item>
+        <item name="mdk_t_mediumTextSize">@dimen/abc_text_size_medium_material</item>
+        <item name="mdk_t_largeTextSize">@dimen/abc_text_size_large_material</item>
+        <item name="mdk_t_noBackground">@null</item>
+
+        <!-- MDKWidget components styles -->
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
-        <item name="mdkValueStyle">@style/MDKValue</item>
+        <item name="mdkValueMapsStyle">@style/MDKValueMaps</item>
+        <item name="mdkValueCheckBoxStyle">@style/MDKValueCheckBox</item>
+        <item name="mdkValueSwitchStyle">@style/MDKValueSwitch</item>
+        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
         <item name="mdkErrorStyle">@style/MDKError</item>
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
-        <item name="mdkCommandButtonStyle">@style/MDKCommandButton</item>
+        <item name="mdkCommandStyle">@style/MDKCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
+        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
 
-        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
-        
+        <!-- Label business attributes -->
+        <item name="mdk_b_labelTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_labelTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_labelTextStyle">bold</item>
+        <item name="mdk_b_labelBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Edit business attributes -->
+        <item name="mdk_b_editTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_editTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_editTextStyle">normal</item>
+        <item name="mdk_b_editTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Date business attributes -->
+        <item name="mdk_b_dateTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_dateTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_dateTextStyle">normal</item>
+        <item name="mdk_b_dateTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Maps business attributes -->
+        <item name="mdk_b_mapsTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_mapsTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_mapsTextStyle">bold</item>
+        <item name="mdk_b_mapsBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_mapsTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Checkbox business attributes -->
+        <item name="mdk_b_checkboxTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_checkboxTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_checkboxTextStyle">normal</item>
+        <item name="mdk_b_checkboxBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_checkboxTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Switch business attributes -->
+        <item name="mdk_b_switchTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_switchTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_switchTextStyle">normal</item>
+        <item name="mdk_b_switchBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_switchTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Seekbar business attributes -->
+        <item name="mdk_b_seekbarTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_seekbarTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_seekbarTextStyle">normal</item>
+        <item name="mdk_b_seekbarBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_seekbarTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Spinner business attributes -->
+        <item name="mdk_b_spinnerTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerTextStyle">normal</item>
+        <item name="mdk_b_spinnerBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- SpinnerDropDown business attributes -->
+        <item name="mdk_b_spinnerDropDownTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerDropDownTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerDropDownTextStyle">normal</item>
+        <item name="mdk_b_spinnerDropDownBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerDropDownTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Fixedlist business attributes -->
+        <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Error business attributes -->
+        <item name="mdk_b_errorTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_errorTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_errorTextStyle">bold</item>
+        <item name="mdk_b_errorBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_errorTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- PrimaryCommand business attributes -->
+        <item name="mdk_b_primaryCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_primaryCommandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- SecondaryCommand business attributes -->
+        <item name="mdk_b_secondaryCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_secondaryCommandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Command business attributes -->
+        <item name="mdk_b_commandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_commandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- RichLayout business attributes -->
+        <item name="mdk_b_richLayoutTint">?attr/mdk_t_primaryColor</item>
+        <item name="mdk_b_richLayoutBackground">?attr/mdk_t_noBackground</item>
     </style>
 
-    <style name="MDKLabel" parent="Base.MDKLabel"/>
+    <!-- Label component style -->
+    <style name="MDKLabel" parent="Base.MDKLabel">
+        <item name="android:textColor">?attr/mdk_b_labelTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_labelTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_labelTextStyle</item>
+        <item name="android:background">?attr/mdk_b_labelBackground</item>
+    </style>
 
-    <style name="MDKValueEditText" parent="Base.MDKValue.MDKValueEditText"/>
-    <style name="MDKValueEmail" parent="Base.MDKValue.MDKValueEditText"/>
-    <style name="MDKValuePhone" parent="Base.MDKValue.MDKValueEditText"/>
-    <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate"/>
+    <!-- Edit component style -->
+    <style name="MDKValueEditText" parent="Base.MDKValue.MDKValueEditText">
+        <item name="android:textColor">?attr/mdk_b_editTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_editTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_editTextStyle</item>
+        <item name="android:tint">?attr/mdk_b_editTint</item>
+    </style>
 
-    <style name="MDKValuePosition" parent="Base.MDKValue.MDKValuePosition"/>
+    <!-- Date component style -->
+    <style name="MDKValueDate" parent="Base.MDKValue.MDKValueDate">
+        <item name="android:textColor">?attr/mdk_b_dateTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_dateTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_dateTextStyle</item>
+        <item name="android:tint">?attr/mdk_b_dateTint</item>
+    </style>
 
-    <style name="MDKValueCheckBox" parent="Base.MDKValue.MDKValueCheckBox"/>
-    <style name="MDKValueSwitch" parent="Base.MDKValue.MDKValueSwitch"/>
-    <style name="MDKValue" parent="Base.MDKValue.TextView"/>
+    <!-- Checkbox component style -->
+    <style name="MDKValueCheckBox" parent="Base.MDKValue.MDKValueCheckBox">
+        <item name="android:textColor">?attr/mdk_b_checkboxTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_checkboxTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_checkboxTextStyle</item>
+        <item name="android:background">?attr/mdk_b_checkboxBackground</item>
+        <item name="android:tint">?attr/mdk_b_checkboxTint</item>
+    </style>
 
-    <style name="MDKError" parent="Base.MDKError"/>
+    <!-- Switch component style -->
+    <style name="MDKValueSwitch" parent="Base.MDKValue.MDKValueSwitch">
+        <item name="android:textColor">?attr/mdk_b_switchTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_switchTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_switchTextStyle</item>
+        <item name="android:tint">?attr/mdk_b_switchTint</item>
+    </style>
 
-    <style name="MDKCommand" parent="Base.MDKCommand"/>
-    <style name="MDKCommand.Primary"/>
-    <style name="MDKCommand.Secondary"/>
+    <!-- Error component style -->
+    <style name="MDKError" parent="Base.MDKError">
+        <item name="android:textColor">?attr/mdk_b_errorTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_errorTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_errorTextStyle</item>
+        <item name="android:background">?attr/mdk_b_errorBackground</item>
+        <item name="android:tint">?attr/mdk_b_errorTint</item>
+    </style>
 
-    <style name="MDKCommandButton" parent="Base.MDKCommandButton">
-        <item name="android:background">?android:selectableItemBackground</item>
+    <!-- Command component style -->
+    <style name="MDKCommand" parent="Base.MDKCommand">
         <item name="android:layout_margin">4dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
+        <item name="android:tint">?attr/mdk_b_commandTint</item>
+        <item name="android:background">?attr/mdk_b_commandBackground</item>
     </style>
 
-    <style name="MDKRichLayout" parent="Base.MDKValue"/>
+    <!-- Command.Primary component style -->
+    <style name="MDKCommand.Primary">
+        <item name="android:tint">?attr/mdk_b_primaryCommandTint</item>
+        <item name="android:background">?attr/mdk_b_primaryCommandBackground</item>
+    </style>
+
+    <!-- Command.Secondary component style -->
+    <style name="MDKCommand.Secondary">
+        <item name="android:tint">?attr/mdk_b_secondaryCommandTint</item>
+        <item name="android:background">?attr/mdk_b_secondaryCommandBackground</item>
+    </style>
+
+    <!-- RichLayout component style -->
+    <style name="MDKRichLayout" parent="Base.MDKValue">
+        <item name="android:tint">?attr/mdk_b_richLayoutTint</item>
+        <item name="android:background">?attr/mdk_b_richLayoutBackground</item>
+    </style>
 
     <!-- MDKSeekBar Style-->
     <style name="MDKValueSeekBar" parent="Base.MDKValue.MDKValueSeekBar">
@@ -114,27 +270,40 @@
         <item name="android:maxHeight">20dip</item>
         <item name="android:thumbOffset">8dip</item>
         <item name="android:focusable">true</item>
+        <!-- TODO -->
     </style>
 
-    <style name="MDKValueMapsPosition" parent="Base.MDKValue.MDKValueEditText">
+    <!-- Maps component style -->
+    <style name="MDKValueMaps" parent="Base.MDKValue.MDKValueEditText">
         <item name="android:textSize">8sp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <!-- Spinner component style -->
     <style name="MDKSpinner" parent="Base.MDKValue.MDKSpinner">
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+        <item name="android:textColor">?attr/mdk_b_spinnerTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_spinnerTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_spinnerTextStyle</item>
+        <item name="android:background">?attr/mdk_b_spinnerBackground</item>
+        <item name="android:tint">?attr/mdk_b_spinnerTint</item>
     </style>
 
-    <style name="MDKFixedList" parent="Base.MDKValue.MDKFixedList"/>
-
-    <!--<style name="MDKSpinnerDropDown" parent="Base.MDKValue.MDKSpinnerDropDown">-->
-        <!--<item name="android:divider">#000000</item>-->
-        <!--<item name="android:dividerHeight">5dp</item>-->
-    <!--</style>-->
-
+    <!-- SpinnerDropDown component style -->
     <style name="MDKSpinnerDropDown" parent="android:style/Widget.ListView.DropDown">
         <item name="android:divider">#ff0000</item>
         <item name="android:dividerHeight">5dp</item>
+        <item name="android:textColor">?attr/mdk_b_spinnerDropDownTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_spinnerDropDownTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_spinnerDropDownTextStyle</item>
+        <item name="android:background">?attr/mdk_b_spinnerDropDownBackground</item>
+        <item name="android:tint">?attr/mdk_b_spinnerDropDownTint</item>
+    </style>
+
+    <!-- FixedList component style -->
+    <style name="MDKFixedList" parent="Base.MDKValue.MDKFixedList">
+        <item name="android:background">?attr/mdk_b_fixedlistBackground</item>
+        <item name="android:tint">?attr/mdk_b_fixedlistAddTint</item>
     </style>
 
 </resources>

@@ -23,8 +23,14 @@
     
     <!-- Base application theme. -->
     <style name="AppTheme" parent="MDKWidgetTheme.Light.DarkActionBar">
+
+        <item name="mdk_t_primaryColor">@color/blue</item>
+        <item name="mdk_t_accentColor">@color/red</item>
+
         <!-- Customize your theme here. -->
         <item name="textWithRichSelector">@style/TextRichSelector</item>
+
+        <!--<item name="mdkLabelStyle">@style/CustomLabel</item>-->
     </style>
 
     <style name="TextRichSelector" parent="Base.MDKValue.MDKValueEditText">
@@ -34,5 +40,9 @@
     <style name="myDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <!--<style name="CustomLabel" parent="MDKLabel">
+        <item name="android:textColor">?attr/primaryColor</item>
+    </style>-->
 
 </resources>

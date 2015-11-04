@@ -253,7 +253,7 @@
             android:id="@+id/mdkRichSeekBar_edit_text_not_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:editableEditText="false"/>
+            mdk:readonlyEditText="true"/>
 
         <View
             android:layout_width="match_parent"
@@ -275,7 +275,7 @@
             android:layout_height="wrap_content"
             mdk:seekbar_max="6"
             mdk:formatter="@string/formatter_weekdays"
-            mdk:editableEditText="false"/>
+            mdk:readonlyEditText="true"/>
 
 
         <View
@@ -297,7 +297,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:initialSeekBarValue="42"
-            mdk:editable="false"/>
+            mdk:readonly="true"/>
     </LinearLayout>
 
 </ScrollView>

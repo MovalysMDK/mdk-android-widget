@@ -42,16 +42,6 @@ public class MDKWidgetDelegateValueObject {
      * R.attr.state_error<br/>
      */
     protected static final int ADDED_MDK_STATE = 3;
-    /** MANDATORY_VALID_STATE. */
-    static final int[] MANDATORY_VALID_STATE = {R.attr.state_valid, R.attr.state_mandatory};
-    /** MANDATORY_ERROR_STATE. */
-    static final int[] MANDATORY_ERROR_STATE = {R.attr.state_error, R.attr.state_mandatory};
-    /** MANDATORY_STATE. */
-    static final int[] MANDATORY_STATE = {R.attr.state_mandatory};
-    /** VALID_STATE. */
-    static final int[] VALID_STATE = {R.attr.state_valid};
-    /** ERROR_STATE. */
-    static final int[] ERROR_STATE = {R.attr.state_error};
     /** user error key. */
     static final String USER_ERROR = "user_error";
     /** TAG for debug. */
@@ -81,8 +71,8 @@ public class MDKWidgetDelegateValueObject {
     private boolean valid = false;
     /** mandatory. */
     private boolean mandatory = false;
-    /** editable. */
-    private boolean editable = true;
+    /** readonly. */
+    private boolean readonly = true;
     /** error. */
     private boolean error = false;
     /** Command state change listener, triggered when widget is validate. */
@@ -113,7 +103,7 @@ public class MDKWidgetDelegateValueObject {
         this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
         this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
-        this.editable = typedArray.getBoolean(R.styleable.MDKCommons_editable,true);
+        this.readonly = typedArray.getBoolean(R.styleable.MDKCommons_readonly,false);
 
         int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);
         String[] selectorKeys = view.getContext().getResources().getStringArray(selectorResId);
@@ -334,19 +324,19 @@ public class MDKWidgetDelegateValueObject {
     }
 
     /**
-     * Returns true if the widget is editable.
-     * @return true if the widget is editable
+     * Returns true if the widget is readonly.
+     * @return true if the widget is readonly
      */
-    public boolean isEditable() {
-        return editable;
+    public boolean isReadonly() {
+        return readonly;
     }
 
     /**
      * Sets whether the widget is mandatory.
-     * @param editable the value to set
+     * @param readonly the value to set
      */
-    public void setEditable(boolean editable) {
-        this.editable = editable;
+    public void setReadonly(boolean readonly) {
+        this.readonly = readonly;
     }
     /**
      * Returns true if the component has an error.

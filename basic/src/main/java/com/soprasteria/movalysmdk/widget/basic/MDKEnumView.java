@@ -429,17 +429,17 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     }
 
     @Override
-    public boolean isEditable() {
-        return mdkWidgetDelegate.isEditable();
+    public boolean isReadonly() {
+        return mdkWidgetDelegate.isReadonly();
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        this.mdkWidgetDelegate.setEditable(editable);
-        if(editable){
-            this.setOnClickListener(this);
-        }else {
+    public void setReadonly(boolean readonly) {
+        this.mdkWidgetDelegate.setReadonly(readonly);
+        if(readonly){
             this.setOnClickListener(null);
+        }else {
+            this.setOnClickListener(this);
         }
     }
 

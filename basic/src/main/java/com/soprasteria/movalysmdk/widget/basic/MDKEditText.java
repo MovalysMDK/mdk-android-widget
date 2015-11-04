@@ -119,8 +119,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
             this.setHint(resHintId);
         }
 
-        boolean editable = typedArray.getBoolean(R.styleable.MDKCommons_editable, true);
-        this.setEditable(editable);
+        boolean readonly = typedArray.getBoolean(R.styleable.MDKCommons_readonly, false);
+        this.setReadonly(readonly);
         typedArray.recycle();
 
 
@@ -257,9 +257,9 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        this.mdkWidgetDelegate.setEditable(editable);
-        if(editable) {
+    public void setReadonly(boolean readonly) {
+        this.mdkWidgetDelegate.setReadonly(readonly);
+        if(!readonly) {
             if(specificInputType!=-1) {
                 super.setInputType(specificInputType);
             }else{
@@ -275,7 +275,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
 
     @Override
     public void setInputType(int type){
-        if(isEditable()) {
+        if(isReadonly()) {
             super.setInputType(type);
         }else{
             specificInputType = type;
@@ -283,8 +283,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     }
 
     @Override
-    public boolean isEditable() {
-        return this.mdkWidgetDelegate.isEditable();
+    public boolean isReadonly() {
+        return this.mdkWidgetDelegate.isReadonly();
     }
 
     @Override

@@ -65,7 +65,7 @@
             android:id="@+id/mdkEnumImage_withErrorAndCommandOutside"
             android:layout_width="match_parent"
             mdk:enum_mode="image"
-            mdk:editable="false"
+            mdk:readonly="true"
             android:layout_height="wrap_content"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
@@ -90,7 +90,7 @@
             android:id="@+id/mdkEnumImage_withImageSetByString"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:editable="true"/>
+            mdk:readonly="false"/>
 
         <View
             android:layout_width="match_parent"
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:enum_mode="text"
-            mdk:editable="true"
+            mdk:readonly="false"
             mdk:label="@string/app_name"/>
 
         <View

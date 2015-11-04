@@ -164,7 +164,7 @@
             android:padding="2dp"
             mdk:label="@string/app_name"
             mdk:text_fixed="@string/checkbox_activity"
-            mdk:editable="false" />
+            mdk:readonly="true" />
 
     </LinearLayout>
 

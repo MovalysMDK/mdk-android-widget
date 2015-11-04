@@ -164,7 +164,7 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
 
     @Override
     public void onMapClick(LatLng latLng) {
-        if(isEditable()) {
+        if(isReadonly()) {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
             try {

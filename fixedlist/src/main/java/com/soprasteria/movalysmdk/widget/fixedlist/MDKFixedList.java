@@ -311,12 +311,12 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
     }
 
     @Override
-    public void setEditable(boolean editable) {
+    public void setReadonly(boolean readonly) {
         //nothing to do here.
     }
 
     @Override
-    public boolean isEditable() {
+    public boolean isReadonly() {
         return false;
     }
 

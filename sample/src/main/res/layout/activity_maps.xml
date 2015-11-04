@@ -203,7 +203,7 @@
             mdk:addressMarker="@drawable/ic_place"
             mdk:positionMode="geopoint"
             mdk:usePicker="true"
-            mdk:editable="false"/>
+            mdk:readonly="true"/>
 
         <!-- RICH POSITION WITHOUT LABEL -->
 

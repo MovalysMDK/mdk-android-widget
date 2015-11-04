@@ -17,12 +17,17 @@ package com.soprasteria.movalysmdk.widget.basic.command;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
+
+import java.util.List;
 
 /**
  * <p>Class handling phone dialing.
@@ -48,7 +53,15 @@ public class PhoneWidgetCommand implements WidgetCommand<String, Void> {
         if (TelephonyManager.CALL_STATE_IDLE==oTelephonyManager.getCallState()){
             String sToDial = "tel:" + number;
 
-            context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(sToDial)));
+            Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse(sToDial));
+
+            PackageManager manager = context.getPackageManager();
+            List<ResolveInfo> infos = manager.queryIntentActivities(dial, 0);
+            if (infos.size() > 0) {
+                context.startActivity(dial);
+            } else {
+                Log.e("PhoneWidgetCommand", context.getResources().getText(R.string.mdkcommand_phone_error_nophoneapp).toString());
+            }
         } else{
             Toast.makeText(context, context.getResources().getText(R.string.mdkcommand_phone_error_notiddle), Toast.LENGTH_SHORT).show();
         }

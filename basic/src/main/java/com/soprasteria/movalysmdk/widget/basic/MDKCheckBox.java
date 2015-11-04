@@ -141,13 +141,13 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, HasVali
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        mdkWidgetDelegate.setEditable(editable);
+    public void setReadonly(boolean readonly) {
+        mdkWidgetDelegate.setReadonly(readonly);
     }
 
     @Override
-    public boolean isEditable() {
-        return mdkWidgetDelegate.isEditable();
+    public boolean isReadonly() {
+        return mdkWidgetDelegate.isReadonly();
     }
 
     @Override
@@ -232,6 +232,6 @@ public class MDKCheckBox extends AppCompatCheckBox implements MDKWidget, HasVali
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return isEditable() && super.onTouchEvent(event);
+        return !isReadonly() && super.onTouchEvent(event);
     }
 }

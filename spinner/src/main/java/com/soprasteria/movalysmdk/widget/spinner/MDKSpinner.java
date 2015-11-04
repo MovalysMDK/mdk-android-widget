@@ -16,6 +16,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasOneSelected;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
@@ -33,7 +34,7 @@ import java.util.Arrays;
  * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
  * <p>The mdk:has_blank_row default value is false.</p>
  */
-public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
+public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter, HasOneSelected, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
     /**
      * User's adapter.
      */
@@ -110,7 +111,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
         this.setValueToValidate(0);
         super.setOnItemSelectedListener(this);
 
-        setEditable(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_editable, true));
+        setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readonly, false));
 
         typedArray.recycle();
         typedArrayComponent.recycle();
@@ -278,13 +279,13 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
     }
 
     @Override
-    public void setEditable(boolean editable) {
-        this.mdkWidgetDelegate.setEditable(editable);
+    public void setReadonly(boolean readonly) {
+        this.mdkWidgetDelegate.setReadonly(readonly);
     }
 
     @Override
-    public boolean isEditable() {
-        return this.mdkWidgetDelegate.isEditable();
+    public boolean isReadonly() {
+        return this.mdkWidgetDelegate.isReadonly();
     }
 
     @Override
@@ -359,7 +360,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return isEditable() && super.onTouchEvent(event);
+        return !isReadonly() && super.onTouchEvent(event);
     }
 
 }

@@ -40,14 +40,14 @@ public interface MDKBaseWidget {
 
 
     /**
-     * Set editable properties on widget.
-     * @param editable true if editable, false otherwise
+     * Set readonly properties on widget.
+     * @param readonly true if readonly, false otherwise
      */
-    void setEditable(boolean editable);
+    void setReadonly(boolean readonly);
 
     /**
-     * Return true if the widget is editable.
-     * @return true if the widget is editable, false otherwise
+     * Return true if the widget is readonly.
+     * @return true if the widget is readonly, false otherwise
      */
-    boolean isEditable();
+    boolean isReadonly();
 }

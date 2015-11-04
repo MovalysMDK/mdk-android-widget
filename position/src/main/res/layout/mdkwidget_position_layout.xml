@@ -8,14 +8,16 @@
         android:id="@+id/component_internal_latitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal|numberSigned"/>
+        android:inputType="numberDecimal|numberSigned"
+        style="?attr/mdkValueEditTextStyle"/>
 
     <EditText
         android:id="@+id/component_internal_longitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/component_internal_latitude"
-        android:inputType="numberDecimal|numberSigned"/>
+        android:inputType="numberDecimal|numberSigned"
+        style="?attr/mdkValueEditTextStyle"/>
 
     <Spinner
         android:id="@+id/component_internal_address"
