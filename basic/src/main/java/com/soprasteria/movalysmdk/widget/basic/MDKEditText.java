@@ -269,6 +269,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         }else{
             super.setInputType(InputType.TYPE_NULL);
             setFocusable(false);
+            setMovementMethod(null);
+            setKeyListener(null);
         }
     }
 

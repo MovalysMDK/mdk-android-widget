@@ -67,9 +67,9 @@
 
         <!-- technical attributes -->
         <!-- to change your application colors, change these settings -->
-        <item name="mdk_t_primaryColor">?attr/colorPrimary</item>
-        <item name="mdk_t_primaryDarkColor">?attr/colorPrimaryDark</item>
-        <item name="mdk_t_accentColor">?attr/colorAccent</item>
+        <item name="mdk_t_primaryColor">?android:attr/colorPrimary</item>
+        <item name="mdk_t_primaryDarkColor">?android:attr/colorPrimaryDark</item>
+        <item name="mdk_t_accentColor">?android:attr/colorAccent</item>
         <item name="mdk_t_textColorPrimary">?android:attr/textColorPrimary</item>
         <item name="mdk_t_textColorSecondary">?android:attr/textColorSecondary</item>
         <item name="mdk_t_smallTextSize">@dimen/abc_text_size_small_material</item>
