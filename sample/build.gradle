@@ -58,7 +58,6 @@ dependencies {
     compile project(':position')
     compile project(':positionmaps')
     compile project(':spinner')
-    compile project(':media')
     compile supportDependencies.support
     compile supportDependencies.appCompat
     compile supportDependencies.recyclerView
