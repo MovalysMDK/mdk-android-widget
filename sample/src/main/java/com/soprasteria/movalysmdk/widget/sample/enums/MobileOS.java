@@ -16,19 +16,19 @@
 package com.soprasteria.movalysmdk.widget.sample.enums;
 
 /**
- * Enum of baby animal names for testing purposes.
+ * Enum of mobile operating systems for testing purposes
  */
-public enum BabyAnimals {
-    /** Kitten drawable. */
-    KITTEN,
-    /** Puppy drawable. */
-    PUPPY,
-    /** Cub drawable. */
-    CUB,
-    /** Calf string. */
-    CALF,
-    /** Piglet string. */
-    PIGLET,
-    /** Duckling string. */
-    DUCKLING
+public enum MobileOS {
+    /** Android (drawable)**/
+    ANDROID,
+    /**iOS (drawable)**/
+    IOS,
+    /**Windows Mobile (drawable)**/
+    WINDOWS,
+    /**BlackBerry (string)**/
+    BLACKBERRY,
+    /**Firefox OS (missing)**/
+    FIREFOX_OS,
+    /**Symbian (string)**/
+    SYMBIAN
 }

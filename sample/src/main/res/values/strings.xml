@@ -171,9 +171,9 @@
     <string name="fortyTwoTextFormater_prefix" translatable="false">"42 /!\\ "</string>
 
     <string name="no_number_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.NoNumberValidator</string>
-    <string name="baby_animals_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.BabyAnimalsPuppyValidator</string>
+    <string name="mobileos_android_validator" translatable="false">com.soprasteria.movalysmdk.widget.sample.validator.MobileOSAndroidValidator</string>
     <string name="no_number_allowed">No number allowed</string>
-    <string name="wrong_animal">Wrong animal. Please select a puppy.</string>
+    <string name="wrong_os">Wrong Operating System. Please select Android.</string>
     <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
     <string name="rich_selector_solo">Rich selector for single widget</string>
     
@@ -195,14 +195,14 @@
     <string name="title_activity_enumview">EnumView</string>
     <string name="enumimage_editable_with_label_error">Editable (clickable) MDKEnumImage with label and error</string>
     <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
-    <string name="enum_babyanimals_calf">calf</string>
-    <string name="enum_babyanimals_duckling">duckling</string>
     <string name="email_rich_non_editable">Non-editable rich email</string>
     <string name="date_non_editable">Non editable rich date time</string>
     <string name="seekbar_non_editable">Non editable seekbar</string>
     <string name="checkbox_non_editable">Non editable checkbox</string>
     <string name="position_non_editable">Non editable rich position widget</string>
     <string name="spinner_not_editable">Non editable rich spinner</string>
+    <string name="enum_mobileos_blackberry">BlackBerry</string>
+    <string name="enum_mobileos_symbian">Symbian</string>
 
 
 
@@ -237,5 +237,8 @@
     <string name="test_position_valid_longitude" translatable="false">6.4</string>
     <string name="test_mdkvalidator_position_error_validation_mandatory">Latitude and longitude must be filled</string>
     <string name="test_fixedlist_entry" translatable="false">Test 1</string>
+    <string name="title_activity_media">Media</string>
+    <string name="photo_editable_with_label_error">Editable photo</string>
+    <string name="rich_photo_editable_with_label_error">Editable rich photo with label and error</string>
 
 </resources>

@@ -25,28 +25,28 @@ import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
 import com.soprasteria.movalysmdk.widget.sample.R;
-import com.soprasteria.movalysmdk.widget.sample.enums.BabyAnimals;
+import com.soprasteria.movalysmdk.widget.sample.enums.MobileOS;
 
 
 /**
- * No number validator.
+ * EnumView OS validator.
  * <p>
- *     Check if a number is in the text of a text view. This Validator is associated with the
- *     attribute : R.attr.no_number.
+ *     Checks the value of the enum associated to an enumview of MobileOS.
+ *     Validates that it has the value Android.
  * </p>
  */
-public class BabyAnimalsPuppyValidator implements FormFieldValidator<BabyAnimals> {
+public class MobileOSAndroidValidator implements FormFieldValidator<MobileOS> {
 
     /**
-     * Wrong animal error.
+     * Wrong OS error.
      */
-    public static final Integer ERROR_WRONG_ANIMAL = R.string.wrong_animal;
+    public static final Integer ERROR_WRONG_OS = R.string.wrong_os;
 
 
 
     @Override
     public String getIdentifier(Context context) {
-        return context.getResources().getResourceName(R.string.baby_animals_validator);
+        return context.getResources().getResourceName(R.string.mobileos_android_validator);
     }
 
     @Override
@@ -60,23 +60,23 @@ public class BabyAnimalsPuppyValidator implements FormFieldValidator<BabyAnimals
 
     @Override
     public int[] configuration() {
-        return new int[] {R.attr.enum_animals_puppy_validator};
+        return new int[] {R.attr.enum_mobileos_android_validator};
     }
 
     @Override
-    public MDKMessage validate(BabyAnimals objectToValidate,
+    public MDKMessage validate(MobileOS objectToValidate,
                                MDKAttributeSet mdkParameter,
                                MDKMessages resultPreviousValidator,
                                @EnumFormFieldValidator.EnumValidationMode int validationMode,
                                Context context) {
         MDKMessage mdkMessage = null;
-        if ( mdkParameter.getBoolean(R.attr.enum_animals_puppy_validator)
+        if ( mdkParameter.getBoolean(R.attr.enum_mobileos_android_validator)
                 && !resultPreviousValidator.containsKey(this.getClass().getName()) ) {
 
-            if (objectToValidate!=BabyAnimals.PUPPY) {
+            if (objectToValidate!=MobileOS.ANDROID) {
                 mdkMessage = new MDKMessage();
-                mdkMessage.setMessageCode(ERROR_WRONG_ANIMAL);
-                String error = context.getString(R.string.wrong_animal);
+                mdkMessage.setMessageCode(ERROR_WRONG_OS);
+                String error = context.getString(R.string.wrong_os);
                 mdkMessage.setMessage(error);
             }
 

@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKEnumView;
 import com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView;
-import com.soprasteria.movalysmdk.widget.sample.enums.BabyAnimals;
+import com.soprasteria.movalysmdk.widget.sample.enums.MobileOS;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -68,7 +68,7 @@ public class EnumViewTest {
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         MDKEnumView enumimage = (MDKEnumView) mActivityRule.getActivity().findViewById(R.id.mdkEnumImage_withErrorAndCommandOutside);
-        assertThat(null, ((ImageView) enumimage.getModeView()).getDrawable().getConstantState().equals(ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_kitten).getConstantState()));
+        assertThat(null, ((ImageView) enumimage.getModeView()).getDrawable().getConstantState().equals(ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_mobileos_ios).getConstantState()));
     }
 
     /**
@@ -84,23 +84,23 @@ public class EnumViewTest {
         MDKEnumView enumimage = new MDKEnumView(mActivityRule.getActivity(), attributes);
 
         //set drawable from java enum
-        enumimage.setValueFromEnum(BabyAnimals.CUB);
-        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_cub).getConstantState().equals(((ImageView) enumimage.getModeView()).getDrawable().getConstantState()));
+        enumimage.setValueFromEnum(MobileOS.WINDOWS);
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_mobileos_windows).getConstantState().equals(((ImageView) enumimage.getModeView()).getDrawable().getConstantState()));
 
         //set drawable from string
-        enumimage.setValueFromString("babyanimals_puppy");
-        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_puppy).getConstantState().equals(((ImageView) enumimage.getModeView()).getDrawable().getConstantState()));
+        enumimage.setValueFromString("mobileos_android");
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_mobileos_android).getConstantState().equals(((ImageView) enumimage.getModeView()).getDrawable().getConstantState()));
 
         //fallback to string
-        enumimage.setValueFromEnum(BabyAnimals.CALF);
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_babyanimals_calf).equals(((TextView) enumimage.getModeView()).getText().toString()));
+        enumimage.setValueFromEnum(MobileOS.BLACKBERRY);
+        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_blackberry).equals(((TextView) enumimage.getModeView()).getText().toString()));
 
-        enumimage.setValueFromString("babyanimals_calf");
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_babyanimals_calf).equals(((TextView) enumimage.getModeView()).getText().toString()));
+        enumimage.setValueFromString("mobileos_blackberry");
+        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_blackberry).equals(((TextView) enumimage.getModeView()).getText().toString()));
 
         //fallback to name
-        enumimage.setValueFromEnum(BabyAnimals.PIGLET);
-        assertThat(null, "enum_babyanimals_piglet".equals(((TextView) enumimage.getModeView()).getText().toString()));
+        enumimage.setValueFromEnum(MobileOS.FIREFOX_OS);
+        assertThat(null, "enum_mobileos_firefox_os".equals(((TextView) enumimage.getModeView()).getText().toString()));
 
         enumimage.setValueFromString("hello_world");
         assertThat(null, "enum_hello_world".equals(((TextView) enumimage.getModeView()).getText().toString()));
@@ -114,30 +114,34 @@ public class EnumViewTest {
     public void editableTest(){
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_puppy).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_mobileos_android).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_cub).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_mobileos_ios).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_babyanimals_calf).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_mobileos_windows).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, "enum_babyanimals_piglet".equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_blackberry).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_babyanimals_duckling).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+        assertThat(null, "enum_mobileos_firefox_os".equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+
+        // Click the view
+        onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
+        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_symbian).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
 
         // END OF ENUM REACHED
         // MUST GO BACK TO FIRST ELEMENT IN ENUM
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_babyanimals_kitten).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
+        assertThat(null, ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.enum_mobileos_android).getConstantState().equals(((ImageView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getDrawable().getConstantState()));
 
     }
 
@@ -171,7 +175,7 @@ public class EnumViewTest {
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichEnumImage_withLabelAndError))))
-                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.wrong_animal)));
+                .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.wrong_os)));
     }
 
 

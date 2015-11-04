@@ -19,6 +19,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.soprasteria.movalysmdk.widget.sample" >
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -167,6 +168,14 @@
         <activity
             android:name=".SpinnerActivity"
             android:label="@string/title_activity_spinner"
+            android:parentActivityName=".ListWidgetActivity"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
+        <activity
+            android:name=".MediaActivity"
+            android:label="@string/title_activity_media"
             android:parentActivityName=".ListWidgetActivity"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
