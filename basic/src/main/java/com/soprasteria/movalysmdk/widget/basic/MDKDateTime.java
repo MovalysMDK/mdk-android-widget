@@ -215,7 +215,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
                     // Handle click events on components
                     view.setOnClickListener(this);
                 }
-
+            } else {
                 setMovementMethod(null);
                 setKeyListener(null);
             }
