@@ -127,6 +127,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
     @Override
     public void setDate(Date date) {
         this.mdkWidgetDelegate.setDisplayedDate(date);
+        this.mdkWidgetDelegate.setDisplayedTime(date);
     }
 
     @Override
@@ -137,7 +138,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
     @Override
     public void setTimeHint(String timeHint) {
         mdkWidgetDelegate.setTimeHint(timeHint);
-
     }
 
     /**
@@ -201,19 +201,19 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
                 view = this.mdkWidgetDelegate.getDateTextView();
                 if (view != null) {
                     // Handle click events on components
-                    view.setOnClickListener(this);
+                    view.setOnClickListener(this.mdkWidgetDelegate);
                 }
                 // Initialize the time component
                 view = this.mdkWidgetDelegate.getTimeTextView();
                 if (view != null) {
                     // Handle click events on components
-                    view.setOnClickListener(this);
+                    view.setOnClickListener(this.mdkWidgetDelegate);
                 }
                 // initialize the clear button
                 view = this.mdkWidgetDelegate.getClearButton();
                 if (view != null) {
                     // Handle click events on components
-                    view.setOnClickListener(this);
+                    view.setOnClickListener(this.mdkWidgetDelegate);
                 }
             } else {
                 setMovementMethod(null);
