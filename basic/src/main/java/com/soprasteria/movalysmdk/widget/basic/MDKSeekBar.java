@@ -42,7 +42,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasFormatter;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;

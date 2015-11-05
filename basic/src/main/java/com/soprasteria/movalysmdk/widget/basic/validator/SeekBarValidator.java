@@ -19,7 +19,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.R;
-import com.soprasteria.movalysmdk.widget.core.behavior.HasSeekBar;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;

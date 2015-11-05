@@ -15,14 +15,13 @@
  */
 package com.soprasteria.movalysmdk.widget.core.selector;
 
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.soprasteria.movalysmdk.widget.core.R;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasEditFields;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasOneSelected;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.helper.StateHelper;
 
 /**
@@ -34,18 +33,17 @@ public class ReadOnlySelector implements RichSelector{
     @Override
     public void onStateChange(int[] state, View v) {
         if (StateHelper.hasState(R.attr.readonly, state)) {
-            // TODO : gerer le deprecated
             if (v instanceof HasTextWatcher) {
-                v.setBackgroundColor(v.getContext().getResources().getColor(android.R.color.transparent));
-            } else if (v instanceof HasPosition) {
-                for (int i=0; i<((ViewGroup)v).getChildCount(); i++) {
-                    View child = ((ViewGroup)v).getChildAt(i);
-                    if (child instanceof EditText) {
-                        child.setBackgroundColor(v.getContext().getResources().getColor(android.R.color.transparent));
+                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
+            } else if (v instanceof HasOneSelected) {
+                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
+            } else if (v instanceof HasEditFields) {
+                for (int i=0; i<((HasEditFields)v).getEditFields().length; i++) {
+                    View child = ((HasEditFields)v).getEditFields()[i];
+                    if (child != null) {
+                        child.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
                     }
                 }
-            } else if (v instanceof HasOneSelected) {
-                v.setBackgroundColor(v.getContext().getResources().getColor(android.R.color.transparent));
             }
         }
     }

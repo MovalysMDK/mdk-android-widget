@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.soprasteria.movalysmdk.widget.core.behavior;
+package com.soprasteria.movalysmdk.widget.core.behavior.types;
 
 import android.widget.EditText;
 

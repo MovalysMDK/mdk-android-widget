@@ -357,21 +357,24 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /**
      * Called by the view on the onAttachedToWindow event.
      * Initialize the click listeners and updates the date and time views
+     * @param isReadOnly true if the view is in readonly mode
      */
-    public void onAttachedToWindow() {
-        // Initialize the date component
-        if (dateViewId != 0) {
-            // Handle click events on components
-            getDateTextView().setOnClickListener(this);
-        }
-        // Initialize the time component
-        if (timeViewId != 0) {
-            // Handle click events on components
-            getTimeTextView().setOnClickListener(this);
-        }
-        if (clearButtonId != 0) {
-            // Handle click events on components
-            getClearButton().setOnClickListener(this);
+    public void onAttachedToWindow(boolean isReadOnly) {
+        if (!isReadOnly) {
+            // Initialize the date component
+            if (dateViewId != 0) {
+                // Handle click events on components
+                getDateTextView().setOnClickListener(this);
+            }
+            // Initialize the time component
+            if (timeViewId != 0) {
+                // Handle click events on components
+                getTimeTextView().setOnClickListener(this);
+            }
+            if (clearButtonId != 0) {
+                // Handle click events on components
+                getClearButton().setOnClickListener(this);
+            }
         }
 
         // Set initial date and time values
@@ -474,7 +477,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      *
      * @return foundDateView th found date TextView
      */
-    private TextView getDateTextView() {
+    public TextView getDateTextView() {
 
         View foundDateView = null;
         // In time picker mode there is no date view
@@ -498,7 +501,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      *
      * @return foundTimeView the found time TextView if exists
      */
-    private TextView getTimeTextView() {
+    public TextView getTimeTextView() {
 
         View foundTimeView = null;
         // In date picker mode there is no time view

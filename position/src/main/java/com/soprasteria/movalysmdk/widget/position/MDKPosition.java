@@ -32,6 +32,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasEditFields;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
@@ -102,7 +103,7 @@ import java.util.Locale;
  *     </li>
  * </ul>
  */
-public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasPosition, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
+public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasEditFields, HasPosition, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
 
     /** tag for dummy provider. */
     private static final String DUMMY = "dummyprovider";
@@ -688,6 +689,14 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             // there should be at least two elements as there is an empty address
             return this.addresses.size() > 1 && this.position.getAddress() != null;
         }
+    }
+
+    @Override
+    public View[] getEditFields() {
+        return new View[] {
+                this.mdkWidgetDelegate.getLatitudeView(),
+                this.mdkWidgetDelegate.getLongitudeView()
+        };
     }
 
     /* technical delegate methods */

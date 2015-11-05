@@ -25,6 +25,7 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasEditFields;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHints;
@@ -57,7 +58,7 @@ import java.util.Date;
  * <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener, HasHints, View.OnClickListener {
+public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEditFields, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener, HasHints, View.OnClickListener {
 
     /**
      * Widget delegate that handles all the widget logic.
@@ -193,7 +194,11 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (!isInEditMode()) {
-            this.mdkWidgetDelegate.onAttachedToWindow();
+            this.mdkWidgetDelegate.onAttachedToWindow(isReadonly());
+            if (isReadonly()) {
+                setMovementMethod(null);
+                setKeyListener(null);
+            }
         }
     }
 
@@ -367,4 +372,11 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasVali
         }
     }
 
+    @Override
+    public View[] getEditFields() {
+        return new View[] {
+                this.mdkWidgetDelegate.getDateTextView(),
+                this.mdkWidgetDelegate.getTimeTextView()
+        };
+    }
 }
