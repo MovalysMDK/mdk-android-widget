@@ -67,6 +67,7 @@ import java.util.Locale;
  *         <ul>
  *             <li>geopoint: the position will be shown as a latitude and a longitude (default option)</li>
  *             <li>address: the position will be displayed has a list of addresses, the user will choose the most appropriate one</li>
+ *             <li>info: the input is deactivated, the component wil display the current location.</li>
  *         </ul>
  *     </li>
  *     <li>autoStart: the widget will start looking for the current position as soon as it is inflated (default is false)</li>

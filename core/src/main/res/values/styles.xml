@@ -275,8 +275,9 @@
 
     <!-- Maps component style -->
     <style name="MDKValueMaps" parent="Base.MDKValue.MDKValueEditText">
-        <item name="android:textSize">8sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?attr/mdk_b_mapsTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_mapsTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_mapsTextStyle</item>
     </style>
 
     <!-- Spinner component style -->

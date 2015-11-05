@@ -32,7 +32,7 @@ public class ReadOnlySelector implements RichSelector{
 
     @Override
     public void onStateChange(int[] state, View v) {
-        if (StateHelper.hasState(R.attr.readonly, state)) {
+        if (StateHelper.hasState(R.attr.state_readonly, state)) {
             if (v instanceof HasTextWatcher) {
                 v.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
             } else if (v instanceof HasOneSelected) {

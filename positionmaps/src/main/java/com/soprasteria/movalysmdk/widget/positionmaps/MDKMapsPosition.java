@@ -39,14 +39,6 @@ import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWi
  * <p>Given the mode set on the widget, the location will either be typed by the user, or gathered from the device current location.</p>
  * <p>This widget inherits from the {@link MDKPosition} widget, and has the specific XML attributes:</p>
  * <ul>
- *     <li>
- *         mapsMode: sets one the the following modes on the widget
- *         <ul>
- *             <li>places_picker: the position will be picked using the Android Places API</li>
- *             <li>geopoint: the position will be shown as a latitude and a longitude</li>
- *             <li>gps: the position will be gathered from the device's location (default option)</li>
- *         </ul>
- *     </li>
  *     <li>autoStart: the widget will start looking for the current position as soon as it is inflated (default is false)</li>
  *     <li>activeGoto: will hide the map action when set to false (default is true)</li>
  *     <li>
