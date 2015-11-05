@@ -194,8 +194,28 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (!isInEditMode()) {
-            this.mdkWidgetDelegate.onAttachedToWindow(isReadonly());
+            this.mdkWidgetDelegate.onAttachedToWindow();
             if (isReadonly()) {
+                View view;
+                // Initialize the date component
+                view = this.mdkWidgetDelegate.getDateTextView();
+                if (view != null) {
+                    // Handle click events on components
+                    view.setOnClickListener(this);
+                }
+                // Initialize the time component
+                view = this.mdkWidgetDelegate.getTimeTextView();
+                if (view != null) {
+                    // Handle click events on components
+                    view.setOnClickListener(this);
+                }
+                // initialize the clear button
+                view = this.mdkWidgetDelegate.getClearButton();
+                if (view != null) {
+                    // Handle click events on components
+                    view.setOnClickListener(this);
+                }
+
                 setMovementMethod(null);
                 setKeyListener(null);
             }

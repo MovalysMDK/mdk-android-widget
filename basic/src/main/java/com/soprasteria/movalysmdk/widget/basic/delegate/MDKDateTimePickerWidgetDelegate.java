@@ -356,27 +356,9 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
 
     /**
      * Called by the view on the onAttachedToWindow event.
-     * Initialize the click listeners and updates the date and time views
-     * @param isReadOnly true if the view is in readonly mode
+     * Updates the date and time views
      */
-    public void onAttachedToWindow(boolean isReadOnly) {
-        if (!isReadOnly) {
-            // Initialize the date component
-            if (dateViewId != 0) {
-                // Handle click events on components
-                getDateTextView().setOnClickListener(this);
-            }
-            // Initialize the time component
-            if (timeViewId != 0) {
-                // Handle click events on components
-                getTimeTextView().setOnClickListener(this);
-            }
-            if (clearButtonId != 0) {
-                // Handle click events on components
-                getClearButton().setOnClickListener(this);
-            }
-        }
-
+    public void onAttachedToWindow() {
         // Set initial date and time values
         updateShownDateTime();
     }
