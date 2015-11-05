@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -53,6 +54,8 @@ import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,6 +87,23 @@ import java.util.Locale;
  */
 public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler {
 
+
+    /** Media type constant for photo. **/
+    public static final int TYPE_PHOTO = 0;
+
+    /** Media type constant for photo. **/
+    public static final int TYPE_VIDEO = 1;
+
+    /** Media type constant for photo. **/
+    public static final int TYPE_FILE = 2;
+
+    /**
+     * Enumeration listing possible MDKMedia modes.
+     */
+    @IntDef({TYPE_PHOTO,TYPE_VIDEO,TYPE_FILE})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface MediaType {
+    }
 
     /** The thumbnail ImageView. **/
     private WeakReference<ImageView> thumbnail;

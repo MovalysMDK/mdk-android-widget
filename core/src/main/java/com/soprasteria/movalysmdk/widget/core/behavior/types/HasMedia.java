@@ -16,32 +16,11 @@
 package com.soprasteria.movalysmdk.widget.core.behavior.types;
 
 import android.net.Uri;
-import android.support.annotation.IntDef;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * Adds media behavior to a widget.
  */
 public interface HasMedia {
-
-    /** Media type constant for photo. **/
-    int TYPE_PHOTO = 0;
-
-    /** Media type constant for photo. **/
-    int TYPE_VIDEO = 1;
-
-    /** Media type constant for photo. **/
-    int TYPE_FILE = 2;
-
-    /**
-     * Enumeration listing possible MDKMedia modes.
-     */
-    @IntDef({TYPE_PHOTO,TYPE_VIDEO,TYPE_FILE})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface MediaType {
-    }
 
     /**
      * Gets the widget's media uri.
@@ -59,13 +38,13 @@ public interface HasMedia {
      * Gets the widget's media type.
      * @return the media type
      */
-    @MediaType int getMediaType();
+    int getMediaType();
 
     /**
      * Sets the widget's media type.
      * @param type the media type
      */
-    void setMediaType(@MediaType int type);
+    void setMediaType(int type);
 
     /**
      * Sets the widget's placeholder drawable resource id and updates it on the view.

@@ -70,21 +70,21 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
             getInnerWidget().requestLayout();
         }
 
-        switch(AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, TYPE_PHOTO)){
-            case TYPE_PHOTO:
-                setMediaType(TYPE_PHOTO);
+        switch(AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, MDKMedia.TYPE_PHOTO)){
+            case MDKMedia.TYPE_PHOTO:
+                setMediaType(MDKMedia.TYPE_PHOTO);
                 break;
-            case TYPE_VIDEO:
-                setMediaType(TYPE_VIDEO);
+            case MDKMedia.TYPE_VIDEO:
+                setMediaType(MDKMedia.TYPE_VIDEO);
                 break;
-            case TYPE_FILE:
-                setMediaType(TYPE_FILE);
+            case MDKMedia.TYPE_FILE:
+                setMediaType(MDKMedia.TYPE_FILE);
                 break;
             default:
                 break;
         }
 
-        setPlaceholder(AttributesHelper.getIntFromResourceAttribute(typedArray,R.styleable.MDKCommons_MDKMediaComponent_placeholder,0));
+        setPlaceholder(AttributesHelper.getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_placeholder, 0));
 
         typedArray.recycle();
     }
@@ -105,7 +105,7 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
     }
 
     @Override
-    public void setMediaType(@MediaType int type) {
+    public void setMediaType(@MDKMedia.MediaType int type) {
         getInnerWidget().setMediaType(type);
     }
 
