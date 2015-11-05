@@ -42,9 +42,7 @@
 
     <style name="Base.MDKError" parent="TextAppearance.AppCompat.Small"/>
 
-    <style name="Base.MDKCommand" parent="Widget.AppCompat.ActionButton"/>
-
-    <style name="Base.MDKCommandButton" parent="Widget.AppCompat.Button"/>
+    <style name="Base.MDKCommand" parent="@style/Widget.AppCompat.ActionButton"/>
 
     <style name="Base.MDKValue.MDKSpinner" parent="@style/Widget.AppCompat.Spinner"/>
 

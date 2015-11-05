@@ -25,45 +25,46 @@
 
     <include layout="@layout/mdkwidget_label_error_layout" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/component_label">
+        android:layout_below="@+id/component_label"
+        android:orientation="horizontal">
 
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_mapButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:src="@drawable/ic_map"
-            android:layout_alignParentLeft="true"
-            style="?attr/mdkCommandStyle"/>
+            style="?attr/mdkSecondaryCommandStyle"/>
 
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_navigationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:src="@drawable/ic_navigation"
-            android:layout_toRightOf="@id/component_mapButton"
-            style="?attr/mdkCommandStyle"/>
+            style="?attr/mdkPrimaryCommandStyle"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKCheckableImageButton
             android:id="@+id/component_positionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:src="@drawable/gps_action_button"
-            android:layout_toRightOf="@id/component_navigationButton"
             style="?attr/mdkCommandStyle"/>
 
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_internal_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:src="@drawable/ic_clear"
-            android:layout_toRightOf="@id/component_positionButton"
             style="?attr/mdkCommandStyle"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition
         android:id="@id/component_internal"

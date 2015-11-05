@@ -30,6 +30,11 @@
         <!-- Customize your theme here. -->
         <item name="textWithRichSelector">@style/TextRichSelector</item>
 
+        <!-- round buttons -->
+        <item name="mdk_b_commandBackground">@drawable/round_button</item>
+        <item name="mdk_b_primaryCommandBackground">@drawable/round_button</item>
+        <item name="mdk_b_secondaryCommandBackground">@drawable/round_button</item>
+
         <!--<item name="mdkLabelStyle">@style/CustomLabel</item>-->
     </style>
 

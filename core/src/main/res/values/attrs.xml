@@ -54,6 +54,8 @@
         <attr name="mdk_t_mediumTextSize" format="reference"/>
         <attr name="mdk_t_largeTextSize" format="reference"/>
         <attr name="mdk_t_noBackground" format="reference"/>
+        <attr name="mdk_t_commandWidth" format="reference"/>
+        <attr name="mdk_t_commandHeight" format="reference"/>
 
         <!-- component label attributes -->
         <attr name="mdk_b_labelTextColor" format="reference"/>
@@ -170,14 +172,20 @@
         <attr name="mdk_b_errorTint" format="reference"/>
 
         <!-- component primaryCommand attributes -->
+        <attr name="mdk_b_primaryCommandWidth" format="reference"/>
+        <attr name="mdk_b_primaryCommandHeight" format="reference"/>
         <attr name="mdk_b_primaryCommandTint" format="reference"/>
         <attr name="mdk_b_primaryCommandBackground" format="reference"/>
 
         <!-- component secondaryCommand attributes -->
+        <attr name="mdk_b_secondaryCommandWidth" format="reference"/>
+        <attr name="mdk_b_secondaryCommandHeight" format="reference"/>
         <attr name="mdk_b_secondaryCommandTint" format="reference"/>
         <attr name="mdk_b_secondaryCommandBackground" format="reference"/>
 
         <!-- component command attributes -->
+        <attr name="mdk_b_commandWidth" format="reference"/>
+        <attr name="mdk_b_commandHeight" format="reference"/>
         <attr name="mdk_b_commandTint" format="reference"/>
         <attr name="mdk_b_commandBackground" format="reference"/>
 
