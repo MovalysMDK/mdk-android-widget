@@ -275,10 +275,10 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
             stateList.add(R.attr.state_error);
         }
         if (this.valueObject.isReadonly()) {
-            stateList.add(R.attr.readonly);
+            stateList.add(R.attr.state_readonly);
         }
         if (this.isMandatory()) {
-            stateList.add(R.attr.mandatory);
+            stateList.add(R.attr.state_mandatory);
         }
 
         state = new int[stateList.size()];
