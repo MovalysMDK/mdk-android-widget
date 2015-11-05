@@ -195,7 +195,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
         super.onAttachedToWindow();
         if (!isInEditMode()) {
             this.mdkWidgetDelegate.onAttachedToWindow();
-            if (isReadonly()) {
+            if (!isReadonly()) {
                 View view;
                 // Initialize the date component
                 view = this.mdkWidgetDelegate.getDateTextView();
