@@ -56,8 +56,8 @@ public class PhoneWidgetCommand implements WidgetCommand<String, Void> {
             Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse(sToDial));
 
             PackageManager manager = context.getPackageManager();
-            List<ResolveInfo> infos = manager.queryIntentActivities(dial, 0);
-            if (infos.size() > 0) {
+            List<ResolveInfo> info = manager.queryIntentActivities(dial, 0);
+            if (!info.isEmpty()) {
                 context.startActivity(dial);
             } else {
                 Log.e("PhoneWidgetCommand", context.getResources().getText(R.string.mdkcommand_phone_error_nophoneapp).toString());
