@@ -28,6 +28,7 @@
     <string name="maps_activity">Maps with GApi</string>
     <string name="checkbox_activity">CheckBoxes</string>
     <string name="switch_activity">Switches</string>
+    <string name="presenter_activity">Presenter</string>
     <string name="title_activity_edit_text">EditText</string>
     <string name="title_activity_validator">Validator</string>
     <string name="title_activity_rich_selector">Rich Selector</string>

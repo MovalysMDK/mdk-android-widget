@@ -181,6 +181,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
         </activity>
+        <activity
+            android:name=".PresenterActivity"
+            android:label="@string/presenter_activity"
+            android:parentActivityName=".ListWidgetActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.soprasteria.movalysmdk.widget.sample.ListWidgetActivity" />
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUa-gmlwyhCdmGtAKJKt5LydN44rwSmX4"/>

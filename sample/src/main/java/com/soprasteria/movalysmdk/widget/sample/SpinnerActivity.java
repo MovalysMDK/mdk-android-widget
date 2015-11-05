@@ -44,7 +44,7 @@ public class SpinnerActivity extends AbstractWidgetTestableActivity {
         MDKRichSpinner spinnerNotEditable = (MDKRichSpinner) findViewById(R.id.MDKRichSpinner_not_editable);
         MDKSpinner iSpinner = (MDKSpinner) findViewById(R.id.MDKSpinner);
 
-        //Creat adapter
+        //Create adapter
         List<String> exemple = new ArrayList<>();
         exemple.add("Element 1");
         exemple.add("Element 2");
