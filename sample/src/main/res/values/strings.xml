@@ -240,5 +240,7 @@
     <string name="title_activity_media">Media</string>
     <string name="photo_editable_with_label_error">Editable photo</string>
     <string name="rich_photo_editable_with_label_error">Editable rich photo with label and error</string>
+    <string name="rich_photo_editable_with_placeholder">EDitable rich photo with custom placeholder</string>
+    <string name="photo_readonly">Read only photo MDKMedia</string>
 
 </resources>

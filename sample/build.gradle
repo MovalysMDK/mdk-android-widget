@@ -58,6 +58,7 @@ dependencies {
     compile project(':position')
     compile project(':positionmaps')
     compile project(':spinner')
+    compile project(':media')
     compile supportDependencies.support
     compile supportDependencies.appCompat
     compile supportDependencies.recyclerView
@@ -71,6 +72,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
+    androidTestCompile testDependencies.espressoIntents
     androidTestCompile testDependencies.testRunner
     androidTestCompile testDependencies.spoonClient
     androidTestCompile testDependencies.mdkEspresso

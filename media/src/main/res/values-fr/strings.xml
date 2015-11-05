@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mdkwidget_mdkmedia_take_video">Prendre une vidéo</string>
+    <string name="mdkwidget_mdkmedia_choose_photo">Sélectionner une photo</string>
+    <string name="mdkwidget_mdkmedia_choose_video">Sélectionner une vidéo</string>
+    <string name="mdkwidget_mdkmedia_remove_photo">Supprimer la photo</string>
+    <string name="mdkwidget_mdkmedia_remove_video">Supprimer la vidéo</string>
+    <string name="mdkwidget_mdkmedia_take_photo">Prendre une photo</string>
+</resources>
