@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -23,8 +23,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.MDKPresenterView;
+import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,15 +80,17 @@ public class PresenterAdapter extends BaseAdapter {
             mViewHolder.mTextView = (TextView) v.findViewById(R.id.tv_name_holder);
             v.setTag(mViewHolder);
         } else {
-            v= convertView;
+            v = convertView;
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
         String item = getItem(position);
 
         if (item != null) {
+            URI uri = null;
             mViewHolder.mTextView.setText(item);
-            mViewHolder.mdkPresenterView.setTitleFirstLetterToUpper(item);
+            MDKPresenter mdkPresenter = new MDKPresenter(item, uri, true);
+            mViewHolder.mdkPresenterView.setPresenter(mdkPresenter);
         }
 
         return v;
@@ -96,6 +100,7 @@ public class PresenterAdapter extends BaseAdapter {
      * The view holder of the adapter.
      */
     private static class ViewHolder {
+
         /**
          * The MDKPresenterView.
          */

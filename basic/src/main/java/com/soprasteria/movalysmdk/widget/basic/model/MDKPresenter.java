@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,7 +15,8 @@
  */
 package com.soprasteria.movalysmdk.widget.basic.model;
 
-import android.net.Uri;
+
+import java.net.URI;
 
 /**
  * MDKPresenter class.
@@ -29,7 +30,7 @@ public class MDKPresenter {
     /**
      * The uri.
      */
-    private Uri uri;
+    private URI uri;
 
 
     /**
@@ -38,8 +39,24 @@ public class MDKPresenter {
      * @param string the title
      * @param uri    the uri for image
      */
-    public MDKPresenter(String string, Uri uri) {
+    public MDKPresenter(String string, URI uri) {
         this.string = string;
+        this.uri = uri;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param string      the title
+     * @param uri         the uri for image
+     * @param firstLetter boolean to test if the first letter of title string is required
+     */
+    public MDKPresenter(String string, URI uri, boolean firstLetter) {
+        if (firstLetter) {
+            this.string = getFirstLetterToUpper(string);
+        } else {
+            this.string = string;
+        }
         this.uri = uri;
     }
 
@@ -66,7 +83,7 @@ public class MDKPresenter {
      *
      * @return the uri
      */
-    public Uri getUri() {
+    public URI getURI() {
         return this.uri;
     }
 
@@ -75,9 +92,32 @@ public class MDKPresenter {
      *
      * @param uri the uri to set
      */
-    public void setUri(Uri uri) {
+    public void setURI(URI uri) {
         this.uri = uri;
     }
 
+    /**
+     * To get the first letter of a string in uppercase.
+     *
+     * @param title the string used to get the first letter in uppercase
+     * @return the first letter in uppercase
+     */
+    public String getFirstLetterToUpper(String title) {
+        if (title != null) {
+            return title.substring(0, 1).toUpperCase();
+        }
+        return null;
+    }
 
+    /**
+     * To set the title with getFirstLetterToUpper method.
+     *
+     * @param title the string used to get the first letter in uppercase and set into titleView
+     */
+    public void setTitleFirstLetterToUpper(String title) {
+        String newTitle = this.getFirstLetterToUpper(title);
+        if (title != null) {
+            this.setString(newTitle);
+        }
+    }
 }

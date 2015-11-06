@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,6 +17,8 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
@@ -24,10 +26,23 @@ import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * MDKPresenterView.
  */
 public class MDKPresenterView extends RelativeLayout {
+
+    /**
+     * The random generator for color catalogue.
+     */
+    private Random randomGenerator = new Random();
+    /**
+     * A random list of color.
+     */
+    private List<String> catalogue = new ArrayList();
 
     /**
      * The title textView.
@@ -96,6 +111,10 @@ public class MDKPresenterView extends RelativeLayout {
             titleView.setTextColor(titleColor);
             titleView.setTextSize(titleSize);
         }
+
+        /* Color catalogue */
+        this.setRandomColor();
+
         /* Recycling */
         typedArrayComponent.recycle();
     }
@@ -111,30 +130,6 @@ public class MDKPresenterView extends RelativeLayout {
         }
     }
 
-    /**
-     * To get the first letter of a string in uppercase.
-     *
-     * @param title the string used to get the first letter in uppercase
-     * @return the first letter in uppercase
-     */
-    public String getFirstLetterToUpper(String title) {
-        if (title != null) {
-            return title.substring(0, 1).toUpperCase();
-        }
-        return null;
-    }
-
-    /**
-     * To set the title with getFirstLetterToUpper method.
-     *
-     * @param title the string used to get the first letter in uppercase and set into titleView
-     */
-    public void setTitleFirstLetterToUpper(String title) {
-        String newTitle = this.getFirstLetterToUpper(title);
-        if (title != null) {
-            this.setTitle(newTitle);
-        }
-    }
 
     /**
      * To set the MDKPresenter in the MDKPresenterView.
@@ -145,5 +140,40 @@ public class MDKPresenterView extends RelativeLayout {
         if (presenter != null) {
             this.setTitle(presenter.getString());
         }
+    }
+
+    /**
+     * The list of material base colors.
+     */
+    private void catalogueGenerator() {
+        catalogue.add(0, "#F44336");
+        catalogue.add(1, "#673AB7");
+        catalogue.add(2, "#03A9F4");
+        catalogue.add(3, "#4CAF50");
+        catalogue.add(4, "#FFEB3B");
+        catalogue.add(5, "#FF5722");
+        catalogue.add(6, "#607D8B");
+        catalogue.add(7, "#E91E63");
+        catalogue.add(8, "#3F51B5");
+        catalogue.add(9, "#00BCD4");
+        catalogue.add(10, "#8BC34A");
+        catalogue.add(11, "#FFC107");
+        catalogue.add(12, "#795548");
+        catalogue.add(13, "#9C27B0");
+        catalogue.add(14, "#2196F3");
+        catalogue.add(15, "#009688");
+        catalogue.add(16, "#CDDC39");
+        catalogue.add(17, "#FF9800");
+        catalogue.add(18, "#9E9E9E");
+    }
+
+    /**
+     * Method to set random material color.
+     */
+    private void setRandomColor() {
+        catalogueGenerator();
+        int index = randomGenerator.nextInt(catalogue.size());
+        String color = catalogue.get(index);
+        this.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC);
     }
 }
