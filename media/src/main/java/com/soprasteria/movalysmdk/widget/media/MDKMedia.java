@@ -338,6 +338,10 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         return !isReadonly() && isEnabled() && super.showContextMenu();
     }
 
+    /**
+     * Enables or disables the overlay.
+     * @param enabled the enabled property of the overlay
+     */
     private void setOverlayEnabled(boolean enabled){
         if(getOverlayView()!=null){
             if(!enabled) {
@@ -353,24 +357,40 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
         switch (this.mediaType) {
             case TYPE_PHOTO:
-                if(mediaUri!=null){
-                    menu.add(0, -1, 0, R.string.mdkwidget_mdkmedia_remove_photo).setOnMenuItemClickListener(this);
-                }
-                menu.add(0, 0, 1, R.string.mdkwidget_mdkmedia_take_photo).setOnMenuItemClickListener(this);
-                menu.add(0, 1, 2, R.string.mdkwidget_mdkmedia_choose_photo).setOnMenuItemClickListener(this);
+                initPhotoMenu(menu);
                 break;
             case TYPE_VIDEO:
-                if(mediaUri!=null){
-                    menu.add(0, -1, 0, R.string.mdkwidget_mdkmedia_remove_video).setOnMenuItemClickListener(this);
-                }
-                menu.add(0, 2, 1, R.string.mdkwidget_mdkmedia_take_video).setOnMenuItemClickListener(this);
-                menu.add(0, 3, 2, R.string.mdkwidget_mdkmedia_choose_video).setOnMenuItemClickListener(this);
+                initVideoMenu(menu);
                 break;
             case TYPE_FILE:
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * Initializes the photo context menu.
+     * @param menu the menu to initialize
+     */
+    private void initPhotoMenu(ContextMenu menu){
+        if(mediaUri!=null){
+            menu.add(0, -1, 0, R.string.mdkwidget_mdkmedia_remove_photo).setOnMenuItemClickListener(this);
+        }
+        menu.add(0, 0, 1, R.string.mdkwidget_mdkmedia_take_photo).setOnMenuItemClickListener(this);
+        menu.add(0, 1, 2, R.string.mdkwidget_mdkmedia_choose_photo).setOnMenuItemClickListener(this);
+    }
+
+    /**
+     * Initializes the video context menu.
+     * @param menu the menu to initialize
+     */
+    private void initVideoMenu(ContextMenu menu){
+        if(mediaUri!=null){
+            menu.add(0, -1, 0, R.string.mdkwidget_mdkmedia_remove_video).setOnMenuItemClickListener(this);
+        }
+        menu.add(0, 2, 1, R.string.mdkwidget_mdkmedia_take_video).setOnMenuItemClickListener(this);
+        menu.add(0, 3, 2, R.string.mdkwidget_mdkmedia_choose_video).setOnMenuItemClickListener(this);
     }
 
     @Override
@@ -384,11 +404,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 }
                 break;
             case 0:
-                Intent cameraPhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 tempFileUri = getOutputMediaFileUri(TYPE_PHOTO);
                 if(tempFileUri !=null) {
-                    cameraPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
-                    ((Activity) getContext()).startActivityForResult(cameraPhotoIntent, mdkWidgetDelegate.getUniqueId());
+                    ((Activity) getContext()).startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
                 }
                 break;
             case 1:
@@ -396,11 +414,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 ((Activity) getContext()).startActivityForResult(pickPhotoIntent, mdkWidgetDelegate.getUniqueId());
                 break;
             case 2:
-                Intent cameraVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                 tempFileUri = getOutputMediaFileUri(TYPE_VIDEO);
                 if(tempFileUri !=null) {
-                    cameraVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
-                    ((Activity) getContext()).startActivityForResult(cameraVideoIntent, mdkWidgetDelegate.getUniqueId());
+                    ((Activity) getContext()).startActivityForResult(new Intent(MediaStore.ACTION_VIDEO_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
                 }
                 break;
             case 3:
@@ -474,11 +490,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         // between applications and persist after your app has been uninstalled.
 
         // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                Log.d(this.getClass().getSimpleName(), "failed to create directory");
-                return null;
-            }
+        if (! mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+            Log.d(this.getClass().getSimpleName(), "failed to create directory");
+            return null;
         }
 
         // Create a media file name
@@ -513,6 +527,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 break;
             case TYPE_FILE:
                 break;
+            default:
+                break;
         }
     }
 
@@ -528,17 +544,22 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public void setPlaceholder(int drawableRes) {
+        int res = drawableRes;
         if(drawableRes==0) {
             switch (mediaType) {
                 case TYPE_PHOTO:
-                    drawableRes = R.drawable.default_photo_placeholder;
+                    res = R.drawable.default_photo_placeholder;
+                    break;
+                case TYPE_VIDEO:
+                    break;
+                case TYPE_FILE:
                     break;
                 default:
                     break;
             }
         }
 
-        this.placeholderRes = drawableRes;
+        this.placeholderRes = res;
         if(mediaUri==null && getThumbnailView()!=null){
             getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
         }
@@ -612,7 +633,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     }
 
     /**
-     * Updates the thumbnail with the mediaUri
+     * Updates the thumbnail with the mediaUri.
      */
     private void updateThumbnail(){
         ImageView iv = getThumbnailView();
