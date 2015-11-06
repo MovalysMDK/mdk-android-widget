@@ -179,7 +179,7 @@ public class MediaTest {
     }
 
     /**
-     * Copies the image asset to the device's external storage.
+     * Copies the image asset to the device's external storage folder.
      * @return the uri of the created file
      */
     private Uri copyTestAsset() {
