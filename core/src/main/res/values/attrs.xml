@@ -159,6 +159,16 @@
         <attr name="mdk_b_fixedlistItemBackground" format="reference" />
         <attr name="mdk_b_fixedlistAddTint" format="reference" />
 
+        <!-- component enumview attributes -->
+        <attr name="mdk_b_enumviewTextColor" format="reference"/>
+        <attr name="mdk_b_enumviewTextSize" format="reference"/>
+        <attr name="mdk_b_enumviewTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_enumviewBackground" format="reference"/>
+
         <!-- component error attributes -->
         <attr name="mdk_b_errorTextColor" format="reference" />
         <attr name="mdk_b_errorTextSize" format="reference" />

@@ -161,6 +161,12 @@
         <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
         <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
 
+        <!-- EnumView business attributes -->
+        <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_enumviewTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_enumviewTextStyle">bold</item>
+        <item name="mdk_b_enumviewBackground">@drawable/round_enum_background</item>
+
         <!-- Error business attributes -->
         <item name="mdk_b_errorTextColor">?attr/mdk_t_textColorPrimary</item>
         <item name="mdk_b_errorTextSize">?attr/mdk_t_smallTextSize</item>
@@ -230,6 +236,13 @@
         <item name="android:textSize">?attr/mdk_b_switchTextSize</item>
         <item name="android:textStyle">?attr/mdk_b_switchTextStyle</item>
         <item name="android:tint">?attr/mdk_b_switchTint</item>
+    </style>
+
+    <style name="MDKValueEnumView" parent="Base.MDKValue.MDKValueEnumView">
+        <item name="android:textColor">?attr/mdk_b_enumviewTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_enumviewTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_enumviewTextStyle</item>
+        <item name="android:background">?attr/mdk_b_enumviewBackground</item>
     </style>
 
     <!-- Error component style -->

@@ -38,6 +38,8 @@
 
     <style name="Base.MDKValue.MDKValueSwitch" parent="Widget.AppCompat.CompoundButton.Switch"/>
 
+    <style name="Base.MDKValue.MDKValueEnumView"/>
+
     <style name="Base.MDKValue.TextView" parent="TextAppearance.AppCompat.Medium"/>
 
     <style name="Base.MDKError" parent="TextAppearance.AppCompat.Small"/>

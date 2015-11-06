@@ -32,7 +32,8 @@ public class EnumViewActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichEnumImage_withLabelAndError,
                 R.id.mdkEnumImage_withErrorAndCommandOutside,
                 R.id.mdkEnumImage_withImageSetByString,
-                R.id.mdkRichEnumText_withLabelAndError
+                R.id.mdkRichEnumText_withLabelAndError,
+                R.id.mdkRichEnumImage_withNoContent
         };
     }
 
@@ -59,6 +60,10 @@ public class EnumViewActivity extends AbstractWidgetTestableActivity {
         //initializing text from enum
         MDKRichEnumView withText = (MDKRichEnumView) findViewById(R.id.mdkRichEnumText_withLabelAndError);
         withText.setValueFromId(R.string.hello_world);
+
+        //initializing image from enum
+        MDKRichEnumView withNoContent = (MDKRichEnumView) findViewById(R.id.mdkRichEnumImage_withNoContent);
+        withNoContent.setValueFromEnum(MobileOS.BLACKBERRY);
     }
 
 }

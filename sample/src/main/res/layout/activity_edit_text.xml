@@ -273,5 +273,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <!-- MDKEditText readonly -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_8"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+            android:id="@+id/mdkRichEditText_readonly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:readonly="true"/>
     </LinearLayout>
  </ScrollView>

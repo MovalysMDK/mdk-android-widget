@@ -18,10 +18,12 @@ package com.soprasteria.movalysmdk.widget.core.selector;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasEditFields;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasOneSelected;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.StateHelper;
 
 /**
@@ -45,6 +47,7 @@ public class ReadOnlySelector implements RichSelector{
                     }
                 }
             }
+            ((MDKWidgetDelegate)((MDKWidget) v).getTechnicalInnerWidgetDelegate()).getErrorView().setVisibility(View.GONE);
         }
     }
 }

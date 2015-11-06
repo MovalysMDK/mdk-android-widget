@@ -42,6 +42,8 @@
 
     <style name="Base.MDKValue.MDKValueSwitch" parent="Base.TextAppearance.AppCompat.Widget.Switch"/>
 
+    <style name="Base.MDKValue.MDKValueEnumView"/>
+
     <style name="Base.MDKValue.MDKSpinner" parent="android:Widget.Material.Spinner"/>
 
     <style name="Base.MDKValue.MDKSpinnerDropDown" parent="android:Widget.Material.ListView.DropDown"/>

@@ -30,6 +30,7 @@ public class EditTextActivity extends AbstractWidgetTestableActivity {
      * MDKRichEditText with custom layout.
      */
     private MDKRichEditText mdkRichEditText;
+    private MDKRichEditText mdkRichEditText2;
 
     /**
      * Button to clear/fill mdkRichEditText.
@@ -49,6 +50,7 @@ public class EditTextActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkEditText_withHintAndExternalLabelAndSharedError,
                 R.id.test_case_7,
                 R.id.mdkEditText_withHintAndSharedError,
+                R.id.mdkRichEditText_readonly
         };
     }
 
@@ -73,5 +75,8 @@ public class EditTextActivity extends AbstractWidgetTestableActivity {
                 }
             }
         });
+
+        this.mdkRichEditText2 = (MDKRichEditText) findViewById(R.id.mdkRichEditText_readonly);
+        this.mdkRichEditText2.setText(getString(R.string.app_name));
     }
 }

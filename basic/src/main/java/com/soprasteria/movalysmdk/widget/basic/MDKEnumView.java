@@ -26,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -55,6 +56,9 @@ import java.util.List;
  */
 public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum, MDKWidget, HasValidator, View.OnClickListener, HasChangeListener {
 
+
+    /** length of the truncated text when in fallback mode. */
+    private static final int TRUNCATED_TEXT_LENGTH = 3;
 
     /**
      * Enumeration listing possible MDKEnumView modes.
@@ -263,7 +267,8 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         resourceEnumValue = value;
 
         //recreating the image name, in the form "enumclassname_enumvaluename"
-        String nameStr = (value.getClass().getSimpleName() + "_" + value.name()).toLowerCase();
+//        String nameStr = (value.getClass().getSimpleName() + "_" + value.name()).toLowerCase();
+        String nameStr = value.getClass().getSimpleName() + "_" + value.name();
 
         //setting the name and the imageview drawable
         setValueFromString(nameStr);
@@ -277,10 +282,12 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
 
     @Override
     public void setValueFromString(String name) {
-        resourceName = name.toLowerCase();
+        //resourceName = name.toLowerCase();
+        resourceName = name;
 
         //recreating the resource name, in the form "prefix_name"
-        String resourceCompleteName = (enumPrefix + "_" + resourceName).toLowerCase();
+        //String resourceCompleteName = (enumPrefix + "_" + resourceName).toLowerCase();
+        String resourceCompleteName = enumPrefix + "_" + resourceName;
 
         removeView(view);
 
@@ -308,7 +315,22 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         }
         int textRes = getResources().getIdentifier(textStr, "string", getContext().getPackageName());
         if (textRes != 0) {
-            ((TextView) view).setText(getContext().getString(textRes));
+            if (mode == 1) {
+                ((TextView) view).setText(getContext().getString(textRes));
+            } else {
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                view.setLayoutParams(params);
+                // we are in fallback
+                String text = resourceEnumValue.name();
+                text = text.substring(text.length() - TRUNCATED_TEXT_LENGTH, text.length());
+                ((TextView) view).setText(text);
+                // we override the background
+                this.setBackgroundResource(R.drawable.round_enum_background);
+            }
         } else {
             //fallback behavior: displaying resource name
             ((TextView)view).setText(textStr);
@@ -323,7 +345,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         if(view==null || !(view instanceof ImageView)) {
             initImageMode();
         }
-        int imgRes = getResources().getIdentifier(drawableStr, "drawable", getContext().getPackageName());
+        int imgRes = getResources().getIdentifier(drawableStr.toLowerCase(), "drawable", getContext().getPackageName());
         if (imgRes != 0) {
             ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(getContext(), imgRes));
         } else {

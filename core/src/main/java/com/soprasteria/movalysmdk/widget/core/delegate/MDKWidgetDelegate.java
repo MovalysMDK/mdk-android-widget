@@ -513,7 +513,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * Returns the widget error view, or null if the widget has none.
      * @return the widget error view, or null if the widget has none
      */
-    private View getErrorView() {
+    public View getErrorView() {
         View error = null;
 
         if (this.valueObject.getErrorViewId() != 0) {
