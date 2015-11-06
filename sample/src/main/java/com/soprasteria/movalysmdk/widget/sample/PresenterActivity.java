@@ -27,9 +27,18 @@ import java.util.ArrayList;
  * Test activity for the MDKPresenter widget.
  */
 public class PresenterActivity extends AbstractWidgetTestableActivity {
+    /**
+     *  The listView.
+     */
     private ListView mListView;
+    /**
+     * The presenter adapter.
+     */
     private PresenterAdapter mAdapter;
-    private ArrayList<String> mRandomData = new ArrayList<String>();
+    /**
+     * The random data.
+     */
+    private ArrayList mRandomData = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,9 @@ public class PresenterActivity extends AbstractWidgetTestableActivity {
 
     }
 
+    /**
+     * To get the data.
+     */
     private void getDummyData() {
         this.mRandomData.add("Aaaaaaaaaaaaaaaa");
         this.mRandomData.add("Bbbbbbbbbbbbbbb");
