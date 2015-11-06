@@ -16,7 +16,7 @@
 package com.soprasteria.movalysmdk.widget.basic.model;
 
 
-import java.net.URI;
+import android.net.Uri;
 
 /**
  * MDKPresenter class.
@@ -30,7 +30,7 @@ public class MDKPresenter {
     /**
      * The uri.
      */
-    private URI uri;
+    private Uri uri;
 
 
     /**
@@ -39,7 +39,7 @@ public class MDKPresenter {
      * @param string the title
      * @param uri    the uri for image
      */
-    public MDKPresenter(String string, URI uri) {
+    public MDKPresenter(String string, Uri uri) {
         this.string = string;
         this.uri = uri;
     }
@@ -51,7 +51,7 @@ public class MDKPresenter {
      * @param uri         the uri for image
      * @param firstLetter boolean to test if the first letter of title string is required
      */
-    public MDKPresenter(String string, URI uri, boolean firstLetter) {
+    public MDKPresenter(String string, Uri uri, boolean firstLetter) {
         if (firstLetter) {
             this.string = getFirstLetterToUpper(string);
         } else {
@@ -83,7 +83,7 @@ public class MDKPresenter {
      *
      * @return the uri
      */
-    public URI getURI() {
+    public Uri getUri() {
         return this.uri;
     }
 
@@ -92,7 +92,7 @@ public class MDKPresenter {
      *
      * @param uri the uri to set
      */
-    public void setURI(URI uri) {
+    public void setUri(Uri uri) {
         this.uri = uri;
     }
 

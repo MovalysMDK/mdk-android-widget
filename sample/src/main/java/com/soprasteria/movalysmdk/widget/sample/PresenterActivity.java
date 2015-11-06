@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.soprasteria.movalysmdk.widget.sample.adapter.PresenterAdapter;
@@ -26,9 +27,9 @@ import java.util.List;
 /**
  * Test activity for the MDKPresenter widget.
  */
-public class PresenterActivity extends AbstractWidgetTestableActivity {
+public class PresenterActivity extends AppCompatActivity {
     /**
-     *  The listView.
+     * The listView.
      */
     private ListView mListView;
     /**
@@ -38,12 +39,13 @@ public class PresenterActivity extends AbstractWidgetTestableActivity {
     /**
      * The random data.
      */
-    private List mRandomData = new ArrayList();
+    private List<String> mRandomData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presenter);
+
         getDummyData();
         this.mListView = (ListView) findViewById(R.id.presenter_list_view);
         this.mAdapter = new PresenterAdapter(this, mRandomData);
@@ -61,11 +63,6 @@ public class PresenterActivity extends AbstractWidgetTestableActivity {
         this.mRandomData.add("Ddddddddddddddd");
         this.mRandomData.add("Eeeeeeeeeeeeeeee");
         this.mRandomData.add("Ffffffffffffffff");
-    }
-
-    @Override
-    protected int[] getWidgetIds() {
-        return new int[0];
     }
 
 

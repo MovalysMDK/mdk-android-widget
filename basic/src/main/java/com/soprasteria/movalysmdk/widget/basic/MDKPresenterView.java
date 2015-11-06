@@ -15,17 +15,23 @@
  */
 package com.soprasteria.movalysmdk.widget.basic;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -42,12 +48,17 @@ public class MDKPresenterView extends RelativeLayout {
     /**
      * A random list of color.
      */
-    private List<String> catalogue = new ArrayList();
+    private List<String> catalogue = new ArrayList<>();
 
     /**
      * The title textView.
      */
     private TextView titleView;
+
+    /**
+     * The imageView.
+     */
+    private ImageView imageView;
 
 
     /**
@@ -104,7 +115,8 @@ public class MDKPresenterView extends RelativeLayout {
         /* Inflate views */
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
         inflater.inflate(R.layout.mdkwidget_presenter_layout, this);
-        titleView = (TextView) this.findViewById(R.id.component_internal_title);
+        titleView = (TextView) this.findViewById(R.id.component_title);
+        imageView = (ImageView) this.findViewById(R.id.component_image);
 
         /* Init TextView */
         if (titleView != null) {
@@ -139,6 +151,7 @@ public class MDKPresenterView extends RelativeLayout {
     public void setPresenter(MDKPresenter presenter) {
         if (presenter != null) {
             this.setTitle(presenter.getString());
+            this.imageView.setImageURI(presenter.getUri());
         }
     }
 
@@ -175,5 +188,34 @@ public class MDKPresenterView extends RelativeLayout {
         int index = randomGenerator.nextInt(catalogue.size());
         String color = catalogue.get(index);
         this.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC);
+    }
+
+    /**
+     * To get the image content Uri.
+     *
+     * @param imageFile the image file
+     * @return the Uri
+     */
+    private Uri getImageContentUri(File imageFile) {
+        Context context = this.getContext();
+        String filePath = imageFile.getAbsolutePath();
+        Cursor cursor = context.getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[]{MediaStore.Images.Media._ID},
+                MediaStore.Images.Media.DATA + "=? ",
+                new String[]{filePath}, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+            return Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
+        } else {
+            if (imageFile.exists()) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.DATA, filePath);
+                return context.getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            } else {
+                return null;
+            }
+        }
     }
 }

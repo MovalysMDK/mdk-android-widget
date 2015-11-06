@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.sample.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import com.soprasteria.movalysmdk.widget.basic.MDKPresenterView;
 import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class PresenterAdapter extends BaseAdapter {
     /**
      * The array list.
      */
-    private List<String> mEntries = new ArrayList();
+    private List<String> mEntries = new ArrayList<>();
     /**
      * The layout inflater.
      */
@@ -50,7 +50,7 @@ public class PresenterAdapter extends BaseAdapter {
      * @param entries The entries
      */
     public PresenterAdapter(Context context, List<String> entries) {
-        this.mEntries = new ArrayList(entries);
+        this.mEntries = new ArrayList<>(entries);
         this.mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -87,9 +87,8 @@ public class PresenterAdapter extends BaseAdapter {
         String item = getItem(position);
 
         if (item != null) {
-            URI uri = null;
             mViewHolder.mTextView.setText(item);
-            MDKPresenter mdkPresenter = new MDKPresenter(item, uri, true);
+            MDKPresenter mdkPresenter = new MDKPresenter(item, Uri.parse("file://mnt/sdcard/d2.jpg"), true);
             mViewHolder.mdkPresenterView.setPresenter(mdkPresenter);
         }
 
