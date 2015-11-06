@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- * <p/>
+ *
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,6 +30,18 @@ public class MDKPresenter {
      * The uri.
      */
     private Uri uri;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string the title
+     * @param uri    the uri for image
+     */
+    public MDKPresenter(String string, Uri uri) {
+        this.string = string;
+        this.uri = uri;
+    }
 
     /**
      * Title getter.
@@ -66,4 +78,6 @@ public class MDKPresenter {
     public void setUri(Uri uri) {
         this.uri = uri;
     }
+
+
 }

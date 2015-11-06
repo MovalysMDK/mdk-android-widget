@@ -17,6 +17,7 @@
 
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mdk="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,7 +27,9 @@
         android:id="@+id/rlv_name_view"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:background="@color/red"
+        android:background="@drawable/mdk_circle"
+        mdk:title_size="10dp"
+        mdk:title_color="#eee"
         tools:visibility="visible"/>
 
     <TextView

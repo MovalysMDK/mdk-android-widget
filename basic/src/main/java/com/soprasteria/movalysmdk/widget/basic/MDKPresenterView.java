@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- * <p/>
+ *
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
@@ -29,13 +30,10 @@ import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
 public class MDKPresenterView extends RelativeLayout {
 
     /**
-     * Handle processing on MDKPresenter.
-     */
-    private final MDKPresenter mdkPresenter = new MDKPresenter();
-    /**
      * The title textView.
      */
     private TextView titleView;
+
 
     /**
      * Constructor.
@@ -44,7 +42,9 @@ public class MDKPresenterView extends RelativeLayout {
      */
     public MDKPresenterView(Context context) {
         super(context);
-        init(context);
+        if (!isInEditMode()) {
+            init(null);
+        }
     }
 
     /**
@@ -55,7 +55,9 @@ public class MDKPresenterView extends RelativeLayout {
      */
     public MDKPresenterView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        if (!isInEditMode()) {
+            init(attrs);
+        }
     }
 
     /**
@@ -67,27 +69,81 @@ public class MDKPresenterView extends RelativeLayout {
      */
     public MDKPresenterView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context);
+        if (!isInEditMode()) {
+            init(attrs);
+        }
     }
 
     /**
      * Inflation on initialization.
      *
-     * @param context the android context
+     * @param attrs the android context
      */
-    private void init(Context context) {
+    private void init(AttributeSet attrs) {
 
-        LayoutInflater inflater = LayoutInflater.from(context);
+        /* Get attrs style */
+        TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPresenterViewComponent);
+        float titleSize = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_title_size, 18);
+        int titleColor = typedArrayComponent.getColor(R.styleable.MDKCommons_MDKPresenterViewComponent_title_color, -1);
+
+        /* Inflate views */
+        LayoutInflater inflater = LayoutInflater.from(this.getContext());
         inflater.inflate(R.layout.mdkwidget_presenter_layout, this);
         titleView = (TextView) this.findViewById(R.id.component_internal_title);
+
+        /* Init TextView */
+        if (titleView != null) {
+            titleView.setTextColor(titleColor);
+            titleView.setTextSize(titleSize);
+        }
+        /* Recycling */
+        typedArrayComponent.recycle();
     }
 
     /**
      * To set the title.
      *
-     * @param title the title to set
+     * @param title the title to set into titleView
      */
     public void setTitle(String title) {
-        titleView.setText(title);
+        if (titleView != null) {
+            titleView.setText(title);
+        }
+    }
+
+    /**
+     * To get the first letter of a string in uppercase.
+     *
+     * @param title the string used to get the first letter in uppercase
+     * @return the first letter in uppercase
+     */
+    public String getFirstLetterToUpper(String title) {
+        if (title != null) {
+            return title.substring(0, 1).toUpperCase();
+        }
+        return null;
+    }
+
+    /**
+     * To set the title with getFirstLetterToUpper method.
+     *
+     * @param title the string used to get the first letter in uppercase and set into titleView
+     */
+    public void setTitleFirstLetterToUpper(String title) {
+        String newTitle = this.getFirstLetterToUpper(title);
+        if (title != null) {
+            this.setTitle(newTitle);
+        }
+    }
+
+    /**
+     * To set the MDKPresenter in the MDKPresenterView.
+     *
+     * @param presenter the MDKPresenter created by the user
+     */
+    public void setPresenter(MDKPresenter presenter) {
+        if (presenter != null) {
+            this.setTitle(presenter.getString());
+        }
     }
 }

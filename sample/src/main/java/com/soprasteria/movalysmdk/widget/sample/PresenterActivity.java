@@ -16,12 +16,12 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 
-import com.soprasteria.movalysmdk.widget.sample.custom_adapter.PresenterAdapter;
+import com.soprasteria.movalysmdk.widget.sample.adapter.PresenterAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Test activity for the MDKPresenter widget.
@@ -38,7 +38,7 @@ public class PresenterActivity extends AbstractWidgetTestableActivity {
     /**
      * The random data.
      */
-    private ArrayList mRandomData = new ArrayList();
+    private List mRandomData = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
