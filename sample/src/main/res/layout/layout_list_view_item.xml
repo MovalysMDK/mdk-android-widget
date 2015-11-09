@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -27,19 +26,18 @@
         android:id="@+id/rlv_name_view"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:background="@drawable/mdk_circle"
-        mdk:title_size="10dp"
+        mdk:title_background="@drawable/mdk_circle"
         mdk:title_color="#eee"
-        tools:visibility="visible"/>
+        mdk:title_size="10dp"
+        tools:visibility="visible" />
 
     <TextView
+        android:id="@+id/tv_name_holder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/tv_name_holder"
-        android:layout_marginTop="18dp"
         android:layout_alignParentRight="true"
-        />
+        android:layout_marginTop="18dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

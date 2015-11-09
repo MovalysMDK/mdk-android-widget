@@ -102,7 +102,7 @@ public class MDKPresenter {
      * @param title the string used to get the first letter in uppercase
      * @return the first letter in uppercase
      */
-    public String getFirstLetterToUpper(String title) {
+    private String getFirstLetterToUpper(String title) {
         if (title != null) {
             return title.substring(0, 1).toUpperCase();
         }

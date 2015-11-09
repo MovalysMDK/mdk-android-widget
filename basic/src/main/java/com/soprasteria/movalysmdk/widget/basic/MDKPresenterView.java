@@ -15,36 +15,33 @@
  */
 package com.soprasteria.movalysmdk.widget.basic;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
+import com.soprasteria.movalysmdk.widget.core.helper.MDKPresenterHelper;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * MDKPresenterView.
  */
 public class MDKPresenterView extends RelativeLayout {
 
-    /**
-     * The random generator for color catalogue.
-     */
-    private Random randomGenerator = new Random();
     /**
      * A random list of color.
      */
@@ -59,7 +56,10 @@ public class MDKPresenterView extends RelativeLayout {
      * The imageView.
      */
     private ImageView imageView;
-
+    /**
+     * The image Uri.
+     */
+    private Uri imageUri;
 
     /**
      * Constructor.
@@ -103,7 +103,7 @@ public class MDKPresenterView extends RelativeLayout {
     /**
      * Inflation on initialization.
      *
-     * @param attrs the android context
+     * @param attrs the attributes
      */
     private void init(AttributeSet attrs) {
 
@@ -111,6 +111,7 @@ public class MDKPresenterView extends RelativeLayout {
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPresenterViewComponent);
         float titleSize = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_title_size, 18);
         int titleColor = typedArrayComponent.getColor(R.styleable.MDKCommons_MDKPresenterViewComponent_title_color, -1);
+        Drawable titleBackground = typedArrayComponent.getDrawable(R.styleable.MDKCommons_MDKPresenterViewComponent_title_background);
 
         /* Inflate views */
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
@@ -122,10 +123,14 @@ public class MDKPresenterView extends RelativeLayout {
         if (titleView != null) {
             titleView.setTextColor(titleColor);
             titleView.setTextSize(titleSize);
+            if (titleBackground != null) {
+                titleView.setBackgroundDrawable(titleBackground);
+            }
         }
 
         /* Color catalogue */
-        this.setRandomColor();
+        catalogueGenerator();
+        MDKPresenterHelper.setRandomColor(this.titleView, catalogue);
 
         /* Recycling */
         typedArrayComponent.recycle();
@@ -151,7 +156,7 @@ public class MDKPresenterView extends RelativeLayout {
     public void setPresenter(MDKPresenter presenter) {
         if (presenter != null) {
             this.setTitle(presenter.getString());
-            this.imageView.setImageURI(presenter.getUri());
+            this.setImage(presenter.getUri());
         }
     }
 
@@ -181,41 +186,46 @@ public class MDKPresenterView extends RelativeLayout {
     }
 
     /**
-     * Method to set random material color.
+     * Method to set the image located by the Uri.
+     *
+     * @param uri The Uri set in the MDKPresenter
      */
-    private void setRandomColor() {
-        catalogueGenerator();
-        int index = randomGenerator.nextInt(catalogue.size());
-        String color = catalogue.get(index);
-        this.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC);
+    private void setImage(Uri uri) {
+        if (uri != null && imageView != null) {
+            this.imageUri = uri;
+            ViewTreeObserver vto = this.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    if (getWidth() != 0 && getHeight() != 0) {
+                        updateImageView();
+                    }
+                }
+            });
+        }
     }
 
     /**
-     * To get the image content Uri.
-     *
-     * @param imageFile the image file
-     * @return the Uri
+     * Updates the imageView with the imageUri.
      */
-    private Uri getImageContentUri(File imageFile) {
-        Context context = this.getContext();
-        String filePath = imageFile.getAbsolutePath();
-        Cursor cursor = context.getContentResolver().query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                new String[]{MediaStore.Images.Media._ID},
-                MediaStore.Images.Media.DATA + "=? ",
-                new String[]{filePath}, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
-            return Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
-        } else {
-            if (imageFile.exists()) {
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.DATA, filePath);
-                return context.getContentResolver().insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            } else {
-                return null;
-            }
+    private void updateImageView() {
+        if (imageView != null) {
+            imageView.post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Bitmap bmp = ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri), getHeight(), getWidth());
+                        if (bmp != null) {
+                            imageView.setImageBitmap(MDKPresenterHelper.getRoundedBitmap(bmp, getWidth()));
+                            MDKPresenterHelper.crossFading(titleView, imageView);
+                        }
+                    } catch (IOException e) {
+                        Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + imageUri, e);
+                    }
+                }
+            });
         }
     }
+
 }

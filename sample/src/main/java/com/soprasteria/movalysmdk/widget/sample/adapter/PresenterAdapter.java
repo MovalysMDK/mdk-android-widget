@@ -88,7 +88,13 @@ public class PresenterAdapter extends BaseAdapter {
 
         if (item != null) {
             mViewHolder.mTextView.setText(item);
-            MDKPresenter mdkPresenter = new MDKPresenter(item, Uri.parse("file://mnt/sdcard/d2.jpg"), true);
+            Uri imageUri = null;
+            MDKPresenter mdkPresenter;
+            if (position % 2 == 0) {
+                mdkPresenter = new MDKPresenter(item, imageUri, true);
+            } else {
+                mdkPresenter = new MDKPresenter(item, null, true);
+            }
             mViewHolder.mdkPresenterView.setPresenter(mdkPresenter);
         }
 
