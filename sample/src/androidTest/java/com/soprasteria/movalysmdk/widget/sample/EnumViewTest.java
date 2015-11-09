@@ -100,7 +100,7 @@ public class EnumViewTest {
 
         //fallback to name
         enumimage.setValueFromEnum(MobileOS.FIREFOX_OS);
-        assertThat(null, "enum_mobileos_firefox_os".equals(((TextView) enumimage.getModeView()).getText().toString()));
+        assertThat(null, "enum_MobileOS_FIREFOX_OS".equals(((TextView) enumimage.getModeView()).getText().toString()));
 
         enumimage.setValueFromString("hello_world");
         assertThat(null, "enum_hello_world".equals(((TextView) enumimage.getModeView()).getText().toString()));
@@ -130,7 +130,7 @@ public class EnumViewTest {
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, "enum_mobileos_firefox_os".equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+        assertThat(null, "enum_MobileOS_FIREFOX_OS".equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());

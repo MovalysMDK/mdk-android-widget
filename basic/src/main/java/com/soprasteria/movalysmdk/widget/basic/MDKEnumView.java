@@ -316,9 +316,13 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         if(view==null || !(view instanceof TextView)){
             initTextMode();
         }
-        int textRes = getResources().getIdentifier(textStr, "string", getContext().getPackageName());
+        String textIdentifier = null;
+        if (textStr != null) {
+            textIdentifier = textStr.toLowerCase();
+        }
+        int textRes = getResources().getIdentifier(textIdentifier, "string", getContext().getPackageName());
         if (textRes != 0) {
-            if (mode == 1) {
+            if (mode == MODE_TEXT || view instanceof TextView) {
                 ((TextView) view).setText(getContext().getString(textRes));
             } else {
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
