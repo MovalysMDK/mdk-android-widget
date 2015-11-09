@@ -326,9 +326,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        ImageView thumbnail = getThumbnailView();
-        if (thumbnail != null) {
-            thumbnail.setAlpha(isEnabled() ? 255 : DISABLED_ALPHA);
+        ImageView t = getThumbnailView();
+        if (t != null) {
+            t.setAlpha(isEnabled() ? 255 : DISABLED_ALPHA);
         }
         setOverlayEnabled(enabled && !isReadonly());
     }
