@@ -87,6 +87,9 @@ import java.util.Locale;
  */
 public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler {
 
+    // TODO a mettre en constante dans les styles
+    /** Alpha applied when component is disabled. */
+    private static final int DISABLED_ALPHA = 70;
 
     /** Media type constant for photo. **/
     public static final int TYPE_PHOTO = 0;
@@ -323,6 +326,10 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
+        ImageView thumbnail = getThumbnailView();
+        if (thumbnail != null) {
+            thumbnail.setAlpha(isEnabled() ? 255 : DISABLED_ALPHA);
+        }
         setOverlayEnabled(enabled && !isReadonly());
     }
 
@@ -343,11 +350,12 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * @param enabled the enabled property of the overlay
      */
     private void setOverlayEnabled(boolean enabled){
-        if(getOverlayView()!=null){
+        View v = getOverlayView();
+        if(v!=null){
             if(!enabled) {
-                getOverlayView().setVisibility(GONE);
+                v.setVisibility(GONE);
             }else{
-                getOverlayView().setVisibility(VISIBLE);
+                v.setVisibility(VISIBLE);
             }
         }
     }
@@ -645,7 +653,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                     if (iv2 != null) {
                         try {
                             //Extract thumbnail from bitmap and display it
-                            iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri), getThumbnailView().getWidth(), getThumbnailView().getHeight()));
+                            iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri), iv2.getWidth(), iv2.getHeight()));
                         } catch (IOException e) {
                             Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
                         }

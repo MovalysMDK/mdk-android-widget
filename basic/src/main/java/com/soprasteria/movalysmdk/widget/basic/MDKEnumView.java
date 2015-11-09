@@ -56,6 +56,9 @@ import java.util.List;
  */
 public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum, MDKWidget, HasValidator, View.OnClickListener, HasChangeListener {
 
+    // TODO a mettre en constante dans les styles
+    /** Alpha applied when component is disabled. */
+    private static final int DISABLED_ALPHA = 70;
 
     /** length of the truncated text when in fallback mode. */
     private static final int TRUNCATED_TEXT_LENGTH = 3;
@@ -448,6 +451,15 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     public void removeView(View v){
         super.removeView(view);
         view=null;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+
+        if (view instanceof ImageView) {
+            ((ImageView)view).setAlpha(isEnabled() ? 255 : DISABLED_ALPHA);
+        }
     }
 
     @Override

@@ -33,6 +33,7 @@ public class EnumViewActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkEnumImage_withErrorAndCommandOutside,
                 R.id.mdkEnumImage_withImageSetByString,
                 R.id.mdkRichEnumText_withLabelAndError,
+                R.id.mdkRichEnumImage_withFixedDiensions,
                 R.id.mdkRichEnumImage_withNoContent
         };
     }

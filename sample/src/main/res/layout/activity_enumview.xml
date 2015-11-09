@@ -124,7 +124,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/enumtext_with_label_error" />
+            android:text="@string/enumtext_with_fixed_dimensions" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView
             android:id="@+id/mdkRichEnumImage_withFixedDiensions"
@@ -140,7 +140,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/enumtext_with_label_error" />
+            android:text="@string/enumtext_readonly_no_content" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichEnumView
             android:id="@+id/mdkRichEnumImage_withNoContent"

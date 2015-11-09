@@ -243,5 +243,7 @@
     <string name="rich_photo_editable_with_label_error">Editable rich photo with label and error</string>
     <string name="rich_photo_editable_with_placeholder">EDitable rich photo with custom placeholder</string>
     <string name="photo_readonly">Read only photo MDKMedia</string>
+    <string name="enumtext_with_fixed_dimensions">MDKRichEnumView with fixed dimensions</string>
+    <string name="enumtext_readonly_no_content">Readonly MDKRichEnumView with drawable not found</string>
 
 </resources>
