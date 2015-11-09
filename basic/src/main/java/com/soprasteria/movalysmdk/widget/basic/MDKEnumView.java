@@ -270,7 +270,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         resourceEnumValue = value;
 
         //recreating the image name, in the form "enumclassname_enumvaluename"
-//        String nameStr = (value.getClass().getSimpleName() + "_" + value.name()).toLowerCase();
         String nameStr = value.getClass().getSimpleName() + "_" + value.name();
 
         //setting the name and the imageview drawable
@@ -285,11 +284,9 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
 
     @Override
     public void setValueFromString(String name) {
-        //resourceName = name.toLowerCase();
         resourceName = name;
 
         //recreating the resource name, in the form "prefix_name"
-        //String resourceCompleteName = (enumPrefix + "_" + resourceName).toLowerCase();
         String resourceCompleteName = enumPrefix + "_" + resourceName;
 
         removeView(view);

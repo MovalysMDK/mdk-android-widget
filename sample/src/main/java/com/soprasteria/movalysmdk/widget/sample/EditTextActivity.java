@@ -30,6 +30,9 @@ public class EditTextActivity extends AbstractWidgetTestableActivity {
      * MDKRichEditText with custom layout.
      */
     private MDKRichEditText mdkRichEditText;
+    /**
+     * MDKRichEditText readonly.
+     */
     private MDKRichEditText mdkRichEditText2;
 
     /**
