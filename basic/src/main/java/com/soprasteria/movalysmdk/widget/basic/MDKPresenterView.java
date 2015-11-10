@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPresenter;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKPresenterHelper;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ import java.lang.ref.WeakReference;
 /**
  * MDKPresenterView.
  */
-public class MDKPresenterView extends RelativeLayout {
+public class MDKPresenterView extends RelativeLayout implements HasPresenter {
 
     /**
      * The title textView.
@@ -54,6 +55,10 @@ public class MDKPresenterView extends RelativeLayout {
      * The image Uri.
      */
     private Uri imageUri;
+    /**
+     * The MDKPresenter of the MDKPresenterView.
+     */
+    private MDKPresenter presenter;
 
     /**
      * Constructor.
@@ -148,6 +153,7 @@ public class MDKPresenterView extends RelativeLayout {
      */
     public void setPresenter(MDKPresenter presenter) {
         if (presenter != null) {
+            this.presenter = presenter;
             this.setTitle(presenter.getString());
             this.setImage(presenter.getUri());
         }
@@ -194,5 +200,27 @@ public class MDKPresenterView extends RelativeLayout {
                 }
             });
         }
+    }
+
+    @Override
+    public void setPresenter(Object[] presenterArray) {
+        if (this.presenter == null) {
+            this.setPresenter(new MDKPresenter((String) presenterArray[0], (Uri) presenterArray[1]));
+        } else {
+            this.presenter.setString((String) presenterArray[0]);
+            this.presenter.setUri((Uri) presenterArray[1]);
+            this.setPresenter(this.presenter);
+        }
+    }
+
+    @Override
+    public Object[] getPresenter() {
+        Object[] presenterArray = null;
+        if (this.presenter != null) {
+            presenterArray = new Object[2];
+            presenterArray[0] = this.presenter.getString();
+            presenterArray[1] = this.presenter.getUri();
+        }
+        return presenterArray;
     }
 }
