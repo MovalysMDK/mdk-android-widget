@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -44,12 +44,12 @@ public class MDKPresenterView extends RelativeLayout {
     /**
      * The title textView.
      */
-    private WeakReference<TextView> titleView;
+    private TextView titleView;
 
     /**
      * The imageView.
      */
-    private WeakReference<ImageView> imageView;
+    private ImageView imageView;
     /**
      * The image Uri.
      */
@@ -110,17 +110,17 @@ public class MDKPresenterView extends RelativeLayout {
         /* Inflate views */
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
         inflater.inflate(R.layout.mdkwidget_presenter_layout, this);
-        titleView = new WeakReference<>((TextView) this.findViewById(R.id.component_title));
-        imageView = new WeakReference<>((ImageView) this.findViewById(R.id.component_image));
+        this.titleView = (new WeakReference<>((TextView) this.findViewById(R.id.component_title))).get();
+        this.imageView = (new WeakReference<>((ImageView) this.findViewById(R.id.component_image))).get();
 
         /* Init TextView */
-        if (titleView.get() != null) {
-            titleView.get().setTextColor(titleColor);
-            titleView.get().setTextSize(titleSize);
+        if (this.titleView != null) {
+            this.titleView.setTextColor(titleColor);
+            this.titleView.setTextSize(titleSize);
             if (titleBackground != null) {
-                titleView.get().setBackgroundDrawable(titleBackground);
+                this.titleView.setBackgroundDrawable(titleBackground);
             } else {
-                titleView.get().setBackgroundResource(R.drawable.mdk_circle);
+                this.titleView.setBackgroundResource(R.drawable.mdk_circle);
             }
         }
 
@@ -134,9 +134,9 @@ public class MDKPresenterView extends RelativeLayout {
      * @param title the title to set into titleView
      */
     public void setTitle(String title) {
-        if (titleView.get() != null) {
-            titleView.get().setText(title);
-            MDKPresenterHelper.generateColor(this.titleView.get(), title);
+        if (this.titleView != null) {
+            this.titleView.setText(title);
+            MDKPresenterHelper.generateColor(this.titleView, title);
         }
     }
 
@@ -159,7 +159,7 @@ public class MDKPresenterView extends RelativeLayout {
      * @param uri The Uri set in the MDKPresenter
      */
     private void setImage(Uri uri) {
-        if (uri != null && imageView.get() != null) {
+        if (uri != null && this.imageView != null) {
             this.imageUri = uri;
             ViewTreeObserver vto = this.getViewTreeObserver();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -178,15 +178,15 @@ public class MDKPresenterView extends RelativeLayout {
      * Updates the imageView with the imageUri.
      */
     private void updateImageView() {
-        if (imageView.get() != null) {
-            imageView.get().post(new Runnable() {
+        if (this.imageView != null) {
+            this.imageView.post(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         Bitmap bmp = ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri), getHeight(), getWidth());
                         if (bmp != null) {
-                            imageView.get().setImageBitmap(MDKPresenterHelper.getRoundedBitmap(bmp, getWidth()));
-                            MDKPresenterHelper.crossFading(titleView.get(), imageView.get());
+                            imageView.setImageBitmap(MDKPresenterHelper.getRoundedBitmap(bmp, getWidth()));
+                            MDKPresenterHelper.crossFading(titleView, imageView);
                         }
                     } catch (IOException e) {
                         Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + imageUri, e);
