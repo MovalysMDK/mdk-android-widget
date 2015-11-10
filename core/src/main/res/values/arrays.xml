@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -25,5 +24,27 @@
         <item>mdkrichselector_mandatory_class</item>
         <item>mdkrichselector_readonly_class</item>
     </string-array>
+
+    <integer-array name="MDKPresenterMaterialColor" translatable="false">
+        <item>@color/red_500</item>
+        <item>@color/deep_purple_500</item>
+        <item>@color/light_blue_500</item>
+        <item>@color/green_500</item>
+        <item>@color/yellow_500</item>
+        <item>@color/deep_orange_500</item>
+        <item>@color/blue_grey_500</item>
+        <item>@color/pink_500</item>
+        <item>@color/indigo_500</item>
+        <item>@color/cyan_500</item>
+        <item>@color/light_green_500</item>
+        <item>@color/amber_500</item>
+        <item>@color/brown_500</item>
+        <item>@color/purple_500</item>
+        <item>@color/blue_500</item>
+        <item>@color/teal_500</item>
+        <item>@color/lime_500</item>
+        <item>@color/orange_500</item>
+        <item>@color/grey_500</item>
+    </integer-array>
 
 </resources>

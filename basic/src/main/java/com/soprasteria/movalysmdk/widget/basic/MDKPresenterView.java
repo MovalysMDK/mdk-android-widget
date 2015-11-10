@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- * <p/>
+ *
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -34,8 +34,7 @@ import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKPresenterHelper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.ref.WeakReference;
 
 /**
  * MDKPresenterView.
@@ -43,19 +42,14 @@ import java.util.List;
 public class MDKPresenterView extends RelativeLayout {
 
     /**
-     * A random list of color.
-     */
-    private List<String> catalogue = new ArrayList<>();
-
-    /**
      * The title textView.
      */
-    private TextView titleView;
+    private WeakReference<TextView> titleView;
 
     /**
      * The imageView.
      */
-    private ImageView imageView;
+    private WeakReference<ImageView> imageView;
     /**
      * The image Uri.
      */
@@ -116,21 +110,19 @@ public class MDKPresenterView extends RelativeLayout {
         /* Inflate views */
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
         inflater.inflate(R.layout.mdkwidget_presenter_layout, this);
-        titleView = (TextView) this.findViewById(R.id.component_title);
-        imageView = (ImageView) this.findViewById(R.id.component_image);
+        titleView = new WeakReference<>((TextView) this.findViewById(R.id.component_title));
+        imageView = new WeakReference<>((ImageView) this.findViewById(R.id.component_image));
 
         /* Init TextView */
-        if (titleView != null) {
-            titleView.setTextColor(titleColor);
-            titleView.setTextSize(titleSize);
+        if (titleView.get() != null) {
+            titleView.get().setTextColor(titleColor);
+            titleView.get().setTextSize(titleSize);
             if (titleBackground != null) {
-                titleView.setBackgroundDrawable(titleBackground);
+                titleView.get().setBackgroundDrawable(titleBackground);
+            } else {
+                titleView.get().setBackgroundResource(R.drawable.mdk_circle);
             }
         }
-
-        /* Color catalogue */
-        catalogueGenerator();
-        MDKPresenterHelper.setRandomColor(this.titleView, catalogue);
 
         /* Recycling */
         typedArrayComponent.recycle();
@@ -142,8 +134,9 @@ public class MDKPresenterView extends RelativeLayout {
      * @param title the title to set into titleView
      */
     public void setTitle(String title) {
-        if (titleView != null) {
-            titleView.setText(title);
+        if (titleView.get() != null) {
+            titleView.get().setText(title);
+            MDKPresenterHelper.generateColor(this.titleView.get(), title);
         }
     }
 
@@ -161,37 +154,12 @@ public class MDKPresenterView extends RelativeLayout {
     }
 
     /**
-     * The list of material base colors.
-     */
-    private void catalogueGenerator() {
-        catalogue.add(0, "#F44336");
-        catalogue.add(1, "#673AB7");
-        catalogue.add(2, "#03A9F4");
-        catalogue.add(3, "#4CAF50");
-        catalogue.add(4, "#FFEB3B");
-        catalogue.add(5, "#FF5722");
-        catalogue.add(6, "#607D8B");
-        catalogue.add(7, "#E91E63");
-        catalogue.add(8, "#3F51B5");
-        catalogue.add(9, "#00BCD4");
-        catalogue.add(10, "#8BC34A");
-        catalogue.add(11, "#FFC107");
-        catalogue.add(12, "#795548");
-        catalogue.add(13, "#9C27B0");
-        catalogue.add(14, "#2196F3");
-        catalogue.add(15, "#009688");
-        catalogue.add(16, "#CDDC39");
-        catalogue.add(17, "#FF9800");
-        catalogue.add(18, "#9E9E9E");
-    }
-
-    /**
      * Method to set the image located by the Uri.
      *
      * @param uri The Uri set in the MDKPresenter
      */
     private void setImage(Uri uri) {
-        if (uri != null && imageView != null) {
+        if (uri != null && imageView.get() != null) {
             this.imageUri = uri;
             ViewTreeObserver vto = this.getViewTreeObserver();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -210,15 +178,15 @@ public class MDKPresenterView extends RelativeLayout {
      * Updates the imageView with the imageUri.
      */
     private void updateImageView() {
-        if (imageView != null) {
-            imageView.post(new Runnable() {
+        if (imageView.get() != null) {
+            imageView.get().post(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         Bitmap bmp = ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri), getHeight(), getWidth());
                         if (bmp != null) {
-                            imageView.setImageBitmap(MDKPresenterHelper.getRoundedBitmap(bmp, getWidth()));
-                            MDKPresenterHelper.crossFading(titleView, imageView);
+                            imageView.get().setImageBitmap(MDKPresenterHelper.getRoundedBitmap(bmp, getWidth()));
+                            MDKPresenterHelper.crossFading(titleView.get(), imageView.get());
                         }
                     } catch (IOException e) {
                         Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + imageUri, e);
@@ -227,5 +195,4 @@ public class MDKPresenterView extends RelativeLayout {
             });
         }
     }
-
 }

@@ -1,5 +1,21 @@
+/**
+ * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+ *
+ * This file is part of Movalys MDK.
+ * Movalys MDK is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Movalys MDK is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.soprasteria.movalysmdk.widget.core.helper;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,7 +27,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import java.util.List;
+import com.soprasteria.movalysmdk.widget.core.R;
+
 import java.util.Random;
 
 /**
@@ -35,12 +52,24 @@ public abstract class MDKPresenterHelper {
      * By default, the color come from material design color.
      *
      * @param mdkPresenterViewTitle The titleView of the MDKPresenterView
-     * @param catalogue             The list of colors
+     * @param title                 The text of text view (not use in this case)
      */
-    public static void setRandomColor(View mdkPresenterViewTitle, List<String> catalogue) {
-        int index = randomGenerator.nextInt(catalogue.size());
-        String color = catalogue.get(index);
-        mdkPresenterViewTitle.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.SRC);
+    public static void generateColor(View mdkPresenterViewTitle, String title) {
+        Resources res = mdkPresenterViewTitle.getContext().getResources();
+        int[] colors = res.getIntArray(R.array.MDKPresenterMaterialColor);
+        setColor(mdkPresenterViewTitle, colors[randomGenerator.nextInt(colors.length)]);
+    }
+
+    /**
+     * Method to set a specific color on the drawable background of the titleView.
+     *
+     * @param mdkPresenterViewTitle The titleView of the MDKPresenterView
+     * @param color                 The color resource
+     */
+    public static void setColor(View mdkPresenterViewTitle, int color) {
+        if (mdkPresenterViewTitle != null) {
+            mdkPresenterViewTitle.getBackground().setColorFilter(color, PorterDuff.Mode.SRC);
+        }
     }
 
     /**

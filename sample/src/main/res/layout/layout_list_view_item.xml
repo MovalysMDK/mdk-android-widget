@@ -26,7 +26,6 @@
         android:id="@+id/rlv_name_view"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        mdk:title_background="@drawable/mdk_circle"
         mdk:title_color="#eee"
         mdk:title_size="10dp"
         tools:visibility="visible" />

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<resources>
+    <color name="red_500">#F44336</color>
+    <color name="deep_purple_500">#673AB7</color>
+    <color name="light_blue_500">#03A9F4</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="yellow_500">#FFEB3B</color>
+    <color name="deep_orange_500">#FF5722</color>
+    <color name="blue_grey_500">#607D8B</color>
+    <color name="pink_500">#E91E63</color>
+    <color name="indigo_500">#3F51B5</color>
+    <color name="cyan_500">#00BCD4</color>
+    <color name="light_green_500">#8BC34A</color>
+    <color name="amber_500">#FFC107</color>
+    <color name="brown_500">#795548</color>
+    <color name="purple_500">#9C27B0</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="teal_500">#009688</color>
+    <color name="lime_500">#CDDC39</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="grey_500">#9E9E9E</color>
+</resources>
