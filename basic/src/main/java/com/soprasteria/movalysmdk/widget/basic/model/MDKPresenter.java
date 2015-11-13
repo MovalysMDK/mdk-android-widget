@@ -32,6 +32,12 @@ public class MDKPresenter {
      */
     private Uri uri;
 
+    /**
+     * Constructor.
+     */
+    public MDKPresenter() {
+        //Base constructor
+    }
 
     /**
      * Constructor.
