@@ -27,8 +27,6 @@
 
     <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
         android:id="@+id/component_emailButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@id/component_label"
         android:layout_alignParentLeft="true"
         android:src="@android:drawable/ic_menu_send"

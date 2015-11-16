@@ -15,7 +15,6 @@
  */
 package com.soprasteria.movalysmdk.widget.core.helper;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,18 +26,11 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.soprasteria.movalysmdk.widget.core.R;
-
-import java.util.Random;
 
 /**
  * Helper class for MDKPresenterView.
  */
 public abstract class MDKPresenterHelper {
-    /**
-     * The random generator for color catalogue.
-     */
-    private static final Random randomGenerator = new Random();
 
     /**
      * Constructor.
@@ -55,9 +47,9 @@ public abstract class MDKPresenterHelper {
      * @param title                 The text of text view (not use in this case)
      */
     public static void generateColor(View mdkPresenterViewTitle, String title) {
-        Resources res = mdkPresenterViewTitle.getContext().getResources();
-        int[] colors = res.getIntArray(R.array.MDKPresenterMaterialColor);
-        setColor(mdkPresenterViewTitle, colors[randomGenerator.nextInt(colors.length)]);
+        if (title != null) {
+            setColor(mdkPresenterViewTitle, calculateColorBase(title));
+        }
     }
 
     /**
@@ -97,8 +89,7 @@ public abstract class MDKPresenterHelper {
             paint.setDither(true);
             canvas.drawARGB(0, 0, 0, 0);
             paint.setColor(Color.parseColor("#BAB399"));
-            canvas.drawCircle(sbmp.getWidth() / 2 + 0.7f, sbmp.getHeight() / 2 + 0.7f,
-                    sbmp.getWidth() / 2 + 0.1f, paint);
+            canvas.drawCircle(sbmp.getWidth() / 2f + 0.7f, sbmp.getHeight() / 2f + 0.7f,sbmp.getWidth() / 2f + 0.1f, paint);
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
             canvas.drawBitmap(sbmp, rect, rect, paint);
             return output;
@@ -120,4 +111,17 @@ public abstract class MDKPresenterHelper {
         titleView.setVisibility(View.GONE);
         imageView.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Method to convert string into hex code color.
+     *
+     * @param title The string in the Item
+     * @return the color int
+     */
+    private static int calculateColorBase(String title) {
+        String opacity = "#ff";
+        String hexColor = String.format(opacity + "%06X", 0xeeeeee & title.hashCode());
+        return Color.parseColor(hexColor);
+    }
+
 }

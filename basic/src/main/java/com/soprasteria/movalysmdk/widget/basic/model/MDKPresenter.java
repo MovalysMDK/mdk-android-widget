@@ -50,21 +50,6 @@ public class MDKPresenter {
         this.uri = uri;
     }
 
-    /**
-     * Constructor.
-     *
-     * @param string      the title
-     * @param uri         the uri for image
-     * @param firstLetter boolean to test if the first letter of title string is required
-     */
-    public MDKPresenter(String string, Uri uri, boolean firstLetter) {
-        if (firstLetter) {
-            this.string = getFirstLetterToUpper(string);
-        } else {
-            this.string = string;
-        }
-        this.uri = uri;
-    }
 
     /**
      * Title getter.
@@ -102,28 +87,4 @@ public class MDKPresenter {
         this.uri = uri;
     }
 
-    /**
-     * To get the first letter of a string in uppercase.
-     *
-     * @param title the string used to get the first letter in uppercase
-     * @return the first letter in uppercase
-     */
-    private String getFirstLetterToUpper(String title) {
-        if (title != null) {
-            return title.substring(0, 1).toUpperCase();
-        }
-        return null;
-    }
-
-    /**
-     * To set the title with getFirstLetterToUpper method.
-     *
-     * @param title the string used to get the first letter in uppercase and set into titleView
-     */
-    public void setTitleFirstLetterToUpper(String title) {
-        String newTitle = this.getFirstLetterToUpper(title);
-        if (title != null) {
-            this.setString(newTitle);
-        }
-    }
 }

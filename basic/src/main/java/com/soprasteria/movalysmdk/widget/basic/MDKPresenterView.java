@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- * <p/>
+ *
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -140,9 +140,22 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
      */
     public void setTitle(String title) {
         if (this.titleView != null) {
-            this.titleView.setText(title);
+            this.titleView.setText(getFirstLetterToUpper(title));
             MDKPresenterHelper.generateColor(this.titleView, title);
         }
+    }
+
+    /**
+     * To get the first letter of a string in uppercase.
+     *
+     * @param title the string used to get the first letter in uppercase
+     * @return the first letter in uppercase
+     */
+    private String getFirstLetterToUpper(String title) {
+        if (title != null) {
+            return title.substring(0, 1).toUpperCase();
+        }
+        return null;
     }
 
 

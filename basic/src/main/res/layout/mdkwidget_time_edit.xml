@@ -45,8 +45,6 @@
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_internal_clear"
             style="?attr/mdkCommandStyle"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"

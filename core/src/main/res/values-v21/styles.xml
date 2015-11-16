@@ -76,6 +76,8 @@
         <item name="mdk_t_mediumTextSize">@dimen/abc_text_size_medium_material</item>
         <item name="mdk_t_largeTextSize">@dimen/abc_text_size_large_material</item>
         <item name="mdk_t_noBackground">@null</item>
+        <item name="mdk_t_commandWidth">@dimen/commandWidth</item>
+        <item name="mdk_t_commandHeight">@dimen/commandHeight</item>
 
         <!-- MDKWidget components styles -->
         <item name="mdkLabelStyle">@style/MDKLabel</item>
@@ -167,14 +169,20 @@
         <item name="mdk_b_errorTint">?attr/mdk_t_primaryColor</item>
 
         <!-- PrimaryCommand business attributes -->
+        <item name="mdk_b_primaryCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_primaryCommandHeight">?attr/mdk_t_commandHeight</item>
         <item name="mdk_b_primaryCommandTint">?attr/mdk_t_accentColor</item>
         <item name="mdk_b_primaryCommandBackground">?attr/mdk_t_noBackground</item>
 
         <!-- SecondaryCommand business attributes -->
+        <item name="mdk_b_secondaryCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_secondaryCommandHeight">?attr/mdk_t_commandHeight</item>
         <item name="mdk_b_secondaryCommandTint">?attr/mdk_t_accentColor</item>
         <item name="mdk_b_secondaryCommandBackground">?attr/mdk_t_noBackground</item>
 
         <!-- Command business attributes -->
+        <item name="mdk_b_commandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_commandHeight">?attr/mdk_t_commandHeight</item>
         <item name="mdk_b_commandTint">?attr/mdk_t_accentColor</item>
         <item name="mdk_b_commandBackground">?attr/mdk_t_noBackground</item>
 
@@ -235,6 +243,8 @@
 
     <!-- Command component style -->
     <style name="MDKCommand" parent="Base.MDKCommand">
+        <item name="android:layout_width">?attr/mdk_b_commandWidth</item>
+        <item name="android:layout_height">?attr/mdk_b_commandHeight</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
@@ -246,12 +256,16 @@
 
     <!-- Command.Primary component style -->
     <style name="MDKCommand.Primary">
+        <item name="android:layout_width">?attr/mdk_b_primaryCommandWidth</item>
+        <item name="android:layout_height">?attr/mdk_b_primaryCommandHeight</item>
         <item name="android:tint">?attr/mdk_b_primaryCommandTint</item>
         <item name="android:background">?attr/mdk_b_primaryCommandBackground</item>
     </style>
 
     <!-- Command.Secondary component style -->
     <style name="MDKCommand.Secondary">
+        <item name="android:layout_width">?attr/mdk_b_secondaryCommandWidth</item>
+        <item name="android:layout_height">?attr/mdk_b_secondaryCommandHeight</item>
         <item name="android:tint">?attr/mdk_b_secondaryCommandTint</item>
         <item name="android:background">?attr/mdk_b_secondaryCommandBackground</item>
     </style>

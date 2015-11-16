@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- * <p/>
+ *
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -88,12 +88,12 @@ public class PresenterAdapter extends BaseAdapter {
 
         if (item != null) {
             mViewHolder.mTextView.setText(item);
-            Uri imageUri = Uri.parse("android.resource://com.soprasteria.movalysmdk.widget.sample/drawable/image");
+            Uri imageUri = null;
             MDKPresenter mdkPresenter;
             if (position % 2 == 0) {
-                mdkPresenter = new MDKPresenter(item, imageUri, true);
+                mdkPresenter = new MDKPresenter(item, imageUri);
             } else {
-                mdkPresenter = new MDKPresenter(item, null, true);
+                mdkPresenter = new MDKPresenter(item, null);
             }
             mViewHolder.mdkPresenterView.setPresenter(mdkPresenter);
         }
