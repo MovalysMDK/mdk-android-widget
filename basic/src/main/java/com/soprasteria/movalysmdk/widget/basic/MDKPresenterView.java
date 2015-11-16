@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -204,12 +204,16 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
 
     @Override
     public void setPresenter(Object[] presenterArray) {
-        if (this.presenter == null) {
-            this.setPresenter(new MDKPresenter((String) presenterArray[0], (Uri) presenterArray[1]));
-        } else {
-            this.presenter.setString((String) presenterArray[0]);
-            this.presenter.setUri((Uri) presenterArray[1]);
-            this.setPresenter(this.presenter);
+        if (presenterArray != null) {
+            String title = (String) presenterArray[0];
+            Uri uri = (Uri) presenterArray[1];
+            if (this.presenter == null) {
+                this.setPresenter(new MDKPresenter(title, uri));
+            } else {
+                this.presenter.setString(title);
+                this.presenter.setUri(uri);
+                this.setPresenter(this.presenter);
+            }
         }
     }
 

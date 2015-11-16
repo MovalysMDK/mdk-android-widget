@@ -27,7 +27,6 @@ import com.soprasteria.movalysmdk.widget.basic.MDKPresenterView;
 import com.soprasteria.movalysmdk.widget.basic.model.MDKPresenter;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,8 +88,7 @@ public class PresenterAdapter extends BaseAdapter {
 
         if (item != null) {
             mViewHolder.mTextView.setText(item);
-            String filePath = "/sdcard/Pictures/image.png";
-            Uri imageUri = Uri.fromFile(new File(filePath));
+            Uri imageUri = Uri.parse("android.resource://com.soprasteria.movalysmdk.widget.sample/drawable/image");
             MDKPresenter mdkPresenter;
             if (position % 2 == 0) {
                 mdkPresenter = new MDKPresenter(item, imageUri, true);
