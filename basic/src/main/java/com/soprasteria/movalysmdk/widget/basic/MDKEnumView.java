@@ -505,7 +505,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         bundle.putParcelable("state", state);
 
         if(resourceEnumValue!=null) {
-            bundle.putString("enumValueName", resourceEnumValue.name());
+            bundle.putSerializable("enumValue", resourceEnumValue);
         }
 
         return bundle;
@@ -518,9 +518,9 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
             Bundle bundle = (Bundle) state;
 
             // Restoring the enum value
-            String enumValueName = bundle.getString("enumValueName");
-            if(resourceEnumValue!= null && enumValueName!=null && !enumValueName.isEmpty()){
-                setValueFromEnum(Enum.valueOf(resourceEnumValue.getClass(), enumValueName));
+            Enum enumValue = (Enum) bundle.getSerializable("enumValue");
+            if(resourceEnumValue!= null && enumValue!=null){
+                setValueFromEnum(enumValue);
             }
 
             Parcelable parcelable = bundle.getParcelable("state");

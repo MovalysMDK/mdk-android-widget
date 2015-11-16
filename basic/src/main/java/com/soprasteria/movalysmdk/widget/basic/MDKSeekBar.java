@@ -42,8 +42,8 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasFormatter;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.exception.MDKWidgetException;
@@ -230,6 +230,11 @@ public class MDKSeekBar extends AppCompatSeekBar implements OnSeekBarChangeListe
             setSeekProgress(this.getMin());
         }
 
+
+        if (this.getMDKWidgetDelegate() != null && !isInEditMode() ) {
+            this.validate(EnumFormFieldValidator.ON_USER);
+        }
+
         super.setOnSeekBarChangeListener(this);
     }
 
@@ -241,6 +246,7 @@ public class MDKSeekBar extends AppCompatSeekBar implements OnSeekBarChangeListe
         seekbarEditText.addTextChangedListener(this);
         seekbarEditText.setOnFocusChangeListener(this);
         seekbarEditText.setOnKeyListener(this);
+        seekbarEditText.setOnEditorActionListener(this);
         seekbarEditText.setEnabled(this.isEnabled());
         setAttachedEditTextValue(seekBarValue);
 
