@@ -2,7 +2,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-project.archivesBaseName = 'widget-photo'
+project.archivesBaseName = 'widget-media'
 
 android {
     compileSdkVersion androidCompileSdkVersion
