@@ -579,6 +579,16 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     }
 
     @Override
+    public String getModifiedPhotoSvg() {
+        return null;
+    }
+
+    @Override
+    public void setModifiedPhotoSvg(String svg) {
+
+    }
+
+    @Override
     public Parcelable onSaveInstanceState() {
         Parcelable state = super.onSaveInstanceState();
 
