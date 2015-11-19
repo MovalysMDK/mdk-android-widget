@@ -202,8 +202,8 @@
     <string name="checkbox_non_editable">readonly checkbox</string>
     <string name="position_non_editable">readonly rich position widget</string>
     <string name="spinner_not_editable">readonly rich spinner</string>
-    <string name="enum_mobileos_blackberry">BlackBerry</string>
-    <string name="enum_mobileos_symbian">Symbian</string>
+    <string name="enum_MobileOS_BLACKBERRY">BlackBerry</string>
+    <string name="enum_MobileOS_SYMBIAN">Symbian</string>
 
 
 

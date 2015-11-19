@@ -315,11 +315,11 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         }
         String textIdentifier = null;
         if (textStr != null) {
-            textIdentifier = textStr.toLowerCase();
+            textIdentifier = textStr;
         }
         int textRes = getResources().getIdentifier(textIdentifier, "string", getContext().getPackageName());
         if (textRes != 0) {
-            if (mode == MODE_TEXT || view instanceof TextView) {
+            if (mode == MODE_TEXT) {
                 ((TextView) view).setText(getContext().getString(textRes));
             } else {
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
