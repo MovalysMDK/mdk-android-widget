@@ -350,23 +350,27 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
             if (mode == MODE_TEXT) {
                 ((TextView) view).setText(getContext().getString(textRes));
             } else {
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                );
-                params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-                view.setLayoutParams(params);
-                // we are in fallback
-                String text = resourceEnumValue.name();
-                text = text.substring(text.length() - TRUNCATED_TEXT_LENGTH, text.length());
-                ((TextView) view).setText(text);
-                // we override the background
-                this.setBackgroundResource(R.drawable.round_enum_background);
+                this.imageFallbackText();
             }
         } else {
             //fallback behavior: displaying resource name
             ((TextView) view).setText(textStr);
         }
+    }
+
+    private void imageFallbackText() {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        view.setLayoutParams(params);
+        // we are in fallback
+        String text = resourceEnumValue.name();
+        text = text.substring(text.length() - TRUNCATED_TEXT_LENGTH, text.length());
+        ((TextView) view).setText(text);
+        // we override the background
+        this.setBackgroundResource(R.drawable.round_enum_background);
     }
 
     /**

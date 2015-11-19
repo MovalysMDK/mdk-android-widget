@@ -93,10 +93,10 @@ public class EnumViewTest {
 
         //fallback to string
         enumimage.setValueFromEnum(MobileOS.BLACKBERRY);
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_blackberry).equals(((TextView) enumimage.getModeView()).getText().toString()));
+        assertThat(null, "RRY".equals(((TextView) enumimage.getModeView()).getText().toString()));
 
         enumimage.setValueFromString("mobileos_blackberry");
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_blackberry).equals(((TextView) enumimage.getModeView()).getText().toString()));
+        assertThat(null, "enum_mobileos_blackberry".equals(((TextView) enumimage.getModeView()).getText().toString()));
 
         //fallback to name
         enumimage.setValueFromEnum(MobileOS.FIREFOX_OS);
@@ -126,7 +126,7 @@ public class EnumViewTest {
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_blackberry).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+        assertThat(null, "RRY".equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
@@ -134,7 +134,7 @@ public class EnumViewTest {
 
         // Click the view
         onView(withId(R.id.mdkRichEnumImage_withLabelAndError)).perform(scrollTo(), click());
-        assertThat(null, mActivityRule.getActivity().getString(R.string.enum_mobileos_symbian).equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
+        assertThat(null, "IAN".equals(((TextView) ((MDKRichEnumView) mActivityRule.getActivity().findViewById(R.id.mdkRichEnumImage_withLabelAndError)).getModeView()).getText().toString()));
 
         // END OF ENUM REACHED
         // MUST GO BACK TO FIRST ELEMENT IN ENUM
