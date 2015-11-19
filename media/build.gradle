@@ -40,6 +40,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile supportDependencies.appCompat
     compile supportDependencies.supportAnnotations
+    compile media.colorpicker
     compile project(':core')
 }
 

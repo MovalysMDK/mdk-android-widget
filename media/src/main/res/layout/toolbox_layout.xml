@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/command_background"
+    android:elevation="8dp">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:showDividers="beginning|end"
+            android:divider="@drawable/tools_divider_h">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:showDividers="middle"
+                android:divider="@drawable/tools_divider_h"
+                android:layout_gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/color_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/colorpicker_background"
+                    android:layout_gravity="center" />
+
+                <LinearLayout
+                    android:id="@+id/brush_tools"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:showDividers="middle"
+                    android:divider="@drawable/tools_divider_h"
+                    android:baselineAligned="true">
+
+                    <Spinner
+                        android:id="@+id/brush_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="8dp"
+                        style="@style/Widget.AppCompat.Spinner"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:drawable/divider_horizontal_dim_dark"
+                    />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/element_hand_free"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_pen_grey600_24dp"/>
+
+            <!-- TODO: fix it -->
+            <ImageButton
+                android:id="@+id/element_text"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:visibility="gone"
+                android:src="@drawable/ic_format_text_grey600_24dp"/>
+            <ImageButton
+                android:id="@+id/element_circle"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_checkbox_blank_circle_outline_grey600_24dp"/>
+            <ImageButton
+                android:id="@+id/element_ellipse"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_ellipse_grey600_24dp"/>
+            <ImageButton
+                android:id="@+id/element_rect"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_crop_square_grey600_24dp"/>
+            <ImageButton
+                android:id="@+id/element_arrow"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_long_arrow_right_grey600_24dp"/>
+            <ImageButton
+                android:id="@+id/element_double_arrow"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_double_arrow_grey600_24dp"/>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+</RelativeLayout>

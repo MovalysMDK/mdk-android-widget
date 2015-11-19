@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<RelativeLayout
+    android:id="@+id/fwk_component_drawing_activity_master"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@android:color/black"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/drawing_commands"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/command_background"
+        android:orientation="horizontal"
+        android:elevation="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/select_button"
+                android:src="@drawable/ic_selection_grey600_36dp"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless" />
+
+            <ImageButton
+                android:id="@+id/draw_button"
+                android:src="@drawable/ic_pencil_grey600_36dp"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless" />
+
+            <ImageButton
+                android:id="@+id/move_button"
+                android:src="@drawable/ic_cursor_move_grey600_36dp"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/divider_horizontal_dim_dark"
+            />
+
+        <ImageButton
+            android:id="@+id/done_button"
+            android:src="@drawable/ic_check_white_36dp"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.Borderless" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/drawing_commands">
+    <com.soprasteria.movalysmdk.widget.media.drawing.DrawingView
+        android:id="@+id/drawing_view"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/remove_element"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete_white_36dp"
+        android:visibility="invisible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+    <com.soprasteria.movalysmdk.widget.media.ToolBoxView
+        android:id="@+id/toolbox"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:elevation="8dp"/>
+</RelativeLayout>

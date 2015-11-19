@@ -121,12 +121,12 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
 
     @Override
     public String getModifiedPhotoSvg() {
-        return null;
+        return getInnerWidget().getModifiedPhotoSvg();
     }
 
     @Override
     public void setModifiedPhotoSvg(String svg) {
-
+        getInnerWidget().setModifiedPhotoSvg(svg);
     }
 
 }

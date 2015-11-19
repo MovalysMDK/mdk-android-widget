@@ -3,7 +3,12 @@
     <string name="mdkwidget_mdkmedia_take_video">Prendre une vidéo</string>
     <string name="mdkwidget_mdkmedia_choose_photo">Sélectionner une photo</string>
     <string name="mdkwidget_mdkmedia_choose_video">Sélectionner une vidéo</string>
-    <string name="mdkwidget_mdkmedia_remove_photo">Supprimer la photo</string>
+    <string name="mdkwidget_mdkmedia_remove_photo">Supprimer</string>
     <string name="mdkwidget_mdkmedia_remove_video">Supprimer la vidéo</string>
     <string name="mdkwidget_mdkmedia_take_photo">Prendre une photo</string>
+    <string name="mdkwidget_mdkmedia_edit_photo">Éditer</string>
+    <string name="mdkwidget_mdkmedia_close">Fermer</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+    <string name="remove_element">Supprimer</string>
 </resources>

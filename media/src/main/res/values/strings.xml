@@ -3,8 +3,16 @@
 
     <string name="mdkwidget_mdkmedia_take_photo">Take photo</string>
     <string name="mdkwidget_mdkmedia_choose_photo">Choose photo</string>
-    <string name="mdkwidget_mdkmedia_remove_photo">Remove photo</string>
+    <string name="mdkwidget_mdkmedia_remove_photo">Delete</string>
     <string name="mdkwidget_mdkmedia_take_video">Take video</string>
     <string name="mdkwidget_mdkmedia_choose_video">Choose video</string>
     <string name="mdkwidget_mdkmedia_remove_video">Remove video</string>
+    <string name="drawing_activity">Drawing</string>
+    <string name="pixels" translatable="false">px</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="mdkwidget_mdkmedia_edit_photo">Edit</string>
+    <string name="mdkwidget_mdkmedia_close">Close</string>
+    <string name="remove_element">Remove</string>
+    <string name="mdkwidget_mdkmedia_brush_pt" translatable="false">%d pt</string>
 </resources>

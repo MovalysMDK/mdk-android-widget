@@ -29,6 +29,10 @@ ext {
             mapsServices: "com.google.android.gms:play-services-maps:${playServices}"
     ]
 
+    media = [
+            colorpicker: "com.larswerkman:lobsterpicker:1.0.0"
+    ]
+
     testDependencies = [
             espressoCore:    "com.android.support.test.espresso:espresso-core:$espressoVersion",
             espressoContrib: "com.android.support.test.espresso:espresso-contrib:$espressoVersion",

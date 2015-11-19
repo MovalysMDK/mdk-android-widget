@@ -27,8 +27,8 @@
 
     <com.soprasteria.movalysmdk.widget.media.MDKMedia
         android:id="@id/component_internal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         mdk:errorId="@id/component_error"
         style="?attr/mdkMediaStyle"/>
 </merge>

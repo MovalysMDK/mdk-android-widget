@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.media;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.media.ThumbnailUtils;
@@ -28,6 +29,7 @@ import android.provider.MediaStore;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -66,8 +68,8 @@ import java.util.Locale;
  * Three different types of media:
  * <ul>
  *     <li>Photos</li>
- *     <li>Videos</li>
- *     <li>Files</li>
+ *     <li>Videos (Not yet implemented)</li>
+ *     <li>Files (Not yet implemented)</li>
  * </ul>
  * <ul>For photos and videos:
  *      <li>Displays a thumbnail with a placeholder</li>
@@ -87,7 +89,6 @@ import java.util.Locale;
  */
 public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler {
 
-    // TODO a mettre en constante dans les styles
     /** Alpha applied when component is disabled. */
     private static final int DISABLED_ALPHA = 70;
 
@@ -99,6 +100,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     /** Media type constant for photo. **/
     public static final int TYPE_FILE = 2;
+
+    /** Reference
+    private WeakReference<AlertDialog> fullPhotoDialog;
 
     /**
      * Enumeration listing possible MDKMedia modes.
@@ -121,7 +125,13 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     @MediaType private int mediaType;
 
     /** The widget's media file's uri. **/
-    private Uri mediaUri;
+    private Uri rawMediaUri;
+
+    /** The widget's modified media file's uri. **/
+    private Uri modifiedMediaUri;
+
+    /** The widget's modified media svg layer. **/
+    private String svgLayer;
 
     /** Temporary uri to use when capturing a media. **/
     private Uri tempFileUri;
@@ -279,7 +289,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public Object getValueToValidate() {
-        return mediaUri;
+        return rawMediaUri;
     }
 
     @Override
@@ -335,8 +345,50 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public void onClick(View v) {
-        if(!isReadonly() && isEnabled()) {
-            showContextMenu();
+        if(!isReadonly() && isEnabled() && rawMediaUri==null) {
+                showContextMenu();
+        }else if(!isReadonly() && isEnabled()) {
+            Uri mediaUri = modifiedMediaUri!=null?modifiedMediaUri:rawMediaUri;
+            try {
+                ImageView iv = new ImageView(getContext());
+                iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                iv.setAdjustViewBounds(true);
+                iv.setImageBitmap(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri));
+
+                AlertDialog ad = new AlertDialog.Builder(getContext()).create();
+                ad.getWindow().setLayout(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+                ad.setView(iv);
+                ad.setButton(AlertDialog.BUTTON_POSITIVE,getResources().getString(R.string.mdkwidget_mdkmedia_edit_photo), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        //Starting photo edition
+                        Intent drawingIntent = new Intent(getContext(), DrawingLayoutActivity.class);
+                        drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, rawMediaUri);
+                        drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_SVG_KEY, svgLayer);
+                        ((Activity) getContext()).startActivityForResult(drawingIntent, mdkWidgetDelegate.getUniqueId());
+
+                        dialog.dismiss();
+                    }
+                });
+                ad.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.mdkwidget_mdkmedia_remove_photo), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        reset();
+                        dialog.dismiss();
+                    }
+                });
+                ad.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.mdkwidget_mdkmedia_close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+                ad.show();
+            } catch (IOException e) {
+                Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
+            }
         }
     }
 
@@ -382,9 +434,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * @param menu the menu to initialize
      */
     private void initPhotoMenu(ContextMenu menu){
-        if(mediaUri!=null){
-            menu.add(0, -1, 0, R.string.mdkwidget_mdkmedia_remove_photo).setOnMenuItemClickListener(this);
-        }
         menu.add(0, 0, 1, R.string.mdkwidget_mdkmedia_take_photo).setOnMenuItemClickListener(this);
         menu.add(0, 1, 2, R.string.mdkwidget_mdkmedia_choose_photo).setOnMenuItemClickListener(this);
     }
@@ -394,9 +443,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * @param menu the menu to initialize
      */
     private void initVideoMenu(ContextMenu menu){
-        if(mediaUri!=null){
-            menu.add(0, -1, 0, R.string.mdkwidget_mdkmedia_remove_video).setOnMenuItemClickListener(this);
-        }
         menu.add(0, 2, 1, R.string.mdkwidget_mdkmedia_take_video).setOnMenuItemClickListener(this);
         menu.add(0, 3, 2, R.string.mdkwidget_mdkmedia_choose_video).setOnMenuItemClickListener(this);
     }
@@ -405,14 +451,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     public boolean onMenuItemClick(MenuItem item) {
 
         switch (item.getItemId()) {
-            case -1:
-                mediaUri=null;
-                if(getThumbnailView()!=null) {
-                    getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
-                }
-                break;
             case 0:
-                tempFileUri = getOutputMediaFileUri(TYPE_PHOTO);
+                tempFileUri = getOutputMediaFileUri(getContext(),TYPE_PHOTO);
                 if(tempFileUri !=null) {
                     ((Activity) getContext()).startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
                 }
@@ -422,7 +462,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 ((Activity) getContext()).startActivityForResult(pickPhotoIntent, mdkWidgetDelegate.getUniqueId());
                 break;
             case 2:
-                tempFileUri = getOutputMediaFileUri(TYPE_VIDEO);
+                tempFileUri = getOutputMediaFileUri(getContext(),TYPE_VIDEO);
                 if(tempFileUri !=null) {
                     ((Activity) getContext()).startActivityForResult(new Intent(MediaStore.ACTION_VIDEO_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
                 }
@@ -438,9 +478,33 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         return false;
     }
 
+    /**
+     * Restores the widget to its initial state.
+     */
+    private void reset() {
+        rawMediaUri =null;
+        modifiedMediaUri = null;
+        svgLayer = null;
+
+        if(getThumbnailView()!=null) {
+            getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
+        }
+    }
+
     @Override
     public void handleActivityResult(int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
+        if(resultCode == Activity.RESULT_OK){
+
+            if(data!=null) {
+
+                String action = data.getAction();
+
+                if (action != null && action.equals(DrawingLayoutActivity.DRAWING_ACTION)) {
+                    handleDrawingActivityResult(data);
+                    return;
+                }
+            }
+
             switch (this.mediaType) {
                 case TYPE_PHOTO:
                     handlePhotoActivityResult(data);
@@ -452,6 +516,24 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 default:
                     break;
             }
+        }
+    }
+
+    /**
+     * Handles the result of a drawing activity (bitmap and svg),
+     * stores it and updates the thumbnail.
+     * @param data the activity result data
+     */
+    private void handleDrawingActivityResult(Intent data) {
+        if((data.getParcelableExtra(DrawingLayoutActivity.RESULT_URI_KEY)).equals(rawMediaUri)){
+            modifiedMediaUri = null;
+            updateThumbnail(rawMediaUri);
+        }else{
+
+            svgLayer = data.getStringExtra(DrawingLayoutActivity.RESULT_SVG_KEY);
+            modifiedMediaUri = data.getParcelableExtra(DrawingLayoutActivity.RESULT_URI_KEY);
+
+            updateThumbnail(modifiedMediaUri);
         }
     }
 
@@ -475,22 +557,29 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         }
 
         setMediaUri(imageUri);
+
+        //Starting photo edition
+        Intent drawingIntent = new Intent(getContext(),DrawingLayoutActivity.class);
+        drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, imageUri);
+
+        ((Activity) getContext()).startActivityForResult(drawingIntent, mdkWidgetDelegate.getUniqueId());
     }
 
 
     /**
      * Creates a file to store the captured media.
+     * @param context the context
      * @param type media type
      * @return the created file's uri
      */
-    private Uri getOutputMediaFileUri(int type){
+    public static Uri getOutputMediaFileUri(Context context, int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
         String dirName;
-        if(this.getContext().getApplicationInfo().labelRes!=0){
-            dirName = getContext().getString(this.getContext().getApplicationInfo().labelRes).replace(" ","_");
+        if(context.getApplicationInfo().labelRes!=0){
+            dirName = context.getString(context.getApplicationInfo().labelRes).replace(" ","_");
         }else{
-            dirName=this.getClass().getSimpleName();
+            dirName=context.getClass().getSimpleName();
         }
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), dirName);
@@ -499,8 +588,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
         // Create the storage directory if it does not exist
         if (! mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(this.getClass().getSimpleName(), "failed to create directory");
-            return null;
+            Log.d(context.getClass().getSimpleName(), "failed to create directory");
+
         }
 
         // Create a media file name
@@ -521,15 +610,17 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public Uri getMediaUri() {
-        return mediaUri;
+        return modifiedMediaUri!=null?modifiedMediaUri:rawMediaUri;
     }
 
     @Override
     public void setMediaUri(Uri uri) {
-        this.mediaUri = uri;
+        this.rawMediaUri = uri;
         switch (mediaType){
             case TYPE_PHOTO:
-                    updateThumbnail();
+                if(modifiedMediaUri==null) {
+                    updateThumbnail(rawMediaUri);
+                }
                 break;
             case TYPE_VIDEO:
                 break;
@@ -568,7 +659,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         }
 
         this.placeholderRes = res;
-        if(mediaUri==null && getThumbnailView()!=null){
+        if(rawMediaUri ==null && getThumbnailView()!=null){
             getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
         }
     }
@@ -580,12 +671,12 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public String getModifiedPhotoSvg() {
-        return null;
+        return svgLayer;
     }
 
     @Override
     public void setModifiedPhotoSvg(String svg) {
-
+        //TODO
     }
 
     @Override
@@ -600,7 +691,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         bundle.putParcelable("state", state);
         bundle.putInt("type", mediaType);
         bundle.putInt("placeholder", placeholderRes);
-        bundle.putParcelable("uri",mediaUri);
+        bundle.putParcelable("raw_uri", rawMediaUri);
+        bundle.putParcelable("modified_uri", modifiedMediaUri);
+        bundle.putString("svg_layer",svgLayer);
 
         return bundle;
 
@@ -633,16 +726,23 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 setPlaceholder(placeholder);
             }
 
-            //restore uri
-            Uri uri = bundle.getParcelable("uri");
-            if (uri != null) {
-                setMediaUri(uri);
+            //restore uri(s)
+            Uri modifiedUri = bundle.getParcelable("modified_uri");
+            if (modifiedUri != null) {
+                modifiedMediaUri = modifiedUri;
+                updateThumbnail(modifiedUri);
             }
+            Uri rawUri = bundle.getParcelable("raw_uri");
+            if (rawUri != null) {
+                setMediaUri(rawUri);
+            }
+
+            //restore modified photo svg
+            svgLayer = bundle.getString("svg_layer");
 
             Parcelable parcelable = bundle.getParcelable("state");
             parcelable = this.mdkWidgetDelegate.onRestoreInstanceState(this, parcelable);
             super.onRestoreInstanceState(parcelable);
-
 
             return;
         }
@@ -652,8 +752,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     /**
      * Updates the thumbnail with the mediaUri.
+     * @param mediaUri the media uri
      */
-    private void updateThumbnail(){
+    private void updateThumbnail(final Uri mediaUri){
         ImageView iv = getThumbnailView();
         if (iv != null) {
             iv.post(new Runnable() {
