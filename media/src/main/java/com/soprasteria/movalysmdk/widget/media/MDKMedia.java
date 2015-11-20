@@ -141,6 +141,17 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     /** Thumbnail placeholder drawable resource. **/
     private int placeholderRes;
 
+    /** Photo intent type. **/
+    private enum PhotoIntentType{
+        /** PICKER. **/
+        PICKER,
+        /** CAMERA. **/
+        CAMERA
+    }
+
+    /** Photo intent type of the current intent. **/
+    private PhotoIntentType photoIntentType;
+
     /**
      * Constructor.
      * @param context the android context
@@ -453,14 +464,10 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
         switch (item.getItemId()) {
             case 0:
-                tempFileUri = getOutputMediaFileUri(getContext(),TYPE_PHOTO);
-                if(tempFileUri !=null) {
-                    ActivityHelper.startActivityForResult(getContext(), new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
-                }
+                prepareCapturePhotoIntent();
                 break;
             case 1:
-                Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                ActivityHelper.startActivityForResult(getContext(), pickPhotoIntent, mdkWidgetDelegate.getUniqueId());
+                preparePickPhotoIntent();
                 break;
             case 2:
                 tempFileUri = getOutputMediaFileUri(getContext(),TYPE_VIDEO);
@@ -477,6 +484,26 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         }
 
         return false;
+    }
+
+    /**
+     * Prepares an intent for the camera app and launches it.
+     */
+    private void prepareCapturePhotoIntent() {
+        tempFileUri = getOutputMediaFileUri(getContext(),TYPE_PHOTO);
+        if(tempFileUri !=null) {
+            photoIntentType = PhotoIntentType.CAMERA;
+            ActivityHelper.startActivityForResult(getContext(), new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
+        }
+    }
+
+    /**
+     * Prepares an intent for the photo picker app and launches it.
+     */
+    private void preparePickPhotoIntent() {
+        photoIntentType = PhotoIntentType.PICKER;
+        Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        ActivityHelper.startActivityForResult(getContext(), pickPhotoIntent, mdkWidgetDelegate.getUniqueId());
     }
 
     /**
@@ -539,9 +566,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
         //intent is null when in the case of camera app result
         //so we have to take the uri we previously stored
-        if(data!=null){
+        if(photoIntentType==PhotoIntentType.PICKER){
             imageUri = data.getData();
-        }else if(tempFileUri!=null){
+        }else if(photoIntentType==PhotoIntentType.CAMERA){
             imageUri=tempFileUri;
             tempFileUri=null;
         }else{

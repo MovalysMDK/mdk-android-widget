@@ -863,12 +863,28 @@ public class DrawingView extends View implements OnScaleGestureListener {
 
     /**
      * Motion event handler used while in Selection mode.
-     * This handler selects the nearest data path by searching the nearest centroid path
-     *
      * @param event Current MotionEvent
      */
     private void onSelectEvent(MotionEvent event) {
 
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                trySelect(event);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                // Do nothing
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Motion event handler used while in Selection mode.
+     * This handler selects the nearest data path by searching the nearest centroid path
+     * @param event Current MotionEvent
+     */
+    private void trySelect(MotionEvent event) {
         // Used for computing local score
         float score;
         // Used for keeping the best score, and best found index

@@ -372,8 +372,8 @@ public class SvgDocument {
         int height = Integer.valueOf(parser.getAttributeValue(NAMESPACE, "height"));
 
         data.getStartingPoint().x = x;
-        data.getStartingPoint().x = x + width;
-        data.getEndingPoint().y = y;
+        data.getEndingPoint().x = x + width;
+        data.getStartingPoint().y = y;
         data.getEndingPoint().y = y + height;
 
         // Update the centroid and android path of the object

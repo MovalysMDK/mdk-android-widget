@@ -35,11 +35,11 @@ public class ArrowLineElement extends LineElement {
 
         this.setMarkerEnd(new MarkerElement());
         this.getMarkerEnd().setAutoOrientation(true);
-        this.getMarkerEnd().setMarkerHeight(3 * scale);
-        this.getMarkerEnd().setMarkerWidth(4 * scale);
+        this.getMarkerEnd().setMarkerHeight(10 * scale);
+        this.getMarkerEnd().setMarkerWidth(10 * scale);
         this.getMarkerEnd().getRef().x = 0;
         this.getMarkerEnd().getRef().y = 5 * scale;
-        this.getMarkerEnd().setMarkerUnits(MarkerUnits.STROKE_WIDTH);
+        this.getMarkerEnd().setMarkerUnits(MarkerUnits.USER_SPACE_ON_USE);
 
         HandFreeElement path = new HandFreeElement();
         MotionEvent motionEvent = MotionEvent.obtain(0, 0, MotionEvent.ACTION_DOWN, 0, 0, 0);

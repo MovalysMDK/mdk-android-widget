@@ -330,11 +330,7 @@ public class MarkerElement {
                     .append("\" ");
         }
 
-        // TODO: hardcoded
-        svgStrBuilder.append("preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 10 10\" ");
-
-        svgStrBuilder.append("id=\"").append(id).append("\" ");
-        svgStrBuilder.append("style=\"").append(style).append("\" >");
+        svgStrBuilder.append("id=\"").append(id).append("\" >");
 
 
         for (DrawingElement drawingElement : elements) {
