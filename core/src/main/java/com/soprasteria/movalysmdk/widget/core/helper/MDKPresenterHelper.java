@@ -22,6 +22,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -48,7 +51,7 @@ public abstract class MDKPresenterHelper {
      */
     public static void generateColor(View mdkPresenterViewTitle, String title) {
         if (title != null) {
-            setColor(mdkPresenterViewTitle, calculateColorBase(title));
+            setColor(mdkPresenterViewTitle, calculateColor(title));
         }
     }
 
@@ -124,4 +127,22 @@ public abstract class MDKPresenterHelper {
         return Color.parseColor(hexColor);
     }
 
+    /**
+     * Method to get material color from calculateColorBase.
+     *
+     * @param title The string in the Item
+     * @return the material color int
+     */
+    private static int calculateColor(String title) {
+        ShapeDrawable drawable = new ShapeDrawable(new RectShape());
+        drawable.getPaint().setColor(calculateColorBase(title));
+        drawable.setIntrinsicHeight(2);
+        drawable.setIntrinsicWidth(2);
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        Palette palette = Palette.generate(bitmap);
+        return palette.getVibrantColor(0xff00bcd4);
+    }
 }

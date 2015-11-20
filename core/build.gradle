@@ -46,6 +46,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile supportDependencies.appCompat
     compile supportDependencies.supportAnnotations
+    compile supportDependencies.palette
 }
 
 sonarRunner {
