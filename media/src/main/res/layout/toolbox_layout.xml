@@ -80,6 +80,14 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:src="@drawable/ic_pen_grey600_24dp"/>
 
+
+            <ImageButton
+                android:id="@+id/element_line"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_vector_line_grey600_24dp"/>
+
             <!-- TODO: fix it -->
             <ImageButton
                 android:id="@+id/element_text"

@@ -41,6 +41,7 @@ dependencies {
     compile supportDependencies.appCompat
     compile supportDependencies.supportAnnotations
     compile media.colorpicker
+    compile media.svg
     compile project(':core')
 }
 

@@ -128,6 +128,10 @@ public class DrawingView extends View implements OnScaleGestureListener {
          **/
         HAND_FREE,
         /**
+         * Line svg element.
+         **/
+        LINE,
+        /**
          * Circle svg element.
          **/
         CIRCLE,

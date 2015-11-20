@@ -50,7 +50,7 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
     /**
      * Intent extras key for result rasterized bitmap uri. To use when receiving result of this activity.
      */
-    public static final String RESULT_URI_KEY = "modifiedPhotoUri";
+    //public static final String RESULT_URI_KEY = "modifiedPhotoUri";
 
     /**
      * Result ntent action. To check when receiving result activity.
@@ -359,16 +359,15 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
 
             DrawingView dv = drawingView.get();
             if (dv != null && !dv.getEditableElementsStack().isEmpty()) {
-                Bitmap bmp = dv.rasterize();
+        //        Bitmap bmp = dv.rasterize();
 
-                Uri modifiedMediaUri = writeRasterizedBitmap(bmp);
+        //        Uri modifiedMediaUri = writeRasterizedBitmap(bmp);
 
                 resultIntent.putExtra(RESULT_SVG_KEY, dv.saveSvg());
-                resultIntent.putExtra(RESULT_URI_KEY, modifiedMediaUri);
+        //        resultIntent.putExtra(RESULT_URI_KEY, modifiedMediaUri);
 
-            } else {
-                resultIntent.putExtra(RESULT_URI_KEY, getIntent().getParcelableExtra(REQUEST_URI_KEY));
             }
+
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }

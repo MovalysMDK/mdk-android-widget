@@ -20,6 +20,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +41,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
@@ -126,10 +130,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     @MediaType private int mediaType;
 
     /** The widget's media file's uri. **/
-    private Uri rawMediaUri;
-
-    /** The widget's modified media file's uri. **/
-    private Uri modifiedMediaUri;
+    private Uri mediaUri;
 
     /** The widget's modified media svg layer. **/
     private String svgLayer;
@@ -290,7 +291,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public Object getValueToValidate() {
-        return rawMediaUri;
+        return mediaUri;
     }
 
     @Override
@@ -346,50 +347,45 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public void onClick(View v) {
-        if(!isReadonly() && isEnabled() && rawMediaUri==null) {
+        if(!isReadonly() && isEnabled() && mediaUri ==null) {
                 showContextMenu();
         }else if(!isReadonly() && isEnabled()) {
-            Uri mediaUri = modifiedMediaUri!=null?modifiedMediaUri:rawMediaUri;
-            try {
-                ImageView iv = new ImageView(getContext());
-                iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                iv.setAdjustViewBounds(true);
-                iv.setImageBitmap(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri));
+            ImageView iv = new ImageView(getContext());
+            iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            iv.setAdjustViewBounds(true);
+            iv.setImageBitmap(createViewBitmap());
 
-                AlertDialog ad = new AlertDialog.Builder(getContext()).create();
-                ad.getWindow().setLayout(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-                ad.setView(iv);
-                ad.setButton(AlertDialog.BUTTON_POSITIVE,getResources().getString(R.string.mdkwidget_mdkmedia_edit_photo), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
+            AlertDialog ad = new AlertDialog.Builder(getContext()).create();
+            ad.getWindow().setLayout(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+            ad.setView(iv);
+            ad.setButton(AlertDialog.BUTTON_POSITIVE,getResources().getString(R.string.mdkwidget_mdkmedia_edit_photo), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
 
-                        //Starting photo edition
-                        Intent drawingIntent = new Intent(getContext(), DrawingLayoutActivity.class);
-                        drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, rawMediaUri);
-                        drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_SVG_KEY, svgLayer);
-                        ActivityHelper.startActivityForResult(getContext(), drawingIntent, mdkWidgetDelegate.getUniqueId());
+                    //Starting photo edition
+                    Intent drawingIntent = new Intent(getContext(), DrawingLayoutActivity.class);
+                    drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, MDKMedia.this.mediaUri);
+                    drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_SVG_KEY, svgLayer);
+                    ActivityHelper.startActivityForResult(getContext(), drawingIntent, mdkWidgetDelegate.getUniqueId());
 
-                        dialog.dismiss();
-                    }
-                });
-                ad.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.mdkwidget_mdkmedia_remove_photo), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        reset();
-                        dialog.dismiss();
-                    }
-                });
-                ad.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.mdkwidget_mdkmedia_close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
+                    dialog.dismiss();
+                }
+            });
+            ad.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.mdkwidget_mdkmedia_remove_photo), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    reset();
+                    dialog.dismiss();
+                }
+            });
+            ad.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.mdkwidget_mdkmedia_close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
 
-                ad.show();
-            } catch (IOException e) {
-                Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
-            }
+            ad.show();
         }
     }
 
@@ -483,8 +479,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * Restores the widget to its initial state.
      */
     private void reset() {
-        rawMediaUri =null;
-        modifiedMediaUri = null;
+        mediaUri =null;
         svgLayer = null;
 
         if(getThumbnailView()!=null) {
@@ -526,16 +521,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * @param data the activity result data
      */
     private void handleDrawingActivityResult(Intent data) {
-        if((data.getParcelableExtra(DrawingLayoutActivity.RESULT_URI_KEY)).equals(rawMediaUri)){
-            modifiedMediaUri = null;
-            updateThumbnail(rawMediaUri);
-        }else{
-
-            svgLayer = data.getStringExtra(DrawingLayoutActivity.RESULT_SVG_KEY);
-            modifiedMediaUri = data.getParcelableExtra(DrawingLayoutActivity.RESULT_URI_KEY);
-
-            updateThumbnail(modifiedMediaUri);
-        }
+        svgLayer = data.getStringExtra(DrawingLayoutActivity.RESULT_SVG_KEY);
+        updateThumbnail();
     }
 
     /**
@@ -611,17 +598,15 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public Uri getMediaUri() {
-        return modifiedMediaUri!=null?modifiedMediaUri:rawMediaUri;
+        return mediaUri;
     }
 
     @Override
     public void setMediaUri(Uri uri) {
-        this.rawMediaUri = uri;
+        this.mediaUri = uri;
         switch (mediaType){
             case TYPE_PHOTO:
-                if(modifiedMediaUri==null) {
-                    updateThumbnail(rawMediaUri);
-                }
+                updateThumbnail();
                 break;
             case TYPE_VIDEO:
                 break;
@@ -660,8 +645,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         }
 
         this.placeholderRes = res;
-        if(rawMediaUri ==null && getThumbnailView()!=null){
-            getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
+        if(mediaUri ==null && getThumbnailView()!=null){
+            getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
         }
     }
 
@@ -677,7 +662,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public void setModifiedPhotoSvg(String svg) {
-        //TODO
+        svgLayer = svg;
+        updateThumbnail();
     }
 
     @Override
@@ -692,9 +678,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         bundle.putParcelable("state", state);
         bundle.putInt("type", mediaType);
         bundle.putInt("placeholder", placeholderRes);
-        bundle.putParcelable("raw_uri", rawMediaUri);
-        bundle.putParcelable("modified_uri", modifiedMediaUri);
-        bundle.putString("svg_layer", svgLayer);
+        bundle.putParcelable("raw_uri", mediaUri);
+        bundle.putString("svg_layer",svgLayer);
 
         return bundle;
 
@@ -728,11 +713,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
             }
 
             //restore uri(s)
-            Uri modifiedUri = bundle.getParcelable("modified_uri");
-            if (modifiedUri != null) {
-                modifiedMediaUri = modifiedUri;
-                updateThumbnail(modifiedUri);
-            }
             Uri rawUri = bundle.getParcelable("raw_uri");
             if (rawUri != null) {
                 setMediaUri(rawUri);
@@ -753,9 +733,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     /**
      * Updates the thumbnail with the mediaUri.
-     * @param mediaUri the media uri
      */
-    private void updateThumbnail(final Uri mediaUri){
+    private void updateThumbnail(){
         ImageView iv = getThumbnailView();
         if (iv != null) {
             iv.post(new Runnable() {
@@ -763,15 +742,41 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 public void run() {
                     ImageView iv2 = getThumbnailView();
                     if (iv2 != null) {
-                        try {
-                            //Extract thumbnail from bitmap and display it
-                            iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri), iv2.getWidth(), iv2.getHeight()));
-                        } catch (IOException e) {
-                            Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
-                        }
+                        //Extract thumbnail from bitmap and display it
+                        iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(createViewBitmap(), iv2.getWidth(), iv2.getHeight()));
                     }
                 }
             });
         }
+    }
+
+    /**
+     * Creates a bitmap with the mediaURI and, if applicable, the svg layer.
+     * @return a rasterized bitmap of the source image and the svg layer.
+     */
+    private Bitmap createViewBitmap(){
+        try {
+            Bitmap bmp = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri);
+
+            //Draw svg if present
+            if(svgLayer!=null) {
+                Bitmap modifiedBmp = bmp.copy(Bitmap.Config.ARGB_8888,true);
+                bmp.recycle();
+                bmp = null;
+                Canvas canvas = new Canvas(modifiedBmp);
+                SVG svg = SVG.getFromString(svgLayer);
+
+                canvas.drawPicture(svg.renderToPicture());
+
+                return modifiedBmp;
+            }
+
+            return bmp;
+        } catch (IOException e) {
+            Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
+        } catch (SVGParseException e) {
+            Log.w(this.getClass().getSimpleName(), "Error parsing SVG: \n" + svgLayer, e);
+        }
+        return null;
     }
 }

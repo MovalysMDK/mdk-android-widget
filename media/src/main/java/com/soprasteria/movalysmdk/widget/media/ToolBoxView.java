@@ -43,6 +43,7 @@ import com.soprasteria.movalysmdk.widget.media.drawing.data.ArrowLineElement;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.CircleElement;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.DoubleArrowLineElement;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.HandFreeElement;
+import com.soprasteria.movalysmdk.widget.media.drawing.data.LineElement;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.OvalElement;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.RectangleElement;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.TextElement;
@@ -68,6 +69,11 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
      * Reference to the hand free tool button.
      */
     private WeakReference<ImageButton> handFreeButton;
+
+    /**
+     * Reference to the line tool button.
+     */
+    private WeakReference<ImageButton> lineButton;
 
     /**
      * Reference to the circle tool button.
@@ -200,6 +206,7 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
 
         textButton = new WeakReference<>((ImageButton) findViewById(R.id.element_text));
         handFreeButton = new WeakReference<>((ImageButton) findViewById(R.id.element_hand_free));
+        lineButton = new WeakReference<>((ImageButton) findViewById(R.id.element_line));
         circleButton = new WeakReference<>((ImageButton) findViewById(R.id.element_circle));
         ellipseButton = new WeakReference<>((ImageButton) findViewById(R.id.element_ellipse));
         rectangleButton = new WeakReference<>((ImageButton) findViewById(R.id.element_rect));
@@ -216,7 +223,7 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
         shadeSliderView = new WeakReference<>((LobsterShadeSlider)rl.findViewById(R.id.shadeslider));
         final LobsterPicker lp = colorPickerView.get();
         final LobsterShadeSlider lss = shadeSliderView.get();
-        if(lp!=null) {
+        if(lp!=null && lss!=null) {
             lp.addDecorator(lss);
             lp.setColorHistoryEnabled(true);
         }
@@ -226,28 +233,34 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        currentColor = lp.getColor();
-                        currentColorPosition = lp.getColorPosition();
-                        currentShadePosition = lss.getShadePosition();
-                        lp.setHistory(lp.getColor());
-                        validateCurrentColor();
-                        dialog.dismiss();
+                        if(lp!=null && lss!=null) {
+                            currentColor = lp.getColor();
+                            currentColorPosition = lp.getColorPosition();
+                            currentShadePosition = lss.getShadePosition();
+                            lp.setHistory(lp.getColor());
+                            validateCurrentColor();
+                            dialog.dismiss();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        lp.setColorPosition(currentColorPosition);
-                        lss.setShadePosition(currentShadePosition);
+                        if(lp!=null && lss!=null) {
+                            lp.setColorPosition(currentColorPosition);
+                            lss.setShadePosition(currentShadePosition);
+                        }
                     }
                 })
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                         dialog.dismiss();
-                        lp.setColorPosition(currentColorPosition);
-                        lss.setShadePosition(currentShadePosition);
+                        if(lp!=null && lss!=null) {
+                            lp.setColorPosition(currentColorPosition);
+                            lss.setShadePosition(currentShadePosition);
+                        }
                     }
                 }).create();
 
@@ -264,6 +277,10 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
             ib.setOnClickListener(this);
         }
         ib = handFreeButton.get();
+        if(ib!=null) {
+            ib.setOnClickListener(this);
+        }
+        ib = lineButton.get();
         if(ib!=null) {
             ib.setOnClickListener(this);
         }
@@ -331,6 +348,8 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
             setTool(Tool.TEXT);
         }else if(v.equals(handFreeButton.get())){
             setTool(Tool.HAND_FREE);
+        }else if(v.equals(lineButton.get())){
+            setTool(Tool.LINE);
         }else if(v.equals(circleButton.get())){
             setTool(Tool.CIRCLE);
         }else if(v.equals(ellipseButton.get())){
@@ -360,6 +379,9 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
                     break;
                 case HAND_FREE:
                     initHandFree();
+                    break;
+                case LINE:
+                    initLine();
                     break;
                 case CIRCLE:
                     initCircle();
@@ -411,7 +433,7 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
 
         ImageButton ib = handFreeButton.get();
         if(ib!=null) {
-            ib.setImageResource(R.drawable.ic_pencil_white_24dp);
+            ib.setImageResource(R.drawable.ic_pen_white_24dp);
         }
 
         DrawingView dv = drawingView.get();
@@ -420,6 +442,25 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
         }
 
         selectedTool = Tool.HAND_FREE;
+    }
+
+    /**
+     * Initializes the line tool.
+     */
+    private void initLine() {
+        deselectButtons();
+
+        ImageButton ib = lineButton.get();
+        if(ib!=null) {
+            ib.setImageResource(R.drawable.ic_vector_line_white_24dp);
+        }
+
+        DrawingView dv = drawingView.get();
+        if (dv != null) {
+            dv.setDrawingTool(LineElement.class);
+        }
+
+        selectedTool = Tool.LINE;
     }
 
     /**
@@ -527,7 +568,11 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
         }
         ib = handFreeButton.get();
         if(ib!=null) {
-            ib.setImageResource(R.drawable.ic_pencil_grey600_24dp);
+            ib.setImageResource(R.drawable.ic_pen_grey600_24dp);
+        }
+        ib = lineButton.get();
+        if(ib!=null) {
+            ib.setImageResource(R.drawable.ic_vector_line_grey600_24dp);
         }
         ib = circleButton.get();
         if(ib!=null) {
@@ -580,7 +625,7 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
     private void validateCurrentColor() {
         DrawingView dv = drawingView.get();
         if (dv != null) {
-            dv.setDrawingStyle("fill:#" + Integer.toHexString(currentColor).substring(2) + ";");
+            dv.setDrawingStyle("stroke:#" + Integer.toHexString(currentColor).substring(2) + ";");
         }
 
         Button b = colorPickerButton.get();

@@ -31,7 +31,9 @@ ext {
     ]
 
     media = [
-            colorpicker: "com.larswerkman:lobsterpicker:1.0.0"
+            colorpicker: "com.larswerkman:lobsterpicker:1.0.0",
+            svg: "com.caverock:androidsvg:1.2.1"
+
     ]
 
     testDependencies = [

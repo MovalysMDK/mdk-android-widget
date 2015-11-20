@@ -336,6 +336,7 @@ public class MarkerElement {
         svgStrBuilder.append("id=\"").append(id).append("\" ");
         svgStrBuilder.append("style=\"").append(style).append("\" >");
 
+
         for (DrawingElement drawingElement : elements) {
             svgStrBuilder.append(drawingElement.toSvg());
         }
