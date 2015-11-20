@@ -560,7 +560,7 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
         if (dv != null && s!=null) {
             int size = (int) s.getSelectedItem();
 
-            if(size!=0) {
+            if(size!=0 && dv.getDrawingBackground() != null) {
                 if (dv.getDrawingBackground().getHeight() > dv.getDrawingBackground().getWidth()) {
                     currentBrushSize = (int) (size * dv.getDrawingBackground().getWidth() * 0.005);
                 } else {
