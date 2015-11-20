@@ -86,24 +86,26 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
      * @param attrs attributes
      */
     private void init(Context context, AttributeSet attrs){
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
+        if (!isInEditMode()) {
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPositionComponent);
 
-        @MDKPosition.PositionMode int mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
+            @MDKPosition.PositionMode int mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
 
-        this.innerWidget.setMode(mode);
+            this.innerWidget.setMode(mode);
 
-        boolean autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
+            boolean autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
 
-        this.innerWidget.setAutoStart(autoStart);
+            this.innerWidget.setAutoStart(autoStart);
 
-        boolean activateGoto = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true);
+            boolean activateGoto = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true);
 
-        this.innerWidget.setActivateGoto(activateGoto);
+            this.innerWidget.setActivateGoto(activateGoto);
 
-        int timeout = typedArray.getInteger(R.styleable.MDKCommons_MDKPositionComponent_timeout, 10);
+            int timeout = typedArray.getInteger(R.styleable.MDKCommons_MDKPositionComponent_timeout, 10);
 
-        this.innerWidget.setTimeOut(timeout);
+            this.innerWidget.setTimeOut(timeout);
 
-        typedArray.recycle();
+            typedArray.recycle();
+        }
     }
 }
