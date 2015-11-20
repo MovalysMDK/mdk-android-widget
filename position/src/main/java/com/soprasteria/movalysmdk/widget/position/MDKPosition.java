@@ -760,10 +760,18 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
             EditText lat = this.mdkWidgetDelegate.getLatitudeView();
 
             if (readonly) {
+                setClickable(false);
+
                 lon.setInputType(InputType.TYPE_NULL);
                 lat.setInputType(InputType.TYPE_NULL);
                 lon.setFocusable(false);
                 lat.setFocusable(false);
+
+                lon.setMovementMethod(null);
+                lat.setMovementMethod(null);
+
+                lon.setKeyListener(null);
+                lat.setKeyListener(null);
             } else {
                 lon.setFocusableInTouchMode(true);
                 lat.setFocusableInTouchMode(true);

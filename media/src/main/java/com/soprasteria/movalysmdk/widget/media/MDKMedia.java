@@ -204,9 +204,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         setPlaceholder(AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_placeholder, 0));
 
         typedArray.recycle();
-
-        findViewById(R.id.overlay).setOnClickListener(this);
-        this.setOnCreateContextMenuListener(this);
     }
 
 
@@ -217,6 +214,13 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         //register as handler
         MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication)getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
         helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
+
+        if (isReadonly()) {
+            setClickable(false);
+        } else {
+            this.findViewById(R.id.overlay).setOnClickListener(this);
+            this.setOnCreateContextMenuListener(this);
+        }
     }
 
     @Override
