@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.soprasteria.movalysmdk.widget.core.helper.ActivityHelper;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHandler;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHelper;
@@ -160,7 +161,7 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
             try {
-                ((Activity) getContext()).startActivityForResult(builder.build(this.getContext()), mdkWidgetDelegate.getUniqueId());
+                ActivityHelper.startActivityForResult(getContext(), builder.build(this.getContext()), mdkWidgetDelegate.getUniqueId());
             } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                 Log.e(this.getClass().getSimpleName(), "Google Places Error", e);
             }

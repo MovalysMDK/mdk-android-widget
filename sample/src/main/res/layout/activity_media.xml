@@ -104,5 +104,19 @@
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
             mdk:placeholder="@drawable/enum_mobileos_android"/>
+
+        <!-- RICH PHOTO IN A DIALOG -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rich_photo_in_dialog" />
+
+        <Button
+            android:id="@+id/mdkButton_richMediaInDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_dialog"/>
+
     </LinearLayout>
 </ScrollView>

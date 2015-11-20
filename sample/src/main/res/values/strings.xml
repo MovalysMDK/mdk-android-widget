@@ -241,9 +241,11 @@
     <string name="title_activity_media">Media</string>
     <string name="photo_editable_with_label_error">Editable photo</string>
     <string name="rich_photo_editable_with_label_error">Editable rich photo with label and error</string>
-    <string name="rich_photo_editable_with_placeholder">EDitable rich photo with custom placeholder</string>
+    <string name="rich_photo_editable_with_placeholder">Editable rich photo with custom placeholder</string>
+    <string name="rich_photo_in_dialog">Editable rich photo in dialog</string>
     <string name="photo_readonly">Read only photo MDKMedia</string>
     <string name="enumtext_with_fixed_dimensions">MDKRichEnumView with fixed dimensions</string>
     <string name="enumtext_readonly_no_content">Readonly MDKRichEnumView with drawable not found</string>
+    <string name="open_dialog">Open dialog</string>
 
 </resources>

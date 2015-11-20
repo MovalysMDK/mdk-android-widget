@@ -47,6 +47,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasMedia;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.helper.ActivityHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
@@ -213,7 +214,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         super.onAttachedToWindow();
 
         //register as handler
-        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication)getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
         helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
     }
 
@@ -222,7 +223,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         super.onDetachedFromWindow();
 
         //unregister as handler
-        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication)getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
         helper.unregisterActivityResultHandler(mdkWidgetDelegate.getUniqueId());
     }
 
@@ -366,7 +367,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                         Intent drawingIntent = new Intent(getContext(), DrawingLayoutActivity.class);
                         drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, rawMediaUri);
                         drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_SVG_KEY, svgLayer);
-                        ((Activity) getContext()).startActivityForResult(drawingIntent, mdkWidgetDelegate.getUniqueId());
+                        ActivityHelper.startActivityForResult(getContext(), drawingIntent, mdkWidgetDelegate.getUniqueId());
 
                         dialog.dismiss();
                     }
@@ -454,22 +455,22 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
             case 0:
                 tempFileUri = getOutputMediaFileUri(getContext(),TYPE_PHOTO);
                 if(tempFileUri !=null) {
-                    ((Activity) getContext()).startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
+                    ActivityHelper.startActivityForResult(getContext(), new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
                 }
                 break;
             case 1:
                 Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                ((Activity) getContext()).startActivityForResult(pickPhotoIntent, mdkWidgetDelegate.getUniqueId());
+                ActivityHelper.startActivityForResult(getContext(), pickPhotoIntent, mdkWidgetDelegate.getUniqueId());
                 break;
             case 2:
                 tempFileUri = getOutputMediaFileUri(getContext(),TYPE_VIDEO);
                 if(tempFileUri !=null) {
-                    ((Activity) getContext()).startActivityForResult(new Intent(MediaStore.ACTION_VIDEO_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
+                    ActivityHelper.startActivityForResult(getContext(), new Intent(MediaStore.ACTION_VIDEO_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
                 }
                 break;
             case 3:
                 Intent pickVideoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                ((Activity) getContext()).startActivityForResult(pickVideoIntent, mdkWidgetDelegate.getUniqueId());
+                ActivityHelper.startActivityForResult(getContext(), pickVideoIntent, mdkWidgetDelegate.getUniqueId());
                 break;
             default:
                 break;
@@ -562,7 +563,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         Intent drawingIntent = new Intent(getContext(),DrawingLayoutActivity.class);
         drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, imageUri);
 
-        ((Activity) getContext()).startActivityForResult(drawingIntent, mdkWidgetDelegate.getUniqueId());
+        ActivityHelper.startActivityForResult(getContext(), drawingIntent, mdkWidgetDelegate.getUniqueId());
     }
 
 
@@ -693,7 +694,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         bundle.putInt("placeholder", placeholderRes);
         bundle.putParcelable("raw_uri", rawMediaUri);
         bundle.putParcelable("modified_uri", modifiedMediaUri);
-        bundle.putString("svg_layer",svgLayer);
+        bundle.putString("svg_layer", svgLayer);
 
         return bundle;
 
