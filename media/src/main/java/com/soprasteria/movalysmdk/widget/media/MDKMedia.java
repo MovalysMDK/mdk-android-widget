@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.media;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -203,8 +204,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
         mdkListenerDelegate = new MDKChangeListenerDelegate();
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        inflater.inflate(this.getLayoutResource(), this);
+        LayoutInflater.from(context).inflate(this.getLayoutResource(), this);
 
         this.thumbnail = new WeakReference<>((ImageView) findViewById(R.id.thumbnail));
         this.overlay = new WeakReference<>(findViewById(R.id.overlay));
@@ -377,21 +377,19 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
     @Override
     public void onClick(View v) {
-        if(!isReadonly() && isEnabled() && mediaUri ==null) {
+        if(!isReadonly() && isEnabled() && getMediaUri() == null) {
                 showContextMenu();
         }else if(!isReadonly() && isEnabled()) {
-            ImageView iv = new ImageView(getContext());
-            iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            iv.setAdjustViewBounds(true);
-            iv.setImageBitmap(createViewBitmap());
 
-            AlertDialog ad = new AlertDialog.Builder(getContext()).create();
-            ad.getWindow().setLayout(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-            ad.setView(iv);
-            ad.setButton(AlertDialog.BUTTON_POSITIVE,getResources().getString(R.string.mdkwidget_mdkmedia_edit_photo), new DialogInterface.OnClickListener() {
+            RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
+            ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(createViewBitmap());
+
+            final Dialog dialog = new Dialog(getContext(),R.style.ViewerDialog);
+            dialog.setContentView(rl);
+
+            rl.findViewById(R.id.edit_button).setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int id) {
-
+                public void onClick(View v) {
                     //Starting photo edition
                     Intent drawingIntent = new Intent(getContext(), DrawingLayoutActivity.class);
                     drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, MDKMedia.this.mediaUri);
@@ -401,21 +399,34 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                     dialog.dismiss();
                 }
             });
-            ad.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.mdkwidget_mdkmedia_remove_photo), new DialogInterface.OnClickListener() {
+            rl.findViewById(R.id.delete_button).setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    reset();
-                    dialog.dismiss();
+                public void onClick(View v) {
+                    AlertDialog ad = new AlertDialog.Builder(getContext())
+                            .setMessage(getContext().getString(R.string.confirm_delete))
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface d, int which) {
+                                    reset();
+                                    dialog.dismiss();
+                                }
+                            }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface d, int which) {
+                                    // do nothing
+                                }
+                            }).create();
+                    ad.show();
                 }
             });
-            ad.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.mdkwidget_mdkmedia_close), new DialogInterface.OnClickListener() {
+            rl.findViewById(R.id.back_button).setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int id) {
+                public void onClick(View v) {
                     dialog.dismiss();
                 }
             });
 
-            ad.show();
+            dialog.show();
         }
     }
 
@@ -787,7 +798,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                             //Extract thumbnail from bitmap and display it
                             iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(createViewBitmap(), iv2.getWidth(), iv2.getHeight()));
                         }else {
-                            getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
+                            iv2.setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
                         }
                     }
                 }

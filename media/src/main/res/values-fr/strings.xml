@@ -11,4 +11,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="remove_element">Supprimer</string>
+    <string name="confirm_delete">Êtes-vous sûr de vouloir supprimer cette image ?</string>
 </resources>

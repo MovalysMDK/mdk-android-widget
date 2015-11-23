@@ -20,8 +20,6 @@ import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView;
 import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView.Mode;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.DrawingElement;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
@@ -362,34 +360,6 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
         }
-    }
-
-    /**
-     * Writes the bitmap to a file and return the uri.
-     *
-     * @param bmp the rasterized bitmap
-     * @return the file's uri
-     */
-    private Uri writeRasterizedBitmap(Bitmap bmp) {
-        Uri modifiedMediaUri = MDKMedia.getOutputMediaFileUri(this, MDKMedia.TYPE_PHOTO);
-        FileOutputStream out = null;
-        try {
-            if (modifiedMediaUri != null) {
-                out = new FileOutputStream(modifiedMediaUri.getPath());
-            }
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
-        } catch (FileNotFoundException e) {
-            Log.w(this.getClass().getSimpleName(), "Error trying to write bitmap to file: " + modifiedMediaUri, e);
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                Log.w(this.getClass().getSimpleName(), "Error trying to write bitmap to file: " + modifiedMediaUri, e);
-            }
-        }
-        return modifiedMediaUri;
     }
 
     /**

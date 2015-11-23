@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.soprasteria.movalysmdk.widget.media" >
 
-    <application android:allowBackup="true">
+    <application android:allowBackup="true" >
         <activity
-        android:name=".DrawingLayoutActivity"
-        android:label="@string/drawing_activity"
-        android:theme="@style/Theme.AppCompat.NoActionBar" >
-    </activity>
+            android:name=".DrawingLayoutActivity"
+            android:label="@string/drawing_activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

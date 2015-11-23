@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ViewerDialog" parent="Theme.AppCompat">
+        <item name="android:windowAnimationStyle">@style/ViewerDialogAnimation</item>
+
+    </style>
+    <style name="ViewerDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/enter_preview</item>
+        <item name="android:windowExitAnimation">@anim/close_preview</item>
+    </style>
+</resources>

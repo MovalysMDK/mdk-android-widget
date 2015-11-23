@@ -15,4 +15,5 @@
     <string name="mdkwidget_mdkmedia_close">Close</string>
     <string name="remove_element">Remove</string>
     <string name="mdkwidget_mdkmedia_brush_pt" translatable="false">%d pt</string>
+    <string name="confirm_delete">Are you sure you want to delete this picture?</string>
 </resources>
