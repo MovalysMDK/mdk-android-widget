@@ -21,15 +21,17 @@ import android.net.Uri;
 import android.util.AttributeSet;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasMedia;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 /**
  * Rich widget representing a media picker,
  * and including by default the label and the error component.
  */
-public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasValidator, HasMedia{
+public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasValidator, HasMedia, HasChangeListener {
 
     /**
      * Constructor.
@@ -129,4 +131,13 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
         getInnerWidget().setModifiedPhotoSvg(svg);
     }
 
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        getInnerWidget().registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        getInnerWidget().unregisterChangeListener(listener);
+    }
 }

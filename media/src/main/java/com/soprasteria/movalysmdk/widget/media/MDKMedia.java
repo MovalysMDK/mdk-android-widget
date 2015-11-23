@@ -46,13 +46,16 @@ import com.caverock.androidsvg.SVGParseException;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasMedia;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.ActivityHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHandler;
@@ -92,7 +95,7 @@ import java.util.Locale;
  *      <li>Then displays the photo inside the ImageView</li>
  * </ul>
  */
-public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler {
+public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler, HasChangeListener {
 
     /** Alpha applied when component is disabled. */
     private static final int DISABLED_ALPHA = 70;
@@ -115,6 +118,18 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     @IntDef({TYPE_PHOTO,TYPE_VIDEO,TYPE_FILE})
     @Retention(RetentionPolicy.SOURCE)
     @interface MediaType {
+    }
+
+    /** Photo intent type for camera app. **/
+    private static final int INTENT_TYPE_CAMERA = 0;
+
+    /** Photo intent type for photo picker app. **/
+    private static final int INTENT_TYPE_PICKER = 1;
+
+    /** PEnumeration listing possible intent types. **/
+    @IntDef({INTENT_TYPE_CAMERA,INTENT_TYPE_PICKER})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface IntentType {
     }
 
     /** The thumbnail ImageView. **/
@@ -141,16 +156,15 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     /** Thumbnail placeholder drawable resource. **/
     private int placeholderRes;
 
-    /** Photo intent type. **/
-    private enum PhotoIntentType{
-        /** PICKER. **/
-        PICKER,
-        /** CAMERA. **/
-        CAMERA
-    }
+
+    /**
+     * notify change listeners.
+     */
+    private MDKChangeListenerDelegate mdkListenerDelegate;
+
 
     /** Photo intent type of the current intent. **/
-    private PhotoIntentType photoIntentType;
+    @IntentType private int intentType;
 
     /**
      * Constructor.
@@ -187,6 +201,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
         // Create the widget delegate
         mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+        mdkListenerDelegate = new MDKChangeListenerDelegate();
 
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(this.getLayoutResource(), this);
@@ -492,7 +507,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     private void prepareCapturePhotoIntent() {
         tempFileUri = getOutputMediaFileUri(getContext(),TYPE_PHOTO);
         if(tempFileUri !=null) {
-            photoIntentType = PhotoIntentType.CAMERA;
+            intentType = INTENT_TYPE_CAMERA;
             ActivityHelper.startActivityForResult(getContext(), new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri), mdkWidgetDelegate.getUniqueId());
         }
     }
@@ -501,7 +516,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * Prepares an intent for the photo picker app and launches it.
      */
     private void preparePickPhotoIntent() {
-        photoIntentType = PhotoIntentType.PICKER;
+        intentType = INTENT_TYPE_PICKER;
         Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         ActivityHelper.startActivityForResult(getContext(), pickPhotoIntent, mdkWidgetDelegate.getUniqueId());
     }
@@ -510,12 +525,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * Restores the widget to its initial state.
      */
     private void reset() {
-        mediaUri =null;
-        svgLayer = null;
-
-        if(getThumbnailView()!=null) {
-            getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
-        }
+        setMediaUri(null);
+        setModifiedPhotoSvg(null);
     }
 
     @Override
@@ -552,8 +563,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      * @param data the activity result data
      */
     private void handleDrawingActivityResult(Intent data) {
-        svgLayer = data.getStringExtra(DrawingLayoutActivity.RESULT_SVG_KEY);
-        updateThumbnail();
+        setModifiedPhotoSvg(data.getStringExtra(DrawingLayoutActivity.RESULT_SVG_KEY));
     }
 
     /**
@@ -566,9 +576,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
         //intent is null when in the case of camera app result
         //so we have to take the uri we previously stored
-        if(photoIntentType==PhotoIntentType.PICKER){
+        if(intentType==INTENT_TYPE_PICKER){
             imageUri = data.getData();
-        }else if(photoIntentType==PhotoIntentType.CAMERA){
+        }else if(intentType==INTENT_TYPE_CAMERA){
             imageUri=tempFileUri;
             tempFileUri=null;
         }else{
@@ -646,6 +656,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
             default:
                 break;
         }
+        mdkListenerDelegate.notifyListeners();
     }
 
     @Override
@@ -695,6 +706,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     public void setModifiedPhotoSvg(String svg) {
         svgLayer = svg;
         updateThumbnail();
+        mdkListenerDelegate.notifyListeners();
     }
 
     @Override
@@ -710,7 +722,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         bundle.putInt("type", mediaType);
         bundle.putInt("placeholder", placeholderRes);
         bundle.putParcelable("raw_uri", mediaUri);
-        bundle.putString("svg_layer",svgLayer);
+        bundle.putString("svg_layer", svgLayer);
 
         return bundle;
 
@@ -745,12 +757,10 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
             //restore uri(s)
             Uri rawUri = bundle.getParcelable("raw_uri");
-            if (rawUri != null) {
-                setMediaUri(rawUri);
-            }
+            setMediaUri(rawUri);
 
             //restore modified photo svg
-            svgLayer = bundle.getString("svg_layer");
+            setModifiedPhotoSvg(bundle.getString("svg_layer"));
 
             Parcelable parcelable = bundle.getParcelable("state");
             parcelable = this.mdkWidgetDelegate.onRestoreInstanceState(this, parcelable);
@@ -773,8 +783,12 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 public void run() {
                     ImageView iv2 = getThumbnailView();
                     if (iv2 != null) {
-                        //Extract thumbnail from bitmap and display it
-                        iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(createViewBitmap(), iv2.getWidth(), iv2.getHeight()));
+                        if(getMediaUri()!=null) {
+                            //Extract thumbnail from bitmap and display it
+                            iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(createViewBitmap(), iv2.getWidth(), iv2.getHeight()));
+                        }else {
+                            getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
+                        }
                     }
                 }
             });
@@ -790,7 +804,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
             Bitmap bmp = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri);
 
             //Draw svg if present
-            if(svgLayer!=null) {
+            if(getModifiedPhotoSvg()!=null) {
                 Bitmap modifiedBmp = bmp.copy(Bitmap.Config.ARGB_8888,true);
                 bmp.recycle();
                 bmp = null;
@@ -809,5 +823,16 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
             Log.w(this.getClass().getSimpleName(), "Error parsing SVG: \n" + svgLayer, e);
         }
         return null;
+    }
+
+
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.mdkListenerDelegate.registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
 }
