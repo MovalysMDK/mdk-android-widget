@@ -20,8 +20,8 @@
 
     <!-- Chaines utilisees -->
     <string name="mdkvalidator_seekbar_error_invalid">Valeur de la seekbar non valide</string>
-    <string name="mdkvalidator_seekbar_error_max">La valeur doit être inférieure à %1$s.</string>
-    <string name="mdkvalidator_seekbar_error_min">La valeur doit être supérieure à %1$s.</string>
-    <string name="mdkvalidator_seekbar_error_max_min">La valeur doit être comprise entre %1$s et %2$s.</string>
+    <string name="mdkvalidator_seekbar_error_max">La valeur doit ??tre inf??rieure ?? %1$s.</string>
+    <string name="mdkvalidator_seekbar_error_min">La valeur doit ??tre sup??rieure ?? %1$s.</string>
+    <string name="mdkvalidator_seekbar_error_max_min">La valeur doit ??tre comprise entre %1$s et %2$s.</string>
 
 </resources>

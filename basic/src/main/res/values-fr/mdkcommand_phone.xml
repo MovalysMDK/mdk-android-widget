@@ -19,7 +19,7 @@
 <resources>
 
     <!-- Chaines utilisees -->
-    <string name="mdkcommand_phone_error_notiddle">Impossible d\'effectuer l\'appel. La ligne est occupée.</string>
-    <string name="mdkcommand_phone_error_nophoneapp">Pas d\'application de téléphonie installée.</string>
+    <string name="mdkcommand_phone_error_notiddle">Impossible d\'effectuer l\'appel. La ligne est occup??e.</string>
+    <string name="mdkcommand_phone_error_nophoneapp">Pas d\'application de t??l??phonie install??e.</string>
 
 </resources>
