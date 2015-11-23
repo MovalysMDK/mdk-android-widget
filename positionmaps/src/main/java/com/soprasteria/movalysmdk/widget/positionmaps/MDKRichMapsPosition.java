@@ -92,35 +92,36 @@ public class MDKRichMapsPosition extends MDKBaseRichWidget<MDKMapsPosition> impl
 
         @MDKPosition.PositionMode int mode = typedArray.getInt(R.styleable.MDKCommons_MDKPositionComponent_positionMode, 0);
 
-        this.innerWidget.setMode(mode);
+        if (!this.isInEditMode()) {
+            this.innerWidget.setMode(mode);
 
-        boolean autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
+            boolean autoStart = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_autoStart, false);
 
-        this.innerWidget.setAutoStart(autoStart);
+            this.innerWidget.setAutoStart(autoStart);
 
-        boolean activateGoto = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true);
+            boolean activateGoto = typedArray.getBoolean(R.styleable.MDKCommons_MDKPositionComponent_activeGoto, true);
 
-        this.innerWidget.setActivateGoto(activateGoto);
+            this.innerWidget.setActivateGoto(activateGoto);
 
-        typedArray.recycle();
+            typedArray.recycle();
 
-        typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);
+            typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);
 
-        int zoom = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_zoom, MDKMapsPositionWidgetDelegate.DEFAULT_ZOOM);
-        if (zoom > MDKMapsPositionWidgetDelegate.MAX_ZOOM) {
-            zoom = MDKMapsPositionWidgetDelegate.MAX_ZOOM;
+            int zoom = typedArray.getInt(R.styleable.MDKCommons_MDKMapsPositionComponent_zoom, MDKMapsPositionWidgetDelegate.DEFAULT_ZOOM);
+            if (zoom > MDKMapsPositionWidgetDelegate.MAX_ZOOM) {
+                zoom = MDKMapsPositionWidgetDelegate.MAX_ZOOM;
+            }
+
+            this.innerWidget.setZoom(zoom);
+
+            int gpsMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_gpsMarker, 0);
+
+            this.innerWidget.setGpsMarker(gpsMarker);
+
+            int addressMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_addressMarker, 0);
+
+            this.innerWidget.setAddressMarker(addressMarker);
         }
-
-        this.innerWidget.setZoom(zoom);
-
-        int gpsMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_gpsMarker, 0);
-
-        this.innerWidget.setGpsMarker(gpsMarker);
-
-        int addressMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_addressMarker, 0);
-
-        this.innerWidget.setAddressMarker(addressMarker);
-
         typedArray.recycle();
     }
 }

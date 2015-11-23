@@ -151,7 +151,9 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
      * @param mode the mode from the list of possible modes
      */
     public void setMode(@MDKEnumView.EnumMode int mode) {
-        getInnerWidget().setMode(mode);
+        if (!this.isInEditMode()) {
+            getInnerWidget().setMode(mode);
+        }
     }
 
     @Override

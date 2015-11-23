@@ -177,7 +177,7 @@
     <string name="wrong_os">Wrong Operating System. Please select Android.</string>
     <string name="rich_seelctor_commons">Rich selector for multiple widget by style</string>
     <string name="rich_selector_solo">Rich selector for single widget</string>
-    
+
     <string name="uri_rich_with_label_error">Uri rich widget with label and error</string>
     <string name="uri_with_label">Uri widget with label</string>
     <string name="checkable_value_true">Widget must be checked</string>
@@ -186,13 +186,15 @@
     <string name="true_text">true</string>
     <string name="false_text">false</string>
 
-    <string name="error_prefix" translatable="false">"42 /!\\ "</string><string name="seekbar_max_10000">Seekbar with a higher max</string>
+    <string name="error_prefix" translatable="false">"42 /!\\ "</string>
+    <string name="seekbar_max_10000">Seekbar with a higher max</string>
     <string name="seekbar_min_42">Seekbar with a different min and max</string>
     <string name="email_rich_without_label">email rich without label</string>
     <string name="seekbar_edit_text_not_editable">Seekbar with edit text readonly</string>
     <string name="seekbar_min_max_allowed">Seekbar with min allowed and max allowed but neither min nor max</string>
     <string name="seekbar_different_formatter">Seekbar with different formatter</string>
-    <string name="title_activity_spinner">SpinnerActivity</string><string name="enumimage_standalone_widget">Standalone enumimage readonly</string>
+    <string name="title_activity_spinner">SpinnerActivity</string>
+    <string name="enumimage_standalone_widget">Standalone enumimage readonly</string>
     <string name="title_activity_enumview">EnumView</string>
     <string name="enumimage_editable_with_label_error">Editable (clickable) MDKEnumImage with label and error</string>
     <string name="enumtext_with_label_error">MDKEnumView as text with label and error</string>
@@ -204,8 +206,6 @@
     <string name="spinner_not_editable">readonly rich spinner</string>
     <string name="enum_MobileOS_BLACKBERRY">BlackBerry</string>
     <string name="enum_MobileOS_SYMBIAN">Symbian</string>
-
-
 
 
     <!-- TESTED RESOURCES -->
@@ -247,5 +247,6 @@
     <string name="enumtext_with_fixed_dimensions">MDKRichEnumView with fixed dimensions</string>
     <string name="enumtext_readonly_no_content">Readonly MDKRichEnumView with drawable not found</string>
     <string name="open_dialog">Open dialog</string>
+    <string name="title_activity_map2">Map2Activity</string>
 
 </resources>

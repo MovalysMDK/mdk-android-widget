@@ -108,7 +108,9 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
 
     @Override
     public void setMediaType(@MDKMedia.MediaType int type) {
-        getInnerWidget().setMediaType(type);
+        if (!this.isInEditMode()) {
+            getInnerWidget().setMediaType(type);
+        }
     }
 
     @Override

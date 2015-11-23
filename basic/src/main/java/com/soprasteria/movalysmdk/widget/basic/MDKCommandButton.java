@@ -74,12 +74,16 @@ public class MDKCommandButton extends AppCompatButton implements View.OnClickLis
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        this.delegate.onAttachedToWindow();
+        if (!this.isInEditMode()) {
+            this.delegate.onAttachedToWindow();
+        }
     }
 
     @Override
     protected void onDetachedFromWindow() {
-        this.delegate.onDetachedFromWindow();
+        if (!this.isInEditMode()) {
+            this.delegate.onDetachedFromWindow();
+        }
         super.onDetachedFromWindow();
     }
 

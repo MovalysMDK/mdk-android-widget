@@ -131,8 +131,10 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & HasValidator & HasDate 
             timeHint = context.getString(R.string.default_time_hint_text);
         }
 
-        getInnerWidget().setDateHint(dateHint);
-        getInnerWidget().setTimeHint(timeHint);
+        if (!this.isInEditMode()) {
+            getInnerWidget().setDateHint(dateHint);
+            getInnerWidget().setTimeHint(timeHint);
+        }
 
         typedArray.recycle();
 
