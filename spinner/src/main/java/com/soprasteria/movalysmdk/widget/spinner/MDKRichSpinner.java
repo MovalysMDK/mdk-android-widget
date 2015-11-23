@@ -6,8 +6,10 @@ import android.util.AttributeSet;
 import android.widget.BaseAdapter;
 
 import com.soprasteria.movalysmdk.widget.core.MDKBaseRichWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 /**
  * MDK RichSpinner.
@@ -20,7 +22,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
  * <li>Mandatory : When XML attrs mandatory is set to "true" when blank row is selected the MDK spinner will return an error</li>
  * </ul>
  */
-public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements HasValidator, HasAdapter {
+public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements HasValidator, HasAdapter, HasChangeListener {
 
     /**
      * Constructor.
@@ -120,4 +122,13 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
         this.getInnerWidget().setAdapterSpinnerDropDownBlankLayout(adapter, spinnerBlankLayout, dropDownBlankLayout);
     }
 
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.getInnerWidget().registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.getInnerWidget().unregisterChangeListener(listener);
+    }
 }
