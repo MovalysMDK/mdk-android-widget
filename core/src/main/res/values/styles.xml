@@ -20,6 +20,20 @@
 
     <style name="MDKWidgetTheme" parent="Theme.AppCompat">
 
+        <!-- technical attributes -->
+        <!-- to change your application colors, change these settings -->
+        <item name="mdk_t_primaryColor">?attr/colorPrimary</item>
+        <item name="mdk_t_primaryDarkColor">?attr/colorPrimaryDark</item>
+        <item name="mdk_t_accentColor">?attr/colorAccent</item>
+        <item name="mdk_t_textColorPrimary">?android:attr/textColorPrimary</item>
+        <item name="mdk_t_textColorSecondary">?android:attr/textColorSecondary</item>
+        <item name="mdk_t_smallTextSize">@dimen/abc_text_size_small_material</item>
+        <item name="mdk_t_mediumTextSize">@dimen/abc_text_size_medium_material</item>
+        <item name="mdk_t_largeTextSize">@dimen/abc_text_size_large_material</item>
+        <item name="mdk_t_noBackground">@null</item>
+        <item name="mdk_t_commandWidth">@dimen/commandWidth</item>
+        <item name="mdk_t_commandHeight">@dimen/commandHeight</item>
+
         <item name="mdkLabelStyle">@style/MDKLabel</item>
         <item name="mdkValueEditTextStyle">@style/MDKValueEditText</item>
         <item name="mdkValueDateStyle">@style/MDKValueDate</item>
@@ -38,9 +52,123 @@
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
 
+        <!-- Label business attributes -->
+        <item name="mdk_b_labelTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_labelTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_labelTextStyle">bold</item>
+        <item name="mdk_b_labelBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Edit business attributes -->
+        <item name="mdk_b_editTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_editTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_editTextStyle">normal</item>
+        <item name="mdk_b_editTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Date business attributes -->
+        <item name="mdk_b_dateTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_dateTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_dateTextStyle">normal</item>
+        <item name="mdk_b_dateTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Maps business attributes -->
+        <item name="mdk_b_mapsTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_mapsTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_mapsTextStyle">bold</item>
+        <item name="mdk_b_mapsBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_mapsTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Checkbox business attributes -->
+        <item name="mdk_b_checkboxTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_checkboxTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_checkboxTextStyle">normal</item>
+        <item name="mdk_b_checkboxBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_checkboxTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Switch business attributes -->
+        <item name="mdk_b_switchTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_switchTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_switchTextStyle">normal</item>
+        <item name="mdk_b_switchBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_switchTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Seekbar business attributes -->
+        <item name="mdk_b_seekbarTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_seekbarTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_seekbarTextStyle">normal</item>
+        <item name="mdk_b_seekbarBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_seekbarTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Spinner business attributes -->
+        <item name="mdk_b_spinnerTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerTextStyle">normal</item>
+        <item name="mdk_b_spinnerBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- SpinnerDropDown business attributes -->
+        <item name="mdk_b_spinnerDropDownTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerDropDownTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerDropDownTextStyle">normal</item>
+        <item name="mdk_b_spinnerDropDownBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerDropDownTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Fixedlist business attributes -->
+        <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- EnumView business attributes -->
+        <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_enumviewTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_enumviewTextStyle">bold</item>
+        <item name="mdk_b_enumviewBackground">@drawable/round_enum_background</item>
+
+        <!-- Error business attributes -->
+        <item name="mdk_b_errorTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_errorTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_errorTextStyle">bold</item>
+        <item name="mdk_b_errorBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_errorTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- PrimaryCommand business attributes -->
+        <item name="mdk_b_primaryCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_primaryCommandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_primaryCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_primaryCommandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- SecondaryCommand business attributes -->
+        <item name="mdk_b_secondaryCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_secondaryCommandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_secondaryCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_secondaryCommandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Command business attributes -->
+        <item name="mdk_b_commandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_commandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_commandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_commandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- RichLayout business attributes -->
+        <item name="mdk_b_richLayoutTint">?attr/mdk_t_primaryColor</item>
+        <item name="mdk_b_richLayoutBackground">?attr/mdk_t_noBackground</item>
+
     </style>
 
     <style name="MDKWidgetTheme.Light" parent="Theme.AppCompat.Light">
+
+        <!-- technical attributes -->
+        <!-- to change your application colors, change these settings -->
+        <item name="mdk_t_primaryColor">?attr/colorPrimary</item>
+        <item name="mdk_t_primaryDarkColor">?attr/colorPrimaryDark</item>
+        <item name="mdk_t_accentColor">?attr/colorAccent</item>
+        <item name="mdk_t_textColorPrimary">?android:attr/textColorPrimary</item>
+        <item name="mdk_t_textColorSecondary">?android:attr/textColorSecondary</item>
+        <item name="mdk_t_smallTextSize">@dimen/abc_text_size_small_material</item>
+        <item name="mdk_t_mediumTextSize">@dimen/abc_text_size_medium_material</item>
+        <item name="mdk_t_largeTextSize">@dimen/abc_text_size_large_material</item>
+        <item name="mdk_t_noBackground">@null</item>
+        <item name="mdk_t_commandWidth">@dimen/commandWidth</item>
+        <item name="mdk_t_commandHeight">@dimen/commandHeight</item>
 
         <!-- MDKWidget components styles -->
         <item name="mdkLabelStyle">@style/MDKLabel</item>
@@ -60,6 +188,106 @@
         <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+
+        <!-- Label business attributes -->
+        <item name="mdk_b_labelTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_labelTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_labelTextStyle">bold</item>
+        <item name="mdk_b_labelBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Edit business attributes -->
+        <item name="mdk_b_editTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_editTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_editTextStyle">normal</item>
+        <item name="mdk_b_editTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Date business attributes -->
+        <item name="mdk_b_dateTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_dateTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_dateTextStyle">normal</item>
+        <item name="mdk_b_dateTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Maps business attributes -->
+        <item name="mdk_b_mapsTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_mapsTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_mapsTextStyle">bold</item>
+        <item name="mdk_b_mapsBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_mapsTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Checkbox business attributes -->
+        <item name="mdk_b_checkboxTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_checkboxTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_checkboxTextStyle">normal</item>
+        <item name="mdk_b_checkboxBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_checkboxTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Switch business attributes -->
+        <item name="mdk_b_switchTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_switchTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_switchTextStyle">normal</item>
+        <item name="mdk_b_switchBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_switchTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Seekbar business attributes -->
+        <item name="mdk_b_seekbarTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_seekbarTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_seekbarTextStyle">normal</item>
+        <item name="mdk_b_seekbarBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_seekbarTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Spinner business attributes -->
+        <item name="mdk_b_spinnerTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerTextStyle">normal</item>
+        <item name="mdk_b_spinnerBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- SpinnerDropDown business attributes -->
+        <item name="mdk_b_spinnerDropDownTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerDropDownTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerDropDownTextStyle">normal</item>
+        <item name="mdk_b_spinnerDropDownBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerDropDownTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- Fixedlist business attributes -->
+        <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- EnumView business attributes -->
+        <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_enumviewTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_enumviewTextStyle">bold</item>
+        <item name="mdk_b_enumviewBackground">@drawable/round_enum_background</item>
+
+        <!-- Error business attributes -->
+        <item name="mdk_b_errorTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_errorTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_errorTextStyle">bold</item>
+        <item name="mdk_b_errorBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_errorTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- PrimaryCommand business attributes -->
+        <item name="mdk_b_primaryCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_primaryCommandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_primaryCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_primaryCommandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- SecondaryCommand business attributes -->
+        <item name="mdk_b_secondaryCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_secondaryCommandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_secondaryCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_secondaryCommandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Command business attributes -->
+        <item name="mdk_b_commandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_commandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_commandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_commandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- RichLayout business attributes -->
+        <item name="mdk_b_richLayoutTint">?attr/mdk_t_primaryColor</item>
+        <item name="mdk_b_richLayoutBackground">?attr/mdk_t_noBackground</item>
 
     </style>
 
