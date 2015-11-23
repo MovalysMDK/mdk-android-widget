@@ -28,6 +28,13 @@ import android.util.Log;
 public class ActivityHelper {
 
     /**
+     * private constructor.
+     */
+    private ActivityHelper() {
+        // nothing to do.
+    }
+
+    /**
      * Start an activity for result from a given context.
      * @param ctx android context
      * @param intent intent of the activity to launch
@@ -50,12 +57,13 @@ public class ActivityHelper {
      * @return an Activity object, or null if none was found
      */
     private static Activity scanForActivity(Context ctx) {
-        if (ctx == null)
+        if (ctx == null) {
             return null;
-        else if (ctx instanceof Activity)
-            return (Activity)ctx;
-        else if (ctx instanceof ContextWrapper)
-            return scanForActivity(((ContextWrapper)ctx).getBaseContext());
+        } else if (ctx instanceof Activity) {
+            return (Activity) ctx;
+        } else if (ctx instanceof ContextWrapper) {
+            return scanForActivity(((ContextWrapper) ctx).getBaseContext());
+        }
 
         return null;
     }
