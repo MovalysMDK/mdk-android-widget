@@ -22,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -97,6 +98,9 @@ import java.util.Locale;
  * </ul>
  */
 public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler, HasChangeListener {
+
+    /** Keyword instanceState. */
+    private static final String UID_STATE = "uidState";
 
     /** Alpha applied when component is disabled. */
     private static final int DISABLED_ALPHA = 70;
@@ -734,6 +738,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         bundle.putInt("placeholder", placeholderRes);
         bundle.putParcelable("raw_uri", mediaUri);
         bundle.putString("svg_layer", svgLayer);
+        bundle.putInt(UID_STATE, mdkWidgetDelegate.getUniqueId());
 
         return bundle;
 
@@ -772,6 +777,14 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
 
             //restore modified photo svg
             setModifiedPhotoSvg(bundle.getString("svg_layer"));
+
+            // Restore the uid
+            this.mdkWidgetDelegate.setUniqueId(bundle.getInt(UID_STATE));
+
+            //re-register as handler
+            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+            helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
+
 
             Parcelable parcelable = bundle.getParcelable("state");
             parcelable = this.mdkWidgetDelegate.onRestoreInstanceState(this, parcelable);
@@ -812,7 +825,28 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
      */
     private Bitmap createViewBitmap(){
         try {
-            Bitmap bmp = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mediaUri);
+
+            // Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(mediaUri), null, o);
+
+            // The new size we want to scale to
+            final int requiredSize=1024;
+
+            // Find the correct scale value. It should be the power of 2.
+            int scale = 1;
+            while(o.outWidth / scale / 2 >= requiredSize &&
+                    o.outHeight / scale / 2 >= requiredSize) {
+                scale *= 2;
+            }
+
+            // Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+
+            Bitmap bmp = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(mediaUri), null, o2);
+
 
             //Draw svg if present
             if(getModifiedPhotoSvg()!=null) {

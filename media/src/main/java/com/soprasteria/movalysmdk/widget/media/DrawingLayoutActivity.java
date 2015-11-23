@@ -3,10 +3,9 @@ package com.soprasteria.movalysmdk.widget.media;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,7 +19,7 @@ import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView;
 import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView.Mode;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.DrawingElement;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 
 /**
@@ -140,12 +139,8 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
         //initialize the drawing view
         DrawingView dv = drawingView.get();
         if (dv != null) {
-            try {
-                Bitmap bg = prepareDrawingBackground(MediaStore.Images.Media.getBitmap(getContentResolver(), mediaUri));
-                dv.setDrawingBackground(bg);
-            } catch (IOException e) {
-                Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
-            }
+            Bitmap bg = prepareDrawingBackground(mediaUri);
+            dv.setDrawingBackground(bg);
 
             if (svg != null) {
                 dv.loadSvg(svg);
@@ -162,26 +157,35 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
     /**
      * Prepares the bitmap to be used as background for the canvas.
      *
-     * @param bitmap the background bitmap
+     * @param uri the background image uri
      * @return a shrank bitmap that can be used as drawing background
      */
-    private Bitmap prepareDrawingBackground(Bitmap bitmap) {
-        Bitmap bg;
+    private Bitmap prepareDrawingBackground(Uri uri) {
 
-        int height = bitmap.getHeight();
-        int width = bitmap.getWidth();
+        try {
+            // Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, o);
 
-        if (bitmap.getHeight() > 4096) {
-            height = (int) (bitmap.getHeight() / (bitmap.getHeight() / 4096f));
-            width = (int) (bitmap.getWidth() / (bitmap.getHeight() / 4096f));
-        } else if (bitmap.getWidth() > 4096) {
-            height = (int) (bitmap.getHeight() / (bitmap.getWidth() / 4096f));
-            width = (int) (bitmap.getWidth() / (bitmap.getWidth() / 4096f));
+            // The new size we want to scale to
+            final int requiredSize=1024;
+
+            // Find the correct scale value. It should be the power of 2.
+            int scale = 1;
+            while(o.outWidth / scale / 2 >= requiredSize &&
+                    o.outHeight / scale / 2 >= requiredSize) {
+                scale *= 2;
+            }
+
+            // Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, o2);
+        } catch (FileNotFoundException e) {
+            Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + uri, e);
         }
-
-        bg = ThumbnailUtils.extractThumbnail(bitmap, width, height);
-
-        return bg;
+        return null;
     }
 
     @Override
