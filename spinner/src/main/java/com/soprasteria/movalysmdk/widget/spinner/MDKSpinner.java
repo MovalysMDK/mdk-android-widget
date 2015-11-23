@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
@@ -20,8 +21,10 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasOneSelected;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasAdapter;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
+import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
+import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
@@ -34,7 +37,7 @@ import java.util.Arrays;
  * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
  * <p>The mdk:has_blank_row default value is false.</p>
  */
-public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter, HasOneSelected, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint {
+public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapter, HasOneSelected, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint, HasChangeListener {
     /**
      * User's adapter.
      */
@@ -68,6 +71,16 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
     private OnItemSelectedListener externalListener;
 
     /**
+     * notify change listeners.
+     */
+    private MDKChangeListenerDelegate mdkListenerDelegate;
+
+    /**
+     * Boolean to test if the component is initialized.
+     */
+    private boolean isInit;
+
+    /**
      * Constructor.
      *
      * @param context      the context
@@ -81,6 +94,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
             init(attrs);
         }
     }
+
     /**
      * Constructor.
      *
@@ -107,9 +121,12 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
         this.hasBlank = typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false);
         this.hint = typedArray.getString(R.styleable.MDKCommons_hint);
 
+        this.mdkListenerDelegate = new MDKChangeListenerDelegate();
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
         this.setValueToValidate(0);
         super.setOnItemSelectedListener(this);
+
+        this.isInit = true;
 
         setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readonly, false));
 
@@ -172,7 +189,7 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
 
     @Override
     public BaseAdapter getAdapter() {
-        return (BaseAdapter)super.getAdapter();
+        return (BaseAdapter) super.getAdapter();
     }
 
     @Override
@@ -185,9 +202,13 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
         if (this.externalListener != null) {
             this.externalListener.onItemSelected(parent, view, position, id);
         }
-
         this.setValueToValidate(position);
-        this.validate(EnumFormFieldValidator.ON_FOCUS);
+        if (isInit) {
+            this.isInit = false;
+        } else {
+            this.validate(EnumFormFieldValidator.ON_FOCUS);
+            mdkListenerDelegate.notifyListeners();
+        }
     }
 
     @Override
@@ -363,4 +384,13 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget,HasAdapter
         return !isReadonly() && super.onTouchEvent(event);
     }
 
+    @Override
+    public void registerChangeListener(ChangeListener listener) {
+        this.mdkListenerDelegate.registerChangeListener(listener);
+    }
+
+    @Override
+    public void unregisterChangeListener(ChangeListener listener) {
+        this.mdkListenerDelegate.unregisterChangeListener(listener);
+    }
 }
