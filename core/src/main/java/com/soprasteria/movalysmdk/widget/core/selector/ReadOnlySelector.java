@@ -47,7 +47,10 @@ public class ReadOnlySelector implements RichSelector{
                     }
                 }
             }
-            ((MDKWidgetDelegate)((MDKWidget) v).getTechnicalInnerWidgetDelegate()).getErrorView().setVisibility(View.GONE);
+            View errorView = ((MDKWidgetDelegate)((MDKWidget) v).getTechnicalInnerWidgetDelegate()).getErrorView();
+            if(errorView!=null){
+                errorView.setVisibility(View.GONE);
+            }
         }
     }
 }

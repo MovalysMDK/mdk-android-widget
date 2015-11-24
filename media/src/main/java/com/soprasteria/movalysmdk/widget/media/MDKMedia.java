@@ -21,9 +21,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,13 +40,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.HasLabel;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasMedia;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
@@ -65,7 +61,6 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionH
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
@@ -97,7 +92,7 @@ import java.util.Locale;
  *      <li>Then displays the photo inside the ImageView</li>
  * </ul>
  */
-public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler, HasChangeListener {
+public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, HasDelegate, HasValidator, HasMedia, IsNullable, View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, MDKWidgetComponentActionHandler, HasChangeListener {
 
     /** Keyword instanceState. */
     private static final String UID_STATE = "uidState";
@@ -333,16 +328,26 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         return mdkWidgetDelegate;
     }
 
-    @Override
-    public int[] superOnCreateDrawableState(int extraSpace) {
-        return new int[0];
-    }
 
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
-        mdkWidgetDelegate.callMergeDrawableStates(baseState, additionalState);
+        mergeDrawableStates(baseState, additionalState);
     }
 
+    @Override
+    public int[] superOnCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
+
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        if (this.getMDKWidgetDelegate() != null) {
+            return this.getMDKWidgetDelegate().superOnCreateDrawableState(extraSpace);
+        } else {
+            // first called in the super constructor
+            return super.onCreateDrawableState(extraSpace);
+        }
+    }
     @Override
     public MDKTechnicalWidgetDelegate getTechnicalWidgetDelegate() {
         return mdkWidgetDelegate;
@@ -356,6 +361,17 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
     @Override
     public boolean isMandatory() {
         return this.mdkWidgetDelegate.isMandatory();
+    }
+
+
+    @Override
+    public CharSequence getLabel() {
+        return this.mdkWidgetDelegate.getLabel();
+    }
+
+    @Override
+    public void setLabel(CharSequence label) {
+        this.mdkWidgetDelegate.setLabel(label);
     }
 
     @Override
@@ -377,6 +393,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
             thumbnailView.setAlpha(isEnabled() ? 255 : DISABLED_ALPHA);
         }
         setOverlayEnabled(enabled && !isReadonly());
+        refreshDrawableState();
     }
 
     @Override
@@ -386,7 +403,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         }else if(!isReadonly() && isEnabled()) {
 
             RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
-            ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(createViewBitmap());
+            ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer));
 
             final Dialog dialog = new Dialog(getContext(),R.style.ViewerDialog);
             dialog.setContentView(rl);
@@ -735,9 +752,12 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         Bundle bundle = new Bundle();
         bundle.putParcelable("state", state);
         bundle.putInt("type", mediaType);
+        bundle.putInt("intent_type", intentType);
         bundle.putInt("placeholder", placeholderRes);
         bundle.putParcelable("raw_uri", mediaUri);
+        bundle.putParcelable("tmp_uri", tempFileUri);
         bundle.putString("svg_layer", svgLayer);
+
         bundle.putInt(UID_STATE, mdkWidgetDelegate.getUniqueId());
 
         return bundle;
@@ -760,6 +780,20 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                     break;
                 case TYPE_FILE:
                     setMediaType(TYPE_FILE);
+                    break;
+                default:
+                    break;
+            }
+
+            //restore intent type
+            int iType = bundle.getInt("intent_type");
+            switch (iType) {
+                case INTENT_TYPE_CAMERA:
+                    intentType = INTENT_TYPE_CAMERA;
+                    tempFileUri = bundle.getParcelable("tmp_uri");
+                    break;
+                case INTENT_TYPE_PICKER:
+                    intentType = INTENT_TYPE_PICKER;
                     break;
                 default:
                     break;
@@ -807,9 +841,13 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
                 public void run() {
                     ImageView iv2 = getThumbnailView();
                     if (iv2 != null) {
-                        if(getMediaUri()!=null) {
+                        if(mediaUri!=null) {
                             //Extract thumbnail from bitmap and display it
-                            iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(createViewBitmap(), iv2.getWidth(), iv2.getHeight()));
+                            try{
+                                iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer), iv2.getWidth(), iv2.getHeight()));
+                            }catch(IllegalArgumentException e){
+                                Log.w(this.getClass().getSimpleName(), "Error displaying bitmap", e);
+                            }
                         }else {
                             iv2.setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
                         }
@@ -819,56 +857,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasDelegate, 
         }
     }
 
-    /**
-     * Creates a bitmap with the mediaURI and, if applicable, the svg layer.
-     * @return a rasterized bitmap of the source image and the svg layer.
-     */
-    private Bitmap createViewBitmap(){
-        try {
-
-            // Decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(mediaUri), null, o);
-
-            // The new size we want to scale to
-            final int requiredSize=1024;
-
-            // Find the correct scale value. It should be the power of 2.
-            int scale = 1;
-            while(o.outWidth / scale / 2 >= requiredSize &&
-                    o.outHeight / scale / 2 >= requiredSize) {
-                scale *= 2;
-            }
-
-            // Decode with inSampleSize
-            BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize = scale;
-
-            Bitmap bmp = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(mediaUri), null, o2);
-
-
-            //Draw svg if present
-            if(getModifiedPhotoSvg()!=null) {
-                Bitmap modifiedBmp = bmp.copy(Bitmap.Config.ARGB_8888,true);
-                bmp.recycle();
-                bmp = null;
-                Canvas canvas = new Canvas(modifiedBmp);
-                SVG svg = SVG.getFromString(svgLayer);
-
-                canvas.drawPicture(svg.renderToPicture());
-
-                return modifiedBmp;
-            }
-
-            return bmp;
-        } catch (IOException e) {
-            Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
-        } catch (SVGParseException e) {
-            Log.w(this.getClass().getSimpleName(), "Error parsing SVG: \n" + svgLayer, e);
-        }
-        return null;
-    }
 
 
     @Override

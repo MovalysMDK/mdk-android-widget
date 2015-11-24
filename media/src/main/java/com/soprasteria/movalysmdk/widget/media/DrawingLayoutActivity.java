@@ -1,13 +1,26 @@
+/**
+ * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+ *
+ * This file is part of Movalys MDK.
+ * Movalys MDK is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Movalys MDK is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.soprasteria.movalysmdk.widget.media;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -19,7 +32,6 @@ import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView;
 import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView.Mode;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.DrawingElement;
 
-import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 
 /**
@@ -139,7 +151,7 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
         //initialize the drawing view
         DrawingView dv = drawingView.get();
         if (dv != null) {
-            Bitmap bg = prepareDrawingBackground(mediaUri);
+            Bitmap bg = BitmapHelper.createViewBitmap(this,mediaUri,null);
             dv.setDrawingBackground(bg);
 
             if (svg != null) {
@@ -152,40 +164,6 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
 
 
         setMode(Mode.DRAWING);
-    }
-
-    /**
-     * Prepares the bitmap to be used as background for the canvas.
-     *
-     * @param uri the background image uri
-     * @return a shrank bitmap that can be used as drawing background
-     */
-    private Bitmap prepareDrawingBackground(Uri uri) {
-
-        try {
-            // Decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, o);
-
-            // The new size we want to scale to
-            final int requiredSize=1024;
-
-            // Find the correct scale value. It should be the power of 2.
-            int scale = 1;
-            while(o.outWidth / scale / 2 >= requiredSize &&
-                    o.outHeight / scale / 2 >= requiredSize) {
-                scale *= 2;
-            }
-
-            // Decode with inSampleSize
-            BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize = scale;
-            return BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, o2);
-        } catch (FileNotFoundException e) {
-            Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + uri, e);
-        }
-        return null;
     }
 
     @Override
