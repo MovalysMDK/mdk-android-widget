@@ -276,7 +276,6 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
     @Override
     public void setReadonly(boolean readonly) {
         this.mdkWidgetDelegate.setReadonly(readonly);
-
         final View clearButton = this.mdkWidgetDelegate.getClearButton();
         if (clearButton != null) {
             if (readonly) {
@@ -394,7 +393,7 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
 
     @Override
     public View[] getEditFields() {
-        return new View[] {
+        return new View[]{
                 this.mdkWidgetDelegate.getDateTextView(),
                 this.mdkWidgetDelegate.getTimeTextView()
         };

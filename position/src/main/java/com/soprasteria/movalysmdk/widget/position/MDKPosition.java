@@ -62,94 +62,121 @@ import java.util.Locale;
  * <p>Representing a position input field, allowing to set a latitude and a longitude or to retrieve it with the GPS function of the device.</p>
  * <p>This widget has the following XML attributes:</p>
  * <ul>
- *     <li>
- *         positionMode: sets one the the following modes on the widget
- *         <ul>
- *             <li>geopoint: the position will be shown as a latitude and a longitude (default option)</li>
- *             <li>address: the position will be displayed has a list of addresses, the user will choose the most appropriate one</li>
- *             <li>info: the input is deactivated, the component wil display the current location.</li>
- *         </ul>
- *     </li>
- *     <li>autoStart: the widget will start looking for the current position as soon as it is inflated (default is false)</li>
- *     <li>activeGoto: will hide the map action when set to false (default is true)</li>
- *     <li>timeout: the time in seconds before the location gets timed out (default is 30 seconds)</li>
+ * <li>
+ * positionMode: sets one the the following modes on the widget
+ * <ul>
+ * <li>geopoint: the position will be shown as a latitude and a longitude (default option)</li>
+ * <li>address: the position will be displayed has a list of addresses, the user will choose the most appropriate one</li>
+ * <li>info: the input is deactivated, the component wil display the current location.</li>
  * </ul>
- *
+ * </li>
+ * <li>autoStart: the widget will start looking for the current position as soon as it is inflated (default is false)</li>
+ * <li>activeGoto: will hide the map action when set to false (default is true)</li>
+ * <li>timeout: the time in seconds before the location gets timed out (default is 30 seconds)</li>
+ * </ul>
+ * <p/>
  * The component display has the following rules:
  * <ul>
- *     <li>
- *         If the component is disabled
- *         <ul>
- *             <li>the address spinner, the latitude and longitude input field, the clear and the acquisition buttons are disabled</li>
- *             <li>the map and direction buttons are active if the location is correct.</li>
- *         </ul>
- *     </li>
- *     <li>
- *         If the component is enabled
- *         <ul>
- *             <li>
- *                If we are address mode
- *                <ul>
- *                   <li>If there are retrieved addresses, the address selection spinner is displayed, and the latitude and longitude input fields are hidden</li>
- *                   <li>In other cases, the address spinner is hidden, the input fields are visible</li>
- *                </ul>
- *             </li>
- *             <li>
- *                 In other cases, the address spinner is hidden, the input fields are visible
- *             </li>
- *         </ul>
- *         The acquisition button is visible and disabled if there is a pending acquisition, it is checked if the coordinates are correct.
- *         The map and navigation buttons are active if the coordinates are correct.
- *         The clear button is visible and disabled if there is a pending acquisition
- *     </li>
+ * <li>
+ * If the component is disabled
+ * <ul>
+ * <li>the address spinner, the latitude and longitude input field, the clear and the acquisition buttons are disabled</li>
+ * <li>the map and direction buttons are active if the location is correct.</li>
+ * </ul>
+ * </li>
+ * <li>
+ * If the component is enabled
+ * <ul>
+ * <li>
+ * If we are address mode
+ * <ul>
+ * <li>If there are retrieved addresses, the address selection spinner is displayed, and the latitude and longitude input fields are hidden</li>
+ * <li>In other cases, the address spinner is hidden, the input fields are visible</li>
+ * </ul>
+ * </li>
+ * <li>
+ * In other cases, the address spinner is hidden, the input fields are visible
+ * </li>
+ * </ul>
+ * The acquisition button is visible and disabled if there is a pending acquisition, it is checked if the coordinates are correct.
+ * The map and navigation buttons are active if the coordinates are correct.
+ * The clear button is visible and disabled if there is a pending acquisition
+ * </li>
  * </ul>
  */
 public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasEditFields, HasPosition, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
 
-    /** tag for dummy provider. */
+    /**
+     * tag for dummy provider.
+     */
     private static final String DUMMY = "dummyprovider";
 
-    /** number of addresses retrieved. */
+    /**
+     * number of addresses retrieved.
+     */
     private static final int ADDRESSES_LIST_LENGTH = 5;
 
-    /** MDKPosition mode enumeration. */
+    /**
+     * MDKPosition mode enumeration.
+     */
     @IntDef({GEOPOINT, ADDRESS, INFO})
     @Retention(RetentionPolicy.SOURCE)
     public @interface PositionMode {
     }
 
-    /** GEOPOINT. */
+    /**
+     * GEOPOINT.
+     */
     public static final int GEOPOINT = 0;
-    /** ADDRESS. */
+    /**
+     * ADDRESS.
+     */
     public static final int ADDRESS = 1;
-    /** INFO. */
+    /**
+     * INFO.
+     */
     public static final int INFO = 2;
 
-    /** MDK Widget implementation. */
+    /**
+     * MDK Widget implementation.
+     */
     protected MDKPositionWidgetDelegate mdkWidgetDelegate;
 
-    /** current position. */
+    /**
+     * current position.
+     */
     private Position position;
 
-    /** addresses list from current location. */
+    /**
+     * addresses list from current location.
+     */
     private List<Address> addresses;
 
-    /** selected address position in the list. */
+    /**
+     * selected address position in the list.
+     */
     private int selectedAddress;
 
-    /** true if the data is being written by the command. */
+    /**
+     * true if the data is being written by the command.
+     */
     protected boolean writingData = false;
 
-    /** notify change listeners. */
+    /**
+     * notify change listeners.
+     */
     private MDKChangeListenerDelegate mdkChangeListener;
 
-    /** true if the location is being computed. */
+    /**
+     * true if the location is being computed.
+     */
     private boolean acquiringPosition = false;
 
     /**
      * Constructor.
+     *
      * @param context the android context
-     * @param attrs the layout attributes
+     * @param attrs   the layout attributes
      */
     public MDKPosition(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -158,8 +185,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Constructor.
-     * @param context the android context
-     * @param attrs the layout attributes
+     *
+     * @param context      the android context
+     * @param attrs        the layout attributes
      * @param defStyleAttr the layout defined style
      */
     public MDKPosition(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -169,8 +197,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Inflation on initialization.
+     *
      * @param context the android context
-     * @param attrs the layout attributes
+     * @param attrs   the layout attributes
      */
     private void init(Context context, AttributeSet attrs) {
         this.mdkChangeListener = new MDKChangeListenerDelegate();
@@ -191,6 +220,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Returns the layout of the widget.
+     *
      * @return the layout of the widget
      */
     @LayoutRes
@@ -200,6 +230,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Initialize the delegates of the widget.
+     *
      * @param attrs the xml attributes of the widget
      */
     protected void initDelegates(AttributeSet attrs) {
@@ -269,7 +300,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public int[] getValidators() {
-        return new int[] {R.string.mdkvalidator_position_class};
+        return new int[]{R.string.mdkvalidator_position_class};
     }
 
     @Override
@@ -356,8 +387,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * To call when the focus state of a view has changed.
-     * @param focused is component focused
-     * @param direction component direction
+     *
+     * @param focused               is component focused
+     * @param direction             component direction
      * @param previouslyFocusedRect component previous focus state
      */
     @Override
@@ -377,6 +409,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Returns the {@link Position} stored by the widget.
+     *
      * @return the current {@link Position}
      */
     @Override
@@ -386,6 +419,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Sets the {@link Position} on the widget.
+     *
      * @param position the {@link Position} to set
      */
     @Override
@@ -395,6 +429,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Returns the current location of the component.
+     *
      * @return the current location of the component
      */
     public Location getLocation() {
@@ -411,6 +446,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Sets the current location of the component.
+     *
      * @param location the {@link Location} to set
      */
     public void setLocation(Location location) {
@@ -464,6 +500,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Get the addresses from the location.
+     *
      * @param location the location to set
      * @param addEmpty if true, will add the empty element to the list
      * @return the addresses list
@@ -489,6 +526,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Fills the spinner adapter and sets the selection.
+     *
      * @param addresses the addresses list
      * @param selection the selection to make on the spinner
      */
@@ -594,7 +632,8 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * set the enable status on a view.
-     * @param view the view to set
+     *
+     * @param view      the view to set
      * @param isEnabled true if the view should be enabled
      */
     private void setEnabledView(View view, boolean isEnabled) {
@@ -605,7 +644,8 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * set the visible status on a view.
-     * @param view the view to set
+     *
+     * @param view    the view to set
      * @param visible true if the view should be visible
      */
     private void setVisibleView(View view, boolean visible) {
@@ -616,7 +656,8 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * set the checked status on a view.
-     * @param view the view to set
+     *
+     * @param view    the view to set
      * @param checked true if the view should be checked
      */
     private void setCheckedView(View view, boolean checked) {
@@ -629,8 +670,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * Changes the status of the sub components based on the state of MDKPosition.
      */
     protected void updateComponentStatus() {
-        // TODO: cacher les boutons en readonly
-
         boolean isValid = !this.position.isNull();
 
         /* latitude input text setEnable */
@@ -646,11 +685,13 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 this.mdkWidgetDelegate.getMode() == GEOPOINT || (this.mdkWidgetDelegate.getMode() == ADDRESS && !this.hasAddresses()));
 
         /* address spinner setEnable */
-        if(!isReadonly()) {
+        if (!isReadonly()) {
             setEnabledView(this.mdkWidgetDelegate.getAddressView(),
                     isEnabled() && this.mdkWidgetDelegate.getMode() == ADDRESS && this.hasAddresses() && !acquiringPosition);
-        }else{
+        } else {
             setEnabledView(this.mdkWidgetDelegate.getAddressView(), false);
+            setVisibleView(this.mdkWidgetDelegate.getLocateButton(), false);
+            setVisibleView(this.mdkWidgetDelegate.getClearButton(), false);
         }
         /* address spinner setVisible */
         setVisibleView(this.mdkWidgetDelegate.getAddressView(), this.mdkWidgetDelegate.getMode() == ADDRESS && this.hasAddresses());
@@ -681,6 +722,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Returns true if the component knows a list of addresses, and one was selected.
+     *
      * @return true if the component knows a list of addresses, and one was selected
      */
     public boolean hasAddresses() {
@@ -694,7 +736,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public View[] getEditFields() {
-        return new View[] {
+        return new View[]{
                 this.mdkWidgetDelegate.getLatitudeView(),
                 this.mdkWidgetDelegate.getLongitudeView()
         };
@@ -755,7 +797,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     public void setReadonly(boolean readonly) {
         this.mdkWidgetDelegate.setReadonly(readonly);
 
-        if(this.mdkWidgetDelegate.getLongitudeView()!=null && this.mdkWidgetDelegate.getLatitudeView()!=null) {
+        if (this.mdkWidgetDelegate.getLongitudeView() != null && this.mdkWidgetDelegate.getLatitudeView() != null) {
             EditText lon = this.mdkWidgetDelegate.getLongitudeView();
             EditText lat = this.mdkWidgetDelegate.getLatitudeView();
 
@@ -848,6 +890,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Sets the mode of the widget.
+     *
      * @param mode the mode to set
      */
     public void setMode(@PositionMode int mode) {
@@ -857,6 +900,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Sets the timeout to use for location.
+     *
      * @param timeout the timeout to set
      */
     public void setTimeOut(int timeout) {
@@ -865,6 +909,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Sets whether the widget should display an action button to launch an external localization app.
+     *
      * @param activateGoto true if the widget should display an action button to launch an external localization app
      */
     public void setActivateGoto(boolean activateGoto) {
@@ -874,6 +919,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     /**
      * Sets whether the widget should automatically start the localization on inflate.
+     *
      * @param autoStart true to start the localization on inflate
      */
     public void setAutoStart(boolean autoStart) {

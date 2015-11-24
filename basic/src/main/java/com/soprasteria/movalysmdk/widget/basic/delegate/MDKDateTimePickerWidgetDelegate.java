@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -231,6 +231,18 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
+     * set the visible status on a view.
+     *
+     * @param view    the view to set
+     * @param visible true if the view should be visible
+     */
+    private void setVisibleView(View view, boolean visible) {
+        if (view != null) {
+            view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    /**
      * Sets the processing mode of the view based on the given attributes.
      *
      * @param view     the view being processed
@@ -313,28 +325,62 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     }
 
     /**
+     * Method to update DateTime view when readOnly is set.
+     *
+     * @param sDate The date value
+     * @param sTime The time value
+     */
+    private void updateWhenReadOnly(String sDate, String sTime) {
+        String sDateTime;
+        if (sDate != dateHint && sTime != timeHint) {
+            sDateTime = sDate + "       " + sTime;
+        } else {
+            if (sDate != dateHint) {
+                sDateTime = sDate;
+            } else {
+                sDateTime = sTime;
+            }
+        }
+        if (this.getDateTextView() == this.valueObject.getWeakView().get()) {
+            this.getDateTextView().setText(sDateTime);
+            this.setVisibleView(this.getTimeTextView(), false);
+        } else {
+            this.getTimeTextView().setText(sDateTime);
+            this.setVisibleView(this.getDateTextView(), false);
+        }
+    }
+
+    /**
      * Updates the date and time views.
      */
     private void updateShownDateTime() {
-        if (dateViewId != 0) {
-            // Update date value
-            if (this.mdkDate.getDateState() == MDKDate.DATE_TIME_NOT_NULL ||
-                    this.mdkDate.getDateState() == MDKDate.TIME_NULL) {
-                getDateTextView().setText(this.dateFormatter.format(this.mdkDate.getDateOrTime()));
-            } else {
-                getDateTextView().setText(dateHint);
-            }
+        String sDate;
+        String sTime;
+        if (this.mdkDate.getDateState() == MDKDate.DATE_TIME_NOT_NULL ||
+                this.mdkDate.getDateState() == MDKDate.TIME_NULL) {
+            sDate = this.dateFormatter.format(this.mdkDate.getDateOrTime());
+        } else {
+            sDate = dateHint;
         }
-        if (timeViewId != 0) {
-            // Update time value
-            if (this.mdkDate.getDateState() == MDKDate.DATE_TIME_NOT_NULL ||
-                    this.mdkDate.getDateState() == MDKDate.DATE_NULL) {
-                getTimeTextView().setText(this.timeFormatter.format(this.mdkDate.getDateOrTime()));
-            } else {
-                getTimeTextView().setText(timeHint);
+        if (this.mdkDate.getDateState() == MDKDate.DATE_TIME_NOT_NULL ||
+                this.mdkDate.getDateState() == MDKDate.DATE_NULL) {
+            sTime = this.timeFormatter.format(this.mdkDate.getDateOrTime());
+        } else {
+            sTime = timeHint;
+        }
+
+        if (this.isReadonly()) {
+            this.updateWhenReadOnly(sDate, sTime);
+        } else {
+            if (dateViewId != 0) {
+                getDateTextView().setText(sDate);
+            }
+            if (timeViewId != 0) {
+                getTimeTextView().setText(sTime);
             }
         }
     }
+
 
     /**
      * Register a ChangeListener in delegate.
@@ -372,14 +418,17 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     public void onClick(View view) {
         // If disabled, don't permit to edit the date or time
         if (enabled && !isReadonly()) {
+            Date calendarDate;
             if (view.getId() == this.dateViewId) {
                 // Display the date picker dialog
                 Calendar calendar = Calendar.getInstance();
                 if (this.mdkDate.getDateState() == MDKDate.DATE_NULL ||
                         this.mdkDate.getDateState() == MDKDate.DATE_TIME_NULL) {
-                    this.mdkDate.setDate(new Date());
+                    calendarDate = new Date();
+                } else {
+                    calendarDate = this.mdkDate.getDateOrTime();
                 }
-                calendar.setTime(this.mdkDate.getDateOrTime());
+                calendar.setTime(calendarDate);
                 DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), this,
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
@@ -393,9 +442,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                 Calendar calendar = Calendar.getInstance();
                 if (this.mdkDate.getDateState() == MDKDate.TIME_NULL ||
                         this.mdkDate.getDateState() == MDKDate.DATE_TIME_NULL) {
-                    this.mdkDate.setTime(new Date());
+                    calendarDate = new Date();
+                } else {
+                    calendarDate = this.mdkDate.getDateOrTime();
                 }
-                calendar.setTime(this.mdkDate.getDateOrTime());
+                calendar.setTime(calendarDate);
                 TimePickerDialog timeDialog = new TimePickerDialog(view.getContext(), this,
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE),
@@ -421,7 +472,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(this.mdkDate.getDateOrTime());
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -443,7 +493,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(this.mdkDate.getDateOrTime());
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
         this.mdkDate.setTime(calendar.getTime());
