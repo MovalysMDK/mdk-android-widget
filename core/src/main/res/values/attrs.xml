@@ -42,6 +42,8 @@
         <attr name="mdkSecondaryCommandStyle" format="reference" />
         <attr name="mdkCommandStyle" format="reference" />
         <attr name="mdkRichLayoutStyle" format="reference" />
+        <attr name="mdkValueFixedListTitleLayoutStyle" format="reference"/>
+        <attr name="mdkValueFixedListTitleStyle" format="reference"/>
 
         <!-- theme attributes -->
         <attr name="mdk_t_primaryColor" format="reference" />
@@ -201,6 +203,11 @@
         <!-- component richLayout attributes -->
         <attr name="mdk_b_richLayoutTint" format="reference" />
         <attr name="mdk_b_richLayoutBackground" format="reference" />
+
+        <!-- FixedList title attributes -->
+        <attr name="mdk_b_fixedListTitleTextSize" format="reference"/>
+        <attr name="mdk_b_fixedListTitleTextColor" format="reference"/>
+        <attr name="mdk_b_fixedListTitleBackground" format="reference"/>
 
     </declare-styleable>
 

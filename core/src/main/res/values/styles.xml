@@ -49,6 +49,8 @@
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
         <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
+        <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
+        <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
 
@@ -116,6 +118,11 @@
         <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
         <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
         <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- FixedList title attributes -->
+        <item name="mdk_b_fixedListTitleTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_fixedListTitleTextColor">?attr/mdk_t_textColorSecondary</item>
+        <item name="mdk_b_fixedListTitleBackground">?attr/mdk_t_noBackground</item>
 
         <!-- EnumView business attributes -->
         <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
@@ -186,6 +193,8 @@
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
         <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
+        <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
+        <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
 
         <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
 
@@ -253,6 +262,11 @@
         <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
         <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
         <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- FixedList title attributes -->
+        <item name="mdk_b_fixedListTitleTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_fixedListTitleTextColor">?attr/mdk_t_textColorSecondary</item>
+        <item name="mdk_b_fixedListTitleBackground">?attr/mdk_t_noBackground</item>
 
         <!-- EnumView business attributes -->
         <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
@@ -323,6 +337,8 @@
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
         <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
+        <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
+        <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
 
         <!-- Label business attributes -->
         <item name="mdk_b_labelTextColor">?attr/mdk_t_textColorPrimary</item>
@@ -389,6 +405,11 @@
         <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
         <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
 
+        <!-- FixedList title attributes -->
+        <item name="mdk_b_fixedListTitleTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_fixedListTitleTextColor">?attr/mdk_t_textColorSecondary</item>
+        <item name="mdk_b_fixedListTitleBackground">?attr/mdk_t_noBackground</item>
+
         <!-- EnumView business attributes -->
         <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
         <item name="mdk_b_enumviewTextSize">?attr/mdk_t_smallTextSize</item>
@@ -423,6 +444,7 @@
         <!-- RichLayout business attributes -->
         <item name="mdk_b_richLayoutTint">?attr/mdk_t_primaryColor</item>
         <item name="mdk_b_richLayoutBackground">?attr/mdk_t_noBackground</item>
+
     </style>
 
     <!-- Label component style -->
@@ -555,6 +577,17 @@
     <style name="MDKFixedList" parent="Base.MDKValue.MDKFixedList">
         <item name="android:background">?attr/mdk_b_fixedlistBackground</item>
         <item name="android:tint">?attr/mdk_b_fixedlistAddTint</item>
+    </style>
+
+    <!-- FixedList title layout style -->
+    <style name="MDKFixedListTitleLayoutStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:background">?attr/mdk_b_fixedListTitleBackground</item>
+    </style>
+
+    <!-- FixedList title style -->
+    <style name="MDKFixedListTitleStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">?attr/mdk_b_fixedListTitleTextSize</item>
+        <item name="android:textColor">?attr/mdk_b_fixedListTitleTextColor</item>
     </style>
 
 </resources>

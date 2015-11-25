@@ -108,7 +108,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
 
     /** Media type constant for photo. **/
     public static final int TYPE_FILE = 2;
-    
+
     /** Launch listener on registration */
     private boolean waitForListenerRegistration;
 

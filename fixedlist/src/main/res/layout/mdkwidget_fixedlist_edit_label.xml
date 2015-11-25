@@ -23,23 +23,47 @@
     android:addStatesFromChildren="true"
     style="?attr/mdkRichLayoutStyle">
 
-    <include layout="@layout/mdkwidget_label_error_layout" />
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:orientation="horizontal"
+        style="?attr/mdkValueFixedListTitleLayoutStyle">
 
-    <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
-        android:id="@+id/component_addButton"
-        android:src="@drawable/ic_add"
-        android:layout_below="@id/component_label"
-        android:layout_alignParentLeft="true"
-        style="?attr/mdkCommandStyle"/>
+        <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
+            android:id="@+id/component_addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            style="?attr/mdkCommandStyle"/>
+
+        <TextView
+            android:id="@id/component_label"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            style="?attr/mdkValueFixedListTitleStyle"/>
+
+    </LinearLayout>
 
     <com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList
         android:id="@id/component_internal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/component_addButton"
+        android:layout_below="@id/title_layout"
         mdk:addButtonViewId="@id/component_addButton"
         mdk:errorId="@id/component_error"
         mdk:labelId="@id/component_label"
         style="?attr/mdkValueFixedListStyle"/>
+
+    <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+        android:id="@id/component_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/component_internal"
+        style="?attr/mdkErrorStyle" />
 
 </merge>
