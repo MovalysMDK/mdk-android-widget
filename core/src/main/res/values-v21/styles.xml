@@ -245,11 +245,6 @@
     <style name="MDKCommand" parent="Base.MDKCommand">
         <item name="android:layout_width">?attr/mdk_b_commandWidth</item>
         <item name="android:layout_height">?attr/mdk_b_commandHeight</item>
-        <item name="android:layout_margin">4dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
         <item name="android:tint">?attr/mdk_b_commandTint</item>
         <item name="android:background">?attr/mdk_b_commandBackground</item>
     </style>
