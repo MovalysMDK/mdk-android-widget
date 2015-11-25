@@ -93,10 +93,12 @@ public class MDKMessages implements Parcelable {
         StringBuilder messagesBuilder = new StringBuilder();
         if (!this.messagesMap.isEmpty()) {
             for (Map.Entry<String, MDKMessage> messageEntry : this.messagesMap.entrySet()) {
-                if ((messageEntry.getValue() != null) && (messagesBuilder.length() != 0)){
-                    messagesBuilder.append("\n").append(messageEntry.getValue().getMessage());
-                }else if (messageEntry.getValue() != null){
-                    messagesBuilder.append(messageEntry.getValue().getMessage());
+                if (messageEntry.getValue() != null && messageEntry.getValue().getMessage() != null) {
+                    if ((messageEntry.getValue() != null) && (messagesBuilder.length() != 0)) {
+                        messagesBuilder.append("\n").append(messageEntry.getValue().getMessage());
+                    } else if (messageEntry.getValue() != null) {
+                        messagesBuilder.append(messageEntry.getValue().getMessage());
+                    }
                 }
             }
         }
