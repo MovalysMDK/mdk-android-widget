@@ -35,6 +35,9 @@
         <item name="mdk_b_primaryCommandBackground">@drawable/round_button</item>
         <item name="mdk_b_secondaryCommandBackground">@drawable/round_button</item>
 
+        <!-- red "negative" commands -->
+        <item name="mdk_b_negativeCommandTint">@color/red</item>
+
         <!--<item name="mdkLabelStyle">@style/CustomLabel</item>-->
     </style>
 

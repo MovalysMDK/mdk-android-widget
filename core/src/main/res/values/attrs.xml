@@ -41,6 +41,7 @@
         <attr name="mdkPrimaryCommandStyle" format="reference" />
         <attr name="mdkSecondaryCommandStyle" format="reference" />
         <attr name="mdkCommandStyle" format="reference" />
+        <attr name="mdkNegativeCommandStyle" format="reference" />
         <attr name="mdkRichLayoutStyle" format="reference" />
         <attr name="mdkValueFixedListTitleLayoutStyle" format="reference"/>
         <attr name="mdkValueFixedListTitleStyle" format="reference"/>
@@ -199,6 +200,12 @@
         <attr name="mdk_b_commandHeight" format="reference" />
         <attr name="mdk_b_commandTint" format="reference" />
         <attr name="mdk_b_commandBackground" format="reference" />
+
+        <!-- component negtive command attributes -->
+        <attr name="mdk_b_negativeCommandWidth" format="reference" />
+        <attr name="mdk_b_negativeCommandHeight" format="reference" />
+        <attr name="mdk_b_negativeCommandTint" format="reference" />
+        <attr name="mdk_b_negativeCommandBackground" format="reference" />
 
         <!-- component richLayout attributes -->
         <attr name="mdk_b_richLayoutTint" format="reference" />

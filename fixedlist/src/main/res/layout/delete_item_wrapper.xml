@@ -11,7 +11,7 @@
 
     <ImageView
         android:id="@+id/delete_item"
-        style="?attr/mdkCommandStyle"
+        style="?attr/mdkNegativeCommandStyle"
         android:layout_gravity="center_vertical|right"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

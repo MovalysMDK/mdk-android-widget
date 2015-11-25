@@ -42,7 +42,7 @@
 
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_internal_clear"
-            style="?attr/mdkCommandStyle"
+            style="?attr/mdkNegativeCommandStyle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"

@@ -45,6 +45,7 @@
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkCommandStyle">@style/MDKCommand</item>
+        <item name="mdkNegativeCommandStyle">@style/MDKNegativeCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
@@ -154,6 +155,12 @@
         <item name="mdk_b_commandHeight">?attr/mdk_t_commandHeight</item>
         <item name="mdk_b_commandTint">?attr/mdk_t_accentColor</item>
         <item name="mdk_b_commandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Negative command business attributes -->
+        <item name="mdk_b_negativeCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_negativeCommandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_negativeCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_negativeCommandBackground">?attr/mdk_t_noBackground</item>
 
         <!-- RichLayout business attributes -->
         <item name="mdk_b_richLayoutTint">?attr/mdk_t_primaryColor</item>
@@ -189,6 +196,7 @@
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkCommandStyle">@style/MDKCommand</item>
+        <item name="mdkNegativeCommandStyle">@style/MDKNegativeCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
@@ -299,6 +307,12 @@
         <item name="mdk_b_commandTint">?attr/mdk_t_accentColor</item>
         <item name="mdk_b_commandBackground">?attr/mdk_t_noBackground</item>
 
+        <!-- Negative command business attributes -->
+        <item name="mdk_b_negativeCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_negativeCommandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_negativeCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_negativeCommandBackground">?attr/mdk_t_noBackground</item>
+
         <!-- RichLayout business attributes -->
         <item name="mdk_b_richLayoutTint">?attr/mdk_t_primaryColor</item>
         <item name="mdk_b_richLayoutBackground">?attr/mdk_t_noBackground</item>
@@ -333,6 +347,7 @@
         <item name="mdkPrimaryCommandStyle">@style/MDKCommand.Primary</item>
         <item name="mdkSecondaryCommandStyle">@style/MDKCommand.Secondary</item>
         <item name="mdkCommandStyle">@style/MDKCommand</item>
+        <item name="mdkNegativeCommandStyle">@style/MDKNegativeCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
@@ -440,6 +455,12 @@
         <item name="mdk_b_commandHeight">?attr/mdk_t_commandHeight</item>
         <item name="mdk_b_commandTint">?attr/mdk_t_accentColor</item>
         <item name="mdk_b_commandBackground">?attr/mdk_t_noBackground</item>
+
+        <!-- Negative command business attributes -->
+        <item name="mdk_b_negativeCommandWidth">?attr/mdk_t_commandWidth</item>
+        <item name="mdk_b_negativeCommandHeight">?attr/mdk_t_commandHeight</item>
+        <item name="mdk_b_negativeCommandTint">?attr/mdk_t_accentColor</item>
+        <item name="mdk_b_negativeCommandBackground">?attr/mdk_t_noBackground</item>
 
         <!-- RichLayout business attributes -->
         <item name="mdk_b_richLayoutTint">?attr/mdk_t_primaryColor</item>
@@ -510,6 +531,14 @@
         <item name="android:layout_height">?attr/mdk_b_commandHeight</item>
         <item name="android:tint">?attr/mdk_b_commandTint</item>
         <item name="android:background">?attr/mdk_b_commandBackground</item>
+    </style>
+
+    <!-- Command component style -->
+    <style name="MDKNegativeCommand" parent="MDKCommand">
+        <item name="android:layout_width">?attr/mdk_b_negativeCommandWidth</item>
+        <item name="android:layout_height">?attr/mdk_b_negativeCommandHeight</item>
+        <item name="android:tint">?attr/mdk_b_negativeCommandTint</item>
+        <item name="android:background">?attr/mdk_b_negativeCommandBackground</item>
     </style>
 
     <!-- Command.Primary component style -->
