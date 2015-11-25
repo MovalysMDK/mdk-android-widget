@@ -18,8 +18,8 @@ package com.soprasteria.movalysmdk.widget.core.delegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Delegate class for the {@link ChangeListener} objects.
@@ -27,13 +27,13 @@ import java.util.List;
 public class MDKChangeListenerDelegate implements HasChangeListener {
 
     /** {@link ChangeListener} array. */
-    private List<ChangeListener> listeners;
+    private Set<ChangeListener> listeners;
 
     /**
      * Constructor.
      */
     public MDKChangeListenerDelegate() {
-        listeners = new ArrayList<>();
+        listeners = new LinkedHashSet<>();
     }
 
     @Override
@@ -53,5 +53,9 @@ public class MDKChangeListenerDelegate implements HasChangeListener {
         for (ChangeListener listener : listeners) {
             listener.onChanged();
         }
+    }
+
+    public boolean empty() {
+        return this.listeners.isEmpty();
     }
 }

@@ -108,6 +108,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
 
     /** Media type constant for photo. **/
     public static final int TYPE_FILE = 2;
+    
+    /** Launch listener on registration */
+    private boolean waitForListenerRegistration;
 
     /** Reference
     private WeakReference<AlertDialog> fullPhotoDialog;
@@ -328,7 +331,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         return mdkWidgetDelegate;
     }
 
-
     @Override
     public void callMergeDrawableStates(int[] baseState, int[] additionalState) {
         mergeDrawableStates(baseState, additionalState);
@@ -362,7 +364,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     public boolean isMandatory() {
         return this.mdkWidgetDelegate.isMandatory();
     }
-
 
     @Override
     public CharSequence getLabel() {
@@ -398,14 +399,14 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
 
     @Override
     public void onClick(View v) {
-        if(!isReadonly() && isEnabled() && getMediaUri() == null) {
-                showContextMenu();
-        }else if(!isReadonly() && isEnabled()) {
+        if (!isReadonly() && isEnabled() && getMediaUri() == null) {
+            showContextMenu();
+        } else if (!isReadonly() && isEnabled()) {
 
             RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
             ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer));
 
-            final Dialog dialog = new Dialog(getContext(),R.style.ViewerDialog);
+            final Dialog dialog = new Dialog(getContext(), R.style.ViewerDialog);
             dialog.setContentView(rl);
 
             rl.findViewById(R.id.edit_button).setOnClickListener(new OnClickListener() {
@@ -565,6 +566,10 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     public void handleActivityResult(int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK){
 
+            if (this.mdkListenerDelegate.empty()) {
+                waitForListenerRegistration = true;
+            }
+
             if(data!=null) {
 
                 String action = data.getAction();
@@ -586,6 +591,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                 default:
                     break;
             }
+            this.mdkListenerDelegate.notifyListeners();
         }
     }
 
@@ -841,7 +847,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                 public void run() {
                     ImageView iv2 = getThumbnailView();
                     if (iv2 != null) {
-                        if(mediaUri!=null) {
+                        if (mediaUri!=null) {
                             //Extract thumbnail from bitmap and display it
                             try{
                                 iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer), iv2.getWidth(), iv2.getHeight()));
@@ -862,6 +868,10 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     @Override
     public void registerChangeListener(ChangeListener listener) {
         this.mdkListenerDelegate.registerChangeListener(listener);
+        if (this.waitForListenerRegistration) {
+            this.mdkListenerDelegate.notifyListeners();
+            this.waitForListenerRegistration = false;
+        }
     }
 
     @Override

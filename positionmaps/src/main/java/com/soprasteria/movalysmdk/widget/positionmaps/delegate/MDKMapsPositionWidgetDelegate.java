@@ -1,8 +1,8 @@
 package com.soprasteria.movalysmdk.widget.positionmaps.delegate;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -105,12 +105,14 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
                     .setTitle(root.getContext().getString(R.string.maps_api_error_title))
                     .setMessage(root.getContext().getString(R.string.maps_api_error_description))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
+            root.removeView(mapView);
         }
     }
 
