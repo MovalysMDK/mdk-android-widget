@@ -855,7 +855,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                         try{
                             if (mediaUri!=null) {
                                 //Extract thumbnail from bitmap and display it
-                                iv2.setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, iv2.getHeight()));
+                                iv2.setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, 1024));
                             }else {
                                 iv2.setImageBitmap(BitmapHelper.scaleBitmap(getContext(),placeholderRes,iv2.getHeight()));
                             }

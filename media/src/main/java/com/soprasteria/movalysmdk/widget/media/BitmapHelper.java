@@ -79,7 +79,7 @@ public abstract class BitmapHelper {
             Canvas canvas = new Canvas(bmp);
             try {
                 SVG svg = SVG.getFromString(svgString);
-                canvas.drawPicture(svg.renderToPicture(),canvas.getClipBounds());
+                svg.renderToCanvas(canvas);
             } catch (SVGParseException e) {
                 Log.w(TAG, "Error parsing SVG: \n" + svgString, e);
             }
