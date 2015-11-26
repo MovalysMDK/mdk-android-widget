@@ -96,11 +96,13 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:visibility="gone"
                 android:src="@drawable/ic_format_text_grey600_24dp"/>
+            <!-- Circle not appearing in toolbox -->
             <ImageButton
                 android:id="@+id/element_circle"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:visibility="gone"
                 android:src="@drawable/ic_checkbox_blank_circle_outline_grey600_24dp"/>
             <ImageButton
                 android:id="@+id/element_ellipse"

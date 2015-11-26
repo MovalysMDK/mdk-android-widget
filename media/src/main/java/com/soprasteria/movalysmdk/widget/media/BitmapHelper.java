@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -58,17 +59,15 @@ public abstract class BitmapHelper {
             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
             // Decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o);
+            Point size = calculateBitmapSize(context,bitmapUri);
 
             // The new size we want to scale to
             final int requiredSize=1024;
 
             // Find the correct scale value. It should be the power of 2.
             int scale = 1;
-            while(o.outWidth / scale / 2 >= requiredSize &&
-                    o.outHeight / scale / 2 >= requiredSize) {
+            while(size.x / scale / 2 >= requiredSize &&
+                    size.y / scale / 2 >= requiredSize) {
                 scale *= 2;
             }
 
@@ -85,9 +84,10 @@ public abstract class BitmapHelper {
             //Rotate bitmap if needed
             if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
                 bmp = rotateBitmap(bmp, 90);
-
             } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
                 bmp = rotateBitmap(bmp, 180);
+            }else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+                bmp = rotateBitmap(bmp, 270);
             }
 
             //Draw svg if present
@@ -113,10 +113,30 @@ public abstract class BitmapHelper {
      * @param angle the angle to rotate
      * @return a rotated bitmap
      */
-    public static Bitmap rotateBitmap(Bitmap source, float angle){
+    private static Bitmap rotateBitmap(Bitmap source, float angle){
 
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+
+    /**
+     * Calculates the size (width, height) of a bitmap stored in a file.
+     * @param context the context to open the uri
+     * @param bitmapUri uri of the file containing the bitmap
+     * @return a point where X is width and Y is height, representing the image size
+     */
+    public static Point calculateBitmapSize(Context context, Uri bitmapUri){
+
+        try {
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o);
+
+            return new Point(o.outWidth,o.outHeight);
+        } catch (IOException e) {
+            Log.w(TAG, "Error trying to access file: " + bitmapUri, e);
+        }
+        return new Point(0,0);
     }
 }

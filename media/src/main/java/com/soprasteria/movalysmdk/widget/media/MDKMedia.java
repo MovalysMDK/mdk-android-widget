@@ -159,7 +159,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     /** Thumbnail placeholder drawable resource. **/
     private int placeholderRes;
 
-
     /**
      * notify change listeners.
      */
@@ -283,7 +282,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
      */
     @LayoutRes
     protected int getLayoutResource() {
-        return R.layout.mdkwidget_layout;
+        return R.layout.mdkwidget_media_layout;
     }
 
     @Override

@@ -49,6 +49,17 @@ public class SvgDocument {
      */
     private int mHeight;
 
+
+    /**
+     * Width of the viewbox of the svg.
+     */
+    private int mViewboxWidth;
+    /**
+     * Height of the viewbox pf the svg.
+     */
+    private int mViewboxHeight;
+
+
     /**
      * List of drawing elements.
      */
@@ -63,10 +74,14 @@ public class SvgDocument {
      * Constructor.
      * @param width width of the svg canvas.
      * @param height height of the svg canvas.
+     * @param viewboxWidth width of the viewbox of the svg canvas.
+     * @param viewboxHeight height of the viewbox of the svg canvas.
      */
-    public SvgDocument(int width, int height) {
+    public SvgDocument(int width, int height, int viewboxWidth, int viewboxHeight) {
         this.mWidth = width;
         this.mHeight = height;
+        this.mViewboxWidth = viewboxWidth;
+        this.mViewboxHeight = viewboxHeight;
         this.mData = new LinkedList<>();
         this.mMarkerMap = new HashMap<>();
     }
@@ -75,11 +90,15 @@ public class SvgDocument {
      * Constructor.
      * @param width width of the svg canvas.
      * @param height height of the svg canvas.
+     * @param viewboxWidth width of the viewbox of the svg canvas.
+     * @param viewboxHeight height of the viewbox of the svg canvas.
      * @param drawingData elements to draw
      */
-    public SvgDocument(int width, int height, List<DrawingElement> drawingData) {
+    public SvgDocument(int width, int height, int viewboxWidth, int viewboxHeight, List<DrawingElement> drawingData) {
         this.mWidth = width;
         this.mHeight = height;
+        this.mViewboxWidth = viewboxWidth;
+        this.mViewboxHeight = viewboxHeight;
         this.mData = drawingData;
     }
 
@@ -88,7 +107,7 @@ public class SvgDocument {
      * @return the width
      */
     public int getWidth() {
-        return mWidth;
+        return mViewboxWidth!=0?mViewboxWidth:mWidth;
     }
 
     /**
@@ -104,7 +123,7 @@ public class SvgDocument {
      * @return the height
      */
     public int getHeight() {
-        return mHeight;
+        return mViewboxHeight!=0?mViewboxHeight:mHeight;
     }
 
     /**
@@ -159,8 +178,13 @@ public class SvgDocument {
         svgStrBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
                 .append("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" ")
                 .append("width=\"").append(mWidth)
-                .append("\" height=\"").append(mHeight)
-                .append("\">");
+                .append("\" height=\"").append(mHeight);
+
+        if(mViewboxHeight!= 0 && mViewboxWidth !=0){
+            svgStrBuilder.append("\" viewbox=\"0 0 ").append(mViewboxWidth).append(" ").append(mViewboxHeight);
+        }
+
+        svgStrBuilder.append("\">");
 
         for (DrawingElement data : mData) {
             svgStrBuilder.append(data.toSvg());
@@ -204,9 +228,19 @@ public class SvgDocument {
         SvgDocument svgDocument;
 
         parser.require(XmlPullParser.START_TAG, NAMESPACE, "svg");
+
         int width = Integer.valueOf(parser.getAttributeValue(NAMESPACE, "width"));
         int height = Integer.valueOf(parser.getAttributeValue(NAMESPACE, "height"));
-        svgDocument = new SvgDocument(width, height);
+
+        String viewbox = parser.getAttributeValue(NAMESPACE, "viewbox");
+        int viewboxWidth = 0;
+        int viewboxHeight = 0;
+        if(viewbox != null && !viewbox.isEmpty()){
+            viewboxWidth = Integer.parseInt(viewbox.substring(4, viewbox.indexOf(" ", 4)));
+            viewboxHeight = Integer.parseInt(viewbox.substring(viewbox.lastIndexOf(" ")+1));
+        }
+
+        svgDocument = new SvgDocument(width, height,viewboxWidth,viewboxHeight);
 
         readTags(parser, svgDocument);
 
@@ -453,7 +487,7 @@ public class SvgDocument {
         marker.setStyle(parser.getAttributeValue(NAMESPACE, "style"));
 
         // Parse the marker contained data
-        SvgDocument tempSvgDocument = new SvgDocument(0, 0);
+        SvgDocument tempSvgDocument = new SvgDocument(0,0,0,0);
         readTags(parser, tempSvgDocument);
         marker.setElements(tempSvgDocument.mData);
 

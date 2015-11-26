@@ -1240,7 +1240,20 @@ public class DrawingView extends View implements OnScaleGestureListener {
     @SuppressWarnings("unchecked")
     public String saveSvg() {
 
-        SvgDocument svgDocument = new SvgDocument((int) mDrawingArea.right, (int) mDrawingArea.bottom, (LinkedList)getEditableElementsStack());
+        SvgDocument svgDocument = new SvgDocument((int) mDrawingArea.right, (int) mDrawingArea.bottom, 0, 0, (LinkedList)getEditableElementsStack());
+        return svgDocument.toString();
+    }
+
+    /**
+     * Returns an SVG document representing the current read/write layer.
+     * @param actualWidth width of the svg
+     * @param actualHeight height of the svg
+     * @return The SVG document
+     */
+    @SuppressWarnings("unchecked")
+    public String saveSvg(int actualWidth, int actualHeight) {
+
+        SvgDocument svgDocument = new SvgDocument(actualWidth, actualHeight, (int) mDrawingArea.right, (int) mDrawingArea.bottom, (LinkedList)getEditableElementsStack());
         return svgDocument.toString();
     }
 }

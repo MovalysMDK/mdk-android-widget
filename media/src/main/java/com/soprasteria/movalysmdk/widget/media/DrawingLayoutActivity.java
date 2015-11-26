@@ -18,6 +18,7 @@ package com.soprasteria.movalysmdk.widget.media;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -96,6 +97,16 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
      */
     private WeakReference<ImageButton> removeButton;
 
+    /**
+     * Actual size of the bitmap.
+     */
+    private Point actualSize;
+
+    /**
+     * The current mode of this activity's drawing view.
+     */
+    private Mode mode;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +163,7 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
         DrawingView dv = drawingView.get();
         if (dv != null) {
             Bitmap bg = BitmapHelper.createViewBitmap(this,mediaUri,null);
+            actualSize = BitmapHelper.calculateBitmapSize(this, mediaUri);
             dv.setDrawingBackground(bg);
 
             if (svg != null) {
@@ -162,8 +174,13 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
             dv.setDrawingViewEventHandler(this);
         }
 
+        mode = Mode.DRAWING;
+    }
 
-        setMode(Mode.DRAWING);
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        setMode(mode);
     }
 
     @Override
@@ -223,14 +240,14 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
     /**
      * Sets the mode of the drawing view, selecting the right command button.
      *
-     * @param mode the new mode of the activity
+     * @param newMode the new mode of the activity
      */
-    public void setMode(Mode mode) {
+    public void setMode(Mode newMode) {
 
         DrawingView dv = drawingView.get();
         if (dv != null) {
 
-            switch (mode) {
+            switch (newMode) {
                 case MOVING:
                     if (dv.getMode() != Mode.MOVING) {
                         initMoveMode();
@@ -250,7 +267,9 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
                     break;
             }
 
-            dv.setMode(mode);
+            mode = newMode;
+
+            dv.setMode(newMode);
         }
     }
 
@@ -304,7 +323,7 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
      * @param visible the visibility
      */
     private void toggleToolbox(boolean visible) {
-        ToolBoxView tb = toolbox.get();
+        final ToolBoxView tb = toolbox.get();
         if (tb != null) {
 
             if (visible) {
@@ -333,9 +352,9 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
             resultIntent.setAction(DRAWING_ACTION);
 
             DrawingView dv = drawingView.get();
-            if (dv != null && !dv.getEditableElementsStack().isEmpty()) {
+            if (dv != null && !dv.getEditableElementsStack().isEmpty() && actualSize!=null) {
 
-                resultIntent.putExtra(RESULT_SVG_KEY, dv.saveSvg());
+                resultIntent.putExtra(RESULT_SVG_KEY, dv.saveSvg(actualSize.x,actualSize.y));
 
             }
 
@@ -370,4 +389,19 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
         return drawingView.get();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        outState.putSerializable("mode", mode);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        mode = (Mode) savedInstanceState.getSerializable("mode");
+
+    }
 }
