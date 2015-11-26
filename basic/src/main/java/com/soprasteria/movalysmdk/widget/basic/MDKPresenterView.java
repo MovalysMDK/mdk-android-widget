@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -25,7 +25,6 @@ import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -59,6 +58,10 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
      * The MDKPresenter of the MDKPresenterView.
      */
     private MDKPresenter presenter;
+    /**
+     * The number of pixels of the presenter's diameter.
+     */
+    private int iDiameter;
 
     /**
      * Constructor.
@@ -108,18 +111,24 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
 
         /* Get attrs style */
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPresenterViewComponent);
-        float titleSize = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_title_size, 18);
+        float titleSize = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_title_size, 28);
+        float fDiameter = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_diameter, 56 * (getContext().getResources().getDisplayMetrics().density) + 0.5f);
         int titleColor = typedArrayComponent.getColor(R.styleable.MDKCommons_MDKPresenterViewComponent_title_color, -1);
         Drawable titleBackground = typedArrayComponent.getDrawable(R.styleable.MDKCommons_MDKPresenterViewComponent_title_background);
 
         /* Inflate views */
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
         inflater.inflate(R.layout.mdkwidget_presenter_layout, this);
+        this.iDiameter = (int) fDiameter;
         this.titleView = (new WeakReference<>((TextView) this.findViewById(R.id.component_title))).get();
         this.imageView = (new WeakReference<>((ImageView) this.findViewById(R.id.component_image))).get();
 
         /* Init TextView */
         if (this.titleView != null) {
+            LayoutParams params = (LayoutParams) this.titleView.getLayoutParams();
+            params.width = iDiameter;
+            params.height = iDiameter;
+            this.titleView.setLayoutParams(params);
             this.titleView.setTextColor(titleColor);
             this.titleView.setTextSize(titleSize);
             if (titleBackground != null) {
@@ -127,6 +136,14 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
             } else {
                 this.titleView.setBackgroundResource(R.drawable.mdk_circle);
             }
+        }
+
+        /* Init ImageView */
+        if (this.imageView != null) {
+            LayoutParams params = (LayoutParams) this.imageView.getLayoutParams();
+            params.width = iDiameter;
+            params.height = iDiameter;
+            this.imageView.setLayoutParams(params);
         }
 
         /* Recycling */
@@ -180,16 +197,7 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
     private void setImage(Uri uri) {
         if (uri != null && this.imageView != null) {
             this.imageUri = uri;
-            ViewTreeObserver vto = this.getViewTreeObserver();
-            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    if (getWidth() != 0 && getHeight() != 0) {
-                        updateImageView();
-                    }
-                }
-            });
+            updateImageView();
         }
     }
 
@@ -202,9 +210,9 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
                 @Override
                 public void run() {
                     try {
-                        Bitmap bmp = ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri), getHeight(), getWidth());
+                        Bitmap bmp = ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri), iDiameter, iDiameter);
                         if (bmp != null) {
-                            imageView.setImageBitmap(MDKPresenterHelper.getRoundedBitmap(bmp, getWidth()));
+                            imageView.setImageBitmap(MDKPresenterHelper.getRoundedBitmap(bmp, iDiameter));
                             MDKPresenterHelper.crossFading(titleView, imageView);
                         }
                     } catch (IOException e) {

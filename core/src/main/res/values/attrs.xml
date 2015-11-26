@@ -336,6 +336,7 @@
     <declare-styleable name="MDKCommons.MDKPresenterViewComponent">
         <attr name="title_background" format="integer" />
         <attr name="title_size" format="dimension" />
+        <attr name="diameter" format="dimension" />
         <attr name="title_color" format="color" />
     </declare-styleable>
 </resources>
