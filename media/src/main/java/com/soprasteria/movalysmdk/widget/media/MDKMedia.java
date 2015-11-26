@@ -61,6 +61,7 @@ import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionH
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
@@ -403,7 +404,14 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         } else if (!isReadonly() && isEnabled()) {
 
             RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
-            ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer));
+
+            try {
+                ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer));
+            } catch (IOException e) {
+                Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
+                display404placeholder();
+                return;
+            }
 
             final Dialog dialog = new Dialog(getContext(), R.style.ViewerDialog);
             dialog.setContentView(rl);
@@ -850,8 +858,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                             //Extract thumbnail from bitmap and display it
                             try{
                                 iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer), iv2.getWidth(), iv2.getHeight()));
-                            }catch(IllegalArgumentException e){
-                                Log.w(this.getClass().getSimpleName(), "Error displaying bitmap", e);
+                            }catch(IllegalArgumentException | IOException e){
+                                Log.w(this.getClass().getSimpleName(), "Error displaying bitmap: "  + mediaUri, e);
+                                display404placeholder();
                             }
                         }else {
                             iv2.setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
@@ -860,6 +869,19 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                 }
             });
         }
+    }
+
+    /**
+     * Displays a special placeholder for file not found.
+     */
+    private void display404placeholder(){
+        ImageView iv = getThumbnailView();
+        if (iv != null) {
+            iv.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.default_404_placeholder));
+        }
+
+        mediaUri=null;
+        svgLayer=null;
     }
 
 

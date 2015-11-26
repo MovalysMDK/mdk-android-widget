@@ -29,6 +29,7 @@ import android.util.Log;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -52,59 +53,56 @@ public abstract class BitmapHelper {
      * @param bitmapUri uri of the file containing the bitmap
      * @param svgString string representation of the svg layer to apply, facultative
      * @return a rasterized bitmap of the source image and the svg layer.
+     * @throws IOException when the file cannot be opened
      */
-    public static Bitmap createViewBitmap(Context context, Uri bitmapUri, @Nullable String svgString){
-        try {
-            ExifInterface ei = new ExifInterface(bitmapUri.getPath());
-            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+    public static Bitmap createViewBitmap(Context context, Uri bitmapUri, @Nullable String svgString) throws IOException{
+        ExifInterface ei = new ExifInterface(bitmapUri.getPath());
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
-            // Decode image size
-            Point size = calculateBitmapSize(context,bitmapUri);
+        // Decode image size
+        Point size = calculateBitmapSize(context,bitmapUri);
 
-            // The new size we want to scale to
-            final int requiredSize=1024;
+        // The new size we want to scale to
+        final int requiredSize=1024;
 
-            // Find the correct scale value. It should be the power of 2.
-            int scale = 1;
-            while(size.x / scale / 2 >= requiredSize &&
-                    size.y / scale / 2 >= requiredSize) {
-                scale *= 2;
-            }
-
-            // Decode with inSampleSize
-            BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize = scale;
-
-            Bitmap extractedBmp = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o2);
-
-            Bitmap bmp = extractedBmp.copy(Bitmap.Config.ARGB_8888,true);
-            extractedBmp.recycle();
-            extractedBmp = null;
-
-            //Rotate bitmap if needed
-            if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-                bmp = rotateBitmap(bmp, 90);
-            } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
-                bmp = rotateBitmap(bmp, 180);
-            }else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-                bmp = rotateBitmap(bmp, 270);
-            }
-
-            //Draw svg if present
-            if(svgString!=null) {
-                Canvas canvas = new Canvas(bmp);
-                SVG svg = SVG.getFromString(svgString);
-
-                canvas.drawPicture(svg.renderToPicture());
-            }
-
-            return bmp;
-        } catch (IOException e) {
-            Log.w(TAG, "Error trying to access file: " + bitmapUri, e);
-        } catch (SVGParseException e) {
-            Log.w(TAG, "Error parsing SVG: \n" + svgString, e);
+        // Find the correct scale value. It should be the power of 2.
+        int scale = 1;
+        while(size.x / scale / 2 >= requiredSize &&
+                size.y / scale / 2 >= requiredSize) {
+            scale *= 2;
         }
-        return null;
+
+        // Decode with inSampleSize
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+
+        Bitmap extractedBmp = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o2);
+
+        Bitmap bmp = extractedBmp.copy(Bitmap.Config.ARGB_8888,true);
+        extractedBmp.recycle();
+        extractedBmp = null;
+
+        //Rotate bitmap if needed
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            bmp = rotateBitmap(bmp, 90);
+        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            bmp = rotateBitmap(bmp, 180);
+        }else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            bmp = rotateBitmap(bmp, 270);
+        }
+
+        //Draw svg if present
+        if(svgString!=null) {
+            Canvas canvas = new Canvas(bmp);
+            try {
+                SVG svg = SVG.getFromString(svgString);
+                canvas.drawPicture(svg.renderToPicture());
+            } catch (SVGParseException e) {
+                Log.w(TAG, "Error parsing SVG: \n" + svgString, e);
+            }
+        }
+
+        return bmp;
     }
 
     /**
@@ -125,18 +123,14 @@ public abstract class BitmapHelper {
      * @param context the context to open the uri
      * @param bitmapUri uri of the file containing the bitmap
      * @return a point where X is width and Y is height, representing the image size
+     * @throws FileNotFoundException when the file cannot be opened
      */
-    public static Point calculateBitmapSize(Context context, Uri bitmapUri){
+    public static Point calculateBitmapSize(Context context, Uri bitmapUri) throws FileNotFoundException {
 
-        try {
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o);
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o);
 
-            return new Point(o.outWidth,o.outHeight);
-        } catch (IOException e) {
-            Log.w(TAG, "Error trying to access file: " + bitmapUri, e);
-        }
-        return new Point(0,0);
+        return new Point(o.outWidth,o.outHeight);
     }
 }

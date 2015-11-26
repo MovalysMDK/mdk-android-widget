@@ -22,6 +22,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -33,6 +34,7 @@ import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView;
 import com.soprasteria.movalysmdk.widget.media.drawing.DrawingView.Mode;
 import com.soprasteria.movalysmdk.widget.media.drawing.data.DrawingElement;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 /**
@@ -162,8 +164,14 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
         //initialize the drawing view
         DrawingView dv = drawingView.get();
         if (dv != null) {
-            Bitmap bg = BitmapHelper.createViewBitmap(this,mediaUri,null);
-            actualSize = BitmapHelper.calculateBitmapSize(this, mediaUri);
+            Bitmap bg = null;
+            try {
+                bg = BitmapHelper.createViewBitmap(this, mediaUri, null);
+                actualSize = BitmapHelper.calculateBitmapSize(this, mediaUri);
+            } catch (IOException e) {
+                Log.e(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
+                finish();
+            }
             dv.setDrawingBackground(bg);
 
             if (svg != null) {
