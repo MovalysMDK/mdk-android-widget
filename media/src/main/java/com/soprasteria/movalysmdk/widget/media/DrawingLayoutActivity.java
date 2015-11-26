@@ -175,7 +175,7 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
         if (dv != null) {
             Bitmap bg = null;
             try {
-                bg = BitmapHelper.createViewBitmap(this, mediaUri, null);
+                bg = BitmapHelper.createViewBitmap(this, mediaUri, null, 1024);
                 actualSize = BitmapHelper.calculateBitmapSize(this, mediaUri);
             } catch (IOException e) {
                 Log.e(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);

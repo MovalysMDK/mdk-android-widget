@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +28,6 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -406,7 +404,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
 
             try {
-                ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer));
+                ((ImageView)rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, 1024));
             } catch (IOException e) {
                 Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
                 display404placeholder();
@@ -732,9 +730,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         }
 
         this.placeholderRes = res;
-        if(mediaUri ==null && getThumbnailView()!=null){
-            getThumbnailView().setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
-        }
+
+        updateThumbnail();
+
     }
 
     @Override
@@ -853,17 +851,17 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                 @Override
                 public void run() {
                     ImageView iv2 = getThumbnailView();
-                    if (iv2 != null) {
-                        if (mediaUri!=null) {
-                            //Extract thumbnail from bitmap and display it
-                            try{
-                                iv2.setImageBitmap(ThumbnailUtils.extractThumbnail(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer), iv2.getWidth(), iv2.getHeight()));
-                            }catch(IllegalArgumentException | IOException e){
-                                Log.w(this.getClass().getSimpleName(), "Error displaying bitmap: "  + mediaUri, e);
-                                display404placeholder();
+                    if (iv2 != null && iv2.getWidth()>0 && iv2.getHeight()>0) {
+                        try{
+                            if (mediaUri!=null) {
+                                //Extract thumbnail from bitmap and display it
+                                iv2.setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, iv2.getHeight()));
+                            }else {
+                                iv2.setImageBitmap(BitmapHelper.scaleBitmap(getContext(),placeholderRes,iv2.getHeight()));
                             }
-                        }else {
-                            iv2.setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
+                        }catch(IllegalArgumentException | IOException e){
+                            Log.w(this.getClass().getSimpleName(), "Error displaying bitmap: "  + mediaUri, e);
+                            display404placeholder();
                         }
                     }
                 }
@@ -877,7 +875,15 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     private void display404placeholder(){
         ImageView iv = getThumbnailView();
         if (iv != null) {
-            iv.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.default_404_placeholder));
+            iv.post(new Runnable() {
+                @Override
+                public void run() {
+                    ImageView iv2 = getThumbnailView();
+                    if (iv2 != null && iv2.getWidth()>0 && iv2.getHeight()>0) {
+                        iv2.setImageBitmap(BitmapHelper.scaleBitmap(getContext(), placeholderRes, iv2.getHeight()));
+                    }
+                }
+            });
         }
 
         mediaUri=null;

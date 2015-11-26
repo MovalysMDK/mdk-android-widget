@@ -22,9 +22,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.caverock.androidsvg.SVG;
@@ -53,36 +55,15 @@ public abstract class BitmapHelper {
      * @param context the context to open the uri
      * @param bitmapUri uri of the file containing the bitmap
      * @param svgString string representation of the svg layer to apply, facultative
+     * @param size the size of the new bitmap
      * @return a rasterized bitmap of the source image and the svg layer.
      * @throws IOException when the file cannot be opened
      */
-    public static Bitmap createViewBitmap(Context context, Uri bitmapUri, @Nullable String svgString) throws IOException{
+    public static Bitmap createViewBitmap(Context context, Uri bitmapUri, @Nullable String svgString, int size) throws IOException{
 
         int orientation = getBitmapOrientation(context, bitmapUri);
 
-
-        // Decode image size
-        Point size = calculateBitmapSize(context,bitmapUri);
-
-        // The new size we want to scale to
-        final int requiredSize=1024;
-
-        // Find the correct scale value. It should be the power of 2.
-        int scale = 1;
-        while(size.x / scale / 2 >= requiredSize &&
-                size.y / scale / 2 >= requiredSize) {
-            scale *= 2;
-        }
-
-        // Decode with inSampleSize
-        BitmapFactory.Options o2 = new BitmapFactory.Options();
-        o2.inSampleSize = scale;
-
-        Bitmap extractedBmp = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o2);
-
-        Bitmap bmp = extractedBmp.copy(Bitmap.Config.ARGB_8888,true);
-        extractedBmp.recycle();
-        extractedBmp = null;
+        Bitmap bmp = scaleBitmap(context, bitmapUri, size);
 
         //Rotate bitmap if needed
         if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
@@ -103,6 +84,71 @@ public abstract class BitmapHelper {
                 Log.w(TAG, "Error parsing SVG: \n" + svgString, e);
             }
         }
+
+        return bmp;
+    }
+
+    /**
+     * Scales a bitmap to stay under a certain size.
+     * @param context the context to open the uri
+     * @param bitmapUri uri of the file containing the bitmap
+     * @param maxSize the max size of the bitmap
+     * @return a scaled bitmap
+     * @throws FileNotFoundException when the file cannot be opened
+     */
+    public static Bitmap scaleBitmap(Context context, Uri bitmapUri, int maxSize) throws FileNotFoundException{
+        // Decode image size
+        Point size = calculateBitmapSize(context,bitmapUri);
+
+        // Find the correct scale value. It should be the power of 2.
+        int scale = 1;
+        while(size.x / scale / 2 >= maxSize &&
+                size.y / scale / 2 >= maxSize) {
+            scale *= 2;
+        }
+
+        // Decode with inSampleSize
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+
+        Bitmap extractedBmp = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o2);
+
+        Bitmap bmp = extractedBmp.copy(Bitmap.Config.ARGB_8888,true);
+        extractedBmp.recycle();
+        extractedBmp = null;
+
+        return bmp;
+    }
+
+    /**
+     * Scales a bitmap to stay under a certain size.
+     * @param context the context to open the uri
+     * @param drawableRes drawable resource containing the bitmap
+     * @param maxSize the max size of the bitmap
+     * @return a scaled bitmap
+     */
+    public static Bitmap scaleBitmap(Context context, int drawableRes, int maxSize){
+        // Decode image size
+
+        Drawable bitmapDrawable = ContextCompat.getDrawable(context,drawableRes);
+        Point size = new Point(bitmapDrawable.getIntrinsicWidth(),bitmapDrawable.getIntrinsicHeight());
+
+        // Find the correct scale value. It should be the power of 2.
+        int scale = 1;
+        while(size.x / scale / 2 >= maxSize &&
+                size.y / scale / 2 >= maxSize) {
+            scale *= 2;
+        }
+
+        // Decode with inSampleSize
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+
+        Bitmap extractedBmp = BitmapFactory.decodeResource(context.getResources(), drawableRes, o2);
+
+        Bitmap bmp = extractedBmp.copy(Bitmap.Config.ARGB_8888,true);
+        extractedBmp.recycle();
+        extractedBmp = null;
 
         return bmp;
     }
