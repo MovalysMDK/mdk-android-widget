@@ -162,6 +162,15 @@ public class DrawingLayoutActivity extends AppCompatActivity implements DrawingV
 
 
         //initialize the drawing view
+        initDrawingView(mediaUri,svg);
+    }
+
+    /**
+     * Initializes the drawing view.
+     * @param mediaUri the uri of the bitmap to load as drawing background
+     * @param svg the svg layer
+     */
+    private void initDrawingView(Uri mediaUri, String svg){
         DrawingView dv = drawingView.get();
         if (dv != null) {
             Bitmap bg = null;

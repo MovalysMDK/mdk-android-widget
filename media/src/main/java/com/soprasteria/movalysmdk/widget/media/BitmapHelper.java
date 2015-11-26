@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.media;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -56,8 +57,9 @@ public abstract class BitmapHelper {
      * @throws IOException when the file cannot be opened
      */
     public static Bitmap createViewBitmap(Context context, Uri bitmapUri, @Nullable String svgString) throws IOException{
-        ExifInterface ei = new ExifInterface(bitmapUri.getPath());
-        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        int orientation = getBitmapOrientation(context, bitmapUri);
+
 
         // Decode image size
         Point size = calculateBitmapSize(context,bitmapUri);
@@ -103,6 +105,36 @@ public abstract class BitmapHelper {
         }
 
         return bmp;
+    }
+
+    /**
+     * Gets the orientation of a bitmap based on the EXIF info of the file it's stored in.
+     * @param context the context to open the uri
+     * @param bitmapUri uri of the file containing the bitmap
+     * @return an integer representing the orientation of the bitmap
+     * @throws IOException when the file cannot be opened
+     */
+    private static int getBitmapOrientation(Context context, Uri bitmapUri) throws IOException{
+        int orientation = 0;
+
+        if (bitmapUri != null){
+            String filePath = "";
+            if("content".equals(bitmapUri.getScheme())) {
+                Cursor cursor = context.getContentResolver().query(bitmapUri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    filePath = cursor.getString(0);
+                    cursor.close();
+                }
+            } else {
+                filePath = bitmapUri.getPath();
+            }
+
+            ExifInterface ei = new ExifInterface(filePath);
+            orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        }
+
+        return orientation;
     }
 
     /**
