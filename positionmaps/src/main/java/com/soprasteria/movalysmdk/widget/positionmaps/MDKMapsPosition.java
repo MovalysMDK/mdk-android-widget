@@ -235,7 +235,7 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
      */
     protected void updateOnMapDisplay() {
         if (!this.getPosition().isNull()) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(getLatLng());
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(getLatLng(), ((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getZoom());
             ((MDKMapsPositionWidgetDelegate) this.mdkWidgetDelegate).getMap().animateCamera(cameraUpdate);
 
             if (this.hasAddresses()) {

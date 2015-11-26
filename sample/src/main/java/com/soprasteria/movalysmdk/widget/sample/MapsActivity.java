@@ -16,9 +16,12 @@
 package com.soprasteria.movalysmdk.widget.sample;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
+import com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition;
 
 /**
  * Test activity for the MDKRichPosition widget.
@@ -45,6 +48,15 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        Position pos = new Position();
+        Location loc = new Location("dummy");
+        loc.setLatitude(48.104451);
+        loc.setLongitude(-1.66901);
+        pos.setPositionFromLocation(loc);
+
+        MDKRichMapsPosition map = (MDKRichMapsPosition) findViewById(R.id.mdkRichMapsPosition_locationWithLabelAndError);
+        map.setPosition(pos);
     }
 
     @Override

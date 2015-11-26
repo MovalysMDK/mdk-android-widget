@@ -35,7 +35,11 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
 
     /** the displayed dataset. */
     // TODO save data on rotate
-    protected String[] myDataset = new String[] {};
+    protected String[] myDataset = new String[] { "Android", "iPhone", "WindowsMobile",
+            "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+            "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
+            "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
+            "Android", "iPhone", "WindowsMobile" };
 
     /**
      * Adapter class for the widgets.

@@ -24,8 +24,8 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     /** the maximum zoom level. */
     public static final int MAX_ZOOM = 20;
 
-    /** default zoom value. */
-    public static final int DEFAULT_ZOOM = 10;
+    /** default zoom value, the higher the closer. */
+    public static final int DEFAULT_ZOOM = 15;
 
     /** the map view. */
     private GoogleMap map;
@@ -93,11 +93,15 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
             MapsInitializer.initialize(root.getContext());
 
             // Updates the location and zoom of the MapView
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(new LatLng(44.14, 14.2));
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(44.14, 14.2), this.zoom);
             map.animateCamera(cameraUpdate);
 
             // disable the gestures on the map
             map.getUiSettings().setAllGesturesEnabled(false);
+
+            // optimization
+            mapView.setPersistentDrawingCache(MapView.PERSISTENT_ALL_CACHES);
+
         } catch (RuntimeException e) {
             // this is most probably an API key problem. We notify the user
             Log.e(this.getClass().getSimpleName(), root.getContext().getString(R.string.maps_api_error_title), e);
@@ -170,6 +174,10 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
      */
     public void setAddressMarker(int addressMarker) {
         this.addressMarker = addressMarker;
+    }
+
+    public int getZoom() {
+        return zoom;
     }
 
     /**
