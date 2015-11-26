@@ -363,8 +363,8 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 		final int hDecoration = getRightDecorationWidth(child) + getLeftDecorationWidth(child);
 		final int vDecoration = getTopDecorationHeight(child) + getBottomDecorationHeight(child);
 
-		final int childWidthSpec = getChildMeasureSpec(widthSize, hPadding + hMargin + hDecoration, p.width, canScrollHorizontally());
-		final int childHeightSpec = getChildMeasureSpec(heightSize, vPadding + vMargin + vDecoration, p.height, canScrollVertically());
+        final int childWidthSpec = getChildMeasureSpec(widthSize, hPadding + hMargin + hDecoration, p.width, true);
+        final int childHeightSpec = getChildMeasureSpec(heightSize, vPadding + vMargin + vDecoration, p.height, true);
 
 		child.measure(childWidthSpec, childHeightSpec);
 
@@ -408,4 +408,14 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
 			Log.w(LINEAR_LAYOUT_MANAGER, "Can't make LayoutParams insets dirty, decorations measurements might be incorrect");
 		}
 	}
+
+    @Override
+    public boolean canScrollHorizontally() {
+        return false;
+    }
+
+    @Override
+	public boolean canScrollVertically() {
+        return false;
+    }
 }
