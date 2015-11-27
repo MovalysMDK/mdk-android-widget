@@ -72,17 +72,18 @@ public class BrushSizeAdapter implements SpinnerAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView==null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.brush_size_adapter_layout, null);
+        View oCurrentView = convertView;
+        if(oCurrentView==null) {
+            oCurrentView = LayoutInflater.from(context).inflate(R.layout.brush_size_adapter_layout, null);
         }
 
-        View v = convertView.findViewById(R.id.brush_preview);
-        TextView tv = (TextView) convertView.findViewById(R.id.brush_size_text);
+        View v = oCurrentView.findViewById(R.id.brush_preview);
+        TextView tv = (TextView) oCurrentView.findViewById(R.id.brush_size_text);
 
         v.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) Math.pow(2,position),context.getResources().getDisplayMetrics());
         tv.setText(String.format(context.getString(R.string.mdkwidget_mdkmedia_brush_pt), (int)Math.pow(2,position)));
 
-        return convertView;
+        return oCurrentView;
     }
 
     @Override
@@ -102,16 +103,17 @@ public class BrushSizeAdapter implements SpinnerAdapter {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        if(convertView==null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.brush_size_dropdown_adapter_layout, null);
+        View oCurrentView = convertView;
+        if(oCurrentView==null) {
+            oCurrentView = LayoutInflater.from(context).inflate(R.layout.brush_size_dropdown_adapter_layout, null);
         }
 
-        View v = convertView.findViewById(R.id.brush_preview);
-        TextView tv = (TextView) convertView.findViewById(R.id.brush_size_text);
+        View v = oCurrentView.findViewById(R.id.brush_preview);
+        TextView tv = (TextView) oCurrentView.findViewById(R.id.brush_size_text);
 
         v.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) Math.pow(2,position),context.getResources().getDisplayMetrics());
         tv.setText(String.format(context.getString(R.string.mdkwidget_mdkmedia_brush_pt), (int)Math.pow(2,position)));
 
-        return convertView;
+        return oCurrentView;
     }
 }

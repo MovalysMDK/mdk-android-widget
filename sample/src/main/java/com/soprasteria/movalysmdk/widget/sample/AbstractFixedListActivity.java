@@ -33,8 +33,12 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
     /** request code for the item clicked event. */
     protected static final int RC_CODE = 0x8000;
 
+    /**
+     * Get the activity dataset.
+     * @return the dataset as String array
+     */
     public String[] getDataset() {
-        return myDataset;
+        return myDataset.clone();
     }
 
     /** the displayed dataset. */

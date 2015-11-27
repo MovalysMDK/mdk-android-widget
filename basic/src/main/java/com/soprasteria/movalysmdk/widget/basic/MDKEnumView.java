@@ -359,7 +359,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     }
 
     /**
-     * Fallback image to text method
+     * Fallback image to text method.
      */
     private void imageFallbackText() {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(

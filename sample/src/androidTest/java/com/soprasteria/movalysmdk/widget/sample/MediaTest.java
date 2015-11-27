@@ -106,7 +106,7 @@ public class MediaTest {
     }
 
 
-    /*
+    /**
      * Tests that a read only mdkmedia does not trigger a menu on click.
      */
     @Test

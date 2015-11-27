@@ -176,6 +176,10 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
         this.addressMarker = addressMarker;
     }
 
+    /**
+     * Get the current zoom.
+     * @return an integer representing the zoom
+     */
     public int getZoom() {
         return zoom;
     }
