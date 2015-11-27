@@ -6,13 +6,11 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
-
-        // spoon uses a different version of guava than espresso
-        //see: https://github.com/stanfy/spoon-gradle-plugin/issues/33
-        classpath ('com.stanfy.spoon:spoon-gradle-plugin:1.0.2') {
-            exclude module: 'guava'
+        classpath 'com.squareup.spoon:spoon-runner:1.2.1'
+        classpath('com.stanfy.spoon:spoon-gradle-plugin:1.0.3') {
+            exclude module: "guava"
         }
-        classpath 'com.google.guava:guava:17.0'
+//        classpath 'com.google.guava:guava:17.0'
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
         classpath 'org.jacoco:org.jacoco.core:0.7.5.201505241946'
     }
