@@ -332,10 +332,11 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     private void updateWhenReadOnly(String sDate, String sTime) {
         String sDateTime;
-        if (sDate != dateHint && sTime != timeHint) {
+        if (sDate != null && !sDate.equals(dateHint)
+                && sTime != null && !sTime.equals(timeHint) ) {
             sDateTime = sDate + "       " + sTime;
         } else {
-            if (sDate != dateHint) {
+            if (sDate != null && !sDate.equals(dateHint)) {
                 sDateTime = sDate;
             } else {
                 sDateTime = sTime;
