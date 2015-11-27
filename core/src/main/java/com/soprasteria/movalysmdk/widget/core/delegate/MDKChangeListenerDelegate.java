@@ -55,6 +55,10 @@ public class MDKChangeListenerDelegate implements HasChangeListener {
         }
     }
 
+    /**
+     * Return if the container is empty.
+     * @return true if the container is empty, false otherwise
+     */
     public boolean empty() {
         return this.listeners.isEmpty();
     }
