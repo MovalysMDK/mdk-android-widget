@@ -34,12 +34,6 @@ android {
         abortOnError false
         checkReleaseBuilds false
     }
-
-    jacoco {
-        //bug in code coverage with espresso 2.1:
-        //https://code.google.com/p/android/issues/detail?id=170607
-        version jacocoVersion
-    }
 }
 
 dependencies {
