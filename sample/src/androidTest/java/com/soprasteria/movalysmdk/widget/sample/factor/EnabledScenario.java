@@ -25,6 +25,7 @@ import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
@@ -93,7 +94,7 @@ public class EnabledScenario<T extends AppCompatActivity> extends AbstractScenar
         onView(inputView).check(matches(not(isEnabled())));
 
         // Re enabled widget
-        onView(withId(R.id.enableButton)).perform(click());
+        onView(withId(R.id.enableButton)).perform(scrollTo(),click());
 
         // Check widgets are enabled
         onView(inputView).check(matches(isEnabled()));

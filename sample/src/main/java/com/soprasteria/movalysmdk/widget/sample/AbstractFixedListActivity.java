@@ -33,6 +33,10 @@ public abstract class AbstractFixedListActivity extends AbstractWidgetTestableAc
     /** request code for the item clicked event. */
     protected static final int RC_CODE = 0x8000;
 
+    public String[] getDataset() {
+        return myDataset;
+    }
+
     /** the displayed dataset. */
     // TODO save data on rotate
     protected String[] myDataset = new String[] { "Android", "iPhone", "WindowsMobile",

@@ -24,6 +24,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.soprasteria.movalysmdk.widget.sample.AbstractFixedListActivity;
 import com.soprasteria.movalysmdk.widget.sample.R;
 
 import org.hamcrest.Matcher;
@@ -42,7 +43,6 @@ import static com.soprasteria.movalysmdk.espresso.action.MdkRecyclerViewAction.c
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationLandscape;
 import static com.soprasteria.movalysmdk.espresso.action.OrientationChangeAction.orientationPortrait;
 import static com.soprasteria.movalysmdk.espresso.matcher.MdkRecyclerViewMatchers.withFixedListSize;
-import static com.soprasteria.movalysmdk.espresso.matcher.MdkViewMatchers.withConcatText;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
@@ -131,25 +131,19 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
         assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
         // list should be empty
-        onView(listView).check(ViewAssertions.matches(withFixedListSize(0)));
+        onView(listView).check(ViewAssertions.matches(withFixedListSize(((AbstractFixedListActivity) mActivityRule.getActivity()).getDataset().length)));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(scrollTo()), click());
 
-        // check error
-        onView(errorView).check(matches(withConcatText(errorMessages)));
-
         // change orientation to landscape
         onView(isRoot()).perform(orientationLandscape());
-
-        // check error
-        onView(errorView).check(matches(withConcatText(errorMessages)));
 
         // change orientation to portrait
         onView(isRoot()).perform(orientationPortrait());
 
         // click the add button
-        onView(commandView).perform(click());
+        onView(commandView).perform(scrollTo(), click());
 
         // check that the input view (ie the dialog) is displayed
         onView(inputView).check(matches(isDisplayed()));
@@ -161,10 +155,10 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
         onView(withText(actionButtons[CANCEL])).perform(click());
 
         // list should be empty
-        onView(listView).check(ViewAssertions.matches(withFixedListSize(0)));
+        onView(listView).check(ViewAssertions.matches(withFixedListSize(((AbstractFixedListActivity) mActivityRule.getActivity()).getDataset().length)));
 
         // click the add button
-        onView(commandView).perform(click());
+        onView(commandView).perform(scrollTo(),click());
 
         // check that the input view (ie the dialog) is displayed
         onView(inputView).check(matches(isDisplayed()));
@@ -176,7 +170,7 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
         onView(withText(actionButtons[VALID])).perform(click());
 
         // list should have one element
-        onView(listView).check(ViewAssertions.matches(withFixedListSize(1)));
+        onView(listView).check(ViewAssertions.matches(withFixedListSize(((AbstractFixedListActivity)mActivityRule.getActivity()).getDataset().length+1)));
 
         // click validate button
         onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(scrollTo()), click());
@@ -185,9 +179,9 @@ public class ListEntryScenario<T extends AppCompatActivity> extends AbstractScen
         onView(errorView).check(matches(withText(R.string.test_empty_string)));
 
         // delete the element
-        onView(listView).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(actionButtons[DELETE])));
+        onView(listView).perform(scrollTo(),RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(actionButtons[DELETE])));
 
         // list should be empty
-        onView(listView).check(ViewAssertions.matches(withFixedListSize(0)));
+        onView(listView).check(ViewAssertions.matches(withFixedListSize(((AbstractFixedListActivity)mActivityRule.getActivity()).getDataset().length)));
     }
 }
