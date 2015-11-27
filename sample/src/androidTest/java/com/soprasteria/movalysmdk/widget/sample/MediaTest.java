@@ -104,28 +104,9 @@ public class MediaTest {
                 .check(matches(MdkMediaMatchers.mdkMediaWithUri(uri)));
 
     }
-    /**
-     * Tests that the image of a photo mdk media can be captured by the camera.
-     */
-    @Test
-    public void testImageFromCamera(){
-        Intents.init();
-        assertThat(mActivityRule.getActivity(), is(notNullValue()));
 
-        //prepare intent mock response
-        takePhotoIntentStub();
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichMedia_withLabelAndError)))).perform(click());
-        onView(withText(R.string.mdkwidget_mdkmedia_take_photo)).perform(click());
 
-        Intents.release();
-
-        onView(withId(R.id.done_button)).perform(click());
-
-        onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(R.id.mdkRichMedia_withLabelAndError))))
-                .check(matches(MdkMediaMatchers.mdkMediaHasUri()));
-
-    }
-    /**
+    /*
      * Tests that a read only mdkmedia does not trigger a menu on click.
      */
     @Test
@@ -168,15 +149,6 @@ public class MediaTest {
                 hasData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI),
                 hasAction(Intent.ACTION_PICK)))
             .respondWith(result);
-    }
-
-    /**
-     * Stub for a camera image capture intent.
-     */
-    private void takePhotoIntentStub() {
-        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, null);
-
-        intending(hasAction(MediaStore.ACTION_IMAGE_CAPTURE)).respondWith(result);
     }
 
     /**
