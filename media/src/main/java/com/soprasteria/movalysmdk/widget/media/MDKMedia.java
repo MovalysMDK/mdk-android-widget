@@ -111,9 +111,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     /** Launch listener on registration. */
     private boolean waitForListenerRegistration;
 
-    /** Reference
-    private WeakReference<AlertDialog> fullPhotoDialog;
-
     /**
      * Enumeration listing possible MDKMedia modes.
      */
