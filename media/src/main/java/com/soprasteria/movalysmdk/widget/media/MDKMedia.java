@@ -227,7 +227,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == MESSAGE_URI_CHANGED) {
-                Log.i("lbo", "set photo");
                 switch (mediaType) {
                     case TYPE_PHOTO:
                         updateThumbnail();

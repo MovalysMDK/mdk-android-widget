@@ -21,9 +21,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Picture;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.media.ExifInterface;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -79,13 +82,26 @@ public abstract class BitmapHelper {
             Canvas canvas = new Canvas(bmp);
             try {
                 SVG svg = SVG.getFromString(svgString);
-                svg.renderToCanvas(canvas);
+                canvas.drawBitmap(ThumbnailUtils.extractThumbnail(picture2Bitmap(svg.renderToPicture()),canvas.getWidth(),canvas.getHeight()),0,0,null);
             } catch (SVGParseException e) {
                 Log.w(TAG, "Error parsing SVG: \n" + svgString, e);
             }
         }
 
         return bmp;
+    }
+
+    /**
+     * Transforms a Picture in a Bitmap.
+     * @param picture the Picture to transform
+     * @return a Bitmap
+     */
+    private static Bitmap picture2Bitmap(Picture picture) {
+        PictureDrawable pd = new PictureDrawable(picture);
+        Bitmap bitmap = Bitmap.createBitmap(pd.getIntrinsicWidth(), pd.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawPicture(pd.getPicture());
+        return bitmap;
     }
 
     /**
