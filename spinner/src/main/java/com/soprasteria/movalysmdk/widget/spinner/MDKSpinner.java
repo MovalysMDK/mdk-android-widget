@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -79,6 +78,11 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
      * Boolean to test if the component is initialized.
      */
     private boolean isInit;
+
+    /**
+     * true if the drop down menu is opened.
+     */
+    private boolean isDropDownOpened = false;
 
     /**
      * Constructor.
@@ -219,6 +223,13 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
         this.validate(EnumFormFieldValidator.ON_FOCUS);
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        if (isDropDownOpened && hasWindowFocus) {
+            isDropDownOpened = false;
+        }
+    }
 
     @Override
     public int[] getValidators() {
@@ -378,10 +389,18 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
         super.onRestoreInstanceState(innerState);
     }
 
-
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return !isReadonly() && super.onTouchEvent(event);
+    public boolean performClick() {
+        if (!isReadonly()) {
+            if (isDropDownOpened) {
+                return false;
+            } else {
+                isDropDownOpened = true;
+            }
+            return super.performClick();
+        } else {
+            return false;
+        }
     }
 
     @Override
