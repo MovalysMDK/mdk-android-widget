@@ -26,7 +26,6 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.media.ExifInterface;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -82,7 +81,17 @@ public abstract class BitmapHelper {
             Canvas canvas = new Canvas(bmp);
             try {
                 SVG svg = SVG.getFromString(svgString);
-                canvas.drawBitmap(ThumbnailUtils.extractThumbnail(picture2Bitmap(svg.renderToPicture()),canvas.getWidth(),canvas.getHeight()),0,0,null);
+
+                //HACK VIEWBOX (manual parsing because the svg library is bugged)
+                String viewboxString = "viewbox=\"0 0 ";
+                int viewboxWidth = Integer.parseInt(svgString.substring(svgString.indexOf(viewboxString)+viewboxString.length(),svgString.indexOf(" ",svgString.indexOf(viewboxString)+viewboxString.length())));
+                int viewboxHeight = Integer.parseInt(svgString.substring(svgString.indexOf(" ",svgString.indexOf(viewboxString)+viewboxString.length())+1,svgString.indexOf("\"",svgString.indexOf(viewboxString)+viewboxString.length())));
+                if(viewboxHeight>0 && viewboxWidth>0) {
+                    svg.setDocumentHeight(viewboxHeight);
+                    svg.setDocumentWidth(viewboxWidth);
+                }
+
+                canvas.drawBitmap(Bitmap.createScaledBitmap(picture2Bitmap(svg.renderToPicture()), bmp.getWidth(), bmp.getHeight(), false), 0,0,null);
             } catch (SVGParseException e) {
                 Log.w(TAG, "Error parsing SVG: \n" + svgString, e);
             }
