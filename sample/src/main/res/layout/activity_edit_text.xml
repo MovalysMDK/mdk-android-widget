@@ -274,17 +274,31 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <!-- MDKEditText readonly -->
+        <!-- MDKRichEditText readonly -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/edit_text_case_8"/>
+            android:text="@string/edit_text_case_10"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
             android:id="@+id/mdkRichEditText_readonly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:readonly="true"/>
+
+        <!-- MDKRichEditText with inputType -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_11"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+            android:id="@+id/mdkRichEditText_inputType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+
     </LinearLayout>
  </ScrollView>

@@ -53,7 +53,8 @@ public class EditTextActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkEditText_withHintAndExternalLabelAndSharedError,
                 R.id.test_case_7,
                 R.id.mdkEditText_withHintAndSharedError,
-                R.id.mdkRichEditText_readonly
+                R.id.mdkRichEditText_readonly,
+                R.id.mdkRichEditText_inputType
         };
     }
 

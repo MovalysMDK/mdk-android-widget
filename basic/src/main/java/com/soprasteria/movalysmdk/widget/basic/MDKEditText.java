@@ -277,11 +277,10 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
 
     @Override
     public void setInputType(int type){
-        if(isReadonly()) {
-            super.setInputType(type);
-        }else{
+        if (!isReadonly()) {
             specificInputType = type;
         }
+        super.setInputType(type);
     }
 
     @Override

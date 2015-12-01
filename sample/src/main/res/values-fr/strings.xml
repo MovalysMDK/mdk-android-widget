@@ -39,6 +39,8 @@
     <string name="edit_text_case_6">EditText avec label avec hint</string>
     <string name="edit_text_case_7">EditText sans label sans hint</string>
     <string name="edit_text_case_8">EditText sans label avec hint</string>
+    <string name="edit_text_case_10">RichEditText lecture seule</string>
+    <string name="edit_text_case_11">RichEditText avec inputType numberDecimal</string>
     <string name="edit_rich_helper_text">EditText obligatoire</string>
 
 
