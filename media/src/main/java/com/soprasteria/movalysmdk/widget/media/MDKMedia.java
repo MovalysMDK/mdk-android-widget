@@ -912,7 +912,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             this.mdkWidgetDelegate.setUniqueId(bundle.getInt(UID_STATE));
 
             //re-register as handler
-            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity) getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
             helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
 
 
