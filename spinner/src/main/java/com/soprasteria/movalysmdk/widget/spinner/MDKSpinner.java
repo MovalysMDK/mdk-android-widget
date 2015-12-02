@@ -211,8 +211,8 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
             this.isInit = false;
         } else {
             this.validate(EnumFormFieldValidator.ON_FOCUS);
-            mdkListenerDelegate.notifyListeners();
         }
+        mdkListenerDelegate.notifyListeners();
     }
 
     @Override
