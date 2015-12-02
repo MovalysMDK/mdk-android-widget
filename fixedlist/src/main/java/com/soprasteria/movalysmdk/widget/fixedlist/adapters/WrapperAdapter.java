@@ -19,47 +19,69 @@ import java.util.List;
 /**
  * Wrapper adapter for the MDKFixedList widget.
  * Wraps the set adapter to add a click ability on the items of the list, and set a delete button for each of them.
+ *
  * @param <W> the class of the view holder of the wrapper
  */
 public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Adapter<W> implements View.OnClickListener {
 
-    /** tag for debugging. */
+    /**
+     * tag for debugging.
+     */
     private static final String TAG = WrapperAdapter.class.getSimpleName();
 
-    /** tag for debugging. */
+    /**
+     * tag for debugging.
+     */
     private static final String ON_CREATE_VIEW_HOLDER = "onCreateViewHolder";
 
-    /** the wrapped adapter. */
+    /**
+     * the wrapped adapter.
+     */
     private RecyclerView.Adapter adapter;
 
-    /** the registered listeners to call when an item is removed from the list. */
+    /**
+     * the registered listeners to call when an item is removed from the list.
+     */
     private List<FixedListRemoveListener> removeListener;
 
-    /** the registered listeners to call when an item is clicked in the list. */
+    /**
+     * the registered listeners to call when an item is clicked in the list.
+     */
     private List<FixedListItemClickListener> itemClickListeners;
 
-    /** the class of the view holder element of the wrapper. */
+    /**
+     * the class of the view holder element of the wrapper.
+     */
     private Class<W> viewHolderClass;
 
-    /** the layout of the view holder of the wrapper. */
+    /**
+     * the layout of the view holder of the wrapper.
+     */
     private int viewHolderLayout;
 
-    /** the identifier of the layout replaced with the list item view. */
+    /**
+     * the identifier of the layout replaced with the list item view.
+     */
     private int innerItemId;
 
-    /** the identifier of the delete button in the layout of the view holder. */
+    /**
+     * the identifier of the delete button in the layout of the view holder.
+     */
     private int deleteId;
 
-    /** true if the views should be enabled. */
+    /**
+     * true if the views should be enabled.
+     */
     private boolean isEnabled = true;
 
     /**
      * Constructor.
-     * @param adapter the adapter to wrap
-     * @param viewHolderClass the class of the view holder
+     *
+     * @param adapter          the adapter to wrap
+     * @param viewHolderClass  the class of the view holder
      * @param viewHolderLayout the layout of the view holder
-     * @param innerItemId the identifier of the layout replaced with the list item view
-     * @param deleteId the identifier of the delete button in the layout
+     * @param innerItemId      the identifier of the layout replaced with the list item view
+     * @param deleteId         the identifier of the delete button in the layout
      */
     public WrapperAdapter(RecyclerView.Adapter adapter, Class<W> viewHolderClass, @LayoutRes int viewHolderLayout, @IdRes int innerItemId, @IdRes int deleteId) {
         this.adapter = adapter;
@@ -82,6 +104,7 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
 
     /**
      * Returns the wrapped adapter.
+     *
      * @return the wrapped adapter
      */
     public RecyclerView.Adapter getAdapter() {
@@ -128,6 +151,7 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
         holder.itemView.setTag(R.id.fixedlist_item_position, position);
         holder.itemView.setTag(R.id.fixedlist_item_root_view, true);
         holder.itemView.setOnClickListener(this);
+
     }
 
     @Override
@@ -138,9 +162,9 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
     @Override
     public void onClick(View v) {
         if (v.getTag(R.id.fixedlist_item_root_view) != null) {
-            this.notifyItemClickListeners((int)v.getTag(R.id.fixedlist_item_position));
-        } else if (v.getId() == deleteId){
-            this.notifyItemDeleteListeners((int)v.getTag(R.id.fixedlist_item_position));
+            this.notifyItemClickListeners((int) v.getTag(R.id.fixedlist_item_position));
+        } else if (v.getId() == deleteId) {
+            this.notifyItemDeleteListeners((int) v.getTag(R.id.fixedlist_item_position));
         }
     }
 
@@ -154,6 +178,7 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
 
     /**
      * Sets the enabled status of the widget on the adapter.
+     *
      * @param isEnabled true to enable the wrapper
      */
     public void setEnabled(boolean isEnabled) {
@@ -162,6 +187,7 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
 
     /**
      * Notifies the registered delete listeners.
+     *
      * @param position the position of the deleted item
      */
     private void notifyItemDeleteListeners(int position) {
@@ -174,6 +200,7 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
 
     /**
      * Notifies the registered click listeners.
+     *
      * @param position the position of the clicked item
      */
     private void notifyItemClickListeners(int position) {
@@ -186,6 +213,7 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
 
     /**
      * Adds a remove listener to the registered ones.
+     *
      * @param listener the listener to add
      */
     public void addRemoveListener(FixedListRemoveListener listener) {
@@ -194,9 +222,28 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
 
     /**
      * Adds a click listener to the the registered ones.
+     *
      * @param listener the listener to add
      */
     public void addItemClickListener(FixedListItemClickListener listener) {
         this.itemClickListeners.add(listener);
+    }
+
+    /**
+     * Method to compute fixedList height.
+     *
+     * @param v The viewGroup
+     * @return the height of the fixedList in order to be set in layout params
+     */
+    public int computeHeight(ViewGroup v) {
+        int height = 0;
+        for (int i = 0; i < this.getItemCount(); i++) {
+            W vh = this.createViewHolder(v, this.getItemViewType(i));
+            this.onBindViewHolder(vh, i);
+            v.addView(vh.itemView);
+            vh.itemView.measure(vh.itemView.getMeasuredWidth(), RecyclerView.LayoutParams.WRAP_CONTENT);
+            height += vh.itemView.getMeasuredHeight();
+        }
+        return height;
     }
 }

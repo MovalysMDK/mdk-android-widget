@@ -77,4 +77,12 @@ public interface HasMedia {
      * @param svg the modified photo svg
      */
     void setModifiedPhotoSvg(String svg);
+
+    /**
+     * Method to update MDKMedia with the Uri and Svg.
+     *
+     * @param uri The uri to set in MDKMedia
+     * @param svg The svg to set in MDKMedia
+     */
+    void updateMedia(Uri uri, String svg);
 }

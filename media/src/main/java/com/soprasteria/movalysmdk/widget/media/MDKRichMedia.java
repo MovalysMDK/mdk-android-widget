@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -66,13 +66,13 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
         //set inner widget width and height
         int hdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_height, 0);
         int wdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_width, 0);
-        if(hdp!=0 && wdp!=0) {
+        if (hdp != 0 && wdp != 0) {
             getInnerWidget().getLayoutParams().width = wdp;
             getInnerWidget().getLayoutParams().height = hdp;
             getInnerWidget().requestLayout();
         }
 
-        switch(AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, MDKMedia.TYPE_PHOTO)){
+        switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, MDKMedia.TYPE_PHOTO)) {
             case MDKMedia.TYPE_PHOTO:
                 setMediaType(MDKMedia.TYPE_PHOTO);
                 break;
@@ -141,5 +141,10 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
     @Override
     public void unregisterChangeListener(ChangeListener listener) {
         getInnerWidget().unregisterChangeListener(listener);
+    }
+
+    @Override
+    public void updateMedia(Uri uri, String svg) {
+        getInnerWidget().updateMedia(uri, svg);
     }
 }

@@ -276,7 +276,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     }
 
     /**
-     * Instanciates the widget delegate and initializes the attributes.
+     * Instantiate the widget delegate and initializes the attributes.
      *
      * @param context the context
      * @param attrs   attributes
@@ -293,6 +293,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         this.overlay = new WeakReference<>(findViewById(R.id.overlay));
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMediaComponent);
+        boolean useMDK = typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_mdk, true);
 
         switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, TYPE_PHOTO)) {
             case TYPE_PHOTO:
@@ -308,8 +309,11 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                 break;
         }
         setOverlayEnabled(isEnabled() && !isReadonly());
-
         setPlaceholder(AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_placeholder, 0));
+        // Add "mdk:use_mdk="false"" to your XML file if you don't want to use this component with MDK.
+        if (!useMDK) {
+            updateThumbnail();
+        }
 
         typedArray.recycle();
     }
@@ -814,9 +818,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         }
 
         this.placeholderRes = res;
-
-        updateThumbnail();
-
     }
 
     @Override
@@ -831,9 +832,20 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
 
     @Override
     public void setModifiedPhotoSvg(String svg) {
-        svgLayer = svg;
-        updateThumbnail();
-        mdkListenerDelegate.notifyListeners();
+        this.svgLayer = svg;
+        mDelayUriChangedHandler.removeMessages(MESSAGE_URI_CHANGED);
+        final Message msg = Message.obtain(mDelayUriChangedHandler, MESSAGE_URI_CHANGED);
+        mDelayUriChangedHandler.sendMessageDelayed(msg, SET_BITMAP_DELAY);
+        this.mdkListenerDelegate.notifyListeners();
+    }
+
+    @Override
+    public void updateMedia(Uri uri, String svg) {
+        this.svgLayer = svg;
+        this.mediaUri = uri;
+        mDelayUriChangedHandler.removeMessages(MESSAGE_URI_CHANGED);
+        final Message msg = Message.obtain(mDelayUriChangedHandler, MESSAGE_URI_CHANGED);
+        mDelayUriChangedHandler.sendMessageDelayed(msg, SET_BITMAP_DELAY);
     }
 
     @Override
@@ -900,12 +912,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                 setPlaceholder(placeholder);
             }
 
-            //restore uri(s)
-            Uri rawUri = bundle.getParcelable("raw_uri");
-            setMediaUri(rawUri);
 
             //restore modified photo svg
-            setModifiedPhotoSvg(bundle.getString("svg_layer"));
+            this.updateMedia((Uri) bundle.getParcelable("raw_uri"), bundle.getString("svg_layer"));
 
             // Restore the uid
             this.mdkWidgetDelegate.setUniqueId(bundle.getInt(UID_STATE));
@@ -946,15 +955,22 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         @Override
         protected Bitmap doInBackground(Void... params) {
             Bitmap bmp = null;
+            Context innerContext = null;
+            if (this.context != null) {
+                innerContext = context.get();
+            }
             if (MDKMedia.this.pxHeight > 0) {
                 try {
                     if (MDKMedia.this.mediaUri != null) {
-                        bmp = BitmapHelper.createViewBitmap(context.get(), MDKMedia.this.mediaUri, MDKMedia.this.svgLayer, MDKMedia.this.pxHeight);
+                        bmp = BitmapHelper.createViewBitmap(innerContext, MDKMedia.this.mediaUri, MDKMedia.this.svgLayer, MDKMedia.this.pxHeight);
                     } else {
-                        bmp = BitmapHelper.scaleBitmap(context.get(), MDKMedia.this.placeholderRes, MDKMedia.this.pxHeight);
+                        bmp = BitmapHelper.scaleBitmap(innerContext, MDKMedia.this.placeholderRes, MDKMedia.this.pxHeight);
                     }
                 } catch (IllegalArgumentException | IOException e) {
                     Log.w(this.getClass().getSimpleName(), "Error displaying bitmap: " + MDKMedia.this.mediaUri, e);
+                    bmp = BitmapHelper.scaleBitmap(innerContext, R.drawable.default_404_placeholder, MDKMedia.this.pxHeight);
+                    mediaUri = null;
+                    svgLayer = null;
                 }
             }
             return bmp;
@@ -963,12 +979,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         @Override
         protected void onPostExecute(final Bitmap result) {
             ImageView iv = getThumbnailView();
-            if (iv != null && iv.getWidth() > 0 && iv.getHeight() > 0) {
-                if (result != null) {
-                    iv.setImageBitmap(result);
-                } else {
-                    display404placeholder();
-                }
+            if (iv != null && iv.getWidth() > 0 && iv.getHeight() > 0 && result != null) {
+                iv.setImageBitmap(result);
             }
         }
 
@@ -989,6 +1001,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
      */
     private void updateThumbnail() {
         ImageView iv = getThumbnailView();
+        Log.i("lbo", "Update Thumbnail");
         if (iv != null) {
             iv.post(new Runnable() {
                 @Override
