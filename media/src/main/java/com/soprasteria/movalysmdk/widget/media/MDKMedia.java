@@ -128,6 +128,11 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     private boolean waitForListenerRegistration;
 
     /**
+     * Flag indicating if the popup is currently shown.
+     */
+    private boolean isFullscreenShown;
+
+    /**
      * Reference
      * private WeakReference<AlertDialog> fullPhotoDialog;
      * <p/>
@@ -490,61 +495,74 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         if (!isReadonly() && isEnabled() && getMediaUri() == null) {
             showContextMenu();
         } else if (!isReadonly() && isEnabled()) {
-
-            RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
-
-            try {
-                ((ImageView) rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, 1024));
-            } catch (IOException e) {
-                Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
-                display404placeholder();
-                return;
-            }
-
-            final Dialog dialog = new Dialog(getContext(), R.style.ViewerDialog);
-            dialog.setContentView(rl);
-
-            rl.findViewById(R.id.edit_button).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Starting photo edition
-                    Intent drawingIntent = new Intent(getContext(), DrawingLayoutActivity.class);
-                    drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, MDKMedia.this.mediaUri);
-                    drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_SVG_KEY, svgLayer);
-                    ActivityHelper.startActivityForResult(getContext(), drawingIntent, mdkWidgetDelegate.getUniqueId());
-
-                    dialog.dismiss();
-                }
-            });
-            rl.findViewById(R.id.delete_button).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog ad = new AlertDialog.Builder(getContext())
-                            .setMessage(getContext().getString(R.string.confirm_delete))
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface d, int which) {
-                                    reset();
-                                    dialog.dismiss();
-                                }
-                            }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface d, int which) {
-                                    // do nothing
-                                }
-                            }).create();
-                    ad.show();
-                }
-            });
-            rl.findViewById(R.id.back_button).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-            dialog.show();
+            showFullScreenPopUp();
         }
+    }
+
+    /**
+     * Shows a dialog containing a fullscreen-sized image of the media.
+     */
+    private void showFullScreenPopUp(){
+        RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
+
+        try {
+            ((ImageView) rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, 1024));
+        } catch (IOException e) {
+            Log.w(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
+            display404placeholder();
+            return;
+        }
+
+        final Dialog dialog = new Dialog(getContext(), R.style.ViewerDialog);
+        dialog.setContentView(rl);
+
+        rl.findViewById(R.id.edit_button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Starting photo edition
+                Intent drawingIntent = new Intent(getContext(), DrawingLayoutActivity.class);
+                drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_URI_KEY, MDKMedia.this.mediaUri);
+                drawingIntent.putExtra(DrawingLayoutActivity.REQUEST_SVG_KEY, svgLayer);
+                ActivityHelper.startActivityForResult(getContext(), drawingIntent, mdkWidgetDelegate.getUniqueId());
+
+                dialog.dismiss();
+            }
+        });
+        rl.findViewById(R.id.delete_button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog ad = new AlertDialog.Builder(getContext())
+                        .setMessage(getContext().getString(R.string.confirm_delete))
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface d, int which) {
+                                reset();
+                                dialog.dismiss();
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface d, int which) {
+                                // do nothing
+                            }
+                        }).create();
+                ad.show();
+            }
+        });
+        rl.findViewById(R.id.back_button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                isFullscreenShown = false;
+            }
+        });
+
+        dialog.show();
+        isFullscreenShown = true;
     }
 
     @Override
@@ -864,6 +882,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         bundle.putParcelable("raw_uri", mediaUri);
         bundle.putParcelable("tmp_uri", tempFileUri);
         bundle.putString("svg_layer", svgLayer);
+        bundle.putBoolean("fullscreen",isFullscreenShown);
 
         bundle.putInt(UID_STATE, mdkWidgetDelegate.getUniqueId());
 
@@ -918,6 +937,11 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
 
             // Restore the uid
             this.mdkWidgetDelegate.setUniqueId(bundle.getInt(UID_STATE));
+
+            //restore fullscreen state
+            if(bundle.getBoolean("fullscreen")){
+                showFullScreenPopUp();
+            }
 
             //re-register as handler
             MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
@@ -1001,7 +1025,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
      */
     private void updateThumbnail() {
         ImageView iv = getThumbnailView();
-        Log.i("lbo", "Update Thumbnail");
         if (iv != null) {
             iv.post(new Runnable() {
                 @Override
