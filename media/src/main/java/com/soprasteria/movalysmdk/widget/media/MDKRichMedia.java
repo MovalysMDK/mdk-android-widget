@@ -72,6 +72,8 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
             getInnerWidget().requestLayout();
         }
 
+        getInnerWidget().setUseMDK(typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_mdk, true));
+
         switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, MDKMedia.TYPE_PHOTO)) {
             case MDKMedia.TYPE_PHOTO:
                 setMediaType(MDKMedia.TYPE_PHOTO);

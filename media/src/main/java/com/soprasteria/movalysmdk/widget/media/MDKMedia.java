@@ -133,6 +133,11 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     private boolean isFullscreenShown;
 
     /**
+     * Flag indicating if the mdk framework is used, for optimization purposes.
+     */
+    private boolean useMDK;
+
+    /**
      * Reference
      * private WeakReference<AlertDialog> fullPhotoDialog;
      * <p/>
@@ -298,7 +303,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         this.overlay = new WeakReference<>(findViewById(R.id.overlay));
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMediaComponent);
-        boolean useMDK = typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_mdk, true);
+        this.useMDK = typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_mdk, true);
 
         switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, TYPE_PHOTO)) {
             case TYPE_PHOTO:
@@ -315,10 +320,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         }
         setOverlayEnabled(isEnabled() && !isReadonly());
         setPlaceholder(AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_placeholder, 0));
-        // Add "mdk:use_mdk="false"" to your XML file if you don't want to use this component with MDK.
-        if (!useMDK) {
-            updateThumbnail();
-        }
 
         typedArray.recycle();
     }
@@ -327,6 +328,11 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+
+        // Add "mdk:use_mdk="false"" to your XML file if you don't want to use this component with MDK.
+        if (!useMDK) {
+            updateThumbnail();
+        }
 
         //register as handler
         MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
@@ -818,6 +824,22 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         this.mediaType = type;
     }
 
+    /**
+     * Tells if  mdk framework is used.
+     * @return true if the mdk is used.
+     */
+    public boolean isMDKUsed() {
+        return useMDK;
+    }
+
+    /**
+     * Sets the usage of the MDK framework.
+     * @param useMDK boolean indicating if the MDK framework is used.
+     */
+    public void setUseMDK(boolean useMDK) {
+        this.useMDK = useMDK;
+    }
+
     @Override
     public void setPlaceholder(int drawableRes) {
         int res = drawableRes;
@@ -882,7 +904,8 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         bundle.putParcelable("raw_uri", mediaUri);
         bundle.putParcelable("tmp_uri", tempFileUri);
         bundle.putString("svg_layer", svgLayer);
-        bundle.putBoolean("fullscreen",isFullscreenShown);
+        bundle.putBoolean("fullscreen", isFullscreenShown);
+        bundle.putBoolean("use_mdk", useMDK);
 
         bundle.putInt(UID_STATE, mdkWidgetDelegate.getUniqueId());
 
@@ -894,6 +917,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     public void onRestoreInstanceState(Parcelable state) {
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
+
+            //restore use mdk
+            this.useMDK = bundle.getBoolean("use_mdk");
 
             //restore media type
             int type = bundle.getInt("type");
@@ -927,13 +953,15 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
 
             //restore placeholder
             int placeholder = bundle.getInt("placeholder");
-            if (placeholder != 0) {
+            if (placeholder != 0 ) {
                 setPlaceholder(placeholder);
             }
 
 
             //restore modified photo svg
-            this.updateMedia((Uri) bundle.getParcelable("raw_uri"), bundle.getString("svg_layer"));
+            if (!useMDK) {
+                this.updateMedia((Uri) bundle.getParcelable("raw_uri"), bundle.getString("svg_layer"));
+            }
 
             // Restore the uid
             this.mdkWidgetDelegate.setUniqueId(bundle.getInt(UID_STATE));
