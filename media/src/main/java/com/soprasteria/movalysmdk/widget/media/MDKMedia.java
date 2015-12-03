@@ -133,9 +133,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     private boolean isFullscreenShown;
 
     /**
-     * Flag indicating if the mdk framework is used, for optimization purposes.
+     * Flag indicating if the image initialisation is used, for optimization purposes.
      */
-    private boolean useMDK;
+    private boolean useInitImage;
 
     /**
      * Reference
@@ -303,7 +303,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         this.overlay = new WeakReference<>(findViewById(R.id.overlay));
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMediaComponent);
-        this.useMDK = typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_mdk, true);
+        this.useInitImage = typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_init_image, false);
 
         switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, TYPE_PHOTO)) {
             case TYPE_PHOTO:
@@ -330,7 +330,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         super.onAttachedToWindow();
 
         // Add "mdk:use_mdk="false"" to your XML file if you don't want to use this component with MDK.
-        if (!useMDK) {
+        if (useInitImage) {
             updateThumbnail();
         }
 
@@ -508,7 +508,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     /**
      * Shows a dialog containing a fullscreen-sized image of the media.
      */
-    private void showFullScreenPopUp(){
+    private void showFullScreenPopUp() {
         RelativeLayout rl = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.media_viewer_layout, null);
 
         try {
@@ -825,19 +825,21 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     }
 
     /**
-     * Tells if  mdk framework is used.
+     * Tells if image initialisation is used.
+     *
      * @return true if the mdk is used.
      */
-    public boolean isMDKUsed() {
-        return useMDK;
+    public boolean isImageInit() {
+        return useInitImage;
     }
 
     /**
-     * Sets the usage of the MDK framework.
-     * @param useMDK boolean indicating if the MDK framework is used.
+     * Sets the usage of the image initialisation.
+     *
+     * @param useInitImage boolean indicating if the MDK framework is used.
      */
-    public void setUseMDK(boolean useMDK) {
-        this.useMDK = useMDK;
+    public void setUseInitImage(boolean useInitImage) {
+        this.useInitImage = useInitImage;
     }
 
     @Override
@@ -905,7 +907,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         bundle.putParcelable("tmp_uri", tempFileUri);
         bundle.putString("svg_layer", svgLayer);
         bundle.putBoolean("fullscreen", isFullscreenShown);
-        bundle.putBoolean("use_mdk", useMDK);
+        bundle.putBoolean("use_mdk", useInitImage);
 
         bundle.putInt(UID_STATE, mdkWidgetDelegate.getUniqueId());
 
@@ -919,7 +921,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             Bundle bundle = (Bundle) state;
 
             //restore use mdk
-            this.useMDK = bundle.getBoolean("use_mdk");
+            this.useInitImage = bundle.getBoolean("use_mdk");
 
             //restore media type
             int type = bundle.getInt("type");
@@ -953,13 +955,13 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
 
             //restore placeholder
             int placeholder = bundle.getInt("placeholder");
-            if (placeholder != 0 ) {
+            if (placeholder != 0) {
                 setPlaceholder(placeholder);
             }
 
 
             //restore modified photo svg
-            if (!useMDK) {
+            if (useInitImage) {
                 this.updateMedia((Uri) bundle.getParcelable("raw_uri"), bundle.getString("svg_layer"));
             }
 
@@ -967,7 +969,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             this.mdkWidgetDelegate.setUniqueId(bundle.getInt(UID_STATE));
 
             //restore fullscreen state
-            if(bundle.getBoolean("fullscreen")){
+            if (bundle.getBoolean("fullscreen")) {
                 showFullScreenPopUp();
             }
 

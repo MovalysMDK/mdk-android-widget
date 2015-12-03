@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -523,6 +522,7 @@
         <item name="android:textStyle">?attr/mdk_b_errorTextStyle</item>
         <item name="android:background">?attr/mdk_b_errorBackground</item>
         <item name="android:tint">?attr/mdk_b_errorTint</item>
+        <item name="android:visibility">gone</item>
     </style>
 
     <!-- Command component style -->
@@ -559,8 +559,7 @@
 
     <!-- RichLayout component style -->
     <style name="MDKRichLayout" parent="Base.MDKValue">
-        <item name="android:tint">?attr/mdk_b_richLayoutTint</item>
-        <item name="android:background">?attr/mdk_b_richLayoutBackground</item>
+        <item name="android:padding">@dimen/MDKRichLayoutPadding</item>
     </style>
 
     <!-- MDKSeekBar Style-->

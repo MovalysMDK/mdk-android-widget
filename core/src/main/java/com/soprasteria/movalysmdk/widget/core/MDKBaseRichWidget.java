@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -46,11 +46,12 @@ import java.util.List;
  * MDK Rich Widget.
  * <p>A rich widget adds the following features on an base widget :</p>
  * <ul>
- *     <li>label (with floating label)</li>
- *     <li>hint</li>
- *     <li>error/helper</li>
+ * <li>label (with floating label)</li>
+ * <li>hint</li>
+ * <li>error/helper</li>
  * </ul>
  * <p>The layout can be customized with the attribute mdk:layout</p>
+ *
  * @param <T> the type of inner widget for the rich widget
  */
 public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, MDKTechnicalWidgetDelegate, HasValidator {
@@ -61,32 +62,37 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
      */
     protected T innerWidget;
 
-    /** the error view. */
+    /**
+     * the error view.
+     */
     protected MDKMessageWidget errorView;
-    
-    /** The string resource id for the hint. */
+
+    /**
+     * The string resource id for the hint.
+     */
     private int resHintId;
 
     /**
      * Constructor.
-     * @param layoutWithLabelId layoutWithLabelId
+     *
+     * @param layoutWithLabelId    layoutWithLabelId
      * @param layoutWithoutLabelId layoutWithoutLabelId
-     * @param context the context
-     * @param attrs attributes
+     * @param context              the context
+     * @param attrs                attributes
      */
     public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(context, attrs);
-
         init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
     }
 
     /**
      * Constructor.
-     * @param layoutWithLabelId layoutWithLabelId
+     *
+     * @param layoutWithLabelId    layoutWithLabelId
      * @param layoutWithoutLabelId layoutWithoutLabelId
-     * @param context the context
-     * @param attrs attributes
-     * @param defStyleAttr the style
+     * @param context              the context
+     * @param attrs                attributes
+     * @param defStyleAttr         the style
      */
     public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -96,15 +102,26 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
 
     /**
      * Initialise rich widget.
-     * @param context the context
-     * @param attrs the attribute set
-     * @param layoutWithLabelId the layout id for the widget with label
+     *
+     * @param context              the context
+     * @param attrs                the attribute set
+     * @param layoutWithLabelId    the layout id for the widget with label
      * @param layoutWithoutLabelId the layout id for the widget without label
      */
     private void init(Context context, AttributeSet attrs, @LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId) {
 
         // replace the creation of the state drawable
         this.setAddStatesFromChildren(true);
+
+        // The attributes you want retrieved
+        int[] styledAttrs = {android.R.attr.padding};
+
+        // Parse MyCustomStyle, using Context.obtainStyledAttributes()
+        TypedArray ta = context.obtainStyledAttributes(R.style.MDKRichLayout, styledAttrs);
+        int padding = (int) ta.getDimension(0, -1f);
+        if (padding != -1) {
+            this.setPadding(padding, padding, padding, padding);
+        }
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         // parse label attribute
@@ -122,7 +139,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
             // get innerWidget component
             this.innerWidget = (T) this.findViewById(R.id.component_internal);
 
-            ((View)this.innerWidget).setSaveFromParentEnabled(false);
+            ((View) this.innerWidget).setSaveFromParentEnabled(false);
 
             // get label component if exists
             TextView labelView = (TextView) this.findViewById(R.id.component_label);
@@ -175,6 +192,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     /**
      * Override the default android setEnable on view and call the inner component setEnable.
      * We disable the component in order to have the opportunity to add a selector on a rich component.
+     *
      * @param enabled Enable or not the view
      */
     @Override
@@ -185,12 +203,13 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
 
     /**
      * inflate the widget layout.
-     * @param context the android context
-     * @param attrs the xml attributes
-     * @param layoutWithLabelId the layout with label
+     *
+     * @param context              the android context
+     * @param attrs                the xml attributes
+     * @param layoutWithLabelId    the layout with label
      * @param layoutWithoutLabelId the layout without label
-     * @param customLayoutId a custom layout
-     * @param resLabelId a res label id
+     * @param customLayoutId       a custom layout
+     * @param resLabelId           a res label id
      */
     private void inflateLayout(Context context, AttributeSet attrs, int layoutWithLabelId, int layoutWithoutLabelId, int customLayoutId, int resLabelId) {
         // inflate component layout
@@ -208,6 +227,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
 
     /**
      * Initialise the attribute map for the widget.
+     *
      * @param attrs the xml attributes
      */
     private void initAttributeMap(AttributeSet attrs) {
@@ -220,17 +240,20 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
 
     /**
      * Getter for the inner widget of the rich widget.
+     *
      * @return the inner widget
      */
-    public T getInnerWidget()   {
+    public T getInnerWidget() {
         return this.innerWidget;
     }
 
     /**
      * Return resource's hint id.
+     *
      * @return resHintId the res hint id
      */
-    @StringRes public int getResHintId() {
+    @StringRes
+    public int getResHintId() {
         return this.resHintId;
     }
 
@@ -272,7 +295,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     public void clearError() {
         this.getInnerWidget().clearError();
     }
-    
+
     @Override
     public int[] getValidators() {
         return new int[0];
@@ -324,8 +347,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
 
     /**
      * Save all subviews states on rich widget.
+     *
      * @param viewGroup the ViewGroup to save
-     * @param states the state so save
+     * @param states    the state so save
      */
     private void saveAll(ViewGroup viewGroup, SparseArray states) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
@@ -347,8 +371,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
 
     /**
      * Restore all subviews states on rich widget.
+     *
      * @param viewGroup the ViewGroup to restore
-     * @param state the state to restore
+     * @param state     the state to restore
      */
     private void restoreAll(ViewGroup viewGroup, SparseArray state) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {

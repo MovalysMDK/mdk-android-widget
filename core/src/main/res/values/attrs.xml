@@ -325,7 +325,7 @@
     <!-- MDKMedia specific attributes -->
     <declare-styleable name="MDKCommons.MDKMediaComponent">
         <attr name="placeholder" format="reference" />
-        <attr name="use_mdk" format="boolean" />
+        <attr name="use_init_image" format="boolean" />
         <attr name="media_type" forma="enum">
             <enum name="photo" value="0" />
             <enum name="video" value="1" />

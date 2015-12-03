@@ -20,5 +20,6 @@
 
     <dimen name="commandWidth">50dp</dimen>
     <dimen name="commandHeight">50dp</dimen>
+    <dimen name="MDKRichLayoutPadding">5dp</dimen>
 
 </resources>

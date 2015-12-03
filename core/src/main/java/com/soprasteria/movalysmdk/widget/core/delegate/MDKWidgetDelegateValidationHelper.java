@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -48,7 +48,8 @@ public class MDKWidgetDelegateValidationHelper {
      * Returns a List of FormFieldValidator to use based on the Set of attributes passed as
      * parameters.
      * (component, qualifier)
-     * @param rootView the view to validate
+     *
+     * @param rootView    the view to validate
      * @param widgetAttrs a Set of integer representing R.attr.* attributes to validate
      * @return a List of FormFieldValidator tha can validate the Set of parameters
      */
@@ -65,7 +66,8 @@ public class MDKWidgetDelegateValidationHelper {
 
     /**
      * Return the FormFieldValidator for the String key passed as parameter.
-     * @param rootView the view to validate
+     *
+     * @param rootView     the view to validate
      * @param validatorKey the key of the validator
      * @return the FormFieldValidator associated to the parameter key
      */
@@ -85,8 +87,9 @@ public class MDKWidgetDelegateValidationHelper {
     /**
      * Validate the linked widget with the mandatory FormFieldValidator and the optional
      * FormFieldValidator linked to the widget attributes.
-     * @param delegate the delegate of the view being validated
-     * @param setError true if the error must be set at validation, false otherwise
+     *
+     * @param delegate       the delegate of the view being validated
+     * @param setError       true if the error must be set at validation, false otherwise
      * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if all validators passed, false otherwise
      */
@@ -104,7 +107,7 @@ public class MDKWidgetDelegateValidationHelper {
             // get the validation object
             Object objectToValidate = null;
             if (v instanceof HasValidator) {
-                objectToValidate = ((HasValidator)v).getValueToValidate();
+                objectToValidate = ((HasValidator) v).getValueToValidate();
             }
 
             // we have to clear all errors before validation
@@ -115,7 +118,7 @@ public class MDKWidgetDelegateValidationHelper {
             // run "mandatory" validator defined by the widget
             if (v instanceof HasValidator) {
                 int[] validatorsResKey = ((HasValidator) v).getValidators();
-                if(validatorsResKey!=null){
+                if (validatorsResKey != null) {
                     for (int validatorRes : validatorsResKey) {
                         // this get the last part of the resource name
                         String validatorKey = v.getContext().getResources().getResourceName(validatorRes).split("/")[1];
@@ -133,7 +136,7 @@ public class MDKWidgetDelegateValidationHelper {
             }
 
             // set Errors
-            if (setError) {
+            if (isErrorToAdd(setError, returnMessages)) {
                 delegate.addError(returnMessages);
             }
 
@@ -149,19 +152,31 @@ public class MDKWidgetDelegateValidationHelper {
     }
 
     /**
+     * Method to indicate if there is an error to add.
+     *
+     * @param setError       true if the error must be set at validation, false otherwise
+     * @param returnMessages the error message
+     * @return the boolean to test if there is an error to add
+     */
+    private static boolean isErrorToAdd(boolean setError, MDKMessages returnMessages) {
+        return setError && returnMessages.getErrorMessage() != null && returnMessages.getErrorMessage().length() != 0;
+    }
+
+    /**
      * Execute a FormFieldValidator.
-     * @param validator the FormFieldValidator to execute
+     *
+     * @param validator        the FormFieldValidator to execute
      * @param objectToValidate the object to validate
-     * @param validatingView the view of the widget to accept on FormFieldValidator
-     * @param attributesMap a Map containing widget attributes for validation
-     * @param returnMap a Map containing previous validation errors
-     * @param context the context to use
-     * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
+     * @param validatingView   the view of the widget to accept on FormFieldValidator
+     * @param attributesMap    a Map containing widget attributes for validation
+     * @param returnMap        a Map containing previous validation errors
+     * @param context          the context to use
+     * @param validationMode   Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if the FormFieldValidator return no error, false otherwise
      */
     public static boolean executeValidator(FormFieldValidator validator, Object objectToValidate, View validatingView,
-                                    MDKAttributeSet attributesMap, MDKMessages returnMap,
-                                    @EnumFormFieldValidator.EnumValidationMode int validationMode, Context context) {
+                                           MDKAttributeSet attributesMap, MDKMessages returnMap,
+                                           @EnumFormFieldValidator.EnumValidationMode int validationMode, Context context) {
         boolean bValid = true;
         if (validator.accept(validatingView)) {
             MDKMessage mdkMessage = validator.validate(objectToValidate, attributesMap, returnMap, validationMode, context);

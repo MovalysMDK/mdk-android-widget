@@ -72,7 +72,7 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
             getInnerWidget().requestLayout();
         }
 
-        getInnerWidget().setUseMDK(typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_mdk, true));
+        getInnerWidget().setUseInitImage(typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_init_image, true));
 
         switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, MDKMedia.TYPE_PHOTO)) {
             case MDKMedia.TYPE_PHOTO:

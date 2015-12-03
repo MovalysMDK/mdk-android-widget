@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
- *
+ * <p/>
  * This file is part of Movalys MDK.
  * Movalys MDK is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -48,9 +48,13 @@ import java.util.Set;
  */
 public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate, MDKTechnicalInnerWidgetDelegate {
 
-    /** Enable extras validation state. */
+    /**
+     * Enable extras validation state.
+     */
     public static final String EXTRA_VALID = "valid";
-    /** Enable extras widget id. */
+    /**
+     * Enable extras widget id.
+     */
     public static final String EXTRA_WIDGET_ID = "widgetId";
     /**
      * delegate value object.
@@ -59,7 +63,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Constructor.
-     * @param view the view
+     *
+     * @param view  the view
      * @param attrs the parameters set
      */
     public MDKWidgetDelegate(View view, AttributeSet attrs) {
@@ -68,6 +73,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Returns the {@link MDKAttributeSet} set on the delegate.
+     *
      * @return the {@link MDKAttributeSet} of the delegate
      */
     public MDKAttributeSet getAttributeMap() {
@@ -76,6 +82,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Sets the {@link MDKAttributeSet} of the delegate.
+     *
      * @param attributeMap the {@link MDKAttributeSet} to set on the delegate
      */
     public void setAttributeMap(MDKAttributeSet attributeMap) {
@@ -84,6 +91,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Return the unique id of the widget.
+     *
      * @return the unique id of the widget
      */
     @Override
@@ -93,6 +101,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set a unique id to the widget from a view.
+     *
      * @param parentId the parent id
      */
     @Override
@@ -102,6 +111,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Provide the context of the widget.
+     *
      * @return the widget context
      */
     @Override
@@ -115,6 +125,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * This function finds the view with the given identifier in the parents of the inner widget.
+     *
      * @param id the identifier to look for
      * @return oView the root view
      */
@@ -146,20 +157,30 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set error.
+     *
      * @param error the new error
      */
     public void setError(CharSequence error) {
         if (this.valueObject.getErrorViewId() != 0) {
-            MDKWidgetDelegateErrorHelper.setError(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), error, this.getContext());
+            View errorView = this.reverseFindViewById(this.valueObject.getErrorViewId());
+            if (error != null && error.length() != 0 && errorView != null && errorView.getVisibility() == View.GONE) {
+                errorView.setVisibility(View.VISIBLE);
+            }
+            MDKWidgetDelegateErrorHelper.setError(errorView, this.valueObject, this.getLabel(), error, this.getContext());
         }
     }
 
     /**
      * Set error.
+     *
      * @param messages the messages to set
      */
     public void addError(MDKMessages messages) {
         if (this.valueObject.getErrorViewId() != 0) {
+            View errorView = this.reverseFindViewById(this.valueObject.getErrorViewId());
+            if (errorView != null && errorView.getVisibility() == View.GONE) {
+                errorView.setVisibility(View.VISIBLE);
+            }
             MDKWidgetDelegateErrorHelper.displayMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), messages, this.getContext());
         }
     }
@@ -169,6 +190,10 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      */
     public void clearError() {
         if (this.valueObject.getErrorViewId() != 0) {
+            View errorView = this.reverseFindViewById(this.valueObject.getErrorViewId());
+            if (errorView != null && errorView.getVisibility() == View.VISIBLE) {
+                errorView.setVisibility(View.GONE);
+            }
             MDKWidgetDelegateErrorHelper.clearMessages(this.reverseFindViewById(this.valueObject.getErrorViewId()), this.valueObject, this.getLabel(), this.getContext());
         }
     }
@@ -195,6 +220,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set the label's identifier of the MDK delegate widget to which it is attached to.
+     *
      * @param labelId the label's id of a view
      */
     @Override
@@ -204,6 +230,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set the helper's view identifier of the MDK delegate widget to which it is attached to.
+     *
      * @param helperId the helper's id of a view
      */
     @Override
@@ -213,6 +240,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set the error's identifier of the MDK delegate widget to which it is attached to.
+     *
      * @param errorId the error's id of a view
      */
     @Override
@@ -223,6 +251,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     /**
      * Handles the creation of a drawable state event.
      * Add additional states as needed.
+     *
      * @param extraSpace new state to add to MDK widget
      * @return new drawable state
      */
@@ -230,7 +259,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     public int[] superOnCreateDrawableState(int extraSpace) {
         int[] state = null;
         View v = this.valueObject.getView();
-        if(v != null && v instanceof MDKWidget) {
+        if (v != null && v instanceof MDKWidget) {
             int stateSpace = this.getStateLength(extraSpace);
             state = ((MDKWidget) v).superOnCreateDrawableState(stateSpace);
             int[] mdkState = this.getWidgetState();
@@ -244,7 +273,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Merge state values with additionalState into the base state values.
-     * @param baseState initial drawable state
+     *
+     * @param baseState       initial drawable state
      * @param additionalState additional drawable state to merge with
      */
     @Override
@@ -254,6 +284,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Get state length.
+     *
      * @param extraSpace extra space
      * @return length the state length
      */
@@ -263,6 +294,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Get widget state.
+     *
      * @return the widget state
      */
     public int[] getWidgetState() {
@@ -283,7 +315,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
         state = new int[stateList.size()];
 
-        for (int i=0; i<stateList.size(); i++) {
+        for (int i = 0; i < stateList.size(); i++) {
             state[i] = stateList.get(i);
         }
 
@@ -292,10 +324,11 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Call rich selector.
+     *
      * @param state the state
      */
     public void callRichSelector(int[] state) {
-        for (String selectorKey: this.valueObject.getRichSelectors()) {
+        for (String selectorKey : this.valueObject.getRichSelectors()) {
             if (this.getContext().getApplicationContext() instanceof MDKWidgetApplication) {
                 RichSelector selector = ((MDKWidgetApplication) this.getContext().getApplicationContext())
                         .getMDKWidgetComponentProvider().getRichValidator(this.getContext(), selectorKey);
@@ -306,6 +339,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set the valid parameter.
+     *
      * @param valid valid
      */
     public void setValid(boolean valid) {
@@ -318,6 +352,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Get the label.
+     *
      * @return CharSequence the label
      */
     public CharSequence getLabel() {
@@ -332,6 +367,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Set the label.
+     *
      * @param label the new label
      */
     public void setLabel(CharSequence label) {
@@ -345,6 +381,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Return true if the MDK widget is mandatory.
+     *
      * @return boolean depending on mandatory state
      */
     @Override
@@ -364,6 +401,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Return true if the MDK widget is editable.
+     *
      * @return boolean depending on editable state
      */
     @Override
@@ -375,6 +413,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
      * Returns a List of FormFieldValidator to use based on the Set of attributes passed as
      * parameters.
      * (component, qualifier)
+     *
      * @param widgetAttrs a Set of integer representing R.attr.* attributes to validate
      * @return a List of FormFieldValidator tha can validate the Set of parameters
      */
@@ -385,7 +424,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     /**
      * Validate the linked widget with the mandatory FormFieldValidator and the optional
      * FormFieldValidator linked to the widget attributes.
-     * @param setError true if the error must be set at validation, false otherwise
+     *
+     * @param setError       true if the error must be set at validation, false otherwise
      * @param validationMode Enumerate according validation mode: VALIDATE, ON_FOCUS, ON_USER
      * @return true if all validators passed, false otherwise
      */
@@ -394,8 +434,8 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     }
 
     /**
-     *
      * Notify the command listeners registered.
+     *
      * @param bValid true if the validation is ok, false otherwise
      */
     protected void notifyValidationListeners(boolean bValid) {
@@ -410,8 +450,9 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Play the animation if it is visible.
+     *
      * @param labelTextView the label testView
-     * @param visibility the visibility
+     * @param visibility    the visibility
      */
     private void playAnimIfVisible(TextView labelTextView, int visibility) {
         Animation anim = null;
@@ -431,9 +472,10 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Play the animation if necessary.
+     *
      * @param labelTextView the label textview
-     * @param visibility the visibility
-     * @param playAnim the play anim toggle
+     * @param visibility    the visibility
+     * @param playAnim      the play anim toggle
      */
     private void playAnimIfNecessary(TextView labelTextView, int visibility, boolean playAnim) {
         // labelTextView should never be null
@@ -448,11 +490,12 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     /**
      * Sets the floating label visibility, and play the showFloatingLabelAnim.
      * or hideFloatingLabelAnim if asked
+     *
      * @param visibility the visibility
-     * @param playAnim the play anim toggle
+     * @param playAnim   the play anim toggle
      */
-    public void setLabelVisibility(int visibility, boolean playAnim){
-        if(this.valueObject.getLabelViewId() != 0) {
+    public void setLabelVisibility(int visibility, boolean playAnim) {
+        if (this.valueObject.getLabelViewId() != 0) {
             TextView labelView = (TextView) this.reverseFindViewById(this.valueObject.getLabelViewId());
             playAnimIfNecessary(labelView, visibility, playAnim);
         }
@@ -460,6 +503,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * onSaveInstanceState method.
+     *
      * @param superState the super state.
      * @return mdkWidgetDelegateSavedState mdkWidgetDelegateSavedState
      */
@@ -476,17 +520,18 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * onRestoreInstanceState method.
-     * @param view the view
+     *
+     * @param view  the view
      * @param state the state
      * @return Parcelable the state
      */
     public Parcelable onRestoreInstanceState(View view, Parcelable state) {
-        if(!(state instanceof MDKWidgetDelegateSavedState)) {
+        if (!(state instanceof MDKWidgetDelegateSavedState)) {
             return state;
         }
 
         // we restore the delegate's data
-        MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = (MDKWidgetDelegateSavedState)state;
+        MDKWidgetDelegateSavedState mdkWidgetDelegateSavedState = (MDKWidgetDelegateSavedState) state;
         mdkWidgetDelegateSavedState.restoreValueObject(this.valueObject);
 
         // we restore errors from the MDKWidgetDelegateSavedState if necessary (ie if the error view is a TextView)
@@ -498,6 +543,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     /**
      * Add a ValidationListener.
      * This listener will be called on each call of the MDKWidgetDelegate#validate.
+     *
      * @param validationListener the ValidationListener to add
      */
     public void addValidationListener(ValidationListener validationListener) {
@@ -511,6 +557,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
 
     /**
      * Returns the widget error view, or null if the widget has none.
+     *
      * @return the widget error view, or null if the widget has none
      */
     public View getErrorView() {
