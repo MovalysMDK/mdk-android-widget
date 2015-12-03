@@ -25,12 +25,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.helper.ActivityHelper;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHandler;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetComponentActionHelper;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
-import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWidgetDelegate;
 
 
@@ -69,10 +69,10 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     private Marker[] markers;
 
     /** identifier of the message "text changed". */
-    private static final int MESSAGE_TEXT_CHANGED = 0;
+    public static final int MESSAGE_UPDATE = 0;
 
     /** delay used before value is updated. */
-    private static final int UPDATE_DELAY = 200;
+    public static final int UPDATE_DELAY = 200;
 
     /** Keyword instanceState. */
     private static final String UID_STATE = "uidState";
@@ -80,11 +80,19 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     /** Keyword innerState. */
     private static final String INNER_STATE = "innerState";
 
+    /**
+     * Getter for the delayed update handler.
+     * @return the handler
+     */
+    protected Handler getDelayUpdateMapHandler() {
+        return delayUpdateMapHandler;
+    }
+
     /** Handler for text change cool down. */
-    private Handler delayTextChangedHandler = new Handler() {
+    private Handler delayUpdateMapHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == MESSAGE_TEXT_CHANGED) {
+            if (msg.what == MESSAGE_UPDATE) {
                 updateLocationOnTextChanged();
                 updateOnMapDisplay();
             }
@@ -171,9 +179,9 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (!this.writingData) {
-            delayTextChangedHandler.removeMessages(MESSAGE_TEXT_CHANGED);
-            final Message msg = Message.obtain(delayTextChangedHandler, MESSAGE_TEXT_CHANGED, s);
-            delayTextChangedHandler.sendMessageDelayed(msg, UPDATE_DELAY);
+            delayUpdateMapHandler.removeMessages(MESSAGE_UPDATE);
+            final Message msg = Message.obtain(delayUpdateMapHandler, MESSAGE_UPDATE, s);
+            delayUpdateMapHandler.sendMessageDelayed(msg, UPDATE_DELAY);
         }
     }
 
@@ -251,15 +259,17 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
 
         boolean isValid = !this.getPosition().isNull();
 
+        if(markers!=null && markers.length>0) {
         /* location marker */
-        this.markers[LOCATION_MARKER].setVisible(
-                isValid
-        );
+            this.markers[LOCATION_MARKER].setVisible(
+                    isValid
+            );
 
         /* address marker */
-        this.markers[ADDRESS_MARKER].setVisible(
-                isValid
-        );
+            this.markers[ADDRESS_MARKER].setVisible(
+                    isValid
+            );
+        }
     }
 
     /* delegate accelerator methods */
@@ -300,7 +310,10 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     @Override
     public void setLocation(Location location) {
         super.setLocation(location);
-        updateOnMapDisplay();
+
+        delayUpdateMapHandler.removeMessages(MESSAGE_UPDATE);
+        final Message msg = Message.obtain(delayUpdateMapHandler, MESSAGE_UPDATE, null);
+        delayUpdateMapHandler.sendMessageDelayed(msg, UPDATE_DELAY);
     }
 
     /* save / restore */
@@ -335,7 +348,9 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
             super.onRestoreInstanceState(state);
         }
 
-        updateOnMapDisplay();
+        delayUpdateMapHandler.removeMessages(MESSAGE_UPDATE);
+        final Message msg = Message.obtain(delayUpdateMapHandler, MESSAGE_UPDATE, null);
+        delayUpdateMapHandler.sendMessageDelayed(msg, UPDATE_DELAY);
     }
 
     /* handle activity results */

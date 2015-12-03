@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.soprasteria.movalysmdk.widget.position.delegate.MDKPositionWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.positionmaps.R;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Delegate for the {@link MDKMapsPositionWidgetDelegate} widget.
@@ -42,6 +45,9 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     /** the drawable resource to use as the address marker. */
     private int addressMarker;
 
+    /** weak reference to the map view. */
+    private WeakReference<View> weakMapView;
+
     /**
      * Constructor.
      * @param root the root view
@@ -65,7 +71,13 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
         this.addressMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_addressMarker, 0);
 
         // we initialize the map
-        initMap(root);
+        View mapView = root.findViewById(R.id.component_internal_map);
+
+        if (mapView instanceof MapView) {
+            initMap(root, (MapView) mapView);
+        }
+
+        this.weakMapView = new WeakReference<>(mapView);
 
         typedArray.recycle();
     }
@@ -73,12 +85,9 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
     /**
      * Initializes the map widget and the markers.
      * @param root the root view
+     * @param mapView the map view to initialize
      */
-    private void initMap(ViewGroup root) {
-        // initialize the map
-
-        MapView mapView = (MapView) root.findViewById(R.id.component_internal_map);
-
+    private void initMap(ViewGroup root, MapView mapView) {
         try {
             mapView.onCreate(null);
             //without this, map showed but was empty
@@ -101,7 +110,6 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
 
             // optimization
             mapView.setPersistentDrawingCache(MapView.PERSISTENT_ALL_CACHES);
-
         } catch (RuntimeException e) {
             // this is most probably an API key problem. We notify the user
             Log.e(this.getClass().getSimpleName(), root.getContext().getString(R.string.maps_api_error_title), e);
@@ -189,8 +197,18 @@ public class MDKMapsPositionWidgetDelegate extends MDKPositionWidgetDelegate {
      * @param zoom the zoom to set
      */
     public void setZoom(int zoom) {
-        this.zoom = zoom;
-        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomBy(zoom);
-        map.animateCamera(cameraUpdate);
+        if(map!=null) {
+            this.zoom = zoom;
+            CameraUpdate cameraUpdate = CameraUpdateFactory.zoomBy(zoom);
+            map.animateCamera(cameraUpdate);
+        }
+    }
+
+    /**
+     * Returns the map view.
+     * @return the map view
+     */
+    public View getMapView() {
+        return this.weakMapView.get();
     }
 }

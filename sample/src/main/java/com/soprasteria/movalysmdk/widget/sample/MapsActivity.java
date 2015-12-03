@@ -22,6 +22,7 @@ import android.os.Bundle;
 import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition;
+import com.soprasteria.movalysmdk.widget.positionmaps.MDKRichStaticMapsPosition;
 
 /**
  * Test activity for the MDKRichPosition widget.
@@ -57,6 +58,8 @@ public class MapsActivity extends AbstractWidgetTestableActivity {
 
         MDKRichMapsPosition map = (MDKRichMapsPosition) findViewById(R.id.mdkRichMapsPosition_locationWithLabelAndError);
         map.setPosition(pos);
+        MDKRichStaticMapsPosition staticMap = (MDKRichStaticMapsPosition) findViewById(R.id.mdkMapsPosition_non_editable);
+        staticMap.setPosition(pos);
     }
 
     @Override

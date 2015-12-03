@@ -2,6 +2,7 @@
 <resources>
 
     <declare-styleable name="MDKCommons.MDKPositionComponent">
+        <attr name="map_thumbnail_height" format="dimension" />
         <attr name="latitudeTextViewId" format="reference" />
         <attr name="longitudeTextViewId" format="reference" />
         <attr name="addressSpinnerViewId" format="reference" />

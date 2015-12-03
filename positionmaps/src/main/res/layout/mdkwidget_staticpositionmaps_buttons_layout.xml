@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/component_label">
+
+        <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
+            android:id="@+id/component_mapButton"
+            android:layout_margin="4dp"
+            android:src="@drawable/ic_map"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            style="?attr/mdkCommandStyle"/>
+
+        <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
+            android:id="@+id/component_navigationButton"
+            android:layout_margin="4dp"
+            android:src="@drawable/ic_navigation"
+            android:layout_toRightOf="@id/component_mapButton"
+            android:layout_toEndOf="@id/component_mapButton"
+            style="?attr/mdkCommandStyle"/>
+
+    </RelativeLayout>
+
+</merge>

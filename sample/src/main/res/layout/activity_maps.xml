@@ -193,17 +193,13 @@
             android:text="@string/position_non_editable"
             android:id="@+id/textView3" />
 
-        <com.soprasteria.movalysmdk.widget.positionmaps.MDKRichMapsPosition
+        <com.soprasteria.movalysmdk.widget.positionmaps.MDKRichStaticMapsPosition
             android:id="@+id/mdkMapsPosition_non_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/testHintText"
-            mdk:zoom="19"
-            mdk:gpsMarker="@drawable/ic_position"
-            mdk:addressMarker="@drawable/ic_place"
-            mdk:positionMode="geopoint"
-            mdk:usePicker="true"
-            mdk:readonly="true"/>
+            mdk:map_thumbnail_height="200dp"
+            mdk:positionMode="geopoint"/>
 
         <!-- RICH POSITION WITHOUT LABEL -->
 
