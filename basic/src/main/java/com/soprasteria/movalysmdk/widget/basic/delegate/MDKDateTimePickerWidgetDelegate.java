@@ -580,11 +580,13 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param time the new time
      */
     public void setDisplayedTime(Date time) {
-        if (time != null) {
-            this.mdkDate.setTime(time);
-        }
+        if (this.dateTimePickerMode != DATE_PICKER) {
+            if (time != null ) {
+                this.mdkDate.setTime(time);
+            }
 
-        updateShownDateTime();
+            updateShownDateTime();
+        }
     }
 
     /**
