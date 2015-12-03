@@ -48,7 +48,8 @@
                 mdk:clearButtonViewId="@+id/component_internal_clear"
                 mdk:errorId="@id/component_error"
                 mdk:labelId="@id/component_label"
-                mdk:timeTextViewId="@+id/component_internal_time" />
+                mdk:timeTextViewId="@+id/component_internal_time"
+                mdk:mode="date_time"/>
 
 
             <com.soprasteria.movalysmdk.widget.basic.MDKTintedTextView
