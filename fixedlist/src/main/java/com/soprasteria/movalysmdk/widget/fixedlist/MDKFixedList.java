@@ -23,7 +23,6 @@ import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.fixedlist.adapters.WrapperAdapter;
 import com.soprasteria.movalysmdk.widget.fixedlist.delegate.MDKFixedListWidgetDelegate;
-import com.soprasteria.movalysmdk.widget.fixedlist.layoutmanagers.WrapLinearLayoutManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -236,7 +235,7 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
                     MDKFixedList.this.paramHeight = MDKFixedList.this.getLayoutParams().height;
                 }
                 if (MDKFixedList.this.getLayoutManager() instanceof NoScrollable && MDKFixedList.this.paramHeight == LayoutParams.WRAP_CONTENT) {
-                    ((WrapLinearLayoutManager) MDKFixedList.this.getLayoutManager()).updateDimension(MDKFixedList.this);
+                    ((NoScrollable) MDKFixedList.this.getLayoutManager()).updateDimension(MDKFixedList.this);
                 }
                 super.onChanged();
             }
