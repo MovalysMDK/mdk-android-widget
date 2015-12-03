@@ -120,6 +120,12 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
     private int paramHeight;
 
     /**
+     * true if the component should be resized in onAttachedToWindow.
+     * This should occur after a screen rotate
+     */
+    private boolean needToResize = false;
+
+    /**
      * Broadcast receiver for the add button.
      */
     private BroadcastReceiver actionReceiver = new BroadcastReceiver() {
@@ -192,6 +198,10 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
                 setLayoutManager(mLayoutManager);
             }
 
+            if (needToResize) {
+                resize();
+            }
+
             if (this.mdkWidgetDelegate.getAddButton() != null) {
                 this.mdkWidgetDelegate.getAddButton().setOnClickListener(this);
             }
@@ -231,16 +241,23 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
         this.adapterDataObserver = new AdapterDataObserver() {
             @Override
             public void onChanged() {
-                if (MDKFixedList.this.paramHeight == -1 && MDKFixedList.this.getLayoutParams() != null) {
-                    MDKFixedList.this.paramHeight = MDKFixedList.this.getLayoutParams().height;
-                }
-                if (MDKFixedList.this.getLayoutManager() instanceof NoScrollable && MDKFixedList.this.paramHeight == LayoutParams.WRAP_CONTENT) {
-                    ((NoScrollable) MDKFixedList.this.getLayoutManager()).updateDimension(MDKFixedList.this);
-                }
+                resize();
                 super.onChanged();
             }
         };
         this.addListeners = new ArrayList<>();
+    }
+
+    /**
+     * Called to compute the size of the component given its content.
+     */
+    private void resize() {
+        if (this.paramHeight == -1 && this.getLayoutParams() != null) {
+            this.paramHeight = this.getLayoutParams().height;
+        }
+        if (this.getLayoutManager() instanceof NoScrollable && this.paramHeight == LayoutParams.WRAP_CONTENT) {
+            ((NoScrollable) this.getLayoutManager()).updateDimension(MDKFixedList.this);
+        }
     }
 
     @Override
@@ -263,6 +280,8 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
         }
         super.setAdapter(wrapperAdapter);
         this.getAdapter().registerAdapterDataObserver(this.adapterDataObserver);
+
+        needToResize = adapter.getItemCount() > 0;
     }
 
     @Override
