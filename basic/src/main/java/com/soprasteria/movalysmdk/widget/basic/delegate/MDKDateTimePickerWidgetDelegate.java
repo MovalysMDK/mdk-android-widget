@@ -249,45 +249,41 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param modeAttr the mode set in the layout attributes
      */
     private void setMode(View view, int modeAttr) {
-        if (modeAttr != -1) {
-            // If the mode attribute has been set, the handled values are :
-            //  - date : it is a date picker
-            //  - time : it is a time picker
-            // All other cases are error case (dateTextView and timeTextView attributes should not
-            // be set).
-            if (modeAttr == DATE_PICKER) {
-                dateTimePickerMode = DATE_PICKER;
-                this.dateViewId = view.getId();
-                this.cachedDateView = new WeakReference<>(view);
-            } else if (modeAttr == TIME_PICKER) {
-                dateTimePickerMode = TIME_PICKER;
-                this.timeViewId = view.getId();
+        // If the mode attribute has been set, the handled values are :
+        //  - date : it is a date picker
+        //  - time : it is a time picker
+        if (modeAttr == DATE_PICKER) {
+            dateTimePickerMode = DATE_PICKER;
+            this.dateViewId = view.getId();
+            this.cachedDateView = new WeakReference<>(view);
+        } else if (modeAttr == TIME_PICKER) {
+            dateTimePickerMode = TIME_PICKER;
+            this.timeViewId = view.getId();
+            this.cachedTimeView = new WeakReference<>(view);
+        } else {
+            // In the default case, we may be in date_time mode, or the mode may not have been set:
+            // - should a slave view have been set, we are in date_time mode
+            // - otherwise we fall back to default, ie date mode
+            if (dateViewId != 0) {
+                // If a date view attribute has been set, we are in the case in which the master widget
+                // handles the time, and the slave component handles the date.
+                dateTimePickerMode = DATE_TIME_PICKER;
+                // The current view is the time view
+                timeViewId = view.getId();
                 this.cachedTimeView = new WeakReference<>(view);
+            } else if (timeViewId != 0) {
+                // If a time view attribute has been set, we are in the case in which the master widget
+                // handles the date, and the slave component handles the time.
+                dateTimePickerMode = DATE_TIME_PICKER;
+                // The current view is the date view
+                dateViewId = view.getId();
+                this.cachedDateView = new WeakReference<>(view);
             } else {
                 // Default case : Date Picker
                 dateTimePickerMode = DATE_PICKER;
                 this.dateViewId = view.getId();
                 this.cachedDateView = new WeakReference<>(view);
             }
-        } else if (dateViewId != 0) {
-            // If a date view attribute has been set, we are in the case in which the master widget
-            // handles the time, and the slave component handles the date.
-            dateTimePickerMode = DATE_TIME_PICKER;
-            // The current view is the time view
-            timeViewId = view.getId();
-            this.cachedTimeView = new WeakReference<>(view);
-        } else if (timeViewId != 0) {
-            // If a time view attribute has been set, we are in the case in which the master widget
-            // handles the date, and the slave component handles the time.
-            dateTimePickerMode = DATE_TIME_PICKER;
-            // The current view is the date view
-            dateViewId = view.getId();
-            this.cachedDateView = new WeakReference<>(view);
-        } else {
-            // Default case : Date Picker
-            dateTimePickerMode = DATE_PICKER;
-            this.dateViewId = view.getId();
-            this.cachedDateView = new WeakReference<>(view);
         }
     }
 
@@ -332,16 +328,24 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     private void updateWhenReadOnly(String sDate, String sTime) {
         String sDateTime;
-        if (sDate != null && !sDate.equals(dateHint)
-                && sTime != null && !sTime.equals(timeHint) ) {
-            sDateTime = sDate + "       " + sTime;
+//        if (sDate != null && !sDate.equals(dateHint)
+//                && sTime != null && !sTime.equals(timeHint) ) {
+//            sDateTime = sDate + "       " + sTime;
+//        } else {
+//            if (sDate != null && !sDate.equals(dateHint)) {
+//                sDateTime = sDate;
+//            } else {
+//                sDateTime = sTime;
+//            }
+//        }
+        if (dateTimePickerMode == DATE_PICKER) {
+            sDateTime = sDate;
+        } else if (dateTimePickerMode == TIME_PICKER) {
+            sDateTime = sTime;
         } else {
-            if (sDate != null && !sDate.equals(dateHint)) {
-                sDateTime = sDate;
-            } else {
-                sDateTime = sTime;
-            }
+            sDateTime = sDate + "       " + sTime;
         }
+
         if (this.getDateTextView() == this.valueObject.getWeakView().get()) {
             this.getDateTextView().setText(sDateTime);
             this.setVisibleView(this.getTimeTextView(), false);
