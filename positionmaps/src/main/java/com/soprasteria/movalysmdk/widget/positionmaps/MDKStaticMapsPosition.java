@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,10 +23,6 @@ import java.io.InputStream;
  */
 public class MDKStaticMapsPosition extends MDKMapsPosition {
 
-    /**
-     * Height of the map thumbnail (width is match_parent).
-     */
-    private int mapThumbnailHeight;
 
     /**
      * Constructor.
@@ -57,21 +52,8 @@ public class MDKStaticMapsPosition extends MDKMapsPosition {
      */
     private void init(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
-        mapThumbnailHeight = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_MDKPositionComponent_map_thumbnail_height, 576);
         setReadonly(true);
         typedArray.recycle();
-    }
-
-    /**
-     * Sets the height of the thumbnail and asks for thumbnail update.
-     * @param pxHeight height of the thumbnail
-     */
-    public void setMapThumbnailHeight(int pxHeight){
-        mapThumbnailHeight = pxHeight;
-
-        getDelayUpdateMapHandler().removeMessages(MESSAGE_UPDATE);
-        final Message msg = Message.obtain(getDelayUpdateMapHandler(), MESSAGE_UPDATE, null);
-        getDelayUpdateMapHandler().sendMessageDelayed(msg, UPDATE_DELAY);
     }
 
     @Override
@@ -113,7 +95,7 @@ public class MDKStaticMapsPosition extends MDKMapsPosition {
 
         //Maps static api limit is 640px
         int width = 640;
-        int height = 640*mapThumbnailHeight/getWidth();
+        int height = 360;
 
         final String imageFileURL = "http://maps.google.com/maps/api/staticmap?center="
                 + lat + "," + lng + "&zoom=" + zoom + "&size=" + width + "x" + height + "&sensor=false" + "&markers=" + lat + "," + lng;
@@ -133,7 +115,7 @@ public class MDKStaticMapsPosition extends MDKMapsPosition {
 
             @Override
             protected void onPostExecute(Bitmap bitmap) {
-                mapView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,mapView.getWidth(),mapThumbnailHeight,true));
+                mapView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,getContext().getResources().getDimensionPixelSize(R.dimen.map_thumbnail_height)*16/9,getContext().getResources().getDimensionPixelSize(R.dimen.map_thumbnail_height),true));
             }
         }.execute(imageFileURL);
 

@@ -102,9 +102,6 @@ public class MDKRichStaticMapsPosition extends MDKBaseRichWidget<MDKStaticMapsPo
 
             this.innerWidget.setActivateGoto(activateGoto);
 
-            int mapThumbnailHeight = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_MDKPositionComponent_map_thumbnail_height,576);
-            this.innerWidget.setMapThumbnailHeight(mapThumbnailHeight);
-
             typedArray.recycle();
 
             typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);

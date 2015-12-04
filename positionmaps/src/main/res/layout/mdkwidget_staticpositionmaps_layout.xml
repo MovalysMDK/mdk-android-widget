@@ -12,7 +12,7 @@
         <ImageView
             android:id="@+id/component_internal_map"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/map_thumbnail_height"/>
 
         <TextView
             android:id="@+id/component_internal_info_address"

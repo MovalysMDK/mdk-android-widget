@@ -198,7 +198,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/testHintText"
-            mdk:map_thumbnail_height="200dp"
             mdk:positionMode="geopoint"/>
 
         <!-- RICH POSITION WITHOUT LABEL -->
