@@ -29,7 +29,9 @@
         android:id="@+id/component_phoneButton"
         android:layout_alignParentLeft="true"
         android:src="@android:drawable/ic_menu_call"
-        style="?attr/mdkPrimaryCommandStyle"/>
+        style="?attr/mdkPrimaryCommandStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.soprasteria.movalysmdk.widget.basic.MDKPhone
         android:id="@id/component_internal"

@@ -30,7 +30,9 @@
         android:src="@drawable/ic_add"
         android:layout_below="@id/component_label"
         android:layout_alignParentLeft="true"
-        style="?attr/mdkCommandStyle"/>
+        style="?attr/mdkCommandStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList
         android:id="@id/component_internal"

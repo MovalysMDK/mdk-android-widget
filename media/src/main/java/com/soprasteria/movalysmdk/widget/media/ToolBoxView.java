@@ -164,7 +164,9 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
      */
     public ToolBoxView(Context context) {
         super(context);
-        init(context);
+        if(!isInEditMode()) {
+            init(context);
+        }
     }
 
     /**
@@ -176,7 +178,9 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
      */
     public ToolBoxView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        if(!isInEditMode()) {
+            init(context);
+        }
     }
 
     /**
@@ -191,7 +195,9 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
      */
     public ToolBoxView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        if(!isInEditMode()) {
+            init(context);
+        }
     }
 
     /**
@@ -317,19 +323,19 @@ public class ToolBoxView extends RelativeLayout implements View.OnClickListener,
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        if(!isInEditMode()) {
+            drawingView = new WeakReference<>(((DrawingLayoutActivity) getContext()).getDrawingView());
 
-        drawingView = new WeakReference<>(((DrawingLayoutActivity)getContext()).getDrawingView());
 
+            LobsterPicker lp = colorPickerView.get();
+            LobsterShadeSlider lss = shadeSliderView.get();
+            if (lp != null && lss != null) {
+                lp.setColorPosition(currentColorPosition);
+                lss.setShadePosition(currentShadePosition);
+            }
 
-        LobsterPicker lp = colorPickerView.get();
-        LobsterShadeSlider lss = shadeSliderView.get();
-        if (lp!=null && lss!=null) {
-            lp.setColorPosition(currentColorPosition);
-            lss.setShadePosition(currentShadePosition);
+            setTool(selectedTool != null ? selectedTool : Tool.HAND_FREE);
         }
-
-        setTool(selectedTool != null ? selectedTool : Tool.HAND_FREE);
-
     }
 
     /**

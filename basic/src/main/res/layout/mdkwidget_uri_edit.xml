@@ -29,7 +29,9 @@
         android:id="@+id/component_uriButton"
         android:layout_alignParentLeft="true"
         android:src="@android:drawable/ic_menu_send"
-        style="?attr/mdkPrimaryCommandStyle"/>
+        style="?attr/mdkPrimaryCommandStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.soprasteria.movalysmdk.widget.basic.MDKUri
         android:id="@id/component_internal"
