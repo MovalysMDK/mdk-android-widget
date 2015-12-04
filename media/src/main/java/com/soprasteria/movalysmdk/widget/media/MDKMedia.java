@@ -329,7 +329,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        // Add "mdk:use_mdk="false"" to your XML file if you don't want to use this component with MDK.
+        // Add "mdk:use_init_image="true"" to your XML file if you don't want to use this component with MDK.
         if (useInitImage) {
             updateThumbnail();
         }
@@ -907,7 +907,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         bundle.putParcelable("tmp_uri", tempFileUri);
         bundle.putString("svg_layer", svgLayer);
         bundle.putBoolean("fullscreen", isFullscreenShown);
-        bundle.putBoolean("use_mdk", useInitImage);
+        bundle.putBoolean("use_init_image", useInitImage);
 
         bundle.putInt(UID_STATE, mdkWidgetDelegate.getUniqueId());
 
@@ -921,7 +921,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             Bundle bundle = (Bundle) state;
 
             //restore use mdk
-            this.useInitImage = bundle.getBoolean("use_mdk");
+            this.useInitImage = bundle.getBoolean("use_init_image");
 
             //restore media type
             int type = bundle.getInt("type");
