@@ -328,21 +328,23 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+        if(!isInEditMode()) {
 
-        // Add "mdk:use_init_image="true"" to your XML file if you don't want to use this component with MDK.
-        if (useInitImage) {
-            updateThumbnail();
-        }
+            // Add "mdk:use_init_image="true"" to your XML file if you don't want to use this component with MDK.
+            if (useInitImage) {
+                updateThumbnail();
+            }
 
-        //register as handler
-        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
-        helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
+            //register as handler
+            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) getContext().getApplicationContext()).getMDKWidgetComponentActionHelper();
+            helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
 
-        if (isReadonly()) {
-            setClickable(false);
-        } else {
-            this.findViewById(R.id.overlay).setOnClickListener(this);
-            this.setOnCreateContextMenuListener(this);
+            if (isReadonly()) {
+                setClickable(false);
+            } else {
+                this.findViewById(R.id.overlay).setOnClickListener(this);
+                this.setOnCreateContextMenuListener(this);
+            }
         }
     }
 

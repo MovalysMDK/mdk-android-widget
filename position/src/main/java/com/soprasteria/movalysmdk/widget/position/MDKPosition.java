@@ -180,7 +180,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      */
     public MDKPosition(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        if(!isInEditMode()) {
+            init(context, attrs);
+        }
     }
 
     /**
@@ -192,7 +194,9 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      */
     public MDKPosition(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        if(!isInEditMode()) {
+            init(context, attrs);
+        }
     }
 
     /**
@@ -241,7 +245,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        if (this.mdkWidgetDelegate.isAutoStart()) {
+        if (!isInEditMode() && this.mdkWidgetDelegate.isAutoStart()) {
             this.startAcquisition();
         }
     }

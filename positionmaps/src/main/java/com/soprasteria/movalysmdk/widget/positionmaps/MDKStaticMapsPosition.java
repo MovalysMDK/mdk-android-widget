@@ -31,7 +31,9 @@ public class MDKStaticMapsPosition extends MDKMapsPosition {
      */
     public MDKStaticMapsPosition(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
+        if(!isInEditMode()) {
+            init(attrs);
+        }
 
     }
 
@@ -43,7 +45,9 @@ public class MDKStaticMapsPosition extends MDKMapsPosition {
      */
     public MDKStaticMapsPosition(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        if(!isInEditMode()) {
+            init(attrs);
+        }
     }
 
     /**

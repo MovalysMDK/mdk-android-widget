@@ -122,10 +122,11 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     @Override
     public void onAttachedToWindow(){
         super.onAttachedToWindow();
-
-        //register as handler
-        MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity)getContext()).getApplication()).getMDKWidgetComponentActionHelper();
-        helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
+        if(!isInEditMode()) {
+            //register as handler
+            MDKWidgetComponentActionHelper helper = ((MDKWidgetApplication) ((Activity) getContext()).getApplication()).getMDKWidgetComponentActionHelper();
+            helper.registerActivityResultHandler(mdkWidgetDelegate.getUniqueId(), this);
+        }
     }
 
     @Override
@@ -158,7 +159,7 @@ public class MDKMapsPosition extends MDKPosition implements GoogleMap.OnMapClick
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        if (((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).useGooglePlaces()) {
+        if (!isInEditMode() && ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).useGooglePlaces()) {
             ((MDKMapsPositionWidgetDelegate)this.mdkWidgetDelegate).getMap().setOnMapClickListener(this);
         }
     }
