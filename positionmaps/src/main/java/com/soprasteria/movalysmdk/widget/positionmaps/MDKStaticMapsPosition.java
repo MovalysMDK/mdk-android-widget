@@ -119,7 +119,9 @@ public class MDKStaticMapsPosition extends MDKMapsPosition {
 
             @Override
             protected void onPostExecute(Bitmap bitmap) {
-                mapView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,getContext().getResources().getDimensionPixelSize(R.dimen.map_thumbnail_height)*16/9,getContext().getResources().getDimensionPixelSize(R.dimen.map_thumbnail_height),true));
+                if(bitmap!=null) {
+                    mapView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, getContext().getResources().getDimensionPixelSize(R.dimen.map_thumbnail_height) * 16 / 9, getContext().getResources().getDimensionPixelSize(R.dimen.map_thumbnail_height), true));
+                }
             }
         }.execute(imageFileURL);
 
