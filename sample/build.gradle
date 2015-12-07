@@ -38,12 +38,6 @@ android {
         checkReleaseBuilds false
     }
 
-    jacoco {
-        //bug in code coverage with espresso 2.1:
-        //https://code.google.com/p/android/issues/detail?id=170607
-        version jacocoVersion
-    }
-
     packagingOptions {
         exclude 'META-INF/LICENCE.txt'
         exclude 'META-INF/LICENSE.txt'
