@@ -75,11 +75,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
     private MDKChangeListenerDelegate mdkListenerDelegate;
 
     /**
-     * Boolean to test if the component is initialized.
-     */
-    private boolean isInit;
-
-    /**
      * true if the drop down menu is opened.
      */
     private boolean isDropDownOpened = false;
@@ -129,8 +124,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
         this.setValueToValidate(0);
         super.setOnItemSelectedListener(this);
-
-        this.isInit = true;
 
         setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readonly, false));
 
@@ -203,16 +196,16 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (this.externalListener != null) {
-            this.externalListener.onItemSelected(parent, view, position, id);
-        }
-        this.setValueToValidate(position);
-        if (isInit) {
-            this.isInit = false;
-        } else {
+        // The view parameter is the View which received a click event.
+        // Should this parameter be null, the onItemSelected method was called during the Android inflate process.
+        if (view != null) {
+            if (this.externalListener != null) {
+                this.externalListener.onItemSelected(parent, view, position, id);
+            }
+            this.setValueToValidate(position);
             this.validate(EnumFormFieldValidator.ON_FOCUS);
+            mdkListenerDelegate.notifyListeners();
         }
-        mdkListenerDelegate.notifyListeners();
     }
 
     @Override
