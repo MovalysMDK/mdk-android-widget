@@ -84,4 +84,18 @@ public class WrapLinearLayoutManager extends android.support.v7.widget.LinearLay
             recyclerView.setLayoutParams(params);
         }
     }
+
+    // the next two methods are necessary for scrolling to work smoothly through the FixedList component.
+
+    @Override
+    public boolean canScrollHorizontally() {
+        // DO NOT REMOVE
+        return false;
+    }
+
+    @Override
+    public boolean canScrollVertically() {
+        // DO NOT REMOVE
+        return false;
+    }
 }
