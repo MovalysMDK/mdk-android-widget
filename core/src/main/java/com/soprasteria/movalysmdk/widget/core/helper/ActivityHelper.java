@@ -41,7 +41,7 @@ public class ActivityHelper {
      * @param requestCode request code to return
      */
     public static void startActivityForResult(Context ctx, Intent intent, int requestCode) {
-        Activity activity = scanForActivity(ctx);
+        Activity activity = findActivityFromContext(ctx);
 
         if (activity != null) {
             activity.startActivityForResult(intent, requestCode);
@@ -56,13 +56,13 @@ public class ActivityHelper {
      * @param ctx android context
      * @return an Activity object, or null if none was found
      */
-    private static Activity scanForActivity(Context ctx) {
+    public static Activity findActivityFromContext(Context ctx) {
         if (ctx == null) {
             return null;
         } else if (ctx instanceof Activity) {
             return (Activity) ctx;
         } else if (ctx instanceof ContextWrapper) {
-            return scanForActivity(((ContextWrapper) ctx).getBaseContext());
+            return findActivityFromContext(((ContextWrapper) ctx).getBaseContext());
         }
 
         return null;

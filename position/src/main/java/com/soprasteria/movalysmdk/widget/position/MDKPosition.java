@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -38,8 +37,10 @@ import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
+import com.soprasteria.movalysmdk.widget.core.helper.ActivityHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.CommandHelper;
+import com.soprasteria.movalysmdk.widget.core.helper.ConnectivityHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.AsyncWidgetCommandListener;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
@@ -104,7 +105,8 @@ import java.util.Locale;
  * </li>
  * </ul>
  */
-public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget, HasEditFields, HasPosition, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
+public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSelectedListener, View.OnClickListener, TextWatcher, MDKWidget,
+        HasEditFields, HasPosition, HasValidator, HasDelegate, HasChangeListener, AsyncWidgetCommandListener<Location> {
 
     /**
      * tag for dummy provider.
@@ -114,7 +116,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
     /**
      * number of addresses retrieved.
      */
-    private static final int ADDRESSES_LIST_LENGTH = 5;
+    public static final int ADDRESSES_LIST_LENGTH = 5;
 
     /**
      * MDKPosition mode enumeration.
@@ -461,18 +463,6 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
                 if (!PositionHelper.isNearTo(this.position, location)) {
                     // this occurs when the fix is done, ie we have a precise location
                     getAddresses(location, true);
-
-                    if (addresses != null && !addresses.isEmpty()) {
-                        selectedAddress = 1;
-
-                        // we have found a list of addresses, the user will pick one
-                        this.position.setAddress(addresses.get(selectedAddress));
-
-                        fillSpinner(addresses, selectedAddress);
-                    } else {
-                        // no addresses were found
-                        this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_noaddress));
-                    }
                 }
             } else {
                 Spinner addrView = this.mdkWidgetDelegate.getAddressView();
@@ -493,9 +483,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         if (this.mdkWidgetDelegate.getLocationInfoView() != null) {
             this.mdkWidgetDelegate.getLocationInfoView().setText(PositionHelper.getFormattedLocation(this.position));
         }
-        if (this.mdkWidgetDelegate.getAddressInfoView() != null) {
-            this.mdkWidgetDelegate.getAddressInfoView().setText(PositionHelper.getFormattedAddress(this.position));
-        }
+
 
         updateComponentStatus();
 
@@ -507,25 +495,58 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      *
      * @param location the location to set
      * @param addEmpty if true, will add the empty element to the list
-     * @return the addresses list
      */
-    @Nullable
-    protected List<Address> getAddresses(Location location, boolean addEmpty) {
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        addresses = null;
+    protected void getAddresses(final Location location, final boolean addEmpty) {
+        if (ConnectivityHelper.isDeviceConnected(this.getContext())) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                    addresses = null;
 
-        try {
-            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), ADDRESSES_LIST_LENGTH);
-            if (addresses != null && !addresses.isEmpty() && addEmpty) {
-                // we add an empty element
-                addresses.add(0, null);
-            }
-        } catch (IOException e) {
-            Log.e(this.getClass().getSimpleName(), getResources().getString(R.string.mdkwidget_mdkposition_error_getting_addresses), e);
-            this.mdkWidgetDelegate.setError(getResources().getString(R.string.mdkwidget_mdkposition_error_getting_addresses));
+                    try {
+                        addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), ADDRESSES_LIST_LENGTH);
+                        if (addresses != null && !addresses.isEmpty() && addEmpty) {
+                            // we add an empty element
+                            addresses.add(0, null);
+                        }
+                    } catch (IOException e) {
+                        Log.e(this.getClass().getSimpleName(), getResources().getString(R.string.mdkwidget_mdkposition_error_getting_addresses), e);
+                    }
+
+                    doOnAddressesResolved(getResources().getString(R.string.mdkwidget_mdkposition_error_getting_addresses));
+                }
+            }).start();
+        } else {
+            doOnAddressesResolved(getResources().getString(R.string.mdkwidget_mdkposition_noaddress));
         }
+    }
 
-        return addresses;
+    /**
+     * Called when the getAddresses process is over.
+     *
+     * @param error the error to display when the addresses list is empty
+     */
+    private void doOnAddressesResolved(final String error) {
+        ActivityHelper.findActivityFromContext(getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (addresses != null && !addresses.isEmpty()) {
+                    selectedAddress = 1;
+
+                    // we have found a list of addresses, the user will pick one
+                    position.setAddress(addresses.get(selectedAddress));
+
+                    fillSpinner(addresses, selectedAddress);
+                } else {
+                    mdkWidgetDelegate.setError(error);
+                }
+
+                if (mdkWidgetDelegate.getAddressInfoView() != null) {
+                    mdkWidgetDelegate.getAddressInfoView().setText(PositionHelper.getFormattedAddress(position));
+                }
+            }
+        });
     }
 
     /**
