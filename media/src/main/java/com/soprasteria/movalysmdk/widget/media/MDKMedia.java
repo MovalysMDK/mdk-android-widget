@@ -518,7 +518,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             ((ImageView) rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, 1024));
         } catch (IOException e) {
             Log.d(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
-            ((ImageView) rl.findViewById(R.id.image)).setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
+            ((ImageView) rl.findViewById(R.id.image)).setImageDrawable(ContextCompat.getDrawable(getContext(), placeholderRes));
             return;
         }
 
@@ -1025,7 +1025,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
                     }
                 } catch (IllegalArgumentException | IOException e) {
                     Log.d(this.getClass().getSimpleName(), "Error displaying bitmap: " + MDKMedia.this.mediaUri, e);
-                    bmp = BitmapHelper.scaleBitmap(innerContext, R.drawable.default_404_placeholder, MDKMedia.this.pxHeight);
+                    bmp = BitmapHelper.scaleBitmap(innerContext, MDKMedia.this.placeholderRes, MDKMedia.this.pxHeight);
                     mediaUri = null;
                     svgLayer = null;
                 }
