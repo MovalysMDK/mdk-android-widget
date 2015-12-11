@@ -32,6 +32,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -517,7 +518,7 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             ((ImageView) rl.findViewById(R.id.image)).setImageBitmap(BitmapHelper.createViewBitmap(getContext(), mediaUri, svgLayer, 1024));
         } catch (IOException e) {
             Log.d(this.getClass().getSimpleName(), "Error trying to access file: " + mediaUri, e);
-            display404placeholder();
+            ((ImageView) rl.findViewById(R.id.image)).setImageDrawable(ContextCompat.getDrawable(getContext(),placeholderRes));
             return;
         }
 
@@ -1070,28 +1071,6 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
             });
         }
     }
-
-    /**
-     * Displays a special placeholder for file not found.
-     */
-    private void display404placeholder() {
-        ImageView iv = getThumbnailView();
-        if (iv != null) {
-            iv.post(new Runnable() {
-                @Override
-                public void run() {
-                    ImageView iv2 = getThumbnailView();
-                    if (iv2 != null && iv2.getWidth() > 0 && iv2.getHeight() > 0) {
-                        iv2.setImageBitmap(BitmapHelper.scaleBitmap(getContext(), placeholderRes, iv2.getHeight()));
-                    }
-                }
-            });
-        }
-
-        mediaUri = null;
-        svgLayer = null;
-    }
-
 
     @Override
     public void registerChangeListener(ChangeListener listener) {
