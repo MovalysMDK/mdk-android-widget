@@ -195,6 +195,14 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
     }
 
     @Override
+    public void setSelection(int position){
+        super.setSelection(position);
+        this.setValueToValidate(position);
+        this.validate(EnumFormFieldValidator.ON_FOCUS);
+        mdkListenerDelegate.notifyListeners();
+    }
+
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // The view parameter is the View which received a click event.
         // Should this parameter be null, the onItemSelected method was called during the Android inflate process.
@@ -202,9 +210,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
             if (this.externalListener != null) {
                 this.externalListener.onItemSelected(parent, view, position, id);
             }
-            this.setValueToValidate(position);
-            this.validate(EnumFormFieldValidator.ON_FOCUS);
-            mdkListenerDelegate.notifyListeners();
         }
     }
 
