@@ -115,9 +115,9 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
 
                 // Will keep updating about every 500 ms until
                 // accuracy is about 50 meters to get accurate fix.
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_COARSE_LOCATION, R.string.mdkcommand_position_error_permission);
                 locationManager.requestLocationUpdates(locationManager.getBestProvider(oFine, true), UPDATE_TIMER, FINE_ACCURACY_LEVEL, oListenerFine);
             }
@@ -128,9 +128,9 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
 
                 // Will keep updating about every 500 ms until
                 // accuracy is about 1000 meters to get accurate fix.
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_COARSE_LOCATION, R.string.mdkcommand_position_error_permission);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, UPDATE_TIMER, COARSE_ACCURACY_LEVEL, oListenerCoarse);
             }
@@ -174,18 +174,18 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             if (listener != null) {
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_COARSE_LOCATION, R.string.mdkcommand_position_error_permission);
             }
             locationManager.removeUpdates(oListenerFine);
         }
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             if (listener != null) {
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_COARSE_LOCATION, R.string.mdkcommand_position_error_permission);
             }
             locationManager.removeUpdates(oListenerCoarse);
@@ -220,9 +220,9 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
         // could be very inaccurate though
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             if (listener != null) {
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_COARSE_LOCATION, R.string.mdkcommand_position_error_permission);
             }
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(oFine, true));
@@ -235,9 +235,9 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
 
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             if (listener != null) {
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
-                ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                         Manifest.permission.ACCESS_COARSE_LOCATION, R.string.mdkcommand_position_error_permission);
             }
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -307,9 +307,9 @@ public class PositionWidgetCommand implements AsyncWidgetCommand<AsyncWidgetComm
             if (location != null && location.getAccuracy() < precision && location.hasAccuracy() && timerTimeout != null) {
                 AsyncWidgetCommandListener listener = PositionWidgetCommand.this.getListener();
                 if (listener != null) {
-                    ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                    ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                             Manifest.permission.ACCESS_FINE_LOCATION, R.string.mdkcommand_position_error_permission);
-                    ApplicationPermissionHelper.checkPermission(context, listener.getMDKWidgetDelegate(),
+                    ApplicationPermissionHelper.checkCommandPermission(context, listener.getMDKWidgetDelegate(),
                             Manifest.permission.ACCESS_COARSE_LOCATION, R.string.mdkcommand_position_error_permission);
                 }
                 locationManager.removeUpdates(this);
