@@ -77,16 +77,6 @@ dependencies {
     compile project(':fixedlist')
 }
 
-sonarRunner {
-        sonarProperties {
-                properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
-                properties["sonar.sources"] += "src/androidTest/java"
-                //properties["sonar.tests"] = "src/androidTest/java"
-                properties["sonar.binaries"] = file("build/intermediates/classes/debug")
-                properties["sonar.junit.reportsPath"] = file("build/outputs/androidTest-results/connected/")
-        }
-}
-
 //to run spoon: ./gradlew spoon
 spoon {
     // for debug output
