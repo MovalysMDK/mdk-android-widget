@@ -218,6 +218,18 @@
 
     </declare-styleable>
 
+    <declare-styleable name="RichTextView">
+
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="android:ems" />
+        <attr name="android:typeface" />
+        <attr name="android:fontFamily" />
+        <attr name="android:textStyle" />
+        <attr name="android:text" />
+
+    </declare-styleable>
+
     <declare-styleable name="InputView">
 
         <!-- standart attributes, note android: prefix and no format attribute -->

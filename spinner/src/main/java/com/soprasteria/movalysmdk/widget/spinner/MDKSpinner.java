@@ -2,6 +2,7 @@ package com.soprasteria.movalysmdk.widget.spinner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
@@ -356,13 +357,22 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
         // Save the MDKWidgetDelegate instance state
         state = this.mdkWidgetDelegate.onSaveInstanceState(state);
 
-        return state;
+        Bundle bundle = new Bundle();
+        bundle.putInt("position",getSelectedItemPosition());
+        bundle.putParcelable("inner_state", state);
+
+        return bundle;
     }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
+
+        Bundle bundle = (Bundle)state;
+
         // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, bundle.getParcelable("inner_state"));
+
+        setSelection(bundle.getInt("position"));
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);
