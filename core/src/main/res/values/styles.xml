@@ -48,6 +48,7 @@
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="mdkEnumViewStyle">@style/MDKValueEnumView</item>
         <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
         <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
         <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
@@ -199,6 +200,7 @@
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="mdkEnumViewStyle">@style/MDKValueEnumView</item>
         <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
         <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
         <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
@@ -350,6 +352,7 @@
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
         <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
         <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="mdkEnumViewStyle">@style/MDKValueEnumView</item>
         <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
         <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
         <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
