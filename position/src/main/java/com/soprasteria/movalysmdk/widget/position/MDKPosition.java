@@ -1,5 +1,6 @@
 package com.soprasteria.movalysmdk.widget.position;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
@@ -38,6 +39,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKChangeListenerDelegate;
 import com.soprasteria.movalysmdk.widget.core.delegate.MDKWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.helper.ActivityHelper;
+import com.soprasteria.movalysmdk.widget.core.helper.ApplicationPermissionHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.CommandHelper;
 import com.soprasteria.movalysmdk.widget.core.helper.ConnectivityHelper;
@@ -173,6 +175,11 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * true if the location is being computed.
      */
     private boolean acquiringPosition = false;
+
+    /**
+     * true if the application has the correct permissions.
+     */
+    private boolean hasCorrectPermissions = false;
 
     /**
      * Constructor.
@@ -374,20 +381,23 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
 
     @Override
     public void onClick(View v) {
-        int error = 0;
-
         if (v.getId() == this.mdkWidgetDelegate.getClearButtonId()) {
             this.clear();
         } else if (v.getId() == this.mdkWidgetDelegate.getLocateButtonId()) {
-            startAcquisition();
+            if (hasCorrectPermissions) {
+                startAcquisition();
+            } else {
+                hasCorrectPermissions = ApplicationPermissionHelper.checkPermissions(
+                        this.getContext(),
+                        this.getMDKWidgetDelegate(),
+                        new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                        R.string.mdkcommand_position_error_permission
+                );
+            }
         } else if (v.getId() == this.mdkWidgetDelegate.getMapsButtonId()) {
             CommandHelper.startCommandOnWidget(this, "secondary", this.getLocation());
         } else if (v.getId() == this.mdkWidgetDelegate.getNavButtonId()) {
             CommandHelper.startCommandOnWidget(this, "tertiary", this.getLocation());
-        }
-
-        if (error != 0) {
-            this.mdkWidgetDelegate.setError(getResources().getString(error));
         }
     }
 
@@ -751,12 +761,8 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
      * @return true if the component knows a list of addresses, and one was selected
      */
     public boolean hasAddresses() {
-        if (this.addresses == null) {
-            return false;
-        } else {
-            // there should be at least two elements as there is an empty address
-            return this.addresses.size() > 1 && this.position.getAddress() != null;
-        }
+        // there should be at least two elements as there is an empty address
+        return this.addresses != null && this.addresses.size() > 1 && this.position.getAddress() != null;
     }
 
     @Override
@@ -964,6 +970,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         Bundle bundle = (Bundle) state;
         bundle.putParcelable("position", this.position);
         bundle.putBoolean("acquiringPosition", this.acquiringPosition);
+        bundle.putBoolean("hasCorrectPermissions", this.hasCorrectPermissions);
 
         if (this.addresses != null) {
             Parcelable[] addrs;
@@ -997,6 +1004,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         this.position = bundle.getParcelable("position");
         this.acquiringPosition = bundle.getBoolean("acquiringPosition");
         this.selectedAddress = bundle.getInt("selectedAddress");
+        this.hasCorrectPermissions = bundle.getBoolean("hasCorrectPermissions");
 
         Parcelable[] inAddresses = bundle.getParcelableArray("addresses");
         if (inAddresses != null) {

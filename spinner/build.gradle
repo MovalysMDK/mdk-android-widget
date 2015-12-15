@@ -43,13 +43,6 @@ dependencies {
     compile project(':core')
 }
 
-sonarRunner {
-    sonarProperties {
-        properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
-        properties["sonar.binaries"] = file("build/intermediates/classes/debug")
-    }
-}
-
 uploadArchives {
     repositories {
         mavenDeployer {

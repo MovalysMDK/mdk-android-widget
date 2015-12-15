@@ -2,11 +2,10 @@ package com.soprasteria.movalysmdk.widget.spinner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.soprasteria.movalysmdk.widget.core.MDKTechnicalInnerWidgetDelegate;
@@ -36,7 +35,7 @@ import java.util.Arrays;
  * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
  * <p>The mdk:has_blank_row default value is false.</p>
  */
-public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapter, HasOneSelected, HasValidator, HasDelegate, AdapterView.OnItemSelectedListener, IsNullable, HasLabel, HasHint, HasChangeListener {
+public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapter, HasOneSelected, HasValidator, HasDelegate, IsNullable, HasLabel, HasHint, HasChangeListener {
     /**
      * User's adapter.
      */
@@ -123,7 +122,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
         this.mdkListenerDelegate = new MDKChangeListenerDelegate();
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
         this.setValueToValidate(0);
-        super.setOnItemSelectedListener(this);
 
         setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readonly, false));
 
@@ -195,25 +193,14 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // The view parameter is the View which received a click event.
-        // Should this parameter be null, the onItemSelected method was called during the Android inflate process.
-        if (view != null) {
-            if (this.externalListener != null) {
-                this.externalListener.onItemSelected(parent, view, position, id);
-            }
-            this.setValueToValidate(position);
-            this.validate(EnumFormFieldValidator.ON_FOCUS);
+    public void setSelection(int position) {
+        int prevPosition = this.getSelectedItemPosition();
+        this.setValueToValidate(position);
+        this.validate(EnumFormFieldValidator.ON_FOCUS);
+        if (position != prevPosition) {
+            super.setSelection(position);
             mdkListenerDelegate.notifyListeners();
         }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        if (this.externalListener != null) {
-            this.externalListener.onNothingSelected(parent);
-        }
-        this.validate(EnumFormFieldValidator.ON_FOCUS);
     }
 
     @Override
@@ -370,13 +357,22 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
         // Save the MDKWidgetDelegate instance state
         state = this.mdkWidgetDelegate.onSaveInstanceState(state);
 
-        return state;
+        Bundle bundle = new Bundle();
+        bundle.putInt("position",getSelectedItemPosition());
+        bundle.putParcelable("inner_state", state);
+
+        return bundle;
     }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
+
+        Bundle bundle = (Bundle)state;
+
         // Restore the MDKWidgetDelegate instance state
-        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, state);
+        Parcelable innerState = this.mdkWidgetDelegate.onRestoreInstanceState(this, bundle.getParcelable("inner_state"));
+
+        setSelection(bundle.getInt("position"));
 
         // Restore the android view instance state
         super.onRestoreInstanceState(innerState);

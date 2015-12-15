@@ -16,7 +16,13 @@ buildscript {
     }
 }
 
-apply plugin: 'sonar-runner'
+plugins {
+  id "org.sonarqube" version "1.1"
+}
+
+// sonar
+apply from: 'sonar.gradle'
+
 apply plugin: 'license'
 
 // Load dependencies
@@ -67,18 +73,6 @@ allprojects {
 
         androidVersionCode = 101100
         androidVersionName = '1.0.0'
-    }
-}
-
-sonarRunner {
-    sonarProperties {
-        property "sonar.host.url", "http://sonar.ntes.fr.sopra"
-        property "sonar.jdbc.url", "jdbc:mysql://sonar.ntes.fr.sopra:3306/sonar?useUnicode=true&amp;characterEncoding=utf8"
-        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
-        property "sonar.jdbc.username", "sonar"
-        property "sonar.jdbc.password", "sonar"
-        property "sonar.language", "java"
-        property "sonar.profile", "MDK Way with Findbugs Android Lint"
     }
 }
 
