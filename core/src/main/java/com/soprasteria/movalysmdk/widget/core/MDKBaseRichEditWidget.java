@@ -26,9 +26,9 @@ import android.view.inputmethod.InputConnection;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasHint;
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasTextWatcher;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
 
 /**
  * Base implementation of the rich mdk widget for widget that uses text and are editable.
@@ -72,18 +72,24 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatche
     private void init(Context context, AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.InputView);
 
-        int n = typedArray.getIndexCount();
-        for (int i = 0; i < n; i++) {
-            int attr = typedArray.getIndex(i);
 
-            //note that you are accessing standart attributes using your attrs identifier
-            if (attr == R.styleable.InputView_android_inputType) {
-                int inputType = typedArray.getInt(attr, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
+        if (!this.isInEditMode()) {
 
-                if (inputType != 0) {
-                    this.setInputType(inputType);
+            int n = typedArray.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                int attr = typedArray.getIndex(i);
+
+                //note that you are accessing standart attributes using your attrs identifier
+                if (attr == R.styleable.InputView_android_inputType) {
+                    int inputType = typedArray.getInt(attr, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
+
+                    if (inputType != 0) {
+                        this.setInputType(inputType);
+                    }
                 }
+
             }
+
         }
 
         typedArray.recycle();

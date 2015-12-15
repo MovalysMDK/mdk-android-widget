@@ -5,7 +5,7 @@ subprojects {
         properties {
             properties["sonar.language"] = "java"
             properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
-            properties["sonar.binaries"] = file("build/intermediates/classes/debug")
+            properties["sonar.java.binaries"] = file("build/intermediates/classes/debug")
         }
     }
 }
@@ -15,7 +15,6 @@ project (':sample') {
 	    properties {
 	        properties["sonar.sources"] += "src/androidTest/java"
 	        //properties["sonar.tests"] = "src/androidTest/java"
-	        properties["sonar.binaries"] = file("build/intermediates/classes/debug")
 	        properties["sonar.junit.reportsPath"] = file("build/outputs/androidTest-results/connected/")
 	    }
 	}

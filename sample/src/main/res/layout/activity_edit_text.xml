@@ -87,6 +87,7 @@
             android:id="@+id/mdkRichEditText_withLabelAndMandatory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#55AA66"
             mdk:label="@string/edit_text_label"
             mdk:mandatory="true"/>
 
