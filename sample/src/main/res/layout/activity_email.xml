@@ -58,6 +58,7 @@
             android:layout_marginTop="1dp"
             android:background="@drawable/email_background"
             android:padding="2dp"
+            android:textColor="#FF2233"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
