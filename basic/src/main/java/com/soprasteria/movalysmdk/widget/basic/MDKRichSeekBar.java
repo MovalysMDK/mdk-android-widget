@@ -31,6 +31,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.types.HasSeekBar;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.formatter.MDKBaseFormatter;
 import com.soprasteria.movalysmdk.widget.core.helper.AttributesHelper;
+import com.soprasteria.movalysmdk.widget.core.helper.RichAttributsForwarderHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 /**
@@ -125,6 +126,8 @@ public class MDKRichSeekBar <T extends MDKWidget & HasFormatter<Integer,String> 
 
         typedArray.recycle();
         typedArrayComponent.recycle();
+
+        RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.findViewById(R.id.component_seekbar_edittext));
     }
 
     @Override

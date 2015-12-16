@@ -11,6 +11,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
+import com.soprasteria.movalysmdk.widget.core.helper.RichAttributsForwarderHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
 
@@ -108,5 +109,7 @@ public class MDKRichStaticMapsPosition extends MDKBaseRichWidget<MDKStaticMapsPo
 
         }
         typedArray.recycle();
+
+        RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.getInnerWidget().getEditFields());
     }
 }

@@ -20,6 +20,7 @@
 
     <item name="component_internal" type="id" />
     <item name="component_internal_parent" type="id" />
+    <item name="component_internal_time" type="id" />
     <item name="component_label" type="id" />
     <item name="component_error" type="id" />
 

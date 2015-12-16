@@ -12,6 +12,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
 import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
+import com.soprasteria.movalysmdk.widget.core.helper.RichAttributsForwarderHelper;
 
 /**
  * Rich widget representing a position component, conforming to the Material Design guidelines,
@@ -106,6 +107,9 @@ public class MDKRichPosition extends MDKBaseRichWidget<MDKPosition> implements H
             this.innerWidget.setTimeOut(timeout);
 
             typedArray.recycle();
+
+            RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.getInnerWidget().getEditFields());
+
         }
     }
 }
