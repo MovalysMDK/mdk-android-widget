@@ -20,11 +20,13 @@ import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasDate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasDate;
+import com.soprasteria.movalysmdk.widget.core.helper.RichAttributsForwarderHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
@@ -120,7 +122,6 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & HasValidator & HasDate 
      * @param attrs attributes
      */
     private final void init(Context context, AttributeSet attrs){
-        //getInnerWidget().setDateHint(attrs.getS)
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKDateTimePickerComponent);
         String dateHint = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateHint);
         if (dateHint == null) {
@@ -137,6 +138,12 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & HasValidator & HasDate 
         }
 
         typedArray.recycle();
+
+        if (!this.isInEditMode()) {
+            View[] touchedView = new View[] {(View) this.getInnerWidget(), this.getRootView().findViewById(R.id.component_internal_time)};
+            RichAttributsForwarderHelper.parseAttributs(context, attrs, touchedView);
+        }
+
 
     }
 }

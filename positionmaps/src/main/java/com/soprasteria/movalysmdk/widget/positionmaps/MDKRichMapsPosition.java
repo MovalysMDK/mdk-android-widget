@@ -13,6 +13,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.model.Position;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasPosition;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 import com.soprasteria.movalysmdk.widget.position.MDKPosition;
+import com.soprasteria.movalysmdk.widget.core.helper.RichAttributsForwarderHelper;
 import com.soprasteria.movalysmdk.widget.positionmaps.delegate.MDKMapsPositionWidgetDelegate;
 
 /**
@@ -123,5 +124,7 @@ public class MDKRichMapsPosition extends MDKBaseRichWidget<MDKMapsPosition> impl
             this.innerWidget.setAddressMarker(addressMarker);
         }
         typedArray.recycle();
+
+        RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.getInnerWidget().getEditFields());
     }
 }

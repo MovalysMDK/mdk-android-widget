@@ -20,12 +20,14 @@ import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleableRes;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasChangeListener;
-import com.soprasteria.movalysmdk.widget.core.behavior.types.HasChecked;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasCheckedTexts;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasChecked;
+import com.soprasteria.movalysmdk.widget.core.helper.RichAttributsForwarderHelper;
 import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
 
 /**
@@ -91,6 +93,8 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & HasValidator & Has
             }
         }
         typedArray.recycle();
+
+        RichAttributsForwarderHelper.parseAttributs(ctx, attrs, (View) this.getInnerWidget());
 
     }
 
