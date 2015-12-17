@@ -25,6 +25,13 @@ import android.net.NetworkInfo;
 public class ConnectivityHelper {
 
     /**
+     * Default constructor.
+     */
+    private ConnectivityHelper() {
+        // Nothing to do
+    }
+
+    /**
      * Checks whether the device has a data connection.
      * @param context an Android context
      * @return true if the device has a data connection, false otherwise

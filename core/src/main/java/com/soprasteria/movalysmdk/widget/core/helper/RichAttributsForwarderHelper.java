@@ -142,6 +142,10 @@ public class RichAttributsForwarderHelper {
             case MONOSPACE:
                 tf = Typeface.MONOSPACE;
                 break;
+
+            default:
+                // nothing to do
+                break;
         }
 
         textView.setTypeface(tf, styleIndex);

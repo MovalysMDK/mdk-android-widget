@@ -55,6 +55,7 @@ public class ApplicationPermissionHelper {
      * @param delegate widget delegate
      * @param permissions the list of permissions to check
      * @param errorMessage error message identifier
+     * @return true if the list of given permissions are granted, false otherwise
      */
     public static boolean checkPermissions(Context context, MDKWidgetDelegate delegate, String[] permissions, @StringRes int errorMessage) {
         boolean hasPermissions = true;

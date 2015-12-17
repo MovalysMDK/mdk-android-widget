@@ -64,11 +64,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
     private boolean hasBlank;
 
     /**
-     * ExternalListener.
-     */
-    private OnItemSelectedListener externalListener;
-
-    /**
      * notify change listeners.
      */
     private MDKChangeListenerDelegate mdkListenerDelegate;
@@ -185,11 +180,6 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
     @Override
     public BaseAdapter getAdapter() {
         return (BaseAdapter) super.getAdapter();
-    }
-
-    @Override
-    public void setOnItemSelectedListener(OnItemSelectedListener listener) {
-        this.externalListener = listener;
     }
 
     @Override

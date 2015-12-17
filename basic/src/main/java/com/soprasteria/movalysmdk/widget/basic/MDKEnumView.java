@@ -223,7 +223,7 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
 
     @Override
     public int[] getValidators() {
-        return null;
+        return new int[0];
     }
 
 
