@@ -20,6 +20,7 @@ import android.app.Instrumentation;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
@@ -125,6 +126,7 @@ public class MediaTest {
 
         XmlPullParser parser = mActivityRule.getActivity().getResources().getLayout(R.layout.test_mdkmedia);
         AttributeSet attributes = Xml.asAttributeSet(parser);
+        Looper.prepare();
 
         MDKMedia media = new MDKMedia(mActivityRule.getActivity(), attributes);
 
