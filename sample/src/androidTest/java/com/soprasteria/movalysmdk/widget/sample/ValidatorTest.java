@@ -15,6 +15,7 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -27,6 +28,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
@@ -190,12 +192,12 @@ public class ValidatorTest {
                 .check(matches(withText(error)));
 
         // click the switches
-        onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(delayScrollTo());
+        onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(ViewActions.actionWithAssertions(scrollTo()));
 
         onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(click());
 
         // click validate button
-        onView(withId(R.id.validateButton)).perform(delayScrollTo());
+        onView(withId(R.id.validateButton)).perform(ViewActions.actionWithAssertions(scrollTo()));
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
