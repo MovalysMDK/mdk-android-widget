@@ -34,23 +34,27 @@ public class ReadOnlySelector implements RichSelector{
 
     @Override
     public void onStateChange(int[] state, View v) {
-        if (StateHelper.hasState(R.attr.state_readonly, state)) {
-            if (v instanceof HasTextWatcher) {
-                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
-            } else if (v instanceof HasOneSelected) {
-                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
-            } else if (v instanceof HasEditFields) {
-                for (int i=0; i<((HasEditFields)v).getEditFields().length; i++) {
-                    View child = ((HasEditFields)v).getEditFields()[i];
-                    if (child != null) {
-                        child.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
-                    }
+        if (!StateHelper.hasState(R.attr.state_readonly, state)) {
+            return;
+        }
+
+        if (v instanceof HasTextWatcher) {
+            v.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
+        } else if (v instanceof HasOneSelected) {
+            v.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
+        } else if (v instanceof HasEditFields) {
+            for (int i=0; i<((HasEditFields)v).getEditFields().length; i++) {
+                View child = ((HasEditFields)v).getEditFields()[i];
+                if (child != null) {
+                    child.setBackgroundColor(ContextCompat.getColor(v.getContext(), android.R.color.transparent));
                 }
             }
-            View errorView = ((MDKWidgetDelegate)((MDKWidget) v).getTechnicalInnerWidgetDelegate()).getErrorView();
-            if(errorView!=null){
-                errorView.setVisibility(View.GONE);
-            }
+        }
+
+        View errorView = ((MDKWidgetDelegate)((MDKWidget) v).getTechnicalInnerWidgetDelegate()).getErrorView();
+
+        if (errorView!=null) {
+            errorView.setVisibility(View.GONE);
         }
     }
 }

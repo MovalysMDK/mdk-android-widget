@@ -391,4 +391,12 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
     public void unregisterChangeListener(ChangeListener listener) {
         this.mdkListenerDelegate.unregisterChangeListener(listener);
     }
+
+    /**
+     * Sets specific validators on the widget.
+     * @param specificValidators the validators to set
+     */
+    public void setSpecificValidators(int[] specificValidators) {
+        this.specificValidators = specificValidators;
+    }
 }

@@ -41,6 +41,11 @@ public class SvgDocument {
     private static final String NAMESPACE = null;
 
     /**
+     * style key word.
+     */
+    private static final String STYLE = "style";
+
+    /**
      * Width of the svg.
      */
     private int mWidth;
@@ -320,8 +325,8 @@ public class SvgDocument {
         // Update the centroid and android path of the object
         data.update();
 
-        if (parser.getAttributeValue(NAMESPACE, "style") != null) {
-            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, "style")));
+        if (parser.getAttributeValue(NAMESPACE, STYLE) != null) {
+            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, STYLE)));
         }
         // Skip the end tag
         parser.next();
@@ -347,8 +352,8 @@ public class SvgDocument {
         // Update the centroid and android path of the object
         data.update();
 
-        if (parser.getAttributeValue(NAMESPACE, "style") != null) {
-            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, "style")));
+        if (parser.getAttributeValue(NAMESPACE, STYLE) != null) {
+            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, STYLE)));
         }
         // Skip the end tag
         parser.next();
@@ -380,8 +385,8 @@ public class SvgDocument {
         // Update the centroid and android path of the object
         data.update();
 
-        if (parser.getAttributeValue(NAMESPACE, "style") != null) {
-            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, "style")));
+        if (parser.getAttributeValue(NAMESPACE, STYLE) != null) {
+            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, STYLE)));
         }
         // Skip the end tag
         parser.next();
@@ -413,8 +418,8 @@ public class SvgDocument {
         // Update the centroid and android path of the object
         data.update();
 
-        if (parser.getAttributeValue(NAMESPACE, "style") != null) {
-            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, "style")));
+        if (parser.getAttributeValue(NAMESPACE, STYLE) != null) {
+            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, STYLE)));
         }
         // Skip the end tag
         parser.next();
@@ -439,9 +444,9 @@ public class SvgDocument {
         // Update the centroid and android path of the object
         data.update();
 
-        if (parser.getAttributeValue(NAMESPACE, "style") != null) {
+        if (parser.getAttributeValue(NAMESPACE, STYLE) != null) {
             Brush brush = new Brush();
-            Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, "style"), brush);
+            Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, STYLE), brush);
 
             data.setBrush(brush);
         }
@@ -484,7 +489,7 @@ public class SvgDocument {
             marker.setAngle(Integer.valueOf(parser.getAttributeValue(NAMESPACE, "orient")));
         }
         marker.setId(parser.getAttributeValue(NAMESPACE, "id"));
-        marker.setStyle(parser.getAttributeValue(NAMESPACE, "style"));
+        marker.setStyle(parser.getAttributeValue(NAMESPACE, STYLE));
 
         // Parse the marker contained data
         SvgDocument tempSvgDocument = new SvgDocument(0,0,0,0);
@@ -571,8 +576,8 @@ public class SvgDocument {
         // Update the centroid and android path of the object
         data.update();
         // Parse style
-        if (parser.getAttributeValue(NAMESPACE, "style") != null) {
-            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, "style")));
+        if (parser.getAttributeValue(NAMESPACE, STYLE) != null) {
+            data.setBrush(Brush.fromSvgString(parser.getAttributeValue(NAMESPACE, STYLE)));
         }
         // Skip the end tag
         parser.next();
