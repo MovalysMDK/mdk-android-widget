@@ -328,16 +328,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      */
     private void updateWhenReadOnly(String sDate, String sTime) {
         String sDateTime;
-//        if (sDate != null && !sDate.equals(dateHint)
-//                && sTime != null && !sTime.equals(timeHint) ) {
-//            sDateTime = sDate + "       " + sTime;
-//        } else {
-//            if (sDate != null && !sDate.equals(dateHint)) {
-//                sDateTime = sDate;
-//            } else {
-//                sDateTime = sTime;
-//            }
-//        }
         if (dateTimePickerMode == DATE_PICKER) {
             sDateTime = sDate;
         } else if (dateTimePickerMode == TIME_PICKER) {
@@ -353,6 +343,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             this.getTimeTextView().setText(sDateTime);
             this.setVisibleView(this.getDateTextView(), false);
         }
+//        this.setVisibleView(this.getClearButton(), false);
     }
 
     /**
