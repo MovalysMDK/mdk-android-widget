@@ -73,7 +73,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     public void testValidRangedDate() {
 
         this.getEntryScenario().testDateEntryOutsideWidget(
-                2015, 6, 20, 10, 30,
+                2015, 6, 20, 0, 0,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
                 R.id.errorText2,
@@ -88,7 +88,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     public void testInvalidRangedDate() {
 
         this.getEntryScenario().testDateEntryOutsideWidget(
-                2015, 1, 1, 10, 30,
+                2015, 1, 1, 0, 0,
                 new int[]{R.string.test_fortyTwoTextFormater_prefix, R.string.test_mdkvalidator_datetimerange_error_range, R.string.test_date_error_ranged},
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
                 R.id.errorText2,
