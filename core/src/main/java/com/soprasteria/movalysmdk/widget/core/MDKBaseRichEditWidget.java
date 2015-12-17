@@ -45,7 +45,7 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatche
      */
     public MDKBaseRichEditWidget(@LayoutRes int withLabelLayout,@LayoutRes int noLabelLayout, Context context, AttributeSet attrs) {
         super(withLabelLayout, noLabelLayout, context, attrs);
-        init(this.getContext(), attrs);
+        init(attrs);
     }
 
     /**
@@ -58,7 +58,7 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatche
      */
     public MDKBaseRichEditWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(layoutWithLabelId, layoutWithoutLabelId, context, attrs, defStyleAttr);
-        init(this.getContext(), attrs);
+        init(attrs);
     }
 
     /**
@@ -66,30 +66,19 @@ public class MDKBaseRichEditWidget<T extends MDKWidget & HasText & HasTextWatche
      * <p>
      *     forward the input type parameter.
      * </p>
-     * @param context the android context
      * @param attrs the widget attributes
      */
-    private void init(Context context, AttributeSet attrs) {
+    private void init(AttributeSet attrs) {
+        if (this.isInEditMode()) {
+            return;
+        }
+
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.InputView);
 
+        int inputType = typedArray.getInt(R.styleable.InputView_android_inputType, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
 
-        if (!this.isInEditMode()) {
-
-            int n = typedArray.getIndexCount();
-            for (int i = 0; i < n; i++) {
-                int attr = typedArray.getIndex(i);
-
-                //note that you are accessing standart attributes using your attrs identifier
-                if (attr == R.styleable.InputView_android_inputType) {
-                    int inputType = typedArray.getInt(attr, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
-
-                    if (inputType != 0) {
-                        this.setInputType(inputType);
-                    }
-                }
-
-            }
-
+        if (inputType != 0) {
+            this.setInputType(inputType);
         }
 
         typedArray.recycle();
