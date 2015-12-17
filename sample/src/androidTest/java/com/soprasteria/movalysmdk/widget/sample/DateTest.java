@@ -44,7 +44,7 @@ public class DateTest extends AbstractCommandWidgetTest {
     public void testValidDate() {
 
         this.getEntryScenario().testDateEntryOutsideWidget(
-                2015, 2, 2, 10, 30,
+                2015, 2, 2, 0, 0,
                 new int[]{R.string.test_empty_string},
                 R.id.mdkDateTime_withSharedError,
                 R.id.mdkdatetime_errorText,
