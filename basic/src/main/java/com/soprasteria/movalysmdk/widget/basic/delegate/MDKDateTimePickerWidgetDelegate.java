@@ -343,7 +343,6 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
             this.getTimeTextView().setText(sDateTime);
             this.setVisibleView(this.getDateTextView(), false);
         }
-//        this.setVisibleView(this.getClearButton(), false);
     }
 
     /**
@@ -425,7 +424,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                     calendarDate = this.mdkDate.getDateOrTime();
                 }
                 calendar.setTime(calendarDate);
-                DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), this,
+                DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), R.style.MDKDateTimePickerStyle, this,
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));

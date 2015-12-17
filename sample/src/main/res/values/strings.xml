@@ -145,6 +145,9 @@
     <string name="spinner_standalone_widget">Spinner standalone widget (has blank row, no custom layout, has hint)</string>
     <string name="rich_spinner_with_label_and_error_field">Rich spinner with label and error field</string>
 
+    <string name="fixedlist_case_1">RichFixedList with label without hint</string>
+    <string name="fixedlist_case_2">FixedList with label</string>
+    <string name="fixedlist_case_3">RichFixedList readonly</string>
     <string name="fixedlist_addButton_text">Add</string>
     <string name="fixedlist_addDialog_validate">Validate</string>
     <string name="fixedlist_addDialog_cancel">Cancel</string>

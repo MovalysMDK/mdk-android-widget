@@ -41,17 +41,24 @@ public class WrappedFixedListActivity extends AbstractFixedListActivity {
     /** the MDKRichFixedList widget. */
     private MDKRichFixedList mRichFixedList;
 
+    /** the Readonly MDKRichFixedList widget. */
+    private MDKRichFixedList mRichFixedListReadonly;
+
     /** the MDKFixedList adapter. */
     private MyAdapter mFxlAdapter;
 
     /** the MDKRichFixedList adapter. */
     private MyAdapter mRichFxlAdapter;
 
+    /** the Readonly MDKRichFixedList adapter. */
+    private MyAdapter mRichFxlAdapterReadonly;
+
     @Override
     protected int[] getWidgetIds() {
         return new int[] {
                 R.id.mdkRichFixedList,
                 R.id.mdkFixedList,
+                R.id.mdkRichFixedList_readonly,
         };
     }
 
@@ -104,6 +111,29 @@ public class WrappedFixedListActivity extends AbstractFixedListActivity {
             @Override
             public void onItemClick(int position) {
                 showInputDialog(mRichFxlAdapter, position);
+            }
+        });
+
+        // Reaonly Rich fixed list
+        mRichFixedListReadonly = (MDKRichFixedList) findViewById(R.id.mdkRichFixedList_readonly);
+        mRichFxlAdapterReadonly = new MyAdapter(myDataset);
+        mRichFixedListReadonly.setAdapter(mRichFxlAdapterReadonly);
+        mRichFixedListReadonly.addAddListener(new FixedListAddListener() {
+            @Override
+            public void onAddClick() {
+                showInputDialog(mRichFxlAdapterReadonly, -1);
+            }
+        });
+        mRichFixedListReadonly.addRemoveListener(new FixedListRemoveListener() {
+            @Override
+            public void onRemoveItemClick(int position) {
+                ((MyAdapter) mRichFixedListReadonly.getInnerWidget().getAdapter()).removeItemAt(position);
+            }
+        });
+        mRichFixedListReadonly.addItemClickListener(new FixedListItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                showInputDialog(mRichFxlAdapterReadonly, position);
             }
         });
     }

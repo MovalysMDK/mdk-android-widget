@@ -32,12 +32,31 @@
 
         <include layout="@layout/button_bar"/>
 
+        <!-- MDKRichFixedList with label, mandatory, no hint -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fixedlist_case_1"/>
+
         <com.soprasteria.movalysmdk.widget.fixedlist.MDKRichFixedList
             android:id="@+id/mdkRichFixedList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
             mdk:mandatory="true"/>
+
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+        <!-- MDKFixedList with label, mandatory, no hint -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fixedlist_case_2"/>
 
         <Button
             android:id="@+id/addButton"
@@ -53,14 +72,32 @@
             mdk:addButtonViewId="@id/addButton"
             mdk:errorId="@+id/fixedlist_error"
             mdk:label="@string/app_name"
-            mdk:mandatory="true"
-            mdk:readonly="true"/>
+            mdk:mandatory="true"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/fixedlist_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <View
+            android:background="@drawable/separator_background"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+        <!-- MDKRichEditText with label, mandatory, no hint -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fixedlist_case_3"/>
+
+        <com.soprasteria.movalysmdk.widget.fixedlist.MDKRichFixedList
+            android:id="@+id/mdkRichFixedList_readonly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:label="@string/app_name"
+            mdk:readonly="true"/>
 
     </LinearLayout>
 
