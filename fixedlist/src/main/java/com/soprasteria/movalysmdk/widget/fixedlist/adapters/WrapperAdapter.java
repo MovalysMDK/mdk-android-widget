@@ -75,6 +75,11 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
     private boolean isEnabled = true;
 
     /**
+     * true if the views should be readonly.
+     */
+    private boolean isReadonly = false;
+
+    /**
      * Constructor.
      *
      * @param adapter          the adapter to wrap
@@ -120,6 +125,13 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
 
         ViewGroup inner = (ViewGroup) v.findViewById(innerItemId);
         inner.addView(adapterViewHolder.itemView);
+
+        if (isReadonly) {
+            View delete = v.findViewById(deleteId);
+            if (delete != null) {
+                delete.setVisibility(View.GONE);
+            }
+        }
 
         W vh = null;
 
@@ -186,12 +198,21 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
     }
 
     /**
+     * Sets the readonly status of the widget on the adapter.
+     *
+     * @param isReadonly true to enable the wrapper
+     */
+    public void setReadonly(boolean isReadonly) {
+        this.isReadonly = isReadonly;
+    }
+
+    /**
      * Notifies the registered delete listeners.
      *
      * @param position the position of the deleted item
      */
     private void notifyItemDeleteListeners(int position) {
-        if (isEnabled) {
+        if (isEnabled && !isReadonly) {
             for (FixedListRemoveListener listener : this.removeListener) {
                 listener.onRemoveItemClick(position);
             }
@@ -204,7 +225,7 @@ public class WrapperAdapter<W extends WrapperViewHolder> extends RecyclerView.Ad
      * @param position the position of the clicked item
      */
     private void notifyItemClickListeners(int position) {
-        if (isEnabled) {
+        if (isEnabled && !isReadonly) {
             for (FixedListItemClickListener listener : this.itemClickListeners) {
                 listener.onItemClick(position);
             }
