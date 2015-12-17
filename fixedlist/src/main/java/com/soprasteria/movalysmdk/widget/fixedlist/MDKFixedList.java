@@ -205,6 +205,16 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
             if (this.mdkWidgetDelegate.getAddButton() != null) {
                 this.mdkWidgetDelegate.getAddButton().setOnClickListener(this);
             }
+
+            View addButton = this.getMDKWidgetDelegate().getAddButton();
+            if (addButton != null) {
+                addButton.setVisibility(isReadonly() ? View.GONE : View.VISIBLE);
+            }
+            WrapperAdapter wrapperAdapter = (WrapperAdapter) super.getAdapter();
+            if (wrapperAdapter != null) {
+                wrapperAdapter.setReadonly(isReadonly());
+                wrapperAdapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -271,7 +281,7 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     @Override
     public void setAdapter(Adapter adapter) {
-        WrapperAdapter wrapperAdapter = new WrapperAdapter(adapter, this.mdkWidgetDelegate.getWrapperViewHolderClass(),
+        WrapperAdapter wrapperAdapter = new WrapperAdapter<>(adapter, this.mdkWidgetDelegate.getWrapperViewHolderClass(),
                 this.mdkWidgetDelegate.getWrapperViewHolderLayout(), this.mdkWidgetDelegate.getWrapperViewHolderInnerItemId(),
                 this.mdkWidgetDelegate.getWrapperViewHolderDeleteId());
         wrapperAdapter.addRemoveListener(this);
@@ -384,12 +394,21 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     @Override
     public void setReadonly(boolean readonly) {
-        //nothing to do here.
+        this.getMDKWidgetDelegate().setReadonly(readonly);
+        View addButton = this.getMDKWidgetDelegate().getAddButton();
+        if (addButton != null) {
+            addButton.setVisibility(readonly ? View.GONE : View.VISIBLE);
+        }
+        WrapperAdapter wrapperAdapter = (WrapperAdapter) super.getAdapter();
+        if (wrapperAdapter != null) {
+            wrapperAdapter.setReadonly(readonly);
+            wrapperAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public boolean isReadonly() {
-        return false;
+        return this.getMDKWidgetDelegate().isReadonly();
     }
 
     @Override

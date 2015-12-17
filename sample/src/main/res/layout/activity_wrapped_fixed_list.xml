@@ -53,7 +53,8 @@
             mdk:addButtonViewId="@id/addButton"
             mdk:errorId="@+id/fixedlist_error"
             mdk:label="@string/app_name"
-            mdk:mandatory="true"/>
+            mdk:mandatory="true"
+            mdk:readonly="true"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/fixedlist_error"
