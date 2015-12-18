@@ -81,14 +81,15 @@ public class MDKWidgetSimpleComponentProvider implements MDKWidgetComponentProvi
 
     /**
      * Constructor of the MDKWidgetSimpleComponentProvider.
-     * <p>Build the default validator keys array <em>R.array.validatorKeys</em>.</p>
-     * @param context the Android context
      */
-    public MDKWidgetSimpleComponentProvider(Context context) {
+    public MDKWidgetSimpleComponentProvider() {
         this.validatorMap = new HashMap<>();
         this.validatorListMap = new HashMap<>();
         this.richSelector = new HashMap<>();
+    }
 
+    @Override
+    public void initialize(Context context) {
         String[] validator = new String[] {};
         try {
             validator = getAssetsValidator(context);
