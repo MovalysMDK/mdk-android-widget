@@ -15,6 +15,10 @@
  */
 package com.soprasteria.movalysmdk.widget.core.delegate;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
@@ -32,6 +36,7 @@ import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 /**
  * Command handler on MDKButtonComponent for MDKWidgets.
@@ -78,6 +83,12 @@ public class WidgetCommandDelegate implements ValidationListener {
     /** true if the secondary command view is out of the linked view. */
     private boolean outerSecondaryCommandView = true;
 
+    /** true if the intent linked to the action on the primary command is not handled by the device. */
+    private boolean noIntentOnPrimary = false;
+
+    /** true if the intent linked to the action on the secondary command is not handled by the device. */
+    private boolean noIntentOnSecondary = false;
+
     /**
      * Constructor.
      * @param mdkWidget view the widget view
@@ -86,6 +97,32 @@ public class WidgetCommandDelegate implements ValidationListener {
     public WidgetCommandDelegate(MDKWidget mdkWidget, AttributeSet attrs) {
 
         this(mdkWidget, attrs, true, true);
+    }
+
+    /**
+     * Checks if the intents linked to the actions launched by a command are handled by the device.
+     * If they are not, the commands will be disabled.
+     * @param context an android context
+     * @param commandsActionIntents the intents launched by the actions linked to the commands
+     */
+    public void setCommandsActivationFromIntents(Context context, String[] commandsActionIntents) {
+        if (commandsActionIntents != null) {
+            PackageManager manager = context.getPackageManager();
+            List<ResolveInfo> info;
+
+            if (commandsActionIntents.length > 1 && commandsActionIntents[1] != null) {
+                info = manager.queryIntentActivities(new Intent(commandsActionIntents[1]), 0);
+                noIntentOnSecondary = info.isEmpty();
+            }
+
+            if (commandsActionIntents[0] != null) {
+                info = manager.queryIntentActivities(new Intent(commandsActionIntents[0]), 0);
+                noIntentOnPrimary = info.isEmpty();
+            }
+
+            enableCommandOnView(!noIntentOnPrimary, this.primaryCommandViewId, this.outerPrimaryCommandView);
+            enableCommandOnView(!noIntentOnSecondary, this.secondaryCommandViewId, this.outerSecondaryCommandView);
+        }
     }
 
     /**
@@ -246,11 +283,11 @@ public class WidgetCommandDelegate implements ValidationListener {
     @Override
     public void notifyCommandStateChanged(boolean valid) {
         if (valid) {
-            enableCommandOnView(true, this.primaryCommandViewId, this.outerPrimaryCommandView);
-            enableCommandOnView(true, this.secondaryCommandViewId, this.outerSecondaryCommandView);
+            enableCommandOnView(!noIntentOnPrimary, this.primaryCommandViewId, this.outerPrimaryCommandView);
+            enableCommandOnView(!noIntentOnSecondary, this.secondaryCommandViewId, this.outerSecondaryCommandView);
         } else {
-            enableCommandOnView(!deactivatePrimaryOnValidation, this.primaryCommandViewId, this.outerPrimaryCommandView);
-            enableCommandOnView(!deactivateSecondaryOnValidation, this.secondaryCommandViewId, this.outerSecondaryCommandView);
+            enableCommandOnView(!deactivatePrimaryOnValidation && !noIntentOnPrimary, this.primaryCommandViewId, this.outerPrimaryCommandView);
+            enableCommandOnView(!deactivateSecondaryOnValidation && !noIntentOnSecondary, this.secondaryCommandViewId, this.outerSecondaryCommandView);
         }
 
     }
