@@ -86,6 +86,12 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
         this.commandDelegate = new WidgetCommandDelegate(this, attrs);
     }
 
+    /**
+     * Returns the intents launched by the commands of the widget.
+     * @return the intents launched by the commands of the widget
+     */
+    protected abstract String[] getCommandsIntent();
+
     @Override
     public WidgetCommandDelegate getWidgetCommandDelegate() {
         return this.commandDelegate;
@@ -119,6 +125,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
                 }
             }
             this.commandDelegate.registerCommands(this);
+            this.commandDelegate.setCommandsActivationFromIntents(this.getContext(), getCommandsIntent());
         }
     }
 

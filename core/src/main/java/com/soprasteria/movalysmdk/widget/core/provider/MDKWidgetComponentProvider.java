@@ -36,6 +36,12 @@ import java.util.Set;
 public interface MDKWidgetComponentProvider {
 
     /**
+     * Builds the default validator keys array <em>R.array.validatorKeys</em>.
+     * @param context the Android context
+     */
+    void initialize(Context context);
+
+    /**
      * Return the singleton WidgetCommand for the specified Class.
      * @param baseKey the base key for the widget
      * @param qualifier the qualifier of the widget

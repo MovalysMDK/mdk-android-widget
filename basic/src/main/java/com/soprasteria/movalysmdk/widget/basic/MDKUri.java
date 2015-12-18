@@ -16,6 +16,7 @@
 package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.text.InputType;
@@ -80,5 +81,10 @@ public class MDKUri extends MDKCommandsEditText implements HasUri {
         return new IntentFilter[] {
                 new IntentFilter(getResources().getString(R.string.mdkcommand_uri_action))
         };
+    }
+
+    @Override
+    protected String[] getCommandsIntent() {
+        return new String[] { Intent.ACTION_VIEW };
     }
 }

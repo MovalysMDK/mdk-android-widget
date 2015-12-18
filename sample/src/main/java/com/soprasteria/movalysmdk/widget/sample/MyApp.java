@@ -91,7 +91,8 @@ public class MyApp extends Application implements MDKWidgetApplication {
     @Override
     public MDKWidgetComponentProvider getMDKWidgetComponentProvider() {
         if (this.widgetComponentProvider == null) {
-            this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider(this);
+            this.widgetComponentProvider = new MDKWidgetSimpleComponentProvider();
+            this.widgetComponentProvider.initialize(this);
             this.widgetComponentProvider.registerValidator(this, new NoNumberValidator());
             this.widgetComponentProvider.registerValidator(this, new MobileOSAndroidValidator());
 
