@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -17,11 +16,7 @@
 
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true"
-    style="?attr/mdkRichLayoutStyle">
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/mdkwidget_label_error_layout" />
 
@@ -29,16 +24,16 @@
 
     <com.soprasteria.movalysmdk.widget.positionmaps.MDKMapsPosition
         android:id="@id/component_internal"
+        style="?attr/mdkValueMapsStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttons_layout"
+        mdk:clearButtonViewId="@+id/component_internal_clear"
         mdk:errorId="@id/component_error"
         mdk:labelId="@id/component_label"
+        mdk:locateButtonAnimationId="@anim/locate_rotation"
         mdk:locateButtonViewId="@+id/component_positionButton"
         mdk:mapsButtonViewId="@+id/component_mapButton"
-        mdk:navButtonViewId="@+id/component_navigationButton"
-        mdk:clearButtonViewId="@+id/component_internal_clear"
-        mdk:locateButtonAnimationId="@anim/locate_rotation"
-        style="?attr/mdkValueMapsStyle"/>
+        mdk:navButtonViewId="@+id/component_navigationButton" />
 
 </merge>

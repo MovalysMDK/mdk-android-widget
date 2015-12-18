@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -16,16 +15,14 @@
     along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
         android:id="@id/component_error"
+        style="?attr/mdkErrorStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/component_internal"
-        style="?attr/mdkErrorStyle" />
+        android:layout_below="@id/component_internal" />
 
 </merge>

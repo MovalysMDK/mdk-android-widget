@@ -16,20 +16,13 @@
 
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    style="?attr/mdkRichLayoutStyle"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true">
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@id/component_label"
         style="?attr/mdkLabelStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/groupDateClear"
@@ -42,21 +35,21 @@
             style="?attr/mdkValueDateStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/component_internal_time"
             android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/component_internal_time"
             mdk:clearButtonViewId="@+id/component_internal_clear"
             mdk:errorId="@id/component_error"
             mdk:labelId="@id/component_label"
-            mdk:timeTextViewId="@+id/component_internal_time"/>
+            mdk:timeTextViewId="@+id/component_internal_time" />
 
         <com.soprasteria.movalysmdk.widget.basic.MDKTintedTextView
             android:id="@id/component_internal_time"
             style="?attr/mdkValueDateStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/component_internal_clear"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:layout_centerVertical="true"/>
+            android:layout_toLeftOf="@+id/component_internal_clear" />
 
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_internal_clear"
@@ -74,7 +67,5 @@
         style="?attr/mdkErrorStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/groupDateClear" />
 </merge>

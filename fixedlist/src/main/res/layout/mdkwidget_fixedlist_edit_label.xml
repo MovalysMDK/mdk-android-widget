@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -17,53 +16,49 @@
 
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true"
-    style="?attr/mdkRichLayoutStyle">
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/title_layout"
+        style="?attr/mdkValueFixedListTitleLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
         android:orientation="horizontal"
-        style="?attr/mdkValueFixedListTitleLayoutStyle">
+        android:padding="4dp">
 
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_addButton"
+            style="?attr/mdkCommandStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            style="?attr/mdkCommandStyle"/>
+            android:src="@drawable/ic_add" />
 
         <TextView
             android:id="@id/component_label"
+            style="?attr/mdkValueFixedListTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
-            style="?attr/mdkValueFixedListTitleStyle"/>
+            android:gravity="center_horizontal|center_vertical" />
 
     </LinearLayout>
 
     <com.soprasteria.movalysmdk.widget.fixedlist.MDKFixedList
         android:id="@id/component_internal"
+        style="?attr/mdkValueFixedListStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_layout"
         mdk:addButtonViewId="@id/component_addButton"
         mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"
-        style="?attr/mdkValueFixedListStyle"/>
+        mdk:labelId="@id/component_label" />
 
     <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
         android:id="@id/component_error"
+        style="?attr/mdkErrorStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/component_internal"
-        style="?attr/mdkErrorStyle" />
+        android:layout_below="@id/component_internal" />
 
 </merge>

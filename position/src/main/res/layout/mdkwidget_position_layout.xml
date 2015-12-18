@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditText
         android:id="@+id/component_internal_latitude"
+        style="?attr/mdkValueEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal|numberSigned"
-        style="?attr/mdkValueEditTextStyle"/>
+        android:inputType="numberDecimal|numberSigned" />
 
     <EditText
         android:id="@+id/component_internal_longitude"
+        style="?attr/mdkValueEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/component_internal_latitude"
-        android:inputType="numberDecimal|numberSigned"
-        style="?attr/mdkValueEditTextStyle"/>
+        android:inputType="numberDecimal|numberSigned" />
 
     <Spinner
         android:id="@+id/component_internal_address"
+        style="?attr/mdkSpinnerStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?attr/mdkSpinnerStyle"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/component_internal_info_location"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/component_internal_info_address"
-        android:layout_below="@+id/component_internal_info_location"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/component_internal_info_location" />
 
 </merge>

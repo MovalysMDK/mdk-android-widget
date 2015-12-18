@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -17,33 +16,27 @@
 
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true"
-    style="?attr/mdkRichLayoutStyle">
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/mdkwidget_error_layout" />
 
     <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
         android:id="@+id/component_phoneButton"
-        android:layout_alignParentLeft="true"
-        android:src="@android:drawable/ic_menu_call"
         style="?attr/mdkPrimaryCommandStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_call" />
 
     <com.soprasteria.movalysmdk.widget.basic.MDKPhone
         android:id="@id/component_internal"
+        style="?attr/mdkValueEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/component_phoneButton"
-        android:layout_alignParentRight="true"
-        android:inputType="phone"
         android:layout_alignBottom="@id/component_phoneButton"
-        mdk:primaryCommandId="@id/component_phoneButton"
+        android:layout_toRightOf="@id/component_phoneButton"
+        android:inputType="phone"
         mdk:errorId="@id/component_error"
-        style="?attr/mdkValueEditTextStyle"/>
+        mdk:primaryCommandId="@id/component_phoneButton" />
 
 
 </merge>

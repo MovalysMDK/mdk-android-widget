@@ -16,20 +16,13 @@
 
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    style="?attr/mdkRichLayoutStyle"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true">
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@id/component_label"
         style="?attr/mdkLabelStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/groupDateClear"
@@ -53,12 +46,12 @@
         <com.soprasteria.movalysmdk.widget.core.helper.AlphaButton
             android:id="@+id/component_internal_clear"
             style="?attr/mdkNegativeCommandStyle"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_mdkwidget_clear"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_mdkwidget_clear" />
     </RelativeLayout>
 
     <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
@@ -66,7 +59,5 @@
         style="?attr/mdkErrorStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/groupDateClear" />
 </merge>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -17,23 +16,18 @@
 
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true"
-    style="?attr/mdkRichLayoutStyle">
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/mdkwidget_label_error_layout" />
 
     <com.soprasteria.movalysmdk.widget.spinner.MDKSpinner
         android:id="@id/component_internal"
+        style="?attr/mdkValueSpinnerStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/component_label"
+        android:layout_below="@+id/below_view"
         mdk:errorId="@id/component_error"
-        mdk:labelId="@id/component_label"
-        style="?attr/mdkValueSpinnerStyle"/>
+        mdk:labelId="@id/component_label" />
 
 
 </merge>

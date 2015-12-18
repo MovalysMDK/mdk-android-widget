@@ -16,27 +16,19 @@
 
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mdk="http://schemas.android.com/apk/res-auto"
-    style="?attr/mdkRichLayoutStyle"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:addStatesFromChildren="true">
+    xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@id/component_label"
         style="?attr/mdkLabelStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/groupDateClear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/component_label"
-        android:orientation="horizontal">
+        android:layout_below="@id/component_label">
 
         <com.soprasteria.movalysmdk.widget.basic.MDKDateTime
             android:id="@id/component_internal"
@@ -66,7 +58,5 @@
         style="?attr/mdkErrorStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/groupDateClear" />
 </merge>

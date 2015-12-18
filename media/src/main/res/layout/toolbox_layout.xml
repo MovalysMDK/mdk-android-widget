@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -23,111 +22,114 @@
     android:elevation="8dp">
 
     <HorizontalScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:showDividers="beginning|end"
-            android:divider="@drawable/tools_divider_h">
+            android:divider="@drawable/tools_divider_h"
+            android:showDividers="beginning|end">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:showDividers="middle"
+                android:layout_gravity="center_vertical"
                 android:divider="@drawable/tools_divider_h"
-                android:layout_gravity="center_vertical">
+                android:showDividers="middle">
 
                 <Button
                     android:id="@+id/color_button"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@drawable/colorpicker_background"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:background="@drawable/colorpicker_background" />
 
                 <LinearLayout
                     android:id="@+id/brush_tools"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:showDividers="middle"
+                    android:baselineAligned="true"
                     android:divider="@drawable/tools_divider_h"
-                    android:baselineAligned="true">
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
                     <Spinner
                         android:id="@+id/brush_size"
+                        style="@style/Widget.AppCompat.Spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginLeft="8dp"
-                        style="@style/Widget.AppCompat.Spinner"/>
+                        android:layout_marginLeft="8dp" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@android:drawable/divider_horizontal_dim_dark"
-                    />
+                    android:background="@android:drawable/divider_horizontal_dim_dark" />
 
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/element_hand_free"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:src="@drawable/ic_pen_grey600_24dp"/>
+                android:src="@drawable/ic_pen_grey600_24dp" />
 
 
             <ImageButton
                 android:id="@+id/element_line"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:src="@drawable/ic_vector_line_grey600_24dp"/>
+                android:src="@drawable/ic_vector_line_grey600_24dp" />
 
             <!-- TODO: fix it -->
             <ImageButton
                 android:id="@+id/element_text"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:visibility="gone"
-                android:src="@drawable/ic_format_text_grey600_24dp"/>
+                android:src="@drawable/ic_format_text_grey600_24dp"
+                android:visibility="gone" />
             <!-- Circle not appearing in toolbox -->
             <ImageButton
                 android:id="@+id/element_circle"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:visibility="gone"
-                android:src="@drawable/ic_checkbox_blank_circle_outline_grey600_24dp"/>
+                android:src="@drawable/ic_checkbox_blank_circle_outline_grey600_24dp"
+                android:visibility="gone" />
+
             <ImageButton
                 android:id="@+id/element_ellipse"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:src="@drawable/ic_ellipse_grey600_24dp"/>
+                android:src="@drawable/ic_ellipse_grey600_24dp" />
+
             <ImageButton
                 android:id="@+id/element_rect"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:src="@drawable/ic_crop_square_grey600_24dp"/>
+                android:src="@drawable/ic_crop_square_grey600_24dp" />
+
             <ImageButton
                 android:id="@+id/element_arrow"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:src="@drawable/ic_long_arrow_right_grey600_24dp"/>
+                android:src="@drawable/ic_long_arrow_right_grey600_24dp" />
+
             <ImageButton
                 android:id="@+id/element_double_arrow"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:src="@drawable/ic_double_arrow_grey600_24dp"/>
+                android:src="@drawable/ic_double_arrow_grey600_24dp" />
         </LinearLayout>
 
     </HorizontalScrollView>
