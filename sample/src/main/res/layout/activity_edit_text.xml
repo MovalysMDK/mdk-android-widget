@@ -286,7 +286,7 @@
             android:id="@+id/mdkRichEditText_readonly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:readonly="true"/>
+            mdk:readOnly="true"/>
 
         <!-- MDKRichEditText with inputType -->
 

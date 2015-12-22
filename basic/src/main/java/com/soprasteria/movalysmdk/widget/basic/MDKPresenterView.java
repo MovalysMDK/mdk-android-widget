@@ -111,10 +111,10 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
 
         /* Get attrs style */
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKPresenterViewComponent);
-        float titleSize = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_title_size, 28);
+        float titleSize = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_titleSize, 28);
         float fDiameter = typedArrayComponent.getDimension(R.styleable.MDKCommons_MDKPresenterViewComponent_diameter, 56 * (getContext().getResources().getDisplayMetrics().density) + 0.5f);
-        int titleColor = typedArrayComponent.getColor(R.styleable.MDKCommons_MDKPresenterViewComponent_title_color, -1);
-        Drawable titleBackground = typedArrayComponent.getDrawable(R.styleable.MDKCommons_MDKPresenterViewComponent_title_background);
+        int titleColor = typedArrayComponent.getColor(R.styleable.MDKCommons_MDKPresenterViewComponent_titleColor, -1);
+        Drawable titleBackground = typedArrayComponent.getDrawable(R.styleable.MDKCommons_MDKPresenterViewComponent_titleBackground);
 
         /* Inflate views */
         LayoutInflater inflater = LayoutInflater.from(this.getContext());

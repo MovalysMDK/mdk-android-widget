@@ -65,7 +65,7 @@
             android:id="@+id/MDKRichSpinner_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:has_blank_row="true"
+            mdk:hasBlankRow="true"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
@@ -85,7 +85,7 @@
             android:id="@+id/MDKRichSpinner_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:has_blank_row="true"
+            mdk:hasBlankRow="true"
             mdk:hint="@string/User_hint_value"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
@@ -106,7 +106,7 @@
             android:id="@+id/MDKRichSpinner_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:has_blank_row="true"
+            mdk:hasBlankRow="true"
             mdk:hint="@string/User_hint_value"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
@@ -127,7 +127,7 @@
             android:id="@+id/MDKRichSpinner_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:has_blank_row="true"
+            mdk:hasBlankRow="true"
             mdk:hint="@string/User_hint_value"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
@@ -148,7 +148,7 @@
             android:id="@+id/MDKRichSpinner_6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:has_blank_row="true"
+            mdk:hasBlankRow="true"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
@@ -168,7 +168,7 @@
             android:id="@+id/MDKRichSpinner_7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:has_blank_row="true"
+            mdk:hasBlankRow="true"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
 
@@ -189,7 +189,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:errorId="@+id/mdkSpinner_errorText"
-            mdk:has_blank_row="true"
+            mdk:hasBlankRow="true"
             mdk:hint="@string/User_hint_value"
             mdk:label="@string/app_name"
             mdk:mandatory="true" />
@@ -218,7 +218,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
-            mdk:readonly="true" />
+            mdk:readOnly="true" />
 
     </LinearLayout>
 

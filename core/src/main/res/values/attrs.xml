@@ -25,7 +25,6 @@
         <attr name="mdkLabelStyle" format="reference" />
         <attr name="mdkValueEditTextStyle" format="reference" />
         <attr name="mdkValueDateStyle" format="reference" />
-        <!-- TODO : renommer -->
         <attr name="mdkValueMapsStyle" format="reference" />
         <attr name="mdkValueCheckBoxStyle" format="reference" />
         <attr name="mdkValueSwitchStyle" format="reference" />
@@ -254,9 +253,9 @@
         <attr name="maxLength" format="integer" />
         <attr name="formatter" format="reference" />
         <attr name="clearButtonViewId" format="reference" />
-        <attr name="readonly" format="boolean" />
-        <attr name="thumbnail_width" format="dimension" />
-        <attr name="thumbnail_height" format="dimension" />
+        <attr name="readOnly" format="boolean" />
+        <attr name="thumbnailWidth" format="dimension" />
+        <attr name="thumbnailHeight" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKButtonComponent">
@@ -284,7 +283,7 @@
         <attr name="mode" format="enum">
             <enum name="date" value="0" />
             <enum name="time" value="1" />
-            <enum name="date_time" value="2" />
+            <enum name="dateTime" value="2" />
         </attr>
         <attr name="dateFormat" format="string" />
         <attr name="timeFormat" format="string" />
@@ -295,21 +294,21 @@
     </declare-styleable>
 
     <declare-styleable name="MDKCommons.MDKCheckableComponent">
-        <attr name="mandatory_value" format="boolean" />
-        <attr name="text_checked" format="string" />
-        <attr name="text_unchecked" format="string" />
-        <attr name="text_fixed" format="string" />
+        <attr name="mandatoryValue" format="boolean" />
+        <attr name="textChecked" format="string" />
+        <attr name="textUnchecked" format="string" />
+        <attr name="textFixed" format="string" />
     </declare-styleable>
 
     <!-- MDKSeekBar specific attributes-->
     <declare-styleable name="MDKCommons.MDKSeekBarComponent">
         <attr name="initialSeekBarValue" format="integer" />
-        <attr name="min_allowed" format="integer" />
-        <attr name="max_allowed" format="integer" />
-        <attr name="seekbar_max" format="integer" />
-        <attr name="seekbar_min" format="integer" />
+        <attr name="minAllowed" format="integer" />
+        <attr name="maxAllowed" format="integer" />
+        <attr name="seekbarMax" format="integer" />
+        <attr name="seekbarMin" format="integer" />
         <attr name="attachedEditText" format="reference" />
-        <attr name="readonlyEditText" format="boolean" />
+        <attr name="readOnlyEditText" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="MDKCommandButton">
@@ -321,8 +320,8 @@
 
     <!-- MDKEnumImage specific attributes -->
     <declare-styleable name="MDKCommons.MDKEnumView">
-        <attr name="enum_prefix" format="string" />
-        <attr name="enum_mode" format="enum">
+        <attr name="enumPrefix" format="string" />
+        <attr name="enumMode" format="enum">
             <enum name="image" value="0" />
             <enum name="text" value="1" />
         </attr>
@@ -330,15 +329,15 @@
 
     <!-- MDKSpinner specific attributes -->
     <declare-styleable name="MDKCommons.MDKSpinnerComponent">
-        <attr name="has_blank_row" format="boolean" />
+        <attr name="hasBlankRow" format="boolean" />
     </declare-styleable>
 
 
     <!-- MDKMedia specific attributes -->
     <declare-styleable name="MDKCommons.MDKMediaComponent">
         <attr name="placeholder" format="reference" />
-        <attr name="use_init_image" format="boolean" />
-        <attr name="media_type" forma="enum">
+        <attr name="useInitImage" format="boolean" />
+        <attr name="mediaType" forma="enum">
             <enum name="photo" value="0" />
             <enum name="video" value="1" />
             <enum name="file" value="2" />
@@ -347,9 +346,9 @@
 
     <!-- MDKPresenterView specific attributes -->
     <declare-styleable name="MDKCommons.MDKPresenterViewComponent">
-        <attr name="title_background" format="integer" />
-        <attr name="title_size" format="dimension" />
+        <attr name="titleBackground" format="integer" />
+        <attr name="titleSize" format="dimension" />
         <attr name="diameter" format="dimension" />
-        <attr name="title_color" format="color" />
+        <attr name="titleColor" format="color" />
     </declare-styleable>
 </resources>

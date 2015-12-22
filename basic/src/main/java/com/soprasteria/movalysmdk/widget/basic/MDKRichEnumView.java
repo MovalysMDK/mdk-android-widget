@@ -64,21 +64,21 @@ public class MDKRichEnumView extends MDKBaseRichWidget<MDKEnumView> implements H
 
         // Parse the enum_prefix attribute
         //set inner widget width and height
-        int hdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_height, 0);
-        int wdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_width, 0);
+        int hdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnailHeight, 0);
+        int wdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnailWidth, 0);
         if(hdp!=0 && wdp!=0) {
             getInnerWidget().getLayoutParams().width = wdp;
             getInnerWidget().getLayoutParams().height = hdp;
             getInnerWidget().requestLayout();
         }
 
-        String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumView_enum_prefix);
+        String resEnumPrefix = typedArray.getString(R.styleable.MDKCommons_MDKEnumView_enumPrefix);
         if(resEnumPrefix != null) {
             setResourceNamePrefix(resEnumPrefix);
         }
 
         // Parse the mode of EnumView
-        if (typedArray.getInt(R.styleable.MDKCommons_MDKEnumView_enum_mode, MDKEnumView.MODE_IMAGE) == MDKEnumView.MODE_TEXT) {
+        if (typedArray.getInt(R.styleable.MDKCommons_MDKEnumView_enumMode, MDKEnumView.MODE_IMAGE) == MDKEnumView.MODE_TEXT) {
             setMode(MDKEnumView.MODE_TEXT);
         } else {
             setMode(MDKEnumView.MODE_IMAGE);

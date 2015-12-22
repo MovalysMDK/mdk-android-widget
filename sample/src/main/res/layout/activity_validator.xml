@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/checkable_value_true"
-            mdk:mandatory_value="true" />
+            mdk:mandatoryValue="true" />
 
         <View
             android:background="@drawable/separator_background"
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/checkable_value_false"
-            mdk:mandatory_value="false" />
+            mdk:mandatoryValue="false" />
 
         <View
             android:background="@drawable/separator_background"
@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/checkable_value_true"
-            mdk:mandatory_value="true"/>
+            mdk:mandatoryValue="true"/>
 
         <View
             android:background="@drawable/separator_background"
@@ -120,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/checkable_value_false"
-            mdk:mandatory_value="false"/>
+            mdk:mandatoryValue="false"/>
 
     </LinearLayout>
 </ScrollView>

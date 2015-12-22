@@ -74,12 +74,12 @@ public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate implements Cha
 
         checkableViewId = view.getId();
 
-        String textFixedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_fixed);
+        String textFixedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_textFixed);
         if (textFixedStr != null) {
             fixedText = textFixedStr;
             ((CompoundButton) view).setText(fixedText);
         }else {
-            String textCheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_checked);
+            String textCheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_textChecked);
             if (textCheckedStr != null) {
                 checkedText = textCheckedStr;
                 if(((CompoundButton) view).isChecked()) {
@@ -87,7 +87,7 @@ public class MDKCheckableWidgetDelegate extends MDKWidgetDelegate implements Cha
                 }
             }
 
-            String textUncheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_unchecked);
+            String textUncheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_textUnchecked);
             if (textUncheckedStr != null) {
                 uncheckedText = textUncheckedStr;
                 if(!((CompoundButton) view).isChecked()) {

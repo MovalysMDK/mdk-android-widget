@@ -77,16 +77,16 @@ public class MDKBaseRichCheckableWidget<T extends MDKWidget & HasValidator & Has
         TypedArray typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKCheckableComponent);
 
         if (!this.isInEditMode()) {
-            String textFixedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_fixed);
+            String textFixedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_textFixed);
             if (textFixedStr != null) {
                 getInnerWidget().setFixedText(textFixedStr);
             } else {
-                String textCheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_checked);
+                String textCheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_textChecked);
                 if (textCheckedStr != null) {
                     getInnerWidget().setCheckedText(textCheckedStr);
                 }
 
-                String textUncheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_text_unchecked);
+                String textUncheckedStr = typedArray.getString(R.styleable.MDKCommons_MDKCheckableComponent_textUnchecked);
                 if (textUncheckedStr != null) {
                     getInnerWidget().setUncheckedText(textUncheckedStr);
                 }

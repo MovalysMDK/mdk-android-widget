@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
-            mdk:readonly="true"/>
+            mdk:readOnly="true"/>
 
     </LinearLayout>
 

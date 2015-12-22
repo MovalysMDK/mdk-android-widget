@@ -43,7 +43,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             mdk:mandatory="false"
-            mdk:use_init_image="true"
+            mdk:useInitImage="true"
             />
 
         <View
@@ -64,9 +64,9 @@
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
             mdk:mandatory="true"
-            mdk:use_init_image="true"
-            mdk:thumbnail_width="144dp"
-            mdk:thumbnail_height="144dp"/>
+            mdk:useInitImage="true"
+            mdk:thumbnailWidth="144dp"
+            mdk:thumbnailHeight="144dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -86,8 +86,8 @@
             android:id="@+id/mdkMedia_readonly"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            mdk:use_init_image="true"
-            mdk:readonly="true"/>
+            mdk:useInitImage="true"
+            mdk:readOnly="true"/>
 
         <View
             android:layout_width="match_parent"
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             mdk:label="@string/app_name"
-            mdk:use_init_image="true"
+            mdk:useInitImage="true"
             mdk:placeholder="@drawable/enum_mobileos_android"/>
 
         <!-- RICH PHOTO IN A DIALOG -->

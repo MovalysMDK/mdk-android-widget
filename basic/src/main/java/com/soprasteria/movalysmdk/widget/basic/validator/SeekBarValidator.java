@@ -20,8 +20,8 @@ import android.view.View;
 
 import com.soprasteria.movalysmdk.widget.basic.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasSeekBar;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.core.validator.FormFieldValidator;
@@ -99,15 +99,15 @@ public class SeekBarValidator implements FormFieldValidator<Integer> {
     private MDKMessage executeValidation(int valueToValidate, Context context, MDKAttributeSet mdkAttributeSet){
         MDKMessage mdkMessage = null;
 
-        if (mdkAttributeSet.containsKey(R.attr.max_allowed)&&mdkAttributeSet.containsKey(R.attr.min_allowed)
-                && (valueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed) || valueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))){
-            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_max_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed)), String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed))));
-        }else if((mdkAttributeSet.containsKey(R.attr.max_allowed))
-                && (valueToValidate > mdkAttributeSet.getInteger(R.attr.max_allowed))) {
-            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_max, String.valueOf(mdkAttributeSet.getInteger(R.attr.max_allowed))));
-        }else if ((mdkAttributeSet.containsKey(R.attr.min_allowed))
-                && (valueToValidate < mdkAttributeSet.getInteger(R.attr.min_allowed))) {
-            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.min_allowed))));
+        if (mdkAttributeSet.containsKey(R.attr.maxAllowed)&&mdkAttributeSet.containsKey(R.attr.minAllowed)
+                && (valueToValidate > mdkAttributeSet.getInteger(R.attr.maxAllowed) || valueToValidate < mdkAttributeSet.getInteger(R.attr.minAllowed))){
+            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_max_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.minAllowed)), String.valueOf(mdkAttributeSet.getInteger(R.attr.maxAllowed))));
+        }else if((mdkAttributeSet.containsKey(R.attr.maxAllowed))
+                && (valueToValidate > mdkAttributeSet.getInteger(R.attr.maxAllowed))) {
+            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_max, String.valueOf(mdkAttributeSet.getInteger(R.attr.maxAllowed))));
+        }else if ((mdkAttributeSet.containsKey(R.attr.minAllowed))
+                && (valueToValidate < mdkAttributeSet.getInteger(R.attr.minAllowed))) {
+            mdkMessage = prepareErrorMessage(context.getString(R.string.mdkvalidator_seekbar_error_min, String.valueOf(mdkAttributeSet.getInteger(R.attr.minAllowed))));
         }
 
         return mdkMessage;

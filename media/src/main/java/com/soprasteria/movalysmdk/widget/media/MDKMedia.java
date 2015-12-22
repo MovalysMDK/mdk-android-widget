@@ -304,9 +304,9 @@ public class MDKMedia extends RelativeLayout implements MDKWidget, HasLabel, Has
         this.overlay = new WeakReference<>(findViewById(R.id.overlay));
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMediaComponent);
-        this.useInitImage = typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_init_image, false);
+        this.useInitImage = typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_useInitImage, false);
 
-        switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, TYPE_PHOTO)) {
+        switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_mediaType, TYPE_PHOTO)) {
             case TYPE_PHOTO:
                 setMediaType(TYPE_PHOTO);
                 break;

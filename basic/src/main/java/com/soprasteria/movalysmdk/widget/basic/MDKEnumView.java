@@ -168,10 +168,10 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumView);
 
         // Parse the enum_prefix attribute
-        enumPrefix = AttributesHelper.getStringFromStringAttribute(typedArray, R.styleable.MDKCommons_MDKEnumView_enum_prefix, DEFAULT_ENUM_PREFIX);
+        enumPrefix = AttributesHelper.getStringFromStringAttribute(typedArray, R.styleable.MDKCommons_MDKEnumView_enumPrefix, DEFAULT_ENUM_PREFIX);
 
         // Parse the mode of EnumView
-        mode = AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKEnumView_enum_mode, 0);
+        mode = AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKEnumView_enumMode, 0);
 
         typedArray.recycle();
 

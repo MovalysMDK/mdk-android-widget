@@ -54,8 +54,8 @@
             android:layout_marginBottom="1dp"
             android:layout_marginTop="1dp"
             android:padding="2dp"
-            mdk:max_allowed="20"
-            mdk:seekbar_max="100"
+            mdk:maxAllowed="20"
+            mdk:seekbarMax="100"
             mdk:label="@string/app_name" />
 
         <View
@@ -77,8 +77,8 @@
             mdk:initialSeekBarValue="40"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:max_allowed="20"
-            mdk:seekbar_max="100"
+            mdk:maxAllowed="20"
+            mdk:seekbarMax="100"
             mdk:errorId="@+id/mdkemail_errorText"
             mdk:primaryCommandId="@+id/buttonCall"/>
 
@@ -105,7 +105,7 @@
             android:id="@+id/mdkRichSeekBar_withCustomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:max_allowed="20"
+            mdk:maxAllowed="20"
             mdk:label="@string/app_name"
             mdk:layout="@layout/custom_seekbar_widget" />
 
@@ -129,8 +129,8 @@
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_1"
             mdk:errorId="@+id/commons_error"
-            mdk:seekbar_max="100"
-            mdk:max_allowed="60"/>
+            mdk:seekbarMax="100"
+            mdk:maxAllowed="60"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichSeekBar
             android:id="@+id/mdkRichSeekBar2_withSharedError"
@@ -138,10 +138,10 @@
             android:layout_height="wrap_content"
             mdk:label="@string/mdk_error_message_2"
             mdk:errorId="@+id/commons_error"
-            mdk:seekbar_max="100"
-            mdk:seekbar_min="0"
-            mdk:max_allowed="50"
-            mdk:min_allowed="20"/>
+            mdk:seekbarMax="100"
+            mdk:seekbarMin="0"
+            mdk:maxAllowed="50"
+            mdk:minAllowed="20"/>
 
         <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
             android:id="@+id/commons_error"
@@ -191,7 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:initialSeekBarValue="4956"
-            mdk:seekbar_max="10000"/>
+            mdk:seekbarMax="10000"/>
         <View
             android:layout_width="match_parent"
             android:layout_margin="10dp"
@@ -210,8 +210,8 @@
             android:id="@+id/mdkRichSeekBar_min_42"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:seekbar_min="42"
-            mdk:seekbar_max="72"/>
+            mdk:seekbarMin="42"
+            mdk:seekbarMax="72"/>
 
 
         <View
@@ -232,8 +232,8 @@
             android:id="@+id/mdkRichSeekBar_min_max_allowed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:min_allowed="20"
-            mdk:max_allowed="60"/>
+            mdk:minAllowed="20"
+            mdk:maxAllowed="60"/>
 
         <View
             android:layout_width="match_parent"
@@ -253,7 +253,7 @@
             android:id="@+id/mdkRichSeekBar_edit_text_not_editable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:readonlyEditText="true"/>
+            mdk:readOnlyEditText="true"/>
 
         <View
             android:layout_width="match_parent"
@@ -273,9 +273,9 @@
             android:id="@+id/mdkRichSeekBar_different_formatter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:seekbar_max="6"
+            mdk:seekbarMax="6"
             mdk:formatter="@string/formatter_weekdays"
-            mdk:readonlyEditText="true"/>
+            mdk:readOnlyEditText="true"/>
 
 
         <View
@@ -297,7 +297,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:initialSeekBarValue="42"
-            mdk:readonly="true"/>
+            mdk:readOnly="true"/>
     </LinearLayout>
 
 </ScrollView>

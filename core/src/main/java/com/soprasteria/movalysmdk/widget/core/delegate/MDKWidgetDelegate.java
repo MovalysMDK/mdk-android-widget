@@ -31,8 +31,8 @@ import com.soprasteria.movalysmdk.widget.core.MDKTechnicalWidgetDelegate;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 import com.soprasteria.movalysmdk.widget.core.selector.RichSelector;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
@@ -392,7 +392,7 @@ public class MDKWidgetDelegate implements MDKWidget, MDKTechnicalWidgetDelegate,
     @Override
     public void setReadonly(boolean readonly) {
         this.valueObject.setReadonly(readonly);
-        this.valueObject.getAttributesMap().setBoolean(R.attr.readonly, readonly);
+        this.valueObject.getAttributesMap().setBoolean(R.attr.readOnly, readonly);
         View v = this.valueObject.getView();
         if (v != null) {
             v.refreshDrawableState();

@@ -50,7 +50,7 @@
             android:layout_marginTop="1dp"
             android:background="@drawable/checkbox_background"
             android:padding="2dp"
-            mdk:text_fixed="@string/switch_activity"
+            mdk:textFixed="@string/switch_activity"
             mdk:label="@string/app_name"
             mdk:mandatory="true"/>
 
@@ -70,8 +70,8 @@
             android:id="@+id/mdkSwitch_withErrorAndCommandOutside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:text_checked="@string/checkable_value_false"
-            mdk:text_unchecked="@string/checkable_value_true"
+            mdk:textChecked="@string/checkable_value_false"
+            mdk:textUnchecked="@string/checkable_value_true"
             mdk:label="@string/testHintText"
             mdk:errorId="@+id/switch_errorText"
             mdk:mandatory="true" />
@@ -98,8 +98,8 @@
             android:id="@+id/mdkRichSwitch_withoutLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:text_unchecked="@string/checkable_value_true"
-            mdk:text_checked="@string/checkable_value_false"
+            mdk:textUnchecked="@string/checkable_value_true"
+            mdk:textChecked="@string/checkable_value_false"
             mdk:mandatory="true"/>
 
         <View

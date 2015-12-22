@@ -33,10 +33,10 @@ import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessageWidget;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessageWidget;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
             boolean mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
             this.getInnerWidget().setMandatory(mandatory);
 
-            boolean readonly = typedArray.getBoolean(R.styleable.MDKCommons_readonly, false);
+            boolean readonly = typedArray.getBoolean(R.styleable.MDKCommons_readOnly, false);
             this.setReadonly(readonly);
 
             int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);

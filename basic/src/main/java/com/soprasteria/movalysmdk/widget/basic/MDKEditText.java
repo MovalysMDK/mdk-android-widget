@@ -119,7 +119,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
             this.setHint(resHintId);
         }
 
-        boolean readonly = typedArray.getBoolean(R.styleable.MDKCommons_readonly, false);
+        boolean readonly = typedArray.getBoolean(R.styleable.MDKCommons_readOnly, false);
         this.setReadonly(readonly);
         typedArray.recycle();
 

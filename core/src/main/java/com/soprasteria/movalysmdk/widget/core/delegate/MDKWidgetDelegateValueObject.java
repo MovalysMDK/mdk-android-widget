@@ -103,7 +103,7 @@ public class MDKWidgetDelegateValueObject {
         this.resHelperId = typedArray.getResourceId(R.styleable.MDKCommons_helper, 0);
         this.mandatory = typedArray.getBoolean(R.styleable.MDKCommons_mandatory, false);
         this.qualifier = typedArray.getString(R.styleable.MDKCommons_qualifier);
-        this.readonly = typedArray.getBoolean(R.styleable.MDKCommons_readonly,false);
+        this.readonly = typedArray.getBoolean(R.styleable.MDKCommons_readOnly,false);
 
         int selectorResId = typedArray.getResourceId(R.styleable.MDKCommons_selectors, R.array.selectors);
         String[] selectorKeys = view.getContext().getResources().getStringArray(selectorResId);

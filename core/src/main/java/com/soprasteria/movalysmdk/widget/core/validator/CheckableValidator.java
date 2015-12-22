@@ -22,8 +22,8 @@ import android.widget.Switch;
 
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.types.HasChecked;
-import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.helper.MDKAttributeSet;
+import com.soprasteria.movalysmdk.widget.core.message.MDKMessage;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 
 /**
@@ -58,7 +58,7 @@ public class CheckableValidator implements FormFieldValidator<String> {
 
     @Override
     public int[] configuration() {
-        return new int[] {R.attr.mandatory_value};
+        return new int[] {R.attr.mandatoryValue};
     }
 
     @Override
@@ -68,13 +68,13 @@ public class CheckableValidator implements FormFieldValidator<String> {
                                @EnumFormFieldValidator.EnumValidationMode int validationMode,
                                Context context) {
         MDKMessage mdkMessage = null;
-        if ( mdkParameter.containsKey(R.attr.mandatory_value)
+        if ( mdkParameter.containsKey(R.attr.mandatoryValue)
                 && objectToValidate.length() > 0
                 && !resultPreviousValidator.containsKey(this.getClass().getName())
-                && !String.valueOf(mdkParameter.getBoolean(R.attr.mandatory_value)).equals(objectToValidate)) {
+                && !String.valueOf(mdkParameter.getBoolean(R.attr.mandatoryValue)).equals(objectToValidate)) {
             mdkMessage = new MDKMessage();
             mdkMessage.setMessageCode(ERROR_VALUE);
-            String error = context.getString(ERROR_VALUE) + " " + mdkParameter.getBoolean(R.attr.mandatory_value);
+            String error = context.getString(ERROR_VALUE) + " " + mdkParameter.getBoolean(R.attr.mandatoryValue);
             mdkMessage.setMessage(error);
 
             resultPreviousValidator.put(this.getClass().getName(), mdkMessage);

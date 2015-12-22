@@ -15,8 +15,8 @@ import com.soprasteria.movalysmdk.widget.core.listener.ChangeListener;
  * MDK RichSpinner.
  * <p>Represents a Spinner with label and error field.</p>
  * <p>This spinner could add a blank row to any of your adapter.</p>
- * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
- * <p>The mdk:has_blank_row default value is false.</p>
+ * <p>For blank row add MDK:has_blank_row="true" to your XML attrs.</p>
+ * <p>The MDK:has_blank_row default value is false.</p>
  * <p>The following behaviors are implemented:</p>
  * <ul>
  * <li>Mandatory : When XML attrs mandatory is set to "true" when blank row is selected the MDK spinner will return an error</li>
@@ -53,7 +53,7 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
 
     /**
      * Instantiate the MDKWidgetDelegate and get XML attrs.
-     * Called by the constructor.
+     * Called by the constructor
      *
      * @param attrs attributes set
      */
@@ -61,7 +61,7 @@ public class MDKRichSpinner extends MDKBaseRichWidget<MDKSpinner> implements Has
         TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSpinnerComponent);
 
-        this.getInnerWidget().setSpinnerHasBlankRow(typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false));
+        this.getInnerWidget().setSpinnerHasBlankRow(typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_hasBlankRow, false));
         this.getInnerWidget().setHint(typedArray.getString(R.styleable.MDKCommons_hint));
 
         typedArray.recycle();

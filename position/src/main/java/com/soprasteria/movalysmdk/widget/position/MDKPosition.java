@@ -227,7 +227,7 @@ public class MDKPosition extends RelativeLayout implements AdapterView.OnItemSel
         initDelegates(attrs);
 
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
-        setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readonly, false));
+        setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readOnly, false));
         typedArray.recycle();
     }
 

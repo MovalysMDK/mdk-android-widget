@@ -64,17 +64,17 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMediaComponent);
 
         //set inner widget width and height
-        int hdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_height, 0);
-        int wdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnail_width, 0);
+        int hdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnailHeight, 0);
+        int wdp = typedArray.getDimensionPixelSize(R.styleable.MDKCommons_thumbnailWidth, 0);
         if (hdp != 0 && wdp != 0) {
             getInnerWidget().getLayoutParams().width = wdp;
             getInnerWidget().getLayoutParams().height = hdp;
             getInnerWidget().requestLayout();
         }
 
-        getInnerWidget().setUseInitImage(typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_use_init_image, true));
+        getInnerWidget().setUseInitImage(typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_useInitImage, true));
 
-        switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_media_type, MDKMedia.TYPE_PHOTO)) {
+        switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_mediaType, MDKMedia.TYPE_PHOTO)) {
             case MDKMedia.TYPE_PHOTO:
                 setMediaType(MDKMedia.TYPE_PHOTO);
                 break;

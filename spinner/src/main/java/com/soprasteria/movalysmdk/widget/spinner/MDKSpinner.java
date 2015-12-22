@@ -32,8 +32,8 @@ import java.util.Arrays;
  * MDK Spinner.
  * <p>Represents a Spinner.</p>
  * <p>This spinner could add a blank row to any of your adapter.</p>
- * <p>For blank row add mdk:has_blank_row="true" to your XML attrs.</p>
- * <p>The mdk:has_blank_row default value is false.</p>
+ * <p>For blank row add MDK:has_blank_row="true" to your XML attrs.</p>
+ * <p>The MDK:has_blank_row default value is false.</p>
  */
 public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapter, HasOneSelected, HasValidator, HasDelegate, IsNullable, HasLabel, HasHint, HasChangeListener {
     /**
@@ -111,14 +111,14 @@ public class MDKSpinner extends AppCompatSpinner implements MDKWidget, HasAdapte
         TypedArray typedArray = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons);
         TypedArray typedArrayComponent = this.getContext().obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKSpinnerComponent);
 
-        this.hasBlank = typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_has_blank_row, false);
+        this.hasBlank = typedArrayComponent.getBoolean(R.styleable.MDKCommons_MDKSpinnerComponent_hasBlankRow, false);
         this.hint = typedArray.getString(R.styleable.MDKCommons_hint);
 
         this.mdkListenerDelegate = new MDKChangeListenerDelegate();
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
         this.setValueToValidate(0);
 
-        setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readonly, false));
+        setReadonly(AttributesHelper.getBooleanFromBooleanAttribute(typedArray, R.styleable.MDKCommons_readOnly, false));
 
         typedArray.recycle();
         typedArrayComponent.recycle();
