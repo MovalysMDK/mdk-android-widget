@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import com.soprasteria.movalysmdk.widget.core.MDKWidget;
 import com.soprasteria.movalysmdk.widget.core.R;
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
+import com.soprasteria.movalysmdk.widget.core.behavior.types.HasText;
 import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
@@ -119,9 +120,6 @@ public class WidgetCommandDelegate implements ValidationListener {
                 info = manager.queryIntentActivities(commandsActionIntents[0], 0);
                 noIntentOnPrimary = info.isEmpty();
             }
-
-            enableCommandOnView(!noIntentOnPrimary, this.primaryCommandViewId, this.outerPrimaryCommandView);
-            enableCommandOnView(!noIntentOnSecondary, this.secondaryCommandViewId, this.outerSecondaryCommandView);
         }
     }
 
@@ -274,9 +272,15 @@ public class WidgetCommandDelegate implements ValidationListener {
      */
     protected void enableCommandOnView(boolean enable, int viewId, boolean out) {
         View commandView = findCommandView(viewId, out);
+        View view = (View) this.weakView.get();
+        boolean commandEnable = enable;
         if (commandView != null) {
-            commandView.setEnabled(enable);
-            commandView.setFocusable(enable);
+            if (view != null && view instanceof HasText && (((HasText) view).getText() == null || ((HasText) view).getText().length() == 0)) {
+                // no text input, the command should be deactivated
+                commandEnable = false;
+            }
+            commandView.setEnabled(commandEnable);
+            commandView.setFocusable(commandEnable);
         }
     }
 

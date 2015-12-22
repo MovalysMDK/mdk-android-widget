@@ -116,8 +116,6 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
      */
     @Override
     protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-
         if (!isInEditMode()) {
             for( IntentFilter intentFilter: getBroadcastIntentFilters() ) {
                 if (intentFilter != null) {
@@ -127,6 +125,8 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
             this.commandDelegate.registerCommands(this);
             this.commandDelegate.setCommandsActivationFromIntents(this.getContext(), getCommandsIntent());
         }
+
+        super.onAttachedToWindow();
     }
 
     @Override

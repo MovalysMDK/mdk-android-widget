@@ -145,6 +145,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
                 this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, false);
             }
 
+            this.mdkWidgetDelegate.validate(false, EnumFormFieldValidator.VALIDATE);
         }
     }
 
