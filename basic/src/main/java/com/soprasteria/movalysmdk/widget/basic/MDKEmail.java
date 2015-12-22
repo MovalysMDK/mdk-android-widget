@@ -154,7 +154,9 @@ public class MDKEmail extends MDKCommandsEditText implements HasEmail {
     }
 
     @Override
-    protected String[] getCommandsIntent() {
-        return new String[] { Intent.ACTION_SEND };
+    protected Intent[] getCommandsIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/html");
+        return new Intent[] { intent };
     }
 }

@@ -84,7 +84,7 @@ public class MDKUri extends MDKCommandsEditText implements HasUri {
     }
 
     @Override
-    protected String[] getCommandsIntent() {
-        return new String[] { Intent.ACTION_VIEW };
+    protected Intent[] getCommandsIntent() {
+        return new Intent[] { new Intent(Intent.ACTION_VIEW) };
     }
 }

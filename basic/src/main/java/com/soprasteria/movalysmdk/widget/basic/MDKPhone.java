@@ -64,7 +64,7 @@ public class MDKPhone extends MDKCommandsEditText {
     }
 
     @Override
-    protected String[] getCommandsIntent() {
-        return new String[] { Intent.ACTION_DIAL };
+    protected Intent[] getCommandsIntent() {
+        return new Intent[] { new Intent(Intent.ACTION_DIAL) };
     }
 }

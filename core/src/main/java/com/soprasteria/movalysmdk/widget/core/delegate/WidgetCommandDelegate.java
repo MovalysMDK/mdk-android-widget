@@ -105,18 +105,18 @@ public class WidgetCommandDelegate implements ValidationListener {
      * @param context an android context
      * @param commandsActionIntents the intents launched by the actions linked to the commands
      */
-    public void setCommandsActivationFromIntents(Context context, String[] commandsActionIntents) {
+    public void setCommandsActivationFromIntents(Context context, Intent[] commandsActionIntents) {
         if (commandsActionIntents != null) {
             PackageManager manager = context.getPackageManager();
             List<ResolveInfo> info;
 
             if (commandsActionIntents.length > 1 && commandsActionIntents[1] != null) {
-                info = manager.queryIntentActivities(new Intent(commandsActionIntents[1]), 0);
+                info = manager.queryIntentActivities(commandsActionIntents[1], 0);
                 noIntentOnSecondary = info.isEmpty();
             }
 
             if (commandsActionIntents[0] != null) {
-                info = manager.queryIntentActivities(new Intent(commandsActionIntents[0]), 0);
+                info = manager.queryIntentActivities(commandsActionIntents[0], 0);
                 noIntentOnPrimary = info.isEmpty();
             }
 

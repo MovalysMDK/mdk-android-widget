@@ -90,7 +90,7 @@ public abstract class MDKCommandsEditText extends MDKEditText implements HasComm
      * Returns the intents launched by the commands of the widget.
      * @return the intents launched by the commands of the widget
      */
-    protected abstract String[] getCommandsIntent();
+    protected abstract Intent[] getCommandsIntent();
 
     @Override
     public WidgetCommandDelegate getWidgetCommandDelegate() {
