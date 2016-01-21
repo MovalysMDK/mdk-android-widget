@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<resources>
+
+    <declare-styleable name="MDKWidgetStyle">
+        <attr name="mdkValueSpinnerStyle" format="reference" />
+        <attr name="mdkSpinnerStyle" format="reference" />
+        <attr name="mdkSpinnerDropDownStyle" format="reference" />
+
+        <!-- component spinner attributes -->
+        <attr name="mdk_b_spinnerTextColor" format="reference" />
+        <attr name="mdk_b_spinnerTextSize" format="reference" />
+        <attr name="mdk_b_spinnerTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_spinnerBackground" format="reference" />
+        <attr name="mdk_b_spinnerTint" format="reference" />
+
+        <!-- component spinnerDropDown attributes -->
+        <attr name="mdk_b_spinnerDropDownTextColor" format="reference" />
+        <attr name="mdk_b_spinnerDropDownTextSize" format="reference" />
+        <attr name="mdk_b_spinnerDropDownTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="mdk_b_spinnerDropDownBackground" format="reference" />
+        <attr name="mdk_b_spinnerDropDownTint" format="reference" />
+    </declare-styleable>
+
+    <!-- MDKSpinner specific attributes -->
+    <declare-styleable name="MDKCommons.MDKSpinnerComponent">
+        <attr name="hasBlankRow" format="boolean" />
+    </declare-styleable>
+</resources>

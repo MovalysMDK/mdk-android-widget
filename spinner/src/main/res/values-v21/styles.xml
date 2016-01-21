@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<resources>
+
+    <style name="MDKWidgetTheme" parent="Theme.AppCompat">
+        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
+        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+
+        <!-- Spinner business attributes -->
+        <item name="mdk_b_spinnerTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerTextStyle">normal</item>
+        <item name="mdk_b_spinnerBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- SpinnerDropDown business attributes -->
+        <item name="mdk_b_spinnerDropDownTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerDropDownTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerDropDownTextStyle">normal</item>
+        <item name="mdk_b_spinnerDropDownBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerDropDownTint">?attr/mdk_t_primaryColor</item>
+    </style>
+
+
+    <style name="MDKWidgetTheme.Light" parent="Theme.AppCompat.Light">
+        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
+        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+
+        <!-- Spinner business attributes -->
+        <item name="mdk_b_spinnerTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerTextStyle">normal</item>
+        <item name="mdk_b_spinnerBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- SpinnerDropDown business attributes -->
+        <item name="mdk_b_spinnerDropDownTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerDropDownTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerDropDownTextStyle">normal</item>
+        <item name="mdk_b_spinnerDropDownBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerDropDownTint">?attr/mdk_t_primaryColor</item>
+    </style>
+
+
+    <style name="MDKWidgetTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="mdkSpinnerStyle">@style/MDKSpinner</item>
+        <item name="mdkSpinnerDropDownStyle">@style/MDKSpinnerDropDown</item>
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+
+        <!-- Spinner business attributes -->
+        <item name="mdk_b_spinnerTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerTextStyle">normal</item>
+        <item name="mdk_b_spinnerBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- SpinnerDropDown business attributes -->
+        <item name="mdk_b_spinnerDropDownTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_spinnerDropDownTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_spinnerDropDownTextStyle">normal</item>
+        <item name="mdk_b_spinnerDropDownBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_spinnerDropDownTint">?attr/mdk_t_primaryColor</item>
+    </style>
+
+    <!-- Spinner component style -->
+    <style name="MDKSpinner" parent="Base.MDKValue.MDKSpinner">
+        <item name="android:dropDownListViewStyle">@style/MDKSpinnerDropDown</item>
+        <item name="android:textColor">?attr/mdk_b_spinnerTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_spinnerTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_spinnerTextStyle</item>
+        <item name="android:background">?attr/mdk_b_spinnerBackground</item>
+        <item name="android:tint">?attr/mdk_b_spinnerTint</item>
+    </style>
+
+    <!-- SpinnerDropDown component style -->
+    <style name="MDKSpinnerDropDown" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">#ff0000</item>
+        <item name="android:dividerHeight">5dp</item>
+        <item name="android:textColor">?attr/mdk_b_spinnerDropDownTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_spinnerDropDownTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_spinnerDropDownTextStyle</item>
+        <item name="android:background">?attr/mdk_b_spinnerDropDownBackground</item>
+        <item name="android:tint">?attr/mdk_b_spinnerDropDownTint</item>
+    </style>
+
+</resources>

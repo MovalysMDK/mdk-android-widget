@@ -18,7 +18,6 @@
 
     <Spinner
         android:id="@+id/component_internal_address"
-        style="?attr/mdkSpinnerStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

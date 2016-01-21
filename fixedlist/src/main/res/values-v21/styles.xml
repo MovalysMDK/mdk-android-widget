@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<resources>
+
+    <style name="MDKWidgetTheme" parent="Theme.AppCompat">
+        <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
+        <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
+        <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
+
+        <!-- Fixedlist business attributes -->
+        <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- FixedList title attributes -->
+        <item name="mdk_b_fixedListTitleTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_fixedListTitleTextColor">?attr/mdk_t_textColorSecondary</item>
+        <item name="mdk_b_fixedListTitleBackground">?attr/mdk_t_noBackground</item>
+    </style>
+
+
+    <style name="MDKWidgetTheme.Light" parent="Theme.AppCompat.Light">
+        <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
+        <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
+        <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
+
+        <!-- Fixedlist business attributes -->
+        <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- FixedList title attributes -->
+        <item name="mdk_b_fixedListTitleTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_fixedListTitleTextColor">?attr/mdk_t_textColorSecondary</item>
+        <item name="mdk_b_fixedListTitleBackground">?attr/mdk_t_noBackground</item>
+    </style>
+
+
+    <style name="MDKWidgetTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="mdkValueFixedListStyle">@style/MDKFixedList</item>
+        <item name="mdkValueFixedListTitleLayoutStyle">@style/MDKFixedListTitleLayoutStyle</item>
+        <item name="mdkValueFixedListTitleStyle">@style/MDKFixedListTitleStyle</item>
+
+        <!-- Fixedlist business attributes -->
+        <item name="mdk_b_fixedlistBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistItemBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_fixedlistAddTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- FixedList title attributes -->
+        <item name="mdk_b_fixedListTitleTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_fixedListTitleTextColor">?attr/mdk_t_textColorSecondary</item>
+        <item name="mdk_b_fixedListTitleBackground">?attr/mdk_t_noBackground</item>
+    </style>
+
+    <!-- FixedList component style -->
+    <style name="MDKFixedList" parent="Base.MDKValue.MDKFixedList">
+        <item name="android:background">?attr/mdk_b_fixedlistBackground</item>
+        <item name="android:tint">?attr/mdk_b_fixedlistAddTint</item>
+    </style>
+
+    <!-- FixedList title layout style -->
+    <style name="MDKFixedListTitleLayoutStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:background">?attr/mdk_b_fixedListTitleBackground</item>
+    </style>
+
+    <!-- FixedList title style -->
+    <style name="MDKFixedListTitleStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">?attr/mdk_b_fixedListTitleTextSize</item>
+        <item name="android:textColor">?attr/mdk_b_fixedListTitleTextColor</item>
+    </style>
+
+</resources>

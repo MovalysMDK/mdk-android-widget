@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+    Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
+
+    This file is part of Movalys MDK.
+    Movalys MDK is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    Movalys MDK is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Movalys MDK. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<resources>
+
+    <style name="MDKWidgetTheme" parent="Theme.AppCompat">
+        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
+        <item name="mdkEnumViewStyle">@style/MDKValueEnumView</item>
+
+        <!-- Seekbar business attributes -->
+        <item name="mdk_b_seekbarTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_seekbarTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_seekbarTextStyle">normal</item>
+        <item name="mdk_b_seekbarBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_seekbarTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- EnumView business attributes -->
+        <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_enumviewTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_enumviewTextStyle">bold</item>
+        <item name="mdk_b_enumviewBackground">@drawable/round_enum_background</item>
+
+    </style>
+
+    <style name="MDKWidgetTheme.Light" parent="Theme.AppCompat.Light">
+        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
+        <item name="mdkEnumViewStyle">@style/MDKValueEnumView</item>
+
+        <!-- Seekbar business attributes -->
+        <item name="mdk_b_seekbarTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_seekbarTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_seekbarTextStyle">normal</item>
+        <item name="mdk_b_seekbarBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_seekbarTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- EnumView business attributes -->
+        <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_enumviewTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_enumviewTextStyle">bold</item>
+        <item name="mdk_b_enumviewBackground">@drawable/round_enum_background</item>
+
+    </style>
+
+    <style name="MDKWidgetTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="mdkSeekBarStyle">@style/MDKValueSeekBar</item>
+        <item name="mdkEnumViewStyle">@style/MDKValueEnumView</item>
+
+        <!-- Seekbar business attributes -->
+        <item name="mdk_b_seekbarTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_seekbarTextSize">?attr/mdk_t_mediumTextSize</item>
+        <item name="mdk_b_seekbarTextStyle">normal</item>
+        <item name="mdk_b_seekbarBackground">?attr/mdk_t_noBackground</item>
+        <item name="mdk_b_seekbarTint">?attr/mdk_t_primaryColor</item>
+
+        <!-- EnumView business attributes -->
+        <item name="mdk_b_enumviewTextColor">?attr/mdk_t_textColorPrimary</item>
+        <item name="mdk_b_enumviewTextSize">?attr/mdk_t_smallTextSize</item>
+        <item name="mdk_b_enumviewTextStyle">bold</item>
+        <item name="mdk_b_enumviewBackground">@drawable/round_enum_background</item>
+
+    </style>
+
+
+    <!-- MDKSeekBar Style-->
+    <style name="MDKValueSeekBar" parent="Base.MDKValue.MDKValueSeekBar">
+        <item name="mdkLabelStyle">@style/MDKLabel</item>
+        <item name="mdkErrorStyle">@style/MDKError</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:thumbOffset">8dip</item>
+        <item name="android:focusable">true</item>
+        <!-- TODO -->
+    </style>
+
+    <style name="MDKValueEnumView" parent="Base.MDKValue.MDKValueEnumView">
+        <item name="android:textColor">?attr/mdk_b_enumviewTextColor</item>
+        <item name="android:textSize">?attr/mdk_b_enumviewTextSize</item>
+        <item name="android:textStyle">?attr/mdk_b_enumviewTextStyle</item>
+        <item name="android:background">?attr/mdk_b_enumviewBackground</item>
+    </style>
+
+</resources>
