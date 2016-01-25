@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2010 Sopra Steria Group (movalys.support@soprasteria.com)
 
@@ -17,6 +16,24 @@
 
 -->
 <resources>
+
+    <style name="MDKWidgetTheme" parent="Theme.AppCompat">
+        <item name="mdk_b_commandBackground">@color/command_background</item>
+    </style>
+
+    <style name="MDKWidgetTheme.Light" parent="Theme.AppCompat.Light">
+    </style>
+
+    <style name="MDKWidgetTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
+    <style name="MDKMediaStyle">
+    </style>
+
+    <style name="MDKMediaStyle.ToolBar">
+        <item name="android:background">@color/command_background</item>
+    </style>
+
     <style name="ViewerDialog" parent="Theme.AppCompat">
         <item name="android:windowAnimationStyle">@style/ViewerDialogAnimation</item>
 

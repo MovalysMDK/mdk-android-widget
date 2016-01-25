@@ -33,8 +33,11 @@
         <attr name="mdk_b_mapsTint" format="reference" />
     </declare-styleable>
 
-    <!-- MDKSpinner specific attributes -->
-    <declare-styleable name="MDKCommons.MDKSpinnerComponent">
-        <attr name="hasBlankRow" format="boolean" />
+    <declare-styleable name="MDKCommons.MDKMapsPositionComponent">
+        <attr name="usePicker" format="boolean"/>
+        <attr name="zoom" format="integer"/>
+        <attr name="gpsMarker" format="reference"/>
+        <attr name="addressMarker" format="reference"/>
     </declare-styleable>
+
 </resources>

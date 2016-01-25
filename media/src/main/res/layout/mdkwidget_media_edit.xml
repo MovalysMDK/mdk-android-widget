@@ -22,7 +22,6 @@
 
     <com.soprasteria.movalysmdk.widget.media.MDKMedia
         android:id="@id/component_internal"
-        style="?attr/mdkMediaStyle"
         android:layout_width="100dp"
         android:layout_height="100dp"
         mdk:errorId="@id/component_error" />

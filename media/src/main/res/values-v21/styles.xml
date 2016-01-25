@@ -24,4 +24,9 @@
         <item name="android:windowEnterAnimation">@anim/enter_preview</item>
         <item name="android:windowExitAnimation">@anim/close_preview</item>
     </style>
+
+    <style name="MDKMediaStyle.ToolBar">
+        <item name="android:background">@color/command_background</item>
+        <item name="android:elevation">8dp</item>
+    </style>
 </resources>

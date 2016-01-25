@@ -18,7 +18,11 @@
 -->
 <resources>
     <declare-styleable name="MDKWidgetStyle">
-        <attr name="mdkMediaStyle" format="reference" />
+        <attr name="MDKMediaStyle" format="reference" />
+
+        <!-- component media style attributes -->
+        <attr name="mdk_b_commandBackground" format="reference" />
+        <attr name="mdk_b_toolbarHeight" format="reference" />
     </declare-styleable>
 
     <!-- MDKMedia specific attributes -->
