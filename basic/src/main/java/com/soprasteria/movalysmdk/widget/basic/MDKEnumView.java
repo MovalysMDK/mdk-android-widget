@@ -63,11 +63,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     private static final int DISABLED_ALPHA = 70;
 
     /**
-     * length of the truncated text when in fallback mode.
-     */
-    private static final int TRUNCATED_TEXT_LENGTH = 3;
-
-    /**
      * Enumeration listing possible MDKEnumView modes.
      */
     @IntDef({MODE_IMAGE, MODE_TEXT})
@@ -350,18 +345,20 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
             if (mode == MODE_TEXT) {
                 ((TextView) view).setText(getContext().getString(textRes));
             } else {
-                this.imageFallbackText();
+                this.imageFallbackText(textIdentifier);
             }
         } else {
             //fallback behavior: displaying resource name
-            ((TextView) view).setText(textStr);
+            this.imageFallbackText(textIdentifier);
         }
     }
 
     /**
      * Fallback image to text method.
      */
-    private void imageFallbackText() {
+    private void imageFallbackText(String textStr) {
+        removeView(view);
+        initTextMode();
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -369,9 +366,17 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         view.setLayoutParams(params);
         // we are in fallback
-        String text = resourceEnumValue.name();
-        text = text.substring(text.length() - TRUNCATED_TEXT_LENGTH, text.length());
-        ((TextView) view).setText(text);
+        String textIdentifier = null;
+        if (textStr != null) {
+            textIdentifier = textStr;
+        }
+        int textRes = getResources().getIdentifier(textIdentifier, "string", getContext().getPackageName());
+        if (textRes != 0) {
+            ((TextView) view).setText(getContext().getString(textRes));
+        } else {
+            String text = enumPrefix + "_" + resourceName;
+            ((TextView) view).setText(text);
+        }
         // we override the background
         this.setBackgroundResource(R.drawable.round_enum_background);
     }
