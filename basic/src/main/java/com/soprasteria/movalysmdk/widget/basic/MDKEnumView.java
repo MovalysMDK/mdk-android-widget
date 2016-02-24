@@ -354,7 +354,8 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
     }
 
     /**
-     * Fallback image to text method.
+     * Fallback to text mode.
+     * @param textStr the resource name
      */
     private void imageFallbackText(String textStr) {
         removeView(view);
