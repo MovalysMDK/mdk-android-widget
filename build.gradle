@@ -63,7 +63,7 @@ allprojects {
     }
 
     group = 'com.soprasteria.movalysmdk.widget'
-    version = '1.2.0-SNAPSHOT'
+    version = '1.2.0-RC4'
 
     ext {
         androidBuildToolsVersion = "23.0.2"
@@ -72,7 +72,7 @@ allprojects {
         androidCompileSdkVersion = 23
 
         androidVersionCode = 101100
-        androidVersionName = '1.2.0'
+        androidVersionName = '1.2.0-RC4'
     }
 }
 
