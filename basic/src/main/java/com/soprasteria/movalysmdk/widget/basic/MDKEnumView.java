@@ -25,6 +25,7 @@ import android.support.annotation.IntDef;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -160,6 +161,8 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      */
     private void init(Context context, AttributeSet attrs) {
 
+        LayoutInflater.from(context).inflate(R.layout.mdkwidget_enumview_layout, this);
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKEnumView);
 
         // Parse the enum_prefix attribute
@@ -180,23 +183,22 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      * Initializes the EnumView in image mode.
      */
     private void initImageMode() {
-        view = new ImageView(getContext());
-        view.setLayoutParams(new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
-        ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
-        addView(view);
+        if(view!=null){
+            view.setVisibility(GONE);
+        }
+        view = findViewById(R.id.image);
+        view.setVisibility(VISIBLE);
     }
 
     /**
      * Initializes the EnumView in text mode.
      */
     private void initTextMode() {
-        view = new TextView(getContext());
-        view.setLayoutParams(new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
-        addView(view);
+        if(view!=null){
+            view.setVisibility(GONE);
+        }
+        view = findViewById(R.id.text);
+        view.setVisibility(VISIBLE);
     }
 
 
@@ -312,7 +314,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         //recreating the resource name, in the form "prefix_name"
         String resourceCompleteName = enumPrefix + "_" + resourceName;
 
-        removeView(view);
 
         switch (mode) {
             case 1:
@@ -358,7 +359,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      * @param textStr the resource name
      */
     private void imageFallbackText(String textStr) {
-        removeView(view);
         initTextMode();
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -396,7 +396,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
             ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(getContext(), imgRes));
         } else {
             //fallback behavior: look for text
-            removeView(view);
             setTextFromString(drawableStr);
         }
     }
@@ -437,7 +436,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         } catch (Resources.NotFoundException e) {
             Log.w(this.getClass().getSimpleName(), "String resource not found: " + id, e);
             //fallback behavior: displaying id
-            removeView(view);
             ((TextView) view).setText(String.valueOf(id));
         }
     }
@@ -456,7 +454,6 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
         } catch (Resources.NotFoundException e) {
             Log.w(this.getClass().getSimpleName(), "Drawable resource not found: " + id, e);
             //fallback behavior: look for text
-            removeView(view);
             setTextFromId(id);
         }
     }
@@ -489,14 +486,8 @@ public class MDKEnumView extends RelativeLayout implements HasDelegate, HasEnum,
      */
     public void setMode(@EnumMode int mode) {
         this.mode = mode;
-        removeView(view);
     }
 
-    @Override
-    public void removeView(View v) {
-        super.removeView(view);
-        view = null;
-    }
 
     @Override
     public void setEnabled(boolean enabled) {

@@ -5,3 +5,4 @@ build
 gradle.properties
 local.properties
 gradle.properties
+gradle/wrapper/gradle-wrapper.properties
