@@ -63,6 +63,12 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     /** widget specific validators. */
     private int[] specificValidators;
 
+    /** Flag for animations. **/
+    private boolean allowAnims = true;
+
+    /** Flag for initialization. **/
+    private boolean initialized = false;
+
     /**
      * Constructor.
      * @param context the context
@@ -107,7 +113,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
      * @param context the context
      * @param attrs attributes set
      */
-    private final void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs) {
 
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
 
@@ -168,12 +174,25 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         // Prevent early calls
         if (this.mdkWidgetDelegate != null) {
             if (textLength > 0 && oldTextLength == 0) {
-                this.mdkWidgetDelegate.setLabelVisibility(View.VISIBLE, true);
+                this.mdkWidgetDelegate.setLabelVisibility(View.VISIBLE, allowAnims);
+                initialized=true;
+                allowAnims=true;
             } else if (textLength == 0 && oldTextLength > 0) {
-                this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, true);
+                this.mdkWidgetDelegate.setLabelVisibility(View.INVISIBLE, allowAnims);
+                initialized=true;
+                allowAnims=true;
             }
         }
         oldTextLength = textLength;
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        //if never set text before, do not display animations.
+        if(!initialized && text.length()!=0){
+            allowAnims=false;
+        }
+        super.setText(text, type);
     }
 
     /**
