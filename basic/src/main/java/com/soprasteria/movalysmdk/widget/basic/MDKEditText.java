@@ -189,7 +189,7 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     @Override
     public void setText(CharSequence text, BufferType type) {
         //if never set text before, do not display animations.
-        if(!initialized && text.length()!=0){
+        if(!initialized && text!=null && text.length()!=0){
             allowAnims=false;
         }
         super.setText(text, type);
