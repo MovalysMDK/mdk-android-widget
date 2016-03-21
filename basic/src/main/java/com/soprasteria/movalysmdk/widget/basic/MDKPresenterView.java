@@ -169,7 +169,7 @@ public class MDKPresenterView extends RelativeLayout implements HasPresenter {
      * @return the first letter in uppercase
      */
     private String getFirstLetterToUpper(String title) {
-        if (title != null) {
+        if (title != null && !title.isEmpty()) {
             return title.substring(0, 1).toUpperCase();
         }
         return null;
