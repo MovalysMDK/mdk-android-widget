@@ -451,7 +451,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                 timeDialog.show();
             }
             if (view.getId() == this.getClearButtonId()) {
-                this.clearDate();
+                this.clearDate(view);
             }
         }
     }
@@ -798,9 +798,13 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     /**
      * Sets the Date to null.
      */
-    public void clearDate() {
+    public void clearDate(View view) {
         this.mdkDate.clearDateState();
-        updateShownDateTime();
+
+        if (view.isShown()) {
+            updateShownDateTime();
+            this.mdkListenerDelegate.notifyListeners();
+        }
     }
 
     /**
