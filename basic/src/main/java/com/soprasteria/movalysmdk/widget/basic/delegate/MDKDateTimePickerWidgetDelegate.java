@@ -470,9 +470,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        this.mdkDate.setDate(calendar.getTime());
 
         if (view.isShown()) {
+            this.mdkDate.setDate(calendar.getTime());
+
             updateShownDateTime();
             this.mdkListenerDelegate.notifyListeners();
         }
@@ -490,9 +491,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
-        this.mdkDate.setTime(calendar.getTime());
 
         if (view.isShown()) {
+            this.mdkDate.setTime(calendar.getTime());
+
             updateShownDateTime();
             this.mdkListenerDelegate.notifyListeners();
         }
