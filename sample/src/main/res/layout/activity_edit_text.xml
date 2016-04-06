@@ -301,5 +301,24 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
 
+        <!-- MDKRichEditText cote a cote -->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+                android:id="@+id/mdkRichEditText_wrap_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                mdk:hint="@string/edit_text_hint" />
+
+            <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+                android:id="@+id/mdkRichEditText_wrap_2"
+                android:layout_toRightOf="@id/mdkRichEditText_wrap_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
     </LinearLayout>
  </ScrollView>

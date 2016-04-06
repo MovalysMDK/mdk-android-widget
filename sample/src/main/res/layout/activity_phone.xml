@@ -186,6 +186,28 @@
             android:layout_height="4dp"
             android:background="@drawable/separator_background" />
 
+
+        <!-- MDKRichPhone cote a cote -->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
+                android:id="@+id/mdkRichPhone3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                mdk:label="@string/edit_text_label"
+                mdk:mandatory="true"/>
+
+            <com.soprasteria.movalysmdk.widget.basic.MDKRichPhone
+                android:id="@+id/mdkRichPhone4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/mdkRichPhone3"
+                mdk:label="@string/edit_text_label"
+                mdk:mandatory="true"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

@@ -28,7 +28,6 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.soprasteria.movalysmdk.widget.core.behavior.HasDelegate;
@@ -54,7 +53,7 @@ import java.util.List;
  *
  * @param <T> the type of inner widget for the rich widget
  */
-public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate> extends RelativeLayout implements MDKRichWidget, MDKTechnicalWidgetDelegate, HasValidator {
+public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate> extends MDKWrappingRelativeLayout implements MDKRichWidget, MDKTechnicalWidgetDelegate, HasValidator {
 
     /**
      * Base widget.
