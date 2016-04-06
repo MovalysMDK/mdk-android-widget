@@ -20,6 +20,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * MDKMessage class definition.
  */
@@ -32,6 +35,7 @@ public class MDKMessage implements Parcelable {
      * Enum for message type.
      */
     @IntDef({NO_MESSAGE_CODE, ERROR_TYPE, MESSAGE_TYPE})
+    @Retention(RetentionPolicy.SOURCE)
     @interface EnumKindOfMessage {
     }
     /** No message code defined. */

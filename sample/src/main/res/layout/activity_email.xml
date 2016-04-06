@@ -207,6 +207,26 @@
             mdk:label="@string/edit_text_label"
             mdk:readOnly="true"/>
 
+        <!-- RICH EMAIL wrap_content cote a cote -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
+                android:id="@+id/mdkRichEmail_wrap_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                mdk:label="@string/edit_text_label" />
+
+            <com.soprasteria.movalysmdk.widget.basic.MDKRichEmail
+                android:id="@+id/mdkRichEmail_wrap_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/mdkRichEmail_wrap_1"
+                mdk:label="@null" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
 </ScrollView>

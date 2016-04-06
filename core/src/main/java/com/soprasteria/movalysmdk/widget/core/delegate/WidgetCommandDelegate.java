@@ -36,6 +36,8 @@ import com.soprasteria.movalysmdk.widget.core.command.WidgetCommand;
 import com.soprasteria.movalysmdk.widget.core.listener.ValidationListener;
 import com.soprasteria.movalysmdk.widget.core.provider.MDKWidgetApplication;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class WidgetCommandDelegate implements ValidationListener {
     /**
      * Enum for commands (first or second).
      */
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({FIRST_COMMAND, SECOND_COMMAND})
     @interface EnumKindOfCommand {
     }
