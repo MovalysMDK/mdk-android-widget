@@ -19,7 +19,7 @@
     xmlns:mdk="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:id="@+id/title_layout"
+        android:id="@+id/groupTitleLayout"
         style="?attr/mdkValueFixedListTitleLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:src="@drawable/ic_add" />
 
         <TextView
-            android:id="@id/component_label"
+            android:id="@+id/component_label"
             style="?attr/mdkValueFixedListTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -47,7 +47,7 @@
         style="?attr/mdkValueFixedListStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title_layout"
+        android:layout_below="@id/groupTitleLayout"
         mdk:addButtonViewId="@id/component_addButton"
         mdk:errorId="@id/component_error"
         mdk:labelId="@id/component_label" />
