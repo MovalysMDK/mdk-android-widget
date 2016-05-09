@@ -22,6 +22,7 @@ import com.soprasteria.movalysmdk.widget.core.behavior.types.IsNullable;
 import com.soprasteria.movalysmdk.widget.core.message.MDKMessages;
 import com.soprasteria.movalysmdk.widget.core.validator.EnumFormFieldValidator;
 import com.soprasteria.movalysmdk.widget.fixedlist.adapters.WrapperAdapter;
+import com.soprasteria.movalysmdk.widget.fixedlist.adapters.WrapperViewHolder;
 import com.soprasteria.movalysmdk.widget.fixedlist.delegate.MDKFixedListWidgetDelegate;
 
 import java.lang.reflect.InvocationTargetException;
@@ -281,16 +282,27 @@ public class MDKFixedList extends RecyclerView implements View.OnClickListener, 
 
     @Override
     public void setAdapter(Adapter adapter) {
-        WrapperAdapter wrapperAdapter = new WrapperAdapter<>(adapter, this.mdkWidgetDelegate.getWrapperViewHolderClass(),
-                this.mdkWidgetDelegate.getWrapperViewHolderLayout(), this.mdkWidgetDelegate.getWrapperViewHolderInnerItemId(),
-                this.mdkWidgetDelegate.getWrapperViewHolderDeleteId());
-        wrapperAdapter.addRemoveListener(this);
-        if (this.getAdapter() != null) {
-            this.getAdapter().unregisterAdapterDataObserver(this.adapterDataObserver);
-        }
-        super.setAdapter(wrapperAdapter);
-        this.getAdapter().registerAdapterDataObserver(this.adapterDataObserver);
+        WrapperAdapter wrapperAdapter = null;
 
+        if (this.mdkWidgetDelegate != null) {
+            wrapperAdapter = new WrapperAdapter<>(adapter, this.mdkWidgetDelegate.getWrapperViewHolderClass(),
+                    this.mdkWidgetDelegate.getWrapperViewHolderLayout(), this.mdkWidgetDelegate.getWrapperViewHolderInnerItemId(),
+                    this.mdkWidgetDelegate.getWrapperViewHolderDeleteId());
+        }
+
+        if (wrapperAdapter != null) {
+            wrapperAdapter.addRemoveListener(this);
+        }
+
+        if (this.getAdapter() != null) {
+           this.getAdapter().unregisterAdapterDataObserver(this.adapterDataObserver);
+        }
+
+        super.setAdapter(wrapperAdapter);
+
+        if (this.getAdapter() != null) {
+           this.getAdapter().registerAdapterDataObserver(this.adapterDataObserver);
+        }
         needToResize = adapter.getItemCount() > 0;
     }
 

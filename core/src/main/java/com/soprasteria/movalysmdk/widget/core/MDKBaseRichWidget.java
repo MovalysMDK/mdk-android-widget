@@ -81,7 +81,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
      */
     public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
+        if (!isInEditMode()) {
+            init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
+        }
     }
 
     /**
@@ -96,7 +98,9 @@ public class MDKBaseRichWidget<T extends MDKWidget & HasValidator & HasDelegate>
     public MDKBaseRichWidget(@LayoutRes int layoutWithLabelId, @LayoutRes int layoutWithoutLabelId, Context context, AttributeSet attrs, @StyleableRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
+        if (!isInEditMode()) {
+            init(context, attrs, layoutWithLabelId, layoutWithoutLabelId);
+        }
     }
 
     /**
