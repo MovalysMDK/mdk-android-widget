@@ -151,6 +151,10 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * clear button identifier.
      */
     private int clearButtonId;
+    /**
+     * WeakReference to the view
+     */
+    private final WeakReference<View> view;
 
     /**
      * Enum for extraction (time or date).
@@ -179,6 +183,8 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
     public MDKDateTimePickerWidgetDelegate(View view, AttributeSet attrs) {
 
         super(view, attrs);
+
+        this.view = new WeakReference<>(view);
 
         this.mdkListenerDelegate = new MDKChangeListenerDelegate();
 
@@ -285,6 +291,14 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
                 this.cachedDateView = new WeakReference<>(view);
             }
         }
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormatter = createDateFormat(dateFormat, DATE_EXTRACTION, view.get().getContext());
+    }
+
+    public void setTimeFormat(String timeFormat) {
+        this.timeFormatter = createDateFormat(timeFormat, TIME_EXTRACTION, view.get().getContext());
     }
 
     /**

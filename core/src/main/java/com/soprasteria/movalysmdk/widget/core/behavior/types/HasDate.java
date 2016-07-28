@@ -45,4 +45,16 @@ public interface HasDate {
      * @param timeHint the new time hint
      */
     void setTimeHint(String timeHint);
+
+    /**
+     * Setter date format.
+     * @param dateFormat the new date format
+     */
+    void setDateFormat(String dateFormat);
+
+    /**
+     * Setter time format.
+     * @param timeFormat the new time format
+     */
+    void setTimeFormat(String timeFormat);
 }

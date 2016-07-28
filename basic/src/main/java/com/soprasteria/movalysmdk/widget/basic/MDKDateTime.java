@@ -140,6 +140,16 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
         mdkWidgetDelegate.setTimeHint(timeHint);
     }
 
+    @Override
+    public void setDateFormat(String dateFormat) {
+        mdkWidgetDelegate.setDateFormat(dateFormat);
+    }
+
+    @Override
+    public void setTimeFormat(String timeFormat) {
+        mdkWidgetDelegate.setTimeFormat(timeFormat);
+    }
+
     /**
      * Sets the displayed time.
      *

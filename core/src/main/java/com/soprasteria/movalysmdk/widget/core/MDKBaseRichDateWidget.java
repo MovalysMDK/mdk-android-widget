@@ -107,6 +107,16 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & HasValidator & HasDate 
     }
 
     @Override
+    public void setDateFormat(String dateFormat) {
+        getInnerWidget().setDateFormat(dateFormat);
+    }
+
+    @Override
+    public void setTimeFormat(String timeFormat) {
+        getInnerWidget().setTimeFormat(timeFormat);
+    }
+
+    @Override
     public void registerChangeListener(ChangeListener listener) {
         this.getInnerWidget().registerChangeListener(listener);
     }
@@ -132,9 +142,14 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & HasValidator & HasDate 
             timeHint = context.getString(R.string.default_time_hint_text);
         }
 
+        String dateFormat = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_dateFormat);
+        String timeFormat = typedArray.getString(R.styleable.MDKCommons_MDKDateTimePickerComponent_timeFormat);
+
         if (!this.isInEditMode()) {
             getInnerWidget().setDateHint(dateHint);
             getInnerWidget().setTimeHint(timeHint);
+            getInnerWidget().setDateFormat(dateFormat);
+            getInnerWidget().setTimeFormat(timeFormat);
         }
 
         typedArray.recycle();

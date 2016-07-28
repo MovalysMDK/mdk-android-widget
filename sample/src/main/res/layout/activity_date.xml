@@ -155,7 +155,8 @@
             android:id="@+id/mdkDateTime_withLabelAndMandatoryAndMinDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            mdk:dateFormat="yyyy/MM/dd HH:mm:ss"
+            mdk:dateFormat="yyyy/MM/dd"
+            mdk:timeFormat="HH:mm:ss"
             mdk:dateHint="@string/dateHint"
             mdk:errorId="@+id/errorText2"
             mdk:mandatory="true"
@@ -185,6 +186,8 @@
             android:layout_height="wrap_content"
             mdk:dateHint="@string/dateHint"
             mdk:label="@string/app_name"
+            mdk:dateFormat="yyyy/MM/dd"
+            mdk:timeFormat="HH:mm:ss"
             mdk:mandatory="true"
             mdk:timeHint="@string/timeHint" />
 
@@ -204,6 +207,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             mdk:readOnly="true"
+            mdk:dateFormat="yyyy/MM/dd"
+            mdk:timeFormat="HH:mm:ss"
             mdk:label="@string/app_name" />
 
     </LinearLayout>
