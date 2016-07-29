@@ -659,7 +659,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param minDate the new min date
      */
     public void setMin(Date minDate) {
-        this.minMDKDate.setDate(minDate.toString(), dateFormatter);
+        this.minMDKDate.setDate(minDate);
     }
 
     /**
@@ -677,7 +677,7 @@ public class MDKDateTimePickerWidgetDelegate extends MDKWidgetDelegate implement
      * @param maxDate the new max date
      */
     public void setMax(Date maxDate) {
-        this.minMDKDate.setDate(maxDate.toString(), dateFormatter);
+        this.minMDKDate.setDate(maxDate);
     }
 
     /**

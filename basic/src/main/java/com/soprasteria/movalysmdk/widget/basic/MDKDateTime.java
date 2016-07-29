@@ -150,6 +150,16 @@ public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEdit
         mdkWidgetDelegate.setTimeFormat(timeFormat);
     }
 
+    @Override
+    public void setMinDate(Date date) {
+        mdkWidgetDelegate.setMin(date);
+    }
+
+    @Override
+    public void setMaxDate(Date date) {
+        mdkWidgetDelegate.setMax(date);
+    }
+
     /**
      * Sets the displayed time.
      *

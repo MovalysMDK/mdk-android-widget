@@ -36,6 +36,7 @@ public class DateActivity extends AbstractWidgetTestableActivity {
                 R.id.mdkRichDateTime_withoutLabel,
                 R.id.mdkRichDateTime_withCustomLayout,
                 R.id.mdkDateTime_withLabelAndMandatoryAndMinDate,
+                R.id.mdkRichDateTime_withLabelAndMandatoryAndMinDate,
                 R.id.mdkRichDateTime_withLabelAndMandatoryAndHints,
                 R.id.mdkRichDateTime_non_editable,
         };
@@ -50,6 +51,10 @@ public class DateActivity extends AbstractWidgetTestableActivity {
         Date now = new Date();
         nonEditable.setDate(now);
         nonEditable.getInnerWidget().setTime(now);
+
+
+        MDKRichDateTime minRichDateTime = (MDKRichDateTime) findViewById(R.id.mdkRichDateTime_withLabelAndMandatoryAndMinDate);
+        minRichDateTime.setMinDate(now);
     }
 
 }

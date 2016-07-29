@@ -57,4 +57,16 @@ public interface HasDate {
      * @param timeFormat the new time format
      */
     void setTimeFormat(String timeFormat);
+
+    /**
+     * Setter min date.
+     * @param date the new min date
+     */
+    void setMinDate(Date date);
+
+    /**
+     * Setter max date.
+     * @param date the new max date
+     */
+    void setMaxDate(Date date);
 }

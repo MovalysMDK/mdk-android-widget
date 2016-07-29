@@ -169,6 +169,35 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <!-- RichDateTime with minDate and datehint-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/separator_background" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_case_7" />
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichDateTime
+            android:id="@+id/mdkRichDateTime_withLabelAndMandatoryAndMinDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mdk:dateFormat="yyyy/MM/dd"
+            mdk:timeFormat="HH:mm:ss"
+            mdk:dateHint="@string/dateHint"
+            mdk:min="2015/05/12 11:52:33"
+            mdk:errorId="@+id/errorText3"
+            mdk:mandatory="true"
+            mdk:mode="date" />
+
+        <com.soprasteria.movalysmdk.widget.core.message.MDKMessagesTextView
+            android:id="@+id/errorText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
         <!-- RichDateTime with label, hint -->
         <View
             android:layout_width="match_parent"

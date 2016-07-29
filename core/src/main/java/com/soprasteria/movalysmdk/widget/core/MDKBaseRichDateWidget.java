@@ -117,6 +117,16 @@ public class MDKBaseRichDateWidget<T extends MDKWidget & HasValidator & HasDate 
     }
 
     @Override
+    public void setMinDate(Date date) {
+        getInnerWidget().setMinDate(date);
+    }
+
+    @Override
+    public void setMaxDate(Date date) {
+        getInnerWidget().setMaxDate(date);
+    }
+
+    @Override
     public void registerChangeListener(ChangeListener listener) {
         this.getInnerWidget().registerChangeListener(listener);
     }
