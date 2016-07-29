@@ -63,7 +63,7 @@ allprojects {
     }
 
     group = 'com.soprasteria.movalysmdk.widget'
-    version = '1.5.0'
+    version = '1.5.0-SNAPSHOT'
 
     ext {
         androidBuildToolsVersion = "23.0.2"
