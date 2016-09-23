@@ -107,9 +107,8 @@ public class MDKRichStaticMapsPosition extends MDKBaseRichWidget<MDKStaticMapsPo
 
             typedArray = context.obtainStyledAttributes(attrs, R.styleable.MDKCommons_MDKMapsPositionComponent);
 
+            RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.getInnerWidget().getEditFields());
         }
         typedArray.recycle();
-
-        RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.getInnerWidget().getEditFields());
     }
 }

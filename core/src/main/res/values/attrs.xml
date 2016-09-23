@@ -19,8 +19,6 @@
 
     <declare-styleable name="MDKWidgetStyle">
 
-        <attr name="mdkTintedTextViewStyle" format="reference" />
-
         <!-- functional attributes for theme -->
         <attr name="mdkLabelStyle" format="reference" />
         <attr name="mdkValueEditTextStyle" format="reference" />
@@ -34,6 +32,8 @@
         <attr name="mdkCommandStyle" format="reference" />
         <attr name="mdkNegativeCommandStyle" format="reference" />
         <attr name="mdkRichLayoutStyle" format="reference" />
+
+        <attr name="mdkTintedTextViewStyle" format="reference" />
 
         <!-- theme attributes -->
         <attr name="mdk_t_primaryColor" format="reference" />

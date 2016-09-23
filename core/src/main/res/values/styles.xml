@@ -44,6 +44,7 @@
         <item name="mdkCommandStyle">@style/MDKCommand</item>
         <item name="mdkNegativeCommandStyle">@style/MDKNegativeCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+        <item name="mdkTintedTextViewStyle">@style/MDKTintedTextView</item>
 
         <!-- Label business attributes -->
         <item name="mdk_b_labelTextColor">?attr/mdk_t_textColorPrimary</item>
@@ -142,6 +143,7 @@
         <item name="mdkCommandStyle">@style/MDKCommand</item>
         <item name="mdkNegativeCommandStyle">@style/MDKNegativeCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+        <item name="mdkTintedTextViewStyle">@style/MDKTintedTextView</item>
 
         <!-- Label business attributes -->
         <item name="mdk_b_labelTextColor">?attr/mdk_t_textColorPrimary</item>
@@ -240,6 +242,7 @@
         <item name="mdkCommandStyle">@style/MDKCommand</item>
         <item name="mdkNegativeCommandStyle">@style/MDKNegativeCommand</item>
         <item name="mdkRichLayoutStyle">@style/MDKRichLayout</item>
+        <item name="mdkTintedTextViewStyle">@style/MDKTintedTextView</item>
 
         <!-- Label business attributes -->
         <item name="mdk_b_labelTextColor">?attr/mdk_t_textColorPrimary</item>
@@ -396,6 +399,10 @@
     <!-- RichLayout component style -->
     <style name="MDKRichLayout" parent="Base.MDKValue">
         <item name="android:padding">@dimen/MDKRichLayoutPadding</item>
+    </style>
+
+    <!-- TintedTextView component style -->
+    <style name="MDKTintedTextView">
     </style>
 
 </resources>

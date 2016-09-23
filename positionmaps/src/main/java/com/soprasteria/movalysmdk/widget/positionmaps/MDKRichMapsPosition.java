@@ -122,9 +122,9 @@ public class MDKRichMapsPosition extends MDKBaseRichWidget<MDKMapsPosition> impl
             int addressMarker = typedArray.getResourceId(R.styleable.MDKCommons_MDKMapsPositionComponent_addressMarker, 0);
 
             this.innerWidget.setAddressMarker(addressMarker);
+
+            RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.getInnerWidget().getEditFields());
         }
         typedArray.recycle();
-
-        RichAttributsForwarderHelper.parseAttributs(this.getContext(), attrs, this.getInnerWidget().getEditFields());
     }
 }

@@ -72,7 +72,10 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
             getInnerWidget().requestLayout();
         }
 
-        getInnerWidget().setUseInitImage(typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_useInitImage, true));
+        if (!isInEditMode()) {
+            getInnerWidget().setUseInitImage(typedArray.getBoolean(R.styleable.MDKCommons_MDKMediaComponent_useInitImage, true));
+            setPlaceholder(AttributesHelper.getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_placeholder, 0));
+        }
 
         switch (AttributesHelper.getIntFromIntAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_mediaType, MDKMedia.TYPE_PHOTO)) {
             case MDKMedia.TYPE_PHOTO:
@@ -87,8 +90,6 @@ public class MDKRichMedia extends MDKBaseRichWidget<MDKMedia> implements HasVali
             default:
                 break;
         }
-
-        setPlaceholder(AttributesHelper.getIntFromResourceAttribute(typedArray, R.styleable.MDKCommons_MDKMediaComponent_placeholder, 0));
 
         typedArray.recycle();
     }
