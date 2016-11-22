@@ -36,7 +36,7 @@
             mdk:labelId="@id/component_label"
             mdk:timeTextViewId="@+id/component_internal_time" />
 
-        <com.soprasteria.movalysmdk.widget.basic.MDKTintedTextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@id/component_internal_time"
             style="?attr/mdkValueDateStyle"
             android:layout_width="wrap_content"

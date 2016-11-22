@@ -17,6 +17,7 @@ package com.soprasteria.movalysmdk.widget.basic;
 
 import android.content.Context;
 import android.os.Parcelable;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -58,7 +59,7 @@ import java.util.Date;
  * <li>timeFormat : specify a custom format that will be used to display the time. The accepted format is the one of <a href="http://developer.android.com/reference/java/text/SimpleDateFormat.html">SimpleDateFormat</a></li>
  * </ul>
  */
-public class MDKDateTime extends MDKTintedTextView implements MDKWidget, HasEditFields, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener, HasHints {
+public class MDKDateTime extends AppCompatTextView implements MDKWidget, HasEditFields, HasValidator, HasDate, HasDelegate, HasLabel, HasChangeListener, HasHints {
 
     /**
      * Widget delegate that handles all the widget logic.
