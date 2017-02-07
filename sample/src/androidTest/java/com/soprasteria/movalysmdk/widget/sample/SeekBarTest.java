@@ -15,6 +15,7 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.os.Build;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -24,9 +25,12 @@ import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 import com.soprasteria.movalysmdk.espresso.matcher.MdkSeekbarMatchers;
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -61,6 +65,19 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         super(SeekBarActivity.class);
     }
 
+    /**
+     * Add Permission used for this tests.
+     */
+    @Before
+    public void grantWritePermission() {
+        // In M+, trying to call a number will trigger a runtime dialog. Make sure
+        // the permission is granted before running this test.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getInstrumentation().getUiAutomation().executeShellCommand(
+                    "pm grant " + getTargetContext().getPackageName()
+                            + " android.permission.WRITE_INTERNAL_STORAGE");
+        }
+    }
 
     /**
      * Check MDK seekbar widget behaviour with invalid seekbar format.

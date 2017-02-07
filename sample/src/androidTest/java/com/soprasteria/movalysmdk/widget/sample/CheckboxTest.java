@@ -15,16 +15,20 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.os.Build;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.soprasteria.movalysmdk.espresso.action.SpoonScreenshotAction;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
@@ -51,11 +55,27 @@ import static org.hamcrest.Matchers.notNullValue;
 @LargeTest
 public class CheckboxTest {
 
+
+
     /**
      * Activity used for this tests.
      */
     @Rule
     public ActivityTestRule<CheckboxActivity> mActivityRule = new ActivityTestRule<>(CheckboxActivity.class);
+
+    /**
+     * Add Permission used for this tests.
+     */
+    @Before
+    public void grantWritePermission() {
+        // In M+, trying to call a number will trigger a runtime dialog. Make sure
+        // the permission is granted before running this test.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getInstrumentation().getUiAutomation().executeShellCommand(
+                    "pm grant " + getTargetContext().getPackageName()
+                            + " android.permission.WRITE_INTERNAL_STORAGE");
+        }
+    }
 
     /**
      * Check MDK checkbox widget behaviour with invalid checkable format.

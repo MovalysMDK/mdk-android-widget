@@ -15,13 +15,18 @@
  */
 package com.soprasteria.movalysmdk.widget.sample;
 
+import android.os.Build;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.soprasteria.movalysmdk.widget.sample.factor.AbstractCommandWidgetTest;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 
 /**
  * Tests for MdkRichDate et MdkRichDateTime widgets.
