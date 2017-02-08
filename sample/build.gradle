@@ -87,6 +87,9 @@ spoon {
 
     // To run a single method in TestCase
     //methodName = 'testMyApp'
+
+    // To grant permissions to Android M >= devices */
+    grantAllPermissions = true
 }
 
 uploadArchives {

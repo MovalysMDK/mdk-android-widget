@@ -75,7 +75,17 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getInstrumentation().getUiAutomation().executeShellCommand(
                     "pm grant " + getTargetContext().getPackageName()
+                            + " android.permission.READ_EXTERNAL_STORAGE");
+            getInstrumentation().getUiAutomation().executeShellCommand(
+                    "pm grant " + getTargetContext().getPackageName()
                             + " android.permission.WRITE_INTERNAL_STORAGE");
+
+            getInstrumentation().getUiAutomation().executeShellCommand(
+                    "mkdir /storage/emulated/0/app_spoon-screenshots");
+            getInstrumentation().getUiAutomation().executeShellCommand(
+                    "mkdir /storage/emulated/0/app_spoon-screenshots/" + getTargetContext().getPackageName() + ".SeekBarTest");
+            getInstrumentation().getUiAutomation().executeShellCommand(
+                    "mkdir /storage/emulated/0/app_spoon-screenshots/" + getTargetContext().getPackageName() + ".SeekBarTest/testInvalidSeekBar");
         }
     }
 
