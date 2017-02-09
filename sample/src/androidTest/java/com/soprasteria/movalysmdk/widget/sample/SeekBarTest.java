@@ -105,11 +105,11 @@ public class SeekBarTest extends AbstractCommandWidgetTest {
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError))))
                 .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_seekbar_maxSeekBarValue_error_20)));
 
-        SpoonScreenshotAction.perform("seekbar_invalidseekbar_errorstate");
+        //SpoonScreenshotAction.perform("seekbar_invalidseekbar_errorstate");
 
         onView(isRoot()).perform(orientationLandscape());
 
-        SpoonScreenshotAction.perform("seekbar_invalidseekbar_errorstate_landscape");
+        //SpoonScreenshotAction.perform("seekbar_invalidseekbar_errorstate_landscape");
 
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichSeekBar_withLabelAndError))))
                 .check(matches(withConcatText(R.string.test_fortyTwoTextFormater_prefix, R.string.test_seekbar_maxSeekBarValue_error_20)));

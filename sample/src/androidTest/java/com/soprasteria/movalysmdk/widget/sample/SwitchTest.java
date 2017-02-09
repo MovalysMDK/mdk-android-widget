@@ -131,14 +131,14 @@ public class SwitchTest {
             onView(allOf(withId(R.id.component_internal), isDescendantOfA(withId(viewId)))).check(matches(isChecked()));
         }
 
-        SpoonScreenshotAction.perform("checkable_checked_status" + testCaseNumber);
+        //SpoonScreenshotAction.perform("checkable_checked_status" + testCaseNumber);
 
         /* ------ orientation  change -------- */
 
         onView(isRoot()).perform(orientationLandscape());
 
         // screenshot
-        SpoonScreenshotAction.perform("checkable_checked_status_landscape" + testCaseNumber);
+        //SpoonScreenshotAction.perform("checkable_checked_status_landscape" + testCaseNumber);
 
         // scroll to the tested view
         onView(withId(viewId)).perform(delayScrollTo());

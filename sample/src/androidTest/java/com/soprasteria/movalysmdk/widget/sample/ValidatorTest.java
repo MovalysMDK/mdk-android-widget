@@ -102,7 +102,7 @@ public class ValidatorTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
-        SpoonScreenshotAction.perform("customvalidator_emptyvalue");
+        //SpoonScreenshotAction.perform("customvalidator_emptyvalue");
 
         // check error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_withCustomValidator))))
@@ -127,7 +127,7 @@ public class ValidatorTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
-        SpoonScreenshotAction.perform("customvalidator_validvalue");
+        //SpoonScreenshotAction.perform("customvalidator_validvalue");
 
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_withCustomValidator))))
@@ -151,7 +151,7 @@ public class ValidatorTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
-        SpoonScreenshotAction.perform("customvalidator_invalidvalue");
+        //SpoonScreenshotAction.perform("customvalidator_invalidvalue");
 
         // check no error
         onView(allOf(withId(R.id.component_error), isDescendantOfA(withId(R.id.mdkRichText_withCustomValidator))))
@@ -171,7 +171,7 @@ public class ValidatorTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
-        SpoonScreenshotAction.perform("customvalidator_validcheckbox");
+        //SpoonScreenshotAction.perform("customvalidator_validcheckbox");
 
         String error = mActivityRule.getActivity().getString(R.string.test_fortyTwoTextFormater_prefix)
             + mActivityRule.getActivity().getString(R.string.test_checkable_error) + " " + mActivityRule.getActivity().getString(R.string.test_true_text);
@@ -193,7 +193,7 @@ public class ValidatorTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
-        SpoonScreenshotAction.perform("customvalidator_invalidcheckbox");
+        //SpoonScreenshotAction.perform("customvalidator_invalidcheckbox");
 
         error = mActivityRule.getActivity().getString(R.string.test_fortyTwoTextFormater_prefix)
                 + mActivityRule.getActivity().getString(R.string.test_checkable_error) + " " + mActivityRule.getActivity().getString(R.string.test_false_text);
@@ -218,7 +218,7 @@ public class ValidatorTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
-        SpoonScreenshotAction.perform("customvalidator_validswitch");
+        //SpoonScreenshotAction.perform("customvalidator_validswitch");
 
         String error = mActivityRule.getActivity().getString(R.string.test_fortyTwoTextFormater_prefix)
                 + mActivityRule.getActivity().getString(R.string.test_checkable_error) + " " + mActivityRule.getActivity().getString(R.string.test_true_text);
@@ -237,7 +237,7 @@ public class ValidatorTest {
         onView(withId(R.id.validateButton)).perform(click());
 
         // Take screenshot
-        SpoonScreenshotAction.perform("customvalidator_invalidswitch");
+        //SpoonScreenshotAction.perform("customvalidator_invalidswitch");
 
         // check no error
         onView(withId(R.id.mdkRichSwitch_trueValidation)).perform(delayScrollTo());
