@@ -58,6 +58,9 @@
     <string name="edit_text_case_8">EditText without label but hint</string>
     <string name="edit_text_case_10">RichEditText readonly</string>
     <string name="edit_text_case_11">RichEditText with inputType numberDecimal</string>
+    <string name="edit_text_case_12">RichEditText with inputType textMultiLine</string>
+    <string name="edit_text_case_13">EditText with inputType numberDecimal</string>
+    <string name="edit_text_case_14">EditText with inputType textMultiLine</string>
     <string name="edit_rich_helper_text">Mandatory EditText</string>
 
     <string name="email_helper_text">email format text</string>

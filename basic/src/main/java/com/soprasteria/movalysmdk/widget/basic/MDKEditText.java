@@ -69,6 +69,9 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     /** Flag for initialization. **/
     private boolean initialized = false;
 
+    /** InputType for the inherited widgets **/
+    private int inputType;
+
     /**
      * Constructor.
      * @param context the context
@@ -116,6 +119,8 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
     private void init(Context context, AttributeSet attrs) {
 
         this.mdkWidgetDelegate = new MDKWidgetDelegate(this, attrs);
+
+        this.inputType = attrs.getAttributeIntValue("http://schemas.android.com/apk/res/android", "inputType", InputType.TYPE_CLASS_TEXT);
 
         // Parse the MDKCommons:hint attribute
         // so that both android:hint and MDKCommons:hint can be used
@@ -206,6 +211,14 @@ public class MDKEditText extends AppCompatEditText implements MDKWidget, HasText
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
         if (!focused) {
             validate(EnumFormFieldValidator.ON_FOCUS);
+        }
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        if (!isInEditMode()) {
+            this.setInputType(this.inputType);
         }
     }
 

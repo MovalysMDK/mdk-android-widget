@@ -30,6 +30,12 @@ import com.soprasteria.movalysmdk.widget.core.behavior.HasValidator;
  */
 public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implements HasHint, HasValidator, HasText {
 
+    /** Default InputType **/
+    private static final int DEFAULT_TYPE = 0;
+
+    /** InputType for the inherited widgets **/
+    private int inputType;
+
     /**
      * Constructor.
      * @param context the context
@@ -39,7 +45,7 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
         super(R.layout.mdkwidget_edittext_edit_label, R.layout.mdkwidget_edittext_edit, context, attrs);
 
         if (!isInEditMode()) {
-            init();
+            init(attrs);
         }
     }
 
@@ -53,19 +59,23 @@ public class MDKRichEditText extends MDKBaseRichEditWidget<MDKEditText> implemen
         super(R.layout.mdkwidget_edittext_edit_label, R.layout.mdkwidget_edittext_edit, context, attrs, defStyleAttr);
 
         if (!isInEditMode()) {
-            init();
+            init(attrs);
         }
     }
 
     /**
      * Called by the constructor.
      */
-    private void init() {
+    private void init( AttributeSet attrs) {
 
         // If there is no hint, use the label value as hint
         if (this.getResHintId() != 0) {
             this.getInnerWidget().setHint(this.getResHintId());
         }
+
+        /** Sets the InputType attributes on the widget **/
+        //this.inputType = attrs.getAttributeIntValue("http://schemas.android.com/apk/res/android", "inputType", DEFAULT_TYPE);
+        //this.getInnerWidget().setInputType(inputType);
     }
 
     /**

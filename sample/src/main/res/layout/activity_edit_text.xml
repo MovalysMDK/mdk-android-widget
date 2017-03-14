@@ -288,7 +288,7 @@
             android:layout_height="wrap_content"
             mdk:readOnly="true"/>
 
-        <!-- MDKRichEditText with inputType -->
+        <!-- MDKRichEditText with inputType : numberDecimal -->
 
         <TextView
             android:layout_width="match_parent"
@@ -296,10 +296,49 @@
             android:text="@string/edit_text_case_11"/>
 
         <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
-            android:id="@+id/mdkRichEditText_inputType"
+            android:id="@+id/mdkRichEditText_inputTypeNumberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
+
+        <!-- MDKRichEditText with inputType : textMultiLine -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_12"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKRichEditText
+            android:id="@+id/mdkRichEditText_inputTypeTextMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"/>
+
+        <!-- MDKEditText with inputType : numberDecimal -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_13"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKEditText
+            android:id="@+id/mdkEditText_inputTypeNumberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+
+        <!-- MDKEditText with inputType : textMultiLine -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_text_case_14"/>
+
+        <com.soprasteria.movalysmdk.widget.basic.MDKEditText
+            android:id="@+id/mdkEditText_inputTypeTextMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"/>
 
         <!-- MDKRichEditText cote a cote -->
 

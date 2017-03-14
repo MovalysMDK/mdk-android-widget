@@ -54,7 +54,8 @@ public class EditTextActivity extends AbstractWidgetTestableActivity {
                 R.id.test_case_7,
                 R.id.mdkEditText_withHintAndSharedError,
                 R.id.mdkRichEditText_readonly,
-                R.id.mdkRichEditText_inputType
+                R.id.mdkRichEditText_inputTypeNumberDecimal,
+                R.id.mdkRichEditText_inputTypeTextMultiLine
         };
     }
 
