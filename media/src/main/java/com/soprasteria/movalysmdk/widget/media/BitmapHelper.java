@@ -138,9 +138,15 @@ public abstract class BitmapHelper {
 
         Bitmap extractedBmp = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(bitmapUri), null, o2);
 
-        Bitmap bmp = extractedBmp.copy(Bitmap.Config.ARGB_8888,true);
-        extractedBmp.recycle();
-        extractedBmp = null;
+        Bitmap bmp = null;
+        if (extractedBmp != null) {
+            bmp = extractedBmp.copy(Bitmap.Config.ARGB_8888, true);
+            extractedBmp.recycle();
+            extractedBmp = null;
+        } else {
+            Log.w("BitmapHelper", "Error copy : BitmapFactory.decodeStream is NULL");
+            throw new FileNotFoundException();
+        }
 
         return bmp;
     }
