@@ -1,4 +1,6 @@
 # mdk-android-widget
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 **Movalys MDK: Android library's description**
 
 ## What?
